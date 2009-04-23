@@ -158,7 +158,9 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 	
 	public void onEditShow(ActionEvent event) {
 		switchMode();
-		entityDetailUI.init(ENTITYLISTLOGIC.getEntity(entity, id));	
+		//entityObject = ENTITYLISTLOGIC.getEntity(entity, id); 
+		//entityDetailUI.init(entityObject);	
+		entityDetailUI.init();
 	}
 	
 	public void onNew(ActionEvent event) {		
