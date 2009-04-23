@@ -1,0 +1,17 @@
+<!--
+Defaults which are used for the Enterprise Client JSF Server sessions.
+    
+style: (optional) style of the styles directory which is applied by default.
+The styles directory is the /eclntjsfserver/styles directory.
+
+language: default language that is used on server side
+Example values: en, de, ...
+
+country: default country settings that are used on server side
+Example values: DE, US, FR, ...
+-->
+<sessiondefaults 
+    style="default"
+    language="en"
+    country="US"
+/>

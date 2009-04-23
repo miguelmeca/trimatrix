@@ -1,0 +1,4 @@
+<resources>
+  <resource name="messages" package="trimatrix.resources"/>
+  <resource name="literals" package="trimatrix.resources"/>
+</resources>

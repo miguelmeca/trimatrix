@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    
+	<bean id="logonLogic" class="trimatrix.logic.LogonLogic"
+        abstract="false" lazy-init="default" autowire="default"
+        dependency-check="default">
+        <property name="usersDAO">
+            <ref bean="UsersDAO" />
+        </property>
+        <property name="languagesDAO">
+            <ref bean="KLanguagesDAO" />
+        </property>
+        <property name="translationService">
+            <ref bean="translationService" />
+        </property>
+        <property name="dictionaryService">
+            <ref bean="dictionaryService" />            
+        </property>  
+    </bean>
+    
+    <bean id="entityListLogic" class="trimatrix.logic.EntityListLogic"
+        abstract="false" lazy-init="default" autowire="default"
+        dependency-check="default">
+        <property name="entityResolverService">
+            <ref bean="entityResolverService" />
+        </property>    
+    </bean>
+    
+    <bean id="logicLayer" class="trimatrix.logic.LogicLayer"
+        abstract="false" lazy-init="default" autowire="default"
+        dependency-check="default">
+        <property name="logonLogic">
+            <ref bean="logonLogic" />
+        </property>    
+        <property name="entityListLogic">
+            <ref bean="entityListLogic" />
+        </property> 
+    </bean>
+    
+</beans>

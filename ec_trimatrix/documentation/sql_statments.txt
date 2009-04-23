@@ -1,0 +1,15 @@
+// Functiontree
+select rhf.node, rhf.parent, rhf.order, k.page, k.entity, k.show, k.edit, k.create, k.delete, t.description, t.description_long
+from roles_have_functionnodes as rhf, k_functionnodes as k, t_functionnodes as t
+where k.key = rhf.functionnode_key
+and   t.key = k.key
+and   rhf.role_key = 'admin'
+and   t.language_key = 'de'
+order by rhf.node;
+
+select users.id, users.user_name, t_languages.description language, t_currencies.description currency, users.locked, users.initial, users.active
+from users as users
+left join  t_languages as t_languages on t_languages.key = users.language_key and t_languages.language_key = 'de'
+left outer join  t_currencies as t_currencies on t_currencies.key = users.currency_key and t_currencies.language_key = 'de'
+where users.test = 0
+and   users.deleted = 0

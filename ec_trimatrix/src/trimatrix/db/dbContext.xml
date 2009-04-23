@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<!-- LobHandler for JDBC drivers -->
+	<bean id="defaultLobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler"
+		lazy-init="true">
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="lobHandler" ref="defaultLobHandler"></property>
+		<property name="configLocation" value="classpath:hibernate.cfg.xml">
+		</property>
+	</bean>
+
+	<!-- A transaction manager for a single JDBC connection -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="transactionAttributeSource"
+        class="org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource">
+        <property name="nameMap">
+            <map>
+                <entry key="merge" value="PROPAGATION_REQUIRED" />
+                <entry key="save" value="PROPAGATION_REQUIRED" />
+                <entry key="delete" value="PROPAGATION_REQUIRED" />
+                <entry key="attach*" value="PROPAGATION_REQUIRED" />
+            </map>
+        </property>
+    </bean>
+
+    <bean id="transactionInterceptor"
+        class="org.springframework.transaction.interceptor.TransactionInterceptor">
+        <property name="transactionManager" ref="transactionManager" />
+        <property name="transactionAttributeSource" ref="transactionAttributeSource" />
+    </bean>
+
+    <bean id="autoProxyCreator"
+        class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+        <property name="proxyTargetClass" value="false" />
+        <property name="interceptorNames">
+            <list>
+                <idref local="transactionInterceptor" />
+            </list>
+        </property>
+        <property name="beanNames">
+            <list>
+                <idref local="UsersDAO" />
+                <idref local="PersonsDAO" />
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="daoLayer" class="trimatrix.db.DAOLayer"
+        abstract="false" lazy-init="default" autowire="default"
+        dependency-check="default">
+        <property name="usersDAO">
+            <ref bean="UsersDAO" />
+        </property>    
+        <property name="personsDAO">
+            <ref bean="PersonsDAO" />
+        </property> 
+    </bean>
+
+	<bean id="UsersDAO" class="trimatrix.db.UsersDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>    
+
+	<bean id="PersonsDAO" class="trimatrix.db.PersonsDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TLanguagesDAO" class="trimatrix.db.TLanguagesDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="KLanguagesDAO" class="trimatrix.db.KLanguagesDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TCurrenciesDAO" class="trimatrix.db.TCurrenciesDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TCountriesDAO" class="trimatrix.db.TCountriesDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TSalutationDAO" class="trimatrix.db.TSalutationDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="KSexDAO" class="trimatrix.db.KSexDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TAuthorizationsDAO"
+		class="trimatrix.db.TAuthorizationsDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="KRolesDAO" class="trimatrix.db.KRolesDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="KSalutationDAO" class="trimatrix.db.KSalutationDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TSexDAO" class="trimatrix.db.TSexDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="KCurrenciesDAO" class="trimatrix.db.KCurrenciesDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="KCountriesDAO" class="trimatrix.db.KCountriesDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TRolesDAO" class="trimatrix.db.TRolesDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TFunctionnodesDAO"
+		class="trimatrix.db.TFunctionnodesDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="UsersHaveRolesDAO"
+		class="trimatrix.db.UsersHaveRolesDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="KAuthorizationsDAO"
+		class="trimatrix.db.KAuthorizationsDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TTitleDAO" class="trimatrix.db.TTitleDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="UsersHaveAuthorizationsDAO"
+		class="trimatrix.db.UsersHaveAuthorizationsDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="RolesHaveFunctionnodesDAO"
+		class="trimatrix.db.RolesHaveFunctionnodesDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean></beans>

@@ -1,0 +1,21 @@
+<!--
+Template XML file for showin the structure of a macro. Each
+macro is defined in an XML file on its own.
+ -->
+<macro>
+    <applysto>
+        <tag name="t:field"/>
+        <tag name="t:combobox"/>
+        <tag name="t:button"/>
+    </applysto>
+    <parameters>
+        <parameter name="bean"/>
+        <parameter name="property"/>
+    </parameters>
+    <attributes>
+        <attribute name="text" value="#{d.${bean}.values.${property}}"/>
+        <attribute name="value" value="#{d.${bean}.values.${property}}"/>
+        <attribute name="bgpaint" value="#{d.${bean}.bgpaint.${property}}"/>
+        <attribute name="enabled" value="#{d.${bean}.enabled}"/>
+    </attributes>
+</macro>

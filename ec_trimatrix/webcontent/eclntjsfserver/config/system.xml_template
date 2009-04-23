@@ -1,0 +1,51 @@
+<!--
+    System configuration.
+ -->
+
+<system>
+
+    <!--
+      Name of SAXParserFactory that is used internally for all SAXParsing.
+      If not specified then a default SAX Parser will be selected (crimson).
+      If using CaptainCasa together with other frameworks (e.g. Spring)
+      you might use the Xerces parser as default.
+      Background: the parser that is included in the JRE has some ugly
+      bugs, so we open up the usage of the parser. 
+     -->
+    <!--
+    <saxparserfactory name="org.apache.crimson.jaxp.SAXParserFactoryImpl"/>
+     -->
+     
+    <!--
+      Included pages are buffered once being read from the web context.
+      You can switch off this buffering by setting active to false.
+      Default value if not defined is true.
+     -->    
+    <!--
+    <layoutbuffer active="true"/>
+     -->    
+    
+    <!--
+      Usage of a simplified - but fast - expression resolution, that just
+      checks for a value starting with "#{" and ending with "}". This 
+      increases performance of converting a tag into a component significantly.
+      Of course you are then restricted in the usage of expressions! 
+     -->
+    <!--
+    <fastexpressionresolution active="false"/>
+     -->
+     
+    <!--
+      Default templates that are used for building the .html / .jnlp
+      file when resolving a .ccapplet/.ccwebstart request. If not specified
+      then default values will be chosen.
+     -->
+    <!--
+    <starttemplates 
+        ccapplet="org/eclnt/jsfserver/starter/applettemplate.html"
+        ccwebstart="org/eclnt/jsfserver/starter/webstarttemplate.jnlp"
+    />
+     -->
+     
+     
+</system>
