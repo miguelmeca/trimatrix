@@ -1,0 +1,149 @@
+<style>
+    <tag name="calendarfield" variant="default">
+        <set attribute="background" value="#FFFFFF"/>
+    </tag>
+    <tag name="colline" variant="default">
+        <set attribute="background" value="#C0C0C0"/>
+        <set attribute="height" value="10"/>
+        <set attribute="width" value="1"/>
+    </tag>
+    <tag name="combofield" variant="default">
+        <set attribute="background" value="#FFFFFF"/>
+    </tag>
+    <tag name="field" variant="default">
+        <set attribute="background" value="#FFFFFF"/>
+    </tag>
+    <tag name="foldablepane" variant="default">
+        <set attribute="bgpaint" value="rectangle(0,100%-3,100%,3,#80808020);rectangle(0,15,3,100%,#80808020);rectangle(100%-3,15,3,100%,#80808020);rectangle(0,0,100%,15,#80808080,#80808020,vertical);rectangle(3,15,100%-6,5,#80808020,#80808000,vertical)"/>
+        <set attribute="innerbgpaint" value="rectangle(0,0,100%,100%,#FFFFFF40)"/>
+        <set attribute="font" value="size:11;weight:bold"/>
+        <set attribute="innerpadding" value="10"/>
+        <set attribute="padding" value="3"/>
+        <set attribute="image" value="/eclntjsfserver/images/foldablepanedefaulticon.png"/>
+        <set attribute="curtaincolor" value="#80808050"/>
+    </tag>
+    <tag name="foldableverticalpane" variant="default">
+        <set attribute="bgpaint" value="rectangle(15,0,100%,3,#80808020);rectangle(15,100%-3,100%,3,#80808020);rectangle(100%-3,3,100%,100%-3,#80808020);rectangle(0,0,15,100%,#80808080,#80808020,horizontal);rectangle(15,3,20,100%-6,#80808020,#80808000,horizontal)"/>
+        <set attribute="innerbgpaint" value="rectangle(0,0,100%,100%,#FFFFFF40)"/>
+        <set attribute="font" value="size:11;weight:bold"/>
+        <set attribute="innerpadding" value="10"/>
+        <set attribute="padding" value="3"/>
+        <set attribute="image" value="/eclntjsfserver/images/foldableverticalpanedefaulticon.png"/>
+        <set attribute="curtaincolor" value="#80808050"/>
+    </tag>
+    <tag name="foldablepopupinclude" variant="default">
+        <set attribute="innerpadding" value="0"/>
+        <set attribute="popupwidth" value="600"/>
+        <set attribute="popupheight" value="400"/>
+    </tag>
+    <tag name="filechooser" variant="default">
+        <set attribute="background" value="#FFFFFF"/>
+    </tag>
+    <tag name="fileupload" variant="default">
+        <set attribute="background" value="#FFFFFF"/>
+    </tag>
+    <tag name="fixgrid" variant="default">
+        <set attribute="emptycolor" value="#FAFAFA"/>
+    </tag>
+    <tag name="formattedfield" variant="default">
+        <set attribute="background" value="#FFFFFF"/>
+    </tag>
+    <tag name="gridcol" variant="default">
+        <set attribute="background" value="#C0C0C0"/>
+    </tag>
+    <tag name="modalpopup" variant="default">
+        <set attribute="bgpaint" value="rectangle(0,0,100%,100%,#F0F0F0,#909090,vertical)"/>
+    </tag>
+    <tag name="modelesspopup" variant="default">
+        <set attribute="bgpaint" value="rectangle(0,0,100%,100%,#F0F0F0,#D0D0D0,vertical)"/>
+    </tag>
+    <tag name="rowbodypane" variant="default">
+        <set attribute="background" value="#FFFFFFA0"/>
+        <set attribute="padding" value="20"/>
+    </tag>
+    <tag name="rowheader" variant="default">
+        <set attribute="background" value="#F0F0F0C0"/>
+        <set attribute="border" value="bottom:1;color:#C0C0C0"/>
+        <set attribute="padding" value="3"/>
+    </tag>
+    <tag name="rowline" variant="default">
+        <set attribute="background" value="#C0C0C0"/>
+        <set attribute="height" value="1"/>
+    </tag>
+    <tag name="rowtitlebar" variant="default">
+        <set attribute="border" value="top:0;left:0;right:0;bottom:0;color:#909090"/>
+        <set attribute="bgpaint" value="rectangle(0,0,100%,100%,#000000A0,#00000020,vertical)"/>
+        <set attribute="font" value="size:15;weight:bold"/>
+        <set attribute="foreground" value="#F0F0F0"/>
+        <set attribute="padding" value="3"/>
+    </tag>
+    <tag name="rowstatusbar" variant="default">
+        <set attribute="background" value="#F0F0F0"/>
+        <set attribute="border" value="left:0;top:1;right:0;bottom:0;color:#C0C0C0"/>
+        <set attribute="padding" value="3"/>
+        <set attribute="font" value="#{eclntdefscr.statusbar.font}"/>
+        <set attribute="image" value="#{eclntdefscr.statusbar.image}"/>
+        <set attribute="text" value="#{eclntdefscr.statusbar.text}"/>       
+        <set attribute="bgpaint" value="#{eclntdefscr.statusbar.bgpaint}"/>       
+    </tag>
+    <tag name="shadowedpane" variant="default">
+        <set attribute="background" value="#00000020"/>
+        <set attribute="shadowdistance" value="5"/>
+        <set attribute="shadowbackground" value="#0000000b"/>
+    </tag>
+    <tag name="splitpane" variant="default">
+        <set attribute="dividersize" value="4"/>
+        <set attribute="dividercolor" value="#D0D0D0"/>
+    </tag>
+    <tag name="spinner" variant="default">
+        <set attribute="background" value="#FFFFFF"/>
+    </tag>
+    
+    <!--  WORKPAGE VARIANTS -->
+    <tag name="rowworkplacefunctiontree" variant="default">
+        <set attribute="foreground" value="#FFFFFF"/>
+    </tag>
+    <tag name="tabbedline" variant="WP_WORKPAGESELECTOR">
+        <set attribute="bgpaintdefault" value="rectangle(0,0,100%,100%,#80808080,#80808020,horizontal)"/>
+        <set attribute="bgpaintrollover" value="rectangle(0,0,100%,100%,#C0808080,#C0808020,horizontal)"/>
+        <set attribute="bgpaintselected" value="rectangle(0,0,100%,100%,#C0808080,#C0808020,horizontal)"/>
+        <set attribute="font" value="size:10"/>
+        <set attribute="foregrounddefault" value="#808080"/>
+        <set attribute="foregroundselected" value="#FFFFFF"/>
+        <set attribute="rowalignmenty" value="bottom"/>
+        <set attribute="indentwidth" value="0"/>
+    </tag>
+    <tag name="button" variant="WP_ISOLATEDWORKPAGE">
+        <set attribute="contentareafilled" value="false"/>
+        <set attribute="foreground" value="#f0f0f0"/>
+    </tag>
+    <tag name="rowheader" variant="WP_ISOLATEDWORKPAGE">
+        <set attribute="bgpaint" value="rectangle(0,0,100%,100%,#00000050,#00000020,vertical)"/>
+        <set attribute="border" value="bottom:1;color:#C0C0C0"/>
+        <set attribute="padding" value="1"/>
+    </tag>
+    
+    <!--  IDVALUESELECTION VARIANTS -->
+    <tag name="pane" variant="IDVALUESELECTION">
+        <set attribute="border" value="#808080"/>
+    </tag>
+    <tag name="fixgrid" variant="IDVALUESELECTION">
+        <set attribute="background" value="#E0E0E0"/>
+        <set attribute="borderheight" value="1"/>
+        <set attribute="borderwidth" value="1"/>
+    </tag>
+    <tag name="label" variant="IDVALUESELECTION">
+        <set attribute="background" value="#F0F0F0"/>
+    </tag>
+    <tag name="rowheader" variant="IDVALUESELECTION">
+        <set attribute="background" value="#E0E0E0"/>
+        <set attribute="border" value="top:1;color:#C0C0C0"/>
+        <set attribute="padding" value="3"/>
+    </tag>
+    <tag name="rowbodypane" variant="IDVALUESELECTION">
+        <set attribute="background" value="#FFFFFF"/>
+    </tag>
+    <tag name="textpane" variant="IDVALUESELECTION">
+        <set attribute="background" value="#FFFFF0"/>
+    </tag>
+</style>

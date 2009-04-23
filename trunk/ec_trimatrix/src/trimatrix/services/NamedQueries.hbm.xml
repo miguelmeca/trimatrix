@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+ <sql-query cacheable="true" name="UserEntityList" read-only="true">
+  select users.id, users.user_name, users.email, t_languages.description language, t_currencies.description currency, trim(concat(persons.name_first,' ', persons.name_last)) person, users.locked, users.initial, users.active 
+  from users left join t_languages 
+  on t_languages.key = users.language_key and t_languages.language_key = :p_lang_key
+  left outer join  t_currencies
+  on t_currencies.key = users.currency_key and t_currencies.language_key = :p_lang_key
+  left outer join  persons
+  on persons.id = users.person_id
+  where users.test = :p_test
+  and users.deleted = :p_deleted
+  <return-scalar column="id" type="java.lang.String"/>
+  <return-scalar column="user_name" type="java.lang.String"/>
+  <return-scalar column="email" type="java.lang.String"/>
+  <return-scalar column="language" type="java.lang.String"/>
+  <return-scalar column="currency" type="java.lang.String"/>
+  <return-scalar column="person" type="java.lang.String"/>
+  <return-scalar column="locked" type="java.lang.Boolean"/>
+  <return-scalar column="initial" type="java.lang.Boolean"/>
+  <return-scalar column="active" type="java.lang.Boolean"/>
+ </sql-query>
+ <sql-query cacheable="true" name="PersonEntityList" read-only="true">
+  select persons.id, persons.name_first, persons.name_last, persons.email, t_sex.description sex from persons as persons left join t_sex as t_sex on t_sex.key = persons.sex_key and t_sex.language_key = :p_lang_key 
+  where persons.test = :p_test
+  and persons.deleted = :p_deleted
+  <return-scalar column="id" type="java.lang.String"/>
+  <return-scalar column="name_first" type="java.lang.String"/>
+  <return-scalar column="name_last" type="java.lang.String"/>
+  <return-scalar column="email" type="java.lang.String"/>
+  <return-scalar column="sex" type="java.lang.String"/>
+ </sql-query>
+ <sql-query cacheable="true" name="LanguageValueList" read-only="true">
+  SELECT k_languages.key, t_languages.description, t_languages.description_long 
+  FROM k_languages JOIN t_languages ON k_languages.key = t_languages.key 
+  WHERE t_languages.language_key = :p_lang_key
+  <return-scalar column="key" type="java.lang.String"/>
+  <return-scalar column="description" type="java.lang.String"/>
+  <return-scalar column="description_long" type="java.lang.String"/>
+ </sql-query>
+ <sql-query name="FunctionTree" read-only="true">
+  select rhf.node, rhf.parent, rhf.order, k.page, k.entity, k.edit, k.create, k.delete, t.description, t.description_long
+  from roles_have_functionnodes as rhf, k_functionnodes as k, t_functionnodes as t
+  where k.key = rhf.functionnode_key
+  and   t.key = k.key
+  and   rhf.role_key = :p_role_key
+  and   t.language_key = :p_lang_key
+  order by rhf.node
+  <return-scalar column="node" type="java.lang.Integer"/>
+  <return-scalar column="parent" type="java.lang.Integer"/>
+  <return-scalar column="order" type="java.lang.Integer"/>
+  <return-scalar column="page" type="java.lang.String"/>
+  <return-scalar column="entity" type="java.lang.String"/>
+  <return-scalar column="edit" type="java.lang.Boolean"/>
+  <return-scalar column="create" type="java.lang.Boolean"/>
+  <return-scalar column="delete" type="java.lang.Boolean"/>
+  <return-scalar column="description" type="java.lang.String"/>
+  <return-scalar column="description_long" type="java.lang.String"/>
+ </sql-query>
+</hibernate-mapping>
