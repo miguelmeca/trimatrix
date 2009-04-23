@@ -25,7 +25,7 @@ public class Users extends AbstractUsers implements java.io.Serializable, IEntit
 	/** full constructor */
 	public Users(String id, String userName, String userHash,
 			String languageKey, String currencyKey, Boolean locked,
-			Boolean initial, Boolean active, String personId, String email, Persons person,
+			Boolean initial, Boolean active, String email, Persons person,
 			Timestamp createdAt, String createdBy, Timestamp modifiedAt,
 			String modifiedBy, Boolean deleted, Boolean test) {
 		super(id, userName, userHash, languageKey, currencyKey, locked,

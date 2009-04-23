@@ -19,7 +19,9 @@
 <t:combobox id="g_6" attributemacro="entityDetailMacro(UserDetailUI,language)" height="20" validvaluesbinding="#{d.UserDetailUI.languagesVvb}" valuetextmode="TEXT" width="100" x="115" y="60" />
 <t:label id="g_7" height="20" text="#{rr.literals.user_person}" width="85" x="20" y="90" />
 <t:field id="g_8" attributemacro="entityDetailMacro(UserDetailUI,person)" enabled="false" width="100" x="115" y="90" />
-<t:button id="g_9" actionListener="#{d.UserDetailUI.onPersonSearch}" attributemacro="entityDetailMacro(DetailUserUI,null)" height="20" text="#{rr.literals.personsearch}" width="75" x="225" y="90" />
+<t:button id="g_9" actionListener="#{d.UserDetailUI.onPersonSearch}" attributemacro="entityDetailMacro(DetailUserUI,null)" height="20" rendered="{d.UserDetailUI.enabledBool}" text="#{rr.literals.personsearch}" width="75" x="225" y="90" />
+<t:label id="g_10" height="20" text="#{rr.literals.user_email}" width="85" x="20" y="120" />
+<t:field id="g_11" attributemacro="entityDetailMacro(UserDetailUI,email)" width="100" x="115" y="120" />
 </t:paintarea>
 </t:row>
 <t:pageaddons id="g_pa"/>

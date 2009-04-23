@@ -79,6 +79,10 @@ public class UserDetailUI extends MyWorkpageDispatchedBean implements Serializab
 	protected String m_enabled;
     public String getEnabled() { return m_enabled; }
     public void setEnabled(String value) { m_enabled = value; }
+    
+    protected boolean m_enabledBool;
+    public boolean getEnabledBool() { return m_enabledBool; }
+    public void setEnabledBool(boolean value) { m_enabledBool = value; }
 
     public void init(Object entityObject) {
     	// set entity object
@@ -95,8 +99,10 @@ public class UserDetailUI extends MyWorkpageDispatchedBean implements Serializab
         // enabled?
         if (mode == Constants.Mode.SHOW) {
         	m_enabled = Constants.FALSE;
+        	m_enabledBool = false;
         } else {
         	m_enabled = Constants.TRUE;
+        	m_enabledBool = true;
         }
     }
     
@@ -149,6 +155,7 @@ public class UserDetailUI extends MyWorkpageDispatchedBean implements Serializab
 		values.put(UserEntity.USER_NAME, entity.getUserName());
 		values.put(UserEntity.LANGUAGE, entity.getLanguageKey());
 		values.put(UserEntity.CURRENCY, entity.getCurrencyKey());		
+		values.put(UserEntity.EMAIL, entity.getEmail());	
 		setPersonDescription(entity);		
 		// add bgpaint of fields
 		bgpaint.clear();
