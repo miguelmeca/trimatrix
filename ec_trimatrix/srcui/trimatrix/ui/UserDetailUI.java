@@ -65,6 +65,7 @@ public class UserDetailUI extends MyWorkpageDispatchedBean implements Serializab
 	private Constants.Mode mode;
     
     private Map<String, String> values = new HashMap<String, String>();
+    private Map<String, String> savedValues = new HashMap<String, String>();
     private Map<String, String> bgpaint = new HashMap<String, String>();
     
 	public UserDetailUI(IWorkpageDispatcher dispatcher) {
@@ -106,44 +107,32 @@ public class UserDetailUI extends MyWorkpageDispatchedBean implements Serializab
         }
     }
     
-	public void validate() throws MandatoryCheckException, EmailNotValidException {
-		String value = null;
-		String name = null;
-		// user_name
-		name  = UserEntity.USER_NAME;
-		value = values.get(name);	
-		if(value!=null) { value = value.trim(); }
-		entity.setUserName(value);
-		if(MANDATORY_SET.contains(name) && (value == null  || value.length()==0)) {
-			throw new MandatoryCheckException(name);		
+	public void validate() throws MandatoryCheckException, EmailNotValidException {		
+		// mandatory check
+		for (String name : MANDATORY_FIELDS) {
+			String value = values.get(name);	
+			if(value!=null) { value = value.trim(); }
+			if(MANDATORY_SET.contains(name) && (value == null  || value.length()==0)) {
+				throw new MandatoryCheckException(name);		
+			}
+		}
+        // email check
+		if(!Dictionary.isEmailValid(values.get(UserEntity.EMAIL))) {
+			throw new EmailNotValidException(values.get(values.get(UserEntity.EMAIL)));
 		}	
+		// fill values to entities properties
+		fillEntityProperties();
+	}
+	
+	private void fillEntityProperties() {
+		// user_name
+		entity.setUserName(values.get(UserEntity.USER_NAME));
 		// email
-		name  = UserEntity.EMAIL;
-		value = values.get(name);	
-		if(value!=null) { value = value.trim(); }
-		entity.setEmail(value);
-		if(MANDATORY_SET.contains(name) && (value == null  || value.length()==0)) {
-			throw new MandatoryCheckException(name);		
-		}		
-		if(!Dictionary.isEmailValid(value)) {
-			throw new EmailNotValidException(value);
-		}
+		entity.setEmail(values.get(UserEntity.EMAIL));
 		// language
-		name  = UserEntity.LANGUAGE;
-		value = values.get(name);	
-		if(value!=null) { value = value.trim(); }
-		entity.setLanguageKey(value);
-		if(MANDATORY_SET.contains(name) && (value == null  || value.length()==0)) {
-			throw new MandatoryCheckException(name);		
-		}
+		entity.setLanguageKey(values.get(UserEntity.LANGUAGE));
 		// currency
-		name  = UserEntity.CURRENCY;
-		value = values.get(name);	
-		if(value!=null) { value = value.trim(); }
-		entity.setCurrencyKey(value);
-		if(MANDATORY_SET.contains(name) && (value == null  || value.length()==0)) {
-			throw new MandatoryCheckException(name);		
-		}
+		entity.setCurrencyKey(values.get(UserEntity.CURRENCY));
 	}
 	
 	/**
@@ -155,7 +144,7 @@ public class UserDetailUI extends MyWorkpageDispatchedBean implements Serializab
 		values.put(UserEntity.USER_NAME, entity.getUserName());
 		values.put(UserEntity.LANGUAGE, entity.getLanguageKey());
 		values.put(UserEntity.CURRENCY, entity.getCurrencyKey());		
-		values.put(UserEntity.EMAIL, entity.getEmail());	
+		values.put(UserEntity.EMAIL, entity.getEmail());			
 		setPersonDescription(entity);		
 		// add bgpaint of fields
 		bgpaint.clear();
@@ -171,6 +160,20 @@ public class UserDetailUI extends MyWorkpageDispatchedBean implements Serializab
 			personDescription = person.toString();
 		}
 		values.put(UserEntity.PERSON, personDescription);
+	}
+	
+	/* (non-Javadoc)
+	 * @see trimatrix.ui.IEntityDetailUI#saveValues()
+	 */
+	public void saveValues() {
+		savedValues = new HashMap<String, String>(values);		
+	}
+	
+	/* (non-Javadoc)
+	 * @see trimatrix.ui.IEntityDetailUI#restoreValues()
+	 */
+	public void restoreValues() {
+		values = savedValues;
 	}
 
 	public Map<String, String> getValues() {
