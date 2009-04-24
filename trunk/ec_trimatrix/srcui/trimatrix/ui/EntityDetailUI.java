@@ -157,9 +157,13 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 	}
 	
 	public void onEditShow(ActionEvent event) {
-		switchMode();
-		//entityObject = ENTITYLISTLOGIC.getEntity(entity, id); 
-		//entityDetailUI.init(entityObject);	
+		if (mode == Constants.Mode.CHANGE) {	// abort
+			entityDetailUI.restoreValues();
+			changeMode(Constants.Mode.SHOW);
+		} else {
+			entityDetailUI.saveValues();
+			changeMode(Constants.Mode.CHANGE);
+		}
 		entityDetailUI.init();
 	}
 	
@@ -185,21 +189,13 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 			renderDeleteButton = true;
 			renderEditButton = true;
 			renderSaveButton = false;
-			txtEditButton = Dictionary.getValueFromExpression("#{rr.literals.edit}");//"�ndern"; //"#{rr.literals.edit}";
+			txtEditButton = Dictionary.getValueFromExpression("#{rr.literals.edit}");//"Ändern"; //"#{rr.literals.edit}";
 		}		
 		if (mode == Constants.Mode.NEW) {
 			renderNewButton = false;
 			renderDeleteButton = false;
 			renderEditButton = false;
 			renderSaveButton = true;
-		}
-	}
-	
-	private void switchMode() {
-		if (mode == Constants.Mode.CHANGE) {
-			changeMode(Constants.Mode.SHOW);
-		} else {
-			changeMode(Constants.Mode.CHANGE);
 		}
 	}
 

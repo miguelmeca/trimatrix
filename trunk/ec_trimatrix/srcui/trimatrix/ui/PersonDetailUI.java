@@ -33,6 +33,7 @@ public class PersonDetailUI extends MyWorkpageDispatchedBean implements Serializ
 	private Constants.Mode mode;
     
     private Map<String, String> values = new HashMap<String, String>();
+    private Map<String, String> savedValues = new HashMap<String, String>();
     private Map<String, String> bgpaint = new HashMap<String, String>();
     
 	public PersonDetailUI(IWorkpageDispatcher dispatcher) {
@@ -124,5 +125,25 @@ public class PersonDetailUI extends MyWorkpageDispatchedBean implements Serializ
 	}
 	public Map<String, String> getBgpaint() {
 		return bgpaint;
+	}
+	
+	public String getPicture() {
+		// TODO return dummy picture
+		if(entity==null) { return Constants.EMPTY; }
+		return entity.getPicture().toString();
+	}
+	
+	/* (non-Javadoc)
+	 * @see trimatrix.ui.IEntityDetailUI#saveValues()
+	 */
+	public void saveValues() {
+		savedValues = new HashMap<String, String>(values);		
+	}
+	
+	/* (non-Javadoc)
+	 * @see trimatrix.ui.IEntityDetailUI#restoreValues()
+	 */
+	public void restoreValues() {
+		values = savedValues;
 	}
 }
