@@ -8,6 +8,8 @@ import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoCancelListener;
+import org.eclnt.workplace.IWorkpage;
+import org.eclnt.workplace.IWorkpageContainer;
 import org.eclnt.workplace.IWorkpageDispatcher;
 import org.springframework.dao.DataIntegrityViolationException;
 
@@ -33,20 +35,22 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 	public Object getEntityObject() { return entityObject; }
 	public void setEntityObject(IEntityObject entityObject) { this.entityObject = entityObject; }
 	
+	private Object parentBean;
+	
 	private String id;
 	public String getId() { return id; }
 	
 	private Constants.Mode mode;
 	public Constants.Mode getMode() { return mode; }	
 	
-	private String txtEditButton;	
-	public String getTxtEditButton() { return txtEditButton; }
-	
 	protected boolean renderSaveButton;
 	public boolean getRenderSaveButton() { return renderSaveButton; }
 	
 	protected boolean renderEditButton;
 	public boolean getRenderEditButton() { return renderEditButton; }
+	
+	protected boolean renderCancelButton;
+	public boolean getRenderCancelButton() { return renderCancelButton; }
 	
 	protected boolean renderDeleteButton;
 	public boolean getRenderDeleteButton() { return renderDeleteButton; }
@@ -63,6 +67,11 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
         } catch (Exception ex) {
         	Statusbar.outputError("No or wrong entity set", "For list view processing an entity has to be set by the functiontreenode!");
         	getWorkpageContainer().closeWorkpage(getWorkpage());
+        }
+        // parent bean
+        IWorkpage wp = getWorkpage();
+        if (wp instanceof MyWorkpage) {
+        	parentBean = ((MyWorkpage)wp).getParentBean();
         }
         // get mode 
         String strMode = getWorkpage().getParam(Constants.P_MODE);
@@ -96,15 +105,13 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
         }     	
 	}
 	
-	private void refreshListUI() {
-		Dictionary.logger.info("Bean EntityDetailUI : entityListUI Bean is set!");
-		MyWorkpage wp = (MyWorkpage)getWorkpage();
-		Object bean = wp.getParentBean();
-		if(bean instanceof EntityListUI) {
-			EntityListUI entityListUI = (EntityListUI)bean;
+	private void refreshParent() {		
+		if(parentBean instanceof EntityListUI) {
+			EntityListUI entityListUI = (EntityListUI)parentBean;
 			entityListUI.onRefresh(null);
+			Dictionary.logger.info("Bean EntityDetailUI : parent bean refreshed!");
 		} else {
-			Dictionary.logger.info("Bean EntityDetailUI : entityListUI Bean is null!");
+			Dictionary.logger.info("Bean EntityDetailUI : no parent bean to refresh!");
 		}
 	}
 	
@@ -125,7 +132,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 					public void reactOnYes() {						
 						if(ENTITYLISTLOGIC.deleteEntity(entity, id)) {							
 							Statusbar.outputSuccess("Entity deleted");
-							refreshListUI();
+							refreshParent();
 							getWorkpageContainer().closeWorkpage(getWorkpage());
 						} else {
 							Statusbar.outputError("Entity could not be deleted!");
@@ -142,7 +149,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 			ENTITYLISTLOGIC.saveEntity(entity, entityObject);
 			getWorkpage().setTitle(entityObject.toString());
 			Statusbar.outputSuccess("Entity saved");
-			refreshListUI();
+			refreshParent();
 			changeMode(Constants.Mode.SHOW);
 			entityDetailUI.init();
 		} catch (MandatoryCheckException mce) {
@@ -156,23 +163,31 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 		} 	
 	}
 	
-	public void onEditShow(ActionEvent event) {
-		if (mode == Constants.Mode.CHANGE) {	// abort
-			entityDetailUI.restoreValues();
-			changeMode(Constants.Mode.SHOW);
-		} else {
-			entityDetailUI.saveValues();
-			changeMode(Constants.Mode.CHANGE);
-		}
+	public void onEdit(ActionEvent event) {
+		changeMode(Constants.Mode.CHANGE);
 		entityDetailUI.init();
 	}
 	
+	public void onCancel(ActionEvent event) {
+		// when called in save mode, close page
+		if (mode == Constants.Mode.NEW) {
+			getWorkpageContainer().closeWorkpage(getWorkpage());
+		} else {
+			ENTITYLISTLOGIC.reloadEntity(entity, entityObject);   
+			changeMode(Constants.Mode.SHOW);
+			entityDetailUI.init();
+		}		
+	}
+	
 	public void onNew(ActionEvent event) {		
-		entityObject = ENTITYLISTLOGIC.createEntity(entity);
-		// first set mode, because init method pulls mode from this bean
-		changeMode(Constants.Mode.NEW);
-		getWorkpage().setTitle("New");
-		entityDetailUI.init(entityObject);		
+		// create separate workpage
+		IWorkpageDispatcher wpd = getOwningDispatcher();
+		IWorkpageContainer wpc = getWorkpageContainer();
+		IWorkpage wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.url(),
+				null, "New entity", null, true, parentBean);
+		wp.setParam(Constants.P_ENTITY, entity.name());
+		wp.setParam(Constants.P_MODE, Constants.Mode.NEW.name());
+		wpc.addWorkpage(wp);
 	}
 	
 	private void changeMode(Constants.Mode mode) {
@@ -180,22 +195,24 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 		if (mode == Constants.Mode.CHANGE) {
 			renderNewButton = false;
 			renderDeleteButton = false;
-			renderEditButton = true;
+			renderEditButton = false;
 			renderSaveButton = true;
-			txtEditButton = Dictionary.getValueFromExpression("#{rr.literals.cancel}");//"Abbrechen";//"#{rr.literals.cancel}";
+			renderCancelButton = true;
+			
 		} 
 		if (mode == Constants.Mode.SHOW) {
 			renderNewButton = true;
 			renderDeleteButton = true;
 			renderEditButton = true;
 			renderSaveButton = false;
-			txtEditButton = Dictionary.getValueFromExpression("#{rr.literals.edit}");//"Ändern"; //"#{rr.literals.edit}";
+			renderCancelButton = false;			
 		}		
 		if (mode == Constants.Mode.NEW) {
 			renderNewButton = false;
 			renderDeleteButton = false;
-			renderEditButton = false;
+			renderEditButton = true;
 			renderSaveButton = true;
+			renderCancelButton = true;
 		}
 	}
 

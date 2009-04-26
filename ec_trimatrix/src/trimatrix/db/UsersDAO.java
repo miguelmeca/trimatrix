@@ -138,4 +138,15 @@ public class UsersDAO extends HibernateDaoSupport implements IUsersDAO {
 			throw re;
 		}
 	}
+	
+	public void reload(Users user) {
+		String id = user.getId();
+		log.debug("reloading Users instance with id: " + id);
+		try {
+			getHibernateTemplate().load(user, id);			
+		} catch (RuntimeException re) {
+			log.error("load failed", re);
+			throw re;
+		}
+	}
 }

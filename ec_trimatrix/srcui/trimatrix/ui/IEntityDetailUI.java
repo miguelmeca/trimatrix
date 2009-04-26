@@ -21,12 +21,4 @@ public interface IEntityDetailUI {
 	 * @throws EmailNotValidException 
 	 */
 	public void validate() throws MandatoryCheckException, EmailNotValidException;
-	/**
-	 * Save the entites properties to a separate values map 
-	 */
-	public void saveValues();
-	/**
-	 * Restore copied value map into original value map
-	 */
-	public void restoreValues();
 }

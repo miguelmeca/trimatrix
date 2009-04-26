@@ -42,9 +42,10 @@ public class DBConnectionTest {
 
 	@Before
 	public void setUp() throws Exception {
-
+		
 	}
 
+	@Test
 	public void testUsers() {
 		Timestamp now = new java.sql.Timestamp((new java.util.Date()).getTime());
 		/* 1. Create instance of PersistenceLayer */
@@ -52,12 +53,19 @@ public class DBConnectionTest {
 		IPersonsDAO personsDAO = daoLayer.getPersonsDAO();
 
 		/* 2. Create Test User */
+		String id = UUID.randomUUID().toString();
 		Users newUser = new Users();
-		newUser.setId(UUID.randomUUID().toString());
+		newUser.setId(id);
 		newUser.setUserName("Meex");
 		newUser.setCreatedAt(now);
 		newUser.setModifiedAt(now);
 		usersDAO.merge(newUser);
+		
+		// 2.0.1. Test load functionality
+		newUser.setUserName("Meex_");
+		Assert.assertEquals("Meex_", newUser.getUserName());
+		usersDAO.reload(newUser);
+		Assert.assertEquals("Meex", newUser.getUserName());
 
 		/* 2.1 Create a second Test User with same user_name */
 		Users newUser2 = new Users();
@@ -76,7 +84,7 @@ public class DBConnectionTest {
 
 		/* 2.2 Create Test Person and set relation to user */
 		Persons newPerson = new Persons();
-		String id = UUID.randomUUID().toString();
+		id = UUID.randomUUID().toString();
 		newPerson.setId(id);
 		newPerson.setNameLast("Reich");
 		newPerson.setCreatedAt(now);
@@ -119,7 +127,7 @@ public class DBConnectionTest {
 		String id = UUID.randomUUID().toString();
 		newPerson.setId(id);
 		BufferedImage img = null;
-		img = ImageIO.read(new File("testdata/Tom.jpg"));
+		img = ImageIO.read(new File("testingdata/tom.jpg"));
 		newPerson.setPicture(loadImageFromMemory(img));
 		Timestamp now = new java.sql.Timestamp((new java.util.Date()).getTime());
 		newPerson.setCreatedAt(now);
@@ -142,9 +150,8 @@ public class DBConnectionTest {
 		List<SFunctionTree> functionTree = sqlExecutorService.getFunctionTree(
 				"admin", "en");
 		System.out.println(functionTree.size());
-	}
-
-	@Test
+	}	
+	
 	public void testProgramaticTransactionMngmt() throws Exception {
 		/* With Template Pattern */
 		// single TransactionTemplate shared amongst all methods in this

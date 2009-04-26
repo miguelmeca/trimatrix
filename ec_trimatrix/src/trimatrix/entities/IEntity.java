@@ -17,5 +17,7 @@ public interface IEntity {
 	public abstract IEntityObject get(String id);
 	
 	public abstract void save(IEntityObject entityObject);
+	
+	public abstract void reload(IEntityObject entityObject);
 
 }

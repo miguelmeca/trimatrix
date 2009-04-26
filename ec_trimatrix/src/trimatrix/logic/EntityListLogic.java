@@ -40,6 +40,10 @@ public class EntityListLogic {
 		entityResolverService.saveEntity(entity, entityObject);
 	}
 	
+	public void reloadEntity(Constants.Entity entity, IEntityObject entityObject) {
+		entityResolverService.reloadEntity(entity, entityObject);
+	}
+	
 	public void setEntityResolverService(EntityResolverService entityResolverService) {
 		this.entityResolverService = entityResolverService;
 	}

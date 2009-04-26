@@ -47,6 +47,14 @@ public final class Dictionary {
 		// check whether match is found
 		return matcher.matches();
 	}
+	
+	public static String getHexString(byte[] bytes) throws Exception {
+		String result = Constants.EMPTY;
+		for (int i=0; i < bytes.length; i++) {
+			result +=  Integer.toString( ( bytes[i] & 0xff ) + 0x100, 16).substring( 1 );
+		}
+		return result;
+	}
 
 	public Users getMyUser() {
 		return myUser;

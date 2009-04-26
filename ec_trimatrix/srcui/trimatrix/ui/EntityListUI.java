@@ -50,7 +50,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 	}
 
 	protected FIXGRIDListBinding<GridListItem> m_gridList = new FIXGRIDListBinding<GridListItem>(
-			true); // optimiziation active
+			false); // optimiziation active
 
 	public FIXGRIDListBinding<GridListItem> getGridList() {
 		return m_gridList;

@@ -32,7 +32,7 @@ public final class UserEntity implements IEntity {
         gridMetaData.add(new SGridMetaData("Benutzername", "user_name", SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("Email", "email", SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("Sprache", "language", SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("Währung", "currency", SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData("Wï¿½hrung", "currency", SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("Person", "person", SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("gesperrt", "locked", SGridMetaData.Component.CHECKBOX));
         gridMetaData.add(new SGridMetaData("initial", "initial", SGridMetaData.Component.CHECKBOX));
@@ -108,6 +108,14 @@ public final class UserEntity implements IEntity {
 		user.setModifiedAt(now);
 		user.setModifiedBy(dictionaryService.getMyUser().getId());
 		usersDAO.merge(user);
+	}
+	
+	/* (non-Javadoc)
+	 * @see trimatrix.entities.IEntity#reload(trimatrix.entities.IEntityObject)
+	 */
+	public void reload(IEntityObject entityObject) {
+		Users user = (Users)entityObject;
+		usersDAO.reload(user);
 	}
 	
 	public static class Data implements IEntityData {

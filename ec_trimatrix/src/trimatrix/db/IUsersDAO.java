@@ -21,5 +21,7 @@ public interface IUsersDAO {
 	public abstract void attachDirty(Users instance);
 
 	public abstract void attachClean(Users instance);
+	
+	public abstract void reload(Users instance);
 
 }
