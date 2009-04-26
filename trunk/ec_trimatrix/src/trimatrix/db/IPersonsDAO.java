@@ -10,16 +10,18 @@ public interface IPersonsDAO {
 
 	public abstract Persons findById(java.lang.String id);
 
-	public abstract List findByExample(Persons instance);
+	public abstract List<Persons> findByExample(Persons instance);
 
-	public abstract List findByProperty(String propertyName, Object value);
+	public abstract List<Persons> findByProperty(String propertyName, Object value);
 
-	public abstract List findAll();
+	public abstract List<Persons> findAll();
 
 	public abstract Persons merge(Persons detachedInstance);
 
 	public abstract void attachDirty(Persons instance);
 
 	public abstract void attachClean(Persons instance);
+	
+	public abstract void reload(Persons instance);
 
 }

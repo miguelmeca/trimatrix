@@ -1,57 +1,39 @@
 package trimatrix.ui;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.sql.Timestamp;
+import java.util.Date;
+
+import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
+import org.eclnt.jsfserver.elements.events.BaseActionEventUpload;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.db.Persons;
 import trimatrix.entities.PersonEntity;
+import trimatrix.entities.UserEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
-import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
 
 @SuppressWarnings("serial")
 @CCGenClass (expressionBase="#{d.PersonDetailUI}")
 
-public class PersonDetailUI extends MyWorkpageDispatchedBean implements Serializable, IEntityDetailUI
+public class PersonDetailUI extends AEntityDetailUI implements Serializable, IEntityDetailUI
 {
-	private EntityDetailUI entityDetailUI;	
-        
-    private static final String[] MANDATORY_FIELDS = {PersonEntity.NAME_LAST};
-    private static final Set<String> MANDATORY_SET = new HashSet<String>(Arrays.asList(MANDATORY_FIELDS));
-	
-	private Persons entity;
-	
-	private Constants.Mode mode;
-    
-    private Map<String, String> values = new HashMap<String, String>();
-    private Map<String, String> savedValues = new HashMap<String, String>();
-    private Map<String, String> bgpaint = new HashMap<String, String>();
+	private Persons entity;	
     
 	public PersonDetailUI(IWorkpageDispatcher dispatcher) {
-		super(dispatcher);
+		super(dispatcher, new String[] {PersonEntity.NAME_LAST});
 		// get wrapping entity detail UI bean
 		entityDetailUI = getEntityDetailUI();		
 		entityDetailUI.setEntityDetailUI(this);		
         // init data
         init(entityDetailUI.getEntityObject());
     }
-    
-	protected String m_enabled;
-    public String getEnabled() { return m_enabled; }
-    public void setEnabled(String value) { m_enabled = value; }
-    
-    protected boolean m_enabledBool;
-    public boolean getEnabledBool() { return m_enabledBool; }
-    public void setEnabledBool(boolean value) { m_enabledBool = value; }
 
     public void init(Object entityObject) {
     	// set entity object
@@ -63,46 +45,35 @@ public class PersonDetailUI extends MyWorkpageDispatchedBean implements Serializ
     public void init() {
     	// set fields
     	fillMaps();   
-    	// get info from wrapping bean
-        mode = entityDetailUI.getMode();
-        // enabled?
-        if (mode == Constants.Mode.SHOW) {
-        	m_enabled = Constants.FALSE;
-        } else {
-        	m_enabled = Constants.TRUE;
-        }
-    }
-    
-	public void validate() throws MandatoryCheckException, EmailNotValidException{
-		String value = null;
-		String name = null;
+    	// set state
+    	setState();
+    }    
+
+	public void validate() throws MandatoryCheckException, EmailNotValidException {		
+		// mandatory check
+		checkMandatory();
+        // email check
+		if(!Dictionary.isEmailValid((String)values.get(PersonEntity.EMAIL))) {
+			throw new EmailNotValidException((String)values.get(values.get(UserEntity.EMAIL)));
+		}	
+		// fill values to entities properties
+		fillEntityProperties();
+	}
+	
+	private void fillEntityProperties() {
 		// first name
-		name  = PersonEntity.NAME_FIRST;
-		value = values.get(name);	
-		if(value!=null) { value = value.trim(); }
-		entity.setNameFirst(value);
-		if(MANDATORY_SET.contains(name) && (value == null  || value.length()==0)) {
-			throw new MandatoryCheckException(name);		
-		}
-		// last name
-		name  = PersonEntity.NAME_LAST;
-		value = values.get(name);	
-		if(value!=null) { value = value.trim(); }
-		entity.setNameLast(value);
-		if(MANDATORY_SET.contains(name) && (value == null  || value.length()==0)) {
-			throw new MandatoryCheckException(name);		
-		}
+		entity.setNameFirst((String)values.get(PersonEntity.NAME_FIRST));
+		// last name 
+		entity.setNameLast((String)values.get(PersonEntity.NAME_LAST));
 		// email
-		name  = PersonEntity.EMAIL;
-		value = values.get(name);	
-		if(value!=null) { value = value.trim(); }
-		entity.setEmail(value);
-		if(MANDATORY_SET.contains(name) && (value == null  || value.length()==0)) {
-			throw new MandatoryCheckException(name);		
-		}		
-		if(!Dictionary.isEmailValid(value)) {
-			throw new EmailNotValidException(value);
-		}
+		entity.setEmail((String)values.get(PersonEntity.EMAIL));
+		// birthdate	
+		Timestamp birthdate = null;
+		Date date = (Date)values.get(PersonEntity.BIRTHDATE);
+		if (date!=null) {
+			birthdate = new Timestamp(date.getTime());
+		} 
+		entity.setBirthdate(birthdate);
 	}
 	
 	private void fillMaps() {
@@ -110,7 +81,13 @@ public class PersonDetailUI extends MyWorkpageDispatchedBean implements Serializ
 		values.clear();
 		values.put(PersonEntity.NAME_FIRST, entity.getNameFirst());
 		values.put(PersonEntity.NAME_LAST, entity.getNameLast());
-		values.put(PersonEntity.EMAIL, entity.getEmail());
+		values.put(PersonEntity.EMAIL, entity.getEmail());	
+		Date birthdate = null;
+		Timestamp timestamp = entity.getBirthdate();
+		if (timestamp!=null) {
+			birthdate =  new Date(timestamp.getTime());
+		} 
+		values.put(PersonEntity.BIRTHDATE, birthdate);
 		
 		// add bgpaint of fields
 		bgpaint.clear();
@@ -119,31 +96,23 @@ public class PersonDetailUI extends MyWorkpageDispatchedBean implements Serializ
 			bgpaint.put(field,Constants.BGP_MANDATORY);
 		}		
 	}
-
-	public Map<String, String> getValues() {
-		return values;
-	}
-	public Map<String, String> getBgpaint() {
-		return bgpaint;
-	}
 	
 	public String getPicture() {
-		// TODO return dummy picture
-		if(entity==null) { return Constants.EMPTY; }
-		return entity.getPicture().toString();
+		try {
+			return Dictionary.getHexString(entity.getPicture());
+		} catch (Exception ex) {
+			return Constants.EMPTY;
+		}		
 	}
 	
-	/* (non-Javadoc)
-	 * @see trimatrix.ui.IEntityDetailUI#saveValues()
-	 */
-	public void saveValues() {
-		savedValues = new HashMap<String, String>(values);		
-	}
-	
-	/* (non-Javadoc)
-	 * @see trimatrix.ui.IEntityDetailUI#restoreValues()
-	 */
-	public void restoreValues() {
-		values = savedValues;
-	}
+	 public void onUploadImage(ActionEvent event) {
+		 if (event instanceof BaseActionEventUpload) {
+			 BaseActionEventUpload bae = (BaseActionEventUpload)event;
+			 entity.setPicture(bae.getHexBytes());
+		 }		 
+	 }	
+	 
+	 public void onRemoveImage(ActionEvent event) {
+		 entity.setPicture(null);
+	 }	
 }

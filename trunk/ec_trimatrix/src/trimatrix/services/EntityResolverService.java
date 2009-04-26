@@ -73,6 +73,14 @@ public final class EntityResolverService {
 		} 
 	}
 	
+	public void reloadEntity(Constants.Entity entity, IEntityObject entityObject) {
+		if (entity==Constants.Entity.USER) {
+			userEntity.reload(entityObject);
+		} else if (entity==Constants.Entity.PERSON) {
+			personEntity.reload(entityObject);
+		} 
+	}
+	
 	public void setUserEntity(IEntity userEntity) {
 		this.userEntity = userEntity;
 	}

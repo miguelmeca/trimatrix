@@ -1,11 +1,6 @@
-package trimatrix.ui;
+	package trimatrix.ui;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 import javax.faces.event.ActionEvent;
 
@@ -18,58 +13,23 @@ import trimatrix.db.Users;
 import trimatrix.entities.UserEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
-import trimatrix.logic.EntityListLogic;
 import trimatrix.ui.EntitySelectionUI.ISelectionCallback;
-import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
 
 @SuppressWarnings("serial")
 @CCGenClass (expressionBase="#{d.UserDetailUI}")
 
-public class UserDetailUI extends MyWorkpageDispatchedBean implements Serializable, IEntityDetailUI
-{
-	private final EntityListLogic ENTITYLISTLOGIC = getLogic().getEntityListLogic();
+public class UserDetailUI extends AEntityDetailUI implements Serializable, IEntityDetailUI
+{    
 	protected ValidValuesBinding m_languagesVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.LANGUAGE, getDictionary().getLanguage());
     public ValidValuesBinding getLanguagesVvb() { return m_languagesVvb; }
     public void setLanguagesVvb(ValidValuesBinding value) { m_languagesVvb = value; }
-
-    // TODO Change completly to person search
-    public void onPersonSearch(ActionEvent event) {
-    	PersonSelectionUI personSelectionUI = getPersonSelectionUI();
-    	personSelectionUI.prepareCallback(new ISelectionCallback(){
-			public void cancel() {
-				m_popup.close();				
-			}
-			public void idSelected(String id) {
-				Persons person = (Persons)ENTITYLISTLOGIC.getEntity(Constants.Entity.PERSON, id);
-				entity.setPerson(person);
-				setPersonDescription(entity);	
-				m_popup.close();
-			}});    	
-    	m_popup = getWorkpage().createModalPopupInWorkpageContext();    	
-    	m_popup.open(Constants.Page.PERSONSELECTION.url(), "Personensuche", 800, 600, this);    	
-    	// TODO generate routine for centering the popup, this way is not ok!!!
-    	java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();    	
-    	m_popup.setLeft(((int)screenSize.getWidth() - m_popup.getWidth()) / 2);
-    	m_popup.setTop(((int)screenSize.getHeight() - m_popup.getHeight()) / 2);
-    }
-
-	private EntityDetailUI entityDetailUI;        
+  	
+	private Users entity;    
     
-    private static final String[] MANDATORY_FIELDS = {UserEntity.USER_NAME, UserEntity.EMAIL};
-    private static final Set<String> MANDATORY_SET = new HashSet<String>(Arrays.asList(MANDATORY_FIELDS));
-	
-	private Users entity;
-	
-	private Constants.Mode mode;
-    
-    private Map<String, String> values = new HashMap<String, String>();
-    private Map<String, String> savedValues = new HashMap<String, String>();
-    private Map<String, String> bgpaint = new HashMap<String, String>();
-    
-	public UserDetailUI(IWorkpageDispatcher dispatcher) {
-		super(dispatcher);
+	public UserDetailUI(IWorkpageDispatcher dispatcher) {		
+		super(dispatcher, new String[] {UserEntity.USER_NAME, UserEntity.EMAIL});
 		// get wrapping entity detail UI bean
 		entityDetailUI = getEntityDetailUI();		
 		entityDetailUI.setEntityDetailUI(this);		
@@ -77,62 +37,40 @@ public class UserDetailUI extends MyWorkpageDispatchedBean implements Serializab
         init(entityDetailUI.getEntityObject());
     }
     
-	protected String m_enabled;
-    public String getEnabled() { return m_enabled; }
-    public void setEnabled(String value) { m_enabled = value; }
-    
-    protected boolean m_enabledBool;
-    public boolean getEnabledBool() { return m_enabledBool; }
-    public void setEnabledBool(boolean value) { m_enabledBool = value; }
-
     public void init(Object entityObject) {
     	// set entity object
     	this.entity = (Users)entityObject;        	 	
     	// set enabled state and set fields
     	init();
-    }
+    }    
     
-    public void init() {
-    	// set fields
-    	fillMaps();   
-    	// get info from wrapping bean
-        mode = entityDetailUI.getMode();
-        // enabled?
-        if (mode == Constants.Mode.SHOW) {
-        	m_enabled = Constants.FALSE;
-        	m_enabledBool = false;
-        } else {
-        	m_enabled = Constants.TRUE;
-        	m_enabledBool = true;
-        }
+	public void init() {
+		fillMaps();
+    	// set state
+		setState();
+        
     }
     
 	public void validate() throws MandatoryCheckException, EmailNotValidException {		
 		// mandatory check
-		for (String name : MANDATORY_FIELDS) {
-			String value = values.get(name);	
-			if(value!=null) { value = value.trim(); }
-			if(MANDATORY_SET.contains(name) && (value == null  || value.length()==0)) {
-				throw new MandatoryCheckException(name);		
-			}
-		}
+		checkMandatory();
         // email check
-		if(!Dictionary.isEmailValid(values.get(UserEntity.EMAIL))) {
-			throw new EmailNotValidException(values.get(values.get(UserEntity.EMAIL)));
+		if(!Dictionary.isEmailValid((String)values.get(UserEntity.EMAIL))) {
+			throw new EmailNotValidException((String)values.get(values.get(UserEntity.EMAIL)));
 		}	
 		// fill values to entities properties
 		fillEntityProperties();
-	}
+	}	
 	
 	private void fillEntityProperties() {
 		// user_name
-		entity.setUserName(values.get(UserEntity.USER_NAME));
+		entity.setUserName((String)values.get(UserEntity.USER_NAME));
 		// email
-		entity.setEmail(values.get(UserEntity.EMAIL));
+		entity.setEmail((String)values.get(UserEntity.EMAIL));
 		// language
-		entity.setLanguageKey(values.get(UserEntity.LANGUAGE));
+		entity.setLanguageKey((String)values.get(UserEntity.LANGUAGE));
 		// currency
-		entity.setCurrencyKey(values.get(UserEntity.CURRENCY));
+		entity.setCurrencyKey((String)values.get(UserEntity.CURRENCY));
 	}
 	
 	/**
@@ -153,6 +91,11 @@ public class UserDetailUI extends MyWorkpageDispatchedBean implements Serializab
 			bgpaint.put(field,Constants.BGP_MANDATORY);
 		}		
 	}
+	
+	/**
+	 * Get description for selected person
+	 * @param user
+	 */
 	private void setPersonDescription(Users user) {
 		Persons person = user.getPerson();
 		String personDescription = Constants.EMPTY;
@@ -160,26 +103,34 @@ public class UserDetailUI extends MyWorkpageDispatchedBean implements Serializab
 			personDescription = person.toString();
 		}
 		values.put(UserEntity.PERSON, personDescription);
-	}
+	}	
 	
-	/* (non-Javadoc)
-	 * @see trimatrix.ui.IEntityDetailUI#saveValues()
+	/**
+	 * Call person selection pop up
+	 * @param event
 	 */
-	public void saveValues() {
-		savedValues = new HashMap<String, String>(values);		
-	}
+	public void onPersonSearch(ActionEvent event) {
+    	PersonSelectionUI personSelectionUI = getPersonSelectionUI();
+    	personSelectionUI.prepareCallback(new ISelectionCallback(){
+			public void cancel() {
+				m_popup.close();				
+			}
+			public void idSelected(String id) {
+				Persons person = (Persons)ENTITYLISTLOGIC.getEntity(Constants.Entity.PERSON, id);
+				entity.setPerson(person);
+				setPersonDescription(entity);	
+				m_popup.close();
+			}});    	
+    	m_popup = getWorkpage().createModalPopupInWorkpageContext();    	
+    	m_popup.open(Constants.Page.PERSONSELECTION.url(), "Personensuche", 800, 600, this);    	
+    	// TODO generate routine for centering the popup, this way is not ok!!!
+    	java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();    	
+    	m_popup.setLeft(((int)screenSize.getWidth() - m_popup.getWidth()) / 2);
+    	m_popup.setTop(((int)screenSize.getHeight() - m_popup.getHeight()) / 2);
+    }
 	
-	/* (non-Javadoc)
-	 * @see trimatrix.ui.IEntityDetailUI#restoreValues()
-	 */
-	public void restoreValues() {
-		values = savedValues;
-	}
-
-	public Map<String, String> getValues() {
-		return values;
-	}
-	public Map<String, String> getBgpaint() {
-		return bgpaint;
+	public void onPersonRemove(ActionEvent event) {
+		entity.setPerson(null);
+		setPersonDescription(entity);	
 	}
 }

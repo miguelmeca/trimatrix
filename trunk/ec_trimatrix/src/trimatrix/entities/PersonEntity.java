@@ -17,6 +17,7 @@ public final class PersonEntity implements IEntity {
 	public static final String NAME_FIRST = "name_first";
     public static final String NAME_LAST = "name_last";  
     public static final String EMAIL = "email";
+    public static final String BIRTHDATE = "birthdate";
 	
     // Variables
 	private SQLExecutorService sqlExecutorService;
@@ -100,6 +101,14 @@ public final class PersonEntity implements IEntity {
 		person.setModifiedAt(now);
 		person.setModifiedBy(dictionaryService.getMyUser().getId());
 		personsDAO.merge(person);
+	}
+	
+	/* (non-Javadoc)
+	 * @see trimatrix.entities.IEntity#reload(trimatrix.entities.IEntityObject)
+	 */
+	public void reload(IEntityObject entityObject) {
+		Persons person = (Persons)entityObject;
+		personsDAO.reload(person);
 	}
 	
 	public static class Data implements IEntityData {
