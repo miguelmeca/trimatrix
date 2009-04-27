@@ -31,26 +31,35 @@ public class LogonUI extends MyDispatchedBean implements Serializable
     }  
 
 	public void onLogon(ActionEvent event) {
-		// TODO integrate certain returncodes for locked, initial and inactiv
+		// TODO integrate certain returncodes for locked, initial and inactive
 		if(m_user == null || m_password == null) {
-			Statusbar.outputError("Mu�felder nicht bef�llt!");			
+			Statusbar.outputError("Not all mandatory fields filled!");			
 			return;
 		}
 		if(!LOGONLOGIC.logon(m_user, m_password)) {
-			Statusbar.outputError("Logon nicht erfolgreich!");
+			Statusbar.outputError("Logon not successfull!");
+			return;
+		}
+		// check if locked
+		if(LOGONLOGIC.isUserLocked()) {
+			Statusbar.outputError("User is locked!");
 			return;
 		}
 		// Logon succesfull
-		getAroundUI().setContentPage(Constants.Page.WORKPLACE.url());
+		if(LOGONLOGIC.isUserInitial()) {
+			getAroundUI().setContentPage(Constants.Page.PASSWORD.url());
+		} else {
+			getAroundUI().setContentPage(Constants.Page.WORKPLACE.url());
+		}		
 	}
 	
     public void onPasswordChange(ActionEvent event) {
     	if(m_user == null || m_password == null) {
-			Statusbar.outputError("Mu�felder nicht bef�llt!");
+			Statusbar.outputError("Not all mandatory fields filled!");
 			return;
 		}
 		if(!LOGONLOGIC.logon(m_user, m_password)) {
-			Statusbar.outputError("Logon nicht erfolgreich!");
+			Statusbar.outputError("Logon not successfull!");
 			return;
 		}
 		// Logon succesfull

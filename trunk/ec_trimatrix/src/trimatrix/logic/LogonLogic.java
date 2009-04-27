@@ -21,11 +21,17 @@ public class LogonLogic {
 	private Dictionary dictionaryService;
 
 	public boolean logon(String username, String password) {
+		// TODO use Entities
 		List<Users> users = usersDAO.findByProperty("userName", username);
 		if(users.size()==0) {
 			return false;
 		}		
 		Users user = users.get(0);
+		// check user status
+		if (!user.getActive() && !user.getInitial()) {
+			return false;
+		}
+		// check password
 		if(!password.equals(user.getUserHash())) {
 			return false;
 		}
@@ -68,8 +74,17 @@ public class LogonLogic {
 		return vvb;
 	}
 	
+	public boolean isUserInitial() {
+		return dictionaryService.getMyUser().getInitial();
+	}
+	
+	public boolean isUserLocked() {
+		return dictionaryService.getMyUser().getLocked();
+	}
+	
 	public void changePassword(String password) {
 		dictionaryService.getMyUser().setUserHash(password);
+		dictionaryService.getMyUser().setInitial(false);
 		usersDAO.merge(dictionaryService.getMyUser());
 	}
 	

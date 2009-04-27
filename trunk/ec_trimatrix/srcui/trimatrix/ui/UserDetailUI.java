@@ -1,10 +1,12 @@
 	package trimatrix.ui;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
@@ -16,6 +18,7 @@ import trimatrix.exceptions.MandatoryCheckException;
 import trimatrix.ui.EntitySelectionUI.ISelectionCallback;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
+import trimatrix.utils.MailSender;
 
 @SuppressWarnings("serial")
 @CCGenClass (expressionBase="#{d.UserDetailUI}")
@@ -71,6 +74,8 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable, IEnti
 		entity.setLanguageKey((String)values.get(UserEntity.LANGUAGE));
 		// currency
 		entity.setCurrencyKey((String)values.get(UserEntity.CURRENCY));
+		// active
+		entity.setActive((Boolean)values.get(UserEntity.ACTIVE));
 	}
 	
 	/**
@@ -82,7 +87,10 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable, IEnti
 		values.put(UserEntity.USER_NAME, entity.getUserName());
 		values.put(UserEntity.LANGUAGE, entity.getLanguageKey());
 		values.put(UserEntity.CURRENCY, entity.getCurrencyKey());		
-		values.put(UserEntity.EMAIL, entity.getEmail());			
+		values.put(UserEntity.EMAIL, entity.getEmail());	
+		values.put(UserEntity.ACTIVE, entity.getActive());
+		values.put(UserEntity.INITIAL, entity.getInitial());
+		values.put(UserEntity.LOCKED, entity.getLocked());		
 		setPersonDescription(entity);		
 		// add bgpaint of fields
 		bgpaint.clear();
@@ -132,5 +140,23 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable, IEnti
 	public void onPersonRemove(ActionEvent event) {
 		entity.setPerson(null);
 		setPersonDescription(entity);	
+	}
+	
+	public void onSendGeneratedPassword(ActionEvent event) {
+		// TODO yes no popup
+		String password = UUID.randomUUID().toString().substring(24);
+		entity.setInitial(true);
+		entity.setLocked(false);
+		entity.setUserHash(password);
+		try {
+			validate();
+			ENTITYLISTLOGIC.saveEntity(Constants.Entity.USER, entity);
+			String receiver = entity.getEmail();
+			String message = "Hello Trimatrix User, \n a new password " + password + " is generated for your user " + entity.getUserName() + ". \n\n regards your Trimatrix Team"; 
+			MailSender.postMail(new String[] {receiver}, "New password generated", message );
+			Statusbar.outputSuccess("Password successfully send to " + receiver);
+		} catch (Exception ex) {
+			Statusbar.outputError("Password couldn't be generated/sent!", ex.toString());
+		} 			
 	}
 }
