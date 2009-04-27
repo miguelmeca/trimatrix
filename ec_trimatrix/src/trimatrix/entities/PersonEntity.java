@@ -17,6 +17,7 @@ public final class PersonEntity implements IEntity {
 	public static final String NAME_FIRST = "name_first";
     public static final String NAME_LAST = "name_last";  
     public static final String EMAIL = "email";
+    public static final String SEX = "sex";
     public static final String BIRTHDATE = "birthdate";
 	
     // Variables
@@ -29,10 +30,11 @@ public final class PersonEntity implements IEntity {
 	 */
 	public List<SGridMetaData> getGridMetaData() {
         List<SGridMetaData> gridMetaData = new ArrayList<SGridMetaData>();
-        gridMetaData.add(new SGridMetaData("Vorname", "name_first", SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("Nachname", "name_last", SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("Email", "email", SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("Geschlecht", "sex", SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData("Vorname", NAME_FIRST, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData("Nachname", NAME_LAST, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData("Email", EMAIL, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData("Geschlecht", SEX, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData("Geburtstag", BIRTHDATE, SGridMetaData.Component.CALENDARFIELD));
         return gridMetaData;
     }
 	

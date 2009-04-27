@@ -1,5 +1,6 @@
 package trimatrix.services;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +15,8 @@ import trimatrix.entities.PersonEntity;
 import trimatrix.entities.UserEntity;
 import trimatrix.structures.SFunctionTree;
 import trimatrix.structures.SValueList;
-import trimatrix.utils.Dictionary;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Dictionary;
 
 /**
  * @author Meex
@@ -131,6 +132,7 @@ public class SQLExecutorService {
 			datum.name_last = (String)line[i++];
 			datum.email = (String)line[i++];
 			datum.sex = (String)line[i++];
+			datum.birthdate = (Timestamp)line[i++];
 			data.add(datum);
 		}
 		session.close();

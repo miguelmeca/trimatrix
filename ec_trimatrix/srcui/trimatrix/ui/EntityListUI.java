@@ -26,7 +26,8 @@ import trimatrix.utils.Constants;
 @SuppressWarnings("serial")
 @CCGenClass(expressionBase = "#{d.EntityListUI}")
 public class EntityListUI extends MyWorkpageDispatchedBean implements
-		Serializable {
+		Serializable {   
+
 	public final EntityListUI entityList = this;
 	private final EntityListLogic ENTITYLISTLOGIC = getLogic()
 			.getEntityListLogic();
@@ -77,16 +78,23 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 		for (SGridMetaData meta : gridMetaData) {
 			// component type checkbox
 			boolean isCheckBox = false;
+			boolean isCalendarField = false;
 			if (meta.component == SGridMetaData.Component.CHECKBOX) {
 				isCheckBox = true;
-			}
+			} 
+			if (meta.component == SGridMetaData.Component.CALENDARFIELD) {
+				isCalendarField = true;
+			} 
 			xml.append("<t:gridcol text='" + meta.header
 					+ "' width='100' sortreference='.{datum." + meta.techname
 					+ "}' searchenabled='true'>");
 			if (isCheckBox) {
 				xml.append("<t:checkbox align='center' selected='.{datum."
 						+ meta.techname + "}' enabled='false'/>");
-			} else {
+			} else if (isCalendarField) {
+				xml.append("<t:calendarfield value='.{datum."
+						+ meta.techname + "}' format='date' timezone='CET' enabled='false'/>");
+			} else {	
 				xml.append("<t:field text='.{datum." + meta.techname
 						+ "}' enabled='false'/>");
 			}

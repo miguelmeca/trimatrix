@@ -18,6 +18,9 @@ public final class UserEntity implements IEntity {
 	public static final String LANGUAGE = "language";
 	public static final String CURRENCY = "currency";
 	public static final String PERSON = "person";
+	public static final String ACTIVE = "active";
+	public static final String INITIAL = "initial";
+	public static final String LOCKED = "locked";
 	
 	// Variables
 	private SQLExecutorService sqlExecutorService;	
@@ -29,14 +32,14 @@ public final class UserEntity implements IEntity {
 	 */
 	public List<SGridMetaData> getGridMetaData() {
         List<SGridMetaData> gridMetaData = new ArrayList<SGridMetaData>();        
-        gridMetaData.add(new SGridMetaData("Benutzername", "user_name", SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("Email", "email", SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("Sprache", "language", SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("W�hrung", "currency", SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("Person", "person", SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("gesperrt", "locked", SGridMetaData.Component.CHECKBOX));
-        gridMetaData.add(new SGridMetaData("initial", "initial", SGridMetaData.Component.CHECKBOX));
-        gridMetaData.add(new SGridMetaData("aktiv", "active", SGridMetaData.Component.CHECKBOX));
+        gridMetaData.add(new SGridMetaData("Benutzername", USER_NAME, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData("Email", EMAIL, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData("Sprache", LANGUAGE, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData("Währung", CURRENCY, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData("Person", PERSON, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData("gesperrt", LOCKED, SGridMetaData.Component.CHECKBOX));
+        gridMetaData.add(new SGridMetaData("initial", INITIAL, SGridMetaData.Component.CHECKBOX));
+        gridMetaData.add(new SGridMetaData("aktiv", ACTIVE, SGridMetaData.Component.CHECKBOX));
         return gridMetaData;
     }
 	
@@ -88,7 +91,7 @@ public final class UserEntity implements IEntity {
 		user.setId(id);
 		// default values
 		user.setActive(false);
-		user.setInitial(true);
+		user.setInitial(false);
 		user.setLocked(false);
 		user.setDeleted(false);
 		user.setTest(false);

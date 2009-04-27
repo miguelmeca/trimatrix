@@ -54,7 +54,16 @@ public class AEntityDetailUI extends MyWorkpageDispatchedBean {
 	
 	protected String m_enabled;
     public String getEnabled() { return m_enabled; }
+    public String getNotEnabled() { 
+    	if (m_enabled.equals(Constants.TRUE)) {
+        	return Constants.FALSE;
+    	} else {
+    		return Constants.TRUE;
+    	}
+    }
     public void setEnabled(String value) { m_enabled = value; }
+    
+    
     
     protected boolean m_enabledBool;
     public boolean getEnabledBool() { return m_enabledBool; }
