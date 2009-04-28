@@ -25,7 +25,7 @@ public final class Dictionary {
 		return locale.getLanguage();
 	}
 
-	public static void setLanguage(Locale locale) {
+	public void setLanguage(Locale locale) {
 		FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
 	}
 

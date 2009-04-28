@@ -2,10 +2,10 @@ package trimatrix.ui;
 
 import org.eclnt.workplace.WorkpageDispatcher;
 
+import trimatrix.db.DAOLayer;
 import trimatrix.logic.LogicLayer;
 import trimatrix.services.ServiceLayer;
 import trimatrix.utils.Context;
-import trimatrix.utils.Dictionary;
 
 /*
  * The dispatcher is references in faces-config.xml. When changing the package
@@ -38,8 +38,8 @@ public class Dispatcher extends WorkpageDispatcher
 	protected ServiceLayer serviceLayer = ServiceLayer.getFromApplicationContext(Context.getInstance());
 	public ServiceLayer getServiceLayer() {	return serviceLayer; }
 	public void setServiceLayer(ServiceLayer serviceLayer) { this.serviceLayer = serviceLayer; }
-
-	protected Dictionary dictionary = Dictionary.getFromApplicationContext(Context.getInstance());
-	public Dictionary getDictionary() { return dictionary; }
-	public void setDictionary(Dictionary dictionary) { this.dictionary = dictionary; }	
+	
+	protected DAOLayer daoLayer = DAOLayer.getFromApplicationContext(Context.getInstance());
+	public DAOLayer getDaoLayer() {	return daoLayer; }
+	public void setDaoLayer(DAOLayer daoLayer) { this.daoLayer = daoLayer; }
 }

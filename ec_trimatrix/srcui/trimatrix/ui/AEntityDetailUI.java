@@ -13,7 +13,6 @@ import trimatrix.utils.Constants;
 public class AEntityDetailUI extends MyWorkpageDispatchedBean {
 
 	protected final String[] MANDATORY_FIELDS;
-	    //private static final Set<String> MANDATORY_SET = new HashSet<String>(Arrays.asList(MANDATORY_FIELDS));
 
 	protected Constants.Mode mode;  
 	protected EntityDetailUI entityDetailUI; 

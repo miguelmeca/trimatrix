@@ -51,7 +51,6 @@ public abstract class EntitySelectionUI extends MyWorkpageDispatchedBean impleme
 
 		@Override
 		public void onRowExecute() {
-			// TODO Auto-generated method stub
 			super.onRowExecute();
 			Statusbar.outputMessage("Entity " + entity.toString() + " selected!");
 			callback.idSelected(entity.getId());

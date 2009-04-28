@@ -5,6 +5,7 @@ import org.eclnt.jsfserver.defaultscreens.ModalPopup.IModalPopupListener;
 import org.eclnt.workplace.IWorkpageDispatcher;
 import org.eclnt.workplace.WorkpageDispatchedBean;
 
+import trimatrix.db.DAOLayer;
 import trimatrix.logic.LogicLayer;
 import trimatrix.services.ServiceLayer;
 import trimatrix.ui.Dispatcher;
@@ -14,7 +15,6 @@ import trimatrix.ui.IEntityDetailUI;
 import trimatrix.ui.PersonSelectionUI;
 import trimatrix.ui.UserDetailUI;
 import trimatrix.ui.UserSelectionUI;
-import trimatrix.utils.Dictionary;
 
 public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements IModalPopupListener{
 
@@ -45,15 +45,15 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 	// ------------------------------------------------------------------------
 	protected ServiceLayer getServiceLayer() {
 		return getOwningDispatcher().getServiceLayer();
-	}
+	}	
 	
 	// ------------------------------------------------------------------------
-	// dictionary access
+	// dao access
 	// ------------------------------------------------------------------------
-	protected Dictionary getDictionary() {
-		return getOwningDispatcher().getDictionary();
-	}
-	
+	protected DAOLayer getDaoLayer() {
+		return getOwningDispatcher().getDaoLayer();
+	}	
+
 	// ------------------------------------------------------------------------
 	// convenience access
 	// ------------------------------------------------------------------------

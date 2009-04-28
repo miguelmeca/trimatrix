@@ -96,7 +96,6 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
     		getWorkpage().setId(id);
         } else {  
         	id = getWorkpage().getId();
-        	// TODO move to Service Layer
         	entityObject = ENTITYLISTLOGIC.getEntity(entity, id);   
         	if(entityObject==null) {
         		Statusbar.outputError("Entity doesn't exist!", "Maybe the entity is marked as deleted!");

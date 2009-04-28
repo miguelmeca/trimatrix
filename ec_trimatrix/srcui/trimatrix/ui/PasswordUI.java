@@ -33,10 +33,15 @@ public class PasswordUI extends MyDispatchedBean implements Serializable
 
     public void onChange(ActionEvent event) {
     	if(!m_newPassword.equals(m_newPassword2)) {
-    		Statusbar.outputError("Passwörter müssen gleich sein!");
+    		Statusbar.outputError("Passwords not the same!");
     		return;
     	}
-    	LOGONLOGIC.changePassword(m_newPassword);
+    	try {
+			LOGONLOGIC.changePassword(m_newPassword);
+		} catch (Exception ex) {
+			Statusbar.outputError("Password couldn't be changed!", ex.toString());
+			return;
+		}
     	// Change succesfull
 		getAroundUI().setContentPage(Constants.Page.WORKPLACE.url());
     }

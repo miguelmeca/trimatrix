@@ -44,6 +44,9 @@
         <property name="sqlExecutorService">
             <ref bean="sqlExecutorService" />
         </property>
+        <property name="dictionaryService">
+            <ref bean="dictionaryService" />            
+        </property>  
     </bean>
     
     <bean id="serviceLayer" class="trimatrix.services.ServiceLayer"
@@ -51,7 +54,10 @@
         dependency-check="default">
         <property name="valueListBindingService">
             <ref bean="valueListBindigService" />
-        </property>    
+        </property>   
+        <property name="dictionaryService">
+            <ref bean="dictionaryService" />
+        </property>   
     </bean>
     
 </beans>

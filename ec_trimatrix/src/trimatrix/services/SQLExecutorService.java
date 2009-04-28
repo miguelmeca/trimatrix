@@ -27,6 +27,7 @@ public class SQLExecutorService {
 	private static final String PERSONENTITYLISTQUERY = "PersonEntityList";
 	private static final String FUNCTIONTREEQUERY = "FunctionTree";
 	private static final String LANGUAGEVALUELISTQUERY = "LanguageValueList";
+	private static final String LOGONLANGUAGEVALUELISTQUERY = "LogonLanguageValueList";
 	
 	private HibernateTransactionManager transactionManager;
 	private Dictionary dictionaryService;
@@ -155,8 +156,9 @@ public class SQLExecutorService {
 		String namedQuery = null;
 		if(valueList==Constants.ValueList.LANGUAGE) {
 			namedQuery = LANGUAGEVALUELISTQUERY;
-		}
-		if(namedQuery==null) {
+		} else if (valueList==Constants.ValueList.LOGONLANGUAGE) {
+			namedQuery = LOGONLANGUAGEVALUELISTQUERY;
+		} else {
 			Dictionary.logger.warn("Valuelist not found: " + valueList.name());
 			return list;
 		}

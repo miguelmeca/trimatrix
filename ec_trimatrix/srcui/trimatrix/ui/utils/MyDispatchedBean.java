@@ -8,8 +8,6 @@ import trimatrix.ui.AroundUI;
 import trimatrix.ui.Dispatcher;
 import trimatrix.ui.LogonUI;
 import trimatrix.ui.PasswordUI;
-import trimatrix.ui.UserSelectionUI;
-import trimatrix.utils.Dictionary;
 
 
 @SuppressWarnings("serial")
@@ -31,13 +29,6 @@ public class MyDispatchedBean extends DefaultDispatchedBean {
 		return getOwningDispatcher().getLogicLayer();
 	}
 	
-	// ------------------------------------------------------------------------
-	// dictionary access
-	// ------------------------------------------------------------------------
-	protected Dictionary getDictionary() {
-		return getOwningDispatcher().getDictionary();
-	}
-
 	// ------------------------------------------------------------------------
 	// convenience access
 	// ------------------------------------------------------------------------

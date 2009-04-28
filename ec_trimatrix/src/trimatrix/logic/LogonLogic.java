@@ -6,23 +6,18 @@ import java.util.Set;
 
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 
-import trimatrix.db.IUsersDAO;
-import trimatrix.db.KLanguages;
-import trimatrix.db.KLanguagesDAO;
+import trimatrix.db.DAOLayer;
 import trimatrix.db.KRoles;
 import trimatrix.db.Users;
-import trimatrix.services.TranslationService;
-import trimatrix.utils.Dictionary;
+import trimatrix.services.ServiceLayer;
+import trimatrix.utils.Constants;
 
 public class LogonLogic {
-	private IUsersDAO usersDAO;
-	private KLanguagesDAO languagesDAO;
-	private TranslationService translationService;
-	private Dictionary dictionaryService;
+	private ServiceLayer serviceLayer;
+	private DAOLayer daoLayer;
 
 	public boolean logon(String username, String password) {
-		// TODO use Entities
-		List<Users> users = usersDAO.findByProperty("userName", username);
+		List<Users> users = daoLayer.getUsersDAO().findByProperty("userName", username);
 		if(users.size()==0) {
 			return false;
 		}		
@@ -35,7 +30,7 @@ public class LogonLogic {
 		if(!password.equals(user.getUserHash())) {
 			return false;
 		}
-		dictionaryService.setMyUser(user);
+		serviceLayer.getDictionaryService().setMyUser(user);
 		// get relevant roles
 		Set<KRoles> roles = user.getRoles();
 		if(roles == null || roles.isEmpty()) {
@@ -43,11 +38,11 @@ public class LogonLogic {
 		}
 		// set role
 		for (KRoles role : roles) {
-			dictionaryService.setMyRole(role.getKey());
+			serviceLayer.getDictionaryService().setMyRole(role.getKey());
 			break;
 		}
 		// TODO remove
-		dictionaryService.setMyRole("admin");
+		serviceLayer.getDictionaryService().setMyRole("admin");
 		return true;
 	}
 	
@@ -61,47 +56,33 @@ public class LogonLogic {
     		} else {
     			return;
     		}
-    		Dictionary.setLanguage(locale);
+    		serviceLayer.getDictionaryService().setLanguage(locale);
     	}
 	}
-	// TODO use ValueListBindingService
-	public ValidValuesBinding getLogonLanguages(String language) {
-		ValidValuesBinding vvb = new ValidValuesBinding();
-		List<KLanguages> klanguages = languagesDAO.findByProperty("logon", true);
-		for (KLanguages klanguage : klanguages) {
-			vvb.addValidValue(klanguage.getKey(), translationService.getDescriptionFromDB(klanguage.getKey(), TranslationService.LANGUAGES, language));
-		}
-		return vvb;
+
+	public ValidValuesBinding getLogonLanguages() {
+		return serviceLayer.getValueListBindingService().getVVBinding(Constants.ValueList.LOGONLANGUAGE);
 	}
 	
 	public boolean isUserInitial() {
-		return dictionaryService.getMyUser().getInitial();
+		return serviceLayer.getDictionaryService().getMyUser().getInitial();
 	}
 	
 	public boolean isUserLocked() {
-		return dictionaryService.getMyUser().getLocked();
+		return serviceLayer.getDictionaryService().getMyUser().getLocked();
 	}
 	
-	public void changePassword(String password) {
-		dictionaryService.getMyUser().setUserHash(password);
-		dictionaryService.getMyUser().setInitial(false);
-		usersDAO.merge(dictionaryService.getMyUser());
+	public void changePassword(String password) throws Exception {
+		serviceLayer.getDictionaryService().getMyUser().setUserHash(password);
+		serviceLayer.getDictionaryService().getMyUser().setInitial(false);
+		daoLayer.getUsersDAO().merge(serviceLayer.getDictionaryService().getMyUser());
 	}
-	
-	public void setUsersDAO(IUsersDAO usersDAO) {
-		this.usersDAO = usersDAO;
+		
+	public void setServiceLayer(ServiceLayer serviceLayer) {
+		this.serviceLayer = serviceLayer;
 	}
-	
-	public void setLanguagesDAO(KLanguagesDAO languagesDAO) {
-		this.languagesDAO = languagesDAO;
-	}
-	
-	public void setTranslationService(TranslationService translationService) {
-		this.translationService = translationService;
+
+	public void setDaoLayer(DAOLayer daoLayer) {
+		this.daoLayer = daoLayer;
 	}	
-
-	public void setDictionaryService(Dictionary dictionary) {
-		this.dictionaryService = dictionary;
-	}
-
 }
