@@ -26,7 +26,7 @@ public final class Constants {
 	}
 	// all value lists
 	public static enum ValueList {
-		LANGUAGE, CURRENCY
+		LANGUAGE, CURRENCY, LOGONLANGUAGE
 	}
 	
 	// modes

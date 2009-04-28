@@ -7,6 +7,8 @@ import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
+import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
+import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoCancelListener;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
@@ -25,7 +27,7 @@ import trimatrix.utils.MailSender;
 
 public class UserDetailUI extends AEntityDetailUI implements Serializable, IEntityDetailUI
 {    
-	protected ValidValuesBinding m_languagesVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.LANGUAGE, getDictionary().getLanguage());
+	protected ValidValuesBinding m_languagesVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.LANGUAGE);
     public ValidValuesBinding getLanguagesVvb() { return m_languagesVvb; }
     public void setLanguagesVvb(ValidValuesBinding value) { m_languagesVvb = value; }
   	
@@ -143,20 +145,32 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable, IEnti
 	}
 	
 	public void onSendGeneratedPassword(ActionEvent event) {
-		// TODO yes no popup
-		String password = UUID.randomUUID().toString().substring(24);
-		entity.setInitial(true);
-		entity.setLocked(false);
-		entity.setUserHash(password);
-		try {
-			validate();
-			ENTITYLISTLOGIC.saveEntity(Constants.Entity.USER, entity);
-			String receiver = entity.getEmail();
-			String message = "Hello Trimatrix User, \n a new password " + password + " is generated for your user " + entity.getUserName() + ". \n\n regards your Trimatrix Team"; 
-			MailSender.postMail(new String[] {receiver}, "New password generated", message );
-			Statusbar.outputSuccess("Password successfully send to " + receiver);
-		} catch (Exception ex) {
-			Statusbar.outputError("Password couldn't be generated/sent!", ex.toString());
-		} 			
+		YESNOPopup.createInstance(
+				"Generate password", 
+				"Do you really want to generate a new password and send this to the user?", 
+				new IYesNoCancelListener(){
+
+					public void reactOnCancel() {}
+
+					public void reactOnNo() {}
+
+					public void reactOnYes() {						
+						String password = UUID.randomUUID().toString().substring(24);
+						entity.setInitial(true);
+						entity.setLocked(false);
+						entity.setUserHash(password);
+						try {
+							validate();
+							ENTITYLISTLOGIC.saveEntity(Constants.Entity.USER, entity);
+							String receiver = entity.getEmail();
+							String message = "Hello Trimatrix User, \n a new password " + password + " is generated for your user " + entity.getUserName() + ". \n\n regards your Trimatrix Team"; 
+							MailSender.postMail(new String[] {receiver}, "New password generated", message );
+							Statusbar.outputSuccess("Password successfully send to " + receiver);
+						} catch (Exception ex) {
+							Statusbar.outputError("Password couldn't be generated/sent!", ex.toString());
+						} 							
+					}						
+				}
+		);						
 	}
 }

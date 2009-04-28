@@ -62,7 +62,6 @@ public class UserSelectionUI extends MyWorkpageDispatchedBean implements Seriali
 
 		@Override
 		public void onRowExecute() {
-			// TODO Auto-generated method stub
 			super.onRowExecute();
 			Statusbar.outputMessage("User " + user.getUser_name() + " selected!");
 		}

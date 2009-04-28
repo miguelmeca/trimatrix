@@ -6,18 +6,12 @@
 	<bean id="logonLogic" class="trimatrix.logic.LogonLogic"
         abstract="false" lazy-init="default" autowire="default"
         dependency-check="default">
-        <property name="usersDAO">
-            <ref bean="UsersDAO" />
+        <property name="daoLayer">
+            <ref bean="daoLayer" />
         </property>
-        <property name="languagesDAO">
-            <ref bean="KLanguagesDAO" />
-        </property>
-        <property name="translationService">
-            <ref bean="translationService" />
-        </property>
-        <property name="dictionaryService">
-            <ref bean="dictionaryService" />            
-        </property>  
+        <property name="serviceLayer">
+            <ref bean="serviceLayer" />            
+        </property> 
     </bean>
     
     <bean id="entityListLogic" class="trimatrix.logic.EntityListLogic"

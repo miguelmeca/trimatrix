@@ -13,17 +13,13 @@ import org.eclnt.jsfserver.managedbean.IDispatcher;
 import trimatrix.logic.LogonLogic;
 import trimatrix.ui.utils.MyDispatchedBean;
 import trimatrix.utils.Constants;
-import trimatrix.utils.Dictionary;
 
 @SuppressWarnings("serial")
 @CCGenClass (expressionBase="#{d.LogonUI}")
 
 public class LogonUI extends MyDispatchedBean implements Serializable
 {
-	// TODO refactor access structure
 	private final LogonLogic LOGONLOGIC = getLogic().getLogonLogic();
-	private final Dictionary DICTIONARY = getDictionary();
-	protected ValidValuesBinding m_languageVvb = LOGONLOGIC.getLogonLanguages(DICTIONARY.getLanguage());	
 	
 	public LogonUI(IDispatcher dispatcher)
     {
@@ -31,13 +27,13 @@ public class LogonUI extends MyDispatchedBean implements Serializable
     }  
 
 	public void onLogon(ActionEvent event) {
-		// TODO integrate certain returncodes for locked, initial and inactive
 		if(m_user == null || m_password == null) {
 			Statusbar.outputError("Not all mandatory fields filled!");			
 			return;
 		}
+		// logon
 		if(!LOGONLOGIC.logon(m_user, m_password)) {
-			Statusbar.outputError("Logon not successfull!");
+			Statusbar.outputError("Logon not successful!");
 			return;
 		}
 		// check if locked
@@ -45,7 +41,7 @@ public class LogonUI extends MyDispatchedBean implements Serializable
 			Statusbar.outputError("User is locked!");
 			return;
 		}
-		// Logon succesfull
+		// logon successful
 		if(LOGONLOGIC.isUserInitial()) {
 			getAroundUI().setContentPage(Constants.Page.PASSWORD.url());
 		} else {
@@ -59,10 +55,10 @@ public class LogonUI extends MyDispatchedBean implements Serializable
 			return;
 		}
 		if(!LOGONLOGIC.logon(m_user, m_password)) {
-			Statusbar.outputError("Logon not successfull!");
+			Statusbar.outputError("Logon not successful!");
 			return;
 		}
-		// Logon succesfull
+		// logon succesfull
 		getAroundUI().setContentPage(Constants.Page.PASSWORD.url());
     }
 	
@@ -70,11 +66,9 @@ public class LogonUI extends MyDispatchedBean implements Serializable
     	if(event instanceof BaseActionEventFlush){
     		LOGONLOGIC.changeLanguage(m_language);
     	}    
-    	m_languageVvb = LOGONLOGIC.getLogonLanguages(DICTIONARY.getLanguage());	
     }
     
-	public ValidValuesBinding getLanguageVvb() { return m_languageVvb; }
-    public void setLanguageVvb(ValidValuesBinding value) { m_languageVvb = value; }
+	public ValidValuesBinding getLanguageVvb() { return LOGONLOGIC.getLogonLanguages(); }
     
     protected String m_password;
     public String getPassword() { return m_password; }
