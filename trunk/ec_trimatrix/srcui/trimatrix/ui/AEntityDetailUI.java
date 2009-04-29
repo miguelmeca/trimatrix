@@ -3,6 +3,7 @@ package trimatrix.ui;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.exceptions.MandatoryCheckException;
@@ -44,10 +45,8 @@ public class AEntityDetailUI extends MyWorkpageDispatchedBean {
         // enabled?
         if (mode == Constants.Mode.SHOW) {
         	m_enabled = Constants.FALSE;
-        	m_enabledBool = false;
         } else {
         	m_enabled = Constants.TRUE;
-        	m_enabledBool = true;
         }
 	}
 	
@@ -59,14 +58,16 @@ public class AEntityDetailUI extends MyWorkpageDispatchedBean {
     	} else {
     		return Constants.TRUE;
     	}
+    }      
+    public boolean getEnabledBool() {
+    	if (m_enabled.equals(Constants.TRUE)) {
+    		Statusbar.outputMessage("Enabled is true!");
+        	return true;
+    	} else {
+    		Statusbar.outputMessage("Enabled is false!");
+    		return false;    		
+    	}
     }
-    public void setEnabled(String value) { m_enabled = value; }
-    
-    
-    
-    protected boolean m_enabledBool;
-    public boolean getEnabledBool() { return m_enabledBool; }
-    public void setEnabledBool(boolean value) { m_enabledBool = value; }
 	
 	public Map<String, String> getBgpaint() {
 		return bgpaint;
