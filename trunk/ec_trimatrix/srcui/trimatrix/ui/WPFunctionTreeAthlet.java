@@ -14,7 +14,7 @@ import trimatrix.utils.Context;
 
 @SuppressWarnings("serial")
 public class WPFunctionTreeAthlet extends WorkplaceFunctionTree {
-	private static final Constants.Role role = Constants.Role.ATHLET;
+	private static final Constants.Role role = Constants.Role.ATHLETE;
 	
 	public WPFunctionTreeAthlet(IDispatcher owner) {
 		super(owner);
@@ -34,8 +34,10 @@ public class WPFunctionTreeAthlet extends WorkplaceFunctionTree {
 			// topnode?
 			if(functionTree.parent==0) {
 				node = new FunctionNode(getFtree().getRootNode());
+				node.setStatus(FunctionNode.STATUS_ENDNODE);
 			} else {
 				FunctionNode parentNode = functionNodeMap.get(functionTree.parent);
+				parentNode.setStatus(FunctionNode.STATUS_CLOSED);
 				if(functionTree.page != null && functionTree.page.length() > 0) {
 					Constants.Page page = Constants.Page.valueOf(functionTree.page);
 					node = new FunctionNode(parentNode, page.url());

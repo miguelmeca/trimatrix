@@ -13,10 +13,10 @@ import trimatrix.utils.Constants;
 import trimatrix.utils.Context;
 
 @SuppressWarnings("serial")
-public class WPFunctionTreeTrainer extends WorkplaceFunctionTree {
-	private static final Constants.Role role = Constants.Role.TRAINER;
+public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
+	private static final Constants.Role role = Constants.Role.COACH;
 	
-	public WPFunctionTreeTrainer(IDispatcher owner) {
+	public WPFunctionTreeCoach(IDispatcher owner) {
 		super(owner);
 	}	
 	
