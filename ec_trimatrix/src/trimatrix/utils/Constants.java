@@ -26,7 +26,7 @@ public final class Constants {
 	}
 	// all roles
 	public static enum Role {
-		ADMIN(0,"admin"), TRAINER(1,"trainer"), ATHLET(2,"athlet");
+		ADMIN(0,"admin"), COACH(1,"coach"), ATHLETE(2,"athlete");
 		private int id;
 		private String name;
 		Role(int id, String name) {
