@@ -39,12 +39,12 @@ public class SQLExecutorService {
 	 * @return functiontree
 	 */
 	@SuppressWarnings("unchecked")
-	public List<SFunctionTree> getFunctionTree(String role_key, String lang_key) {
+	public List<SFunctionTree> getFunctionTree(Constants.Role role, String lang_key) {
 		List<SFunctionTree> data = new ArrayList<SFunctionTree>();
 		SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Query query = session.getNamedQuery(FUNCTIONTREEQUERY);
-		query.setString("p_role_key", role_key);
+		query.setString("p_role_key", role.getName());
 		query.setString("p_lang_key", lang_key);
 		List<Object[]> result = query.list();
 		for(Object[] line : result) {
@@ -66,8 +66,8 @@ public class SQLExecutorService {
 		return data;
 	}
 	
-	public List<SFunctionTree> getFunctionTree() {
-		return getFunctionTree(dictionaryService.getMyRole(), dictionaryService.getLanguage());
+	public List<SFunctionTree> getFunctionTree(Constants.Role role) {
+		return getFunctionTree(role, dictionaryService.getLanguage());
 	}
 	
 	/**

@@ -13,12 +13,13 @@ import trimatrix.utils.Constants;
 import trimatrix.utils.Context;
 
 @SuppressWarnings("serial")
-public class WPFunctionTreeComponents extends WorkplaceFunctionTree {
-
-	public WPFunctionTreeComponents(IDispatcher owner) {
+public class WPFunctionTreeAdmin extends WorkplaceFunctionTree {
+	private static final Constants.Role role = Constants.Role.ADMIN;
+	
+	public WPFunctionTreeAdmin(IDispatcher owner) {
 		super(owner);
-	}
-
+	}	
+	
 	@Override
 	protected void loadFunctionTree() {
 		// reset functiontree
@@ -26,7 +27,7 @@ public class WPFunctionTreeComponents extends WorkplaceFunctionTree {
 		
 		Map<Integer, FunctionNode> functionNodeMap = new HashMap<Integer, FunctionNode>();
 		SQLExecutorService sqlExecutorService = SQLExecutorService.getFromApplicationContext(Context.getInstance());
-		List<SFunctionTree> functionTreeList = sqlExecutorService.getFunctionTree();
+		List<SFunctionTree> functionTreeList = sqlExecutorService.getFunctionTree(role);
 		
 		for (SFunctionTree functionTree : functionTreeList) {
 			FunctionNode node;

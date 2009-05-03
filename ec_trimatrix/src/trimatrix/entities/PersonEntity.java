@@ -5,8 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.orm.hibernate3.HibernateTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.TransactionCallback;
+import org.springframework.transaction.support.TransactionCallbackWithoutResult;
+import org.springframework.transaction.support.TransactionTemplate;
+
 import trimatrix.db.IPersonsDAO;
+import trimatrix.db.IUsersDAO;
 import trimatrix.db.Persons;
+import trimatrix.db.Users;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
@@ -24,6 +32,8 @@ public final class PersonEntity implements IEntity {
 	private SQLExecutorService sqlExecutorService;
 	private Dictionary dictionaryService;
 	private IPersonsDAO personsDAO;
+	private IUsersDAO usersDAO;
+	private HibernateTransactionManager transactionManager;
 		
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IUserEntity#getGridMetaData()
@@ -48,16 +58,32 @@ public final class PersonEntity implements IEntity {
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#delete(java.lang.String)
 	 */
-	public boolean delete(String id) {
-		Persons person = personsDAO.findById(id);
-		if(person==null) return false;
-		person.setDeleted(true);
-		try {
-			personsDAO.merge(person);
-		} catch (Exception ex) {
-			return false;
-		}
-		return true;
+	public boolean delete(final String id) {
+		// all in one transaction		
+		final TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
+		Boolean result = (Boolean)transactionTemplate.execute(new TransactionCallback() {
+			public Object doInTransaction(TransactionStatus status) {
+				try {
+					Persons person = personsDAO.findById(id);
+					if(person==null) return false;
+					person.setDeleted(true);
+						personsDAO.merge(person);					
+					// delete relationships
+					List<Users> users = usersDAO.findByProperty(UserEntity.PERSON, person);
+					for(Users user : users) {
+						user.setPerson(null);
+						usersDAO.merge(user);
+					}					
+				} catch (Exception ex) {
+					status.setRollbackOnly();
+					return false;
+				}				
+				Dictionary.logger.info("PersonEntity : Deletion of person successful => " + id );
+				return true;
+			}
+			
+		});		
+		return result;
 	}
 	
 	/* (non-Javadoc)
@@ -349,9 +375,17 @@ public final class PersonEntity implements IEntity {
 	
 	public void setDictionaryService(Dictionary dictionaryService) {
 		this.dictionaryService = dictionaryService;
-	}
+	}	
 	
+	public void setTransactionManager(HibernateTransactionManager transactionManager) {
+		this.transactionManager = transactionManager;
+	}
+
 	public void setPersonsDAO(IPersonsDAO personsDAO) {
 		this.personsDAO = personsDAO;
 	}
+
+	public void setUsersDAO(IUsersDAO usersDAO) {
+		this.usersDAO = usersDAO;
+	}	
 }

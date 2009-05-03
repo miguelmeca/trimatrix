@@ -1,5 +1,6 @@
 package trimatrix.logic;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -36,13 +37,12 @@ public class LogonLogic {
 		if(roles == null || roles.isEmpty()) {
 			return false;
 		}
-		// set role
+		// set role		
+		List<String> myRoles = new ArrayList<String>();
 		for (KRoles role : roles) {
-			serviceLayer.getDictionaryService().setMyRole(role.getKey());
-			break;
+			myRoles.add(role.getKey());
 		}
-		// TODO remove
-		serviceLayer.getDictionaryService().setMyRole("admin");
+		serviceLayer.getDictionaryService().setMyRoles(myRoles);
 		return true;
 	}
 	

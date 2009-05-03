@@ -34,6 +34,7 @@ import trimatrix.db.RolesHaveFunctionnodes;
 import trimatrix.db.Users;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SFunctionTree;
+import trimatrix.utils.Constants;
 import trimatrix.utils.ContextStatic;
 
 public class DBConnectionTest {
@@ -148,7 +149,7 @@ public class DBConnectionTest {
 		SQLExecutorService sqlExecutorService = SQLExecutorService
 				.getFromApplicationContext(context);
 		List<SFunctionTree> functionTree = sqlExecutorService.getFunctionTree(
-				"admin", "en");
+				Constants.Role.ADMIN, "en");
 		System.out.println(functionTree.size());
 	}	
 	
