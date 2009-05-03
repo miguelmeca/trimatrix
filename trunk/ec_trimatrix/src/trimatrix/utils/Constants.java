@@ -24,10 +24,24 @@ public final class Constants {
 	public static enum Entity {
 		USER, PERSON
 	}
+	// all roles
+	public static enum Role {
+		ADMIN(0,"admin"), TRAINER(1,"trainer"), ATHLET(2,"athlet");
+		private int id;
+		private String name;
+		Role(int id, String name) {
+			this.id = id;
+			this.name = name;
+		}
+		public int getId() { return id; }
+		public String getName() { return name; }
+	}
 	// all value lists
 	public static enum ValueList {
 		LANGUAGE, CURRENCY, LOGONLANGUAGE
 	}
+	
+	
 	
 	// modes
 	public static enum Mode {

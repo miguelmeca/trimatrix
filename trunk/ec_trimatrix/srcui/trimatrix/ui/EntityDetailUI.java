@@ -8,6 +8,7 @@ import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoCancelListener;
+import org.eclnt.jsfserver.elements.impl.BUTTONComponent;
 import org.eclnt.workplace.IWorkpage;
 import org.eclnt.workplace.IWorkpageContainer;
 import org.eclnt.workplace.IWorkpageDispatcher;
@@ -187,6 +188,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 		wp.setParam(Constants.P_ENTITY, entity.name());
 		wp.setParam(Constants.P_MODE, Constants.Mode.NEW.name());
 		wpc.addWorkpage(wp);
+		
 	}
 	
 	private void changeMode(Constants.Mode mode) {

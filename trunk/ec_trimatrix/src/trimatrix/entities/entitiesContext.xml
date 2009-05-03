@@ -26,8 +26,14 @@
         <property name="dictionaryService">
             <ref bean="dictionaryService" />
         </property>
+        <property name="transactionManager">
+            <ref bean="transactionManager" />
+        </property>
         <property name="personsDAO">
             <ref bean="PersonsDAO" />
+        </property>
+        <property name="usersDAO">
+            <ref bean="UsersDAO" />
         </property>
     </bean>
     

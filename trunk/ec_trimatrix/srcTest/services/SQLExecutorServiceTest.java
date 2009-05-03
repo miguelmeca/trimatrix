@@ -10,6 +10,7 @@ import org.springframework.context.ApplicationContext;
 import trimatrix.entities.IEntityData;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SFunctionTree;
+import trimatrix.utils.Constants;
 import trimatrix.utils.ContextStatic;
 
 
@@ -26,7 +27,7 @@ public class SQLExecutorServiceTest {
 	
 	@Test
 	public void testFunctionTreeQuery() {		
-		List<SFunctionTree> functionTree = sqlExecutorService.getFunctionTree("admin", "de");
+		List<SFunctionTree> functionTree = sqlExecutorService.getFunctionTree(Constants.Role.ADMIN, "de");
 		Assert.assertTrue(functionTree.size() > 0);
 	}
 }

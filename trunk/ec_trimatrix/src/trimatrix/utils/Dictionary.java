@@ -1,5 +1,6 @@
 package trimatrix.utils;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,7 +18,7 @@ public final class Dictionary {
 	// actual user logged on
 	private Users myUser;
 	// actual role
-	private String myRole;
+	private List<String> myRoles;
 
 	public String getLanguage() {
 		Locale locale = FacesContext.getCurrentInstance().getViewRoot()
@@ -64,12 +65,12 @@ public final class Dictionary {
 		this.myUser = myUser;
 	}
 
-	public String getMyRole() {
-		return myRole;
+	public List<String> getMyRoles() {
+		return myRoles;
 	}
 
-	public void setMyRole(String myRole) {
-		this.myRole = myRole;
+	public void setMyRoles(List<String> myRoles) {
+		this.myRoles = myRoles;
 	}
 
 	public static Dictionary getFromApplicationContext(ApplicationContext ctx) {

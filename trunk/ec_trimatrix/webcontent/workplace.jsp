@@ -19,17 +19,28 @@
 <t:splitpane id="g_5" height="100%" width="100%" >
 <t:splitpanesplit id="g_6" padding="1" rowdistance="35" >
 <t:rowdistance id="g_7" />
-<t:rowworkplacefunctiontree id="g_8" foreground="#000000" objectbinding="#{d.WPFunctionTreeComponents}" treenodebgpaint="border(0,0,100%,100%,#C0C0C0,2)" />
+<t:row id="g_8" >
+<t:outlookbar id="g_9" height="100%" width="100" >
+<t:outlookbaritem id="g_10" actionListener="#{d.WorkplaceUI.onSwitchRole}" clientname="admin" text="#{rr.literals.role_admin}" />
+<t:outlookbarcontent id="g_11" >
+<t:rowworkplacefunctiontree id="g_12" foreground="#000000" objectbinding="#{d.WPFunctionTreeAdmin}" rendered="#{d.WorkplaceUI.selectedRole == 0}" treenodebgpaint="border(0,0,100%,100%,#C0C0C0,2)" />
+<t:rowworkplacefunctiontree id="g_13" objectbinding="#{d.WPFunctionTreeTrainer}" rendered="#{d.WorkplaceUI.selectedRole == 1}" />
+<t:rowworkplacefunctiontree id="g_14" objectbinding="#{d.WPFunctionTreeAthlet}" rendered="#{d.WorkplaceUI.selectedRole == 2}" />
+</t:outlookbarcontent>
+<t:outlookbaritem id="g_15" actionListener="#{d.WorkplaceUI.onSwitchRole}" clientname="trainer" text="#{rr.literals.role_trainer}" />
+<t:outlookbaritem id="g_16" actionListener="#{d.WorkplaceUI.onSwitchRole}" clientname="athlet" text="#{rr.literals.role_athlet}" />
+</t:outlookbar>
+</t:row>
 </t:splitpanesplit>
-<t:splitpanesplit id="g_9" >
-<t:rowworkpagecontainer id="g_10" animationtype="foglight" objectbinding="#{d.workpageContainer}" />
+<t:splitpanesplit id="g_17" >
+<t:rowworkpagecontainer id="g_18" animationtype="foglight" objectbinding="#{d.workpageContainer}" />
 </t:splitpanesplit>
 </t:splitpane>
 </t:row>
 </t:rowbodypane>
-<t:row id="g_11" >
-<t:pane id="g_12" >
-<t:rowworkpageselector id="g_13" objectbinding="#{d.workpageContainer}" />
+<t:row id="g_19" >
+<t:pane id="g_20" >
+<t:rowworkpageselector id="g_21" objectbinding="#{d.workpageContainer}" />
 </t:pane>
 </t:row>
 <t:pageaddons id="g_pa"/>
