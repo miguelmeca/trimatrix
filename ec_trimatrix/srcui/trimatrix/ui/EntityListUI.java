@@ -18,6 +18,7 @@ import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.entities.IEntityData;
 import trimatrix.logic.EntityListLogic;
+import trimatrix.structures.SAuthorization;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.ui.utils.MyWorkpage;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
@@ -26,7 +27,7 @@ import trimatrix.utils.Constants;
 @SuppressWarnings("serial")
 @CCGenClass(expressionBase = "#{d.EntityListUI}")
 public class EntityListUI extends MyWorkpageDispatchedBean implements
-		Serializable {   
+		Serializable {
 
 	public final EntityListUI entityList = this;
 	private final EntityListLogic ENTITYLISTLOGIC = getLogic()
@@ -34,11 +35,24 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 	private List<SGridMetaData> gridMetaData;
 	private List<IEntityData> gridData;
 	private Constants.Entity entity;
+	private SAuthorization authorization;
+	public boolean getCreateAllowed() { return authorization.create; }
+	public boolean getDeleteAllowed() { return authorization.delete; }
+	public boolean getChangeAllowed() { return authorization.change; }
 
 	// Constructor
 	public EntityListUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
 		// get parameters from functiontree
+		// get authorization
+		String create = getWorkpage().getParam(Constants.CREATE);
+		String change = getWorkpage().getParam(Constants.CHANGE);
+		String delete = getWorkpage().getParam(Constants.DELETE);
+		if(create==null || !create.equals(Constants.TRUE)) create = Constants.FALSE;
+		if(change==null || !change.equals(Constants.TRUE)) change = Constants.FALSE;
+		if(delete==null || !delete.equals(Constants.TRUE)) delete = Constants.FALSE;
+		authorization = new SAuthorization(create, change, delete);	
+		// get entity
 		String strEntity = getWorkpage().getParam(Constants.P_ENTITY);
 		try {
 			entity = Constants.Entity.valueOf(strEntity.toUpperCase());
@@ -112,7 +126,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 		IWorkpageDispatcher wpd = getOwningDispatcher();
 		IWorkpageContainer wpc = getWorkpageContainer();
 		IWorkpage wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.url(),
-				null, "New entity", null, true, entityList);
+				null, "New entity", null, true, entityList, authorization);
 		wp.setParam(Constants.P_ENTITY, entity.name());
 		wp.setParam(Constants.P_MODE, Constants.Mode.NEW.name());
 		wpc.addWorkpage(wp);
@@ -182,7 +196,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 			IWorkpageDispatcher wpd = getOwningDispatcher();
 			IWorkpageContainer wpc = getWorkpageContainer();
 			IWorkpage wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.url(),
-					datum.getId(), datum.toString(), null, true, entityList);
+					datum.getId(), datum.toString(), null, true, entityList, authorization);
 			wp.setParam(Constants.P_ENTITY, entity.name());
 			wp.setParam(Constants.P_MODE, Constants.Mode.SHOW.name());			
 			wpc.addWorkpage(wp);

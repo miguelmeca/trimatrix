@@ -13,15 +13,15 @@
 <f:subview id="entitydetailg_sv">
 <t:rowdistance id="g_1" />
 <t:row id="g_2" >
-<t:button id="g_3" actionListener="#{d.EntityDetailUI.onNew}" rendered="#{d.EntityDetailUI.renderNewButton}" text="#{rr.literals.new}" />
+<t:button id="g_3" actionListener="#{d.EntityDetailUI.onNew}" enabled="#{d.EntityDetailUI.createAllowed}" rendered="#{d.EntityDetailUI.renderNewButton}" text="#{rr.literals.new}" />
 <t:coldistance id="g_4" width="3" />
-<t:button id="g_5" actionListener="#{d.EntityDetailUI.onEdit}" rendered="#{d.EntityDetailUI.renderEditButton}" text="#{rr.literals.edit}" />
+<t:button id="g_5" actionListener="#{d.EntityDetailUI.onEdit}" enabled="#{d.EntityDetailUI.changeAllowed}" rendered="#{d.EntityDetailUI.renderEditButton}" text="#{rr.literals.edit}" />
 <t:coldistance id="g_6" width="3" />
 <t:button id="g_7" actionListener="#{d.EntityDetailUI.onSave}" rendered="#{d.EntityDetailUI.renderSaveButton}" text="#{rr.literals.save}" />
 <t:coldistance id="g_8" width="3" />
 <t:button id="g_9" actionListener="#{d.EntityDetailUI.onCancel}" rendered="#{d.EntityDetailUI.renderCancelButton}" text="#{rr.literals.cancel}" />
 <t:coldistance id="g_10" width="100%" />
-<t:button id="g_11" actionListener="#{d.EntityDetailUI.onDelete}" rendered="#{d.EntityDetailUI.renderDeleteButton}" text="#{rr.literals.delete}" />
+<t:button id="g_11" actionListener="#{d.EntityDetailUI.onDelete}" enabled="#{d.EntityDetailUI.deleteAllowed}" rendered="#{d.EntityDetailUI.renderDeleteButton}" text="#{rr.literals.delete}" />
 </t:row>
 <t:rowdistance id="g_12" />
 <t:rowinclude id="g_13" page="#{d.EntityDetailUI.entityDetailPage}" />

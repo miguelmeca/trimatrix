@@ -7,7 +7,6 @@ import java.util.Date;
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
-import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.elements.events.BaseActionEventUpload;
 import org.eclnt.workplace.IWorkpageDispatcher;
 

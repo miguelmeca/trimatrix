@@ -14,9 +14,9 @@
 <t:row id="g_1" >
 <t:pane id="g_2" >
 <t:row id="g_3" >
-<t:button id="g_4" actionListener="#{d.EntityListUI.onNew}" text="#{rr.literals.new}" />
+<t:button id="g_4" actionListener="#{d.EntityListUI.onNew}" enabled="#{d.EntityListUI.createAllowed}" text="#{rr.literals.new}" />
 <t:coldistance id="g_5" />
-<t:button id="g_6" actionListener="#{d.EntityListUI.onDelete}" text="#{rr.literals.delete}" />
+<t:button id="g_6" actionListener="#{d.EntityListUI.onDelete}" enabled="#{d.EntityListUI.deleteAllowed}" text="#{rr.literals.delete}" />
 </t:row>
 </t:pane>
 </t:row>

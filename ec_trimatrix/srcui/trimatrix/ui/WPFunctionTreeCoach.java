@@ -46,7 +46,20 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 					}
 				} else {
 					node = new FunctionNode(parentNode);
-				}							
+				}		
+				// authorization
+				node.setParam(Constants.CREATE, Constants.FALSE);
+				if(functionTree.create) {
+					node.setParam(Constants.CREATE, Constants.TRUE);
+				}
+				node.setParam(Constants.CHANGE, Constants.FALSE);
+				if(functionTree.edit) {
+					node.setParam(Constants.CHANGE, Constants.TRUE);
+				}
+				node.setParam(Constants.DELETE, Constants.FALSE);
+				if(functionTree.delete) {
+					node.setParam(Constants.DELETE, Constants.TRUE);
+				}
 			}
 			node.setText(functionTree.description);
 			// build map

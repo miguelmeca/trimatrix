@@ -8,7 +8,6 @@ import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoCancelListener;
-import org.eclnt.jsfserver.elements.impl.BUTTONComponent;
 import org.eclnt.workplace.IWorkpage;
 import org.eclnt.workplace.IWorkpageContainer;
 import org.eclnt.workplace.IWorkpageDispatcher;
@@ -18,6 +17,7 @@ import trimatrix.entities.IEntityObject;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
 import trimatrix.logic.EntityListLogic;
+import trimatrix.structures.SAuthorization;
 import trimatrix.ui.utils.MyWorkpage;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
@@ -37,6 +37,11 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 	public void setEntityObject(IEntityObject entityObject) { this.entityObject = entityObject; }
 	
 	private Object parentBean;
+	
+	private SAuthorization authorization;
+	public boolean getCreateAllowed() { return authorization.create; }
+	public boolean getDeleteAllowed() { return authorization.delete; }
+	public boolean getChangeAllowed() { return authorization.change; }
 	
 	private String id;
 	public String getId() { return id; }
@@ -69,19 +74,32 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
         	Statusbar.outputError("No or wrong entity set", "For list view processing an entity has to be set by the functiontreenode!");
         	getWorkpageContainer().closeWorkpage(getWorkpage());
         }
-        // parent bean
+        // a instance of MyWorkpage
         IWorkpage wp = getWorkpage();
         if (wp instanceof MyWorkpage) {
+        	// parent bean
         	parentBean = ((MyWorkpage)wp).getParentBean();
+        	// authorization
+        	authorization = ((MyWorkpage)wp).getAuthorization();
         }
         // get mode 
         String strMode = getWorkpage().getParam(Constants.P_MODE);
         try {
         	mode = Constants.Mode.valueOf(strMode.toUpperCase());
         } catch (Exception ex) {
-        	Statusbar.outputError("Not defined mode set!");
-        	getWorkpageContainer().closeWorkpage(getWorkpage());
+        	// if not set, switch to show mode
+        	mode = Constants.Mode.SHOW;
         }   
+        // if authorization is empty try from attribute Map
+        if(authorization==null) {
+        	String create = getWorkpage().getParam(Constants.CREATE);
+    		String change = getWorkpage().getParam(Constants.CHANGE);
+    		String delete = getWorkpage().getParam(Constants.DELETE);
+    		if(create==null || !create.equals(Constants.TRUE)) create = Constants.FALSE;
+    		if(change==null || !change.equals(Constants.TRUE)) change = Constants.FALSE;
+    		if(delete==null || !delete.equals(Constants.TRUE)) delete = Constants.FALSE;
+    		authorization = new SAuthorization(create, change, delete);
+        }
         // change mode to set buttons
         changeMode(mode);               
         // set entity detail page 
@@ -95,13 +113,29 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
     		entityObject = ENTITYLISTLOGIC.createEntity(entity);
     		id = entityObject.getId();
     		getWorkpage().setId(id);
-        } else {  
-        	id = getWorkpage().getId();
-        	entityObject = ENTITYLISTLOGIC.getEntity(entity, id);   
-        	if(entityObject==null) {
+        } else {          	
+        	// catch NullPointerException if entity doesn't exist
+        	try {
+        		id = getWorkpage().getId();
+            	// if id is not set, get id of own entity
+        		if (id == null || id.length()==0) {
+            		if (entity == Constants.Entity.USER) {
+                    	id = getServiceLayer().getDictionaryService().getMyUser().getId();          	           
+            		} else if (entity == Constants.Entity.PERSON) {
+                    	id = getServiceLayer().getDictionaryService().getMyUser().getPerson().getId(); 
+                    } 
+            	}
+        		// get entity
+        		entityObject = ENTITYLISTLOGIC.getEntity(entity, id);  
+        		// set title of workpage
+        		getWorkpage().setTitle(entityObject.toString());
+            	if(entityObject==null) {
+            		throw new NullPointerException();
+            	}
+        	} catch (NullPointerException npe) {
         		Statusbar.outputError("Entity doesn't exist!", "Maybe the entity is marked as deleted!");
             	getWorkpageContainer().closeWorkpage(getWorkpage());
-        	}
+        	}        	
         }     	
 	}
 	
@@ -184,7 +218,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 		IWorkpageDispatcher wpd = getOwningDispatcher();
 		IWorkpageContainer wpc = getWorkpageContainer();
 		IWorkpage wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.url(),
-				null, "New entity", null, true, parentBean);
+				null, "New entity", null, true, parentBean, null);
 		wp.setParam(Constants.P_ENTITY, entity.name());
 		wp.setParam(Constants.P_MODE, Constants.Mode.NEW.name());
 		wpc.addWorkpage(wp);
