@@ -1,6 +1,7 @@
 package trimatrix.ui;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.faces.event.ActionEvent;
 
@@ -15,7 +16,19 @@ import trimatrix.utils.Constants;
 @CCGenClass (expressionBase="#{d.WorkplaceUI}")
 
 public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializable
-{       
+{
+    protected boolean m_renderCoach;
+    public boolean getRenderCoach() { return m_renderCoach; }
+    public void setRenderCoach(boolean value) { m_renderCoach = value; }
+
+    protected boolean m_renderAthlete;
+    public boolean getRenderAthlete() { return m_renderAthlete; }
+    public void setRenderAthlete(boolean value) { m_renderAthlete = value; }
+
+    protected boolean m_renderAdmin;
+    public boolean getRenderAdmin() { return m_renderAdmin; }
+    public void setRenderAdmin(boolean value) { m_renderAdmin = value; }
+       
 	protected int m_selectedRole = 0;
     public int getSelectedRole() { return m_selectedRole; }
     public void setSelectedRole(int value) { m_selectedRole = value; }
@@ -31,9 +44,32 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
     	}    	
     }
 
-
 	public WorkplaceUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
+		initialize();
+	}
+	
+	private void initialize() {
+		setRenderAdmin(false);
+		setRenderCoach(false);
+		setRenderAthlete(false);
+		List<String> roles = getServiceLayer().getDictionaryService().getMyRoles();
+		if(roles==null) return;
+		// Athlete
+		if(roles.contains(Constants.Role.ATHLETE.getName())) {
+			setRenderAthlete(true);
+			m_selectedRole = Constants.Role.ATHLETE.getId();
+		}
+		// Coach
+		if(roles.contains(Constants.Role.COACH.getName())) {
+			setRenderCoach(true);
+			m_selectedRole = Constants.Role.COACH.getId();
+		}
+		// Admin
+		if(roles.contains(Constants.Role.ADMIN.getName())) {
+			setRenderAdmin(true);
+			m_selectedRole = Constants.Role.ADMIN.getId();
+		}
 	}
 	
 }

@@ -20,6 +20,7 @@ public class WPFunctionTreeAdmin extends WorkplaceFunctionTree {
 		super(owner);
 	}	
 	
+	// TODO adapt logic
 	@Override
 	protected void loadFunctionTree() {
 		// reset functiontree
@@ -43,6 +44,19 @@ public class WPFunctionTreeAdmin extends WorkplaceFunctionTree {
 					node.setOpenMultipleInstances(true);
 					if(functionTree.entity != null && functionTree.entity.length() > 0) {
 						node.setParam(Constants.P_ENTITY, functionTree.entity);
+					}
+					// create authorization
+					node.setParam(Constants.CREATE, Constants.FALSE);
+					if(functionTree.create) {
+						node.setParam(Constants.CREATE, Constants.TRUE);
+					}
+					node.setParam(Constants.CHANGE, Constants.FALSE);
+					if(functionTree.edit) {
+						node.setParam(Constants.CHANGE, Constants.TRUE);
+					}
+					node.setParam(Constants.DELETE, Constants.FALSE);
+					if(functionTree.delete) {
+						node.setParam(Constants.DELETE, Constants.TRUE);
 					}
 				} else {
 					node = new FunctionNode(parentNode);

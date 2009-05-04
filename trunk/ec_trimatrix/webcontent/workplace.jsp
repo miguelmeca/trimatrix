@@ -21,14 +21,14 @@
 <t:rowdistance id="g_7" />
 <t:row id="g_8" >
 <t:outlookbar id="g_9" height="100%" width="100" >
-<t:outlookbaritem id="g_10" actionListener="#{d.WorkplaceUI.onSwitchRole}" clientname="admin" text="#{rr.literals.role_admin}" />
-<t:outlookbarcontent id="g_11" >
-<t:rowworkplacefunctiontree id="g_12" foreground="#000000" objectbinding="#{d.WPFunctionTreeAdmin}" rendered="#{d.WorkplaceUI.selectedRole == 0}" treenodebgpaint="border(0,0,100%,100%,#C0C0C0,2)" />
-<t:rowworkplacefunctiontree id="g_13" foreground="#000000" objectbinding="#{d.WPFunctionTreeCoach}" rendered="#{d.WorkplaceUI.selectedRole == 1}" />
+<t:outlookbaritem id="g_10" actionListener="#{d.WorkplaceUI.onSwitchRole}" clientname="admin" rendered="#{d.WorkplaceUI.renderAdmin}" text="#{rr.literals.role_admin}" />
+<t:outlookbaritem id="g_11" actionListener="#{d.WorkplaceUI.onSwitchRole}" clientname="coach" rendered="#{d.WorkplaceUI.renderCoach}" text="#{rr.literals.role_trainer}" />
+<t:outlookbaritem id="g_12" actionListener="#{d.WorkplaceUI.onSwitchRole}" clientname="athlete" rendered="#{d.WorkplaceUI.renderAthlete}" text="#{rr.literals.role_athlet}" />
+<t:outlookbarcontent id="g_13" >
 <t:rowworkplacefunctiontree id="g_14" foreground="#000000" objectbinding="#{d.WPFunctionTreeAthlet}" rendered="#{d.WorkplaceUI.selectedRole == 2}" />
+<t:rowworkplacefunctiontree id="g_15" foreground="#000000" objectbinding="#{d.WPFunctionTreeAdmin}" rendered="#{d.WorkplaceUI.selectedRole == 0}" treenodebgpaint="border(0,0,100%,100%,#C0C0C0,2)" />
+<t:rowworkplacefunctiontree id="g_16" foreground="#000000" objectbinding="#{d.WPFunctionTreeCoach}" rendered="#{d.WorkplaceUI.selectedRole == 1}" />
 </t:outlookbarcontent>
-<t:outlookbaritem id="g_15" actionListener="#{d.WorkplaceUI.onSwitchRole}" clientname="coach" text="#{rr.literals.role_trainer}" />
-<t:outlookbaritem id="g_16" actionListener="#{d.WorkplaceUI.onSwitchRole}" clientname="athlete" text="#{rr.literals.role_athlet}" />
 </t:outlookbar>
 </t:row>
 </t:splitpanesplit>

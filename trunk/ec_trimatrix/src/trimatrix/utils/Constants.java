@@ -39,9 +39,7 @@ public final class Constants {
 	// all value lists
 	public static enum ValueList {
 		LANGUAGE, CURRENCY, LOGONLANGUAGE
-	}
-	
-	
+	}		
 	
 	// modes
 	public static enum Mode {
@@ -55,6 +53,10 @@ public final class Constants {
 	public static final String CENTER = "center";
 	public static final String P_ENTITY = "entity";
 	public static final String P_MODE = "mode";
+	
+	public static final String CREATE = "create";
+	public static final String CHANGE = "change";
+	public static final String DELETE = "delete";
 	
 	
 	public static final String BGP_MANDATORY = "mandatory()";
