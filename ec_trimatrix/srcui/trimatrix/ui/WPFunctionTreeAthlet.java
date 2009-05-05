@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.eclnt.jsfserver.managedbean.IDispatcher;
 import org.eclnt.workplace.WorkplaceFunctionTree;
-import org.eclnt.workplace.WorkplaceFunctionTree.FunctionNode;
 
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SFunctionTree;

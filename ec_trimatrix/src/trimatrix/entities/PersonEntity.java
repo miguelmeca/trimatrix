@@ -8,7 +8,6 @@ import java.util.UUID;
 import org.springframework.orm.hibernate3.HibernateTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
-import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import trimatrix.db.IPersonsDAO;
@@ -21,7 +20,7 @@ import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
 
 public final class PersonEntity implements IEntity {
-	// Constants
+	// Constants	 
 	public static final String NAME_FIRST = "name_first";
     public static final String NAME_LAST = "name_last";  
     public static final String EMAIL = "email";
@@ -53,6 +52,23 @@ public final class PersonEntity implements IEntity {
 	 */
 	public List<IEntityData> getData() {
 		return sqlExecutorService.getPersonEntities();
+	}
+		
+	/* (non-Javadoc)
+	 * @see trimatrix.entities.IEntity#getData(trimatrix.utils.Constants.Entity)
+	 */
+	public List<IEntityData> getData(Constants.Entity entity) {
+		// TODO implement separate logics
+		if (entity == Constants.Entity.PERSON) {
+        	return sqlExecutorService.getPersonEntities();
+        } else if (entity == Constants.Entity.MYATHLETES) {
+        	return sqlExecutorService.getPersonEntities();
+        } else if (entity == Constants.Entity.MYCOACHES) {
+        	return sqlExecutorService.getPersonEntities();
+        } else {
+        	return Constants.EMPTYENTITYLIST;
+        }
+		
 	}
 	
 	/* (non-Javadoc)

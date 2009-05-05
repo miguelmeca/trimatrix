@@ -3,13 +3,14 @@ package trimatrix.entities;
 import java.util.List;
 
 import trimatrix.structures.SGridMetaData;
+import trimatrix.utils.Constants;
 
 public interface IEntity {
 
 	public abstract List<SGridMetaData> getGridMetaData();
 	
-	public abstract List<IEntityData> getData();
-	
+	public abstract List<IEntityData> getData(Constants.Entity entity);
+		
 	public abstract boolean delete(String id);	
 	
 	public abstract IEntityObject create();

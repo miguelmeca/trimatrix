@@ -196,7 +196,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 			IWorkpageDispatcher wpd = getOwningDispatcher();
 			IWorkpageContainer wpc = getWorkpageContainer();
 			IWorkpage wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.url(),
-					datum.getId(), datum.toString(), null, true, entityList, authorization);
+					datum.getId(), datum.toString(), null, true, entityList, authorization);			
 			wp.setParam(Constants.P_ENTITY, entity.name());
 			wp.setParam(Constants.P_MODE, Constants.Mode.SHOW.name());			
 			wpc.addWorkpage(wp);

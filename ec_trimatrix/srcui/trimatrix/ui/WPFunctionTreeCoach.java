@@ -30,23 +30,29 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 		List<SFunctionTree> functionTreeList = sqlExecutorService.getFunctionTree(role);
 		
 		for (SFunctionTree functionTree : functionTreeList) {
-			FunctionNode node;
+			FunctionNode node = null;
+			FunctionNode parentNode = null;
+			boolean topNode = false;
 			// topnode?
+			if(functionTree.page == null && functionTree.page.length() == 0) {
+				topNode = true;
+			}
+			// get parent node
 			if(functionTree.parent==0) {
-				node = new FunctionNode(getFtree().getRootNode());
+				parentNode = (FunctionNode)getFtree().getRootNode();
 			} else {
-				FunctionNode parentNode = functionNodeMap.get(functionTree.parent);
-				if(functionTree.page != null && functionTree.page.length() > 0) {
-					Constants.Page page = Constants.Page.valueOf(functionTree.page);
-					node = new FunctionNode(parentNode, page.url());
-					node.setStatus(FunctionNode.STATUS_ENDNODE);
-					node.setOpenMultipleInstances(true);
-					if(functionTree.entity != null && functionTree.entity.length() > 0) {
-						node.setParam(Constants.P_ENTITY, functionTree.entity);
-					}
-				} else {
-					node = new FunctionNode(parentNode);
-				}		
+				parentNode = functionNodeMap.get(functionTree.parent);				
+			}
+			// top node or real node
+			if(!topNode) {
+				Constants.Page page = Constants.Page.valueOf(functionTree.page);
+				node = new FunctionNode(parentNode, page.url());
+				node.setId(Constants.EMPTY);
+				node.setStatus(FunctionNode.STATUS_ENDNODE);
+				node.setOpenMultipleInstances(true);
+				if(functionTree.entity != null && functionTree.entity.length() > 0) {
+					node.setParam(Constants.P_ENTITY, functionTree.entity);
+				}
 				// authorization
 				node.setParam(Constants.CREATE, Constants.FALSE);
 				if(functionTree.create) {
@@ -60,6 +66,8 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 				if(functionTree.delete) {
 					node.setParam(Constants.DELETE, Constants.TRUE);
 				}
+			} else {
+				node = new FunctionNode(parentNode);
 			}
 			node.setText(functionTree.description);
 			// build map
