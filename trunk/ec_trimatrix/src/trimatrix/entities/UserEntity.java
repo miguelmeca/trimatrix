@@ -9,6 +9,7 @@ import trimatrix.db.IUsersDAO;
 import trimatrix.db.Users;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;
+import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
 
 public final class UserEntity implements IEntity {
@@ -41,12 +42,12 @@ public final class UserEntity implements IEntity {
         gridMetaData.add(new SGridMetaData("initial", INITIAL, SGridMetaData.Component.CHECKBOX));
         gridMetaData.add(new SGridMetaData("aktiv", ACTIVE, SGridMetaData.Component.CHECKBOX));
         return gridMetaData;
-    }
+    }	
 	
 	/* (non-Javadoc)
-	 * @see trimatrix.entities.IEntity#getData()
+	 * @see trimatrix.entities.IEntity#getData(trimatrix.utils.Constants.Entity)
 	 */
-	public List<IEntityData> getData() {
+	public List<IEntityData> getData(Constants.Entity entity) {
 		return sqlExecutorService.getUserEntities();
 	}
 	

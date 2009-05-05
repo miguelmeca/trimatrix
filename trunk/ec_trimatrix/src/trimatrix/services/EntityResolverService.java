@@ -21,62 +21,62 @@ public final class EntityResolverService {
 	 * @return metadata
 	 */
 	public List<SGridMetaData> getGridMetaData(Constants.Entity entity) {
-		if (entity==Constants.Entity.USER) {
+		if (entity==Constants.Entity.USER || entity.getBase()==Constants.Entity.USER) {
 			return userEntity.getGridMetaData();
-		} else if (entity==Constants.Entity.PERSON) {
+		} else if (entity==Constants.Entity.PERSON || entity.getBase()==Constants.Entity.PERSON) {
 			return personEntity.getGridMetaData();
 		} 
 		return new ArrayList<SGridMetaData>();
 	}
 	
 	public List<IEntityData> getData(Constants.Entity entity) {
-		if (entity==Constants.Entity.USER) {
-			return userEntity.getData();
-		} else if (entity==Constants.Entity.PERSON) {
-			return personEntity.getData();
+		if (entity==Constants.Entity.USER || entity.getBase()==Constants.Entity.USER) {
+			return userEntity.getData(entity);
+		} else if (entity==Constants.Entity.PERSON || entity.getBase()==Constants.Entity.PERSON) {
+			return personEntity.getData(entity);
 		} 
 		return new ArrayList<IEntityData>();
 	}
 	
 	public boolean deleteEntity(Constants.Entity entity, String id) {
-		if (entity==Constants.Entity.USER) {
+		if (entity==Constants.Entity.USER || entity.getBase()==Constants.Entity.USER) {
 			return userEntity.delete(id);
-		} else if (entity==Constants.Entity.PERSON) {
+		} else if (entity==Constants.Entity.PERSON || entity.getBase()==Constants.Entity.PERSON) {
 			return personEntity.delete(id);
 		} 
 		return false;
 	}
 	
 	public IEntityObject createEntity(Constants.Entity entity) {
-		if (entity==Constants.Entity.USER) {
+		if (entity==Constants.Entity.USER || entity.getBase()==Constants.Entity.USER) {
 			return userEntity.create();
-		} else if (entity==Constants.Entity.PERSON) {
+		} else if (entity==Constants.Entity.PERSON || entity.getBase()==Constants.Entity.PERSON) {
 			return personEntity.create();
 		} 
 		return null;
 	}
 	
 	public IEntityObject getEntity(Constants.Entity entity, String id) {
-		if (entity==Constants.Entity.USER) {
+		if (entity==Constants.Entity.USER || entity.getBase()==Constants.Entity.USER) {
 			return userEntity.get(id);
-		} else if (entity==Constants.Entity.PERSON) {
+		} else if (entity==Constants.Entity.PERSON || entity.getBase()==Constants.Entity.PERSON) {
 			return personEntity.get(id);
 		} 
 		return null;
 	}
 	
 	public void saveEntity(Constants.Entity entity, IEntityObject entityObject) {
-		if (entity==Constants.Entity.USER) {
+		if (entity==Constants.Entity.USER || entity.getBase()==Constants.Entity.USER) {
 			userEntity.save(entityObject);
-		} else if (entity==Constants.Entity.PERSON) {
+		} else if (entity==Constants.Entity.PERSON || entity.getBase()==Constants.Entity.PERSON) {
 			personEntity.save(entityObject);
 		} 
 	}
 	
 	public void reloadEntity(Constants.Entity entity, IEntityObject entityObject) {
-		if (entity==Constants.Entity.USER) {
+		if (entity==Constants.Entity.USER || entity.getBase()==Constants.Entity.USER) {
 			userEntity.reload(entityObject);
-		} else if (entity==Constants.Entity.PERSON) {
+		} else if (entity==Constants.Entity.PERSON || entity.getBase()==Constants.Entity.PERSON) {
 			personEntity.reload(entityObject);
 		} 
 	}

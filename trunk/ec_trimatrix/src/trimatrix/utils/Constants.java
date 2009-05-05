@@ -1,6 +1,10 @@
 package trimatrix.utils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+
+import trimatrix.entities.IEntityData;
 
 public final class Constants {
 	// all used jsp pages
@@ -22,7 +26,15 @@ public final class Constants {
 	}
 	// all used entities
 	public static enum Entity {
-		USER, PERSON
+		USER(Entity.USER), 
+		PERSON(Entity.PERSON), 
+		MYCOACHES(Entity.PERSON), 
+		MYATHLETES(Entity.PERSON);
+		private final Entity baseEntity;
+		Entity(Entity baseEntity) {
+			this.baseEntity = baseEntity;
+		}
+		public Entity getBase() { return baseEntity; }
 	}
 	// all roles
 	public static enum Role {
@@ -38,7 +50,7 @@ public final class Constants {
 	}
 	// all value lists
 	public static enum ValueList {
-		LANGUAGE, CURRENCY, LOGONLANGUAGE
+		LANGUAGE, CURRENCY, LOGONLANGUAGE		
 	}		
 	
 	// modes
@@ -57,8 +69,7 @@ public final class Constants {
 	public static final String CREATE = "create";
 	public static final String CHANGE = "change";
 	public static final String DELETE = "delete";
-	
-	
+		
 	public static final String BGP_MANDATORY = "mandatory()";
 	
 	public static final ResourceBundle MAIL_BUNDLE = ResourceBundle.getBundle("mail");	
@@ -66,4 +77,6 @@ public final class Constants {
 	public static final String SMTP_AUTH_PASS = "smtp_auth_pass";
 	public static final String SMTP_HOST_NAME = "smtp_host_name";
 	public static final String EMAIL_FROM_ADDRESS = "email_from_address";	
+	
+	public static final List<IEntityData> EMPTYENTITYLIST = new ArrayList<IEntityData>();
 }

@@ -105,7 +105,9 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
         // set entity detail page 
         if (entity == Constants.Entity.USER) {
         	m_entityDetailPage = Constants.Page.USERDETAIL.url();           	           
-        } else if (entity == Constants.Entity.PERSON) {
+        } else if (entity == Constants.Entity.PERSON ||
+        	       entity == Constants.Entity.MYATHLETES ||
+        		   entity == Constants.Entity.MYCOACHES) {
         	m_entityDetailPage = Constants.Page.PERSONDETAIL.url(); 
         }              
         // get/create entity object and set ID
