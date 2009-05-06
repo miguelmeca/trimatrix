@@ -26,8 +26,9 @@ public final class Constants {
 	}
 	// all used entities
 	public static enum Entity {
-		USER(Entity.USER), 
-		PERSON(Entity.PERSON), 
+		// order is relevant, first all entities which are base entities
+		USER(null), 
+		PERSON(null), 
 		MYCOACHES(Entity.PERSON), 
 		MYATHLETES(Entity.PERSON);
 		private final Entity baseEntity;

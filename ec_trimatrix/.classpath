@@ -64,7 +64,7 @@
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/jstl.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/xercesImpl-2.8.1.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/mail.jar"/>
-	<classpathentry kind="lib" path="/usr/local/tomcat/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="C:/EnterpriseClient/server/tomcat/lib/servlet-api.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/dbunit-2.4.4.jar"/>
 	<classpathentry kind="output" path="webcontent/WEB-INF/classes"/>
 </classpath>
