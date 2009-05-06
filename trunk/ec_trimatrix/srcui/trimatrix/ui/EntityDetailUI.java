@@ -65,7 +65,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 	public boolean getRenderNewButton() { return renderNewButton; }
 
 	public EntityDetailUI(IWorkpageDispatcher dispatcher) {
-		super(dispatcher);
+		super(dispatcher);		
 		// get entity
         String strEntity = getWorkpage().getParam(Constants.P_ENTITY);
         try {
@@ -73,7 +73,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
         } catch (Exception ex) {
         	Statusbar.outputError("No or wrong entity set", "For list view processing an entity has to be set by the functiontreenode!");
         	getWorkpageContainer().closeWorkpage(getWorkpage());
-        }
+        }    
         // a instance of MyWorkpage
         IWorkpage wp = getWorkpage();
         if (wp instanceof MyWorkpage) {

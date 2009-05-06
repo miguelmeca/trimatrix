@@ -44,30 +44,17 @@ public class AEntityDetailUI extends MyWorkpageDispatchedBean {
 		mode = entityDetailUI.getMode();
         // enabled?
         if (mode == Constants.Mode.SHOW) {
-        	m_enabled = Constants.FALSE;
+        	m_enabled = false;
         } else {
-        	m_enabled = Constants.TRUE;
+        	m_enabled = true;
         }
 	}
 	
-	protected String m_enabled;
-    public String getEnabled() { return m_enabled; }
-    public String getNotEnabled() { 
-    	if (m_enabled.equals(Constants.TRUE)) {
-        	return Constants.FALSE;
-    	} else {
-    		return Constants.TRUE;
-    	}
-    }      
-    public boolean getEnabledBool() {
-    	if (m_enabled.equals(Constants.TRUE)) {
-    		Statusbar.outputMessage("Enabled is true!");
-        	return true;
-    	} else {
-    		Statusbar.outputMessage("Enabled is false!");
-    		return false;    		
-    	}
-    }
+	protected boolean m_enabled;
+    public boolean getEnabled() { return m_enabled; }
+    public boolean getNotEnabled() { 
+    	return !m_enabled;
+    }    
 	
 	public Map<String, String> getBgpaint() {
 		return bgpaint;
