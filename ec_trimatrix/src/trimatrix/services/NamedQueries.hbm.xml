@@ -32,7 +32,23 @@
   <return-scalar column="email" type="java.lang.String"/>
   <return-scalar column="sex" type="java.lang.String"/>
   <return-scalar column="birthdate" type="java.sql.Timestamp"/>
- </sql-query>
+ </sql-query> 
+  <sql-query cacheable="true" name="PersonRelationEntityList"
+   read-only="true">select persons.id, persons.name_first, persons.name_last, persons.email, t_sex.description sex, persons.birthdate from persons as persons left join t_sex as t_sex on t_sex.key = persons.sex_key and t_sex.language_key = :p_lang_key 
+  join persons_have_relations on 
+  on 
+  ( partner2 = persons.id and reltyp_key = :p_reltyp and partner1 = :p_partner1) 
+  or
+  ( partner1 = persons.id and reltyp_key = :p_reltyp and partner2 = :p_partner2)
+  where persons.test = :p_test
+  and persons.deleted = :p_deleted<return-scalar
+   column="id" type="java.lang.String"/>
+  <return-scalar column="name_first" type="java.lang.String"/>
+  <return-scalar column="name_last" type="java.lang.String"/>
+  <return-scalar column="email" type="java.lang.String"/>
+  <return-scalar column="sex" type="java.lang.String"/>
+  <return-scalar column="birthdate" type="java.sql.Timestamp"/>
+ </sql-query>  
  <sql-query cacheable="true" name="LanguageValueList"
    read-only="true">SELECT k_languages.key, t_languages.description, t_languages.description_long 
   FROM k_languages JOIN t_languages ON k_languages.key = t_languages.key 

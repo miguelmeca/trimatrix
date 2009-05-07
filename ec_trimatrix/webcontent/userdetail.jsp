@@ -19,7 +19,7 @@
 <t:label id="g_6" height="20" text="#{rr.literals.language}" width="85" x="20" y="60" />
 <t:combobox id="g_7" attributemacro="entityDetailMacro(UserDetailUI,language)" height="20" validvaluesbinding="#{d.UserDetailUI.languagesVvb}" valuetextmode="TEXT" width="100" x="115" y="60" />
 <t:label id="g_8" height="20" text="#{rr.literals.user_person}" width="85" x="20" y="90" />
-<t:field id="g_9" attributemacro="entityDetailMacro(UserDetailUI,person)" enabled="false" width="100" x="115" y="90" />
+<t:field id="g_9" actionListener="#{d.UserDetailUI.onPersonClicked}" attributemacro="entityDetailMacro(UserDetailUI,person)" enabled="false" focusable="false" width="100" x="115" y="90" />
 <t:button id="g_10" actionListener="#{d.UserDetailUI.onPersonSearch}" enabled="#{d.UserDetailUI.enabled}" height="20" text="#{rr.literals.edit}" width="60" x="225" y="90" />
 <t:button id="g_11" actionListener="#{d.UserDetailUI.onPersonRemove}" enabled="#{d.UserDetailUI.enabled}" height="20" text="#{rr.literals.delete}" width="60" x="290" y="90" />
 <t:label id="g_12" height="20" text="#{rr.literals.user_email}" width="85" x="20" y="120" />

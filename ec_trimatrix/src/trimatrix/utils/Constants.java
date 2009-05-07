@@ -24,6 +24,15 @@ public final class Constants {
 		}
 		public String url(){ return url; }
 	}
+	// all relationtypes
+	public static enum Relation {
+		TRAINER("trainer");
+		private final String type;
+		Relation(String type) {
+			this.type = type;
+		}
+		public String type(){ return type; }
+	}
 	// all used entities
 	public static enum Entity {
 		// order is relevant, first all entities which are base entities

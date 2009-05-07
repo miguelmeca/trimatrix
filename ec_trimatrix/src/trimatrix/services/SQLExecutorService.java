@@ -28,6 +28,7 @@ public class SQLExecutorService {
 	private static final String FUNCTIONTREEQUERY = "FunctionTree";
 	private static final String LANGUAGEVALUELISTQUERY = "LanguageValueList";
 	private static final String LOGONLANGUAGEVALUELISTQUERY = "LogonLanguageValueList";
+	private static final String PERSONRELATIONQUERY = "PersonRelationEntityList";
 	
 	private HibernateTransactionManager transactionManager;
 	private Dictionary dictionaryService;
@@ -140,8 +141,56 @@ public class SQLExecutorService {
 		return data;
 	}
 	
+	/**
+	 * Retrieve persons in a certain relationship
+	 * @param person_id
+	 * @param relation
+	 * @param inverse
+	 * @param lang_key
+	 * @param deleted
+	 * @param test
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<IEntityData> getPersonRelationEntities(String person_id, Constants.Relation relation, boolean inverse, String lang_key, boolean deleted, boolean test) {
+		List<IEntityData> data = new ArrayList<IEntityData>();
+		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		Query query = session.getNamedQuery(PERSONRELATIONQUERY);
+		query.setString("p_lang_key", lang_key);
+		query.setBoolean("p_deleted", deleted);
+		query.setBoolean("p_test", test);
+		query.setString("p_reltyp", relation.type());
+		if (!inverse) {
+			query.setString("p_parnter1", person_id);
+			query.setString("p_parnter1", null);
+		} else {
+			query.setString("p_parnter1", null);
+			query.setString("p_parnter2", person_id);
+		}
+		List<Object[]> result = query.list();
+		for(Object[] line : result) {
+			PersonEntity.Data datum = new PersonEntity.Data();
+			int i = 0;
+			datum.id = (String)line[i++];
+			datum.name_first = (String)line[i++];
+			datum.name_last = (String)line[i++];
+			datum.email = (String)line[i++];
+			datum.sex = (String)line[i++];
+			datum.birthdate = (Timestamp)line[i++];
+			data.add(datum);
+		}
+		session.close();
+		return data;
+	}
+	
+	
 	public List<IEntityData> getPersonEntities() {
 		return getPersonEntities(dictionaryService.getLanguage(), false, false);
+	}
+	
+	public List<IEntityData> getPersonRelationEntities(String person_id, Constants.Relation relation, boolean inverse) {
+		return getPersonRelationEntities(person_id, relation, inverse, dictionaryService.getLanguage(), false, false);
 	}
 	
 	/**
