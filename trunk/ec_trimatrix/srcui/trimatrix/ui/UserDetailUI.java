@@ -173,4 +173,8 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable, IEnti
 				}
 		);						
 	}
+	
+	public void onPersonClicked(ActionEvent event) {
+		Statusbar.outputMessage(event.getClass().getName());
+	}
 }

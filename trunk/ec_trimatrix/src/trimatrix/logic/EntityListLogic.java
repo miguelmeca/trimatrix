@@ -22,7 +22,7 @@ public class EntityListLogic {
 	
 	public List<IEntityData> getData(Constants.Entity entity) {
 		return entityResolverService.getData(entity);
-	}
+	}	
 	
 	public boolean deleteEntity(Constants.Entity entity, String id) {
 		return entityResolverService.deleteEntity(entity, id);
