@@ -35,7 +35,7 @@
  </sql-query> 
   <sql-query cacheable="true" name="PersonRelationEntityList"
    read-only="true">select persons.id, persons.name_first, persons.name_last, persons.email, t_sex.description sex, persons.birthdate from persons as persons left join t_sex as t_sex on t_sex.key = persons.sex_key and t_sex.language_key = :p_lang_key 
-  join persons_have_relations on 
+  join persons_have_relations
   on 
   ( partner2 = persons.id and reltyp_key = :p_reltyp and partner1 = :p_partner1) 
   or
