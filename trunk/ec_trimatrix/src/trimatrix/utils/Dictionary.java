@@ -10,6 +10,7 @@ import javax.faces.context.FacesContext;
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 
+import trimatrix.db.Persons;
 import trimatrix.db.Users;
 
 public final class Dictionary {
@@ -63,6 +64,14 @@ public final class Dictionary {
 
 	public void setMyUser(Users myUser) {
 		this.myUser = myUser;
+	}	
+
+	public Persons getMyPerson() {
+		if(myUser==null) {
+			return null;
+		} else {
+			return myUser.getPerson();
+		}
 	}
 
 	public List<String> getMyRoles() {

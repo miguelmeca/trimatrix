@@ -161,12 +161,12 @@ public class SQLExecutorService {
 		query.setBoolean("p_deleted", deleted);
 		query.setBoolean("p_test", test);
 		query.setString("p_reltyp", relation.type());
-		if (!inverse) {
-			query.setString("p_parnter1", person_id);
-			query.setString("p_parnter1", null);
+		if (inverse) {
+			query.setString("p_partner1", person_id);
+			query.setString("p_partner2", null);
 		} else {
-			query.setString("p_parnter1", null);
-			query.setString("p_parnter2", person_id);
+			query.setString("p_partner1", null);
+			query.setString("p_partner2", person_id);
 		}
 		List<Object[]> result = query.list();
 		for(Object[] line : result) {
