@@ -17,7 +17,7 @@
 				    <t:coldistance id="g_102" width="20" rendered="#{eclntdefscr.okPopup.iconRendered}"/>
 					<t:scrollpane id="g_3" height="100%" width="100%">
 						<t:row id="g_4">
-							<t:textpane id="g_5" text="#{eclntdefscr.okPopup.text}"
+							<t:textpane id="g_5" text="#{eclntdefscr.okPopup.text}" align="center"
 								width="100%" />
 						</t:row>
 					</t:scrollpane>

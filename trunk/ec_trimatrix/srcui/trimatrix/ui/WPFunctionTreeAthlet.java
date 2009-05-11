@@ -7,6 +7,7 @@ import java.util.Map;
 import org.eclnt.jsfserver.managedbean.IDispatcher;
 import org.eclnt.workplace.WorkplaceFunctionTree;
 
+import trimatrix.logic.FunctionTreeLogic;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SFunctionTree;
 import trimatrix.utils.Constants;
@@ -22,6 +23,7 @@ public class WPFunctionTreeAthlet extends WorkplaceFunctionTree {
 	
 	@Override
 	protected void loadFunctionTree() {
+		FunctionTreeLogic FUNCTIONTREELOGIC = ((Dispatcher)getOwningDispatcher()).logicLayer.getFunctionTreeLogic();
 		// reset functiontree
 		getFtree().getRootNode().removeAllChildNodes(true);
 		
@@ -54,18 +56,7 @@ public class WPFunctionTreeAthlet extends WorkplaceFunctionTree {
 					node.setParam(Constants.P_ENTITY, functionTree.entity);
 				}
 				// authorization
-				node.setParam(Constants.CREATE, Constants.FALSE);
-				if(functionTree.create) {
-					node.setParam(Constants.CREATE, Constants.TRUE);
-				}
-				node.setParam(Constants.CHANGE, Constants.FALSE);
-				if(functionTree.edit) {
-					node.setParam(Constants.CHANGE, Constants.TRUE);
-				}
-				node.setParam(Constants.DELETE, Constants.FALSE);
-				if(functionTree.delete) {
-					node.setParam(Constants.DELETE, Constants.TRUE);
-				}
+				FUNCTIONTREELOGIC.setAuthority(functionTree, node);
 			} else {
 				node = new FunctionNode(parentNode);
 			}

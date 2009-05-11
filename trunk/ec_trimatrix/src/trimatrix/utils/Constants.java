@@ -61,12 +61,16 @@ public final class Constants {
 	// all value lists
 	public static enum ValueList {
 		LANGUAGE, CURRENCY, LOGONLANGUAGE		
-	}		
-	
+	}	
+	// all functionnodes
+	public static enum FunctionNode {
+		ATHLETES_OWN
+	}
 	// modes
 	public static enum Mode {
 		SHOW, CHANGE, NEW
 	}
+	
 	
 	public static final String NULL = "null";
 	public static final String EMPTY = "";
@@ -80,8 +84,8 @@ public final class Constants {
 	public static final String CHANGE = "change";
 	public static final String DELETE = "delete";
 		
-	public static final String BGP_MANDATORY = "mandatory()";
-	
+	public static final String BGP_MANDATORY = "mandatory()";	
+		
 	public static final ResourceBundle MAIL_BUNDLE = ResourceBundle.getBundle("mail");	
 	public static final String SMTP_AUTH_USER = "smtp_auth_user";
 	public static final String SMTP_AUTH_PASS = "smtp_auth_pass";
