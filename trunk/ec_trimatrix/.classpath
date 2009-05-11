@@ -5,7 +5,7 @@
 	<classpathentry kind="src" output="webcontent/eclnthotdeploy/classes" path="srcui"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/eclntjsfserver.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/jsf-api.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/com.sun.java.jre.win32.x86_1.5.0.011"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/DBUnit"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/mysql-connector-java-5.1.6-bin.jar"/>
@@ -64,7 +64,7 @@
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/jstl.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/xercesImpl-2.8.1.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/mail.jar"/>
-	<classpathentry kind="lib" path="C:/EnterpriseClient/server/tomcat/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="F:/EnterpriseClient/server/tomcat/lib/servlet-api.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/dbunit-2.4.4.jar"/>
 	<classpathentry kind="output" path="webcontent/WEB-INF/classes"/>
 </classpath>

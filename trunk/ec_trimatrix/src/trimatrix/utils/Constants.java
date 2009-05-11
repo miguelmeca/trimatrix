@@ -17,7 +17,8 @@ public final class Constants {
 		USERDETAIL("/userdetail.jsp"),
 		PERSONDETAIL("/persondetail.jsp"),
 		USERSELECTION("/userselection.jsp"),
-		PERSONSELECTION("/personselection.jsp");
+		PERSONSELECTION("/personselection.jsp"),
+		RELATIONLIST("/relationlist.jsp");
 		private final String url;
 		Page(String url) {
 			this.url = url;
@@ -26,7 +27,7 @@ public final class Constants {
 	}
 	// all relationtypes
 	public static enum Relation {
-		TRAINER("trainer");
+		COACH("coach");
 		private final String type;
 		Relation(String type) {
 			this.type = type;

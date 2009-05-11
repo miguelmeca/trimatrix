@@ -88,7 +88,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 	private void setRowDynamic() {
 		StringBuffer xml = new StringBuffer();
 		xml
-				.append("<t:fixgrid avoidroundtrips='true' drawoddevenrows='true' objectbinding='#{d.EntityListUI.gridList}' width='100%' height='100%' sbvisibleamount='25'>");
+				.append("<t:fixgrid avoidroundtrips='true' drawoddevenrows='true' objectbinding='#{d.EntityListUI.gridList}' width='100%' height='100%' sbvisibleamount='30'>");
 		for (SGridMetaData meta : gridMetaData) {
 			// component type checkbox
 			boolean isCheckBox = false;

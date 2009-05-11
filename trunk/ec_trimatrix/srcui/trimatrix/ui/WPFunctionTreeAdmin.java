@@ -12,6 +12,7 @@ import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SFunctionTree;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Context;
+import trimatrix.utils.Dictionary;
 
 @SuppressWarnings("serial")
 public class WPFunctionTreeAdmin extends WorkplaceFunctionTree {
@@ -33,14 +34,20 @@ public class WPFunctionTreeAdmin extends WorkplaceFunctionTree {
 		List<SFunctionTree> functionTreeList = sqlExecutorService.getFunctionTree(role);
 		
 		for (SFunctionTree functionTree : functionTreeList) {
-			FunctionNode node;
+			FunctionNode node = null;
+			Constants.Page page = null;
 			// topnode?
 			if(functionTree.parent==0) {
 				node = new FunctionNode(getFtree().getRootNode());
 			} else {
 				FunctionNode parentNode = functionNodeMap.get(functionTree.parent);
 				if(functionTree.page != null && functionTree.page.length() > 0) {
-					Constants.Page page = Constants.Page.valueOf(functionTree.page);
+					try {
+						page = Constants.Page.valueOf(functionTree.page);						
+					} catch (Exception ex) {
+						Dictionary.logger.warn(ex.toString());
+						continue;
+					}				
 					node = new FunctionNode(parentNode, page.url());
 					node.setStatus(FunctionNode.STATUS_ENDNODE);
 					node.setOpenMultipleInstances(true);

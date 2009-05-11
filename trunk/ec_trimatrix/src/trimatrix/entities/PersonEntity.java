@@ -62,9 +62,9 @@ public final class PersonEntity implements IEntity {
 		if (entity == Constants.Entity.PERSON) {
         	return sqlExecutorService.getPersonEntities();
         } else if (entity == Constants.Entity.MYATHLETES) {
-        	return sqlExecutorService.getPersonRelationEntities(dictionaryService.getMyPerson().getId(), Constants.Relation.TRAINER, false);
+        	return sqlExecutorService.getPersonRelationEntities(dictionaryService.getMyPerson().getId(), Constants.Relation.COACH, false);
         } else if (entity == Constants.Entity.MYCOACHES) {
-        	return sqlExecutorService.getPersonRelationEntities(dictionaryService.getMyPerson().getId(), Constants.Relation.TRAINER, true);
+        	return sqlExecutorService.getPersonRelationEntities(dictionaryService.getMyPerson().getId(), Constants.Relation.COACH, true);
         } else {
         	return Constants.EMPTYENTITYLIST;
         }
