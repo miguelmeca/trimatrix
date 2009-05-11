@@ -1,6 +1,6 @@
 /*
-SQLyog Community Edition- MySQL GUI v6.13
-MySQL - 5.0.51 : Database - trimatrix
+SQLyog Enterprise - MySQL GUI v8.05 
+MySQL - 5.1.33-community : Database - trimatrix
 *********************************************************************
 */
 
@@ -8,12 +8,12 @@ MySQL - 5.0.51 : Database - trimatrix
 
 /*!40101 SET SQL_MODE=''*/;
 
-create database if not exists `trimatrix`;
-
-USE `trimatrix`;
-
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`trimatrix` /*!40100 DEFAULT CHARACTER SET latin1 */;
+
+USE `trimatrix`;
 
 /*Table structure for table `k_authorizations` */
 
@@ -21,12 +21,12 @@ DROP TABLE IF EXISTS `k_authorizations`;
 
 CREATE TABLE `k_authorizations` (
   `key` varchar(36) NOT NULL,
-  `entity_key` varchar(36) default NULL,
-  `entity_field` varchar(36) default NULL,
-  `value_low` varchar(100) default NULL,
-  `exclusive` tinyint(1) default NULL,
-  `value_high` varchar(100) default NULL,
-  PRIMARY KEY  (`key`)
+  `entity_key` varchar(36) DEFAULT NULL,
+  `entity_field` varchar(36) DEFAULT NULL,
+  `value_low` varchar(100) DEFAULT NULL,
+  `exclusive` tinyint(1) DEFAULT NULL,
+  `value_high` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Roles for authorization';
 
 /*Data for the table `k_authorizations` */
@@ -37,8 +37,8 @@ DROP TABLE IF EXISTS `k_countries`;
 
 CREATE TABLE `k_countries` (
   `key` varchar(2) NOT NULL,
-  `currency_key` varchar(3) default NULL,
-  PRIMARY KEY  (`key`)
+  `currency_key` varchar(3) DEFAULT NULL,
+  PRIMARY KEY (`key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 /*Data for the table `k_countries` */
@@ -51,7 +51,7 @@ DROP TABLE IF EXISTS `k_currencies`;
 
 CREATE TABLE `k_currencies` (
   `key` varchar(3) NOT NULL,
-  PRIMARY KEY  (`key`)
+  PRIMARY KEY (`key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 /*Data for the table `k_currencies` */
@@ -64,17 +64,17 @@ DROP TABLE IF EXISTS `k_functionnodes`;
 
 CREATE TABLE `k_functionnodes` (
   `key` varchar(36) NOT NULL,
-  `page` varchar(36) default NULL COMMENT 'Defined in Dictionary Class Enum Page',
-  `entity` varchar(36) default NULL COMMENT 'Defined in Dictionary Class Enum Entity',
-  `edit` tinyint(1) default '0',
-  `create` tinyint(1) default '0',
-  `delete` tinyint(1) default '0',
-  PRIMARY KEY  (`key`)
+  `page` varchar(36) DEFAULT NULL COMMENT 'Defined in Dictionary Class Enum Page',
+  `entity` varchar(36) DEFAULT NULL COMMENT 'Defined in Dictionary Class Enum Entity',
+  `edit` tinyint(1) DEFAULT '0',
+  `create` tinyint(1) DEFAULT '0',
+  `delete` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 /*Data for the table `k_functionnodes` */
 
-insert  into `k_functionnodes`(`key`,`page`,`entity`,`edit`,`create`,`delete`) values ('masterdata',' ',' ',0,0,0),('users_all','ENTITYLIST','USER',1,1,1),('persons_all','ENTITYLIST','PERSON',1,1,1),('person_own','ENTITYDETAIL','PERSON',1,0,0),('coaches_own','ENTITYLIST','MYCOACHES',0,0,0),('athletes_own','ENTITYLIST','MYATHLETES',0,0,0);
+insert  into `k_functionnodes`(`key`,`page`,`entity`,`edit`,`create`,`delete`) values ('masterdata',' ',' ',0,0,0),('users_all','ENTITYLIST','USER',1,1,1),('persons_all','ENTITYLIST','PERSON',1,1,1),('person_own','ENTITYDETAIL','PERSON',1,0,0),('coaches_own','ENTITYLIST','MYCOACHES',0,0,0),('athletes_own','ENTITYLIST','MYATHLETES',0,0,0),('relations','','',0,0,0),('relation_coach','RELATIONLIST','COACH',1,1,1);
 
 /*Table structure for table `k_languages` */
 
@@ -82,8 +82,8 @@ DROP TABLE IF EXISTS `k_languages`;
 
 CREATE TABLE `k_languages` (
   `key` varchar(2) NOT NULL,
-  `logon` tinyint(1) NOT NULL default '0' COMMENT 'Language relevant for logon',
-  PRIMARY KEY  (`key`)
+  `logon` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Language relevant for logon',
+  PRIMARY KEY (`key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='\n';
 
 /*Data for the table `k_languages` */
@@ -96,12 +96,12 @@ DROP TABLE IF EXISTS `k_reltyps`;
 
 CREATE TABLE `k_reltyps` (
   `key` varchar(10) NOT NULL,
-  PRIMARY KEY  (`key`)
+  PRIMARY KEY (`key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 /*Data for the table `k_reltyps` */
 
-insert  into `k_reltyps`(`key`) values ('trainer');
+insert  into `k_reltyps`(`key`) values ('coach');
 
 /*Table structure for table `k_roles` */
 
@@ -109,7 +109,7 @@ DROP TABLE IF EXISTS `k_roles`;
 
 CREATE TABLE `k_roles` (
   `key` varchar(36) NOT NULL,
-  PRIMARY KEY  (`key`)
+  PRIMARY KEY (`key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Roles for authorization';
 
 /*Data for the table `k_roles` */
@@ -122,7 +122,7 @@ DROP TABLE IF EXISTS `k_salutation`;
 
 CREATE TABLE `k_salutation` (
   `key` varchar(10) NOT NULL,
-  PRIMARY KEY  (`key`)
+  PRIMARY KEY (`key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 /*Data for the table `k_salutation` */
@@ -135,7 +135,7 @@ DROP TABLE IF EXISTS `k_sex`;
 
 CREATE TABLE `k_sex` (
   `key` varchar(1) NOT NULL,
-  PRIMARY KEY  (`key`)
+  PRIMARY KEY (`key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 /*Data for the table `k_sex` */
@@ -148,30 +148,30 @@ DROP TABLE IF EXISTS `persons`;
 
 CREATE TABLE `persons` (
   `id` varchar(36) NOT NULL,
-  `salutation_key` varchar(10) default NULL,
-  `name_first` varchar(45) default NULL,
-  `name_last` varchar(45) default NULL,
-  `sex_key` varchar(1) default NULL,
-  `street` varchar(45) default NULL,
-  `housenumber` varchar(45) default NULL,
-  `postcode` varchar(45) default NULL,
-  `city` varchar(45) default NULL,
-  `state` varchar(45) default NULL,
-  `country_key` varchar(2) default NULL,
-  `email` varchar(255) default NULL,
-  `homepage` varchar(255) default NULL,
-  `telephone` varchar(25) default NULL,
-  `mobile` varchar(25) default NULL,
-  `fax` varchar(25) default NULL,
-  `birthdate` datetime default NULL,
+  `salutation_key` varchar(10) DEFAULT NULL,
+  `name_first` varchar(45) DEFAULT NULL,
+  `name_last` varchar(45) DEFAULT NULL,
+  `sex_key` varchar(1) DEFAULT NULL,
+  `street` varchar(45) DEFAULT NULL,
+  `housenumber` varchar(45) DEFAULT NULL,
+  `postcode` varchar(45) DEFAULT NULL,
+  `city` varchar(45) DEFAULT NULL,
+  `state` varchar(45) DEFAULT NULL,
+  `country_key` varchar(2) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `homepage` varchar(255) DEFAULT NULL,
+  `telephone` varchar(25) DEFAULT NULL,
+  `mobile` varchar(25) DEFAULT NULL,
+  `fax` varchar(25) DEFAULT NULL,
+  `birthdate` datetime DEFAULT NULL,
   `picture` blob,
-  `created_at` datetime default '1900-01-01 00:00:00' COMMENT 'Datensatz erstellt am',
-  `created_by` varchar(36) default NULL COMMENT 'Datensatz erstellt von',
-  `modified_at` datetime default '1900-01-01 00:00:00' COMMENT 'Datensatz geändert am',
-  `modified_by` varchar(36) default NULL COMMENT 'Datensatz geändert von',
-  `deleted` tinyint(1) default '0' COMMENT 'Datensatz gelöscht',
-  `test` tinyint(1) default '0',
-  PRIMARY KEY  (`id`),
+  `created_at` datetime DEFAULT '1900-01-01 00:00:00' COMMENT 'Datensatz erstellt am',
+  `created_by` varchar(36) DEFAULT NULL COMMENT 'Datensatz erstellt von',
+  `modified_at` datetime DEFAULT '1900-01-01 00:00:00' COMMENT 'Datensatz geändert am',
+  `modified_by` varchar(36) DEFAULT NULL COMMENT 'Datensatz geändert von',
+  `deleted` tinyint(1) DEFAULT '0' COMMENT 'Datensatz gelöscht',
+  `test` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`),
   KEY `fk_persons_k_countries` (`country_key`),
   KEY `fk_persons_k_sex` (`sex_key`),
   KEY `fk_persons_k_salutation` (`salutation_key`)
@@ -187,11 +187,11 @@ DROP TABLE IF EXISTS `persons_have_relations`;
 
 CREATE TABLE `persons_have_relations` (
   `id` varchar(36) NOT NULL,
-  `partner1` varchar(36) default NULL COMMENT 'Partner 1 der Beziehung',
-  `partner2` varchar(36) default NULL COMMENT 'Partner 2 der Beziehung',
-  `reltyp_key` varchar(10) default NULL COMMENT 'Beziehungstyp',
-  `default` tinyint(1) default '0' COMMENT 'Default Beziehung falls mehrere existieren',
-  PRIMARY KEY  (`id`),
+  `partner1` varchar(36) DEFAULT NULL COMMENT 'Partner 1 der Beziehung',
+  `partner2` varchar(36) DEFAULT NULL COMMENT 'Partner 2 der Beziehung',
+  `reltyp_key` varchar(10) DEFAULT NULL COMMENT 'Beziehungstyp',
+  `default` tinyint(1) DEFAULT '0' COMMENT 'Default Beziehung falls mehrere existieren',
+  PRIMARY KEY (`id`),
   KEY `fk_persons_have_relations_persons_1` (`partner1`),
   KEY `fk_persons_have_relations_persons_2` (`partner2`),
   KEY `fk_persons_have_relations_k_reltyps` (`reltyp_key`)
@@ -199,7 +199,7 @@ CREATE TABLE `persons_have_relations` (
 
 /*Data for the table `persons_have_relations` */
 
-insert  into `persons_have_relations`(`id`,`partner1`,`partner2`,`reltyp_key`,`default`) values ('e3572a08-8c2d-102c-a1cd-29e813a50118','10f52302-2ddb-11de-86ae-00301bb60f17','0b0b7658-2ddb-11de-86ae-00301bb60f17','trainer',0),('e3572a08-8c2d-102c-a1cd-29e813a50119','7522bc7f-42cf-415c-a050-da12518a4cd3','0b0b7658-2ddb-11de-86ae-00301bb60f17','trainer',0);
+insert  into `persons_have_relations`(`id`,`partner1`,`partner2`,`reltyp_key`,`default`) values ('e3572a08-8c2d-102c-a1cd-29e813a50118','10f52302-2ddb-11de-86ae-00301bb60f17','0b0b7658-2ddb-11de-86ae-00301bb60f17','coach',0),('e3572a08-8c2d-102c-a1cd-29e813a50119','7522bc7f-42cf-415c-a050-da12518a4cd3','0b0b7658-2ddb-11de-86ae-00301bb60f17','coach',0);
 
 /*Table structure for table `roles_have_functionnodes` */
 
@@ -208,17 +208,17 @@ DROP TABLE IF EXISTS `roles_have_functionnodes`;
 CREATE TABLE `roles_have_functionnodes` (
   `role_key` varchar(36) NOT NULL,
   `functionnode_key` varchar(36) NOT NULL,
-  `node` int(11) default NULL,
-  `parent` int(11) default NULL,
-  `order` int(11) default NULL,
-  PRIMARY KEY  (`role_key`,`functionnode_key`),
+  `node` int(11) DEFAULT NULL,
+  `parent` int(11) DEFAULT NULL,
+  `order` int(11) DEFAULT NULL,
+  PRIMARY KEY (`role_key`,`functionnode_key`),
   KEY `fk_roles_have_functionnodes_k_roles` (`role_key`),
   KEY `fk_roles_have_functionnodes_k_functionnodes` (`functionnode_key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 /*Data for the table `roles_have_functionnodes` */
 
-insert  into `roles_have_functionnodes`(`role_key`,`functionnode_key`,`node`,`parent`,`order`) values ('admin','masterdata',1,0,1),('admin','users_all',2,1,1),('admin','persons_all',3,1,2),('athlete','person_own',1,0,1),('athlete','coaches_own',2,0,2),('coach','person_own',1,0,1),('coach','athletes_own',2,0,2);
+insert  into `roles_have_functionnodes`(`role_key`,`functionnode_key`,`node`,`parent`,`order`) values ('admin','masterdata',1,0,1),('admin','users_all',2,1,1),('admin','persons_all',3,1,2),('athlete','person_own',1,0,1),('athlete','coaches_own',2,0,2),('coach','person_own',1,0,1),('coach','athletes_own',2,0,2),('admin','relations',4,0,2),('admin','relation_coach',5,4,1);
 
 /*Table structure for table `t_authorizations` */
 
@@ -227,9 +227,9 @@ DROP TABLE IF EXISTS `t_authorizations`;
 CREATE TABLE `t_authorizations` (
   `key` varchar(36) NOT NULL,
   `language_key` varchar(2) NOT NULL,
-  `description` varchar(20) default NULL,
-  `description_long` varchar(50) default NULL,
-  PRIMARY KEY  (`key`,`language_key`),
+  `description` varchar(20) DEFAULT NULL,
+  `description_long` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`key`,`language_key`),
   KEY `fk_t_authorization_k_languages` (`language_key`),
   KEY `fk_t_authorization_k_authorization` (`key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -243,9 +243,9 @@ DROP TABLE IF EXISTS `t_countries`;
 CREATE TABLE `t_countries` (
   `key` varchar(2) NOT NULL,
   `language_key` varchar(2) NOT NULL,
-  `description` varchar(20) default NULL,
-  `description_long` varchar(50) default NULL,
-  PRIMARY KEY  (`key`,`language_key`),
+  `description` varchar(20) DEFAULT NULL,
+  `description_long` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`key`,`language_key`),
   KEY `fk_t_countries_k_languages` (`language_key`),
   KEY `fk_t_countries_k_countries` (`key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -261,9 +261,9 @@ DROP TABLE IF EXISTS `t_currencies`;
 CREATE TABLE `t_currencies` (
   `key` varchar(3) NOT NULL,
   `language_key` varchar(2) NOT NULL,
-  `description` varchar(20) default NULL,
-  `description_long` varchar(50) default NULL,
-  PRIMARY KEY  (`key`,`language_key`),
+  `description` varchar(20) DEFAULT NULL,
+  `description_long` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`key`,`language_key`),
   KEY `fk_t_currencies_k_languages` (`language_key`),
   KEY `fk_t_currencies_k_currencies` (`key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -279,16 +279,16 @@ DROP TABLE IF EXISTS `t_functionnodes`;
 CREATE TABLE `t_functionnodes` (
   `key` varchar(36) NOT NULL,
   `language_key` varchar(2) NOT NULL,
-  `description` varchar(20) default NULL,
-  `description_long` varchar(50) default NULL,
-  PRIMARY KEY  (`key`,`language_key`),
+  `description` varchar(20) DEFAULT NULL,
+  `description_long` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`key`,`language_key`),
   KEY `fk_t_functions_k_languages` (`language_key`),
   KEY `fk_t_functionnodes_k_functionnodes` (`key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 /*Data for the table `t_functionnodes` */
 
-insert  into `t_functionnodes`(`key`,`language_key`,`description`,`description_long`) values ('persons_all','de','Personen','Personen'),('persons_all','en','Persons','Persons'),('users_all','de','Benutzer','Benutzer'),('users_all','en','Users','Users'),('masterdata','de','Stammdaten','Stammdaten'),('masterdata','en','Masterdata','Masterdata'),('person_own','de','Eigene Person','Eigene Person'),('person_own','en','My person','My person'),('coaches_own','de','Meine Trainer','Meine Trainer'),('coaches_own','en','My Coaches','My Coaches'),('athletes_own','de','Meine Athleten','Meine Athleten'),('athletes_own','en','My Athletes','My Athletes');
+insert  into `t_functionnodes`(`key`,`language_key`,`description`,`description_long`) values ('persons_all','de','Personen','Personen'),('persons_all','en','Persons','Persons'),('users_all','de','Benutzer','Benutzer'),('users_all','en','Users','Users'),('masterdata','de','Stammdaten','Stammdaten'),('masterdata','en','Masterdata','Masterdata'),('person_own','de','Eigene Person','Eigene Person'),('person_own','en','My person','My person'),('coaches_own','de','Meine Trainer','Meine Trainer'),('coaches_own','en','My Coaches','My Coaches'),('athletes_own','de','Meine Athleten','Meine Athleten'),('athletes_own','en','My Athletes','My Athletes'),('relations','de','Beziehungen','Beziehungen'),('relations','en','Relationships','Relationships'),('relation_coach','de','Trainer','Trainer'),('relation_coach','en','Coaches','Coaches');
 
 /*Table structure for table `t_languages` */
 
@@ -297,9 +297,9 @@ DROP TABLE IF EXISTS `t_languages`;
 CREATE TABLE `t_languages` (
   `key` varchar(2) NOT NULL,
   `language_key` varchar(2) NOT NULL,
-  `description` varchar(20) default NULL,
-  `description_long` varchar(50) default NULL,
-  PRIMARY KEY  (`key`,`language_key`),
+  `description` varchar(20) DEFAULT NULL,
+  `description_long` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`key`,`language_key`),
   KEY `fk_t_languages_k_languages` (`language_key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -314,18 +314,18 @@ DROP TABLE IF EXISTS `t_reltyps`;
 CREATE TABLE `t_reltyps` (
   `key` varchar(10) NOT NULL,
   `language_key` varchar(2) NOT NULL,
-  `description` varchar(20) default NULL,
-  `description_long` varchar(50) default NULL,
-  `relation_description` varchar(20) default NULL,
-  `relation_description_inverse` varchar(20) default NULL,
-  PRIMARY KEY  (`key`,`language_key`),
+  `description` varchar(20) DEFAULT NULL,
+  `description_long` varchar(50) DEFAULT NULL,
+  `relation_description` varchar(20) DEFAULT NULL,
+  `relation_description_inverse` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`key`,`language_key`),
   KEY `fk_t_reltyps_k_languages` (`language_key`),
   KEY `fk_t_reltyps_k_reltyps` (`key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 /*Data for the table `t_reltyps` */
 
-insert  into `t_reltyps`(`key`,`language_key`,`description`,`description_long`,`relation_description`,`relation_description_inverse`) values ('trainer','de','Trainer','Trainer','hat den Trainer','ist Trainer von'),('trainer','en','Coach','Coach','has the coach','is the coach of');
+insert  into `t_reltyps`(`key`,`language_key`,`description`,`description_long`,`relation_description`,`relation_description_inverse`) values ('coach','de','Trainer','Trainer','hat den Trainer','ist Trainer von'),('coach','en','Coach','Coach','has the coach','is the coach of');
 
 /*Table structure for table `t_roles` */
 
@@ -334,9 +334,9 @@ DROP TABLE IF EXISTS `t_roles`;
 CREATE TABLE `t_roles` (
   `key` varchar(36) NOT NULL,
   `language_key` varchar(2) NOT NULL,
-  `description` varchar(20) default NULL,
-  `description_long` varchar(50) default NULL,
-  PRIMARY KEY  (`key`,`language_key`),
+  `description` varchar(20) DEFAULT NULL,
+  `description_long` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`key`,`language_key`),
   KEY `fk_t_roles_k_languages` (`language_key`),
   KEY `fk_t_roles_k_roles` (`key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -352,9 +352,9 @@ DROP TABLE IF EXISTS `t_salutation`;
 CREATE TABLE `t_salutation` (
   `key` varchar(10) NOT NULL,
   `language_key` varchar(2) NOT NULL,
-  `description` varchar(20) default NULL,
-  `description_long` varchar(50) default NULL,
-  PRIMARY KEY  (`key`,`language_key`),
+  `description` varchar(20) DEFAULT NULL,
+  `description_long` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`key`,`language_key`),
   KEY `fk_t_salutation_k_languages` (`language_key`),
   KEY `fk_t_salutation_k_title` (`key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -370,9 +370,9 @@ DROP TABLE IF EXISTS `t_sex`;
 CREATE TABLE `t_sex` (
   `key` varchar(1) NOT NULL,
   `language_key` varchar(2) NOT NULL,
-  `description` varchar(20) default NULL,
-  `description_long` varchar(50) default NULL,
-  PRIMARY KEY  (`key`,`language_key`),
+  `description` varchar(20) DEFAULT NULL,
+  `description_long` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`key`,`language_key`),
   KEY `fk_t_sex_k_languages` (`language_key`),
   KEY `fk_t_sex_k_sex` (`key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -387,22 +387,22 @@ DROP TABLE IF EXISTS `users`;
 
 CREATE TABLE `users` (
   `id` varchar(36) NOT NULL,
-  `user_name` varchar(16) default NULL COMMENT 'Username',
-  `user_hash` varchar(24) default NULL COMMENT 'Hashed password',
-  `language_key` varchar(2) default NULL,
-  `currency_key` varchar(3) default NULL,
-  `locked` tinyint(1) default '0' COMMENT 'locked through wrong logon attempts',
-  `initial` tinyint(1) default '1' COMMENT 'initial password, user has to change the password at first logon',
-  `active` tinyint(1) default '1' COMMENT 'user is active',
-  `person_id` varchar(36) default NULL,
-  `email` varchar(255) default NULL,
-  `created_at` datetime default '1900-01-01 00:00:00',
-  `created_by` varchar(36) default NULL COMMENT 'Datensatz erstellt von',
-  `modified_at` datetime default '1900-01-01 00:00:00',
-  `modified_by` varchar(36) default NULL COMMENT 'Datensatz geändert von',
-  `deleted` tinyint(1) default '0',
-  `test` tinyint(1) default '0',
-  PRIMARY KEY  (`id`),
+  `user_name` varchar(16) DEFAULT NULL COMMENT 'Username',
+  `user_hash` varchar(24) DEFAULT NULL COMMENT 'Hashed password',
+  `language_key` varchar(2) DEFAULT NULL,
+  `currency_key` varchar(3) DEFAULT NULL,
+  `locked` tinyint(1) DEFAULT '0' COMMENT 'locked through wrong logon attempts',
+  `initial` tinyint(1) DEFAULT '1' COMMENT 'initial password, user has to change the password at first logon',
+  `active` tinyint(1) DEFAULT '1' COMMENT 'user is active',
+  `person_id` varchar(36) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT '1900-01-01 00:00:00',
+  `created_by` varchar(36) DEFAULT NULL COMMENT 'Datensatz erstellt von',
+  `modified_at` datetime DEFAULT '1900-01-01 00:00:00',
+  `modified_by` varchar(36) DEFAULT NULL COMMENT 'Datensatz geändert von',
+  `deleted` tinyint(1) DEFAULT '0',
+  `test` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`),
   UNIQUE KEY `idx_users_uk` (`user_name`),
   KEY `fk_users_k_currencies` (`currency_key`),
   KEY `fk_users_k_languages` (`language_key`),
@@ -411,7 +411,7 @@ CREATE TABLE `users` (
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`user_name`,`user_hash`,`language_key`,`currency_key`,`locked`,`initial`,`active`,`person_id`,`email`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('e96bcbd2-676d-102c-ace2-9cc3fca64c87','reich','test','de','eur',0,0,1,'0b0b7658-2ddb-11de-86ae-00301bb60f17','reich.markus@gmail.com','1900-01-01 00:00:00','','1900-01-01 00:00:00','',0,0),('e96bcbd2-676d-102c-ace2-9cc3fca64c88','bucher','test','en','usd',0,0,1,'10f52302-2ddb-11de-86ae-00301bb60f17','dany.bucher@gmail.com','1900-01-01 00:00:00','','1900-01-01 00:00:00','',0,0),('e96bcbd2-676d-102c-ace2-9cc3fca64c89','mach','test','de','eur',0,0,1,'7522bc7f-42cf-415c-a050-da12518a4cd3','mach.thomas@gmail.com','1900-01-01 00:00:00','','1900-01-01 00:00:00','',0,0);
+insert  into `users`(`id`,`user_name`,`user_hash`,`language_key`,`currency_key`,`locked`,`initial`,`active`,`person_id`,`email`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('e96bcbd2-676d-102c-ace2-9cc3fca64c87','reich','test','de','eur',0,0,1,'0b0b7658-2ddb-11de-86ae-00301bb60f17','reich.markus@gmail.com','1900-01-01 00:00:00','','1900-01-01 00:00:00','',0,0),('e96bcbd2-676d-102c-ace2-9cc3fca64c88','bucher','test','en','usd',0,0,1,'10f52302-2ddb-11de-86ae-00301bb60f17','dany.bucher@gmail.com','1900-01-01 00:00:00','','2009-05-10 17:53:59','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('e96bcbd2-676d-102c-ace2-9cc3fca64c89','mach','test','de','eur',0,0,1,'7522bc7f-42cf-415c-a050-da12518a4cd3','mach.thomas@gmail.com','1900-01-01 00:00:00','','1900-01-01 00:00:00','',0,0);
 
 /*Table structure for table `users_have_authorizations` */
 
@@ -420,7 +420,7 @@ DROP TABLE IF EXISTS `users_have_authorizations`;
 CREATE TABLE `users_have_authorizations` (
   `user_id` varchar(36) NOT NULL,
   `authorization_key` varchar(36) NOT NULL,
-  PRIMARY KEY  (`user_id`,`authorization_key`),
+  PRIMARY KEY (`user_id`,`authorization_key`),
   KEY `fk_users_have_authorizations_k_authorizations` (`authorization_key`),
   KEY `fk_users_have_authorizations_users` (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -434,7 +434,7 @@ DROP TABLE IF EXISTS `users_have_roles`;
 CREATE TABLE `users_have_roles` (
   `user_id` varchar(36) NOT NULL,
   `role_key` varchar(36) NOT NULL,
-  PRIMARY KEY  (`user_id`,`role_key`),
+  PRIMARY KEY (`user_id`,`role_key`),
   KEY `fk_users_has_roles_users` (`user_id`),
   KEY `fk_users_has_roles_roles` (`role_key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
