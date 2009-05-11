@@ -20,7 +20,7 @@
 <t:splitpanesplit id="g_6" padding="1" rowdistance="35" >
 <t:rowdistance id="g_7" />
 <t:row id="g_8" >
-<t:outlookbar id="g_9" height="100%" width="100" >
+<t:outlookbar id="g_9" height="100%" width="100%" >
 <t:outlookbaritem id="g_10" actionListener="#{d.WorkplaceUI.onSwitchRole}" clientname="admin" rendered="#{d.WorkplaceUI.renderAdmin}" text="#{rr.literals.role_admin}" />
 <t:outlookbaritem id="g_11" actionListener="#{d.WorkplaceUI.onSwitchRole}" clientname="coach" rendered="#{d.WorkplaceUI.renderCoach}" text="#{rr.literals.role_trainer}" />
 <t:outlookbaritem id="g_12" actionListener="#{d.WorkplaceUI.onSwitchRole}" clientname="athlete" rendered="#{d.WorkplaceUI.renderAthlete}" text="#{rr.literals.role_athlet}" />

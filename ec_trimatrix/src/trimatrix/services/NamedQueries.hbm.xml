@@ -67,7 +67,7 @@
   <return-scalar column="description_long" type="java.lang.String"/>
  </sql-query>
  <sql-query name="FunctionTree"
-   read-only="true">select rhf.node, rhf.parent, rhf.order, k.page, k.entity, k.edit, k.create, k.delete, t.description, t.description_long
+   read-only="true">select rhf.node, rhf.parent, rhf.order, k.key, k.page, k.entity, k.edit, k.create, k.delete, t.description, t.description_long
   from roles_have_functionnodes as rhf, k_functionnodes as k, t_functionnodes as t
   where k.key = rhf.functionnode_key
   and   t.key = k.key
@@ -77,6 +77,7 @@
    column="node" type="java.lang.Integer"/>
   <return-scalar column="parent" type="java.lang.Integer"/>
   <return-scalar column="order" type="java.lang.Integer"/>
+  <return-scalar column="key" type="java.lang.String"/>
   <return-scalar column="page" type="java.lang.String"/>
   <return-scalar column="entity" type="java.lang.String"/>
   <return-scalar column="edit" type="java.lang.Boolean"/>

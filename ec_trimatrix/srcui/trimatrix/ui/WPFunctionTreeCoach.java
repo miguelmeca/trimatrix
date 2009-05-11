@@ -7,6 +7,8 @@ import java.util.Map;
 import org.eclnt.jsfserver.managedbean.IDispatcher;
 import org.eclnt.workplace.WorkplaceFunctionTree;
 
+import trimatrix.entities.IEntityData;
+import trimatrix.logic.FunctionTreeLogic;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SFunctionTree;
 import trimatrix.utils.Constants;
@@ -22,6 +24,7 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 	
 	@Override
 	protected void loadFunctionTree() {
+		FunctionTreeLogic FUNCTIONTREELOGIC = ((Dispatcher)getOwningDispatcher()).logicLayer.getFunctionTreeLogic();
 		// reset functiontree
 		getFtree().getRootNode().removeAllChildNodes(true);
 		
@@ -54,22 +57,28 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 					node.setParam(Constants.P_ENTITY, functionTree.entity);
 				}
 				// authorization
-				node.setParam(Constants.CREATE, Constants.FALSE);
-				if(functionTree.create) {
-					node.setParam(Constants.CREATE, Constants.TRUE);
-				}
-				node.setParam(Constants.CHANGE, Constants.FALSE);
-				if(functionTree.edit) {
-					node.setParam(Constants.CHANGE, Constants.TRUE);
-				}
-				node.setParam(Constants.DELETE, Constants.FALSE);
-				if(functionTree.delete) {
-					node.setParam(Constants.DELETE, Constants.TRUE);
+				FUNCTIONTREELOGIC.setAuthority(functionTree, node);
+				// special handling for some nodes
+				if (functionTree.key == Constants.FunctionNode.ATHLETES_OWN) {
+					// reset status
+					node.setStatus(FunctionNode.STATUS_OPENED);
+					// add athletes
+					List<IEntityData> athletes = FUNCTIONTREELOGIC.getMyAthletes();
+					for (IEntityData athlete : athletes) {
+						FunctionNode athlete_node = new FunctionNode(node, Constants.Page.PERSONDETAIL.url());	
+						athlete_node.setId(athlete.getId());
+						athlete_node.setStatus(FunctionNode.STATUS_ENDNODE);
+						athlete_node.setOpenMultipleInstances(true);
+						athlete_node.setText(athlete.toString());	
+						athlete_node.setParam(Constants.P_ENTITY, Constants.Entity.PERSON.name());
+						// authorization as parent
+						FUNCTIONTREELOGIC.setAuthority(functionTree, athlete_node);
+					}								
 				}
 			} else {
 				node = new FunctionNode(parentNode);
 			}
-			node.setText(functionTree.description);
+			node.setText(functionTree.description);			
 			// build map
 			functionNodeMap.put(functionTree.node, node);
 		}

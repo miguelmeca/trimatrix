@@ -54,6 +54,11 @@ public class SQLExecutorService {
 			datum.node = (Integer)line[i++];
 			datum.parent = (Integer)line[i++];
 			datum.order = (Integer)line[i++];
+			try {
+				datum.key = Constants.FunctionNode.valueOf(((String)line[i++]).toUpperCase());
+			} catch (Exception ex) {
+				Dictionary.logger.warn(ex.getMessage());
+			}		 
 			datum.page = (String)line[i++];
 			datum.entity = (String)line[i++];
 			datum.edit = (Boolean)line[i++];

@@ -22,6 +22,14 @@
         </property>    
     </bean>
     
+    <bean id="functionTreeLogic" class="trimatrix.logic.FunctionTreeLogic"
+        abstract="false" lazy-init="default" autowire="default"
+        dependency-check="default">
+        <property name="entityLayer">
+            <ref bean="entityLayer" />
+        </property>    
+    </bean>
+    
     <bean id="logicLayer" class="trimatrix.logic.LogicLayer"
         abstract="false" lazy-init="default" autowire="default"
         dependency-check="default">
@@ -30,6 +38,9 @@
         </property>    
         <property name="entityListLogic">
             <ref bean="entityListLogic" />
+        </property> 
+        <property name="functionTreeLogic">
+            <ref bean="functionTreeLogic" />
         </property> 
     </bean>
     
