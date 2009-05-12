@@ -25,6 +25,9 @@
         <property name="dictionaryService">
             <ref bean="dictionaryService" />            
         </property>  
+        <property name="daoLayer">
+            <ref bean="daoLayer" />            
+        </property>         
     </bean>
     
     <bean id="entityResolverService" class="trimatrix.services.EntityResolverService"
