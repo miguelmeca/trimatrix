@@ -10,6 +10,7 @@ import org.springframework.context.ApplicationContext;
 import trimatrix.entities.IEntityData;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SFunctionTree;
+import trimatrix.structures.SPersonPersonRelation;
 import trimatrix.utils.Constants;
 import trimatrix.utils.ContextStatic;
 
@@ -29,5 +30,11 @@ public class SQLExecutorServiceTest {
 	public void testFunctionTreeQuery() {		
 		List<SFunctionTree> functionTree = sqlExecutorService.getFunctionTree(Constants.Role.ADMIN, "de");
 		Assert.assertTrue(functionTree.size() > 0);
+	}
+	
+	@Test
+	public void testPersonPersonQuery() {		
+		List<SPersonPersonRelation> relations = sqlExecutorService.getPersonPersonRelation(Constants.Relation.PERSONPERSON, "de");
+		Assert.assertTrue(relations.size() > 0);
 	}
 }

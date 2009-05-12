@@ -48,11 +48,8 @@
 </t:pane>
 </t:row>
 <t:popupmenu id="WORKPLACE" >
-<t:menuitem id="g_25" />
-<t:menuitem id="g_26" />
-<t:menuitem id="g_27" />
-<t:menuitem id="g_28" />
-<t:menuitem id="g_29" />
+<t:menuitem id="g_25" actionListener="#{d.workpageContainer.onCloseCurrentWorkpage}" hotkey="ctrl-115" text="#{rr.literals.close_current_wp}" />
+<t:menuitem id="g_26" actionListener="#{d.workpageContainer.onCloseAllWorkpages}" hotkey="ctrl-shift-115" text="#{rr.literals.close_all_wps}" />
 </t:popupmenu>
 <t:pageaddons id="g_pa"/>
 </f:subview>

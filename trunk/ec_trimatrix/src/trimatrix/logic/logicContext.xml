@@ -30,6 +30,11 @@
         </property>    
     </bean>
     
+    <bean id="relationListLogic" class="trimatrix.logic.RelationListLogic"
+        abstract="false" lazy-init="default" autowire="default"
+        dependency-check="default">   
+    </bean>
+    
     <bean id="logicLayer" class="trimatrix.logic.LogicLayer"
         abstract="false" lazy-init="default" autowire="default"
         dependency-check="default">
@@ -41,6 +46,9 @@
         </property> 
         <property name="functionTreeLogic">
             <ref bean="functionTreeLogic" />
+        </property> 
+        <property name="relationListLogic">
+            <ref bean="relationListLogic" />
         </property> 
     </bean>
     

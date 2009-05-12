@@ -10,6 +10,7 @@ import org.eclnt.jsfserver.elements.impl.ARRAYGRIDItem;
 import org.eclnt.jsfserver.elements.impl.ARRAYGRIDListBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
+import trimatrix.logic.RelationListLogic;
 import trimatrix.structures.SAuthorization;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 
@@ -17,6 +18,8 @@ import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 
 public class RelationListUI extends MyWorkpageDispatchedBean implements Serializable
 {	
+	private final RelationListLogic RELATIONLISTLOGIC = getLogic().getRelationListLogic();
+	
 	private ARRAYGRIDListBinding<MyARRAYGRIDItem> grid = new ARRAYGRIDListBinding<MyARRAYGRIDItem>();
 	public ARRAYGRIDListBinding<MyARRAYGRIDItem> getGrid() { return grid; }
 	
@@ -31,10 +34,15 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 	
 	public RelationListUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
+		initialize();
+	}
+	
+	private void initialize() {		
+		buildMetaData();
 		buildData();
 	}
 	
-	private void buildData() {		
+	private void buildMetaData() {
 		grid.getItems().clear();
 		String[] titles = new String[COLCOUNT];
 		String[] widths = new String[COLCOUNT];
@@ -55,8 +63,12 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 		grid.setAligns(aligns);
 	}
 	
+	private void buildData() {
+		
+	}
+	
 	public void onRefresh(ActionEvent event) {
-		buildData();
+		initialize();
 	}
 	
 	public void onAdd(ActionEvent event) {

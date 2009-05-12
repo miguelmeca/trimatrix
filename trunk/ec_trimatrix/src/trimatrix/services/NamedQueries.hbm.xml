@@ -49,6 +49,27 @@
   <return-scalar column="sex" type="java.lang.String"/>
   <return-scalar column="birthdate" type="java.sql.Timestamp"/>
  </sql-query>  
+ 
+<sql-query cacheable="true" name="PersonPersonRelationList" read-only="true">
+SELECT
+  phr.partner1,
+  tr.relation_description,
+  tr.relation_description_inverse,
+  phr.default,
+  phr.partner2
+FROM persons_have_relations AS phr
+  JOIN t_reltyps AS tr
+    ON tr.key = reltyp_key
+      AND tr.language_key = :p_lang_key
+WHERE phr.reltyp_key = :p_reltyp
+OR    1 = :p_dummy
+  <return-scalar column="partner1" type="java.lang.String"/>
+  <return-scalar column="relation_description" type="java.lang.String"/>
+  <return-scalar column="relation_description_inverse" type="java.lang.String"/>
+  <return-scalar column="default" type="java.lang.Boolean"/>
+  <return-scalar column="partner2" type="java.lang.String"/>
+</sql-query>  
+ 
  <sql-query cacheable="true" name="LanguageValueList"
    read-only="true">SELECT k_languages.key, t_languages.description, t_languages.description_long 
   FROM k_languages JOIN t_languages ON k_languages.key = t_languages.key 

@@ -10,10 +10,13 @@ import org.hibernate.SessionFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.HibernateTransactionManager;
 
+import trimatrix.db.DAOLayer;
+import trimatrix.db.Persons;
 import trimatrix.entities.IEntityData;
 import trimatrix.entities.PersonEntity;
 import trimatrix.entities.UserEntity;
 import trimatrix.structures.SFunctionTree;
+import trimatrix.structures.SPersonPersonRelation;
 import trimatrix.structures.SValueList;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
@@ -28,10 +31,12 @@ public class SQLExecutorService {
 	private static final String FUNCTIONTREEQUERY = "FunctionTree";
 	private static final String LANGUAGEVALUELISTQUERY = "LanguageValueList";
 	private static final String LOGONLANGUAGEVALUELISTQUERY = "LogonLanguageValueList";
-	private static final String PERSONRELATIONQUERY = "PersonRelationEntityList";
+	private static final String PERSONRELATIONENTITYQUERY = "PersonRelationEntityList";
+	private static final String PERSONPERSONQUERY = "PersonPersonRelationList";
 	
 	private HibernateTransactionManager transactionManager;
 	private Dictionary dictionaryService;
+	private DAOLayer daoLayer;
 	
 	/**
 	 * Retrieve functiontree for workplace
@@ -146,6 +151,10 @@ public class SQLExecutorService {
 		return data;
 	}
 	
+	public List<IEntityData> getPersonEntities() {
+		return getPersonEntities(dictionaryService.getLanguage(), false, false);
+	}
+	
 	/**
 	 * Retrieve persons in a certain relationship
 	 * @param person_id
@@ -161,7 +170,7 @@ public class SQLExecutorService {
 		List<IEntityData> data = new ArrayList<IEntityData>();
 		SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
-		Query query = session.getNamedQuery(PERSONRELATIONQUERY);
+		Query query = session.getNamedQuery(PERSONRELATIONENTITYQUERY);
 		query.setString("p_lang_key", lang_key);
 		query.setBoolean("p_deleted", deleted);
 		query.setBoolean("p_test", test);
@@ -189,14 +198,48 @@ public class SQLExecutorService {
 		return data;
 	}
 	
-	
-	public List<IEntityData> getPersonEntities() {
-		return getPersonEntities(dictionaryService.getLanguage(), false, false);
-	}
-	
 	public List<IEntityData> getPersonRelationEntities(String person_id, Constants.Relation relation, boolean inverse) {
 		return getPersonRelationEntities(person_id, relation, inverse, dictionaryService.getLanguage(), false, false);
+	}	
+		
+	/**
+	 * Return person to person relations
+	 * @param relation
+	 * @param lang_key
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<SPersonPersonRelation> getPersonPersonRelation(Constants.Relation relation, String lang_key) {
+		List<SPersonPersonRelation> data = new ArrayList<SPersonPersonRelation>();
+		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		Query query = session.getNamedQuery(PERSONPERSONQUERY);
+		query.setString("p_lang_key", lang_key);
+		query.setString("p_reltyp", relation.type());
+		// when base Relation then return all
+		if (relation == Constants.Relation.PERSONPERSON) {
+			query.setInteger("p_dummy",1);
+		} else {
+			query.setInteger("p_dummy", 0);
+		}
+		List<Object[]> result = query.list();
+		for(Object[] line : result) {
+			SPersonPersonRelation datum = new SPersonPersonRelation();
+			int i = 0;
+			datum.partner1 = (Persons)daoLayer.getPersonsDAO().findById((String)line[i++]);
+			datum.description = (String)line[i++];
+			datum.description_inverse = (String)line[i++];
+			datum.default_rel = (Boolean)line[i++];
+			datum.partner2 = (Persons)daoLayer.getPersonsDAO().findById((String)line[i++]);
+			data.add(datum);
+		}
+		session.close();
+		return data;
 	}
+	
+	public List<SPersonPersonRelation> getPersonPersonRelation(Constants.Relation relation) {
+		return getPersonPersonRelation(relation, dictionaryService.getLanguage());
+	}	
 	
 	/**
 	 * Retrieve value list
@@ -239,6 +282,10 @@ public class SQLExecutorService {
 	
 	public void setDictionaryService(Dictionary dictionaryService) {
 		this.dictionaryService = dictionaryService;
+	}	
+
+	public void setDaoLayer(DAOLayer daoLayer) {
+		this.daoLayer = daoLayer;
 	}
 
 	public static SQLExecutorService getFromApplicationContext(ApplicationContext ctx) {
