@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclnt.jsfserver.elements.impl.TREENODEComponent;
 import org.eclnt.jsfserver.managedbean.IDispatcher;
 import org.eclnt.workplace.WorkplaceFunctionTree;
 
@@ -21,7 +22,7 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 	
 	public WPFunctionTreeCoach(IDispatcher owner) {
 		super(owner);
-	}	
+	}		
 	
 	@Override
 	protected void loadFunctionTree() {
@@ -73,7 +74,7 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 					// add athletes
 					List<IEntityData> athletes = FUNCTIONTREELOGIC.getMyAthletes();
 					for (IEntityData athlete : athletes) {
-						FunctionNode athlete_node = new FunctionNode(node, Constants.Page.PERSONDETAIL.url());	
+						FunctionNode athlete_node = new FunctionNode(node, Constants.Page.ENTITYDETAIL.url());	
 						athlete_node.setId(athlete.getId());
 						athlete_node.setStatus(FunctionNode.STATUS_ENDNODE);
 						athlete_node.setOpenMultipleInstances(true);

@@ -17,6 +17,13 @@ import trimatrix.utils.Constants;
 
 public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializable
 {
+	private static final String DIVIDERLOCATIONMAX = "150";
+	private static final String DIVIDERLOCATIONMIN = "0";
+    protected String m_toggleShowHideImage;
+   
+    protected String m_dividerLocation = DIVIDERLOCATIONMAX;
+    public String getDividerLocation() { return m_dividerLocation; }      
+
     protected boolean m_renderCoach;
     public boolean getRenderCoach() { return m_renderCoach; }
     public void setRenderCoach(boolean value) { m_renderCoach = value; }
@@ -70,6 +77,20 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 			setRenderAdmin(true);
 			m_selectedRole = Constants.Role.ADMIN.getId();
 		}
-	}
+	}	
 	
+	public String getToggleShowHideImage() 
+    {
+        if (!m_dividerLocation.equals(DIVIDERLOCATIONMIN))
+            return Constants.SIDE_CONTRACT;
+        else
+            return Constants.SIDE_EXPAND;
+    }
+	
+	public void onShowHideFunctions(ActionEvent event) {
+		if (m_dividerLocation.equals(DIVIDERLOCATIONMIN))
+            m_dividerLocation = DIVIDERLOCATIONMAX;
+        else
+            m_dividerLocation = DIVIDERLOCATIONMIN;
+	}
 }
