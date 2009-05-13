@@ -133,9 +133,9 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable, IEnti
     	m_popup = getWorkpage().createModalPopupInWorkpageContext();    	
     	m_popup.open(Constants.Page.PERSONSELECTION.url(), "Personensuche", 800, 600, this);    	
     	// TODO generate routine for centering the popup, this way is not ok!!!
-    	java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();    	
-    	m_popup.setLeft(((int)screenSize.getWidth() - m_popup.getWidth()) / 2);
-    	m_popup.setTop(((int)screenSize.getHeight() - m_popup.getHeight()) / 2);
+    	//java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();    	
+    	//m_popup.setLeft(((int)screenSize.getWidth() - m_popup.getWidth()) / 2);
+    	//m_popup.setTop(((int)screenSize.getHeight() - m_popup.getHeight()) / 2);
     }
 	
 	public void onPersonRemove(ActionEvent event) {

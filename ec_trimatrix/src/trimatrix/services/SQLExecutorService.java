@@ -34,6 +34,7 @@ public class SQLExecutorService {
 	private static final String LOGONLANGUAGEVALUELISTQUERY = "LogonLanguageValueList";
 	private static final String PERSONRELATIONENTITYQUERY = "PersonRelationEntityList";
 	private static final String PERSONPERSONQUERY = "PersonPersonRelationList";
+	private static final String RELTYPSVALUELISTQUERY = "RelTypsValueList";
 	
 	private HibernateTransactionManager transactionManager;
 	private Dictionary dictionaryService;
@@ -260,6 +261,8 @@ public class SQLExecutorService {
 			namedQuery = LOGONLANGUAGEVALUELISTQUERY;
 		} else if (valueList==Constants.ValueList.SALUTATION) {
 			namedQuery = SALUTATIONVALUELISTQUERY;
+		} else if (valueList==Constants.ValueList.RELTYPS) {
+				namedQuery = RELTYPSVALUELISTQUERY;			
 		}else {
 			Dictionary.logger.warn("Valuelist not found: " + valueList.name());
 			return list;

@@ -29,6 +29,7 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 	private ARRAYGRIDListBinding<MyARRAYGRIDItem> grid = new ARRAYGRIDListBinding<MyARRAYGRIDItem>();
 	public ARRAYGRIDListBinding<MyARRAYGRIDItem> getGrid() { return grid; }
 	
+	private static final Constants.Relation relation = Constants.Relation.COACH;
 	private static final int COLCOUNT = 4;
 	private static final String REMOVE = "remove";
 	private static final String ADD = "add";
@@ -54,7 +55,7 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 		// clear list
 		grid.getItems().clear();
 		// get relations from database
-		List<SPersonPersonRelation> relations = RELATIONLISTLOGIC.getPersonPersonRelations(Constants.Relation.COACH);
+		List<SPersonPersonRelation> relations = RELATIONLISTLOGIC.getPersonPersonRelations(relation);
 		for (SPersonPersonRelation relation : relations) {
 			MyARRAYGRIDItem item = new MyARRAYGRIDItem(relation.id);
 			String[] values = new String[COLCOUNT];
@@ -81,7 +82,10 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 	}
 	
 	public void onAdd(ActionEvent event) {
-		// TODO Pop-Up
+		CreateRelationUI createRelationUI = getCreateRelationUI();
+		createRelationUI.setRelationType(relation);
+		m_popup = getWorkpage().createModalPopupInWorkpageContext();    	
+    	m_popup.open(Constants.Page.CREATERELATION.url(), "Beziehung anlegen", 400, 300, this); 
 	}
 	
 	public void onRemove(ActionEvent event) {

@@ -8,6 +8,7 @@ import org.eclnt.workplace.WorkpageDispatchedBean;
 import trimatrix.db.DAOLayer;
 import trimatrix.logic.LogicLayer;
 import trimatrix.services.ServiceLayer;
+import trimatrix.ui.CreateRelationUI;
 import trimatrix.ui.Dispatcher;
 import trimatrix.ui.EntityDetailUI;
 import trimatrix.ui.EntityListUI;
@@ -78,5 +79,9 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 	
 	public PersonSelectionUI getPersonSelectionUI() {
 		return (PersonSelectionUI)getOwningDispatcher().getDispatchedBean(PersonSelectionUI.class);
+	}
+	
+	public CreateRelationUI getCreateRelationUI() {
+		return (CreateRelationUI)getOwningDispatcher().getDispatchedBean(CreateRelationUI.class);
 	}
 }
