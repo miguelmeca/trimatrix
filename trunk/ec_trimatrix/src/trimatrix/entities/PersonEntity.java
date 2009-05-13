@@ -40,6 +40,7 @@ public final class PersonEntity implements IEntity {
 	 */
 	public List<SGridMetaData> getGridMetaData() {
         List<SGridMetaData> gridMetaData = new ArrayList<SGridMetaData>();
+        gridMetaData.add(new SGridMetaData("Anrede", SALUTATION, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("Vorname", NAME_FIRST, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("Nachname", NAME_LAST, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("Email", EMAIL, SGridMetaData.Component.FIELD));
@@ -158,7 +159,7 @@ public final class PersonEntity implements IEntity {
 	
 	public static class Data implements IEntityData {
 		public String id;
-		public String salutationKey;
+		public String salutation;
 		public String name_first;
 		public String name_last;
 		public String sex;
@@ -187,9 +188,9 @@ public final class PersonEntity implements IEntity {
 			// same as DB entity implementation
 			return (name_first + " " + name_last).replace(Constants.NULL, Constants.EMPTY).trim();
 		}
-
-		public String getSalutationKey() {
-			return salutationKey;
+		
+		public String getSalutation() {
+			return salutation;
 		}
 		
 		public String getName_first() {

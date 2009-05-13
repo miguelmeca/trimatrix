@@ -30,6 +30,7 @@ public class SQLExecutorService {
 	private static final String PERSONENTITYLISTQUERY = "PersonEntityList";
 	private static final String FUNCTIONTREEQUERY = "FunctionTree";
 	private static final String LANGUAGEVALUELISTQUERY = "LanguageValueList";
+	private static final String SALUTATIONVALUELISTQUERY = "SalutationValueList";
 	private static final String LOGONLANGUAGEVALUELISTQUERY = "LogonLanguageValueList";
 	private static final String PERSONRELATIONENTITYQUERY = "PersonRelationEntityList";
 	private static final String PERSONPERSONQUERY = "PersonPersonRelationList";
@@ -140,6 +141,7 @@ public class SQLExecutorService {
 			PersonEntity.Data datum = new PersonEntity.Data();
 			int i = 0;
 			datum.id = (String)line[i++];
+			datum.salutation = (String)line[i++];
 			datum.name_first = (String)line[i++];
 			datum.name_last = (String)line[i++];
 			datum.email = (String)line[i++];
@@ -186,12 +188,12 @@ public class SQLExecutorService {
 		for(Object[] line : result) {
 			PersonEntity.Data datum = new PersonEntity.Data();
 			int i = 0;
-			datum.id = (String)line[i++];
+			datum.id = (String)line[i++];			
 			datum.name_first = (String)line[i++];
 			datum.name_last = (String)line[i++];
 			datum.email = (String)line[i++];
 			datum.sex = (String)line[i++];
-			datum.birthdate = (Timestamp)line[i++];
+			datum.birthdate = (Timestamp)line[i++];			
 			data.add(datum);
 		}
 		session.close();
@@ -256,7 +258,9 @@ public class SQLExecutorService {
 			namedQuery = LANGUAGEVALUELISTQUERY;
 		} else if (valueList==Constants.ValueList.LOGONLANGUAGE) {
 			namedQuery = LOGONLANGUAGEVALUELISTQUERY;
-		} else {
+		} else if (valueList==Constants.ValueList.SALUTATION) {
+			namedQuery = SALUTATIONVALUELISTQUERY;
+		}else {
 			Dictionary.logger.warn("Valuelist not found: " + valueList.name());
 			return list;
 		}

@@ -29,8 +29,7 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable, IEnti
 {    
 	protected ValidValuesBinding m_languagesVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.LANGUAGE);
     public ValidValuesBinding getLanguagesVvb() { return m_languagesVvb; }
-    public void setLanguagesVvb(ValidValuesBinding value) { m_languagesVvb = value; }
-  	
+   
 	private Users entity;    
     
 	public UserDetailUI(IWorkpageDispatcher dispatcher) {		
