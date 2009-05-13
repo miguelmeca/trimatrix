@@ -68,7 +68,7 @@ public final class Constants {
 	}
 	// all value lists
 	public static enum ValueList {
-		LANGUAGE, CURRENCY, LOGONLANGUAGE		
+		LANGUAGE, CURRENCY, LOGONLANGUAGE, SALUTATION		
 	}	
 	// all functionnodes
 	public static enum FunctionNode {

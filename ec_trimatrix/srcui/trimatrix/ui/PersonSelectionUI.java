@@ -6,6 +6,7 @@ import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
+import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.entities.IEntityData;
@@ -16,7 +17,10 @@ import trimatrix.utils.Constants;
 
 public class PersonSelectionUI extends EntitySelectionUI implements Serializable
 {
-    public PersonSelectionUI(IWorkpageDispatcher dispatcher) {
+	protected ValidValuesBinding salutationsVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.SALUTATION);
+    public ValidValuesBinding getSalutationsVvb() { return salutationsVvb; }
+   	
+	public PersonSelectionUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
 		buildData(Constants.Entity.PERSON);
 	}    

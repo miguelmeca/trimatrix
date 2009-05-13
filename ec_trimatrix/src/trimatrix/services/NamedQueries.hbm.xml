@@ -23,10 +23,26 @@
   <return-scalar column="active" type="java.lang.Boolean"/>
  </sql-query>
  <sql-query cacheable="true" name="PersonEntityList"
-   read-only="true">select persons.id, persons.name_first, persons.name_last, persons.email, t_sex.description sex, persons.birthdate from persons as persons left join t_sex as t_sex on t_sex.key = persons.sex_key and t_sex.language_key = :p_lang_key 
-  where persons.test = :p_test
-  and persons.deleted = :p_deleted<return-scalar
-   column="id" type="java.lang.String"/>
+   read-only="true">
+SELECT
+  persons.id,
+  t_salutation.description salutation,
+  persons.name_first,
+  persons.name_last,
+  persons.email,
+  t_sex.description sex,
+  persons.birthdate
+FROM persons AS persons
+  LEFT OUTER JOIN t_sex
+    ON t_sex.key = persons.sex_key
+      AND t_sex.language_key = :p_lang_key
+  LEFT OUTER JOIN t_salutation 
+    ON t_salutation.key = persons.salutation_key
+      AND t_salutation.language_key = :p_lang_key  
+WHERE persons.test = :p_test
+    AND persons.deleted = :p_deleted  
+  <return-scalar column="id" type="java.lang.String"/>
+  <return-scalar column="salutation" type="java.lang.String"/>
   <return-scalar column="name_first" type="java.lang.String"/>
   <return-scalar column="name_last" type="java.lang.String"/>
   <return-scalar column="email" type="java.lang.String"/>
@@ -89,6 +105,14 @@ OR    1 = :p_dummy
   <return-scalar column="description" type="java.lang.String"/>
   <return-scalar column="description_long" type="java.lang.String"/>
  </sql-query>
+ <sql-query cacheable="true" name="SalutationValueList"
+   read-only="true">SELECT k_salutation.key, t_salutation.description, t_salutation.description_long 
+  FROM k_salutation JOIN t_salutation ON k_salutation.key = t_salutation.key 
+  WHERE t_salutation.language_key = :p_lang_key
+  <return-scalar column="key" type="java.lang.String"/>
+  <return-scalar column="description" type="java.lang.String"/>
+  <return-scalar column="description_long" type="java.lang.String"/>
+ </sql-query> 
  <sql-query name="FunctionTree"
    read-only="true">select rhf.node, rhf.parent, rhf.order, k.key, k.page, k.entity, k.edit, k.create, k.delete, t.description, t.description_long
   from roles_have_functionnodes as rhf, k_functionnodes as k, t_functionnodes as t
