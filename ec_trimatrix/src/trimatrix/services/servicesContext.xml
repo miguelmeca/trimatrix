@@ -61,6 +61,12 @@
         <property name="dictionaryService">
             <ref bean="dictionaryService" />
         </property>   
+        <property name="sqlExecutorService">
+            <ref bean="sqlExecutorService" />
+        </property> 
+        <property name="entityResolverService">
+            <ref bean="entityResolverService" />
+        </property> 
     </bean>
     
 </beans>

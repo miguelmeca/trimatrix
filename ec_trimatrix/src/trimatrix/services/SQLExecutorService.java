@@ -226,6 +226,7 @@ public class SQLExecutorService {
 		for(Object[] line : result) {
 			SPersonPersonRelation datum = new SPersonPersonRelation();
 			int i = 0;
+			datum.id = (String)line[i++];
 			datum.partner1 = (Persons)daoLayer.getPersonsDAO().findById((String)line[i++]);
 			datum.description = (String)line[i++];
 			datum.description_inverse = (String)line[i++];

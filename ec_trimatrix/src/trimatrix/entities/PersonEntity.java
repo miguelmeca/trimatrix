@@ -21,6 +21,7 @@ import trimatrix.utils.Dictionary;
 
 public final class PersonEntity implements IEntity {
 	// Constants	 
+	public static final String SALUTATION = "salutation";
 	public static final String NAME_FIRST = "name_first";
     public static final String NAME_LAST = "name_last";  
     public static final String EMAIL = "email";
@@ -190,7 +191,7 @@ public final class PersonEntity implements IEntity {
 		public String getSalutationKey() {
 			return salutationKey;
 		}
-
+		
 		public String getName_first() {
 			return name_first;
 		}
@@ -249,139 +250,6 @@ public final class PersonEntity implements IEntity {
 
 		public Timestamp getBirthdate() {
 			return birthdate;
-		}
-
-		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result
-					+ ((birthdate == null) ? 0 : birthdate.hashCode());
-			result = prime * result + ((city == null) ? 0 : city.hashCode());
-			result = prime * result
-					+ ((countryKey == null) ? 0 : countryKey.hashCode());
-			result = prime * result + ((email == null) ? 0 : email.hashCode());
-			result = prime * result + ((fax == null) ? 0 : fax.hashCode());
-			result = prime * result
-					+ ((homepage == null) ? 0 : homepage.hashCode());
-			result = prime * result
-					+ ((housenumber == null) ? 0 : housenumber.hashCode());
-			result = prime * result + ((id == null) ? 0 : id.hashCode());
-			result = prime * result
-					+ ((mobile == null) ? 0 : mobile.hashCode());
-			result = prime * result
-					+ ((name_first == null) ? 0 : name_first.hashCode());
-			result = prime * result
-					+ ((name_last == null) ? 0 : name_last.hashCode());
-			result = prime * result
-					+ ((postcode == null) ? 0 : postcode.hashCode());
-			result = prime * result
-					+ ((salutationKey == null) ? 0 : salutationKey.hashCode());
-			result = prime * result
-					+ ((sex == null) ? 0 : sex.hashCode());
-			result = prime * result + ((state == null) ? 0 : state.hashCode());
-			result = prime * result
-					+ ((street == null) ? 0 : street.hashCode());
-			result = prime * result
-					+ ((telephone == null) ? 0 : telephone.hashCode());
-			return result;
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			Data other = (Data) obj;
-			if (birthdate == null) {
-				if (other.birthdate != null)
-					return false;
-			} else if (!birthdate.equals(other.birthdate))
-				return false;
-			if (city == null) {
-				if (other.city != null)
-					return false;
-			} else if (!city.equals(other.city))
-				return false;
-			if (countryKey == null) {
-				if (other.countryKey != null)
-					return false;
-			} else if (!countryKey.equals(other.countryKey))
-				return false;
-			if (email == null) {
-				if (other.email != null)
-					return false;
-			} else if (!email.equals(other.email))
-				return false;
-			if (fax == null) {
-				if (other.fax != null)
-					return false;
-			} else if (!fax.equals(other.fax))
-				return false;
-			if (homepage == null) {
-				if (other.homepage != null)
-					return false;
-			} else if (!homepage.equals(other.homepage))
-				return false;
-			if (housenumber == null) {
-				if (other.housenumber != null)
-					return false;
-			} else if (!housenumber.equals(other.housenumber))
-				return false;
-			if (id == null) {
-				if (other.id != null)
-					return false;
-			} else if (!id.equals(other.id))
-				return false;
-			if (mobile == null) {
-				if (other.mobile != null)
-					return false;
-			} else if (!mobile.equals(other.mobile))
-				return false;
-			if (name_first == null) {
-				if (other.name_first != null)
-					return false;
-			} else if (!name_first.equals(other.name_first))
-				return false;
-			if (name_last == null) {
-				if (other.name_last != null)
-					return false;
-			} else if (!name_last.equals(other.name_last))
-				return false;
-			if (postcode == null) {
-				if (other.postcode != null)
-					return false;
-			} else if (!postcode.equals(other.postcode))
-				return false;
-			if (salutationKey == null) {
-				if (other.salutationKey != null)
-					return false;
-			} else if (!salutationKey.equals(other.salutationKey))
-				return false;
-			if (sex == null) {
-				if (other.sex != null)
-					return false;
-			} else if (!sex.equals(other.sex))
-				return false;
-			if (state == null) {
-				if (other.state != null)
-					return false;
-			} else if (!state.equals(other.state))
-				return false;
-			if (street == null) {
-				if (other.street != null)
-					return false;
-			} else if (!street.equals(other.street))
-				return false;
-			if (telephone == null) {
-				if (other.telephone != null)
-					return false;
-			} else if (!telephone.equals(other.telephone))
-				return false;
-			return true;
 		}		
 	}
 

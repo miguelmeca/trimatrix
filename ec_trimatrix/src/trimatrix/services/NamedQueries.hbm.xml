@@ -52,6 +52,7 @@
  
 <sql-query cacheable="true" name="PersonPersonRelationList" read-only="true">
 SELECT
+  phr.id,
   phr.partner1,
   tr.relation_description,
   tr.relation_description_inverse,
@@ -63,6 +64,7 @@ FROM persons_have_relations AS phr
       AND tr.language_key = :p_lang_key
 WHERE phr.reltyp_key = :p_reltyp
 OR    1 = :p_dummy
+  <return-scalar column="id" type="java.lang.String"/>
   <return-scalar column="partner1" type="java.lang.String"/>
   <return-scalar column="relation_description" type="java.lang.String"/>
   <return-scalar column="relation_description_inverse" type="java.lang.String"/>
