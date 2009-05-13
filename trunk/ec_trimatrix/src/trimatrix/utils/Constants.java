@@ -20,7 +20,8 @@ public final class Constants {
 		PERSONDETAIL("/persondetail.jsp"),
 		USERSELECTION("/userselection.jsp"),
 		PERSONSELECTION("/personselection.jsp"),
-		RELATIONLIST("/relationlist.jsp");
+		RELATIONLIST("/relationlist.jsp"),
+		CREATERELATION("/createrelation.jsp");
 		private final String url;
 		Page(String url) {
 			this.url = url;
@@ -68,7 +69,7 @@ public final class Constants {
 	}
 	// all value lists
 	public static enum ValueList {
-		LANGUAGE, CURRENCY, LOGONLANGUAGE, SALUTATION		
+		LANGUAGE, CURRENCY, LOGONLANGUAGE, SALUTATION, RELTYPS	
 	}	
 	// all functionnodes
 	public static enum FunctionNode {

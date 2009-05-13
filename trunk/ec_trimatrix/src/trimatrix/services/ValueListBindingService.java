@@ -12,13 +12,22 @@ public class ValueListBindingService {
 	private SQLExecutorService sqlExecutorService;
 	private Dictionary dictionaryService;
 	
-	public ValidValuesBinding getVVBinding(Constants.ValueList valueList, String language) {
+	public ValidValuesBinding getVVBinding(Constants.ValueList valueList, String language, boolean longDescription) {
 		ValidValuesBinding vvb = new ValidValuesBinding();
 		List<SValueList> list = sqlExecutorService.getValueList(valueList, language);
 		for (SValueList entry : list) {
-			vvb.addValidValue(entry.key, entry.description);
+			if (longDescription) {
+				vvb.addValidValue(entry.key, entry.description_long);
+			} else {
+				vvb.addValidValue(entry.key, entry.description);
+			}
+			
 		}
 		return vvb;
+	}
+	
+	public ValidValuesBinding getVVBinding(Constants.ValueList valueList, String language) {
+		return getVVBinding(valueList,language, false);
 	}
 	
 	public ValidValuesBinding getVVBinding(Constants.ValueList valueList) {
