@@ -19,13 +19,16 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @author MyEclipse Persistence Tools
  */
 
-public class TSalutationDAO extends HibernateDaoSupport {
+public class TSalutationDAO extends HibernateDaoSupport implements ITSalutationDAO {
 	private static final Log log = LogFactory.getLog(TSalutationDAO.class);
 
 	protected void initDao() {
 		// do nothing
 	}
 
+	/* (non-Javadoc)
+	 * @see trimatrix.db.ITSalutationDAO#save(trimatrix.db.TSalutation)
+	 */
 	public void save(TSalutation transientInstance) {
 		log.debug("saving TSalutation instance");
 		try {
@@ -37,6 +40,9 @@ public class TSalutationDAO extends HibernateDaoSupport {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see trimatrix.db.ITSalutationDAO#delete(trimatrix.db.TSalutation)
+	 */
 	public void delete(TSalutation persistentInstance) {
 		log.debug("deleting TSalutation instance");
 		try {
@@ -48,6 +54,9 @@ public class TSalutationDAO extends HibernateDaoSupport {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see trimatrix.db.ITSalutationDAO#findById(trimatrix.db.TSalutationId)
+	 */
 	public TSalutation findById(trimatrix.db.TSalutationId id) {
 		log.debug("getting TSalutation instance with id: " + id);
 		try {
@@ -59,11 +68,22 @@ public class TSalutationDAO extends HibernateDaoSupport {
 			throw re;
 		}
 	}
+	
+	/* (non-Javadoc)
+	 * @see trimatrix.db.ITSalutationDAO#findById(java.lang.String, java.lang.String)
+	 */
+	public TSalutation findById(String key, String languageKey) {
+		return findById(new TSalutationId(key, languageKey));
+	}
 
-	public List findByExample(TSalutation instance) {
+	/* (non-Javadoc)
+	 * @see trimatrix.db.ITSalutationDAO#findByExample(trimatrix.db.TSalutation)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<TSalutation> findByExample(TSalutation instance) {
 		log.debug("finding TSalutation instance by example");
 		try {
-			List results = getHibernateTemplate().findByExample(instance);
+			List<TSalutation> results = getHibernateTemplate().findByExample(instance);
 			log.debug("find by example successful, result size: "
 					+ results.size());
 			return results;
@@ -73,7 +93,11 @@ public class TSalutationDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public List findByProperty(String propertyName, Object value) {
+	/* (non-Javadoc)
+	 * @see trimatrix.db.ITSalutationDAO#findByProperty(java.lang.String, java.lang.Object)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<TSalutation> findByProperty(String propertyName, Object value) {
 		log.debug("finding TSalutation instance with property: " + propertyName
 				+ ", value: " + value);
 		try {
@@ -86,7 +110,11 @@ public class TSalutationDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public List findAll() {
+	/* (non-Javadoc)
+	 * @see trimatrix.db.ITSalutationDAO#findAll()
+	 */
+	@SuppressWarnings("unchecked")
+	public List<TSalutation> findAll() {
 		log.debug("finding all TSalutation instances");
 		try {
 			String queryString = "from TSalutation";
@@ -97,6 +125,9 @@ public class TSalutationDAO extends HibernateDaoSupport {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see trimatrix.db.ITSalutationDAO#merge(trimatrix.db.TSalutation)
+	 */
 	public TSalutation merge(TSalutation detachedInstance) {
 		log.debug("merging TSalutation instance");
 		try {
@@ -110,6 +141,9 @@ public class TSalutationDAO extends HibernateDaoSupport {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see trimatrix.db.ITSalutationDAO#attachDirty(trimatrix.db.TSalutation)
+	 */
 	public void attachDirty(TSalutation instance) {
 		log.debug("attaching dirty TSalutation instance");
 		try {
@@ -121,6 +155,9 @@ public class TSalutationDAO extends HibernateDaoSupport {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see trimatrix.db.ITSalutationDAO#attachClean(trimatrix.db.TSalutation)
+	 */
 	public void attachClean(TSalutation instance) {
 		log.debug("attaching clean TSalutation instance");
 		try {
@@ -132,8 +169,8 @@ public class TSalutationDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public static TSalutationDAO getFromApplicationContext(
+	public static ITSalutationDAO getFromApplicationContext(
 			ApplicationContext ctx) {
-		return (TSalutationDAO) ctx.getBean("TSalutationDAO");
+		return (ITSalutationDAO) ctx.getBean("TSalutationDAO");
 	}
 }

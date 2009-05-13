@@ -17,9 +17,9 @@
     <bean id="entityListLogic" class="trimatrix.logic.EntityListLogic"
         abstract="false" lazy-init="default" autowire="default"
         dependency-check="default">
-        <property name="entityResolverService">
-            <ref bean="entityResolverService" />
-        </property>    
+        <property name="serviceLayer">
+            <ref bean="serviceLayer" />            
+        </property>   
     </bean>
     
     <bean id="functionTreeLogic" class="trimatrix.logic.FunctionTreeLogic"
@@ -33,6 +33,12 @@
     <bean id="relationListLogic" class="trimatrix.logic.RelationListLogic"
         abstract="false" lazy-init="default" autowire="default"
         dependency-check="default">   
+        <property name="serviceLayer">
+            <ref bean="serviceLayer" />            
+        </property> 
+        <property name="daoLayer">
+            <ref bean="daoLayer" />            
+        </property> 
     </bean>
     
     <bean id="logicLayer" class="trimatrix.logic.LogicLayer"
@@ -50,6 +56,5 @@
         <property name="relationListLogic">
             <ref bean="relationListLogic" />
         </property> 
-    </bean>
-    
+    </bean>    
 </beans>

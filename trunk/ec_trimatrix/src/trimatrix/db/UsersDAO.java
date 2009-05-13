@@ -1,14 +1,11 @@
 package trimatrix.db;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
-
-import trimatrix.utils.Dictionary;
 
 /**
  * A data access object (DAO) providing persistence and search support for Users

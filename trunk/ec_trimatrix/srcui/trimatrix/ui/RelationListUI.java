@@ -1,10 +1,14 @@
 package trimatrix.ui;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
+import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
+import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoCancelListener;
 import org.eclnt.jsfserver.elements.events.BaseActionEventPopupMenuItem;
 import org.eclnt.jsfserver.elements.impl.ARRAYGRIDItem;
 import org.eclnt.jsfserver.elements.impl.ARRAYGRIDListBinding;
@@ -12,7 +16,9 @@ import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.logic.RelationListLogic;
 import trimatrix.structures.SAuthorization;
+import trimatrix.structures.SPersonPersonRelation;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
+import trimatrix.utils.Constants;
 
 @CCGenClass (expressionBase="#{d.RelationListUI}")
 
@@ -23,9 +29,15 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 	private ARRAYGRIDListBinding<MyARRAYGRIDItem> grid = new ARRAYGRIDListBinding<MyARRAYGRIDItem>();
 	public ARRAYGRIDListBinding<MyARRAYGRIDItem> getGrid() { return grid; }
 	
-	private static final int COLCOUNT = 3;
+	private static final int COLCOUNT = 4;
 	private static final String REMOVE = "remove";
 	private static final String ADD = "add";
+	
+	private static final String[] titles = {"Partner 1", "Beziehung", "Partner 2", "Standard"};
+	private static final String[] widths = {"100","100","100","50"};
+	private static final String[] aligns = {"center", "center", "center", "center"};
+	private static final String[] formats = {"string", "string", "string", "boolean"};
+	private static final String[] backgrounds = {"#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"};
 	
 	private SAuthorization authorization;
 	public boolean getCreateAllowed() { return authorization.create; }
@@ -34,73 +46,87 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 	
 	public RelationListUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
-		initialize();
-	}
-	
-	private void initialize() {		
-		buildMetaData();
+		setMetaData();
 		buildData();
 	}
 	
-	private void buildMetaData() {
-		grid.getItems().clear();
-		String[] titles = new String[COLCOUNT];
-		String[] widths = new String[COLCOUNT];
-		String[] aligns = new String[COLCOUNT];
-		
-		titles[0] = "Partner 1";
-		widths[0] = "100";
-		aligns[0] = "center";
-		titles[1] = "Beziehung";
-		widths[1] = "100";
-		aligns[1] = "center";
-		titles[2] = "Partner 2";
-		widths[2] = "100";
-		aligns[2] = "center";
-		
-		grid.setTitles(titles);
-		grid.setWidths(widths);	
-		grid.setAligns(aligns);
-	}
-	
 	private void buildData() {
-		
-	}
-	
-	public void onRefresh(ActionEvent event) {
-		initialize();
-	}
-	
-	public void onAdd(ActionEvent event) {
-		MyARRAYGRIDItem item = new MyARRAYGRIDItem();
-		String[] values = new String[COLCOUNT];
-		String[] backgrounds = new String[COLCOUNT];
-		values[0] = "Markus Reich";
-		backgrounds[0] = "#FFFFFF";
-		values[1] = "ist Trainer von";
-		backgrounds[1] = "#FFFFFF";
-		values[2] = "Daniela Bucher";
-		backgrounds[2] = "#FFFFFF";
-		item.setValues(values);		
-		item.setBackgrounds(backgrounds);
-		grid.getItems().add(item);
-		if(event!=null) {
-			grid.ensureItemToBeDisplayed(item);
+		// clear list
+		grid.getItems().clear();
+		// get relations from database
+		List<SPersonPersonRelation> relations = RELATIONLISTLOGIC.getPersonPersonRelations(Constants.Relation.COACH);
+		for (SPersonPersonRelation relation : relations) {
+			MyARRAYGRIDItem item = new MyARRAYGRIDItem(relation.id);
+			String[] values = new String[COLCOUNT];
+			values[0] = relation.partner1.toString();
+			values[1] = relation.description;
+			values[2] = relation.partner2.toString();
+			values[3] = relation.default_rel.toString();
+			item.setValues(values);				
+			item.setBackgrounds(backgrounds);
+			grid.getItems().add(item);
 		}
 	}
 	
-	public void onRemove(ActionEvent event) {
-		grid.getItems().remove(grid.getSelectedItem());
+	private void setMetaData() {
+		grid.getItems().clear();
+		grid.setTitles(titles);
+		grid.setWidths(widths);	
+		grid.setAligns(aligns);
+		grid.setFormats(formats);
 	}	
 	
-	public class MyARRAYGRIDItem extends ARRAYGRIDItem {
+	public void onRefresh(ActionEvent event) {
+		buildData();
+	}
+	
+	public void onAdd(ActionEvent event) {
+		// TODO Pop-Up
+	}
+	
+	public void onRemove(ActionEvent event) {
+		final MyARRAYGRIDItem item = (MyARRAYGRIDItem)grid.getSelectedItem();		
+		deleteRelation(item);		
+	}	
+	
+	private void deleteRelation(final MyARRAYGRIDItem item) {
+		YESNOPopup.createInstance(
+				"Confirm deletion", 
+				"Do you really want to delete the selected relation?", 
+				new IYesNoCancelListener(){
 
+					public void reactOnCancel() {}
+
+					public void reactOnNo() {}
+
+					public void reactOnYes() {	
+						if(RELATIONLISTLOGIC.deletePersonPersonRelation(Constants.Relation.COACH, item.id)) {		
+							grid.getItems().remove(item);	
+							Statusbar.outputSuccess("Relation deleted");											
+						} else {
+							Statusbar.outputError("Relation could not be deleted!");
+						}								
+					}						
+				}
+		);
+	}
+		
+	public class MyARRAYGRIDItem extends ARRAYGRIDItem {
+		private String id;
+		
+		private MyARRAYGRIDItem() {
+			throw new IllegalAccessError();
+		};
+		public MyARRAYGRIDItem(String id) {
+			this.id = id;
+		}
+		
 		@Override
 		public void onRowPopupMenuItem(BaseActionEventPopupMenuItem event) {
 			super.onRowPopupMenuItem(event);
 			// remove item
 			if(REMOVE.equalsIgnoreCase(event.getCommand())) {
-				grid.getItems().remove(this);
+				deleteRelation(this);
 				return;				
 			}
 			// add item
@@ -109,6 +135,9 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 				return;				
 			}
 		}
-		
+
+		public String getId() {
+			return id;
+		}		
 	}
 }

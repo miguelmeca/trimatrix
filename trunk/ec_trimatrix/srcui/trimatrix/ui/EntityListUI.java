@@ -100,7 +100,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 				isCalendarField = true;
 			} 
 			xml.append("<t:gridcol text='" + meta.header
-					+ "' width='100' sortreference='.{datum." + meta.techname
+					+ "' align='center' width='100' sortreference='.{datum." + meta.techname
 					+ "}' searchenabled='true'>");
 			if (isCheckBox) {
 				xml.append("<t:checkbox align='center' selected='.{datum."
