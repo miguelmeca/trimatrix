@@ -54,6 +54,7 @@
                 <idref local="UsersDAO" />
                 <idref local="PersonsDAO" />
                 <idref local="PersonsHaveRelationsDAO" />
+                <idref local="TSalutationDAO" />
             </list>
         </property>
     </bean>

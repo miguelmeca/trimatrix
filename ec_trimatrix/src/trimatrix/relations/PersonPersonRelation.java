@@ -7,9 +7,7 @@ import java.util.UUID;
 import trimatrix.db.IPersonsDAO;
 import trimatrix.db.IPersonsHaveRelationsDAO;
 import trimatrix.db.Persons;
-import trimatrix.db.PersonsDAO;
 import trimatrix.db.PersonsHaveRelations;
-import trimatrix.entities.PersonEntity;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Dictionary;
@@ -44,7 +42,7 @@ public class PersonPersonRelation implements IRelation {
 		PersonsHaveRelations relation = new PersonsHaveRelations();
 		relation.setId(id);
 		// default values
-		relation.setDefault_(false);		
+		relation.setStandard(false);		
 		return relation;
 	}
 	
@@ -81,11 +79,9 @@ public class PersonPersonRelation implements IRelation {
 
 	public static class Data implements IRelationData {
 		public String  id;
-		public String  partner1;
-		public String  partner2;
-		public Persons person1;
-		public Persons person2;
-		public Boolean default_rel;
+		public Persons partner1;
+		public Persons partner2;
+		public Boolean standard;
 		public String  reltyp;
 		public String  description;
 		public String  description_inverse;		
@@ -94,24 +90,16 @@ public class PersonPersonRelation implements IRelation {
 			return id;
 		}		
 
-		public String getPartner1() {
+		public Persons getPartner1() {
 			return partner1;
 		}
 
-		public String getPartner2() {
+		public Persons getPartner2() {
 			return partner2;
 		}
 
-		public Persons getPerson1() {
-			return person1;
-		}
-
-		public Persons getPerson2() {
-			return person2;
-		}
-
-		public Boolean getDefault_rel() {
-			return default_rel;
+		public Boolean getStandard() {
+			return standard;
 		}
 
 		public String getDescription() {

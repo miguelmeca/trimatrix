@@ -11,7 +11,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.HibernateTransactionManager;
 
 import trimatrix.db.DAOLayer;
-import trimatrix.db.Persons;
 import trimatrix.entities.IEntityData;
 import trimatrix.entities.PersonEntity;
 import trimatrix.entities.UserEntity;
@@ -190,7 +189,8 @@ public class SQLExecutorService {
 		for(Object[] line : result) {
 			PersonEntity.Data datum = new PersonEntity.Data();
 			int i = 0;
-			datum.id = (String)line[i++];			
+			datum.id = (String)line[i++];		
+			datum.salutation = (String)line[i++];
 			datum.name_first = (String)line[i++];
 			datum.name_last = (String)line[i++];
 			datum.email = (String)line[i++];
@@ -231,14 +231,12 @@ public class SQLExecutorService {
 			PersonPersonRelation.Data datum = new PersonPersonRelation.Data();
 			int i = 0;
 			datum.id = (String)line[i++];
-			datum.partner1 = (String)line[i++];
-			datum.person1 = (Persons)daoLayer.getPersonsDAO().findById(datum.partner1);
+			datum.partner1 = daoLayer.getPersonsDAO().findById((String)line[i++]);
 			datum.description = (String)line[i++];
 			datum.description_inverse = (String)line[i++];
-			datum.default_rel = (Boolean)line[i++];
+			datum.standard = (Boolean)line[i++];
 			datum.reltyp = (String)line[i++];
-			datum.partner2 = (String)line[i++];
-			datum.person2 = (Persons)daoLayer.getPersonsDAO().findById(datum.partner2);			
+			datum.partner2 = daoLayer.getPersonsDAO().findById((String)line[i++]);			
 			data.add(datum);
 		}
 		session.close();

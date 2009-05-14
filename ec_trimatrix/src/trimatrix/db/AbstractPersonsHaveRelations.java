@@ -14,7 +14,7 @@ public abstract class AbstractPersonsHaveRelations implements
 	private String partner1;
 	private String partner2;
 	private String reltypKey;
-	private Boolean default_;
+	private Boolean standard;
 
 	// Constructors
 
@@ -34,7 +34,7 @@ public abstract class AbstractPersonsHaveRelations implements
 		this.partner1 = partner1;
 		this.partner2 = partner2;
 		this.reltypKey = reltypKey;
-		this.default_ = default_;
+		this.standard = default_;
 	}
 
 	// Property accessors
@@ -71,12 +71,11 @@ public abstract class AbstractPersonsHaveRelations implements
 		this.reltypKey = reltypKey;
 	}
 
-	public Boolean getDefault_() {
-		return this.default_;
+	public Boolean getStandard() {
+		return standard;
 	}
 
-	public void setDefault_(Boolean default_) {
-		this.default_ = default_;
+	public void setStandard(Boolean standard) {
+		this.standard = standard;
 	}
-
 }
