@@ -120,7 +120,7 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable, IEnti
 	 */
 	public void onPersonSearch(ActionEvent event) {
     	PersonSelectionUI personSelectionUI = getPersonSelectionUI();
-    	personSelectionUI.prepareCallback(new ISelectionCallback(){
+    	personSelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){
 			public void cancel() {
 				m_popup.close();				
 			}

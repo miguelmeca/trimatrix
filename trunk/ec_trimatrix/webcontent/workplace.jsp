@@ -51,6 +51,9 @@
 <t:menuitem id="g_25" actionListener="#{d.workpageContainer.onCloseCurrentWorkpage}" hotkey="ctrl-115" text="#{rr.literals.close_current_wp}" />
 <t:menuitem id="g_26" actionListener="#{d.workpageContainer.onCloseAllWorkpages}" hotkey="ctrl-shift-115" text="#{rr.literals.close_all_wps}" />
 </t:popupmenu>
+<t:beanprocessing id="g_27" >
+<t:sessioncloser id="g_28" />
+</t:beanprocessing>
 <t:pageaddons id="g_pa"/>
 </f:subview>
 </h:form>

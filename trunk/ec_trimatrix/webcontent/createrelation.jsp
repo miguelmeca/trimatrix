@@ -14,12 +14,12 @@
 <t:row id="g_1" >
 <t:paintarea id="g_2" height="100%" width="100%" >
 <t:label id="g_3" height="20" text="#{rr.literals.rel_partner1}" width="100" x="15" y="15" />
-<t:field id="g_4" bgpaint="mandatory()" enabled="false" focusable="false" height="20" width="150" x="110" y="15" />
+<t:field id="g_4" bgpaint="mandatory()" enabled="false" focusable="false" height="20" text="#{d.CreateRelationUI.partner1}" width="150" x="110" y="15" />
 <t:button id="g_5" actionListener="#{d.CreateRelationUI.onSelectPartner1}" height="20" text="#{rr.literals.select}" width="80" x="260" y="15" />
 <t:label id="g_6" height="20" text="#{rr.literals.rel_relationship}" width="100" x="15" y="45" />
 <t:combobox id="g_7" bgpaint="mandatory()" enabled="#{d.CreateRelationUI.reltypEnabled}" height="20" validvaluesbinding="#{d.CreateRelationUI.reltypeVvb}" value="#{d.CreateRelationUI.reltyp}" valuetextmode="TEXT" width="150" withnullitem="false" x="110" y="45" />
 <t:label id="g_8" height="20" text="#{rr.literals.rel_partner2}" width="100" x="15" y="75" />
-<t:field id="g_9" bgpaint="mandatory()" enabled="false" focusable="false" height="20" width="150" x="110" y="75" />
+<t:field id="g_9" bgpaint="mandatory()" enabled="false" focusable="false" height="20" text="#{d.CreateRelationUI.partner2}" width="150" x="110" y="75" />
 <t:button id="g_10" actionListener="#{d.CreateRelationUI.onSelectPartner2}" height="20" text="#{rr.literals.select}" width="80" x="260" y="75" />
 </t:paintarea>
 </t:row>

@@ -91,7 +91,8 @@ public final class PersonEntity implements IEntity {
 					for(Users user : users) {
 						user.setPerson(null);
 						usersDAO.merge(user);
-					}					
+					}				
+					// TODO delete PersonPersonRelations
 				} catch (Exception ex) {
 					status.setRollbackOnly();
 					return false;

@@ -194,4 +194,17 @@ public class PersonsHaveRelationsDAO extends HibernateDaoSupport implements IPer
 			ApplicationContext ctx) {
 		return (IPersonsHaveRelationsDAO) ctx.getBean("PersonsHaveRelationsDAO");
 	}
+	
+	public void reload(PersonsHaveRelations relation) {
+		String id = relation.getId();
+		log.debug("reloading PersonsHaveRelations instance with id: " + id);
+		try {
+			getHibernateTemplate().load(relation, id);			
+		} catch (RuntimeException re) {
+			log.error("load failed", re);
+			throw re;
+		}
+	}
+	
+
 }

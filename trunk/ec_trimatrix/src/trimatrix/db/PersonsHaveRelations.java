@@ -1,10 +1,12 @@
 package trimatrix.db;
 
+import trimatrix.relations.IRelationObject;
+
 /**
  * PersonsHaveRelations entity. @author MyEclipse Persistence Tools
  */
-public class PersonsHaveRelations extends AbstractPersonsHaveRelations
-		implements java.io.Serializable {
+public class PersonsHaveRelations extends AbstractPersonsHaveRelations 
+		implements java.io.Serializable, IRelationObject {
 
 	// Constructors
 
@@ -22,5 +24,10 @@ public class PersonsHaveRelations extends AbstractPersonsHaveRelations
 			String reltypKey, Boolean default_) {
 		super(id, partner1, partner2, reltypKey, default_);
 	}
-
+	
+	@Override
+	public String toString() {
+		// same as DB relation implementation
+		return (getPartner1() + " " + getReltypKey() + " " + getPartner2());
+	}
 }

@@ -5,17 +5,32 @@ import java.io.Serializable;
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
+import org.eclnt.jsfserver.util.HttpSessionAccess;
 import org.eclnt.workplace.IWorkpageDispatcher;
+import org.springframework.dao.DataIntegrityViolationException;
 
+import trimatrix.db.PersonsHaveRelations;
+import trimatrix.entities.IEntityObject;
+import trimatrix.logic.RelationListLogic;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Dictionary;
 
 @CCGenClass (expressionBase="#{d.CreateRelationUI}")
 
 public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serializable
 {
-    public CreateRelationUI(IWorkpageDispatcher dispatcher) {
+	private final RelationListLogic RELATIONLISTLOGIC = getLogic().getRelationListLogic();
+		
+	private IEntityObject partner1;
+    public String getPartner1() { return partner1.toString(); }
+    
+    private IEntityObject partner2;
+    public String getPartner2() { return partner2.toString(); }
+    
+	public CreateRelationUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
 		reltypEnabled = true;
 	}
@@ -24,20 +39,65 @@ public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serial
     public String getReltyp() { return relation.type(); }
 
     public void onCancel(ActionEvent event) {
-    	// TODO close pop up
+    	callback.cancel();
     }
 
     public void onSave(ActionEvent event) {
-    	
-    }
-
-    public void onSelectPartner2(ActionEvent event) {
-    	
+    	// check mandatory fields
+    	if(partner1==null || partner2==null || relation==null){
+    		Statusbar.outputAlert("Not all mandatory fields filled!");
+    		return;
+    	}
+    	// save prepare
+    	PersonsHaveRelations relation = RELATIONLISTLOGIC.createPersonPersonRelation();
+    	relation.setPartner1(partner1.getId());
+    	relation.setReltypKey(this.relation.type());
+    	relation.setPartner2(partner2.getId());
+    	// save
+    	try {
+    		RELATIONLISTLOGIC.savePersonPersonRelation(relation);
+    		Statusbar.outputSuccess("Relation saved");
+    		callback.ok();
+    	} catch (DataIntegrityViolationException dive) {
+			Statusbar.outputError("Relation could not be saved (Data Integrity)", dive.getRootCause().toString());
+		} catch (Exception ex){			
+			Statusbar.outputError("Relation could not be saved", ex.toString());			
+		} 	
     }
 
     public void onSelectPartner1(ActionEvent event) {
-    	
+       	PersonSelectionUI personSelectionUI = getPersonSelectionUI();
+       	personSelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){
+   			public void cancel() {
+   				m_popup.close();				
+   			}
+   			public void idSelected(String id) {  
+   				partner1 = getLogic().getEntityListLogic().getEntity(Constants.Entity.PERSON, id);    				
+   				m_popup.close();
+   			}});    	
+       	String width = HttpSessionAccess.getCurrentRequest().getHeader("eclnt-width");
+       	String height = HttpSessionAccess.getCurrentRequest().getHeader("eclnt-height");
+       	Dictionary.logger.info("Width: " + width + " - Height: " + height);
+       	m_popup = getWorkpage().createModalPopupInWorkpageContext();    	
+       	m_popup.open(Constants.Page.PERSONSELECTION.url(), "Personensuche", 800, 600, this);
     }
+    
+    public void onSelectPartner2(ActionEvent event) {
+    	PersonSelectionUI personSelectionUI = getPersonSelectionUI();
+       	personSelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){
+   			public void cancel() {
+   				m_popup.close();				
+   			}
+   			public void idSelected(String id) {  
+   				partner2 = getLogic().getEntityListLogic().getEntity(Constants.Entity.PERSON, id);    				
+   				m_popup.close();
+   			}});    	
+       	String width = HttpSessionAccess.getCurrentRequest().getHeader("eclnt-width");
+       	String height = HttpSessionAccess.getCurrentRequest().getHeader("eclnt-height");
+       	Dictionary.logger.warn("Width: " + width + " - Height: " + height);
+       	m_popup = getWorkpage().createModalPopupInWorkpageContext();    	
+       	m_popup.open(Constants.Page.PERSONSELECTION.url(), "Personensuche", 800, 600, this);
+    }   
 
     public void setRelationType(Constants.Relation relation) {
     	this.relation = relation;
@@ -50,4 +110,13 @@ public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serial
     protected boolean reltypEnabled;
     public boolean getReltypEnabled() { return reltypEnabled; }
 
+    public interface ISelectionCallback {
+    	public void cancel();
+    	public void ok();
+    }
+    
+    protected ISelectionCallback callback;
+    public void prepareCallback(ISelectionCallback callback) {
+    	this.callback = callback;
+    }
 }

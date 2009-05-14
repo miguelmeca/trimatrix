@@ -73,6 +73,7 @@ SELECT
   tr.relation_description,
   tr.relation_description_inverse,
   phr.default,
+  phr.reltyp_key,
   phr.partner2
 FROM persons_have_relations AS phr
   JOIN t_reltyps AS tr
@@ -85,6 +86,7 @@ OR    1 = :p_dummy
   <return-scalar column="relation_description" type="java.lang.String"/>
   <return-scalar column="relation_description_inverse" type="java.lang.String"/>
   <return-scalar column="default" type="java.lang.Boolean"/>
+  <return-scalar column="reltyp_key" type="java.lang.String"/>
   <return-scalar column="partner2" type="java.lang.String"/>
 </sql-query>  
  

@@ -10,6 +10,8 @@ public interface IEntity {
 	public abstract List<SGridMetaData> getGridMetaData();
 	
 	public abstract List<IEntityData> getData(Constants.Entity entity);
+	
+	public abstract List<IEntityData> getData();
 		
 	public abstract boolean delete(String id);	
 	

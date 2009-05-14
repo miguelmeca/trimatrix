@@ -21,7 +21,7 @@
 <t:coldistance id="g_8" width="10" />
 <t:label id="g_9" text="#{rr.literals.logon_user}" width="50" />
 <t:coldistance id="g_10" width="10" />
-<t:field id="g_11" bgpaint="mandatory()" text="#{d.LogonUI.user}" width="130" />
+<t:field id="g_11" bgpaint="mandatory()" requestfocus="creation" text="#{d.LogonUI.user}" width="130" />
 <t:coldistance id="g_12" width="10" />
 </t:row>
 <t:rowdistance id="g_13" height="5" />
