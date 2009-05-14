@@ -61,9 +61,9 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 			PersonPersonRelation.Data ppRelation = (PersonPersonRelation.Data)relation;
 			MyARRAYGRIDItem item = new MyARRAYGRIDItem(ppRelation.getId());
 			String[] values = new String[COLCOUNT];
-			values[0] = ppRelation.getPerson1().toString();
+			values[0] = ppRelation.getPartner1().toString();
 			values[1] = ppRelation.description;
-			values[2] = ppRelation.getPerson2().toString();
+			values[2] = ppRelation.getPartner2().toString();
 			item.setValues(values);				
 			item.setBackgrounds(backgrounds);
 			grid.getItems().add(item);

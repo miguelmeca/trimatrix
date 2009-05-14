@@ -50,7 +50,9 @@ WHERE persons.test = :p_test
   <return-scalar column="birthdate" type="java.sql.Timestamp"/>
  </sql-query> 
   <sql-query cacheable="true" name="PersonRelationEntityList"
-   read-only="true">select persons.id, persons.name_first, persons.name_last, persons.email, t_sex.description sex, persons.birthdate from persons as persons left join t_sex as t_sex on t_sex.key = persons.sex_key and t_sex.language_key = :p_lang_key 
+   read-only="true">select persons.id, t_salutation.description salutation, persons.name_first, persons.name_last, persons.email, t_sex.description sex, persons.birthdate from persons 
+   left outer join t_sex on t_sex.key = persons.sex_key and t_sex.language_key = :p_lang_key 
+   left outer join t_salutation on t_salutation.key = persons.salutation_key and t_salutation.language_key = :p_lang_key
   join persons_have_relations
   on 
   ( partner2 = persons.id and reltyp_key = :p_reltyp and partner1 = :p_partner1) 
@@ -59,6 +61,7 @@ WHERE persons.test = :p_test
   where persons.test = :p_test
   and persons.deleted = :p_deleted<return-scalar
    column="id" type="java.lang.String"/>
+  <return-scalar column="salutation" type="java.lang.String"/> 
   <return-scalar column="name_first" type="java.lang.String"/>
   <return-scalar column="name_last" type="java.lang.String"/>
   <return-scalar column="email" type="java.lang.String"/>
@@ -72,7 +75,7 @@ SELECT
   phr.partner1,
   tr.relation_description,
   tr.relation_description_inverse,
-  phr.default,
+  phr.standard,
   phr.reltyp_key,
   phr.partner2
 FROM persons_have_relations AS phr
@@ -85,7 +88,7 @@ OR    1 = :p_dummy
   <return-scalar column="partner1" type="java.lang.String"/>
   <return-scalar column="relation_description" type="java.lang.String"/>
   <return-scalar column="relation_description_inverse" type="java.lang.String"/>
-  <return-scalar column="default" type="java.lang.Boolean"/>
+  <return-scalar column="standard" type="java.lang.Boolean"/>
   <return-scalar column="reltyp_key" type="java.lang.String"/>
   <return-scalar column="partner2" type="java.lang.String"/>
 </sql-query>  

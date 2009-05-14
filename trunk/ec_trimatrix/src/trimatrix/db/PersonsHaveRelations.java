@@ -21,8 +21,8 @@ public class PersonsHaveRelations extends AbstractPersonsHaveRelations
 
 	/** full constructor */
 	public PersonsHaveRelations(String id, String partner1, String partner2,
-			String reltypKey, Boolean default_) {
-		super(id, partner1, partner2, reltypKey, default_);
+			String reltypKey, Boolean standard) {
+		super(id, partner1, partner2, reltypKey, standard);
 	}
 	
 	@Override

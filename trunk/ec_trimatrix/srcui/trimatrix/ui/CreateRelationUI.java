@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
+import org.eclnt.jsfserver.defaultscreens.OKPopup;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.jsfserver.util.HttpSessionAccess;
@@ -43,6 +44,7 @@ public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serial
     }
 
     public void onSave(ActionEvent event) {
+    	OKPopup popup = null;
     	// check mandatory fields
     	if(partner1==null || partner2==null || relation==null){
     		Statusbar.outputAlert("Not all mandatory fields filled!");
@@ -59,10 +61,16 @@ public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serial
     		Statusbar.outputSuccess("Relation saved");
     		callback.ok();
     	} catch (DataIntegrityViolationException dive) {
-			Statusbar.outputError("Relation could not be saved (Data Integrity)", dive.getRootCause().toString());
-		} catch (Exception ex){			
-			Statusbar.outputError("Relation could not be saved", ex.toString());			
+    		Dictionary.logger.error("Relation could not be saved (Data Integrity) : " + dive.getRootCause().toString());
+    		popup = OKPopup.createInstance("Error","Relation could not be saved (Data Integrity)");
+    	} catch (Exception ex){			
+			Dictionary.logger.error("Relation could not be saved : " + ex.toString());
+    		popup = OKPopup.createInstance("Error","Relation could not be saved");    	
 		} 	
+    	if (popup!=null) {
+    		popup.getModalPopup().setWidth(300);
+    		popup.getModalPopup().setHeight(150);
+    	}
     }
 
     public void onSelectPartner1(ActionEvent event) {

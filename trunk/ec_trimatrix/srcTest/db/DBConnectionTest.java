@@ -30,6 +30,7 @@ import trimatrix.db.IPersonsDAO;
 import trimatrix.db.IUsersDAO;
 import trimatrix.db.KRoles;
 import trimatrix.db.Persons;
+import trimatrix.db.PersonsHaveRelations;
 import trimatrix.db.RolesHaveFunctionnodes;
 import trimatrix.db.Users;
 import trimatrix.services.SQLExecutorService;
@@ -224,6 +225,25 @@ public class DBConnectionTest {
 			throw ex;
 		}
 		txManager.commit(status);
+	}
+	
+	@Test
+	public void testPersonPersonRelations() {
+		// create relation
+		PersonsHaveRelations relation = new PersonsHaveRelations();
+		String id = UUID.randomUUID().toString();
+		String partner1 = "0";
+		String partner2 = "1";
+		relation.setId(id);
+		relation.setPartner1(partner1);
+		relation.setReltypKey(Constants.Relation.COACH.type());
+		relation.setPartner2(partner2);		
+		//relation.setDefault_(false);
+		daoLayer.getPersonsHaveRelationsDAO().merge(relation);
+		
+		PersonsHaveRelations relation2 = daoLayer.getPersonsHaveRelationsDAO().findById(id);
+		Assert.assertNotNull(relation2);
+		daoLayer.getPersonsHaveRelationsDAO().delete(relation2);
 	}
 
 	@After
