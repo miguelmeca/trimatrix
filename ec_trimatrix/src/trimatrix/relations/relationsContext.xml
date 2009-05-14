@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="personPersonRelation" class="trimatrix.relations.PersonPersonRelation"
+        abstract="false" lazy-init="default" autowire="default"
+        dependency-check="default">
+        <property name="sqlExecutorService">
+            <ref bean="sqlExecutorService" />
+        </property>
+        <property name="dictionaryService">
+            <ref bean="dictionaryService" />
+        </property>
+        <property name="personsDAO">
+            <ref bean="PersonsDAO" />
+        </property>
+        <property name="personsHaveRelationsDAO">
+            <ref bean="PersonsHaveRelationsDAO" />
+        </property>
+    </bean>   
+    
+    <bean id="relationLayer" class="trimatrix.relations.RelationLayer"
+        abstract="false" lazy-init="default" autowire="default"
+        dependency-check="default">
+        <property name="personPersonRelation">
+            <ref bean="personPersonRelation" />
+        </property>
+    </bean>
+</beans>

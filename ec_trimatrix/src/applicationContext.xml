@@ -6,6 +6,7 @@
     <import resource="trimatrix/utils/utilsContext.xml"/>  
     <import resource="trimatrix/db/dbContext.xml"/>    
     <import resource="trimatrix/entities/entitiesContext.xml"/> 
+    <import resource="trimatrix/relations/relationsContext.xml"/> 
     <import resource="trimatrix/services/servicesContext.xml"/>   
     <import resource="trimatrix/logic/logicContext.xml"/> 
  

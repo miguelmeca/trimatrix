@@ -15,8 +15,9 @@ import trimatrix.db.Persons;
 import trimatrix.entities.IEntityData;
 import trimatrix.entities.PersonEntity;
 import trimatrix.entities.UserEntity;
+import trimatrix.relations.IRelationData;
+import trimatrix.relations.PersonPersonRelation;
 import trimatrix.structures.SFunctionTree;
-import trimatrix.structures.SPersonPersonRelation;
 import trimatrix.structures.SValueList;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
@@ -212,8 +213,8 @@ public class SQLExecutorService {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public List<SPersonPersonRelation> getPersonPersonRelation(Constants.Relation relation, String lang_key) {
-		List<SPersonPersonRelation> data = new ArrayList<SPersonPersonRelation>();
+	public List<IRelationData> getPersonPersonRelation(Constants.Relation relation, String lang_key) {
+		List<IRelationData> data = new ArrayList<IRelationData>();
 		SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Query query = session.getNamedQuery(PERSONPERSONQUERY);
@@ -227,21 +228,24 @@ public class SQLExecutorService {
 		}
 		List<Object[]> result = query.list();
 		for(Object[] line : result) {
-			SPersonPersonRelation datum = new SPersonPersonRelation();
+			PersonPersonRelation.Data datum = new PersonPersonRelation.Data();
 			int i = 0;
 			datum.id = (String)line[i++];
-			datum.partner1 = (Persons)daoLayer.getPersonsDAO().findById((String)line[i++]);
+			datum.partner1 = (String)line[i++];
+			datum.person1 = (Persons)daoLayer.getPersonsDAO().findById(datum.partner1);
 			datum.description = (String)line[i++];
 			datum.description_inverse = (String)line[i++];
 			datum.default_rel = (Boolean)line[i++];
-			datum.partner2 = (Persons)daoLayer.getPersonsDAO().findById((String)line[i++]);
+			datum.reltyp = (String)line[i++];
+			datum.partner2 = (String)line[i++];
+			datum.person2 = (Persons)daoLayer.getPersonsDAO().findById(datum.partner2);			
 			data.add(datum);
 		}
 		session.close();
 		return data;
 	}
 	
-	public List<SPersonPersonRelation> getPersonPersonRelation(Constants.Relation relation) {
+	public List<IRelationData> getPersonPersonRelation(Constants.Relation relation) {
 		return getPersonPersonRelation(relation, dictionaryService.getLanguage());
 	}	
 	

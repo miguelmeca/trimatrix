@@ -15,8 +15,9 @@ import org.eclnt.jsfserver.elements.impl.ARRAYGRIDListBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.logic.RelationListLogic;
+import trimatrix.relations.IRelationData;
+import trimatrix.relations.PersonPersonRelation;
 import trimatrix.structures.SAuthorization;
-import trimatrix.structures.SPersonPersonRelation;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
 
@@ -30,15 +31,15 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 	public ARRAYGRIDListBinding<MyARRAYGRIDItem> getGrid() { return grid; }
 	
 	private static final Constants.Relation relation = Constants.Relation.COACH;
-	private static final int COLCOUNT = 4;
+	private static final int COLCOUNT = 3;
 	private static final String REMOVE = "remove";
 	private static final String ADD = "add";
 	
-	private static final String[] titles = {"Partner 1", "Beziehung", "Partner 2", "Standard"};
-	private static final String[] widths = {"100","100","100","50"};
-	private static final String[] aligns = {"center", "center", "center", "center"};
-	private static final String[] formats = {"string", "string", "string", "boolean"};
-	private static final String[] backgrounds = {"#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"};
+	private static final String[] titles = {"Partner 1", "Beziehung", "Partner 2"};
+	private static final String[] widths = {"100","100","100"};
+	private static final String[] aligns = {"center", "center", "center"};
+	private static final String[] formats = {"string", "string", "string"};
+	private static final String[] backgrounds = {"#FFFFFF", "#FFFFFF", "#FFFFFF"};
 	
 	private SAuthorization authorization;
 	public boolean getCreateAllowed() { return authorization.create; }
@@ -55,14 +56,14 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 		// clear list
 		grid.getItems().clear();
 		// get relations from database
-		List<SPersonPersonRelation> relations = RELATIONLISTLOGIC.getPersonPersonRelations(relation);
-		for (SPersonPersonRelation relation : relations) {
-			MyARRAYGRIDItem item = new MyARRAYGRIDItem(relation.id);
+		List<IRelationData> relations = RELATIONLISTLOGIC.getPersonPersonRelations(relation);
+		for (IRelationData relation : relations) {
+			PersonPersonRelation.Data ppRelation = (PersonPersonRelation.Data)relation;
+			MyARRAYGRIDItem item = new MyARRAYGRIDItem(ppRelation.getId());
 			String[] values = new String[COLCOUNT];
-			values[0] = relation.partner1.toString();
-			values[1] = relation.description;
-			values[2] = relation.partner2.toString();
-			values[3] = relation.default_rel.toString();
+			values[0] = ppRelation.getPerson1().toString();
+			values[1] = ppRelation.description;
+			values[2] = ppRelation.getPerson2().toString();
 			item.setValues(values);				
 			item.setBackgrounds(backgrounds);
 			grid.getItems().add(item);
@@ -84,6 +85,15 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 	public void onAdd(ActionEvent event) {
 		CreateRelationUI createRelationUI = getCreateRelationUI();
 		createRelationUI.setRelationType(relation);
+		createRelationUI.prepareCallback(new CreateRelationUI.ISelectionCallback(){
+			public void cancel() {
+				m_popup.close();				
+			}
+			public void ok() {
+				m_popup.close();	
+				buildData();
+			}
+		});		
 		m_popup = getWorkpage().createModalPopupInWorkpageContext();    	
     	m_popup.open(Constants.Page.CREATERELATION.url(), "Beziehung anlegen", 400, 300, this); 
 	}
@@ -104,7 +114,7 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 					public void reactOnNo() {}
 
 					public void reactOnYes() {	
-						if(RELATIONLISTLOGIC.deletePersonPersonRelation(Constants.Relation.COACH, item.id)) {		
+						if(RELATIONLISTLOGIC.deletePersonPersonRelation(item.id)) {		
 							grid.getItems().remove(item);	
 							Statusbar.outputSuccess("Relation deleted");											
 						} else {
@@ -143,5 +153,5 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 		public String getId() {
 			return id;
 		}		
-	}
+	}	
 }

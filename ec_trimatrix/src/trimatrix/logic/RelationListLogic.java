@@ -3,31 +3,33 @@ package trimatrix.logic;
 import java.util.List;
 
 import trimatrix.db.DAOLayer;
-import trimatrix.services.ServiceLayer;
-import trimatrix.structures.SPersonPersonRelation;
+import trimatrix.db.PersonsHaveRelations;
+import trimatrix.relations.IRelationData;
+import trimatrix.relations.RelationLayer;
 import trimatrix.utils.Constants;
-import trimatrix.utils.Dictionary;
 
 public class RelationListLogic {
-	private ServiceLayer serviceLayer;
 	private DAOLayer daoLayer;
+	private RelationLayer relationLayer;
 	
-	public List<SPersonPersonRelation> getPersonPersonRelations(Constants.Relation relation) {
-		return serviceLayer.getSqlExecutorService().getPersonPersonRelation(relation);
+	public List<IRelationData> getPersonPersonRelations(Constants.Relation relation) {
+		return relationLayer.getPersonPersonRelation().getData(relation);
 	}
 	
-	public boolean deletePersonPersonRelation(Constants.Relation relation, String id) {
-		try {
-			daoLayer.getPersonsHaveRelationsDAO().delete(daoLayer.getPersonsHaveRelationsDAO().findById(id));
-		} catch (Exception ex) {
-			Dictionary.logger.error(ex.toString());
-			return false;
-		}		
-		return true;
+	public boolean deletePersonPersonRelation(String id) {
+		return relationLayer.getPersonPersonRelation().delete(id);
 	}
 	
-	public void setServiceLayer(ServiceLayer serviceLayer) {
-		this.serviceLayer = serviceLayer;
+	public void savePersonPersonRelation(PersonsHaveRelations relation) {
+		relationLayer.getPersonPersonRelation().save(relation);
+	}
+		
+	public void setRelationLayer(RelationLayer relationLayer) {
+		this.relationLayer = relationLayer;
+	}
+	
+	public PersonsHaveRelations createPersonPersonRelation() {
+		return relationLayer.getPersonPersonRelation().create();
 	}
 
 	public void setDaoLayer(DAOLayer daoLayer) {

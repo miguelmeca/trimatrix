@@ -53,6 +53,7 @@
             <list>
                 <idref local="UsersDAO" />
                 <idref local="PersonsDAO" />
+                <idref local="PersonsHaveRelationsDAO" />
             </list>
         </property>
     </bean>

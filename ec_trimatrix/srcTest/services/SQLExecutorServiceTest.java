@@ -8,9 +8,9 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 
 import trimatrix.entities.IEntityData;
+import trimatrix.relations.IRelationData;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SFunctionTree;
-import trimatrix.structures.SPersonPersonRelation;
 import trimatrix.utils.Constants;
 import trimatrix.utils.ContextStatic;
 
@@ -34,7 +34,7 @@ public class SQLExecutorServiceTest {
 	
 	@Test
 	public void testPersonPersonQuery() {		
-		List<SPersonPersonRelation> relations = sqlExecutorService.getPersonPersonRelation(Constants.Relation.PERSONPERSON, "de");
+		List<IRelationData> relations = sqlExecutorService.getPersonPersonRelation(Constants.Relation.PERSONPERSON, "de");
 		Assert.assertTrue(relations.size() > 0);
 	}
 }

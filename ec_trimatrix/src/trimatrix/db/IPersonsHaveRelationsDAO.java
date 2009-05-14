@@ -41,5 +41,7 @@ public interface IPersonsHaveRelationsDAO {
 	public abstract void attachDirty(PersonsHaveRelations instance);
 
 	public abstract void attachClean(PersonsHaveRelations instance);
+	
+	public abstract void reload(PersonsHaveRelations instance);
 
 }
