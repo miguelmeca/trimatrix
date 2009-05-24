@@ -105,8 +105,16 @@
     <url-pattern>*.ccbuffer</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
+    <servlet-name>UploadContentServlet</servlet-name>
+    <url-pattern>*.ccupload</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
     <servlet-name>SessionInvalidationServlet</servlet-name>
     <url-pattern>*.ccinvalidatesession</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AutoCompleteServlet</servlet-name>
+    <url-pattern>*.ccautocomplete</url-pattern>
   </servlet-mapping>
   
   <mime-mapping>
