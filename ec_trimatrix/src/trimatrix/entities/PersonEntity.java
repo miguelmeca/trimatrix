@@ -27,6 +27,7 @@ public final class PersonEntity implements IEntity {
     public static final String EMAIL = "email";
     public static final String SEX = "sex";
     public static final String BIRTHDATE = "birthdate";
+    // TODO : Add address data
 	
     // Variables
 	private SQLExecutorService sqlExecutorService;
@@ -60,7 +61,6 @@ public final class PersonEntity implements IEntity {
 	 * @see trimatrix.entities.IEntity#getData(trimatrix.utils.Constants.Entity)
 	 */
 	public List<IEntityData> getData(Constants.Entity entity) {
-		// TODO implement separate logics
 		if (entity == Constants.Entity.PERSON) {
         	return sqlExecutorService.getPersonEntities();
         } else if (entity == Constants.Entity.MYATHLETES) {
@@ -69,8 +69,7 @@ public final class PersonEntity implements IEntity {
         	return sqlExecutorService.getPersonRelationEntities(dictionaryService.getMyPerson().getId(), Constants.Relation.COACH, true);
         } else {
         	return Constants.EMPTYENTITYLIST;
-        }
-		
+        }		
 	}
 	
 	/* (non-Javadoc)
@@ -85,7 +84,7 @@ public final class PersonEntity implements IEntity {
 					Persons person = personsDAO.findById(id);
 					if(person==null) return false;
 					person.setDeleted(true);
-						personsDAO.merge(person);					
+					personsDAO.merge(person);					
 					// delete relationships
 					List<Users> users = usersDAO.findByProperty(UserEntity.PERSON, person);
 					for(Users user : users) {
@@ -114,8 +113,7 @@ public final class PersonEntity implements IEntity {
 		person.setId(id);
 		// default values
 		person.setDeleted(false);
-		person.setTest(false);
-		
+		person.setTest(false);		
 		return person;
 	}
 	

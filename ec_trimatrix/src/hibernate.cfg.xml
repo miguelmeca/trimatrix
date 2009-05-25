@@ -44,6 +44,8 @@
 		<mapping resource="trimatrix/db/RolesHaveFunctionnodes.hbm.xml" />
 		<mapping resource="trimatrix/services/NamedQueries.hbm.xml" />
 		<mapping resource="trimatrix/db/PersonsHaveRelations.hbm.xml" />
+		<mapping resource="trimatrix/db/Doctors.hbm.xml" />
+		<mapping resource="trimatrix/db/PersonsHaveDoctors.hbm.xml" />
 	</session-factory>
 
 </hibernate-configuration>

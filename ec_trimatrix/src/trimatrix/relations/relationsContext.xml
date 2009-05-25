@@ -20,11 +20,34 @@
         </property>
     </bean>   
     
+    <bean id="personDoctorRelation" class="trimatrix.relations.PersonDoctorRelation"
+        abstract="false" lazy-init="default" autowire="default"
+        dependency-check="default">
+        <property name="sqlExecutorService">
+            <ref bean="sqlExecutorService" />
+        </property>
+        <property name="dictionaryService">
+            <ref bean="dictionaryService" />
+        </property>
+        <property name="personsDAO">
+            <ref bean="PersonsDAO" />
+        </property>
+        <property name="doctorsDAO">
+            <ref bean="DoctorsDAO" />
+        </property>
+        <property name="personsHaveDoctorsDAO">
+            <ref bean="PersonsHaveDoctorsDAO" />
+        </property>
+    </bean>  
+    
     <bean id="relationLayer" class="trimatrix.relations.RelationLayer"
         abstract="false" lazy-init="default" autowire="default"
         dependency-check="default">
         <property name="personPersonRelation">
             <ref bean="personPersonRelation" />
+        </property>
+        <property name="personDoctorRelation">
+            <ref bean="personDoctorRelation" />
         </property>
     </bean>
 </beans>

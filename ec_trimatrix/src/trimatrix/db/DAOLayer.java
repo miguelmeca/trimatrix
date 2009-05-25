@@ -5,7 +5,9 @@ import org.springframework.context.ApplicationContext;
 public class DAOLayer {
 	private IUsersDAO usersDAO;
 	private IPersonsDAO personsDAO;
+	private IDoctorsDAO doctorsDAO;
 	private IPersonsHaveRelationsDAO personsHaveRelationsDAO;
+	private IPersonsHaveDoctorsDAO personsHaveDoctorsDAO;
 	private ITSalutationDAO tsalutationDAO;
 	
 		
@@ -23,6 +25,14 @@ public class DAOLayer {
 
 	public void setPersonsDAO(IPersonsDAO personsDAO) {
 		this.personsDAO = personsDAO;
+	}	
+	
+	public IDoctorsDAO getDoctorsDAO() {
+		return doctorsDAO;
+	}
+
+	public void setDoctorsDAO(IDoctorsDAO doctorsDAO) {
+		this.doctorsDAO = doctorsDAO;
 	}
 
 	public static DAOLayer getFromApplicationContext(ApplicationContext ctx) {

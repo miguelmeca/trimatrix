@@ -38,12 +38,12 @@ public class PersonsDAO extends HibernateDaoSupport implements IPersonsDAO {
 	}
 	
 	public void loadAll() {
-		log.debug("�oadAll Persons instance");
+		log.debug("LoadAll Persons instance");
 		try {
 			getHibernateTemplate().loadAll(Persons.class);
 			log.debug("loadAll successful");
 		} catch (RuntimeException re) {
-			log.error("�oadAll failed", re);
+			log.error("LoadAll failed", re);
 			throw re;
 		}
 	}

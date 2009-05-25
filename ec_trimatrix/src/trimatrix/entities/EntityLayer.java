@@ -5,6 +5,7 @@ import org.springframework.context.ApplicationContext;
 public class EntityLayer {
 	private PersonEntity personEntity;
 	private UserEntity userEntity;	
+	private DoctorEntity doctorEntity;
 	
 	public PersonEntity getPersonEntity() {
 		return personEntity;
@@ -20,6 +21,14 @@ public class EntityLayer {
 
 	public void setUserEntity(UserEntity userEntity) {
 		this.userEntity = userEntity;
+	}	
+
+	public DoctorEntity getDoctorEntity() {
+		return doctorEntity;
+	}
+
+	public void setDoctorEntity(DoctorEntity doctorEntity) {
+		this.doctorEntity = doctorEntity;
 	}
 
 	public static EntityLayer getFromApplicationContext(ApplicationContext ctx) {
