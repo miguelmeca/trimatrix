@@ -10,10 +10,12 @@ import trimatrix.entities.IEntityData;
 import trimatrix.entities.IEntityObject;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Dictionary;
 
 public final class EntityResolverService {
 	private IEntity userEntity;
 	private IEntity personEntity;
+	private IEntity doctorEntity;
 
 	/**
 	 * Get metadata for entity
@@ -25,7 +27,10 @@ public final class EntityResolverService {
 			return userEntity.getGridMetaData();
 		} else if (entity==Constants.Entity.PERSON || entity.getBase()==Constants.Entity.PERSON) {
 			return personEntity.getGridMetaData();
-		} 
+		} else if (entity==Constants.Entity.DOCTOR || entity.getBase()==Constants.Entity.DOCTOR) {
+			return doctorEntity.getGridMetaData();
+		}
+		Dictionary.logger.warn("GETMETADATA : Entity " + entity.toString() + " not valid!");
 		return new ArrayList<SGridMetaData>();
 	}
 	
@@ -34,7 +39,10 @@ public final class EntityResolverService {
 			return userEntity.getData(entity);
 		} else if (entity==Constants.Entity.PERSON || entity.getBase()==Constants.Entity.PERSON) {
 			return personEntity.getData(entity);
-		} 
+		} else if (entity==Constants.Entity.DOCTOR || entity.getBase()==Constants.Entity.DOCTOR) {
+			return doctorEntity.getData(entity);
+		}
+		Dictionary.logger.warn("GETDATA : Entity " + entity.toString() + " not valid!");
 		return new ArrayList<IEntityData>();
 	}
 	
@@ -43,7 +51,10 @@ public final class EntityResolverService {
 			return userEntity.delete(id);
 		} else if (entity==Constants.Entity.PERSON || entity.getBase()==Constants.Entity.PERSON) {
 			return personEntity.delete(id);
+		} else if (entity==Constants.Entity.DOCTOR || entity.getBase()==Constants.Entity.DOCTOR) {
+			return doctorEntity.delete(id);
 		} 
+		Dictionary.logger.warn("DELETE : Entity " + entity.toString() + " not valid!");
 		return false;
 	}
 	
@@ -52,7 +63,10 @@ public final class EntityResolverService {
 			return userEntity.create();
 		} else if (entity==Constants.Entity.PERSON || entity.getBase()==Constants.Entity.PERSON) {
 			return personEntity.create();
-		} 
+		} else if (entity==Constants.Entity.DOCTOR || entity.getBase()==Constants.Entity.DOCTOR) {
+			return doctorEntity.create();
+		}
+		Dictionary.logger.warn("CREATE : Entity " + entity.toString() + " not valid!");
 		return null;
 	}
 	
@@ -61,7 +75,10 @@ public final class EntityResolverService {
 			return userEntity.get(id);
 		} else if (entity==Constants.Entity.PERSON || entity.getBase()==Constants.Entity.PERSON) {
 			return personEntity.get(id);
+		}  else if (entity==Constants.Entity.DOCTOR || entity.getBase()==Constants.Entity.DOCTOR) {
+			return doctorEntity.get(id);
 		} 
+		Dictionary.logger.warn("GET : Entity " + entity.toString() + " not valid!");
 		return null;
 	}
 	
@@ -70,7 +87,10 @@ public final class EntityResolverService {
 			userEntity.save(entityObject);
 		} else if (entity==Constants.Entity.PERSON || entity.getBase()==Constants.Entity.PERSON) {
 			personEntity.save(entityObject);
+		} else if (entity==Constants.Entity.DOCTOR || entity.getBase()==Constants.Entity.DOCTOR) {
+			doctorEntity.save(entityObject);
 		} 
+		Dictionary.logger.warn("SAVE : Entity " + entity.toString() + " not valid!");
 	}
 	
 	public void reloadEntity(Constants.Entity entity, IEntityObject entityObject) {
@@ -78,7 +98,10 @@ public final class EntityResolverService {
 			userEntity.reload(entityObject);
 		} else if (entity==Constants.Entity.PERSON || entity.getBase()==Constants.Entity.PERSON) {
 			personEntity.reload(entityObject);
+		} else if (entity==Constants.Entity.DOCTOR || entity.getBase()==Constants.Entity.DOCTOR) {
+			doctorEntity.reload(entityObject);
 		} 
+		Dictionary.logger.warn("RELOAD : Entity " + entity.toString() + " not valid!");
 	}
 	
 	public void setUserEntity(IEntity userEntity) {
@@ -87,10 +110,13 @@ public final class EntityResolverService {
 
 	public void setPersonEntity(IEntity personEntity) {
 		this.personEntity = personEntity;
-	}	
+	}		
 	
+	public void setDoctorEntity(IEntity doctorEntity) {
+		this.doctorEntity = doctorEntity;
+	}
+
 	public static EntityResolverService getFromApplicationContext(ApplicationContext ctx) {
 		return (EntityResolverService) ctx.getBean("entityResolverService");
-	}
-	
+	}	
 }

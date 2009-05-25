@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut;
-
 import trimatrix.entities.IEntityData;
 
 public final class Constants {
@@ -18,6 +16,7 @@ public final class Constants {
 		ENTITYDETAIL("/entitydetail.jsp"),
 		USERDETAIL("/userdetail.jsp"),
 		PERSONDETAIL("/persondetail.jsp"),
+		DOCTORDETAIL("/doctordetail.jsp"),
 		USERSELECTION("/userselection.jsp"),
 		PERSONSELECTION("/personselection.jsp"),
 		RELATIONLIST("/relationlist.jsp"),
@@ -32,7 +31,9 @@ public final class Constants {
 	public static enum Relation {
 		// order is relevant, first all relations which are base relations
 		PERSONPERSON(null,null),
-		COACH("coach", PERSONPERSON);
+		PERSONDOCTOR(null,null),
+		COACH("coach", PERSONPERSON),
+		DOCTOR("doctor", PERSONDOCTOR);
 		private final String type;
 		private final Relation baseRelation;
 		Relation(String type, Relation baseRelation) {
@@ -47,8 +48,10 @@ public final class Constants {
 		// order is relevant, first all entities which are base entities
 		USER(null), 
 		PERSON(null), 
+		DOCTOR(null),
 		MYCOACHES(Entity.PERSON), 
-		MYATHLETES(Entity.PERSON);
+		MYATHLETES(Entity.PERSON),
+		MYDOCTORS(Entity.DOCTOR);
 		private final Entity baseEntity;
 		Entity(Entity baseEntity) {
 			this.baseEntity = baseEntity;

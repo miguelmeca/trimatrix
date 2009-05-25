@@ -11,10 +11,12 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.HibernateTransactionManager;
 
 import trimatrix.db.DAOLayer;
+import trimatrix.entities.DoctorEntity;
 import trimatrix.entities.IEntityData;
 import trimatrix.entities.PersonEntity;
 import trimatrix.entities.UserEntity;
 import trimatrix.relations.IRelationData;
+import trimatrix.relations.PersonDoctorRelation;
 import trimatrix.relations.PersonPersonRelation;
 import trimatrix.structures.SFunctionTree;
 import trimatrix.structures.SValueList;
@@ -33,7 +35,9 @@ public class SQLExecutorService {
 	private static final String SALUTATIONVALUELISTQUERY = "SalutationValueList";
 	private static final String LOGONLANGUAGEVALUELISTQUERY = "LogonLanguageValueList";
 	private static final String PERSONRELATIONENTITYQUERY = "PersonRelationEntityList";
+	private static final String DOCTORRELATIONENTITYQUERY = "DoctorRelationEntityList";
 	private static final String PERSONPERSONQUERY = "PersonPersonRelationList";
+	private static final String PERSONDOCTORQUERY = "PersonDoctorRelationList";
 	private static final String RELTYPSVALUELISTQUERY = "RelTypsValueList";
 	
 	private HibernateTransactionManager transactionManager;
@@ -122,11 +126,11 @@ public class SQLExecutorService {
 	}
 	
 	/**
-	 * Retrieve user entities
+	 * Retrieve person entities
 	 * @param lang_key
 	 * @param deleted
 	 * @param test
-	 * @return
+	 * @return person entities
 	 */
 	@SuppressWarnings("unchecked")
 	public List<IEntityData> getPersonEntities(String lang_key, boolean deleted, boolean test) {
@@ -156,6 +160,43 @@ public class SQLExecutorService {
 	
 	public List<IEntityData> getPersonEntities() {
 		return getPersonEntities(dictionaryService.getLanguage(), false, false);
+	}
+	
+	/**
+	 * Retrieve doctor entities
+	 * @param lang_key
+	 * @param deleted
+	 * @param test
+	 * @return doctor entities
+	 */
+	@SuppressWarnings("unchecked")
+	public List<IEntityData> getDoctorEntities(String lang_key, boolean deleted, boolean test) {
+		List<IEntityData> data = new ArrayList<IEntityData>();
+		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		Query query = session.getNamedQuery(PERSONENTITYLISTQUERY);
+		query.setString("p_lang_key", lang_key);
+		query.setBoolean("p_deleted", deleted);
+		query.setBoolean("p_test", test);
+		List<Object[]> result = query.list();
+		for(Object[] line : result) {
+			PersonEntity.Data datum = new PersonEntity.Data();
+			int i = 0;
+			datum.id = (String)line[i++];
+			datum.salutation = (String)line[i++];
+			datum.name_first = (String)line[i++];
+			datum.name_last = (String)line[i++];
+			datum.email = (String)line[i++];
+			datum.sex = (String)line[i++];
+			datum.birthdate = (Timestamp)line[i++];
+			data.add(datum);
+		}
+		session.close();
+		return data;
+	}
+	
+	public List<IEntityData> getDoctorEntities() {
+		return getDoctorEntities(dictionaryService.getLanguage(), false, false);
 	}
 	
 	/**
@@ -205,7 +246,7 @@ public class SQLExecutorService {
 	public List<IEntityData> getPersonRelationEntities(String person_id, Constants.Relation relation, boolean inverse) {
 		return getPersonRelationEntities(person_id, relation, inverse, dictionaryService.getLanguage(), false, false);
 	}	
-		
+			
 	/**
 	 * Return person to person relations
 	 * @param relation
@@ -246,6 +287,95 @@ public class SQLExecutorService {
 	public List<IRelationData> getPersonPersonRelation(Constants.Relation relation) {
 		return getPersonPersonRelation(relation, dictionaryService.getLanguage());
 	}	
+	
+	/**
+	 * Retrieve doctors in a certain relationship
+	 * @param partner_id
+	 * @param relation
+	 * @param inverse
+	 * @param lang_key
+	 * @param deleted
+	 * @param test
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<IEntityData> getDoctorRelationEntities(String person_id, Constants.Relation relation, String lang_key, boolean deleted, boolean test) {
+		List<IEntityData> data = new ArrayList<IEntityData>();
+		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		Query query = session.getNamedQuery(DOCTORRELATIONENTITYQUERY);
+		query.setString("p_lang_key", lang_key);
+		query.setBoolean("p_deleted", deleted);
+		query.setBoolean("p_test", test);
+		query.setString("p_reltyp", relation.type());
+		query.setString("p_person", person_id);
+		List<Object[]> result = query.list();
+		for(Object[] line : result) {
+			DoctorEntity.Data datum = new DoctorEntity.Data();
+			int i = 0;
+			datum.id = (String)line[i++];		
+			datum.name = (String)line[i++];
+			datum.street = (String)line[i++];
+			datum.housenumber = (String)line[i++];
+			datum.postcode = (String)line[i++];
+			datum.city = (String)line[i++];
+			datum.country = (String)line[i++];
+			datum.email = (String)line[i++];
+			datum.homepage = (String)line[i++];
+			datum.telephone = (String)line[i++];
+			datum.mobile = (String)line[i++];
+			datum.fax = (String)line[i++];
+			data.add(datum);
+		}
+		session.close();
+		return data;
+	}
+	
+	public List<IEntityData> getDoctorRelationEntities(String person_id, Constants.Relation relation) {
+		return getDoctorRelationEntities(person_id, relation, dictionaryService.getLanguage(), false, false);
+	}	
+	
+	/**
+	 * Return person to doctor relations
+	 * @param relation
+	 * @param lang_key
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<IRelationData> getPersonDoctorRelation(Constants.Relation relation, String lang_key) {
+		List<IRelationData> data = new ArrayList<IRelationData>();
+		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		Query query = session.getNamedQuery(PERSONDOCTORQUERY);
+		query.setString("p_lang_key", lang_key);
+		query.setString("p_reltyp", relation.type());
+		// when base Relation then return all
+		if (relation == Constants.Relation.PERSONDOCTOR) {
+			query.setInteger("p_dummy",1);
+		} else {
+			query.setInteger("p_dummy", 0);
+		}
+		List<Object[]> result = query.list();
+		for(Object[] line : result) {
+			PersonDoctorRelation.Data datum = new PersonDoctorRelation.Data();
+			int i = 0;
+			datum.id = (String)line[i++];
+			datum.person = daoLayer.getPersonsDAO().findById((String)line[i++]);
+			datum.description = (String)line[i++];
+			datum.description_inverse = (String)line[i++];
+			datum.standard = (Boolean)line[i++];
+			datum.reltyp = (String)line[i++];
+			datum.doctor = daoLayer.getDoctorsDAO().findById((String)line[i++]);			
+			data.add(datum);
+		}
+		session.close();
+		return data;
+	}
+	
+	public List<IRelationData> getPersonDoctorRelation(Constants.Relation relation) {
+		return getPersonDoctorRelation(relation, dictionaryService.getLanguage());
+	}	
+	
 	
 	/**
 	 * Retrieve value list

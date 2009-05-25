@@ -11,9 +11,41 @@ MySQL - 5.1.33-community : Database - trimatrix
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`trimatrix` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`trimatrix` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
 USE `trimatrix`;
+
+/*Table structure for table `doctors` */
+
+DROP TABLE IF EXISTS `doctors`;
+
+CREATE TABLE `doctors` (
+  `id` varchar(36) NOT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `street` varchar(45) DEFAULT NULL,
+  `housenumber` varchar(45) DEFAULT NULL,
+  `postcode` varchar(45) DEFAULT NULL,
+  `city` varchar(45) DEFAULT NULL,
+  `state` varchar(45) DEFAULT NULL,
+  `country_key` varchar(2) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `homepage` varchar(255) DEFAULT NULL,
+  `telephone` varchar(25) DEFAULT NULL,
+  `mobile` varchar(25) DEFAULT NULL,
+  `fax` varchar(25) DEFAULT NULL,
+  `created_at` datetime DEFAULT '1900-01-01 00:00:00' COMMENT 'Datensatz erstellt am',
+  `created_by` varchar(36) DEFAULT NULL COMMENT 'Datensatz erstellt von',
+  `modified_at` datetime DEFAULT '1900-01-01 00:00:00' COMMENT 'Datensatz geändert am',
+  `modified_by` varchar(36) DEFAULT NULL COMMENT 'Datensatz geändert von',
+  `deleted` tinyint(1) DEFAULT '0' COMMENT 'Datensatz gelöscht',
+  `test` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `fk_doctors_k_countries` (`country_key`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+/*Data for the table `doctors` */
+
+insert  into `doctors`(`id`,`name`,`street`,`housenumber`,`postcode`,`city`,`state`,`country_key`,`email`,`homepage`,`telephone`,`mobile`,`fax`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('c94e3cff-495d-11de-921e-1178275b5596','Medizinalrat Dr. Helmut Schwitzer','Kirchweg','2','6391','Fieberbrunn','Tirol','AT','office@drschwitzer.at','http://www.drschwitzer.at','05354 / 56535',NULL,'05354 / 56535 - 75','1900-01-01 00:00:00',NULL,'1900-01-01 00:00:00',NULL,0,0),('d0782a5c-495d-11de-921e-1178275b5596','Dr. Michael Plattner','Dorf','39','6373','Jochberg','Tirol','AT','michael.plattner@gmail.com',NULL,'05355 / 20071',NULL,NULL,'1900-01-01 00:00:00',NULL,'1900-01-01 00:00:00',NULL,0,0);
 
 /*Table structure for table `k_authorizations` */
 
@@ -74,7 +106,7 @@ CREATE TABLE `k_functionnodes` (
 
 /*Data for the table `k_functionnodes` */
 
-insert  into `k_functionnodes`(`key`,`page`,`entity`,`edit`,`create`,`delete`) values ('masterdata',' ',' ',0,0,0),('users_all','ENTITYLIST','USER',1,1,1),('persons_all','ENTITYLIST','PERSON',1,1,1),('person_own','ENTITYDETAIL','PERSON',1,0,0),('coaches_own','ENTITYLIST','MYCOACHES',0,0,0),('athletes_own','ENTITYLIST','MYATHLETES',0,0,0),('relations','','',0,0,0),('relation_coach','RELATIONLIST','COACH',1,1,1);
+insert  into `k_functionnodes`(`key`,`page`,`entity`,`edit`,`create`,`delete`) values ('masterdata',' ',' ',0,0,0),('users_all','ENTITYLIST','USER',1,1,1),('persons_all','ENTITYLIST','PERSON',1,1,1),('person_own','ENTITYDETAIL','PERSON',1,0,0),('coaches_own','ENTITYLIST','MYCOACHES',0,0,0),('athletes_own','ENTITYLIST','MYATHLETES',0,0,0),('relations','','',0,0,0),('relation_coach','RELATIONLIST','COACH',1,1,1),('relation_doctor','RELATIONLIST','DOCTOR',1,1,1),('doctors_all','ENTITYLIST','DOCTOR',1,1,1),('doctors_own','ENTITYLIST','MYDOCTORS',0,0,0);
 
 /*Table structure for table `k_languages` */
 
@@ -101,7 +133,7 @@ CREATE TABLE `k_reltyps` (
 
 /*Data for the table `k_reltyps` */
 
-insert  into `k_reltyps`(`key`) values ('coach');
+insert  into `k_reltyps`(`key`) values ('coach'),('doctor');
 
 /*Table structure for table `k_roles` */
 
@@ -181,6 +213,27 @@ CREATE TABLE `persons` (
 
 insert  into `persons`(`id`,`salutation_key`,`name_first`,`name_last`,`sex_key`,`street`,`housenumber`,`postcode`,`city`,`state`,`country_key`,`email`,`homepage`,`telephone`,`mobile`,`fax`,`birthdate`,`picture`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('0b0b7658-2ddb-11de-86ae-00301bb60f17','mr','Markus','Reich','m','Dorfstraße','91','6393','St. Ulrich','Tirol','AT','reich.markus@gmail.com',NULL,'','0664/3453852',NULL,'1978-10-24 00:00:00',NULL,'1900-01-01 00:00:00',NULL,'1900-01-01 00:00:00',NULL,0,0),('10f52302-2ddb-11de-86ae-00301bb60f17','ms','Daniela','Bucher','w','Moosbach','28/2','6392','St. Jakob','Tirol','AT','dany.bucher@gmail.com',NULL,NULL,'0664/2844263',NULL,'1983-05-17 00:00:00',NULL,'1900-01-01 00:00:00',NULL,'1900-01-01 00:00:00',NULL,0,0),('7522bc7f-42cf-415c-a050-da12518a4cd3','mr','Thomas','Mach','m','Dorf','2','6391','Fieberbrunn','Tirol','AT','thomas.mach@egger.com',NULL,NULL,NULL,NULL,'1969-09-15 00:00:00',NULL,'1900-01-01 00:00:00',NULL,'1900-01-01 00:00:00',NULL,0,0);
 
+/*Table structure for table `persons_have_doctors` */
+
+DROP TABLE IF EXISTS `persons_have_doctors`;
+
+CREATE TABLE `persons_have_doctors` (
+  `id` varchar(36) NOT NULL,
+  `person` varchar(36) DEFAULT NULL COMMENT 'Partner 1 der Beziehung',
+  `doctor` varchar(36) DEFAULT NULL COMMENT 'Partner 2 der Beziehung',
+  `reltyp_key` varchar(10) DEFAULT NULL COMMENT 'Beziehungstyp',
+  `standard` tinyint(1) DEFAULT '0' COMMENT 'Default Beziehung falls mehrere existieren',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_persons_have_relations_uk` (`person`,`doctor`,`reltyp_key`),
+  KEY `fk_persons_have_relations_persons_1` (`person`),
+  KEY `fk_persons_have_relations_persons_2` (`doctor`),
+  KEY `fk_persons_have_relations_k_reltyps` (`reltyp_key`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+/*Data for the table `persons_have_doctors` */
+
+insert  into `persons_have_doctors`(`id`,`person`,`doctor`,`reltyp_key`,`standard`) values ('f12d0178-496f-11de-921e-1178275b5596','10f52302-2ddb-11de-86ae-00301bb60f17','c94e3cff-495d-11de-921e-1178275b5596','doctor',0),('f73f73b4-496f-11de-921e-1178275b5596','0b0b7658-2ddb-11de-86ae-00301bb60f17','c94e3cff-495d-11de-921e-1178275b5596','doctor',0);
+
 /*Table structure for table `persons_have_relations` */
 
 DROP TABLE IF EXISTS `persons_have_relations`;
@@ -190,8 +243,9 @@ CREATE TABLE `persons_have_relations` (
   `partner1` varchar(36) DEFAULT NULL COMMENT 'Partner 1 der Beziehung',
   `partner2` varchar(36) DEFAULT NULL COMMENT 'Partner 2 der Beziehung',
   `reltyp_key` varchar(10) DEFAULT NULL COMMENT 'Beziehungstyp',
-  `default` tinyint(1) DEFAULT '0' COMMENT 'Default Beziehung falls mehrere existieren',
+  `standard` tinyint(1) DEFAULT '0' COMMENT 'Default Beziehung falls mehrere existieren',
   PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_persons_have_relations_uk` (`partner1`,`partner2`,`reltyp_key`),
   KEY `fk_persons_have_relations_persons_1` (`partner1`),
   KEY `fk_persons_have_relations_persons_2` (`partner2`),
   KEY `fk_persons_have_relations_k_reltyps` (`reltyp_key`)
@@ -199,26 +253,26 @@ CREATE TABLE `persons_have_relations` (
 
 /*Data for the table `persons_have_relations` */
 
-insert  into `persons_have_relations`(`id`,`partner1`,`partner2`,`reltyp_key`,`default`) values ('e3572a08-8c2d-102c-a1cd-29e813a50118','10f52302-2ddb-11de-86ae-00301bb60f17','0b0b7658-2ddb-11de-86ae-00301bb60f17','coach',0),('e3572a08-8c2d-102c-a1cd-29e813a50119','7522bc7f-42cf-415c-a050-da12518a4cd3','0b0b7658-2ddb-11de-86ae-00301bb60f17','coach',0);
+insert  into `persons_have_relations`(`id`,`partner1`,`partner2`,`reltyp_key`,`standard`) values ('e3572a08-8c2d-102c-a1cd-29e813a50118','10f52302-2ddb-11de-86ae-00301bb60f17','0b0b7658-2ddb-11de-86ae-00301bb60f17','coach',0),('57f2f725-e3ee-496a-9d83-cd1f861b7dcb','0b0b7658-2ddb-11de-86ae-00301bb60f17','7522bc7f-42cf-415c-a050-da12518a4cd3','coach',0);
 
 /*Table structure for table `roles_have_functionnodes` */
 
 DROP TABLE IF EXISTS `roles_have_functionnodes`;
 
 CREATE TABLE `roles_have_functionnodes` (
-  `role_key` varchar(36) NOT NULL,
-  `functionnode_key` varchar(36) NOT NULL,
+  `role_key` varchar(36) CHARACTER SET latin1 NOT NULL,
+  `functionnode_key` varchar(36) CHARACTER SET latin1 NOT NULL,
   `node` int(11) DEFAULT NULL,
   `parent` int(11) DEFAULT NULL,
   `order` int(11) DEFAULT NULL,
   PRIMARY KEY (`role_key`,`functionnode_key`),
   KEY `fk_roles_have_functionnodes_k_roles` (`role_key`),
   KEY `fk_roles_have_functionnodes_k_functionnodes` (`functionnode_key`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 /*Data for the table `roles_have_functionnodes` */
 
-insert  into `roles_have_functionnodes`(`role_key`,`functionnode_key`,`node`,`parent`,`order`) values ('admin','masterdata',1,0,1),('admin','users_all',2,1,1),('admin','persons_all',3,1,2),('athlete','person_own',1,0,1),('athlete','coaches_own',2,0,2),('coach','person_own',1,0,1),('coach','athletes_own',2,0,2),('admin','relations',4,0,2),('admin','relation_coach',5,4,1);
+insert  into `roles_have_functionnodes`(`role_key`,`functionnode_key`,`node`,`parent`,`order`) values ('admin','masterdata',1,0,1),('admin','users_all',2,1,1),('admin','persons_all',3,1,2),('athlete','person_own',1,0,1),('athlete','coaches_own',2,0,2),('coach','person_own',1,0,1),('coach','athletes_own',2,0,2),('admin','relations',4,0,2),('admin','relation_coach',5,4,1),('admin','doctors_all',6,1,3),('admin','relation_doctor',7,4,2);
 
 /*Table structure for table `t_authorizations` */
 
@@ -325,7 +379,7 @@ CREATE TABLE `t_reltyps` (
 
 /*Data for the table `t_reltyps` */
 
-insert  into `t_reltyps`(`key`,`language_key`,`description`,`description_long`,`relation_description`,`relation_description_inverse`) values ('coach','de','Trainer','Trainer','hat den Trainer','ist Trainer von'),('coach','en','Coach','Coach','has the coach','is the coach of');
+insert  into `t_reltyps`(`key`,`language_key`,`description`,`description_long`,`relation_description`,`relation_description_inverse`) values ('coach','de','Trainer','Trainer','hat den Trainer','ist Trainer von'),('coach','en','Coach','Coach','has the coach','is the coach of'),('doctor','de','Arzt','Arzt','hat den Arzt','ist Arzt von'),('doctor','en','Doctor','Doctor','has the doctor','is the doctor of');
 
 /*Table structure for table `t_roles` */
 

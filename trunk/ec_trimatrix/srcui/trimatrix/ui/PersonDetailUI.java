@@ -53,7 +53,7 @@ public class PersonDetailUI extends AEntityDetailUI implements Serializable, IEn
 		checkMandatory();
         // email check
 		if(!Dictionary.isEmailValid((String)values.get(PersonEntity.EMAIL))) {
-			throw new EmailNotValidException((String)values.get(values.get(UserEntity.EMAIL)));
+			throw new EmailNotValidException((String)values.get(values.get(PersonEntity.EMAIL)));
 		}	
 		// fill values to entities properties
 		fillEntityProperties();

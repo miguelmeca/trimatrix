@@ -37,6 +37,23 @@
         </property>
     </bean>
     
+    <bean id="doctorEntity" class="trimatrix.entities.DoctorEntity"
+        abstract="false" lazy-init="default" autowire="default"
+        dependency-check="default">
+        <property name="sqlExecutorService">
+            <ref bean="sqlExecutorService" />
+        </property>
+        <property name="dictionaryService">
+            <ref bean="dictionaryService" />
+        </property>
+        <property name="transactionManager">
+            <ref bean="transactionManager" />
+        </property>
+        <property name="doctorsDAO">
+            <ref bean="DoctorsDAO" />
+        </property>
+    </bean>
+    
     <bean id="entityLayer" class="trimatrix.entities.EntityLayer"
         abstract="false" lazy-init="default" autowire="default"
         dependency-check="default">
@@ -45,6 +62,9 @@
         </property>
         <property name="personEntity">
             <ref bean="personEntity" />
+        </property>
+        <property name="doctorEntity">
+            <ref bean="doctorEntity" />
         </property>
     </bean>
 </beans>

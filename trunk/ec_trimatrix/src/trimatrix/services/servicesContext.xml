@@ -39,6 +39,9 @@
         <property name="personEntity">
             <ref bean="personEntity" />
         </property>
+        <property name="doctorEntity">
+            <ref bean="doctorEntity" />
+        </property>
     </bean>
     
     <bean id="valueListBindigService" class="trimatrix.services.ValueListBindingService"
