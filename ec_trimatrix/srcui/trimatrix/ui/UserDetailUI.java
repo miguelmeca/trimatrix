@@ -17,7 +17,6 @@ import trimatrix.db.Users;
 import trimatrix.entities.UserEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
-import trimatrix.ui.EntitySelectionUI.ISelectionCallback;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
 import trimatrix.utils.MailSender;
@@ -27,8 +26,8 @@ import trimatrix.utils.MailSender;
 
 public class UserDetailUI extends AEntityDetailUI implements Serializable, IEntityDetailUI
 {    
-	protected ValidValuesBinding m_languagesVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.LANGUAGE);
-    public ValidValuesBinding getLanguagesVvb() { return m_languagesVvb; }
+	protected ValidValuesBinding languagesVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.LANGUAGE);
+    public ValidValuesBinding getLanguagesVvb() { return languagesVvb; }
    
 	private Users entity;    
     

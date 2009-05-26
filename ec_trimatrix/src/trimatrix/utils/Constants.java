@@ -30,20 +30,25 @@ public final class Constants {
 	// all used entities
 	public static enum Entity {
 		// order is relevant, first all entities which are base entities
-		USER(null), 
-		PERSON(null), 
-		DOCTOR(null),
-		MYCOACHES(Entity.PERSON), 
-		MYATHLETES(Entity.PERSON),
-		MYDOCTORS(Entity.DOCTOR);
+		USER(null, Page.USERDETAIL), 
+		PERSON(null, Page.PERSONDETAIL), 
+		DOCTOR(null, Page.DOCTORDETAIL),
+		MYCOACHES(Entity.PERSON, Page.PERSONDETAIL), 
+		MYATHLETES(Entity.PERSON, Page.PERSONDETAIL),
+		MYDOCTORS(Entity.DOCTOR, Page.PERSONDETAIL);
 		private final Entity baseEntity;
-		Entity(Entity baseEntity) {
+		private final Page detailPage;
+		Entity(Entity baseEntity, Page detailPage) {
 			this.baseEntity = baseEntity;
+			this.detailPage = detailPage;
 		}
 		public Entity getBase() { 
 			if(baseEntity==null) return this; 
 			return baseEntity;
 		};
+		public Page getDetailPage() {
+			return detailPage;
+		}
 	}
 	// all relationtypes
 	public static enum Relation {
@@ -96,7 +101,7 @@ public final class Constants {
 	}
 	// all value lists
 	public static enum ValueList {
-		LANGUAGE, CURRENCY, LOGONLANGUAGE, SALUTATION, RELTYPS	
+		LANGUAGE, CURRENCY, LOGONLANGUAGE, SALUTATION, RELTYPS, COUNTRY	
 	}	
 	// all functionnodes
 	public static enum FunctionNode {

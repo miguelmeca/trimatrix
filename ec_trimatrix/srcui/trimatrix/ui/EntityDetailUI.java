@@ -103,14 +103,8 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
         // change mode to set buttons
         changeMode(mode);               
         // set entity detail page 
-        if (entity == Constants.Entity.USER) {
-        	m_entityDetailPage = Constants.Page.USERDETAIL.url();           	           
-        } else if (entity == Constants.Entity.PERSON ||
-        	       entity == Constants.Entity.MYATHLETES ||
-        		   entity == Constants.Entity.MYCOACHES) {
-        	m_entityDetailPage = Constants.Page.PERSONDETAIL.url(); 
-        }              
-        // get/create entity object and set ID
+        m_entityDetailPage = entity.getDetailPage().url();
+        // check if in new mode
     	if(mode == Constants.Mode.NEW) {
     		entityObject = ENTITYLISTLOGIC.create(entity);
     		id = entityObject.getId();

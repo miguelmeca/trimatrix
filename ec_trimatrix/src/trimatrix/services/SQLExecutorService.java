@@ -40,6 +40,7 @@ public class SQLExecutorService {
 	private static final String PERSONPERSONQUERY = "PersonPersonRelationList";
 	private static final String PERSONDOCTORQUERY = "PersonDoctorRelationList";
 	private static final String RELTYPSVALUELISTQUERY = "RelTypsValueList";
+	private static final String COUNTRYVALUELISTQUERY = "CountryValueList";
 	
 	private HibernateTransactionManager transactionManager;
 	private Dictionary dictionaryService;
@@ -153,6 +154,16 @@ public class SQLExecutorService {
 			datum.email = (String)line[i++];
 			datum.sex = (String)line[i++];
 			datum.birthdate = (Timestamp)line[i++];
+			datum.street = (String)line[i++];
+			datum.housenumber = (String)line[i++];
+			datum.postcode = (String)line[i++];
+			datum.city = (String)line[i++];
+			datum.state = (String)line[i++];
+			datum.country = (String)line[i++];
+			datum.homepage = (String)line[i++];
+			datum.telephone = (String)line[i++];
+			datum.mobile = (String)line[i++];
+			datum.fax = (String)line[i++];
 			data.add(datum);
 		}
 		session.close();
@@ -243,7 +254,17 @@ public class SQLExecutorService {
 			datum.name_last = (String)line[i++];
 			datum.email = (String)line[i++];
 			datum.sex = (String)line[i++];
-			datum.birthdate = (Timestamp)line[i++];			
+			datum.birthdate = (Timestamp)line[i++];	
+			datum.street = (String)line[i++];
+			datum.housenumber = (String)line[i++];
+			datum.postcode = (String)line[i++];
+			datum.city = (String)line[i++];
+			datum.state = (String)line[i++];
+			datum.country = (String)line[i++];
+			datum.homepage = (String)line[i++];
+			datum.telephone = (String)line[i++];
+			datum.mobile = (String)line[i++];
+			datum.fax = (String)line[i++];
 			data.add(datum);
 		}
 		session.close();
@@ -403,7 +424,9 @@ public class SQLExecutorService {
 			namedQuery = SALUTATIONVALUELISTQUERY;
 		} else if (valueList==Constants.ValueList.RELTYPS) {
 				namedQuery = RELTYPSVALUELISTQUERY;			
-		}else {
+		} else if (valueList==Constants.ValueList.COUNTRY) {
+				namedQuery = COUNTRYVALUELISTQUERY;			
+		} else {
 			Dictionary.logger.warn("Valuelist not found: " + valueList.name());
 			return list;
 		}
