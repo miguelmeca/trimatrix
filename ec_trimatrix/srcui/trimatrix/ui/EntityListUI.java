@@ -150,7 +150,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 						public void reactOnNo() {}
 
 						public void reactOnYes() {
-							if(ENTITYLISTLOGIC.deleteEntity(entity, selectedID)) {
+							if(ENTITYLISTLOGIC.delete(entity, selectedID)) {
 								Statusbar.outputSuccess("Entity successfully deleted!");
 								m_gridList.getItems().remove(selectedItem);
 							} else {

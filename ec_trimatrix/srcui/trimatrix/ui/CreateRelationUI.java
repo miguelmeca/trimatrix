@@ -12,9 +12,9 @@ import org.eclnt.jsfserver.util.HttpSessionAccess;
 import org.eclnt.workplace.IWorkpageDispatcher;
 import org.springframework.dao.DataIntegrityViolationException;
 
-import trimatrix.db.PersonsHaveRelations;
 import trimatrix.entities.IEntityObject;
 import trimatrix.logic.RelationListLogic;
+import trimatrix.relations.IRelationObject;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
@@ -51,13 +51,13 @@ public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serial
     		return;
     	}
     	// save prepare
-    	PersonsHaveRelations relation = RELATIONLISTLOGIC.createPersonPersonRelation();
-    	relation.setPartner1(partner1.getId());
-    	relation.setReltypKey(this.relation.type());
-    	relation.setPartner2(partner2.getId());
+    	IRelationObject objRelation = RELATIONLISTLOGIC.create(relation);
+    	objRelation.setPartner1(partner1.getId());
+    	objRelation.setReltypKey(relation.type());
+    	objRelation.setPartner2(partner2.getId());
     	// save
     	try {
-    		RELATIONLISTLOGIC.savePersonPersonRelation(relation);
+    		RELATIONLISTLOGIC.save(relation, objRelation);
     		Statusbar.outputSuccess("Relation saved");
     		callback.ok();
     	} catch (DataIntegrityViolationException dive) {
@@ -74,13 +74,14 @@ public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serial
     }
 
     public void onSelectPartner1(ActionEvent event) {
-       	PersonSelectionUI personSelectionUI = getPersonSelectionUI();
+       	// TODO add dynamic handling!
+    	PersonSelectionUI personSelectionUI = getPersonSelectionUI();
        	personSelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){
    			public void cancel() {
    				m_popup.close();				
    			}
    			public void idSelected(String id) {  
-   				partner1 = getLogic().getEntityListLogic().getEntity(Constants.Entity.PERSON, id);    				
+   				partner1 = getLogic().getEntityListLogic().get(Constants.Entity.PERSON, id);    				
    				m_popup.close();
    			}});    	
        	String width = HttpSessionAccess.getCurrentRequest().getHeader("eclnt-width");
@@ -97,7 +98,7 @@ public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serial
    				m_popup.close();				
    			}
    			public void idSelected(String id) {  
-   				partner2 = getLogic().getEntityListLogic().getEntity(Constants.Entity.PERSON, id);    				
+   				partner2 = getLogic().getEntityListLogic().get(Constants.Entity.PERSON, id);    				
    				m_popup.close();
    			}});    	
        	String width = HttpSessionAccess.getCurrentRequest().getHeader("eclnt-width");

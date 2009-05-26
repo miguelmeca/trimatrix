@@ -22,8 +22,8 @@
   <return-scalar column="initial" type="java.lang.Boolean"/>
   <return-scalar column="active" type="java.lang.Boolean"/>
  </sql-query>
- <sql-query cacheable="true" name="PersonEntityList"
-   read-only="true">
+ 
+ <sql-query cacheable="true" name="PersonEntityList" read-only="true">
 SELECT
   persons.id,
   t_salutation.description salutation,
@@ -48,7 +48,43 @@ WHERE persons.test = :p_test
   <return-scalar column="email" type="java.lang.String"/>
   <return-scalar column="sex" type="java.lang.String"/>
   <return-scalar column="birthdate" type="java.sql.Timestamp"/>
- </sql-query> 
+</sql-query> 
+
+ <sql-query cacheable="true" name="DoctorEntityList" read-only="true">
+SELECT
+  doctors.id,
+  doctors.name,
+  doctors.street,
+  doctors.housenumber,
+  doctors.postcode,
+  doctors.city,
+  doctors.state,
+  t_countries.description country,
+  doctors.email,
+  doctors.homepage,
+  doctors.telephone,
+  doctors.mobile,
+  doctors.fax
+FROM doctors
+  LEFT OUTER JOIN t_countries
+    ON t_countries.key = doctors.country_key
+      AND t_countries.language_key = :p_lang_key
+WHERE doctors.test = :p_test
+    AND doctors.deleted = :p_deleted  
+  <return-scalar column="id" type="java.lang.String"/>
+  <return-scalar column="name" type="java.lang.String"/> 
+  <return-scalar column="street" type="java.lang.String"/>
+  <return-scalar column="housenumber" type="java.lang.String"/>
+  <return-scalar column="postcode" type="java.lang.String"/>
+  <return-scalar column="city" type="java.lang.String"/>
+  <return-scalar column="state" type="java.lang.String"/> 
+  <return-scalar column="country" type="java.lang.String"/>
+  <return-scalar column="email" type="java.lang.String"/>
+  <return-scalar column="homepage" type="java.lang.String"/>
+  <return-scalar column="telephone" type="java.lang.String"/>
+  <return-scalar column="mobile" type="java.lang.String"/>
+  <return-scalar column="fax" type="java.lang.String"/>
+</sql-query> 
  
  <sql-query cacheable="true" name="PersonRelationEntityList" read-only="true">
  SELECT
@@ -161,7 +197,7 @@ FROM persons_have_doctors AS phd
   JOIN t_reltyps AS tr
     ON tr.key = reltyp_key
       AND tr.language_key = :p_lang_key
-WHERE phr.reltyp_key = :p_reltyp
+WHERE phd.reltyp_key = :p_reltyp
 OR    1 = :p_dummy
   <return-scalar column="id" type="java.lang.String"/>
   <return-scalar column="person" type="java.lang.String"/>

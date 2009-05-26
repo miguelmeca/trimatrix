@@ -12,5 +12,6 @@ public class Context {
 		
 	    ServletContext servletContext = (ServletContext)context.getExternalContext().getContext();
 	    return WebApplicationContextUtils.getWebApplicationContext(servletContext);
+	    
 	}
 }

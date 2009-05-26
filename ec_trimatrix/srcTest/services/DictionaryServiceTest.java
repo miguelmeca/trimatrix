@@ -14,5 +14,4 @@ public class DictionaryServiceTest {
 		assertFalse(Dictionary.isEmailValid("reich@go"));
 		assertFalse(Dictionary.isEmailValid("reich.markus"));
 	}
-
 }

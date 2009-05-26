@@ -26,23 +26,7 @@ public final class Constants {
 			this.url = url;
 		}
 		public String url(){ return url; }
-	}
-	// all relationtypes
-	public static enum Relation {
-		// order is relevant, first all relations which are base relations
-		PERSONPERSON(null,null),
-		PERSONDOCTOR(null,null),
-		COACH("coach", PERSONPERSON),
-		DOCTOR("doctor", PERSONDOCTOR);
-		private final String type;
-		private final Relation baseRelation;
-		Relation(String type, Relation baseRelation) {
-			this.type = type;
-			this.baseRelation = baseRelation;
-		}
-		public String type(){ return type; }
-		public Relation getBase(){ return baseRelation; };
-	}
+	}	
 	// all used entities
 	public static enum Entity {
 		// order is relevant, first all entities which are base entities
@@ -56,7 +40,47 @@ public final class Constants {
 		Entity(Entity baseEntity) {
 			this.baseEntity = baseEntity;
 		}
-		public Entity getBase() { return baseEntity; }
+		public Entity getBase() { 
+			if(baseEntity==null) return this; 
+			return baseEntity;
+		};
+	}
+	// all relationtypes
+	public static enum Relation {
+		// order is relevant, first all relations which are base relations
+		PERSONPERSON(Constants.Entity.PERSON, Constants.Entity.PERSON),
+		PERSONDOCTOR(Constants.Entity.PERSON, Constants.Entity.DOCTOR),
+		COACH("coach", PERSONPERSON),
+		DOCTOR("doctor", PERSONDOCTOR);
+		private final String type;
+		private final Relation baseRelation;
+		private final Constants.Entity partner1;
+		private final Constants.Entity partner2;
+		Relation(String type, Relation baseRelation) {
+			this.type = type;
+			this.baseRelation = baseRelation;
+			this.partner1 = null;
+			this.partner2 = null;
+		}
+		Relation(Constants.Entity partner1, Constants.Entity partner2){
+			this.type = null;
+			this.baseRelation = null;
+			this.partner1 = partner1;
+			this.partner2 = partner2;
+		}
+		public String type(){ return type; }
+		public Relation getBase(){ 
+			if(baseRelation==null) return this; 
+			return baseRelation;
+		};
+		public Constants.Entity getParnter1(){ 
+			if(baseRelation==null) return this.partner1; 
+			return baseRelation.partner1;
+		};
+		public Constants.Entity getParnter2(){ 
+			if(baseRelation==null) return this.partner2; 
+			return baseRelation.partner2;
+		};
 	}
 	// all roles
 	public static enum Role {

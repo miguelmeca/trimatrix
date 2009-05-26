@@ -2,37 +2,44 @@ package trimatrix.logic;
 
 import java.util.List;
 
-import trimatrix.db.DAOLayer;
-import trimatrix.db.PersonsHaveRelations;
 import trimatrix.relations.IRelationData;
-import trimatrix.relations.RelationLayer;
+import trimatrix.relations.IRelationObject;
+import trimatrix.services.ServiceLayer;
+import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
 
 public class RelationListLogic {
-	private DAOLayer daoLayer;
-	private RelationLayer relationLayer;
+	private ServiceLayer serviceLayer;
 	
-	public List<IRelationData> getPersonPersonRelations(Constants.Relation relation) {
-		return relationLayer.getPersonPersonRelation().getData(relation);
+	public List<SGridMetaData> getGridMetaData(Constants.Relation relation) {
+		return serviceLayer.getRelationResolverService().getGridMetaData(relation);
 	}
 	
-	public boolean deletePersonPersonRelation(String id) {
-		return relationLayer.getPersonPersonRelation().delete(id);
+	public List<IRelationData> getData(Constants.Relation relation) {
+		return serviceLayer.getRelationResolverService().getData(relation);
+	}	
+	
+	public boolean delete(Constants.Relation relation, String id) {
+		return serviceLayer.getRelationResolverService().delete(relation, id);
 	}
 	
-	public void savePersonPersonRelation(PersonsHaveRelations relation) {
-		relationLayer.getPersonPersonRelation().save(relation);
-	}
-		
-	public void setRelationLayer(RelationLayer relationLayer) {
-		this.relationLayer = relationLayer;
+	public IRelationObject create(Constants.Relation relation) {
+		return serviceLayer.getRelationResolverService().create(relation);
 	}
 	
-	public PersonsHaveRelations createPersonPersonRelation() {
-		return relationLayer.getPersonPersonRelation().create();
+	public IRelationObject get(Constants.Relation relation, String id) {
+		return serviceLayer.getRelationResolverService().get(relation, id);
+	}
+	
+	public void save(Constants.Relation relation, IRelationObject relationObject) {
+		serviceLayer.getRelationResolverService().save(relation, relationObject);
+	}
+	
+	public void reload(Constants.Relation relation, IRelationObject relationObject) {
+		serviceLayer.getRelationResolverService().reload(relation, relationObject);
 	}
 
-	public void setDaoLayer(DAOLayer daoLayer) {
-		this.daoLayer = daoLayer;
-	}	
+	public void setServiceLayer(ServiceLayer serviceLayer) {
+		this.serviceLayer = serviceLayer;
+	}
 }

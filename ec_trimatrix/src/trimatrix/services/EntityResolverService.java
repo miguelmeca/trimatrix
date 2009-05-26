@@ -23,11 +23,11 @@ public final class EntityResolverService {
 	 * @return metadata
 	 */
 	public List<SGridMetaData> getGridMetaData(Constants.Entity entity) {
-		if (entity==Constants.Entity.USER || entity.getBase()==Constants.Entity.USER) {
+		if (entity.getBase()==Constants.Entity.USER) {
 			return userEntity.getGridMetaData();
-		} else if (entity==Constants.Entity.PERSON || entity.getBase()==Constants.Entity.PERSON) {
+		} else if (entity.getBase()==Constants.Entity.PERSON) {
 			return personEntity.getGridMetaData();
-		} else if (entity==Constants.Entity.DOCTOR || entity.getBase()==Constants.Entity.DOCTOR) {
+		} else if (entity.getBase()==Constants.Entity.DOCTOR) {
 			return doctorEntity.getGridMetaData();
 		}
 		Dictionary.logger.warn("GETMETADATA : Entity " + entity.toString() + " not valid!");
@@ -35,70 +35,70 @@ public final class EntityResolverService {
 	}
 	
 	public List<IEntityData> getData(Constants.Entity entity) {
-		if (entity==Constants.Entity.USER || entity.getBase()==Constants.Entity.USER) {
+		if (entity.getBase()==Constants.Entity.USER) {
 			return userEntity.getData(entity);
-		} else if (entity==Constants.Entity.PERSON || entity.getBase()==Constants.Entity.PERSON) {
+		} else if (entity.getBase()==Constants.Entity.PERSON) {
 			return personEntity.getData(entity);
-		} else if (entity==Constants.Entity.DOCTOR || entity.getBase()==Constants.Entity.DOCTOR) {
+		} else if (entity.getBase()==Constants.Entity.DOCTOR) {
 			return doctorEntity.getData(entity);
 		}
 		Dictionary.logger.warn("GETDATA : Entity " + entity.toString() + " not valid!");
 		return new ArrayList<IEntityData>();
 	}
 	
-	public boolean deleteEntity(Constants.Entity entity, String id) {
-		if (entity==Constants.Entity.USER || entity.getBase()==Constants.Entity.USER) {
+	public boolean delete(Constants.Entity entity, String id) {
+		if (entity.getBase()==Constants.Entity.USER) {
 			return userEntity.delete(id);
-		} else if (entity==Constants.Entity.PERSON || entity.getBase()==Constants.Entity.PERSON) {
+		} else if (entity.getBase()==Constants.Entity.PERSON) {
 			return personEntity.delete(id);
-		} else if (entity==Constants.Entity.DOCTOR || entity.getBase()==Constants.Entity.DOCTOR) {
+		} else if (entity.getBase()==Constants.Entity.DOCTOR) {
 			return doctorEntity.delete(id);
 		} 
 		Dictionary.logger.warn("DELETE : Entity " + entity.toString() + " not valid!");
 		return false;
 	}
 	
-	public IEntityObject createEntity(Constants.Entity entity) {
-		if (entity==Constants.Entity.USER || entity.getBase()==Constants.Entity.USER) {
+	public IEntityObject create(Constants.Entity entity) {
+		if (entity.getBase()==Constants.Entity.USER) {
 			return userEntity.create();
-		} else if (entity==Constants.Entity.PERSON || entity.getBase()==Constants.Entity.PERSON) {
+		} else if (entity.getBase()==Constants.Entity.PERSON) {
 			return personEntity.create();
-		} else if (entity==Constants.Entity.DOCTOR || entity.getBase()==Constants.Entity.DOCTOR) {
+		} else if (entity.getBase()==Constants.Entity.DOCTOR) {
 			return doctorEntity.create();
 		}
 		Dictionary.logger.warn("CREATE : Entity " + entity.toString() + " not valid!");
 		return null;
 	}
 	
-	public IEntityObject getEntity(Constants.Entity entity, String id) {
-		if (entity==Constants.Entity.USER || entity.getBase()==Constants.Entity.USER) {
+	public IEntityObject get(Constants.Entity entity, String id) {
+		if (entity.getBase()==Constants.Entity.USER) {
 			return userEntity.get(id);
-		} else if (entity==Constants.Entity.PERSON || entity.getBase()==Constants.Entity.PERSON) {
+		} else if (entity.getBase()==Constants.Entity.PERSON) {
 			return personEntity.get(id);
-		}  else if (entity==Constants.Entity.DOCTOR || entity.getBase()==Constants.Entity.DOCTOR) {
+		}  else if (entity.getBase()==Constants.Entity.DOCTOR) {
 			return doctorEntity.get(id);
 		} 
 		Dictionary.logger.warn("GET : Entity " + entity.toString() + " not valid!");
 		return null;
 	}
 	
-	public void saveEntity(Constants.Entity entity, IEntityObject entityObject) {
-		if (entity==Constants.Entity.USER || entity.getBase()==Constants.Entity.USER) {
+	public void save(Constants.Entity entity, IEntityObject entityObject) {
+		if (entity.getBase()==Constants.Entity.USER) {
 			userEntity.save(entityObject);
-		} else if (entity==Constants.Entity.PERSON || entity.getBase()==Constants.Entity.PERSON) {
+		} else if (entity.getBase()==Constants.Entity.PERSON) {
 			personEntity.save(entityObject);
-		} else if (entity==Constants.Entity.DOCTOR || entity.getBase()==Constants.Entity.DOCTOR) {
+		} else if (entity.getBase()==Constants.Entity.DOCTOR) {
 			doctorEntity.save(entityObject);
 		} 
 		Dictionary.logger.warn("SAVE : Entity " + entity.toString() + " not valid!");
 	}
 	
-	public void reloadEntity(Constants.Entity entity, IEntityObject entityObject) {
-		if (entity==Constants.Entity.USER || entity.getBase()==Constants.Entity.USER) {
+	public void reload(Constants.Entity entity, IEntityObject entityObject) {
+		if (entity.getBase()==Constants.Entity.USER) {
 			userEntity.reload(entityObject);
-		} else if (entity==Constants.Entity.PERSON || entity.getBase()==Constants.Entity.PERSON) {
+		} else if (entity.getBase()==Constants.Entity.PERSON) {
 			personEntity.reload(entityObject);
-		} else if (entity==Constants.Entity.DOCTOR || entity.getBase()==Constants.Entity.DOCTOR) {
+		} else if (entity.getBase()==Constants.Entity.DOCTOR) {
 			doctorEntity.reload(entityObject);
 		} 
 		Dictionary.logger.warn("RELOAD : Entity " + entity.toString() + " not valid!");

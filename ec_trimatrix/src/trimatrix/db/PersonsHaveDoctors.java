@@ -38,5 +38,13 @@ public class PersonsHaveDoctors extends AbstractPersonsHaveDoctors implements ja
 	public String getPartner2() {
 		return getDoctor();
 	}
+	
+	public void setPartner1(String id) {
+		setPerson(id);
+	}
+
+	public void setPartner2(String id) {
+		setDoctor(id);
+	}
    
 }

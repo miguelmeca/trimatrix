@@ -44,6 +44,17 @@
         </property>
     </bean>
     
+    <bean id="relationResolverService" class="trimatrix.services.RelationResolverService"
+        abstract="false" lazy-init="default" autowire="default"
+        dependency-check="default">
+        <property name="personPersonRelation">
+            <ref bean="personPersonRelation" />
+        </property>
+        <property name="personDoctorRelation">
+            <ref bean="personDoctorRelation" />
+        </property>
+    </bean>
+    
     <bean id="valueListBindigService" class="trimatrix.services.ValueListBindingService"
         abstract="false" lazy-init="default" autowire="default"
         dependency-check="default">
@@ -69,6 +80,9 @@
         </property> 
         <property name="entityResolverService">
             <ref bean="entityResolverService" />
+        </property> 
+        <property name="relationResolverService">
+            <ref bean="relationResolverService" />
         </property> 
     </bean>
     
