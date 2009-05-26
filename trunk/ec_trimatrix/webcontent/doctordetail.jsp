@@ -14,7 +14,7 @@
 <t:row id="g_1" >
 <t:paintarea id="g_2" height="100%" width="100%" >
 <t:label id="g_3" text="#{rr.literals.doctor_name}" width="100" x="15" y="30" />
-<t:field id="g_4" attributemacro="entityDetailMacro(DoctorDetailUI,name)" width="100" x="115" y="30" />
+<t:field id="g_4" attributemacro="entityDetailMacro(DoctorDetailUI,name)" width="250" x="115" y="30" />
 </t:paintarea>
 </t:row>
 <t:pageaddons id="g_pa"/>

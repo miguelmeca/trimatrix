@@ -8,11 +8,11 @@ import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.elements.events.BaseActionEventUpload;
+import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.db.Persons;
 import trimatrix.entities.PersonEntity;
-import trimatrix.entities.UserEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
 import trimatrix.utils.Constants;
@@ -23,6 +23,12 @@ import trimatrix.utils.Dictionary;
 
 public class PersonDetailUI extends AEntityDetailUI implements Serializable, IEntityDetailUI
 {
+	protected ValidValuesBinding salutationsVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.SALUTATION);
+    public ValidValuesBinding getSalutationsVvb() { return salutationsVvb; }
+	
+    protected ValidValuesBinding countriesVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.COUNTRY);
+    public ValidValuesBinding getCountriesVvb() { return countriesVvb; }
+    
 	private Persons entity;	
     
 	public PersonDetailUI(IWorkpageDispatcher dispatcher) {
@@ -60,24 +66,35 @@ public class PersonDetailUI extends AEntityDetailUI implements Serializable, IEn
 	}
 	
 	private void fillEntityProperties() {
-		// first name
+		// personal
+		entity.setSalutationKey((String)values.get(PersonEntity.SALUTATION));
 		entity.setNameFirst((String)values.get(PersonEntity.NAME_FIRST));
-		// last name 
 		entity.setNameLast((String)values.get(PersonEntity.NAME_LAST));
-		// email
-		entity.setEmail((String)values.get(PersonEntity.EMAIL));
-		// birthdate	
 		Timestamp birthdate = null;
 		Date date = (Date)values.get(PersonEntity.BIRTHDATE);
 		if (date!=null) {
 			birthdate = new Timestamp(date.getTime());
 		} 
 		entity.setBirthdate(birthdate);
+		// address
+		entity.setStreet((String)values.get(PersonEntity.STREET));
+		entity.setHousenumber((String)values.get(PersonEntity.HOUSENUMBER));
+		entity.setPostcode((String)values.get(PersonEntity.POSTCODE));
+		entity.setCity((String)values.get(PersonEntity.CITY));
+		entity.setState((String)values.get(PersonEntity.STATE));
+		entity.setCountryKey((String)values.get(PersonEntity.COUNTRY));
+		// communication
+		entity.setHomepage((String)values.get(PersonEntity.HOMEPAGE));
+		entity.setEmail((String)values.get(PersonEntity.EMAIL));
+		entity.setTelephone((String)values.get(PersonEntity.TELEPHONE));
+		entity.setMobile((String)values.get(PersonEntity.MOBILE));
+		entity.setFax((String)values.get(PersonEntity.FAX));
 	}
 	
 	private void fillMaps() {
 		// add values of fields
 		values.clear();
+		values.put(PersonEntity.SALUTATION, entity.getSalutationKey());
 		values.put(PersonEntity.NAME_FIRST, entity.getNameFirst());
 		values.put(PersonEntity.NAME_LAST, entity.getNameLast());
 		values.put(PersonEntity.EMAIL, entity.getEmail());	
@@ -87,6 +104,16 @@ public class PersonDetailUI extends AEntityDetailUI implements Serializable, IEn
 			birthdate =  new Date(timestamp.getTime());
 		} 
 		values.put(PersonEntity.BIRTHDATE, birthdate);
+		values.put(PersonEntity.STREET, entity.getStreet());
+		values.put(PersonEntity.HOUSENUMBER, entity.getHousenumber());
+		values.put(PersonEntity.POSTCODE, entity.getPostcode());
+		values.put(PersonEntity.CITY, entity.getCity());
+		values.put(PersonEntity.STATE, entity.getState());
+		values.put(PersonEntity.COUNTRY, entity.getCountryKey());
+		values.put(PersonEntity.HOMEPAGE, entity.getHomepage());
+		values.put(PersonEntity.TELEPHONE, entity.getTelephone());
+		values.put(PersonEntity.MOBILE, entity.getMobile());
+		values.put(PersonEntity.FAX, entity.getFax());
 		
 		// add bgpaint of fields
 		bgpaint.clear();

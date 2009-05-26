@@ -27,7 +27,16 @@ public final class PersonEntity implements IEntity {
     public static final String EMAIL = "email";
     public static final String SEX = "sex";
     public static final String BIRTHDATE = "birthdate";
-    // TODO : Add address data
+    public static final String STREET = "street";
+    public static final String HOUSENUMBER = "housenumber";  
+    public static final String POSTCODE = "postcode"; 
+    public static final String CITY = "city"; 
+    public static final String STATE = "state"; 
+    public static final String COUNTRY = "country"; 
+    public static final String HOMEPAGE = "homepage";
+    public static final String TELEPHONE = "telephone";
+    public static final String MOBILE = "mobile";
+    public static final String FAX = "fax";
 	
     // Variables
 	private SQLExecutorService sqlExecutorService;
@@ -47,6 +56,16 @@ public final class PersonEntity implements IEntity {
         gridMetaData.add(new SGridMetaData("Email", EMAIL, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("Geschlecht", SEX, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("Geburtstag", BIRTHDATE, SGridMetaData.Component.CALENDARFIELD));
+        gridMetaData.add(new SGridMetaData("Straße", STREET, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData("Hausnummer", HOUSENUMBER, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData("Postleitzahl", POSTCODE, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData("Stadt", CITY, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData("Bundesland", STATE, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData("Land", COUNTRY, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData("Homepage", HOMEPAGE, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData("Telefon", TELEPHONE, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData("Handy", MOBILE, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData("Fax", FAX, SGridMetaData.Component.FIELD));
         return gridMetaData;
     }
 	
@@ -167,7 +186,7 @@ public final class PersonEntity implements IEntity {
 		public String postcode;
 		public String city;
 		public String state;
-		public String countryKey;
+		public String country;
 		public String email;
 		public String homepage;
 		public String telephone;
@@ -191,7 +210,7 @@ public final class PersonEntity implements IEntity {
 		public String getSalutation() {
 			return salutation;
 		}
-		
+			
 		public String getName_first() {
 			return name_first;
 		}
@@ -224,10 +243,10 @@ public final class PersonEntity implements IEntity {
 			return state;
 		}
 
-		public String getCountryKey() {
-			return countryKey;
+		public String getCountry() {
+			return country;
 		}
-
+		
 		public String getEmail() {
 			return email;
 		}
