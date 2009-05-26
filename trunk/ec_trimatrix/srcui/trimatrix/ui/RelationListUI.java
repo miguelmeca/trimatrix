@@ -16,7 +16,6 @@ import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.logic.RelationListLogic;
 import trimatrix.relations.IRelationData;
-import trimatrix.relations.PersonPersonRelation;
 import trimatrix.structures.SAuthorization;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
@@ -30,7 +29,7 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 	private ARRAYGRIDListBinding<MyARRAYGRIDItem> grid = new ARRAYGRIDListBinding<MyARRAYGRIDItem>();
 	public ARRAYGRIDListBinding<MyARRAYGRIDItem> getGrid() { return grid; }
 	
-	private static final Constants.Relation relation = Constants.Relation.COACH;
+	private static Constants.Relation relation;
 	private static final int COLCOUNT = 3;
 	private static final String REMOVE = "remove";
 	private static final String ADD = "add";
@@ -48,6 +47,23 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 	
 	public RelationListUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
+		// get parameters from functiontree
+		// get authorization
+		String create = getWorkpage().getParam(Constants.CREATE);
+		String change = getWorkpage().getParam(Constants.CHANGE);
+		String delete = getWorkpage().getParam(Constants.DELETE);
+		if(create==null || !create.equals(Constants.TRUE)) create = Constants.FALSE;
+		if(change==null || !change.equals(Constants.TRUE)) change = Constants.FALSE;
+		if(delete==null || !delete.equals(Constants.TRUE)) delete = Constants.FALSE;
+		authorization = new SAuthorization(create, change, delete);	
+		// get entity
+		String strEntity = getWorkpage().getParam(Constants.P_ENTITY);
+		try {
+			relation = Constants.Relation.valueOf(strEntity.toUpperCase());
+		} catch (Exception ex) {			
+			Statusbar.outputError("No or wrong entity set", "For relation list view processing an entity has to be set by the functiontreenode!");
+			getWorkpageContainer().closeWorkpage(getWorkpage());
+		}
 		setMetaData();
 		buildData();
 	}
@@ -56,14 +72,14 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 		// clear list
 		grid.getItems().clear();
 		// get relations from database
-		List<IRelationData> relations = RELATIONLISTLOGIC.getPersonPersonRelations(relation);
+		List<IRelationData> relations = RELATIONLISTLOGIC.getData(relation);
 		for (IRelationData relation : relations) {
-			PersonPersonRelation.Data ppRelation = (PersonPersonRelation.Data)relation;
-			MyARRAYGRIDItem item = new MyARRAYGRIDItem(ppRelation.getId());
+			//PersonPersonRelation.Data ppRelation = (PersonPersonRelation.Data)relation;
+			MyARRAYGRIDItem item = new MyARRAYGRIDItem(relation.getId());
 			String[] values = new String[COLCOUNT];
-			values[0] = ppRelation.getPartner1().toString();
-			values[1] = ppRelation.description;
-			values[2] = ppRelation.getPartner2().toString();
+			values[0] = relation.getPartner1().toString();
+			values[1] = relation.getDescription();
+			values[2] = relation.getPartner2().toString();
 			item.setValues(values);				
 			item.setBackgrounds(backgrounds);
 			grid.getItems().add(item);
@@ -114,7 +130,7 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 					public void reactOnNo() {}
 
 					public void reactOnYes() {	
-						if(RELATIONLISTLOGIC.deletePersonPersonRelation(item.id)) {		
+						if(RELATIONLISTLOGIC.delete(relation, item.id)) {		
 							grid.getItems().remove(item);	
 							Statusbar.outputSuccess("Relation deleted");											
 						} else {

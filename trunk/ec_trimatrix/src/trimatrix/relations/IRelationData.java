@@ -8,4 +8,5 @@ public interface IRelationData {
 	public abstract IEntityObject getPartner2();
 	public abstract Boolean getStandard();
 	public abstract String getReltyp();
+	public abstract String getDescription();
 }

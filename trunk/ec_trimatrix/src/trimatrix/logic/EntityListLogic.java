@@ -24,24 +24,24 @@ public class EntityListLogic {
 		return serviceLayer.getEntityResolverService().getData(entity);
 	}	
 	
-	public boolean deleteEntity(Constants.Entity entity, String id) {
-		return serviceLayer.getEntityResolverService().deleteEntity(entity, id);
+	public boolean delete(Constants.Entity entity, String id) {
+		return serviceLayer.getEntityResolverService().delete(entity, id);
 	}
 	
-	public IEntityObject createEntity(Constants.Entity entity) {
-		return serviceLayer.getEntityResolverService().createEntity(entity);
+	public IEntityObject create(Constants.Entity entity) {
+		return serviceLayer.getEntityResolverService().create(entity);
 	}
 	
-	public IEntityObject getEntity(Constants.Entity entity, String id) {
-		return serviceLayer.getEntityResolverService().getEntity(entity, id);
+	public IEntityObject get(Constants.Entity entity, String id) {
+		return serviceLayer.getEntityResolverService().get(entity, id);
 	}
 	
-	public void saveEntity(Constants.Entity entity, IEntityObject entityObject) {
-		serviceLayer.getEntityResolverService().saveEntity(entity, entityObject);
+	public void save(Constants.Entity entity, IEntityObject entityObject) {
+		serviceLayer.getEntityResolverService().save(entity, entityObject);
 	}
 	
-	public void reloadEntity(Constants.Entity entity, IEntityObject entityObject) {
-		serviceLayer.getEntityResolverService().reloadEntity(entity, entityObject);
+	public void reload(Constants.Entity entity, IEntityObject entityObject) {
+		serviceLayer.getEntityResolverService().reload(entity, entityObject);
 	}
 
 	public void setServiceLayer(ServiceLayer serviceLayer) {

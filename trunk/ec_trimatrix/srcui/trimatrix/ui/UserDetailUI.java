@@ -125,7 +125,7 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable, IEnti
 				m_popup.close();				
 			}
 			public void idSelected(String id) {
-				Persons person = (Persons)ENTITYLISTLOGIC.getEntity(Constants.Entity.PERSON, id);
+				Persons person = (Persons)ENTITYLISTLOGIC.get(Constants.Entity.PERSON, id);
 				entity.setPerson(person);
 				setPersonDescription(entity);	
 				m_popup.close();
@@ -160,7 +160,7 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable, IEnti
 						entity.setUserHash(password);
 						try {
 							validate();
-							ENTITYLISTLOGIC.saveEntity(Constants.Entity.USER, entity);
+							ENTITYLISTLOGIC.save(Constants.Entity.USER, entity);
 							String receiver = entity.getEmail();
 							String message = "Hello Trimatrix User, \n a new password " + password + " is generated for your user " + entity.getUserName() + ". \n\n regards your Trimatrix Team"; 
 							MailSender.postMail(new String[] {receiver}, "New password generated", message );

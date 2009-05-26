@@ -30,6 +30,7 @@ import trimatrix.utils.Dictionary;
 public class SQLExecutorService {
 	private static final String USERENTITYLISTQUERY = "UserEntityList";
 	private static final String PERSONENTITYLISTQUERY = "PersonEntityList";
+	private static final String DOCTORENTITYLISTQUERY = "DoctorEntityList";
 	private static final String FUNCTIONTREEQUERY = "FunctionTree";
 	private static final String LANGUAGEVALUELISTQUERY = "LanguageValueList";
 	private static final String SALUTATIONVALUELISTQUERY = "SalutationValueList";
@@ -174,21 +175,27 @@ public class SQLExecutorService {
 		List<IEntityData> data = new ArrayList<IEntityData>();
 		SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
-		Query query = session.getNamedQuery(PERSONENTITYLISTQUERY);
+		Query query = session.getNamedQuery(DOCTORENTITYLISTQUERY);
 		query.setString("p_lang_key", lang_key);
 		query.setBoolean("p_deleted", deleted);
 		query.setBoolean("p_test", test);
 		List<Object[]> result = query.list();
 		for(Object[] line : result) {
-			PersonEntity.Data datum = new PersonEntity.Data();
+			DoctorEntity.Data datum = new DoctorEntity.Data();
 			int i = 0;
-			datum.id = (String)line[i++];
-			datum.salutation = (String)line[i++];
-			datum.name_first = (String)line[i++];
-			datum.name_last = (String)line[i++];
+			datum.id = (String)line[i++];		
+			datum.name = (String)line[i++];
+			datum.street = (String)line[i++];
+			datum.housenumber = (String)line[i++];
+			datum.postcode = (String)line[i++];
+			datum.city = (String)line[i++];
+			datum.state = (String)line[i++];
+			datum.country = (String)line[i++];
 			datum.email = (String)line[i++];
-			datum.sex = (String)line[i++];
-			datum.birthdate = (Timestamp)line[i++];
+			datum.homepage = (String)line[i++];
+			datum.telephone = (String)line[i++];
+			datum.mobile = (String)line[i++];
+			datum.fax = (String)line[i++];
 			data.add(datum);
 		}
 		session.close();
@@ -319,6 +326,7 @@ public class SQLExecutorService {
 			datum.housenumber = (String)line[i++];
 			datum.postcode = (String)line[i++];
 			datum.city = (String)line[i++];
+			datum.state = (String)line[i++];
 			datum.country = (String)line[i++];
 			datum.email = (String)line[i++];
 			datum.homepage = (String)line[i++];

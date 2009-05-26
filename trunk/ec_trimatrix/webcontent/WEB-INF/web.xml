@@ -74,9 +74,19 @@
     <servlet-class>org.eclnt.jsfserver.bufferedcontent.BufferedContentServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
+  <servlet id="UploadContentServlet">
+    <servlet-name>UploadContentServlet</servlet-name>
+    <servlet-class>org.eclnt.jsfserver.bufferedcontent.UploadContentServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
   <servlet id="SessionInvalidationServlet">
     <servlet-name>SessionInvalidationServlet</servlet-name>
     <servlet-class>org.eclnt.jsfserver.util.SessionInvalidationServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet id="AutoCompleteServlet">
+    <servlet-name>AutoCompleteServlet</servlet-name>
+    <servlet-class>org.eclnt.jsfserver.util.AutoCompleteServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
   

@@ -46,6 +46,15 @@ public class DAOLayer {
 	public void setPersonsHaveRelationsDAO(
 			IPersonsHaveRelationsDAO personsHaveRelationsDAO) {
 		this.personsHaveRelationsDAO = personsHaveRelationsDAO;
+	}	
+
+	public IPersonsHaveDoctorsDAO getPersonsHaveDoctorsDAO() {
+		return personsHaveDoctorsDAO;
+	}
+
+	public void setPersonsHaveDoctorsDAO(
+			IPersonsHaveDoctorsDAO personsHaveDoctorsDAO) {
+		this.personsHaveDoctorsDAO = personsHaveDoctorsDAO;
 	}
 
 	public ITSalutationDAO getTsalutationDAO() {

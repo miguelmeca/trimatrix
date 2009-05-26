@@ -77,7 +77,7 @@ public class PersonDoctorRelation implements IRelation {
 	}
 
 	public List<IRelationData> getData(Relation relation) {
-		return sqlExecutorService.getPersonPersonRelation(relation);
+		return sqlExecutorService.getPersonDoctorRelation(relation);
 	}
 
 	public static class Data implements IRelationData {

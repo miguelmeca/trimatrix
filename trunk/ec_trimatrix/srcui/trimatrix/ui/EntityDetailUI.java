@@ -112,7 +112,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
         }              
         // get/create entity object and set ID
     	if(mode == Constants.Mode.NEW) {
-    		entityObject = ENTITYLISTLOGIC.createEntity(entity);
+    		entityObject = ENTITYLISTLOGIC.create(entity);
     		id = entityObject.getId();
     		getWorkpage().setId(id);
         } else {          	
@@ -128,7 +128,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
                     } 
             	}
         		// get entity
-        		entityObject = ENTITYLISTLOGIC.getEntity(entity, id);  
+        		entityObject = ENTITYLISTLOGIC.get(entity, id);  
         		// set title of workpage
         		getWorkpage().setTitle(entityObject.toString());
             	if(entityObject==null) {
@@ -166,7 +166,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 					public void reactOnNo() {}
 
 					public void reactOnYes() {						
-						if(ENTITYLISTLOGIC.deleteEntity(entity, id)) {							
+						if(ENTITYLISTLOGIC.delete(entity, id)) {							
 							Statusbar.outputSuccess("Entity deleted");
 							refreshParent();
 							getWorkpageContainer().closeWorkpage(getWorkpage());
@@ -182,7 +182,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 		// delegate to specific detail UI
 		try {	
 			entityDetailUI.validate();
-			ENTITYLISTLOGIC.saveEntity(entity, entityObject);
+			ENTITYLISTLOGIC.save(entity, entityObject);
 			getWorkpage().setTitle(entityObject.toString());
 			Statusbar.outputSuccess("Entity saved");
 			refreshParent();
@@ -209,7 +209,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 		if (mode == Constants.Mode.NEW) {
 			getWorkpageContainer().closeWorkpage(getWorkpage());
 		} else {
-			ENTITYLISTLOGIC.reloadEntity(entity, entityObject);   
+			ENTITYLISTLOGIC.reload(entity, entityObject);   
 			changeMode(Constants.Mode.SHOW);
 			entityDetailUI.init();
 		}		
@@ -247,7 +247,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 		if (mode == Constants.Mode.NEW) {
 			renderNewButton = false;
 			renderDeleteButton = false;
-			renderEditButton = true;
+			renderEditButton = false;
 			renderSaveButton = true;
 			renderCancelButton = true;
 		}
