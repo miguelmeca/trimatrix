@@ -15,6 +15,32 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`trimatrix` /*!40100 DEFAULT CHARACTER S
 
 USE `trimatrix`;
 
+/*Table structure for table `attachments` */
+
+DROP TABLE IF EXISTS `attachments`;
+
+CREATE TABLE `attachments` (
+  `id` varchar(36) NOT NULL,
+  `category_key` varchar(10) DEFAULT NULL,
+  `description` varchar(150) DEFAULT NULL,
+  `owner_id` varchar(36) DEFAULT NULL,
+  `mime_type` varchar(100) DEFAULT NULL,
+  `file_name` varchar(255) DEFAULT NULL,
+  `file_size` int(11) DEFAULT NULL,
+  `file_content` blob,
+  `created_at` datetime DEFAULT '1900-01-01 00:00:00' COMMENT 'Datensatz erstellt am',
+  `created_by` varchar(36) DEFAULT NULL COMMENT 'Datensatz erstellt von',
+  `modified_at` datetime DEFAULT '1900-01-01 00:00:00' COMMENT 'Datensatz geändert am',
+  `modified_by` varchar(36) DEFAULT NULL COMMENT 'Datensatz geändert von',
+  `deleted` tinyint(1) DEFAULT '0' COMMENT 'Datensatz gelöscht',
+  `test` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `fk_attachments_k_categories` (`category_key`),
+  KEY `fk_attachments_persons` (`owner_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+/*Data for the table `attachments` */
+
 /*Table structure for table `doctors` */
 
 DROP TABLE IF EXISTS `doctors`;
@@ -45,7 +71,7 @@ CREATE TABLE `doctors` (
 
 /*Data for the table `doctors` */
 
-insert  into `doctors`(`id`,`name`,`street`,`housenumber`,`postcode`,`city`,`state`,`country_key`,`email`,`homepage`,`telephone`,`mobile`,`fax`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('c94e3cff-495d-11de-921e-1178275b5596','Medizinalrat Dr. Helmut Schwitzer','Kirchweg','2','6391','Fieberbrunn','Tirol','AT','office@drschwitzer.at','http://www.drschwitzer.at','05354 / 56535',NULL,'05354 / 56535 - 75','1900-01-01 00:00:00',NULL,'1900-01-01 00:00:00',NULL,0,0),('d0782a5c-495d-11de-921e-1178275b5596','Dr. Michael Plattner','Dorf','39','6373','Jochberg','Tirol','AT','michael.plattner@gmail.com',NULL,'05355 / 20071',NULL,NULL,'1900-01-01 00:00:00',NULL,'1900-01-01 00:00:00',NULL,0,0);
+insert  into `doctors`(`id`,`name`,`street`,`housenumber`,`postcode`,`city`,`state`,`country_key`,`email`,`homepage`,`telephone`,`mobile`,`fax`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('c94e3cff-495d-11de-921e-1178275b5596','Medizinalrat Dr. Helmut Schwitzer','Kirchweg','2','6391','Fieberbrunn','Tirol','at','office@drschwitzer.at','http://www.drschwitzer.at','05354 / 56535',NULL,'05354 / 56535 - 75','1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-05-27 23:05:17','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('d0782a5c-495d-11de-921e-1178275b5596','Dr. Michael Plattner','Dorf','39','6373','Jochberg','Tirol','at','michael.plattner@gmail.com',NULL,'05355 / 20071',NULL,NULL,'1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-05-27 23:05:40','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
 
 /*Table structure for table `k_authorizations` */
 
@@ -62,6 +88,17 @@ CREATE TABLE `k_authorizations` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Roles for authorization';
 
 /*Data for the table `k_authorizations` */
+
+/*Table structure for table `k_categories` */
+
+DROP TABLE IF EXISTS `k_categories`;
+
+CREATE TABLE `k_categories` (
+  `key` varchar(10) NOT NULL,
+  PRIMARY KEY (`key`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+/*Data for the table `k_categories` */
 
 /*Table structure for table `k_countries` */
 
@@ -211,7 +248,7 @@ CREATE TABLE `persons` (
 
 /*Data for the table `persons` */
 
-insert  into `persons`(`id`,`salutation_key`,`name_first`,`name_last`,`sex_key`,`street`,`housenumber`,`postcode`,`city`,`state`,`country_key`,`email`,`homepage`,`telephone`,`mobile`,`fax`,`birthdate`,`picture`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('0b0b7658-2ddb-11de-86ae-00301bb60f17','mr','Markus','Reich','m','Dorfstraße','91','6393','St. Ulrich','Tirol','at','reich.markus@gmail.com','www.meex-rich.com','','0664/3453852',NULL,'1978-10-24 00:00:00',NULL,'1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-05-26 21:01:18','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('10f52302-2ddb-11de-86ae-00301bb60f17','mrs','Daniela','Bucher','w','Moosbach','28/2','6392','St. Jakob','Tirol','at','dany.bucher@gmail.com',NULL,NULL,'0664/2844263',NULL,'1983-05-17 00:00:00',NULL,'1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-05-26 21:03:05','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('7522bc7f-42cf-415c-a050-da12518a4cd3','mr','Thomas','Mach','m','Dorf','2','6391','Fieberbrunn','Tirol','de','thomas.mach@egger.com',NULL,NULL,NULL,NULL,'1969-09-15 00:00:00',NULL,'1900-01-01 00:00:00',NULL,'1900-01-01 00:00:00',NULL,0,0);
+insert  into `persons`(`id`,`salutation_key`,`name_first`,`name_last`,`sex_key`,`street`,`housenumber`,`postcode`,`city`,`state`,`country_key`,`email`,`homepage`,`telephone`,`mobile`,`fax`,`birthdate`,`picture`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('0b0b7658-2ddb-11de-86ae-00301bb60f17','mr','Markus','Reich','m','Dorfstraße','91','6393','St. Ulrich','Tirol','at','reich.markus@gmail.com','www.meex-rich.com','','0664/3453852',NULL,'1978-10-24 00:00:00',NULL,'1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-05-26 21:01:18','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('10f52302-2ddb-11de-86ae-00301bb60f17','mrs','Daniela','Bucher','w','Moosbach','28/2','6392','St. Jakob','Tirol','at','dany.bucher@gmail.com','www.dany.at','05354/88462','0664/2844263','05354/88462-10','1983-05-17 00:00:00',NULL,'1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-05-27 22:48:17','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('7522bc7f-42cf-415c-a050-da12518a4cd3','mr','Thomas','Mach','m','Dorf','2','6391','Fieberbrunn','Tirol','de','thomas.mach@egger.com',NULL,NULL,NULL,NULL,'1969-09-15 00:00:00',NULL,'1900-01-01 00:00:00',NULL,'1900-01-01 00:00:00',NULL,0,0);
 
 /*Table structure for table `persons_have_doctors` */
 
@@ -289,6 +326,22 @@ CREATE TABLE `t_authorizations` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 /*Data for the table `t_authorizations` */
+
+/*Table structure for table `t_categories` */
+
+DROP TABLE IF EXISTS `t_categories`;
+
+CREATE TABLE `t_categories` (
+  `key` varchar(10) NOT NULL,
+  `language_key` varchar(2) NOT NULL,
+  `description` varchar(20) DEFAULT NULL,
+  `description_long` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`key`,`language_key`),
+  KEY `fk_t_categories_k_languages` (`language_key`),
+  KEY `fk_t_categories_k_categories` (`key`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+/*Data for the table `t_categories` */
 
 /*Table structure for table `t_countries` */
 

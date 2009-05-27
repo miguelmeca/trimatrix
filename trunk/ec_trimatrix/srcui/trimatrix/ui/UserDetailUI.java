@@ -118,8 +118,8 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable, IEnti
 	 * @param event
 	 */
 	public void onPersonSearch(ActionEvent event) {
-    	PersonSelectionUI personSelectionUI = getPersonSelectionUI();
-    	personSelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){
+		IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(Constants.Entity.PERSON);
+       	entitySelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){
 			public void cancel() {
 				m_popup.close();				
 			}
@@ -130,7 +130,7 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable, IEnti
 				m_popup.close();
 			}});    	
     	m_popup = getWorkpage().createModalPopupInWorkpageContext();    	
-    	m_popup.open(Constants.Page.PERSONSELECTION.url(), "Personensuche", 800, 600, this);    	
+    	m_popup.open(Constants.Page.PERSONSELECTION.getUrl(), "Personensuche", 800, 600, this);    	
     	// TODO generate routine for centering the popup, this way is not ok!!!
     	//java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();    	
     	//m_popup.setLeft(((int)screenSize.getWidth() - m_popup.getWidth()) / 2);

@@ -103,7 +103,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
         // change mode to set buttons
         changeMode(mode);               
         // set entity detail page 
-        m_entityDetailPage = entity.getDetailPage().url();
+        m_entityDetailPage = entity.getDetailPage().getUrl();
         // check if in new mode
     	if(mode == Constants.Mode.NEW) {
     		entityObject = ENTITYLISTLOGIC.create(entity);
@@ -213,7 +213,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 		// create separate workpage
 		IWorkpageDispatcher wpd = getOwningDispatcher();
 		IWorkpageContainer wpc = getWorkpageContainer();
-		IWorkpage wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.url(),
+		IWorkpage wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.getUrl(),
 				null, "New entity", null, true, parentBean, null);
 		wp.setParam(Constants.P_ENTITY, entity.name());
 		wp.setParam(Constants.P_MODE, Constants.Mode.NEW.name());

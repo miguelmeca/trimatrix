@@ -125,7 +125,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 	public void onNew(ActionEvent event) {
 		IWorkpageDispatcher wpd = getOwningDispatcher();
 		IWorkpageContainer wpc = getWorkpageContainer();
-		IWorkpage wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.url(),
+		IWorkpage wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.getUrl(),
 				null, "New entity", null, true, entityList, authorization);
 		wp.setParam(Constants.P_ENTITY, entity.name());
 		wp.setParam(Constants.P_MODE, Constants.Mode.NEW.name());
@@ -195,7 +195,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 		public void onRowExecute() {
 			IWorkpageDispatcher wpd = getOwningDispatcher();
 			IWorkpageContainer wpc = getWorkpageContainer();
-			IWorkpage wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.url(),
+			IWorkpage wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.getUrl(),
 					datum.getId(), datum.toString(), null, true, entityList, authorization);			
 			wp.setParam(Constants.P_ENTITY, entity.name());
 			wp.setParam(Constants.P_MODE, Constants.Mode.SHOW.name());			
