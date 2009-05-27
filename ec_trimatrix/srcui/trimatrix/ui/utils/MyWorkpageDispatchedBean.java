@@ -10,12 +10,16 @@ import trimatrix.logic.LogicLayer;
 import trimatrix.services.ServiceLayer;
 import trimatrix.ui.CreateRelationUI;
 import trimatrix.ui.Dispatcher;
+import trimatrix.ui.DoctorSelectionUI;
 import trimatrix.ui.EntityDetailUI;
 import trimatrix.ui.EntityListUI;
+import trimatrix.ui.EntitySelectionUI;
 import trimatrix.ui.IEntityDetailUI;
 import trimatrix.ui.PersonSelectionUI;
 import trimatrix.ui.UserDetailUI;
 import trimatrix.ui.UserSelectionUI;
+import trimatrix.utils.Constants;
+import trimatrix.utils.Dictionary;
 
 public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements IModalPopupListener{
 
@@ -73,12 +77,12 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 		return (EntityListUI) getOwningDispatcher().getDispatchedBean(EntityListUI.class);
 	}
 	
-	public UserSelectionUI getUserSelectionUI() {
-		return (UserSelectionUI)getOwningDispatcher().getDispatchedBean(UserSelectionUI.class);
-	}
-	
-	public PersonSelectionUI getPersonSelectionUI() {
-		return (PersonSelectionUI)getOwningDispatcher().getDispatchedBean(PersonSelectionUI.class);
+	public EntitySelectionUI getEntitySelectionUI(Constants.Entity entity) {
+		if (entity == Constants.Entity.USER) return (EntitySelectionUI)getOwningDispatcher().getDispatchedBean(UserSelectionUI.class);
+		if (entity == Constants.Entity.PERSON) return (EntitySelectionUI)getOwningDispatcher().getDispatchedBean(PersonSelectionUI.class);
+		if (entity == Constants.Entity.DOCTOR) return (EntitySelectionUI)getOwningDispatcher().getDispatchedBean(DoctorSelectionUI.class);
+		Dictionary.logger.warn("For entity " + entity.name() + " no SelectionUI available!");
+		return null;
 	}
 	
 	public CreateRelationUI getCreateRelationUI() {

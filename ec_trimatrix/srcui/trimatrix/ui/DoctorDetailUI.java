@@ -3,6 +3,7 @@ package trimatrix.ui;
 import java.io.Serializable;
 
 import org.eclnt.editor.annotations.CCGenClass;
+import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.db.Doctors;
@@ -17,6 +18,9 @@ import trimatrix.utils.Dictionary;
 
 public class DoctorDetailUI extends AEntityDetailUI implements Serializable, IEntityDetailUI
 {
+	protected ValidValuesBinding countriesVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.COUNTRY);
+    public ValidValuesBinding getCountriesVvb() { return countriesVvb; }
+	
 	private Doctors entity;	
     
 	public DoctorDetailUI(IWorkpageDispatcher dispatcher) {
@@ -56,14 +60,36 @@ public class DoctorDetailUI extends AEntityDetailUI implements Serializable, IEn
 	private void fillEntityProperties() {
 		// name
 		entity.setName((String)values.get(DoctorEntity.NAME));
-		// TODO set all fields
+		// address
+		entity.setStreet((String)values.get(DoctorEntity.STREET));
+		entity.setHousenumber((String)values.get(DoctorEntity.HOUSENUMBER));
+		entity.setPostcode((String)values.get(DoctorEntity.POSTCODE));
+		entity.setCity((String)values.get(DoctorEntity.CITY));
+		entity.setState((String)values.get(DoctorEntity.STATE));
+		entity.setCountryKey((String)values.get(DoctorEntity.COUNTRY));
+		// communication
+		entity.setHomepage((String)values.get(DoctorEntity.HOMEPAGE));
+		entity.setEmail((String)values.get(DoctorEntity.EMAIL));
+		entity.setTelephone((String)values.get(DoctorEntity.TELEPHONE));
+		entity.setMobile((String)values.get(DoctorEntity.MOBILE));
+		entity.setFax((String)values.get(DoctorEntity.FAX));
 	}
 	
 	private void fillMaps() {
 		// add values of fields
 		values.clear();
 		values.put(DoctorEntity.NAME, entity.getName());
-				
+		values.put(DoctorEntity.EMAIL, entity.getEmail());	
+		values.put(DoctorEntity.STREET, entity.getStreet());
+		values.put(DoctorEntity.HOUSENUMBER, entity.getHousenumber());
+		values.put(DoctorEntity.POSTCODE, entity.getPostcode());
+		values.put(DoctorEntity.CITY, entity.getCity());
+		values.put(DoctorEntity.STATE, entity.getState());
+		values.put(DoctorEntity.COUNTRY, entity.getCountryKey());
+		values.put(DoctorEntity.HOMEPAGE, entity.getHomepage());
+		values.put(DoctorEntity.TELEPHONE, entity.getTelephone());
+		values.put(DoctorEntity.MOBILE, entity.getMobile());
+		values.put(DoctorEntity.FAX, entity.getFax());				
 		// add bgpaint of fields
 		bgpaint.clear();
 		// mandatory fields

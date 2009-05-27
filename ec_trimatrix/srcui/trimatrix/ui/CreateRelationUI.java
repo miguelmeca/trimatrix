@@ -74,38 +74,41 @@ public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serial
     }
 
     public void onSelectPartner1(ActionEvent event) {
-       	// TODO add dynamic handling!
-    	PersonSelectionUI personSelectionUI = getPersonSelectionUI();
-       	personSelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){
+    	final Constants.Entity entity = relation.getParnter1();
+    	Constants.Page selectionPage = entity.getSelectionPage();    	
+    	IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(entity);
+       	entitySelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){
    			public void cancel() {
    				m_popup.close();				
    			}
    			public void idSelected(String id) {  
-   				partner1 = getLogic().getEntityListLogic().get(Constants.Entity.PERSON, id);    				
-   				m_popup.close();
-   			}});    	
-       	String width = HttpSessionAccess.getCurrentRequest().getHeader("eclnt-width");
-       	String height = HttpSessionAccess.getCurrentRequest().getHeader("eclnt-height");
-       	Dictionary.logger.info("Width: " + width + " - Height: " + height);
-       	m_popup = getWorkpage().createModalPopupInWorkpageContext();    	
-       	m_popup.open(Constants.Page.PERSONSELECTION.url(), "Personensuche", 800, 600, this);
-    }
-    
-    public void onSelectPartner2(ActionEvent event) {
-    	PersonSelectionUI personSelectionUI = getPersonSelectionUI();
-       	personSelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){
-   			public void cancel() {
-   				m_popup.close();				
-   			}
-   			public void idSelected(String id) {  
-   				partner2 = getLogic().getEntityListLogic().get(Constants.Entity.PERSON, id);    				
+   				partner1 = getLogic().getEntityListLogic().get(entity, id);    				
    				m_popup.close();
    			}});    	
        	String width = HttpSessionAccess.getCurrentRequest().getHeader("eclnt-width");
        	String height = HttpSessionAccess.getCurrentRequest().getHeader("eclnt-height");
        	Dictionary.logger.warn("Width: " + width + " - Height: " + height);
-       	m_popup = getWorkpage().createModalPopupInWorkpageContext();    	
-       	m_popup.open(Constants.Page.PERSONSELECTION.url(), "Personensuche", 800, 600, this);
+       	m_popup = getWorkpage().createModalPopupInWorkpageContext();           	
+       	m_popup.open(selectionPage.getUrl(), selectionPage.getDescription(), 800, 600, this);
+    }
+    
+    public void onSelectPartner2(ActionEvent event) {
+    	final Constants.Entity entity = relation.getParnter2();
+    	Constants.Page selectionPage = entity.getSelectionPage();    	
+    	IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(entity);
+       	entitySelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){
+   			public void cancel() {
+   				m_popup.close();				
+   			}
+   			public void idSelected(String id) {  
+   				partner2 = getLogic().getEntityListLogic().get(entity, id);    				
+   				m_popup.close();
+   			}});    	
+       	String width = HttpSessionAccess.getCurrentRequest().getHeader("eclnt-width");
+       	String height = HttpSessionAccess.getCurrentRequest().getHeader("eclnt-height");
+       	Dictionary.logger.warn("Width: " + width + " - Height: " + height);
+       	m_popup = getWorkpage().createModalPopupInWorkpageContext();           	
+       	m_popup.open(selectionPage.getUrl(), selectionPage.getDescription(), 800, 600, this);
     }   
 
     public void setRelationType(Constants.Relation relation) {

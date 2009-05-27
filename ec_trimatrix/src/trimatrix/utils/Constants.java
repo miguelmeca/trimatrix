@@ -9,38 +9,44 @@ import trimatrix.entities.IEntityData;
 public final class Constants {
 	// all used jsp pages
 	public static enum Page {
-		WORKPLACE("/workplace.jsp"),
-		LOGON("/logon.jsp"),
-		PASSWORD("/password.jsp"),
-		ENTITYLIST("/entitylist.jsp"),
-		ENTITYDETAIL("/entitydetail.jsp"),
-		USERDETAIL("/userdetail.jsp"),
-		PERSONDETAIL("/persondetail.jsp"),
-		DOCTORDETAIL("/doctordetail.jsp"),
-		USERSELECTION("/userselection.jsp"),
-		PERSONSELECTION("/personselection.jsp"),
-		RELATIONLIST("/relationlist.jsp"),
-		CREATERELATION("/createrelation.jsp");
+		WORKPLACE("/workplace.jsp","Workplace"),
+		LOGON("/logon.jsp", "Logon"),
+		PASSWORD("/password.jsp","Passwort ändern"),
+		ENTITYLIST("/entitylist.jsp","Entitäten"),
+		ENTITYDETAIL("/entitydetail.jsp", "Entitätendetails"),
+		USERDETAIL("/userdetail.jsp","Bentuzer"),
+		PERSONDETAIL("/persondetail.jsp","Personen"),
+		DOCTORDETAIL("/doctordetail.jsp","Ärzte"),
+		USERSELECTION("/userselection.jsp", "Benutzersuche"),
+		PERSONSELECTION("/personselection.jsp", "Personensuche"),
+		DOCTORSELECTION("/doctorselection.jsp", "Ärztesuche"),
+		RELATIONLIST("/relationlist.jsp", "Beziehungen"),
+		CREATERELATION("/createrelation.jsp", "Beziehungsanlage");
 		private final String url;
-		Page(String url) {
+		private final String description;
+		Page(String url, String description) {
 			this.url = url;
+			this.description = description;
 		}
-		public String url(){ return url; }
+		public String getUrl(){ return url; }
+		public String getDescription(){ return description; }
 	}	
 	// all used entities
 	public static enum Entity {
 		// order is relevant, first all entities which are base entities
-		USER(null, Page.USERDETAIL), 
-		PERSON(null, Page.PERSONDETAIL), 
-		DOCTOR(null, Page.DOCTORDETAIL),
-		MYCOACHES(Entity.PERSON, Page.PERSONDETAIL), 
-		MYATHLETES(Entity.PERSON, Page.PERSONDETAIL),
-		MYDOCTORS(Entity.DOCTOR, Page.PERSONDETAIL);
+		USER(null, Page.USERDETAIL, Page.USERSELECTION), 
+		PERSON(null, Page.PERSONDETAIL, Page.PERSONSELECTION), 
+		DOCTOR(null, Page.DOCTORDETAIL, Page.DOCTORSELECTION),
+		MYCOACHES(Entity.PERSON, Page.PERSONDETAIL, Page.PERSONSELECTION), 
+		MYATHLETES(Entity.PERSON, Page.PERSONDETAIL, Page.PERSONSELECTION),
+		MYDOCTORS(Entity.DOCTOR, Page.DOCTORDETAIL, Page.DOCTORSELECTION);
 		private final Entity baseEntity;
 		private final Page detailPage;
-		Entity(Entity baseEntity, Page detailPage) {
+		private final Page selectionPage;
+		Entity(Entity baseEntity, Page detailPage, Page selectionPage) {
 			this.baseEntity = baseEntity;
 			this.detailPage = detailPage;
+			this.selectionPage = selectionPage;
 		}
 		public Entity getBase() { 
 			if(baseEntity==null) return this; 
@@ -48,6 +54,9 @@ public final class Constants {
 		};
 		public Page getDetailPage() {
 			return detailPage;
+		}
+		public Page getSelectionPage() {
+			return selectionPage;
 		}
 	}
 	// all relationtypes

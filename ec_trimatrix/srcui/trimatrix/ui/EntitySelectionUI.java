@@ -10,11 +10,10 @@ import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.entities.IEntityData;
-import trimatrix.entities.PersonEntity;
 import trimatrix.logic.EntityListLogic;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 
-public abstract class EntitySelectionUI extends MyWorkpageDispatchedBean implements Serializable
+public abstract class EntitySelectionUI extends MyWorkpageDispatchedBean implements Serializable, IEntitySelectionUI
 {
 	protected final EntityListLogic ENTITYLISTLOGIC = getLogic().getEntityListLogic();
     protected List<IEntityData> gridData;	
@@ -23,10 +22,16 @@ public abstract class EntitySelectionUI extends MyWorkpageDispatchedBean impleme
 		super(dispatcher);
 	}	
 	
+	/* (non-Javadoc)
+	 * @see trimatrix.ui.IEntitySelectionUI#onCancel(javax.faces.event.ActionEvent)
+	 */
 	public void onCancel(ActionEvent event) {
     	callback.cancel();
     }
 
+    /* (non-Javadoc)
+	 * @see trimatrix.ui.IEntitySelectionUI#onSelect(trimatrix.ui.EntitySelectionUI.GridListItem)
+	 */
     public void onSelect(GridListItem<? extends IEntityData> item) {
     	if (item == null) {
     		Statusbar.outputMessage("No entity selected!");
@@ -63,6 +68,9 @@ public abstract class EntitySelectionUI extends MyWorkpageDispatchedBean impleme
     }
     
     protected ISelectionCallback callback;
+    /* (non-Javadoc)
+	 * @see trimatrix.ui.IEntitySelectionUI#prepareCallback(trimatrix.ui.EntitySelectionUI.ISelectionCallback)
+	 */
     public void prepareCallback(ISelectionCallback callback) {
     	this.callback = callback;
     }

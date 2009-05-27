@@ -56,7 +56,7 @@ public class WPFunctionTreeAthlet extends WorkplaceFunctionTree {
 					Dictionary.logger.warn(ex.toString());
 					continue;
 				}	
-				node = new FunctionNode(parentNode, page.url());
+				node = new FunctionNode(parentNode, page.getUrl());
 				node.setId(Constants.EMPTY);
 				node.setStatus(FunctionNode.STATUS_ENDNODE);
 				node.setOpenMultipleInstances(true);

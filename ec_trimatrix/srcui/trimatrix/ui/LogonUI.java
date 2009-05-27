@@ -43,9 +43,9 @@ public class LogonUI extends MyDispatchedBean implements Serializable
 		}
 		// logon successful
 		if(LOGONLOGIC.isUserInitial()) {
-			getAroundUI().setContentPage(Constants.Page.PASSWORD.url());
+			getAroundUI().setContentPage(Constants.Page.PASSWORD.getUrl());
 		} else {
-			getAroundUI().setContentPage(Constants.Page.WORKPLACE.url());
+			getAroundUI().setContentPage(Constants.Page.WORKPLACE.getUrl());
 		}		
 	}
 	
@@ -59,7 +59,7 @@ public class LogonUI extends MyDispatchedBean implements Serializable
 			return;
 		}
 		// logon succesfull
-		getAroundUI().setContentPage(Constants.Page.PASSWORD.url());
+		getAroundUI().setContentPage(Constants.Page.PASSWORD.getUrl());
     }
 	
     public void onLanguage(ActionEvent event) {

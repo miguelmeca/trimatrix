@@ -31,25 +31,39 @@
 </t:foldablepane>
 </t:row>
 <t:row id="g_16" >
-<t:foldablepane id="g_17" height="180" text="#{rr.literals.address}" width="100%" x="15" y="200" >
+<t:foldablepane id="g_17" height="150" text="#{rr.literals.address}" width="100%" x="15" y="200" >
 <t:row id="g_18" >
 <t:paintarea id="g_19" height="100%" width="100%" >
 <t:label id="g_20" height="20" text="#{rr.literals.street}" width="100" x="15" y="15" />
 <t:field id="g_21" attributemacro="entityDetailMacro(PersonDetailUI,street)" height="20" width="200" x="115" y="15" />
-<t:label id="g_22" height="20" text="#{rr.literals.country}" width="100" x="15" y="45" />
-<t:combobox id="g_23" attributemacro="entityDetailMacro(PersonDetailUI,country)" height="20" validvaluesbinding="#{d.PersonDetailUI.countriesVvb}" valuetextmode="TEXT" width="200" x="115" y="45" />
+<t:label id="g_22" height="20" text="#{rr.literals.housenumber}" width="100" x="365" y="15" />
+<t:field id="g_23" attributemacro="entityDetailMacro(PersonDetailUI,housenumber)" height="20" width="200" x="465" y="15" />
+<t:label id="g_24" height="20" text="#{rr.literals.postcode}" width="100" x="15" y="45" />
+<t:field id="g_25" attributemacro="entityDetailMacro(PersonDetailUI,postcode)" height="20" width="200" x="115" y="45" />
+<t:label id="g_26" height="20" text="#{rr.literals.city}" width="100" x="365" y="45" />
+<t:field id="g_27" attributemacro="entityDetailMacro(PersonDetailUI,city)" height="20" width="200" x="465" y="45" />
+<t:label id="g_28" height="20" text="#{rr.literals.country}" width="100" x="15" y="75" />
+<t:combobox id="g_29" attributemacro="entityDetailMacro(PersonDetailUI,country)" height="20" validvaluesbinding="#{d.PersonDetailUI.countriesVvb}" valuetextmode="TEXT" width="200" x="115" y="75" />
+<t:label id="g_30" height="20" text="#{rr.literals.state}" width="100" x="365" y="75" />
+<t:field id="g_31" attributemacro="entityDetailMacro(PersonDetailUI,state)" height="20" width="200" x="465" y="75" />
 </t:paintarea>
 </t:row>
 </t:foldablepane>
 </t:row>
-<t:row id="g_24" >
-<t:foldablepane id="g_25" height="200" text="#{rr.literals.communication}" width="100%" >
-<t:row id="g_26" >
-<t:paintarea id="g_27" height="100%" width="100%" >
-<t:label id="g_28" text="#{rr.literals.person_email}" width="100" x="15" y="15" />
-<t:field id="g_29" attributemacro="entityDetailMacro(PersonDetailUI,email)" width="200" x="115" y="15" />
-<t:label id="g_30" height="20" text="#{rr.literals.homepage}" width="100" x="15" y="45" />
-<t:field id="g_31" attributemacro="entityDetailMacro(PersonDetailUI,homepage)" height="20" width="200" x="115" y="45" />
+<t:row id="g_32" >
+<t:foldablepane id="g_33" height="150" text="#{rr.literals.communication}" width="100%" >
+<t:row id="g_34" >
+<t:paintarea id="g_35" height="100%" width="100%" >
+<t:label id="g_36" text="#{rr.literals.email}" width="100" x="15" y="15" />
+<t:field id="g_37" attributemacro="entityDetailMacro(PersonDetailUI,email)" width="200" x="115" y="15" />
+<t:label id="g_38" height="20" text="#{rr.literals.homepage}" width="100" x="365" y="15" />
+<t:field id="g_39" attributemacro="entityDetailMacro(PersonDetailUI,homepage)" height="20" width="200" x="465" y="15" />
+<t:label id="g_41" text="#{rr.literals.telephone}" width="100" x="15" y="45" />
+<t:field id="g_42" attributemacro="entityDetailMacro(PersonDetailUI,telephone)" width="200" x="115" y="45" />
+<t:label id="g_44" height="20" text="#{rr.literals.mobile}" width="100" x="365" y="45" />
+<t:field id="g_45" attributemacro="entityDetailMacro(PersonDetailUI,mobile)" height="20" width="200" x="465" y="45" />
+<t:label id="g_40" text="#{rr.literals.fax}" width="100" x="15" y="75" />
+<t:field id="g_43" attributemacro="entityDetailMacro(PersonDetailUI,fax)" width="200" x="115" y="75" />
 </t:paintarea>
 </t:row>
 </t:foldablepane>

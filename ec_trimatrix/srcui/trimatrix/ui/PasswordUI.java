@@ -43,6 +43,6 @@ public class PasswordUI extends MyDispatchedBean implements Serializable
 			return;
 		}
     	// Change succesfull
-		getAroundUI().setContentPage(Constants.Page.WORKPLACE.url());
+		getAroundUI().setContentPage(Constants.Page.WORKPLACE.getUrl());
     }
 }

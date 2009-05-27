@@ -58,7 +58,7 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 					Dictionary.logger.warn(ex.toString());
 					continue;
 				}	
-				node = new FunctionNode(parentNode, page.url());
+				node = new FunctionNode(parentNode, page.getUrl());
 				node.setId(Constants.EMPTY);
 				node.setStatus(FunctionNode.STATUS_ENDNODE);
 				node.setOpenMultipleInstances(true);
@@ -74,7 +74,7 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 					// add athletes
 					List<IEntityData> athletes = FUNCTIONTREELOGIC.getMyAthletes();
 					for (IEntityData athlete : athletes) {
-						FunctionNode athlete_node = new FunctionNode(node, Constants.Page.ENTITYDETAIL.url());	
+						FunctionNode athlete_node = new FunctionNode(node, Constants.Page.ENTITYDETAIL.getUrl());	
 						athlete_node.setId(athlete.getId());
 						athlete_node.setStatus(FunctionNode.STATUS_ENDNODE);
 						athlete_node.setOpenMultipleInstances(true);
