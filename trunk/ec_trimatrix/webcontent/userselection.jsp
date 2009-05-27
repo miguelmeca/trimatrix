@@ -16,7 +16,7 @@
 <t:gridcol id="g_3" align="center" searchenabled="true" sortreference=".{entity.user_name}" text="#{rr.literals.user_user_name}" width="100" >
 <t:label id="g_4" text=".{entity.user_name}" />
 </t:gridcol>
-<t:gridcol id="g_5" align="center" searchenabled="true" sortreference=".{entity.user_name}" text="#{rr.literals.user_person}" width="100" >
+<t:gridcol id="g_5" align="center" searchenabled="true" sortreference=".{entity.person}" text="#{rr.literals.user_person}" width="100" >
 <t:label id="g_6" text=".{entity.person}" />
 </t:gridcol>
 </t:fixgrid>
