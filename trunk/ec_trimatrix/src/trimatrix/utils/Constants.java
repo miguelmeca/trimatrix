@@ -17,9 +17,11 @@ public final class Constants {
 		USERDETAIL("/userdetail.jsp","Bentuzer"),
 		PERSONDETAIL("/persondetail.jsp","Personen"),
 		DOCTORDETAIL("/doctordetail.jsp","Ärzte"),
+		ATTACHMENTDETAIL("/attachmentdetail.jsp","Anhänge"),
 		USERSELECTION("/userselection.jsp", "Benutzersuche"),
 		PERSONSELECTION("/personselection.jsp", "Personensuche"),
 		DOCTORSELECTION("/doctorselection.jsp", "Ärztesuche"),
+		ATTACHMENTSELECTION("/attachmentselection.jsp", "Anhangssuche"),
 		RELATIONLIST("/relationlist.jsp", "Beziehungen"),
 		CREATERELATION("/createrelation.jsp", "Beziehungsanlage");
 		private final String url;
@@ -37,9 +39,11 @@ public final class Constants {
 		USER(null, Page.USERDETAIL, Page.USERSELECTION), 
 		PERSON(null, Page.PERSONDETAIL, Page.PERSONSELECTION), 
 		DOCTOR(null, Page.DOCTORDETAIL, Page.DOCTORSELECTION),
-		MYCOACHES(Entity.PERSON, Page.PERSONDETAIL, Page.PERSONSELECTION), 
-		MYATHLETES(Entity.PERSON, Page.PERSONDETAIL, Page.PERSONSELECTION),
-		MYDOCTORS(Entity.DOCTOR, Page.DOCTORDETAIL, Page.DOCTORSELECTION);
+		ATTACHMENT(null, null, null),
+		MYCOACHES(PERSON, Page.PERSONDETAIL, Page.PERSONSELECTION), 
+		MYATHLETES(PERSON, Page.PERSONDETAIL, Page.PERSONSELECTION),
+		MYDOCTORS(DOCTOR, Page.DOCTORDETAIL, Page.DOCTORSELECTION),
+		MYATTACHMENTS(ATTACHMENT, null, null);
 		private final Entity baseEntity;
 		private final Page detailPage;
 		private final Page selectionPage;
@@ -62,10 +66,12 @@ public final class Constants {
 	// all relationtypes
 	public static enum Relation {
 		// order is relevant, first all relations which are base relations
-		PERSONPERSON(Constants.Entity.PERSON, Constants.Entity.PERSON),
-		PERSONDOCTOR(Constants.Entity.PERSON, Constants.Entity.DOCTOR),
+		PERSONPERSON(Entity.PERSON, Entity.PERSON),
+		PERSONDOCTOR(Entity.PERSON, Entity.DOCTOR),
+		PERSONATTACHMENT(Entity.PERSON, Entity.ATTACHMENT),
 		COACH("coach", PERSONPERSON),
-		DOCTOR("doctor", PERSONDOCTOR);
+		DOCTOR("doctor", PERSONDOCTOR),
+		ATTACHMENT("attachment", PERSONATTACHMENT);
 		private final String type;
 		private final Relation baseRelation;
 		private final Constants.Entity partner1;
@@ -110,17 +116,16 @@ public final class Constants {
 	}
 	// all value lists
 	public static enum ValueList {
-		LANGUAGE, CURRENCY, LOGONLANGUAGE, SALUTATION, RELTYPS, COUNTRY	
+		LANGUAGE, CURRENCY, LOGONLANGUAGE, SALUTATION, RELTYPS, COUNTRY, CATEGORY
 	}	
 	// all functionnodes
 	public static enum FunctionNode {
-		ATHLETES_OWN
+		ATHLETES_OWN, COACHES_OWN, DOCTORS_OWN, ATTACHMENTS_OWN
 	}
 	// modes
 	public static enum Mode {
 		SHOW, CHANGE, NEW
-	}
-	
+	}	
 	
 	public static final String NULL = "null";
 	public static final String EMPTY = "";

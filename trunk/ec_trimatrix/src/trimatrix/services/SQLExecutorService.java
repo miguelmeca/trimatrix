@@ -11,6 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.HibernateTransactionManager;
 
 import trimatrix.db.DAOLayer;
+import trimatrix.entities.AttachmentEntity;
 import trimatrix.entities.DoctorEntity;
 import trimatrix.entities.IEntityData;
 import trimatrix.entities.PersonEntity;
@@ -31,16 +32,19 @@ public class SQLExecutorService {
 	private static final String USERENTITYLISTQUERY = "UserEntityList";
 	private static final String PERSONENTITYLISTQUERY = "PersonEntityList";
 	private static final String DOCTORENTITYLISTQUERY = "DoctorEntityList";
+	private static final String ATTACHMENTENTITYLISTQUERY = "AttachmentEntityList";
 	private static final String FUNCTIONTREEQUERY = "FunctionTree";
 	private static final String LANGUAGEVALUELISTQUERY = "LanguageValueList";
 	private static final String SALUTATIONVALUELISTQUERY = "SalutationValueList";
 	private static final String LOGONLANGUAGEVALUELISTQUERY = "LogonLanguageValueList";
 	private static final String PERSONRELATIONENTITYQUERY = "PersonRelationEntityList";
 	private static final String DOCTORRELATIONENTITYQUERY = "DoctorRelationEntityList";
+	private static final String ATTACHMENTRELATIONENTITYQUERY = "AttachmentRelationEntityList";
 	private static final String PERSONPERSONQUERY = "PersonPersonRelationList";
 	private static final String PERSONDOCTORQUERY = "PersonDoctorRelationList";
 	private static final String RELTYPSVALUELISTQUERY = "RelTypsValueList";
 	private static final String COUNTRYVALUELISTQUERY = "CountryValueList";
+	private static final String CATEGORYVALUELISTQUERY = "CategoryValueList";
 	
 	private HibernateTransactionManager transactionManager;
 	private Dictionary dictionaryService;
@@ -218,6 +222,43 @@ public class SQLExecutorService {
 	}
 	
 	/**
+	 * Retrieve attachment entities
+	 * @param lang_key
+	 * @param deleted
+	 * @param test
+	 * @return attachment entities
+	 */
+	@SuppressWarnings("unchecked")
+	public List<IEntityData> getAttachmentEntities(String lang_key, boolean deleted, boolean test) {
+		List<IEntityData> data = new ArrayList<IEntityData>();
+		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		Query query = session.getNamedQuery(ATTACHMENTENTITYLISTQUERY);
+		query.setString("p_lang_key", lang_key);
+		query.setBoolean("p_deleted", deleted);
+		query.setBoolean("p_test", test);
+		List<Object[]> result = query.list();
+		for(Object[] line : result) {
+			AttachmentEntity.Data datum = new AttachmentEntity.Data();
+			int i = 0;
+			datum.id = (String)line[i++];	
+			datum.category = (String)line[i++];
+			datum.description = (String)line[i++];
+			datum.owner = (String)line[i++];
+			datum.mimetype = (String)line[i++];
+			datum.filename = (String)line[i++];
+			datum.filesize = (Integer)line[i++];
+			data.add(datum);
+		}
+		session.close();
+		return data;
+	}
+	
+	public List<IEntityData> getAttachmentEntities() {
+		return getAttachmentEntities(dictionaryService.getLanguage(), false, false);
+	}
+	
+	/**
 	 * Retrieve persons in a certain relationship
 	 * @param person_id
 	 * @param relation
@@ -365,6 +406,48 @@ public class SQLExecutorService {
 	}	
 	
 	/**
+	 * Retrieve attachments in a certain relationship
+	 * @param partner_id
+	 * @param relation
+	 * @param inverse
+	 * @param lang_key
+	 * @param deleted
+	 * @param test
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<IEntityData> getAttachmentRelationEntities(String person_id, Constants.Relation relation, String lang_key, boolean deleted, boolean test) {
+		List<IEntityData> data = new ArrayList<IEntityData>();
+		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		Query query = session.getNamedQuery(ATTACHMENTRELATIONENTITYQUERY);
+		query.setString("p_lang_key", lang_key);
+		query.setBoolean("p_deleted", deleted);
+		query.setBoolean("p_test", test);
+		query.setString("p_reltyp", relation.type());
+		query.setString("p_person", person_id);
+		List<Object[]> result = query.list();
+		for(Object[] line : result) {
+			AttachmentEntity.Data datum = new AttachmentEntity.Data();
+			int i = 0;
+			datum.id = (String)line[i++];	
+			datum.category = (String)line[i++];
+			datum.description = (String)line[i++];
+			datum.owner = (String)line[i++];
+			datum.mimetype = (String)line[i++];
+			datum.filename = (String)line[i++];
+			datum.filesize = (Integer)line[i++];
+			data.add(datum);
+		}
+		session.close();
+		return data;
+	}
+	
+	public List<IEntityData> getAttachmentRelationEntities(String person_id, Constants.Relation relation) {
+		return getAttachmentRelationEntities(person_id, relation, dictionaryService.getLanguage(), false, false);
+	}
+	
+	/**
 	 * Return person to doctor relations
 	 * @param relation
 	 * @param lang_key
@@ -426,7 +509,9 @@ public class SQLExecutorService {
 				namedQuery = RELTYPSVALUELISTQUERY;			
 		} else if (valueList==Constants.ValueList.COUNTRY) {
 				namedQuery = COUNTRYVALUELISTQUERY;			
-		} else {
+		} else if (valueList==Constants.ValueList.CATEGORY) {
+				namedQuery = CATEGORYVALUELISTQUERY;			
+		}else {
 			Dictionary.logger.warn("Valuelist not found: " + valueList.name());
 			return list;
 		}

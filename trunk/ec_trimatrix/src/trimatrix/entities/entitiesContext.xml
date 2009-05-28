@@ -54,6 +54,23 @@
         </property>
     </bean>
     
+    <bean id="attachmentEntity" class="trimatrix.entities.AttachmentEntity"
+        abstract="false" lazy-init="default" autowire="default"
+        dependency-check="default">
+        <property name="sqlExecutorService">
+            <ref bean="sqlExecutorService" />
+        </property>
+        <property name="dictionaryService">
+            <ref bean="dictionaryService" />
+        </property>
+        <property name="transactionManager">
+            <ref bean="transactionManager" />
+        </property>
+        <property name="entitiesDAO">
+            <ref bean="AttachmentsDAO" />
+        </property>
+    </bean>
+    
     <bean id="entityLayer" class="trimatrix.entities.EntityLayer"
         abstract="false" lazy-init="default" autowire="default"
         dependency-check="default">
@@ -65,6 +82,9 @@
         </property>
         <property name="doctorEntity">
             <ref bean="doctorEntity" />
+        </property>
+        <property name="attachmentEntity">
+            <ref bean="attachmentEntity" />
         </property>
     </bean>
 </beans>
