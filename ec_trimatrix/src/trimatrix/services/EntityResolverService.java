@@ -16,6 +16,7 @@ public final class EntityResolverService {
 	private IEntity userEntity;
 	private IEntity personEntity;
 	private IEntity doctorEntity;
+	private IEntity attachmentEntity;
 
 	/**
 	 * Get metadata for entity
@@ -29,6 +30,8 @@ public final class EntityResolverService {
 			return personEntity.getGridMetaData();
 		} else if (entity.getBase()==Constants.Entity.DOCTOR) {
 			return doctorEntity.getGridMetaData();
+		} else if (entity.getBase()==Constants.Entity.ATTACHMENT) {
+			return attachmentEntity.getGridMetaData();
 		}
 		Dictionary.logger.warn("GETMETADATA : Entity " + entity.toString() + " not valid!");
 		return new ArrayList<SGridMetaData>();
@@ -41,6 +44,8 @@ public final class EntityResolverService {
 			return personEntity.getData(entity);
 		} else if (entity.getBase()==Constants.Entity.DOCTOR) {
 			return doctorEntity.getData(entity);
+		} else if (entity.getBase()==Constants.Entity.ATTACHMENT) {
+			return attachmentEntity.getData(entity);
 		}
 		Dictionary.logger.warn("GETDATA : Entity " + entity.toString() + " not valid!");
 		return new ArrayList<IEntityData>();
@@ -53,7 +58,9 @@ public final class EntityResolverService {
 			return personEntity.delete(id);
 		} else if (entity.getBase()==Constants.Entity.DOCTOR) {
 			return doctorEntity.delete(id);
-		} 
+		} else if (entity.getBase()==Constants.Entity.ATTACHMENT) {
+			return attachmentEntity.delete(id);
+		}
 		Dictionary.logger.warn("DELETE : Entity " + entity.toString() + " not valid!");
 		return false;
 	}
@@ -65,6 +72,8 @@ public final class EntityResolverService {
 			return personEntity.create();
 		} else if (entity.getBase()==Constants.Entity.DOCTOR) {
 			return doctorEntity.create();
+		} else if (entity.getBase()==Constants.Entity.ATTACHMENT) {
+			return attachmentEntity.create();
 		}
 		Dictionary.logger.warn("CREATE : Entity " + entity.toString() + " not valid!");
 		return null;
@@ -77,7 +86,9 @@ public final class EntityResolverService {
 			return personEntity.get(id);
 		}  else if (entity.getBase()==Constants.Entity.DOCTOR) {
 			return doctorEntity.get(id);
-		} 
+		} else if (entity.getBase()==Constants.Entity.ATTACHMENT) {
+			return attachmentEntity.get(id);
+		}
 		Dictionary.logger.warn("GET : Entity " + entity.toString() + " not valid!");
 		return null;
 	}
@@ -89,7 +100,9 @@ public final class EntityResolverService {
 			personEntity.save(entityObject);
 		} else if (entity.getBase()==Constants.Entity.DOCTOR) {
 			doctorEntity.save(entityObject);
-		} 
+		} else if (entity.getBase()==Constants.Entity.ATTACHMENT) {
+			attachmentEntity.save(entityObject);
+		}
 		Dictionary.logger.warn("SAVE : Entity " + entity.toString() + " not valid!");
 	}
 	
@@ -100,7 +113,9 @@ public final class EntityResolverService {
 			personEntity.reload(entityObject);
 		} else if (entity.getBase()==Constants.Entity.DOCTOR) {
 			doctorEntity.reload(entityObject);
-		} 
+		} else if (entity.getBase()==Constants.Entity.ATTACHMENT) {
+			attachmentEntity.reload(entityObject);
+		}
 		Dictionary.logger.warn("RELOAD : Entity " + entity.toString() + " not valid!");
 	}
 	
@@ -114,6 +129,10 @@ public final class EntityResolverService {
 	
 	public void setDoctorEntity(IEntity doctorEntity) {
 		this.doctorEntity = doctorEntity;
+	}
+
+	public void setAttachmentEntity(IEntity attachmentEntity) {
+		this.attachmentEntity = attachmentEntity;
 	}
 
 	public static EntityResolverService getFromApplicationContext(ApplicationContext ctx) {

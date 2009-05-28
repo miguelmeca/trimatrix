@@ -54,6 +54,7 @@
                 <idref local="UsersDAO" />
                 <idref local="PersonsDAO" />
                 <idref local="DoctorsDAO" />
+                <idref local="AttachmentsDAO" />
                 <idref local="PersonsHaveRelationsDAO" />
                 <idref local="PersonsHaveDoctorsDAO" />
                 <idref local="TSalutationDAO" />
@@ -72,6 +73,9 @@
         </property> 
         <property name="doctorsDAO">
             <ref bean="DoctorsDAO" />
+        </property> 
+        <property name="attachmentsDAO">
+            <ref bean="AttachmentsDAO" />
         </property> 
         <property name="personsHaveRelationsDAO">
             <ref bean="PersonsHaveRelationsDAO" />    
@@ -209,6 +213,11 @@
 	</bean>
 	<bean id="PersonsHaveDoctorsDAO"
 		class="trimatrix.db.PersonsHaveDoctorsDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="AttachmentsDAO" class="trimatrix.db.AttachmentsDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>

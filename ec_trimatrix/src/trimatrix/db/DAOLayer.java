@@ -6,6 +6,7 @@ public class DAOLayer {
 	private IUsersDAO usersDAO;
 	private IPersonsDAO personsDAO;
 	private IDoctorsDAO doctorsDAO;
+	private IAttachmentsDAO attachmentsDAO;
 	private IPersonsHaveRelationsDAO personsHaveRelationsDAO;
 	private IPersonsHaveDoctorsDAO personsHaveDoctorsDAO;
 	private ITSalutationDAO tsalutationDAO;
@@ -35,9 +36,13 @@ public class DAOLayer {
 		this.doctorsDAO = doctorsDAO;
 	}
 
-	public static DAOLayer getFromApplicationContext(ApplicationContext ctx) {
-		return (DAOLayer) ctx.getBean("daoLayer");
+	public IAttachmentsDAO getAttachmentsDAO() {
+		return attachmentsDAO;
 	}
+
+	public void setAttachmentsDAO(IAttachmentsDAO attachmentsDAO) {
+		this.attachmentsDAO = attachmentsDAO;
+	}	
 
 	public IPersonsHaveRelationsDAO getPersonsHaveRelationsDAO() {
 		return personsHaveRelationsDAO;
@@ -63,5 +68,9 @@ public class DAOLayer {
 
 	public void setTsalutationDAO(ITSalutationDAO tsalutationDAO) {
 		this.tsalutationDAO = tsalutationDAO;
-	}		
+	}	
+	
+	public static DAOLayer getFromApplicationContext(ApplicationContext ctx) {
+		return (DAOLayer) ctx.getBean("daoLayer");
+	}
 }

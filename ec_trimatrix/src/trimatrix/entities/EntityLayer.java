@@ -6,6 +6,7 @@ public class EntityLayer {
 	private PersonEntity personEntity;
 	private UserEntity userEntity;	
 	private DoctorEntity doctorEntity;
+	private AttachmentEntity attachmentEntity;
 	
 	public PersonEntity getPersonEntity() {
 		return personEntity;
@@ -29,6 +30,14 @@ public class EntityLayer {
 
 	public void setDoctorEntity(DoctorEntity doctorEntity) {
 		this.doctorEntity = doctorEntity;
+	}	
+
+	public AttachmentEntity getAttachmentEntity() {
+		return attachmentEntity;
+	}
+
+	public void setAttachmentEntity(AttachmentEntity attachmentEntity) {
+		this.attachmentEntity = attachmentEntity;
 	}
 
 	public static EntityLayer getFromApplicationContext(ApplicationContext ctx) {

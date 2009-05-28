@@ -2,17 +2,29 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                                    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
- <sql-query cacheable="true" name="UserEntityList"
-   read-only="true">select users.id, users.user_name, users.email, t_languages.description language, t_currencies.description currency, trim(concat(persons.name_first,' ', persons.name_last)) person, users.locked, users.initial, users.active 
-  from users left join t_languages 
-  on t_languages.key = users.language_key and t_languages.language_key = :p_lang_key
-  left outer join  t_currencies
-  on t_currencies.key = users.currency_key and t_currencies.language_key = :p_lang_key
-  left outer join  persons
-  on persons.id = users.person_id
-  where users.test = :p_test
-  and users.deleted = :p_deleted<return-scalar
-   column="id" type="java.lang.String"/>
+<sql-query cacheable="true" name="UserEntityList" read-only="true">
+SELECT
+  users.id,
+  users.user_name,
+  users.email,
+  t_languages.description language,
+  t_currencies.description currency,
+  TRIM(CONCAT(persons.name_first,' ', persons.name_last)) person,
+  users.locked,
+  users.initial,
+  users.active
+FROM users
+  LEFT JOIN t_languages
+    ON t_languages.key = users.language_key
+      AND t_languages.language_key = :p_lang_key
+  LEFT OUTER JOIN t_currencies
+    ON t_currencies.key = users.currency_key
+      AND t_currencies.language_key = :p_lang_key
+  LEFT OUTER JOIN persons
+    ON persons.id = users.person_id
+WHERE users.test = :p_test
+    AND users.deleted = :p_deleted
+  <return-scalar column="id" type="java.lang.String"/>
   <return-scalar column="user_name" type="java.lang.String"/>
   <return-scalar column="email" type="java.lang.String"/>
   <return-scalar column="language" type="java.lang.String"/>
@@ -21,7 +33,7 @@
   <return-scalar column="locked" type="java.lang.Boolean"/>
   <return-scalar column="initial" type="java.lang.Boolean"/>
   <return-scalar column="active" type="java.lang.Boolean"/>
- </sql-query>
+</sql-query>
  
  <sql-query cacheable="true" name="PersonEntityList" read-only="true">
 SELECT
@@ -73,7 +85,7 @@ WHERE persons.test = :p_test
   <return-scalar column="fax" type="java.lang.String"/>
 </sql-query> 
 
- <sql-query cacheable="true" name="DoctorEntityList" read-only="true">
+<sql-query cacheable="true" name="DoctorEntityList" read-only="true">
 SELECT
   doctors.id,
   doctors.name,
@@ -107,6 +119,32 @@ WHERE doctors.test = :p_test
   <return-scalar column="telephone" type="java.lang.String"/>
   <return-scalar column="mobile" type="java.lang.String"/>
   <return-scalar column="fax" type="java.lang.String"/>
+</sql-query> 
+
+<sql-query cacheable="true" name="AttachmentEntityList" read-only="true">
+SELECT
+  attachments.id,
+  t_categories.description category,
+  attachments.description,
+  TRIM(CONCAT(persons.name_first,' ', persons.name_last)) owner,
+  attachments.mime_type,
+  attachments.file_name,
+  attachments.file_size
+FROM attachments
+  LEFT OUTER JOIN t_categories
+    ON t_categories.key = attachments.category_key
+      AND t_categories.language_key = :p_lang_key
+  LEFT OUTER JOIN persons
+    ON persons.id = attachments.owner_id    
+WHERE attachments.test = :p_test
+    AND attachments.deleted = :p_deleted  
+  <return-scalar column="id" type="java.lang.String"/>
+  <return-scalar column="category" type="java.lang.String"/> 
+  <return-scalar column="description" type="java.lang.String"/>
+  <return-scalar column="owner" type="java.lang.String"/>
+  <return-scalar column="mime_type" type="java.lang.String"/>
+  <return-scalar column="file_name" type="java.lang.String"/>
+  <return-scalar column="file_size" type="java.lang.Integer"/> 
 </sql-query> 
  
  <sql-query cacheable="true" name="PersonRelationEntityList" read-only="true">
@@ -205,6 +243,54 @@ WHERE doctors.test = :p_test
   <return-scalar column="mobile" type="java.lang.String"/>
   <return-scalar column="fax" type="java.lang.String"/>
 </sql-query>  
+
+<sql-query cacheable="true" name="AttachmentRelationEntityList" read-only="true">
+SELECT
+  attachments.id,
+  t_categories.description category,
+  attachments.description,
+  TRIM(CONCAT(persons.name_first,' ', persons.name_last)) owner,
+  attachments.mime_type,
+  attachments.file_name,
+  attachments.file_size
+FROM attachments
+  LEFT OUTER JOIN t_categories
+    ON t_categories.key = attachments.category_key
+      AND t_categories.language_key = :p_lang_key
+  LEFT OUTER JOIN persons
+    ON persons.id = attachments.owner_id  
+  JOIN persons_have_attachments
+    ON (attachment = attachments.id
+        AND reltyp_key = :p_reltyp
+        AND person = :p_person)   
+WHERE attachments.test = :p_test
+    AND attachments.deleted = :p_deleted
+UNION
+SELECT
+  attachments.id,
+  t_categories.description category,
+  attachments.description,
+  TRIM(CONCAT(persons.name_first,' ', persons.name_last)) owner,
+  attachments.mime_type,
+  attachments.file_name,
+  attachments.file_size
+FROM attachments
+  LEFT OUTER JOIN t_categories
+    ON t_categories.key = attachments.category_key
+      AND t_categories.language_key = :p_lang_key
+  LEFT OUTER JOIN persons
+    ON persons.id = attachments.owner_id  
+WHERE attachments.owner_id = :p_person
+	AND attachments.test = :p_test
+    AND attachments.deleted = :p_deleted
+  <return-scalar column="id" type="java.lang.String"/>
+  <return-scalar column="category" type="java.lang.String"/> 
+  <return-scalar column="description" type="java.lang.String"/>
+  <return-scalar column="owner" type="java.lang.String"/>
+  <return-scalar column="mime_type" type="java.lang.String"/>
+  <return-scalar column="file_name" type="java.lang.String"/>
+  <return-scalar column="file_size" type="java.lang.Integer"/> 
+</sql-query>
  
 <sql-query cacheable="true" name="PersonPersonRelationList" read-only="true">
 SELECT
@@ -295,6 +381,20 @@ FROM k_countries
   JOIN t_countries
     ON k_countries.key = t_countries.key
 WHERE t_countries.language_key = :p_lang_key
+  <return-scalar column="key" type="java.lang.String"/>
+  <return-scalar column="description" type="java.lang.String"/>
+  <return-scalar column="description_long" type="java.lang.String"/>
+</sql-query> 
+
+ <sql-query cacheable="true" name="CategoryValueList" read-only="true">
+SELECT
+  k_categories.key,
+  t_categories.description,
+  t_categories.description_long
+FROM k_categories
+  JOIN t_categories
+    ON k_categories.key = t_categories.key
+WHERE t_categories.language_key = :p_lang_key
   <return-scalar column="key" type="java.lang.String"/>
   <return-scalar column="description" type="java.lang.String"/>
   <return-scalar column="description_long" type="java.lang.String"/>

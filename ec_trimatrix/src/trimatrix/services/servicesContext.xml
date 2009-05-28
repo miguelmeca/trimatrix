@@ -42,6 +42,9 @@
         <property name="doctorEntity">
             <ref bean="doctorEntity" />
         </property>
+        <property name="attachmentEntity">
+            <ref bean="attachmentEntity" />
+        </property>
     </bean>
     
     <bean id="relationResolverService" class="trimatrix.services.RelationResolverService"

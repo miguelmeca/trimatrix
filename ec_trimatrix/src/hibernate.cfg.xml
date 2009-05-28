@@ -46,6 +46,7 @@
 		<mapping resource="trimatrix/db/PersonsHaveRelations.hbm.xml" />
 		<mapping resource="trimatrix/db/Doctors.hbm.xml" />
 		<mapping resource="trimatrix/db/PersonsHaveDoctors.hbm.xml" />
+		<mapping resource="trimatrix/db/Attachments.hbm.xml" />
 	</session-factory>
 
 </hibernate-configuration>

@@ -1,0 +1,34 @@
+mySQL
+Create table for new relation
+Add new relation to k_reltyps / t_reltyps
+
+myEclipse
+Reverse Engineer entity table
+
+-->
+trimatrix.db.entity class 
+	add IEntityObject interface
+	Override toString() method
+trimatrix.db.entityDAO class
+	add generic type to List variables => List<entity>
+	add @SuppressWarnings("unchecked") annotations to methods returning a List<entity>
+	add reload() method
+	extract IEntityDAO interface with all methods selected
+	add EntityDAO to DAOLayer
+trimatrix.db.dbContext.xml
+	add EntityDAO to autoProxyCreator bean
+	add EntityDAO to daoLayer bean
+trimatrix.utils.Constants class
+	add entity to Entity enum
+	add entity to Relation enum
+trimatrix.entities
+	create trimatrix.entities.EntityEntity class / copy and modify existing entity class
+	add EntityEntity to EntityLayer
+trimatrix.entities.entitiesContext.xml
+	add entityEntity bean
+	add EntityEntity to entityLayer bean
+<---
+	
+trimatrix.services
+	add EntityRelationEntityList query (for MYENTITIES relation)
+	add EntityRelationEntityList query to NamedQueries.hbm.xml
