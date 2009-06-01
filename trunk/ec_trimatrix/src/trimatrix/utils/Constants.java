@@ -151,4 +151,6 @@ public final class Constants {
 	public static final String SIDE_CONTRACT = "/images/icons/application_side_contract.png";
 	
 	public static final List<IEntityData> EMPTYENTITYLIST = new ArrayList<IEntityData>();
+	
+	public static final String UNKNOWN_MIME_TYPE="application/x-unknown-mime-type";
 }

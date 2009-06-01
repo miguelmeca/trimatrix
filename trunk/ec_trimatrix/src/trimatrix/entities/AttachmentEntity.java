@@ -177,7 +177,7 @@ public class AttachmentEntity implements IEntity {
 		this.dictionaryService = dictionaryService;
 	}
 
-	public void setAttachmentsDAO(IAttachmentsDAO entitiesDAO) {
+	public void setEntitiesDAO(IAttachmentsDAO entitiesDAO) {
 		this.entitiesDAO = entitiesDAO;
 	}
 
