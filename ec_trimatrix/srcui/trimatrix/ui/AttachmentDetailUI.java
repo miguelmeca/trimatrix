@@ -1,15 +1,21 @@
 package trimatrix.ui;
 
+import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.faces.event.ActionEvent;
+
+import junit.framework.Assert;
 
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.elements.events.BaseActionEventUpload;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
+
+import eu.medsea.mimeutil.MimeType;
 
 import trimatrix.db.Attachments;
 import trimatrix.db.Persons;
@@ -97,7 +103,15 @@ public class AttachmentDetailUI extends AEntityDetailUI implements Serializable,
 			 BaseActionEventUpload bae = (BaseActionEventUpload)event;
 			 entity.setFileName(bae.getClientFileName());
 			 entity.setFileSize(bae.getHexBytes().length);
-			 // TODO mime type 			 
+			 // Mime type detection
+			 ByteArrayInputStream byteInputStream = new ByteArrayInputStream(bae.getHexBytes());
+			 Collection<?> mimeTypes = eu.medsea.mimeutil.MimeUtil.getMimeTypes(byteInputStream);			
+			 if(mimeTypes.size()>0) {
+				 entity.setMimeType(((MimeType)mimeTypes.toArray()[0]).toString());
+			 } else {
+				 entity.setMimeType(Constants.UNKNOWN_MIME_TYPE);
+			 }
+			 // Content
 			 entity.setFileContent(bae.getHexBytes());
 		 }		 
 	 }	
