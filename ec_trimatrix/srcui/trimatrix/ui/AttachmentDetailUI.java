@@ -2,29 +2,24 @@ package trimatrix.ui;
 
 import java.io.ByteArrayInputStream;
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Collection;
-import java.util.Date;
 
 import javax.faces.event.ActionEvent;
 
-import junit.framework.Assert;
-
 import org.eclnt.editor.annotations.CCGenClass;
+import org.eclnt.jsfserver.bufferedcontent.BufferedContentMgr;
 import org.eclnt.jsfserver.elements.events.BaseActionEventUpload;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
-import eu.medsea.mimeutil.MimeType;
-
 import trimatrix.db.Attachments;
-import trimatrix.db.Persons;
 import trimatrix.entities.AttachmentEntity;
-import trimatrix.entities.PersonEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
+import trimatrix.ui.utils.MyBufferedContentForAttachment;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
+import eu.medsea.mimeutil.MimeType;
 
 @SuppressWarnings("serial")
 @CCGenClass (expressionBase="#{d.AttachmentDetailUI}")
@@ -34,10 +29,13 @@ public class AttachmentDetailUI extends AEntityDetailUI implements Serializable,
     protected ValidValuesBinding categoriesVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.CATEGORY);
     public ValidValuesBinding getCategoriesVvb() { return categoriesVvb; }
     
+    protected String downloadURL;
+    public String getDownloadURL() { return downloadURL; }
+    
 	private Attachments entity;	
     
 	public AttachmentDetailUI(IWorkpageDispatcher dispatcher) {
-		super(dispatcher, new String[] {AttachmentEntity.DESCRIPTION, AttachmentEntity.FILENAME});
+		super(dispatcher, new String[] {AttachmentEntity.DESCRIPTION, AttachmentEntity.CATEGORY, AttachmentEntity.FILENAME});
 		// get wrapping entity detail UI bean
 		entityDetailUI = getEntityDetailUI();		
 		entityDetailUI.setEntityDetailUI(this);		
@@ -47,7 +45,11 @@ public class AttachmentDetailUI extends AEntityDetailUI implements Serializable,
 
     public void init(Object entityObject) {
     	// set entity object
-    	this.entity = (Attachments)entityObject;        	 	
+    	entity = (Attachments)entityObject;    
+    	// buffered content
+    	MyBufferedContentForAttachment bc = new MyBufferedContentForAttachment(entity);
+    	BufferedContentMgr.add(bc);
+    	downloadURL = bc.getURL();
     	// set enabled state and set fields
     	init();
     }
@@ -99,6 +101,7 @@ public class AttachmentDetailUI extends AEntityDetailUI implements Serializable,
 	}
 	
 	public void onUploadFile(ActionEvent event) {
+		 // change mySQL max_allowed_packet to 16 MB
 		 if (event instanceof BaseActionEventUpload) {
 			 BaseActionEventUpload bae = (BaseActionEventUpload)event;
 			 entity.setFileName(bae.getClientFileName());
@@ -113,6 +116,8 @@ public class AttachmentDetailUI extends AEntityDetailUI implements Serializable,
 			 }
 			 // Content
 			 entity.setFileContent(bae.getHexBytes());
+			 // update values
+			 fillMaps();
 		 }		 
 	 }	
 }
