@@ -22,7 +22,7 @@
 <t:gridcol id="g_7" align="center" searchenabled="true" sortreference=".{entity.name_last}" text="#{rr.literals.person_last_name}" width="100" >
 <t:label id="g_8" text=".{entity.name_last}" />
 </t:gridcol>
-<t:gridcol id="g_9" align="center" searchenabled="true" sortreference=".{entity.email}" text="#{rr.literals.person_email}" width="100" >
+<t:gridcol id="g_9" align="center" searchenabled="true" sortreference=".{entity.email}" text="#{rr.literals.email}" width="200" >
 <t:label id="g_10" text=".{entity.email}" />
 </t:gridcol>
 </t:fixgrid>

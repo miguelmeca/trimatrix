@@ -11,9 +11,7 @@ import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import trimatrix.db.Attachments;
-import trimatrix.db.Doctors;
 import trimatrix.db.IAttachmentsDAO;
-import trimatrix.db.IDoctorsDAO;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
@@ -41,7 +39,8 @@ public class AttachmentEntity implements IEntity {
 		entity.setId(id);
 		// default values
 		entity.setDeleted(false);
-		entity.setTest(false);		
+		entity.setTest(false);	
+		entity.setOwnerId(dictionaryService.getMyUser().getId());
 		return entity;
 	}
 
