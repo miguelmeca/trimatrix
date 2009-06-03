@@ -76,12 +76,21 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 					for (IEntityData athlete : athletes) {
 						FunctionNode athlete_node = new FunctionNode(node, Constants.Page.ENTITYDETAIL.getUrl());	
 						athlete_node.setId(athlete.getId());
-						athlete_node.setStatus(FunctionNode.STATUS_ENDNODE);
+						athlete_node.setStatus(FunctionNode.STATUS_OPENED);
 						athlete_node.setOpenMultipleInstances(true);
 						athlete_node.setText(athlete.toString());	
 						athlete_node.setParam(Constants.P_ENTITY, Constants.Entity.PERSON.name());
 						// authorization as parent
 						FUNCTIONTREELOGIC.setAuthority(functionTree, athlete_node);
+						// add attachments per athlete
+						FunctionNode attachment_node = new FunctionNode(athlete_node, Constants.Page.ENTITYLIST.getUrl());	
+						attachment_node.setId(athlete.getId());
+						attachment_node.setStatus(FunctionNode.STATUS_ENDNODE);
+						attachment_node.setOpenMultipleInstances(true);
+						attachment_node.setText("Attachments");	
+						attachment_node.setParam(Constants.P_ENTITY, Constants.Entity.ATTACHMENT.name());
+						// authorization as parent
+						FUNCTIONTREELOGIC.setAuthority(functionTree, attachment_node);
 					}								
 				}
 			} else {

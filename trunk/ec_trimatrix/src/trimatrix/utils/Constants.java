@@ -139,7 +139,12 @@ public final class Constants {
 	public static final String CHANGE = "change";
 	public static final String DELETE = "delete";
 		
-	public static final String BGP_MANDATORY = "mandatory()";	
+	public static final String BGP_MANDATORY = "mandatory()";
+	// constants for file extension
+	public static final String GIF_EXTENSION = "gif";
+	// constants for paths
+	public static final String PATH_MIMEICONS = "/images/mimeicons/";
+	public static final String PATH_ICONS = "/images/icons/";	
 	// constants for smtp	
 	public static final ResourceBundle MAIL_BUNDLE = ResourceBundle.getBundle("mail");	
 	public static final String SMTP_AUTH_USER = "smtp_auth_user";
@@ -147,12 +152,15 @@ public final class Constants {
 	public static final String SMTP_HOST_NAME = "smtp_host_name";
 	public static final String EMAIL_FROM_ADDRESS = "email_from_address";	
 	// constants for images
-	public static final String SIDE_EXPAND = "/images/icons/application_side_expand.png";
-	public static final String SIDE_CONTRACT = "/images/icons/application_side_contract.png";
+	public static final String SIDE_EXPAND = PATH_ICONS + "application_side_expand.png";
+	public static final String SIDE_CONTRACT = PATH_ICONS + "application_side_contract.png";
+	public static final String DEFAULT_ICON = PATH_MIMEICONS + "default.gif";
 	
 	public static final List<IEntityData> EMPTYENTITYLIST = new ArrayList<IEntityData>();
 	
 	public static final String UNKNOWN_MIME_TYPE="application/x-unknown-mime-type";
 
 	public static final String FILESEPARATOR  = "/"; // seems Cpt.Casa also works with Unix style
+	public static final String POINT = ".";
+	
 }

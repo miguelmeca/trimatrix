@@ -2,7 +2,7 @@ package trimatrix.structures;
 
 public final class SGridMetaData {
 	public static enum Component {
-		FIELD, CHECKBOX, CALENDARFIELD
+		FIELD, CHECKBOX, CALENDARFIELD, ICON
 	}
    
     public String header;

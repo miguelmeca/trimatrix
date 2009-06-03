@@ -87,17 +87,20 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 
 	private void setRowDynamic() {
 		StringBuffer xml = new StringBuffer();
-		xml
-				.append("<t:fixgrid avoidroundtrips='true' drawoddevenrows='true' objectbinding='#{d.EntityListUI.gridList}' width='100%' height='100%' sbvisibleamount='30'>");
+		xml.append("<t:fixgrid avoidroundtrips='true' drawoddevenrows='true' objectbinding='#{d.EntityListUI.gridList}' width='100%' height='100%' sbvisibleamount='30'>");
 		for (SGridMetaData meta : gridMetaData) {
 			// component type checkbox
-			boolean isCheckBox = false;
-			boolean isCalendarField = false;
+			boolean isCheckBox = false;			
 			if (meta.component == SGridMetaData.Component.CHECKBOX) {
 				isCheckBox = true;
 			} 
+			boolean isCalendarField = false;
 			if (meta.component == SGridMetaData.Component.CALENDARFIELD) {
 				isCalendarField = true;
+			} 
+			boolean isIcon = false;
+			if (meta.component == SGridMetaData.Component.ICON) {
+				isIcon= true;
 			} 
 			xml.append("<t:gridcol text='" + meta.header
 					+ "' align='center' width='100' sortreference='.{datum." + meta.techname
@@ -108,6 +111,9 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 			} else if (isCalendarField) {
 				xml.append("<t:calendarfield value='.{datum."
 						+ meta.techname + "}' format='date' timezone='CET' enabled='false'/>");
+			} else if (isIcon) {
+				xml.append("<t:icon image='.{datum."
+						+ meta.techname + "}' enabled='true'/>");			
 			} else {	
 				xml.append("<t:field text='.{datum." + meta.techname
 						+ "}' enabled='false'/>");
