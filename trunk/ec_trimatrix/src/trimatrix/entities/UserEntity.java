@@ -26,7 +26,7 @@ public final class UserEntity implements IEntity {
 	// Variables
 	private SQLExecutorService sqlExecutorService;	
 	private Dictionary dictionaryService;
-	private IUsersDAO usersDAO;
+	private IUsersDAO entitiesDAO;
 	
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IUserEntity#getGridMetaData()
@@ -62,11 +62,11 @@ public final class UserEntity implements IEntity {
 	 * @see trimatrix.entities.IEntity#delete(java.lang.String)
 	 */
 	public boolean delete(String id) {
-		Users user = usersDAO.findById(id);
-		if(user==null) return false;
-		user.setDeleted(true);
+		Users entity = entitiesDAO.findById(id);
+		if(entity==null) return false;
+		entity.setDeleted(true);
 		try {
-			usersDAO.merge(user);
+			entitiesDAO.merge(entity);
 		} catch (Exception ex) {
 			return false;
 		}
@@ -77,17 +77,17 @@ public final class UserEntity implements IEntity {
 	 * @see trimatrix.entities.IEntity#get(java.lang.String)
 	 */
 	public Users get(String id) {
-		Users user = usersDAO.findById(id);
-		if(user==null) return null;
-		if(user.getDeleted()) {
+		Users entity = entitiesDAO.findById(id);
+		if(entity==null) return null;
+		if(entity.getDeleted()) {
 			Dictionary.logger.warn("User marked as deleted");
 			return null;
 		}
-		if(user.getTest()) {
+		if(entity.getTest()) {
 			Dictionary.logger.warn("User marked for test");
 			return null;
 		}
-		return user;
+		return entity;
 	}
 	
 	/* (non-Javadoc)
@@ -95,38 +95,38 @@ public final class UserEntity implements IEntity {
 	 */
 	public Users create() {		
 		String id = UUID.randomUUID().toString();
-		Users user = new Users();
-		user.setId(id);
+		Users entity = new Users();
+		entity.setId(id);
 		// default values
-		user.setActive(false);
-		user.setInitial(false);
-		user.setLocked(false);
-		user.setDeleted(false);
-		user.setTest(false);
+		entity.setActive(false);
+		entity.setInitial(false);
+		entity.setLocked(false);
+		entity.setDeleted(false);
+		entity.setTest(false);
 		
-		return user;
+		return entity;
 	}
 	
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#save(java.lang.Object)
 	 */
 	public void save(IEntityObject entityObject) {
-		Users user = (Users)entityObject;
+		Users entity = (Users)entityObject;
 		// set creation data
 		Timestamp now = new java.sql.Timestamp((new java.util.Date()).getTime());
-		if(user.getCreatedAt() == null) user.setCreatedAt(now);
-		if(user.getCreatedBy() == null) user.setCreatedBy(dictionaryService.getMyUser().getId());
-		user.setModifiedAt(now);
-		user.setModifiedBy(dictionaryService.getMyUser().getId());
-		usersDAO.merge(user);
+		if(entity.getCreatedAt() == null) entity.setCreatedAt(now);
+		if(entity.getCreatedBy() == null) entity.setCreatedBy(dictionaryService.getMyUser().getId());
+		entity.setModifiedAt(now);
+		entity.setModifiedBy(dictionaryService.getMyUser().getId());
+		entitiesDAO.merge(entity);
 	}
 	
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#reload(trimatrix.entities.IEntityObject)
 	 */
 	public void reload(IEntityObject entityObject) {
-		Users user = (Users)entityObject;
-		usersDAO.reload(user);
+		Users entity = (Users)entityObject;
+		entitiesDAO.reload(entity);
 	}
 	
 	public static class Data implements IEntityData {
@@ -194,9 +194,7 @@ public final class UserEntity implements IEntity {
 		this.dictionaryService = dictionaryService;
 	}
 
-	public void setUsersDAO(IUsersDAO usersDAO) {
-		this.usersDAO = usersDAO;
-	}
-	
-	
+	public void setEntitiesDAO(IUsersDAO entitiesDAO) {
+		this.entitiesDAO = entitiesDAO;
+	}	
 }

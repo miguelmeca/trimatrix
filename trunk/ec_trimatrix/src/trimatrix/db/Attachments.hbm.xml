@@ -15,10 +15,10 @@
         </property>
         <property name="description" type="java.lang.String">
             <column name="description" length="150" />
-        </property>
-        <property name="ownerId" type="java.lang.String">
-            <column name="owner_id" length="36" />
-        </property>
+        </property> 
+        <many-to-one class="trimatrix.db.Persons" fetch="join" insert="true" lazy="false" name="owner" not-found="ignore" not-null="false" update="true">
+            <column name="owner_id"/>
+        </many-to-one>        
         <property name="mimeType" type="java.lang.String">
             <column name="mime_type" length="100" />
         </property>

@@ -43,7 +43,7 @@ public final class Constants {
 		MYCOACHES(PERSON, Page.PERSONDETAIL, Page.PERSONSELECTION), 
 		MYATHLETES(PERSON, Page.PERSONDETAIL, Page.PERSONSELECTION),
 		MYDOCTORS(DOCTOR, Page.DOCTORDETAIL, Page.DOCTORSELECTION),
-		MYATTACHMENTS(ATTACHMENT, null, null);
+		MYATTACHMENTS(ATTACHMENT, Page.ATTACHMENTDETAIL, Page.ATTACHMENTSELECTION);
 		private final Entity baseEntity;
 		private final Page detailPage;
 		private final Page selectionPage;
@@ -153,4 +153,6 @@ public final class Constants {
 	public static final List<IEntityData> EMPTYENTITYLIST = new ArrayList<IEntityData>();
 	
 	public static final String UNKNOWN_MIME_TYPE="application/x-unknown-mime-type";
+
+	public static final String FILESEPARATOR  = "/"; // seems Cpt.Casa also works with Unix style
 }

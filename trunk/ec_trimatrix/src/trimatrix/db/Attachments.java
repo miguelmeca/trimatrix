@@ -23,8 +23,8 @@ public class Attachments extends AbstractAttachments implements java.io.Serializ
     }
     
     /** full constructor */
-    public Attachments(String id, String categoryKey, String description, String ownerId, String mimeType, String fileName, Integer fileSize, byte[] fileContent, Timestamp createdAt, String createdBy, Timestamp modifiedAt, String modifiedBy, Boolean deleted, Boolean test) {
-        super(id, categoryKey, description, ownerId, mimeType, fileName, fileSize, fileContent, createdAt, createdBy, modifiedAt, modifiedBy, deleted, test);        
+    public Attachments(String id, String categoryKey, String description, Persons owner, String mimeType, String fileName, Integer fileSize, byte[] fileContent, Timestamp createdAt, String createdBy, Timestamp modifiedAt, String modifiedBy, Boolean deleted, Boolean test) {
+        super(id, categoryKey, description, owner, mimeType, fileName, fileSize, fileContent, createdAt, createdBy, modifiedAt, modifiedBy, deleted, test);        
     }
     
     @Override
