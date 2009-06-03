@@ -1,5 +1,6 @@
 package trimatrix.entities;
 
+import java.io.File;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,8 @@ import trimatrix.utils.Dictionary;
 import trimatrix.utils.Constants.Entity;
 
 public class AttachmentEntity implements IEntity {
-	// Constants	 
+	// Constants	
+	public static final String ICON = "icon";
 	public static final String DESCRIPTION = "description";	
 	public static final String CATEGORY = "category";
     public static final String OWNER = "owner";  
@@ -96,6 +98,7 @@ public class AttachmentEntity implements IEntity {
 
 	public List<SGridMetaData> getGridMetaData() {
 		List<SGridMetaData> gridMetaData = new ArrayList<SGridMetaData>();
+		gridMetaData.add(new SGridMetaData("Ikone", ICON, SGridMetaData.Component.ICON));
         gridMetaData.add(new SGridMetaData("Beschreibung", DESCRIPTION, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("Kategorie", CATEGORY, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("Eigentümer", OWNER, SGridMetaData.Component.FIELD));
@@ -123,6 +126,7 @@ public class AttachmentEntity implements IEntity {
 	
 	public static class Data implements IEntityData {
 		public String id;
+		public String icon;
 		public String description;
 		public String category;
 		public String owner;
@@ -141,6 +145,18 @@ public class AttachmentEntity implements IEntity {
 		public String toString() {
 			// same as DB entity implementation
 			return description.replace(Constants.NULL, Constants.EMPTY).trim();
+		}
+		
+		public String getIcon() {
+			// get extension from filename
+			if (filename == null || filename.length() == 0) return Constants.DEFAULT_ICON;
+			String extension = filename.substring(filename.lastIndexOf(Constants.POINT) + 1);
+			String icon = Constants.PATH_MIMEICONS + extension + Constants.POINT + Constants.GIF_EXTENSION;
+			//File iconFile = new File(icon);
+			
+			//if (!iconFile.exists()) return Constants.DEFAULT_ICON;
+			// all ok return gif of extension
+			return icon;
 		}
 
 		public String getDescription() {
