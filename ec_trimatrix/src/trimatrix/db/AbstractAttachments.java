@@ -15,7 +15,7 @@ public abstract class AbstractAttachments  implements java.io.Serializable {
      private String id;
      private String categoryKey;
      private String description;
-     private String ownerId;
+     private Persons owner;
      private String mimeType;
      private String fileName;
      private Integer fileSize;
@@ -40,11 +40,11 @@ public abstract class AbstractAttachments  implements java.io.Serializable {
     }
     
     /** full constructor */
-    public AbstractAttachments(String id, String categoryKey, String description, String ownerId, String mimeType, String fileName, Integer fileSize, byte[] fileContent, Timestamp createdAt, String createdBy, Timestamp modifiedAt, String modifiedBy, Boolean deleted, Boolean test) {
+    public AbstractAttachments(String id, String categoryKey, String description, Persons owner, String mimeType, String fileName, Integer fileSize, byte[] fileContent, Timestamp createdAt, String createdBy, Timestamp modifiedAt, String modifiedBy, Boolean deleted, Boolean test) {
         this.id = id;
         this.categoryKey = categoryKey;
         this.description = description;
-        this.ownerId = ownerId;
+        this.owner = owner;
         this.mimeType = mimeType;
         this.fileName = fileName;
         this.fileSize = fileSize;
@@ -84,12 +84,12 @@ public abstract class AbstractAttachments  implements java.io.Serializable {
         this.description = description;
     }
 
-    public String getOwnerId() {
-        return this.ownerId;
+    public Persons getOwner() {
+        return this.owner;
     }
     
-    public void setOwnerId(String ownerId) {
-        this.ownerId = ownerId;
+    public void setOwner(Persons owner) {
+        this.owner = owner;
     }
 
     public String getMimeType() {

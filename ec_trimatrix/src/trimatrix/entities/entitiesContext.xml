@@ -12,7 +12,7 @@
         <property name="dictionaryService">
             <ref bean="dictionaryService" />
         </property>
-        <property name="usersDAO">
+        <property name="entitiesDAO">
             <ref bean="UsersDAO" />
         </property>
     </bean>
@@ -29,7 +29,7 @@
         <property name="transactionManager">
             <ref bean="transactionManager" />
         </property>
-        <property name="personsDAO">
+        <property name="entitiesDAO">
             <ref bean="PersonsDAO" />
         </property>
         <property name="usersDAO">
@@ -49,7 +49,7 @@
         <property name="transactionManager">
             <ref bean="transactionManager" />
         </property>
-        <property name="doctorsDAO">
+        <property name="entitiesDAO">
             <ref bean="DoctorsDAO" />
         </property>
     </bean>

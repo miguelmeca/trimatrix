@@ -36,17 +36,17 @@ public class DoctorEntity implements IEntity {
 	// Variables
 	private SQLExecutorService sqlExecutorService;
 	private Dictionary dictionaryService;
-	private IDoctorsDAO doctorsDAO;
+	private IDoctorsDAO entitiesDAO;
 	private HibernateTransactionManager transactionManager;
 
 	public IEntityObject create() {
 		String id = UUID.randomUUID().toString();
-		Doctors doctor = new Doctors();
-		doctor.setId(id);
+		Doctors entity = new Doctors();
+		entity.setId(id);
 		// default values
-		doctor.setDeleted(false);
-		doctor.setTest(false);		
-		return doctor;
+		entity.setDeleted(false);
+		entity.setTest(false);		
+		return entity;
 	}
 
 	public boolean delete(final String id) {
@@ -55,10 +55,10 @@ public class DoctorEntity implements IEntity {
 		Boolean result = (Boolean)transactionTemplate.execute(new TransactionCallback() {
 			public Object doInTransaction(TransactionStatus status) {
 				try {
-					Doctors doctor = doctorsDAO.findById(id);
-					if(doctor==null) return false;
-					doctor.setDeleted(true);
-					doctorsDAO.merge(doctor);
+					Doctors entity = entitiesDAO.findById(id);
+					if(entity==null) return false;
+					entity.setDeleted(true);
+					entitiesDAO.merge(entity);
 					// TODO delete PersonDoctor relation
 				} catch (Exception ex) {
 					status.setRollbackOnly();
@@ -72,17 +72,17 @@ public class DoctorEntity implements IEntity {
 	}
 
 	public IEntityObject get(String id) {
-		Doctors doctor = doctorsDAO.findById(id);
-		if(doctor==null) return null;
-		if(doctor.getDeleted()) {
+		Doctors entity = entitiesDAO.findById(id);
+		if(entity==null) return null;
+		if(entity.getDeleted()) {
 			Dictionary.logger.warn("Doctor marked as deleted");
 			return null;
 		}
-		if(doctor.getTest()) {
+		if(entity.getTest()) {
 			Dictionary.logger.warn("Doctor marked for test");
 			return null;
 		}
-		return doctor;
+		return entity;
 	}
 
 	public List<IEntityData> getData(Entity entity) {
@@ -117,19 +117,19 @@ public class DoctorEntity implements IEntity {
 	}
 
 	public void reload(IEntityObject entityObject) {
-		Doctors doctor = (Doctors)entityObject;
-		doctorsDAO.reload(doctor);		
+		Doctors entity = (Doctors)entityObject;
+		entitiesDAO.reload(entity);		
 	}
 
 	public void save(IEntityObject entityObject) {
-		Doctors doctor = (Doctors)entityObject;
+		Doctors entity = (Doctors)entityObject;
 		// set creation data
 		Timestamp now = new java.sql.Timestamp((new java.util.Date()).getTime());
-		if(doctor.getCreatedAt() == null) doctor.setCreatedAt(now);
-		if(doctor.getCreatedBy() == null) doctor.setCreatedBy(dictionaryService.getMyUser().getId());
-		doctor.setModifiedAt(now);
-		doctor.setModifiedBy(dictionaryService.getMyUser().getId());
-		doctorsDAO.merge(doctor);		
+		if(entity.getCreatedAt() == null) entity.setCreatedAt(now);
+		if(entity.getCreatedBy() == null) entity.setCreatedBy(dictionaryService.getMyUser().getId());
+		entity.setModifiedAt(now);
+		entity.setModifiedBy(dictionaryService.getMyUser().getId());
+		entitiesDAO.merge(entity);		
 	}
 	
 	public static class Data implements IEntityData {
@@ -217,8 +217,8 @@ public class DoctorEntity implements IEntity {
 		this.dictionaryService = dictionaryService;
 	}
 
-	public void setDoctorsDAO(IDoctorsDAO doctorsDAO) {
-		this.doctorsDAO = doctorsDAO;
+	public void setEntitiesDAO(IDoctorsDAO entitiesDAO) {
+		this.entitiesDAO = entitiesDAO;
 	}
 
 	public void setTransactionManager(HibernateTransactionManager transactionManager) {

@@ -40,7 +40,7 @@ public class AttachmentEntity implements IEntity {
 		// default values
 		entity.setDeleted(false);
 		entity.setTest(false);	
-		entity.setOwnerId(dictionaryService.getMyUser().getId());
+		entity.setOwner(dictionaryService.getMyUser().getPerson());
 		return entity;
 	}
 

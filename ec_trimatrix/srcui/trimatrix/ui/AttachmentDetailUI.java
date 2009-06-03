@@ -71,7 +71,6 @@ public class AttachmentDetailUI extends AEntityDetailUI implements Serializable,
 	private void fillEntityProperties() {
 		entity.setCategoryKey((String)values.get(AttachmentEntity.CATEGORY));		
 		entity.setDescription((String)values.get(AttachmentEntity.DESCRIPTION));
-		entity.setOwnerId((String)values.get(AttachmentEntity.OWNER));
 	}
 	
 	private void fillMaps() {
@@ -79,7 +78,7 @@ public class AttachmentDetailUI extends AEntityDetailUI implements Serializable,
 		values.clear();
 		values.put(AttachmentEntity.CATEGORY, entity.getCategoryKey());
 		values.put(AttachmentEntity.DESCRIPTION, entity.getDescription());
-		values.put(AttachmentEntity.OWNER, entity.getOwnerId());
+		values.put(AttachmentEntity.OWNER, entity.getOwner().toString());
 		values.put(AttachmentEntity.MIMETYPE, entity.getMimeType());
 		values.put(AttachmentEntity.FILENAME, entity.getFileName());
 		values.put(AttachmentEntity.FILESIZE, entity.getFileSize());
@@ -101,10 +100,11 @@ public class AttachmentDetailUI extends AEntityDetailUI implements Serializable,
 	}
 	
 	public void onUploadFile(ActionEvent event) {
-		 // change mySQL max_allowed_packet to 16 MB
 		 if (event instanceof BaseActionEventUpload) {
 			 BaseActionEventUpload bae = (BaseActionEventUpload)event;
-			 entity.setFileName(bae.getClientFileName());
+			 // filename without directory structure
+			 String filename = bae.getClientFileName();
+			 entity.setFileName(filename.substring(filename.lastIndexOf(Constants.FILESEPARATOR) + 1));
 			 entity.setFileSize(bae.getHexBytes().length);
 			 // Mime type detection
 			 ByteArrayInputStream byteInputStream = new ByteArrayInputStream(bae.getHexBytes());
@@ -116,8 +116,10 @@ public class AttachmentDetailUI extends AEntityDetailUI implements Serializable,
 			 }
 			 // Content
 			 entity.setFileContent(bae.getHexBytes());
-			 // update values
-			 fillMaps();
+			 // update relevant values
+			 values.put(AttachmentEntity.MIMETYPE, entity.getMimeType());
+			 values.put(AttachmentEntity.FILENAME, entity.getFileName());
+			 values.put(AttachmentEntity.FILESIZE, entity.getFileSize());
 		 }		 
 	 }	
 }

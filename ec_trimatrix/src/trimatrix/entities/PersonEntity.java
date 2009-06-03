@@ -41,7 +41,7 @@ public final class PersonEntity implements IEntity {
     // Variables
 	private SQLExecutorService sqlExecutorService;
 	private Dictionary dictionaryService;
-	private IPersonsDAO personsDAO;
+	private IPersonsDAO entitiesDAO;
 	private IUsersDAO usersDAO;
 	private HibernateTransactionManager transactionManager;
 		
@@ -100,12 +100,12 @@ public final class PersonEntity implements IEntity {
 		Boolean result = (Boolean)transactionTemplate.execute(new TransactionCallback() {
 			public Object doInTransaction(TransactionStatus status) {
 				try {
-					Persons person = personsDAO.findById(id);
-					if(person==null) return false;
-					person.setDeleted(true);
-					personsDAO.merge(person);					
+					Persons entity = entitiesDAO.findById(id);
+					if(entity==null) return false;
+					entity.setDeleted(true);
+					entitiesDAO.merge(entity);					
 					// delete relationships
-					List<Users> users = usersDAO.findByProperty(UserEntity.PERSON, person);
+					List<Users> users = usersDAO.findByProperty(UserEntity.PERSON, entity);
 					for(Users user : users) {
 						user.setPerson(null);
 						usersDAO.merge(user);
@@ -128,51 +128,51 @@ public final class PersonEntity implements IEntity {
 	 */
 	public Persons create() {		
 		String id = UUID.randomUUID().toString();
-		Persons person = new Persons();
-		person.setId(id);
+		Persons entity = new Persons();
+		entity.setId(id);
 		// default values
-		person.setDeleted(false);
-		person.setTest(false);		
-		return person;
+		entity.setDeleted(false);
+		entity.setTest(false);		
+		return entity;
 	}
 	
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#get(java.lang.String)
 	 */
 	public Persons get(String id) {
-		Persons person = personsDAO.findById(id);
-		if(person==null) return null;
-		if(person.getDeleted()) {
+		Persons entity = entitiesDAO.findById(id);
+		if(entity==null) return null;
+		if(entity.getDeleted()) {
 			Dictionary.logger.warn("Person marked as deleted");
 			return null;
 		}
-		if(person.getTest()) {
+		if(entity.getTest()) {
 			Dictionary.logger.warn("Person marked for test");
 			return null;
 		}
-		return person;
+		return entity;
 	}
 	
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#save(java.lang.Object)
 	 */
 	public void save(IEntityObject entityObject) {
-		Persons person = (Persons)entityObject;
+		Persons entity = (Persons)entityObject;
 		// set creation data
 		Timestamp now = new java.sql.Timestamp((new java.util.Date()).getTime());
-		if(person.getCreatedAt() == null) person.setCreatedAt(now);
-		if(person.getCreatedBy() == null) person.setCreatedBy(dictionaryService.getMyUser().getId());
-		person.setModifiedAt(now);
-		person.setModifiedBy(dictionaryService.getMyUser().getId());
-		personsDAO.merge(person);
+		if(entity.getCreatedAt() == null) entity.setCreatedAt(now);
+		if(entity.getCreatedBy() == null) entity.setCreatedBy(dictionaryService.getMyUser().getId());
+		entity.setModifiedAt(now);
+		entity.setModifiedBy(dictionaryService.getMyUser().getId());
+		entitiesDAO.merge(entity);
 	}
 	
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#reload(trimatrix.entities.IEntityObject)
 	 */
 	public void reload(IEntityObject entityObject) {
-		Persons person = (Persons)entityObject;
-		personsDAO.reload(person);
+		Persons entity = (Persons)entityObject;
+		entitiesDAO.reload(entity);
 	}
 	
 	public static class Data implements IEntityData {
@@ -284,8 +284,8 @@ public final class PersonEntity implements IEntity {
 		this.transactionManager = transactionManager;
 	}
 
-	public void setPersonsDAO(IPersonsDAO personsDAO) {
-		this.personsDAO = personsDAO;
+	public void setEntitiesDAO(IPersonsDAO entitiesDAO) {
+		this.entitiesDAO = entitiesDAO;
 	}
 
 	public void setUsersDAO(IUsersDAO usersDAO) {
