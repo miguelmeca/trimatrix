@@ -78,7 +78,7 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 						athlete_node.setId(athlete.getId());
 						athlete_node.setStatus(FunctionNode.STATUS_OPENED);
 						athlete_node.setOpenMultipleInstances(true);
-						athlete_node.setText(athlete.toString());	
+						athlete_node.setText(athlete.toString());							
 						athlete_node.setParam(Constants.P_ENTITY, Constants.Entity.PERSON.name());
 						// authorization as parent
 						FUNCTIONTREELOGIC.setAuthority(functionTree, athlete_node);
@@ -88,6 +88,7 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 						attachment_node.setStatus(FunctionNode.STATUS_ENDNODE);
 						attachment_node.setOpenMultipleInstances(true);
 						attachment_node.setText("Attachments");	
+						attachment_node.setParam(Constants.P_PERSON, athlete.getId());
 						attachment_node.setParam(Constants.P_ENTITY, Constants.Entity.ATTACHMENT.name());
 						// authorization as parent
 						FUNCTIONTREELOGIC.setAuthority(functionTree, attachment_node);

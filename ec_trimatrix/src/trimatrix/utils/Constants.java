@@ -133,6 +133,7 @@ public final class Constants {
 	public static final String FALSE = "false";
 	public static final String CENTER = "center";
 	public static final String P_ENTITY = "entity";
+	public static final String P_PERSON = "person";
 	public static final String P_MODE = "mode";
 	
 	public static final String CREATE = "create";

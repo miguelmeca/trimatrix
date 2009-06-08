@@ -24,6 +24,13 @@ public class EntityListLogic {
 		return serviceLayer.getEntityResolverService().getData(entity);
 	}	
 	
+	public List<IEntityData> getData(Constants.Entity entity, String personId) {
+		if(personId==null || personId.length() == 0) {
+			return serviceLayer.getEntityResolverService().getData(entity);
+		} 
+		return serviceLayer.getEntityResolverService().getData(entity, personId);
+	}
+	
 	public boolean delete(Constants.Entity entity, String id) {
 		return serviceLayer.getEntityResolverService().delete(entity, id);
 	}

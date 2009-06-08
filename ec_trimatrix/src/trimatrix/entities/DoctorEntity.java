@@ -85,6 +85,14 @@ public class DoctorEntity implements IEntity {
 		return entity;
 	}
 
+	public List<IEntityData> getData(Entity entity, String personId) {
+		if (entity == Constants.Entity.DOCTOR) {
+        	return sqlExecutorService.getDoctorRelationEntities(personId, Constants.Relation.DOCTOR);
+        } else {
+        	return Constants.EMPTYENTITYLIST;
+        }
+	}
+	
 	public List<IEntityData> getData(Entity entity) {
 		if (entity == Constants.Entity.DOCTOR) {
         	return sqlExecutorService.getDoctorEntities();

@@ -3,32 +3,25 @@ Create table for new relation
 Add new relation to k_reltyps / t_reltyps
 
 myEclipse
-Reverse Engineer entity table
-
--->
-trimatrix.db.entity class 
-	add IEntityObject interface
+Reverse Engineer relation table
+trimatrix.db.relation class 
+	add IRelation interface
 	Override toString() method
-trimatrix.db.entityDAO class
+trimatrix.db.relationDAO class
 	add generic type to List variables => List<entity>
 	add @SuppressWarnings("unchecked") annotations to methods returning a List<entity>
 	add reload() method
-	extract IEntityDAO interface with all methods selected
-	add EntityDAO to DAOLayer
+	extract IRelationDAO interface with all methods selected
+	add RelationDAO to DAOLayer
 trimatrix.db.dbContext.xml
-	add EntityDAO to autoProxyCreator bean
-	add EntityDAO to daoLayer bean
+	add RelationDAO to autoProxyCreator bean
+	add RelationDAO to daoLayer bean
 trimatrix.utils.Constants class
-	add entity to Entity enum
-	add entity to Relation enum
-trimatrix.entities
-	create trimatrix.entities.EntityEntity class / copy and modify existing entity class
-	add EntityEntity to EntityLayer
-trimatrix.entities.entitiesContext.xml
-	add entityEntity bean
-	add EntityEntity to entityLayer bean
-<---
-	
+	add relation to Relation enum
+trimatrix.relations
+	create trimatrix.relations.RelationRelation class / copy and modify existing relation class
+	add RelationRelation to RelationLayer
 trimatrix.services
 	add EntityRelationEntityList query (for MYENTITIES relation)
+	add relation to servicesContext.xml
 	add EntityRelationEntityList query to NamedQueries.hbm.xml

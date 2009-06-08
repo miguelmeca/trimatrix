@@ -339,6 +339,30 @@ OR    1 = :p_dummy
   <return-scalar column="reltyp_key" type="java.lang.String"/>
   <return-scalar column="doctor" type="java.lang.String"/>
 </sql-query> 
+
+<sql-query cacheable="true" name="PersonAttachmentRelationList" read-only="true">
+SELECT
+  pha.id,
+  pha.person,
+  tr.relation_description,
+  tr.relation_description_inverse,
+  pha.standard,
+  pha.reltyp_key,
+  pha.attachment
+FROM persons_have_attachments AS pha
+  JOIN t_reltyps AS tr
+    ON tr.key = reltyp_key
+      AND tr.language_key = :p_lang_key
+WHERE pha.reltyp_key = :p_reltyp
+OR    1 = :p_dummy
+  <return-scalar column="id" type="java.lang.String"/>
+  <return-scalar column="person" type="java.lang.String"/>
+  <return-scalar column="relation_description" type="java.lang.String"/>
+  <return-scalar column="relation_description_inverse" type="java.lang.String"/>
+  <return-scalar column="standard" type="java.lang.Boolean"/>
+  <return-scalar column="reltyp_key" type="java.lang.String"/>
+  <return-scalar column="attachment" type="java.lang.String"/>
+</sql-query> 
  
  <sql-query cacheable="true" name="LanguageValueList"
    read-only="true">SELECT k_languages.key, t_languages.description, t_languages.description_long 

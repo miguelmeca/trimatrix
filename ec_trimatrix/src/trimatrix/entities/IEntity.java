@@ -9,6 +9,8 @@ public interface IEntity {
 
 	public abstract List<SGridMetaData> getGridMetaData();
 	
+	public abstract List<IEntityData> getData(Constants.Entity entity, String personId);
+	
 	public abstract List<IEntityData> getData(Constants.Entity entity);
 	
 	public abstract List<IEntityData> getData();

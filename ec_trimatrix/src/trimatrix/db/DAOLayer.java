@@ -9,6 +9,7 @@ public class DAOLayer {
 	private IAttachmentsDAO attachmentsDAO;
 	private IPersonsHaveRelationsDAO personsHaveRelationsDAO;
 	private IPersonsHaveDoctorsDAO personsHaveDoctorsDAO;
+	private IPersonsHaveAttachmentsDAO personsHaveAttachmentsDAO;	
 	private ITSalutationDAO tsalutationDAO;
 	
 		
@@ -60,6 +61,15 @@ public class DAOLayer {
 	public void setPersonsHaveDoctorsDAO(
 			IPersonsHaveDoctorsDAO personsHaveDoctorsDAO) {
 		this.personsHaveDoctorsDAO = personsHaveDoctorsDAO;
+	}	
+
+	public IPersonsHaveAttachmentsDAO getPersonsHaveAttachmentsDAO() {
+		return personsHaveAttachmentsDAO;
+	}
+
+	public void setPersonsHaveAttachmentsDAO(
+			IPersonsHaveAttachmentsDAO personsHaveAttachmentsDAO) {
+		this.personsHaveAttachmentsDAO = personsHaveAttachmentsDAO;
 	}
 
 	public ITSalutationDAO getTsalutationDAO() {

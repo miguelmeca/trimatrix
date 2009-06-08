@@ -1,6 +1,5 @@
 package trimatrix.entities;
 
-import java.io.File;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,12 +80,22 @@ public class AttachmentEntity implements IEntity {
 		}
 		return entity;
 	}
+	
+	
 
 	public List<IEntityData> getData(Entity entity) {
 		if (entity == Constants.Entity.ATTACHMENT) {
         	return sqlExecutorService.getAttachmentEntities();
         } else if (entity == Constants.Entity.MYATTACHMENTS) {
         	return sqlExecutorService.getAttachmentRelationEntities(dictionaryService.getMyPerson().getId(), Constants.Relation.ATTACHMENT);
+        } else {
+        	return Constants.EMPTYENTITYLIST;
+        }
+	}
+	
+	public List<IEntityData> getData(Entity entity, String personId) {
+		if (entity == Constants.Entity.ATTACHMENT) {
+        	return sqlExecutorService.getAttachmentRelationEntities(personId, Constants.Relation.ATTACHMENT);
         } else {
         	return Constants.EMPTYENTITYLIST;
         }
