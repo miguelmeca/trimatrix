@@ -13,24 +13,27 @@
 <f:subview id="attachmentselectiong_sv">
 <t:row id="g_1" >
 <t:fixgrid id="g_2" avoidroundtrips="true" border="top:1;color:#808080" drawoddevenrows="true" multiselect="false" objectbinding="#{d.AttachmentSelectionUI.gridList}" sbvisibleamount="20" width="100%" >
-<t:gridcol id="g_3" align="center" searchenabled="true" sortreference=".{entity.description}" text="#{rr.literals.description}" width="50" >
-<t:label id="g_4" text=".{entity.description}" />
+<t:gridcol id="g_3" width="25" >
+<t:icon id="g_4" image=".{entity.icon}" imageheight="20" imagewidth="20" rowalignmenty="center" />
 </t:gridcol>
 <t:gridcol id="g_5" align="center" searchenabled="true" sortreference=".{entity.category}" text="#{rr.literals.category}" width="100" >
 <t:label id="g_6" text=".{entity.category}" />
 </t:gridcol>
-<t:gridcol id="g_7" align="center" searchenabled="true" sortreference=".{entity.filename}" text="#{rr.literals.file_name}" width="100" >
-<t:label id="g_8" text=".{entity.filename}" />
+<t:gridcol id="g_7" align="center" searchenabled="true" sortreference=".{entity.description}" text="#{rr.literals.description}" width="200" >
+<t:label id="g_8" text=".{entity.description}" />
 </t:gridcol>
-<t:gridcol id="g_9" align="center" searchenabled="true" sortreference=".{entity.owner}" text="#{rr.literals.owner}" width="200" >
-<t:label id="g_10" text=".{entity.owner}" />
+<t:gridcol id="g_9" align="center" searchenabled="true" sortreference=".{entity.filename}" text="#{rr.literals.file_name}" width="150" >
+<t:label id="g_10" text=".{entity.filename}" />
+</t:gridcol>
+<t:gridcol id="g_11" align="center" searchenabled="true" sortreference=".{entity.owner}" text="#{rr.literals.owner}" width="150" >
+<t:label id="g_12" text=".{entity.owner}" />
 </t:gridcol>
 </t:fixgrid>
 </t:row>
-<t:row id="g_11" >
-<t:button id="g_12" actionListener="#{d.AttachmentSelectionUI.onSelect}" text="#{rr.literals.select}" />
-<t:coldistance id="g_13" width="100%" />
-<t:button id="g_14" actionListener="#{d.AttachmentSelectionUI.onCancel}" text="#{rr.literals.cancel}" />
+<t:row id="g_13" >
+<t:button id="g_14" actionListener="#{d.AttachmentSelectionUI.onSelect}" text="#{rr.literals.select}" />
+<t:coldistance id="g_15" width="100%" />
+<t:button id="g_16" actionListener="#{d.AttachmentSelectionUI.onCancel}" text="#{rr.literals.cancel}" />
 </t:row>
 <t:pageaddons id="g_pa"/>
 </f:subview>

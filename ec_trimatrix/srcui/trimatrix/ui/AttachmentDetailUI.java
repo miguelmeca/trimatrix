@@ -8,6 +8,7 @@ import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.bufferedcontent.BufferedContentMgr;
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.elements.events.BaseActionEventUpload;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
@@ -102,10 +103,16 @@ public class AttachmentDetailUI extends AEntityDetailUI implements Serializable,
 	public void onUploadFile(ActionEvent event) {
 		 if (event instanceof BaseActionEventUpload) {
 			 BaseActionEventUpload bae = (BaseActionEventUpload)event;
+			 // check size
+			 Integer size = bae.getHexBytes().length;
+			 if (size>Constants.MB_1) {
+				 Statusbar.outputError("Filesize " + size + " is more than max. size " + Constants.MB_1 + " bytes!");
+				 return;
+			 }
 			 // filename without directory structure
 			 String filename = bae.getClientFileName();
 			 entity.setFileName(filename.substring(filename.lastIndexOf(Constants.FILESEPARATOR) + 1));
-			 entity.setFileSize(bae.getHexBytes().length);
+			 entity.setFileSize(size);			 
 			 // Mime type detection
 			 ByteArrayInputStream byteInputStream = new ByteArrayInputStream(bae.getHexBytes());
 			 Collection<?> mimeTypes = eu.medsea.mimeutil.MimeUtil.getMimeTypes(byteInputStream);			

@@ -156,6 +156,10 @@ public final class Constants {
 	public static final String SIDE_EXPAND = PATH_ICONS + "application_side_expand.png";
 	public static final String SIDE_CONTRACT = PATH_ICONS + "application_side_contract.png";
 	public static final String DEFAULT_ICON = PATH_MIMEICONS + "default.gif";
+	// constants for sizes
+	public static final Integer MB_1 = new Integer(1024*1024);
+	public static final Integer KB_64 = new Integer(1024*64);
+	
 	
 	public static final List<IEntityData> EMPTYENTITYLIST = new ArrayList<IEntityData>();
 	

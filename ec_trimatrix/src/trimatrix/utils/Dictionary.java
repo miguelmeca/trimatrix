@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
@@ -39,6 +40,14 @@ public final class Dictionary {
 		return (String) FacesContext.getCurrentInstance().getApplication()
 				.createValueBinding(expression).getValue(
 						FacesContext.getCurrentInstance());
+	}
+	
+	public static boolean isFileInWebRoot(String filename) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		ServletContext sc = (ServletContext) context.getExternalContext().getContext();
+		String path = sc.getRealPath(filename);	
+		File file = new File(path);
+		return file.exists();	
 	}
 
 	public static boolean isEmailValid(String email) {
