@@ -92,6 +92,17 @@ public final class PersonEntity implements IEntity {
 	}
 	
 	/* (non-Javadoc)
+	 * @see trimatrix.entities.IEntity#getData(trimatrix.utils.Constants.Entity, java.lang.String)
+	 */
+	public List<IEntityData> getData(Constants.Entity entity, String personId) {
+		if (entity == Constants.Entity.PERSON) {
+        	return sqlExecutorService.getPersonRelationEntities(personId, Constants.Relation.COACH, true);
+        } else {
+        	return Constants.EMPTYENTITYLIST;
+        }		
+	}
+	
+	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#delete(java.lang.String)
 	 */
 	public boolean delete(final String id) {

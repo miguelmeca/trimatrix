@@ -52,6 +52,13 @@ public final class UserEntity implements IEntity {
 	}
 	
 	/* (non-Javadoc)
+	 * @see trimatrix.entities.IEntity#getData(trimatrix.utils.Constants.Entity, java.lang.String)
+	 */
+	public List<IEntityData> getData(Constants.Entity entity, String personId) {
+		return getData();
+	}
+	
+	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#getData()
 	 */
 	public List<IEntityData> getData() {

@@ -17,6 +17,7 @@ import trimatrix.entities.IEntityData;
 import trimatrix.entities.PersonEntity;
 import trimatrix.entities.UserEntity;
 import trimatrix.relations.IRelationData;
+import trimatrix.relations.PersonAttachmentRelation;
 import trimatrix.relations.PersonDoctorRelation;
 import trimatrix.relations.PersonPersonRelation;
 import trimatrix.structures.SFunctionTree;
@@ -42,6 +43,7 @@ public class SQLExecutorService {
 	private static final String ATTACHMENTRELATIONENTITYQUERY = "AttachmentRelationEntityList";
 	private static final String PERSONPERSONQUERY = "PersonPersonRelationList";
 	private static final String PERSONDOCTORQUERY = "PersonDoctorRelationList";
+	private static final String PERSONATTACHMENTQUERY = "PersonAttachmentRelationList";
 	private static final String RELTYPSVALUELISTQUERY = "RelTypsValueList";
 	private static final String COUNTRYVALUELISTQUERY = "CountryValueList";
 	private static final String CATEGORYVALUELISTQUERY = "CategoryValueList";
@@ -488,6 +490,46 @@ public class SQLExecutorService {
 		return getPersonDoctorRelation(relation, dictionaryService.getLanguage());
 	}	
 	
+	/**
+	 * Return person to doctor relations
+	 * @param relation
+	 * @param lang_key
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<IRelationData> getPersonAttachmentRelation(Constants.Relation relation, String lang_key) {
+		List<IRelationData> data = new ArrayList<IRelationData>();
+		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		Query query = session.getNamedQuery(PERSONATTACHMENTQUERY);
+		query.setString("p_lang_key", lang_key);
+		query.setString("p_reltyp", relation.type());
+		// when base Relation then return all
+		if (relation == Constants.Relation.PERSONATTACHMENT) {
+			query.setInteger("p_dummy",1);
+		} else {
+			query.setInteger("p_dummy", 0);
+		}
+		List<Object[]> result = query.list();
+		for(Object[] line : result) {
+			PersonAttachmentRelation.Data datum = new PersonAttachmentRelation.Data();
+			int i = 0;
+			datum.id = (String)line[i++];
+			datum.person = daoLayer.getPersonsDAO().findById((String)line[i++]);
+			datum.description = (String)line[i++];
+			datum.description_inverse = (String)line[i++];
+			datum.standard = (Boolean)line[i++];
+			datum.reltyp = (String)line[i++];
+			datum.attachment = daoLayer.getAttachmentsDAO().findById((String)line[i++]);			
+			data.add(datum);
+		}
+		session.close();
+		return data;
+	}
+	
+	public List<IRelationData> getPersonAttachmentRelation(Constants.Relation relation) {
+		return getPersonAttachmentRelation(relation, dictionaryService.getLanguage());
+	}	
 	
 	/**
 	 * Retrieve value list

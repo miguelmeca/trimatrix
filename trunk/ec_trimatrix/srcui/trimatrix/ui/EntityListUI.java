@@ -30,12 +30,12 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 		Serializable {
 
 	public final EntityListUI entityList = this;
-	private final EntityListLogic ENTITYLISTLOGIC = getLogic()
-			.getEntityListLogic();
+	private final EntityListLogic ENTITYLISTLOGIC = getLogic().getEntityListLogic();
 	private List<SGridMetaData> gridMetaData;
 	private List<IEntityData> gridData;
 	private Constants.Entity entity;
 	private SAuthorization authorization;
+	private String personId;
 	public boolean getCreateAllowed() { return authorization.create; }
 	public boolean getDeleteAllowed() { return authorization.delete; }
 	public boolean getChangeAllowed() { return authorization.change; }
@@ -60,6 +60,9 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 			Statusbar.outputError("No or wrong entity set", "For list view processing an entity has to be set by the functiontreenode!");
 			getWorkpageContainer().closeWorkpage(getWorkpage());
 		}
+		// get entity id
+		personId = getWorkpage().getParam(Constants.P_PERSON);
+		// set up grid output		
 		gridMetaData = ENTITYLISTLOGIC.getGridMetaData(entity);		
 		buildData();
 	}
@@ -170,7 +173,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 
 	private void buildData() {
 		// load entities from database
-		gridData = ENTITYLISTLOGIC.getData(entity);	
+		gridData = ENTITYLISTLOGIC.getData(entity, personId);
 		// rebuild grid list
 		m_gridList.getItems().clear();
 		for (IEntityData datum : gridData) {

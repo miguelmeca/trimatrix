@@ -4,7 +4,7 @@ Create table for new entity
 myEclipse
 Reverse Engineer entity table
 trimatrix.db.entity class 
-	add IEntityObject interface
+	add IEntity interface
 	Override toString() method
 trimatrix.db.entityDAO class
 	add generic type to List variables => List<entity>

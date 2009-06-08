@@ -63,7 +63,8 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 		} catch (Exception ex) {			
 			Statusbar.outputError("No or wrong entity set", "For relation list view processing an entity has to be set by the functiontreenode!");
 			getWorkpageContainer().closeWorkpage(getWorkpage());
-		}
+		}		
+		// set up grid output
 		setMetaData();
 		buildData();
 	}

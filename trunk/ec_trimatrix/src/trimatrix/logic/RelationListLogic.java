@@ -19,6 +19,10 @@ public class RelationListLogic {
 		return serviceLayer.getRelationResolverService().getData(relation);
 	}	
 	
+	public List<IRelationData> getData(Constants.Relation relation, String personId) {
+		return serviceLayer.getRelationResolverService().getData(relation);
+	}
+	
 	public boolean delete(Constants.Relation relation, String id) {
 		return serviceLayer.getRelationResolverService().delete(relation, id);
 	}

@@ -56,6 +56,9 @@
         <property name="personDoctorRelation">
             <ref bean="personDoctorRelation" />
         </property>
+        <property name="personAttachmentRelation">
+            <ref bean="personAttachmentRelation" />
+        </property>
     </bean>
     
     <bean id="valueListBindigService" class="trimatrix.services.ValueListBindingService"
