@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
+
 import org.springframework.orm.hibernate3.HibernateTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
@@ -107,7 +110,7 @@ public class AttachmentEntity implements IEntity {
 
 	public List<SGridMetaData> getGridMetaData() {
 		List<SGridMetaData> gridMetaData = new ArrayList<SGridMetaData>();
-		gridMetaData.add(new SGridMetaData("Ikone", ICON, SGridMetaData.Component.ICON));
+		gridMetaData.add(new SGridMetaData(Constants.EMPTY, ICON, "25", SGridMetaData.Component.ICON));
         gridMetaData.add(new SGridMetaData("Beschreibung", DESCRIPTION, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("Kategorie", CATEGORY, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("Eigentümer", OWNER, SGridMetaData.Component.FIELD));
@@ -161,9 +164,7 @@ public class AttachmentEntity implements IEntity {
 			if (filename == null || filename.length() == 0) return Constants.DEFAULT_ICON;
 			String extension = filename.substring(filename.lastIndexOf(Constants.POINT) + 1);
 			String icon = Constants.PATH_MIMEICONS + extension + Constants.POINT + Constants.GIF_EXTENSION;
-			//File iconFile = new File(icon);
-			
-			//if (!iconFile.exists()) return Constants.DEFAULT_ICON;
+			if (!Dictionary.isFileInWebRoot(icon)) return Constants.DEFAULT_ICON;
 			// all ok return gif of extension
 			return icon;
 		}

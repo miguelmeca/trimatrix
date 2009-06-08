@@ -90,7 +90,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 
 	private void setRowDynamic() {
 		StringBuffer xml = new StringBuffer();
-		xml.append("<t:fixgrid avoidroundtrips='true' drawoddevenrows='true' objectbinding='#{d.EntityListUI.gridList}' width='100%' height='100%' sbvisibleamount='30'>");
+		xml.append("<t:fixgrid avoidroundtrips='true' drawoddevenrows='true' objectbinding='#{d.EntityListUI.gridList}' border='top:1;color:#808080' rowheight='20'	width='100%' height='100%' sbvisibleamount='30'>");
 		for (SGridMetaData meta : gridMetaData) {
 			// component type checkbox
 			boolean isCheckBox = false;			
@@ -106,7 +106,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 				isIcon= true;
 			} 
 			xml.append("<t:gridcol text='" + meta.header
-					+ "' align='center' width='100' sortreference='.{datum." + meta.techname
+					+ "' align='center' width='" + meta.width + "' sortreference='.{datum." + meta.techname
 					+ "}' searchenabled='true'>");
 			if (isCheckBox) {
 				xml.append("<t:checkbox align='center' selected='.{datum."
@@ -116,7 +116,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 						+ meta.techname + "}' format='date' timezone='CET' enabled='false'/>");
 			} else if (isIcon) {
 				xml.append("<t:icon image='.{datum."
-						+ meta.techname + "}' enabled='true'/>");			
+						+ meta.techname + "}' enabled='true' imageheight='20' imagewidth='20'/>");			
 			} else {	
 				xml.append("<t:field text='.{datum." + meta.techname
 						+ "}' enabled='false'/>");

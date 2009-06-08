@@ -23,11 +23,20 @@ import trimatrix.utils.Dictionary;
 
 public class PersonDetailUI extends AEntityDetailUI implements Serializable, IEntityDetailUI
 {
+	private final static String BORDER = "#808080";
+	
 	protected ValidValuesBinding salutationsVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.SALUTATION);
     public ValidValuesBinding getSalutationsVvb() { return salutationsVvb; }
 	
     protected ValidValuesBinding countriesVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.COUNTRY);
     public ValidValuesBinding getCountriesVvb() { return countriesVvb; }
+    
+    protected String getBorder() {
+    	if(entity.getPicture() == null || entity.getPicture().length == 0) {
+    		return BORDER;
+    	}
+    	return Constants.EMPTY;
+    }
     
 	private Persons entity;	
     
