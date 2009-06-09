@@ -98,6 +98,10 @@
     <tag name="spinner" variant="default">
         <set attribute="background" value="#FFFFFF"/>
     </tag>
+    <tag name="tabbedpane" variant="default">
+        <set attribute="tabshadingbackground1" value="#FFFFFFC0"/>
+        <set attribute="tabshadingbackground2" value="#FFFFFF00"/>
+    </tag>
     
     <!--  WORKPAGE VARIANTS -->
     <tag name="rowworkplacefunctiontree" variant="default">

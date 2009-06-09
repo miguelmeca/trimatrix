@@ -31,7 +31,7 @@ public class PersonDetailUI extends AEntityDetailUI implements Serializable, IEn
     protected ValidValuesBinding countriesVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.COUNTRY);
     public ValidValuesBinding getCountriesVvb() { return countriesVvb; }
     
-    protected String getBorder() {
+    public String getBorder() {
     	if(entity.getPicture() == null || entity.getPicture().length == 0) {
     		return BORDER;
     	}

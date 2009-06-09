@@ -28,7 +28,8 @@
       <t:treenode id="g_5" 
                   foreground="FOREGROUND" 
                   bgpaint="TREENODEBGPAINT"
-                  dragsend=".{dragSend}"/>
+                  dragsend=".{dragSend}"
+                  dropreceive=".{dropReceive}"/>
     </t:gridcol>
   </t:fixgrid>
 </t:row>

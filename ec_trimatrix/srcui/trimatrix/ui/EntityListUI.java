@@ -90,7 +90,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 
 	private void setRowDynamic() {
 		StringBuffer xml = new StringBuffer();
-		xml.append("<t:fixgrid avoidroundtrips='true' drawoddevenrows='true' objectbinding='#{d.EntityListUI.gridList}' border='top:1;color:#808080' rowheight='20'	width='100%' height='100%' sbvisibleamount='30'>");
+		xml.append("<t:fixgrid avoidroundtrips='true' dragsend='TEST' rowdragsend='TEST' drawoddevenrows='true' objectbinding='#{d.EntityListUI.gridList}' border='top:1;color:#808080' rowheight='20'	width='100%' sbvisibleamount='20'>");
 		for (SGridMetaData meta : gridMetaData) {
 			// component type checkbox
 			boolean isCheckBox = false;			

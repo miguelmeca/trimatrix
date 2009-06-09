@@ -4,7 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclnt.jsfserver.elements.impl.TREENODEComponent;
+import javax.faces.event.ActionEvent;
+
+import org.eclnt.jsfserver.defaultscreens.OKPopup;
+import org.eclnt.jsfserver.elements.events.BaseActionEventDrop;
+import org.eclnt.jsfserver.elements.impl.FIXGRIDTreeItem;
 import org.eclnt.jsfserver.managedbean.IDispatcher;
 import org.eclnt.workplace.WorkplaceFunctionTree;
 
@@ -18,11 +22,34 @@ import trimatrix.utils.Dictionary;
 
 @SuppressWarnings("serial")
 public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
-	private static final Constants.Role role = Constants.Role.COACH;
+	private static final Constants.Role role = Constants.Role.COACH;	
+	
+	/**
+	 * @author reich
+	 * Extend FunctionNode to get a node with drag & drop functionality
+	 */
+	public class DropableFunctionNode extends FunctionNode {
+        public DropableFunctionNode(FIXGRIDTreeItem parent, String page, String dropReceive) {
+            super(parent, page);
+            setDropReceive(dropReceive);
+        }
+        public DropableFunctionNode(FIXGRIDTreeItem page, String dropReceive) {
+            super(page);
+            setDropReceive(dropReceive);
+        }
+        @Override
+        public void processTREENDOEAction(ActionEvent event) {
+            super.processTREENDOEAction(event);
+            if (event instanceof BaseActionEventDrop) {
+                BaseActionEventDrop baed = (BaseActionEventDrop)event;
+                OKPopup okp = OKPopup.createInstance("Drop was received","Drop Info = " + baed.getDragInfo());
+            }
+        }
+    }
 	
 	public WPFunctionTreeCoach(IDispatcher owner) {
 		super(owner);
-	}		
+	}	
 	
 	@Override
 	protected void loadFunctionTree() {
@@ -74,7 +101,7 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 					// add athletes
 					List<IEntityData> athletes = FUNCTIONTREELOGIC.getMyAthletes();
 					for (IEntityData athlete : athletes) {
-						FunctionNode athlete_node = new FunctionNode(node, Constants.Page.ENTITYDETAIL.getUrl());	
+						FunctionNode athlete_node = new DropableFunctionNode(node, Constants.Page.ENTITYDETAIL.getUrl(),"TEST");	
 						athlete_node.setId(athlete.getId());
 						athlete_node.setStatus(FunctionNode.STATUS_OPENED);
 						athlete_node.setOpenMultipleInstances(true);
@@ -101,5 +128,5 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 			// build map
 			functionNodeMap.put(functionTree.node, node);
 		}
-	}
+	}	
 }
