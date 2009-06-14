@@ -7,6 +7,7 @@ import org.eclnt.workplace.WorkpageDispatchedBean;
 
 import trimatrix.db.DAOLayer;
 import trimatrix.logic.LogicLayer;
+import trimatrix.relations.RelationLayer;
 import trimatrix.services.ServiceLayer;
 import trimatrix.ui.AttachmentSelectionUI;
 import trimatrix.ui.CreateRelationUI;
@@ -51,6 +52,13 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 	// ------------------------------------------------------------------------
 	protected ServiceLayer getServiceLayer() {
 		return getOwningDispatcher().getServiceLayer();
+	}	
+	
+	// ------------------------------------------------------------------------
+	// relation access
+	// ------------------------------------------------------------------------
+	protected RelationLayer getRelationLayer() {
+		return getOwningDispatcher().getRelationLayer();
 	}	
 	
 	// ------------------------------------------------------------------------

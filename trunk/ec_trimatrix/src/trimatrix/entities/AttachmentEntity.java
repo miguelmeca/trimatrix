@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
-
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.springframework.orm.hibernate3.HibernateTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
@@ -56,8 +54,14 @@ public class AttachmentEntity implements IEntity {
 				try {
 					Attachments entity = entitiesDAO.findById(id);
 					if(entity==null) return false;
-					entity.setDeleted(true);
-					entitiesDAO.merge(entity);
+					// check if user admin or owner
+					if (dictionaryService.getMyRoles().contains(Constants.Role.ADMIN.getName())||entity.getOwner().getId().equals(dictionaryService.getMyPerson().getId())) {
+						entity.setDeleted(true);
+						entitiesDAO.merge(entity);	
+					} else {
+						Statusbar.outputAlert("Do delete this object you have to be admin or owner of this object!");
+						return false;
+					}
 					// TODO delete relations
 				} catch (Exception ex) {
 					status.setRollbackOnly();
