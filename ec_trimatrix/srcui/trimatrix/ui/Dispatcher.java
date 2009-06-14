@@ -4,6 +4,7 @@ import org.eclnt.workplace.WorkpageDispatcher;
 
 import trimatrix.db.DAOLayer;
 import trimatrix.logic.LogicLayer;
+import trimatrix.relations.RelationLayer;
 import trimatrix.services.ServiceLayer;
 import trimatrix.utils.Context;
 
@@ -38,6 +39,10 @@ public class Dispatcher extends WorkpageDispatcher
 	protected ServiceLayer serviceLayer = ServiceLayer.getFromApplicationContext(Context.getInstance());
 	public ServiceLayer getServiceLayer() {	return serviceLayer; }
 	public void setServiceLayer(ServiceLayer serviceLayer) { this.serviceLayer = serviceLayer; }
+	
+	protected RelationLayer relationLayer = RelationLayer.getFromApplicationContext(Context.getInstance());
+	public RelationLayer getRelationLayer() {	return relationLayer; }
+	public void setRelationLayer(RelationLayer relationLayer) { this.relationLayer = relationLayer; }
 	
 	protected DAOLayer daoLayer = DAOLayer.getFromApplicationContext(Context.getInstance());
 	public DAOLayer getDaoLayer() {	return daoLayer; }

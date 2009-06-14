@@ -1,5 +1,9 @@
 package trimatrix.relations;
 
+import org.springframework.context.ApplicationContext;
+
+import trimatrix.entities.EntityLayer;
+
 public class RelationLayer {
 	private PersonPersonRelation personPersonRelation;
 	private PersonDoctorRelation personDoctorRelation;
@@ -28,5 +32,9 @@ public class RelationLayer {
 	public void setPersonAttachmentRelation(
 			PersonAttachmentRelation personAttachmentRelation) {
 		this.personAttachmentRelation = personAttachmentRelation;
+	}
+	
+	public static RelationLayer getFromApplicationContext(ApplicationContext ctx) {
+		return (RelationLayer) ctx.getBean("relationLayer");
 	}
 }

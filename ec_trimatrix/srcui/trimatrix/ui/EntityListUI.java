@@ -34,6 +34,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 	private List<SGridMetaData> gridMetaData;
 	private List<IEntityData> gridData;
 	private Constants.Entity entity;
+	public Constants.Entity getEntity() { return entity; }
 	private SAuthorization authorization;
 	private String personId;
 	public boolean getCreateAllowed() { return authorization.create; }
@@ -89,8 +90,9 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 	}
 
 	private void setRowDynamic() {
+		String dragKey = Constants.P_ENTITY + ":" + Constants.P_ENTITYLIST;
 		StringBuffer xml = new StringBuffer();
-		xml.append("<t:fixgrid avoidroundtrips='true' dragsend='TEST' rowdragsend='TEST' drawoddevenrows='true' objectbinding='#{d.EntityListUI.gridList}' border='top:1;color:#808080' rowheight='20'	width='100%' sbvisibleamount='20'>");
+		xml.append("<t:fixgrid avoidroundtrips='true' dragsend='" + dragKey + "' rowdragsend='" + dragKey + "' drawoddevenrows='true' objectbinding='#{d.EntityListUI.gridList}' border='top:1;color:#808080' rowheight='20'	width='100%' sbvisibleamount='20'>");
 		for (SGridMetaData meta : gridMetaData) {
 			// component type checkbox
 			boolean isCheckBox = false;			

@@ -6,16 +6,21 @@ import java.util.Map;
 
 import javax.faces.event.ActionEvent;
 
-import org.eclnt.jsfserver.defaultscreens.OKPopup;
+import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
+import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoCancelListener;
 import org.eclnt.jsfserver.elements.events.BaseActionEventDrop;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDTreeItem;
 import org.eclnt.jsfserver.managedbean.IDispatcher;
+import org.eclnt.workplace.WorkpageContainer;
 import org.eclnt.workplace.WorkplaceFunctionTree;
 
+import trimatrix.db.PersonsHaveAttachments;
 import trimatrix.entities.IEntityData;
 import trimatrix.logic.FunctionTreeLogic;
+import trimatrix.relations.PersonAttachmentRelation;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SFunctionTree;
+import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Context;
 import trimatrix.utils.Dictionary;
@@ -29,20 +34,65 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 	 * Extend FunctionNode to get a node with drag & drop functionality
 	 */
 	public class DropableFunctionNode extends FunctionNode {
-        public DropableFunctionNode(FIXGRIDTreeItem parent, String page, String dropReceive) {
+		private String entityId;
+		
+        public DropableFunctionNode(FIXGRIDTreeItem parent, String page, String dropReceive, String entityId) {
             super(parent, page);
             setDropReceive(dropReceive);
+            this.entityId = entityId;
         }
-        public DropableFunctionNode(FIXGRIDTreeItem page, String dropReceive) {
+        public DropableFunctionNode(FIXGRIDTreeItem page, String dropReceive, String entityId) {
             super(page);
             setDropReceive(dropReceive);
+            this.entityId = entityId;
         }
         @Override
         public void processTREENDOEAction(ActionEvent event) {
             super.processTREENDOEAction(event);
             if (event instanceof BaseActionEventDrop) {
-                BaseActionEventDrop baed = (BaseActionEventDrop)event;
-                OKPopup okp = OKPopup.createInstance("Drop was received","Drop Info = " + baed.getDragInfo());
+                BaseActionEventDrop baed = (BaseActionEventDrop)event;                
+                String[] dragInfo = baed.getDragInfo().split(":");
+                if(dragInfo==null || dragInfo.length<2) return;
+                // get current workpage
+                WorkpageContainer wc = (WorkpageContainer)getWorkpageContainer();
+                // get dispatched bean of workpage
+                if (dragInfo[1].equals(Constants.P_ENTITYLIST)) {
+                	final EntityListUI dispatchedBean = (EntityListUI) wc.getCurrentWorkpage().getDispatcher().getDispatchedBean(EntityListUI.class);
+                	if (dispatchedBean==null) return;                	
+                	// get entity
+                	Constants.Entity entity = dispatchedBean.getEntity();
+                	if (entity==null) return;
+                	// get selected item
+                	final IEntityData datum = dispatchedBean.m_gridList.getSelectedItem().datum;    
+                	if (datum==null) return;
+                	
+                	if (entity.getBase()==Constants.Entity.ATTACHMENT) {
+                		YESNOPopup.createInstance(
+                				"Create relation", 
+                				"Do you really want to create a relation between " + getText() + " and " + datum.toString() + "?", 
+                				new IYesNoCancelListener(){
+
+                					public void reactOnCancel() {}
+
+                					public void reactOnNo() {}
+
+                					public void reactOnYes() {				
+                						PersonAttachmentRelation relation = dispatchedBean.getOwningDispatcher().getRelationLayer().getPersonAttachmentRelation();
+                						PersonsHaveAttachments pha = relation.create();
+                						pha.setPerson(entityId);
+                						pha.setAttachment(datum.getId());
+                						pha.setReltypKey(Constants.Relation.ATTACHMENT.type());
+                						relation.save(pha);
+                					}						
+                				}
+                		);
+                	}
+                					
+                	
+                } else {
+                	Dictionary.logger.warn(dragInfo[1] + " is not defined as source for drag and drop!");
+                	return;
+                } 
             }
         }
     }
@@ -101,7 +151,7 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 					// add athletes
 					List<IEntityData> athletes = FUNCTIONTREELOGIC.getMyAthletes();
 					for (IEntityData athlete : athletes) {
-						FunctionNode athlete_node = new DropableFunctionNode(node, Constants.Page.ENTITYDETAIL.getUrl(),"TEST");	
+						FunctionNode athlete_node = new DropableFunctionNode(node, Constants.Page.ENTITYDETAIL.getUrl(),Constants.P_ENTITY, athlete.getId());	
 						athlete_node.setId(athlete.getId());
 						athlete_node.setStatus(FunctionNode.STATUS_OPENED);
 						athlete_node.setOpenMultipleInstances(true);
