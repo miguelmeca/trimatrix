@@ -106,6 +106,8 @@ public class JFreeChartDemo extends ApplicationFrame {
 		// change the auto tick unit selection to integer units only...
 		NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
 		rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+		
+		
 		// OPTIONAL CUSTOMISATION COMPLETED.
 		return chart;
 	}
@@ -132,4 +134,6 @@ public class JFreeChartDemo extends ApplicationFrame {
 		RefineryUtilities.centerFrameOnScreen(demo);
 		demo.setVisible(true);
 	}
+	
+	
 }

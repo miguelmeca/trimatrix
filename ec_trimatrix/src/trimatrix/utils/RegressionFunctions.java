@@ -1,24 +1,65 @@
 package trimatrix.utils;
 
+import org.jfree.data.function.Function2D;
+
+/**
+ * @author reich
+ * 
+ */
 public class RegressionFunctions {
 	public static final int EXP_REGRESSION = 0;
+	public static final int LIN_REGRESSION = 1;
+	public static final int LOG_REGRESSION = 2;
 	private static final int SP = 4;
-	
+
 	private RegressionResult result;
-	
-	public RegressionFunctions(int regression, double[] xyArr) {
+	private double offset;
+
+	public RegressionFunctions(int regression, double[] xyArr, double offset) {
+		this.offset = offset;
 		switch (regression) {
-		case EXP_REGRESSION:
-			result = calculateExponentialRegression(xyArr);
-			break;
+			case EXP_REGRESSION:
+				result = calculateExponentialRegression(xyArr);
+				break;
+			case LIN_REGRESSION:
+				result = calculateLinearRegression(xyArr);
+				break;
+			case LOG_REGRESSION:
+				result = calculateLogarithmicRegression(xyArr);
+				break;
 		}
 	}
 	
-	public double getY(double x) {
-		if (result==null) return 0;
-		return roundSignificant( result.approxFunction.execute( result.a, result.b, x ), SP );
+	public RegressionResult getResult() {
+		return result;
 	}
-	
+
+	/**
+	 * Calculate function value for x value
+	 * 
+	 * @param x
+	 * @return y
+	 */
+	public double getY(double x) {
+		if (result == null)
+			return 0;
+		return roundSignificant(result.approxFunction.execute(result.a,
+				result.b, x)+offset, SP);
+	}
+
+	/**
+	 * Function for JFreeChart implementation
+	 * 
+	 * @return Function
+	 */
+	public Function2D getRegressionFunction2D() {
+		return new Function2D() {
+			public double getValue(double arg0) {
+				return getY(arg0);
+			};
+		};
+	}
+
 	// Lineare Regression
 	// y = a + b * x
 	static RegressionResult calculateLinearRegression(double[] xyArr) {
@@ -271,13 +312,15 @@ public class RegressionFunctions {
 		return Math.round(d) / mul10;
 	}
 
-	static class RegressionResult {
+	public static class RegressionResult {
 		double a;
 		double b;
 		double rr;
 		String titel;
 		String formel;
 		IApproxFunction approxFunction;
+		
+		public String getFormel() { return formel; }
 	}
 
 	interface IApproxFunction {
