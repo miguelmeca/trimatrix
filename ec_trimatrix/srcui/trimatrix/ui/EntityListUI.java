@@ -40,6 +40,9 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 	public boolean getCreateAllowed() { return authorization.create; }
 	public boolean getDeleteAllowed() { return authorization.delete; }
 	public boolean getChangeAllowed() { return authorization.change; }
+	
+	private String colSequence;
+	private String colWidth;		
 
 	// Constructor
 	public EntityListUI(IWorkpageDispatcher dispatcher) {
@@ -182,6 +185,16 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 			m_gridList.getItems().add(new GridListItem(datum));
 		}
 		setRowDynamic();
+	}
+	
+	public void saveGridState(ActionEvent event) {
+		colSequence = m_gridList.getColumnsequence();
+		colWidth = m_gridList.getModcolumnwidths();		
+	}
+	
+	public void loadGridState(ActionEvent event) {
+		m_gridList.setColumnsequence(colSequence);
+		m_gridList.setModcolumnwidths(colWidth);
 	}
 
 	public class GridListItem extends FIXGRIDItem implements
