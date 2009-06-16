@@ -28,7 +28,6 @@
 <t:coldistance id="g_12" width="100%" />
 <t:button id="g_13" actionListener="#{d.EntityListUI.gridList.onEditColumnDetails}" text="#{rr.literals.list_configure}" />
 <t:button id="g_14" actionListener="#{d.EntityListUI.saveGridState}" text="#{rr.literals.save}" />
-<t:button id="g_15" actionListener="#{d.EntityListUI.loadGridState}" text="#{rr.literals.load}" />
 </t:row>
 <t:pageaddons id="g_pa"/>
 </f:subview>

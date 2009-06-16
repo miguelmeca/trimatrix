@@ -59,6 +59,7 @@
                 <idref local="PersonsHaveDoctorsDAO" />
                 <idref local="PersonsHaveAttachmentsDAO" />
                 <idref local="TSalutationDAO" />
+                <idref local="ListVariantsDAO" />
             </list>
         </property>
     </bean>
@@ -90,6 +91,9 @@
         <property name="tsalutationDAO">
             <ref bean="TSalutationDAO" />
         </property>  
+        <property name="listVariantsDAO">
+            <ref bean="ListVariantsDAO" />
+        </property>        
     </bean>
 
 	<bean id="UsersDAO" class="trimatrix.db.UsersDAO">
@@ -228,6 +232,11 @@
 	</bean>
 	<bean id="PersonsHaveAttachmentsDAO"
 		class="trimatrix.db.PersonsHaveAttachmentsDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="ListVariantsDAO" class="trimatrix.db.ListVariantsDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
