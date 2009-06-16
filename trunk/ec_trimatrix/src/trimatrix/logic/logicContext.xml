@@ -20,6 +20,9 @@
         <property name="serviceLayer">
             <ref bean="serviceLayer" />            
         </property>   
+        <property name="daoLayer">
+            <ref bean="daoLayer" />            
+        </property>   
     </bean>
     
     <bean id="functionTreeLogic" class="trimatrix.logic.FunctionTreeLogic"

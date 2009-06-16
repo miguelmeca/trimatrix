@@ -11,7 +11,7 @@ public class DAOLayer {
 	private IPersonsHaveDoctorsDAO personsHaveDoctorsDAO;
 	private IPersonsHaveAttachmentsDAO personsHaveAttachmentsDAO;	
 	private ITSalutationDAO tsalutationDAO;
-	
+	private IListVariantsDAO listVariantsDAO;
 		
 	public IUsersDAO getUsersDAO() {
 		return usersDAO;
@@ -79,7 +79,15 @@ public class DAOLayer {
 	public void setTsalutationDAO(ITSalutationDAO tsalutationDAO) {
 		this.tsalutationDAO = tsalutationDAO;
 	}	
-	
+		
+	public IListVariantsDAO getListVariantsDAO() {
+		return listVariantsDAO;
+	}
+
+	public void setListVariantsDAO(IListVariantsDAO listVariantsDAO) {
+		this.listVariantsDAO = listVariantsDAO;
+	}
+
 	public static DAOLayer getFromApplicationContext(ApplicationContext ctx) {
 		return (DAOLayer) ctx.getBean("daoLayer");
 	}

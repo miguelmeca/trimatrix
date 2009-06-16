@@ -2,14 +2,21 @@ package trimatrix.logic;
 
 import java.util.List;
 
+import trimatrix.db.DAOLayer;
+import trimatrix.db.IListVariantsDAO;
+import trimatrix.db.ListVariants;
+import trimatrix.db.ListVariantsId;
 import trimatrix.entities.IEntityData;
 import trimatrix.entities.IEntityObject;
 import trimatrix.services.ServiceLayer;
 import trimatrix.structures.SGridMetaData;
+import trimatrix.structures.SListVariant;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Dictionary;
 
 public class EntityListLogic {	
 	private ServiceLayer serviceLayer;
+	private DAOLayer daoLayer;
 		
 	/**
 	 * Get metadata of entity
@@ -50,8 +57,28 @@ public class EntityListLogic {
 	public void reload(Constants.Entity entity, IEntityObject entityObject) {
 		serviceLayer.getEntityResolverService().reload(entity, entityObject);
 	}
+	
+	public void saveGridState(Constants.Entity entity, SListVariant data) {
+		String user_id = serviceLayer.getDictionaryService().getMyUser().getId();
+		ListVariantsId lv_id = new ListVariantsId(Constants.P_ENTITYLIST, entity.name(), user_id);
+		ListVariants lv = new ListVariants(lv_id, data.columnsSequence, data.columnsWidth);
+		daoLayer.getListVariantsDAO().merge(lv);
+	}
+	
+	public SListVariant loadGridState(Constants.Entity entity) {
+		String user_id = serviceLayer.getDictionaryService().getMyUser().getId();
+		ListVariantsId lv_id = new ListVariantsId(Constants.P_ENTITYLIST, entity.name(), user_id);
+		IListVariantsDAO dao = daoLayer.getListVariantsDAO();
+		ListVariants lv = dao.findById(lv_id);		
+		if (lv==null) return null;
+		return new SListVariant(lv.getColumnsSequence(), lv.getColumnsWidth());
+	}
 
 	public void setServiceLayer(ServiceLayer serviceLayer) {
 		this.serviceLayer = serviceLayer;
 	}
+
+	public void setDaoLayer(DAOLayer daoLayer) {
+		this.daoLayer = daoLayer;
+	}	
 }

@@ -20,6 +20,7 @@ import trimatrix.entities.IEntityData;
 import trimatrix.logic.EntityListLogic;
 import trimatrix.structures.SAuthorization;
 import trimatrix.structures.SGridMetaData;
+import trimatrix.structures.SListVariant;
 import trimatrix.ui.utils.MyWorkpage;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
@@ -39,10 +40,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 	private String personId;
 	public boolean getCreateAllowed() { return authorization.create; }
 	public boolean getDeleteAllowed() { return authorization.delete; }
-	public boolean getChangeAllowed() { return authorization.change; }
-	
-	private String colSequence;
-	private String colWidth;		
+	public boolean getChangeAllowed() { return authorization.change; }	
 
 	// Constructor
 	public EntityListUI(IWorkpageDispatcher dispatcher) {
@@ -185,16 +183,20 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 			m_gridList.getItems().add(new GridListItem(datum));
 		}
 		setRowDynamic();
+		// load grid state
+		loadGridState();
 	}
 	
 	public void saveGridState(ActionEvent event) {
-		colSequence = m_gridList.getColumnsequence();
-		colWidth = m_gridList.getModcolumnwidths();		
+		SListVariant lv = new SListVariant(m_gridList.getColumnsequence(), m_gridList.getModcolumnwidths());
+		ENTITYLISTLOGIC.saveGridState(entity, lv);
 	}
 	
-	public void loadGridState(ActionEvent event) {
-		m_gridList.setColumnsequence(colSequence);
-		m_gridList.setModcolumnwidths(colWidth);
+	private void loadGridState() {
+		SListVariant lv = ENTITYLISTLOGIC.loadGridState(entity);
+		if(lv==null) return;
+		m_gridList.setColumnsequence(lv.columnsSequence);
+		m_gridList.setModcolumnwidths(lv.columnsWidth);
 	}
 
 	public class GridListItem extends FIXGRIDItem implements
