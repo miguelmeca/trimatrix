@@ -3,7 +3,6 @@ package trimatrix.ui;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.exceptions.MandatoryCheckException;

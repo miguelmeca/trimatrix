@@ -2,8 +2,6 @@ package trimatrix.relations;
 
 import org.springframework.context.ApplicationContext;
 
-import trimatrix.entities.EntityLayer;
-
 public class RelationLayer {
 	private PersonPersonRelation personPersonRelation;
 	private PersonDoctorRelation personDoctorRelation;

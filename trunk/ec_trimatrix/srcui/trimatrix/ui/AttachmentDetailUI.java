@@ -11,6 +11,7 @@ import org.eclnt.jsfserver.bufferedcontent.BufferedContentMgr;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.elements.events.BaseActionEventUpload;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
+import org.eclnt.util.valuemgmt.ValueManager;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.db.Attachments;
@@ -94,7 +95,7 @@ public class AttachmentDetailUI extends AEntityDetailUI implements Serializable,
 	
 	public String getFileContent() {
 		try {
-			return Dictionary.getHexString(entity.getFileContent());
+			return ValueManager.encodeHexString(entity.getFileContent());
 		} catch (Exception ex) {
 			return Constants.EMPTY;
 		}		

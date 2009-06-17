@@ -27,6 +27,7 @@ hibernate-commons-annotations.jar
 hibernate-entitymanager.jar
 hibernate-validator.jar
 hibernate3.jar
+iText-2.1.6.jar
 jaas.jar
 javassist.jar
 jaxen-1.1-beta-7.jar

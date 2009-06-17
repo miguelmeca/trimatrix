@@ -9,6 +9,7 @@ import javax.faces.event.ActionEvent;
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.elements.events.BaseActionEventUpload;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
+import org.eclnt.util.valuemgmt.ValueManager;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.db.Persons;
@@ -134,7 +135,7 @@ public class PersonDetailUI extends AEntityDetailUI implements Serializable, IEn
 	
 	public String getPicture() {
 		try {
-			return Dictionary.getHexString(entity.getPicture());
+			return ValueManager.encodeHexString(entity.getPicture());
 		} catch (Exception ex) {
 			return Constants.EMPTY;
 		}		

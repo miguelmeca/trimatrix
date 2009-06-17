@@ -63,14 +63,6 @@ public final class Dictionary {
 		return matcher.matches();
 	}
 	
-	public static String getHexString(byte[] bytes) throws Exception {
-		String result = Constants.EMPTY;
-		for (int i=0; i < bytes.length; i++) {
-			result +=  Integer.toString( ( bytes[i] & 0xff ) + 0x100, 16).substring( 1 );
-		}
-		return result;
-	}
-	
 	public static byte[] getBytesFromFile(File file) throws IOException {
         InputStream is = new FileInputStream(file);
     

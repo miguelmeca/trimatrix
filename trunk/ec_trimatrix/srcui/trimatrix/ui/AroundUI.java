@@ -1,6 +1,7 @@
 package trimatrix.ui;
 
 import java.io.Serializable;
+
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.managedbean.IDispatcher;
 

@@ -12,7 +12,6 @@ import trimatrix.services.ServiceLayer;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.structures.SListVariant;
 import trimatrix.utils.Constants;
-import trimatrix.utils.Dictionary;
 
 public class EntityListLogic {	
 	private ServiceLayer serviceLayer;

@@ -134,7 +134,7 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>AcroFormServlet</servlet-name>
-    <url-pattern>/servlet/AcroFormServlet</url-pattern>
+    <url-pattern>/servlet/AcroForm</url-pattern>
   </servlet-mapping>
   
   <mime-mapping>
