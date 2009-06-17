@@ -20,7 +20,6 @@ import trimatrix.logic.FunctionTreeLogic;
 import trimatrix.relations.PersonAttachmentRelation;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SFunctionTree;
-import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Context;
 import trimatrix.utils.Dictionary;

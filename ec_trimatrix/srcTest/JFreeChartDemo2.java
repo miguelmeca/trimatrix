@@ -1,12 +1,15 @@
 import java.awt.Color;
 import java.awt.Font;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
+import org.eclnt.util.valuemgmt.ValueManager;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.annotations.XYPointerAnnotation;
 import org.jfree.chart.annotations.XYTextAnnotation;
-import org.jfree.chart.axis.MarkerAxisBand;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
@@ -90,6 +93,21 @@ public class JFreeChartDemo2 extends ApplicationFrame {
 		annotation1.setArrowPaint(Color.red);
 		renderer.addAnnotation(annotation1);
 	
+		// Convert to png/binary for UI
+        try {
+        	ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			ChartUtilities.writeChartAsPNG(bos, chart, 400, 300);
+			bos.close();
+			byte[] image = bos.toByteArray();
+	        String strImage = ValueManager.encodeHexString(image);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+        
+        
+
+		
+		
 		final ChartPanel chartPanel = new ChartPanel(chart);
 		chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
 		setContentPane(chartPanel);
