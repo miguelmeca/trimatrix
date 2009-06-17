@@ -37,7 +37,7 @@
 <t:coldistance id="g_19" />
 <t:pane id="g_20" rowdistance="5" >
 <t:row id="g_21" >
-<t:heximage id="g_22" align="center" border="#{d.PersonDetailUI.border}" dragsend="TEST" height="150" hexdata="#{d.PersonDetailUI.picture}" valign="center" width="130" x="365" y="15" />
+<t:heximage id="g_22" align="center" border="#{d.PersonDetailUI.border}" dragsend="TEST" height="150" hexdata="#{d.PersonDetailUI.picture}" keepratio="true" valign="center" width="130" x="365" y="15" />
 </t:row>
 <t:row id="g_23" >
 <t:fileuploadbutton id="g_24" actionListener="#{d.PersonDetailUI.onUploadImage}" enabled="#{d.PersonDetailUI.enabled}" fileextensions="jpg;png;gif" height="20" rendered="#{d.PersonDetailUI.enabled}" text="#{rr.literals.edit}" width="60" x="365" y="150" />

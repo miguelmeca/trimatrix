@@ -4,18 +4,20 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Enumeration;
 
+import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class AcroFormServlet extends HttpServlet {
+import trimatrix.db.DAOLayer;
 
+public class AcroFormServlet extends HttpServlet {
 	/**
 	 * Constructor of the object.
 	 */
 	public AcroFormServlet() {
-		super();
+		super();		
 	}
 
 	/**
@@ -69,6 +71,7 @@ public class AcroFormServlet extends HttpServlet {
 	      }
 	    }
 	    out.println("</TABLE>\n</BODY></HTML>");
+	    
 	}
 
 	/**
