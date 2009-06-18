@@ -6,6 +6,7 @@ import java.util.List;
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
+import org.eclnt.jsfserver.defaultscreens.BasePopup;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoCancelListener;
@@ -93,7 +94,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 	private void setRowDynamic() {
 		String dragKey = Constants.P_ENTITY + ":" + Constants.P_ENTITYLIST;
 		StringBuffer xml = new StringBuffer();
-		xml.append("<t:fixgrid avoidroundtrips='true' dragsend='" + dragKey + "' rowdragsend='" + dragKey + "' drawoddevenrows='true' objectbinding='#{d.EntityListUI.gridList}' border='top:1;color:#808080' rowheight='20'	width='100%' sbvisibleamount='20'>");
+		xml.append("<t:fixgrid avoidroundtrips='true' dragsend='" + dragKey + "' rowdragsend='" + dragKey + "' drawoddevenrows='true' objectbinding='#{d.EntityListUI.gridList}' persistid='gridList' bordercolor='C0C0C0' borderheight='1' borderwidth='1' cellselection='true' rowheight='20' width='100%' sbvisibleamount='20'>");
 		for (SGridMetaData meta : gridMetaData) {
 			// component type checkbox
 			boolean isCheckBox = false;			
@@ -152,7 +153,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 		}
 		final String selectedID = ((IEntityData)selectedItem.getDatum()).getId();	
 		if(selectedID!=null && selectedID.length()>0) {
-			YESNOPopup.createInstance(
+			YESNOPopup popup = YESNOPopup.createInstance(
 					"Confirm deletion", 
 					"Do you really want to delete the selected entity?", 
 					new IYesNoCancelListener(){
@@ -170,7 +171,9 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 							}							
 						}						
 					}
-			);			
+			);	
+			popup.getModalPopup().setLeft(BasePopup.POS_CENTER);
+    		popup.getModalPopup().setTop(BasePopup.POS_CENTER);
 		} 
 	}
 

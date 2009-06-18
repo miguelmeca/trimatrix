@@ -6,6 +6,7 @@ import java.util.List;
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
+import org.eclnt.jsfserver.defaultscreens.BasePopup;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoCancelListener;
@@ -111,7 +112,9 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 				buildData();
 			}
 		});		
-		m_popup = getWorkpage().createModalPopupInWorkpageContext();    	
+		m_popup = getWorkpage().createModalPopupInWorkpageContext();    
+		m_popup.setTop(BasePopup.POS_CENTER);
+    	m_popup.setLeft(BasePopup.POS_CENTER);
     	m_popup.open(Constants.Page.CREATERELATION.getUrl(), "Beziehung anlegen", 400, 300, this); 
 	}
 	
@@ -121,7 +124,7 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 	}	
 	
 	private void deleteRelation(final MyARRAYGRIDItem item) {
-		YESNOPopup.createInstance(
+		YESNOPopup popup = YESNOPopup.createInstance(
 				"Confirm deletion", 
 				"Do you really want to delete the selected relation?", 
 				new IYesNoCancelListener(){
@@ -140,6 +143,8 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 					}						
 				}
 		);
+		popup.getModalPopup().setLeft(BasePopup.POS_CENTER);
+		popup.getModalPopup().setTop(BasePopup.POS_CENTER);
 	}
 		
 	public class MyARRAYGRIDItem extends ARRAYGRIDItem {

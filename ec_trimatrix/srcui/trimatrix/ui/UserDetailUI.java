@@ -6,6 +6,7 @@ import java.util.UUID;
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
+import org.eclnt.jsfserver.defaultscreens.BasePopup;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoCancelListener;
@@ -129,12 +130,10 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable, IEnti
 				setPersonDescription(entity);	
 				m_popup.close();
 			}});    	
-    	m_popup = getWorkpage().createModalPopupInWorkpageContext();    	
+    	m_popup = getWorkpage().createModalPopupInWorkpageContext();    
+    	m_popup.setTop(BasePopup.POS_CENTER);
+    	m_popup.setLeft(BasePopup.POS_CENTER);
     	m_popup.open(Constants.Page.PERSONSELECTION.getUrl(), "Personensuche", 800, 600, this);    	
-    	// TODO generate routine for centering the popup, this way is not ok!!!
-    	//java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();    	
-    	//m_popup.setLeft(((int)screenSize.getWidth() - m_popup.getWidth()) / 2);
-    	//m_popup.setTop(((int)screenSize.getHeight() - m_popup.getHeight()) / 2);
     }
 	
 	public void onPersonRemove(ActionEvent event) {
@@ -143,7 +142,7 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable, IEnti
 	}
 	
 	public void onSendGeneratedPassword(ActionEvent event) {
-		YESNOPopup.createInstance(
+		YESNOPopup popup = YESNOPopup.createInstance(
 				"Generate password", 
 				"Do you really want to generate a new password and send this to the user?", 
 				new IYesNoCancelListener(){
@@ -169,7 +168,9 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable, IEnti
 						} 							
 					}						
 				}
-		);						
+		);	
+		popup.getModalPopup().setLeft(BasePopup.POS_CENTER);
+		popup.getModalPopup().setTop(BasePopup.POS_CENTER);
 	}
 	
 	public void onPersonClicked(ActionEvent event) {

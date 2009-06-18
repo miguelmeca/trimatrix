@@ -14,13 +14,13 @@
 <t:row id="g_1" >
 <t:icon id="g_2" actionListener="#{d.PersonSelectionUI.gridList.textSearcher.onPrevious}" image="/eclntjsfserver/images/control_playbackwards.png" />
 <t:field id="g_3" actionListener="#{d.PersonSelectionUI.gridList.textSearcher.text}" bgpaint="image(100%-5,50%,/images/icons/magnifier.png,rightmiddle)" width="100" />
-<t:icon id="g_4" actionListener="#{d.PersonSelectionUI.gridList.textSearcher.onNext}" image="/eclntjsfserver/images/control_play.png" />
+<t:icon id="g_4" actionListener="#{d.PersonSelectionUI.gridList.textSearcher.oneNext}" image="/eclntjsfserver/images/control_play.png" />
 <t:coldistance id="g_5" width="100%" />
 <t:filedownloadlink id="g_6" actionListener="#{d.PersonSelectionUI.gridList.exporter.exportURLCsvWholeGrid}" filename="grid.csv" opensupported="true" text="CSV" />
 <t:filedownloadlink id="g_7" actionListener="#{d.PersonSelectionUI.gridList.exporter.exportURLXMLWholeGrid}" filename="grid.xml" opensupported="true" text="XML" />
 </t:row>
 <t:row id="g_8" >
-<t:fixgrid id="g_9" avoidroundtrips="true" border="top:1;color:#808080" drawoddevenrows="true" multiselect="false" objectbinding="#{d.PersonSelectionUI.gridList}" sbvisibleamount="20" width="100%" >
+<t:fixgrid id="g_9" avoidroundtrips="true" border="top:1;color:#808080" cellselection="true" drawoddevenrows="true" multiselect="false" objectbinding="#{d.PersonSelectionUI.gridList}" persistid="gridList" sbvisibleamount="20" width="100%" >
 <t:gridcol id="g_10" align="center" searchenabled="true" sortreference=".{entity.salutation}" text="#{rr.literals.person_salutation}" width="50" >
 <t:label id="g_11" text=".{entity.salutation}" />
 </t:gridcol>
