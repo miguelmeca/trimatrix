@@ -176,7 +176,7 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 				}	
 				node = new FunctionNode(parentNode, page.getUrl());
 				node.setId(Constants.EMPTY);
-				node.setStatus(FunctionNode.STATUS_ENDNODE);
+				node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
 				node.setOpenMultipleInstances(true);
 				if(functionTree.entity != null && functionTree.entity.length() > 0) {
 					node.setParam(Constants.P_ENTITY, functionTree.entity);
@@ -186,13 +186,13 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 				// special handling for some nodes
 				if (functionTree.key == Constants.FunctionNode.ATHLETES_OWN) {
 					// reset status
-					node.setStatus(FunctionNode.STATUS_OPENED);
+					node.setStatus(FIXGRIDTreeItem.STATUS_OPENED);
 					// add athletes
 					List<IEntityData> athletes = FUNCTIONTREELOGIC.getMyAthletes();
 					for (IEntityData athlete : athletes) {
 						FunctionNode athlete_node = new DropableFunctionNode(node, Constants.Page.ENTITYDETAIL.getUrl(),Constants.P_ENTITY, athlete.getId());	
 						athlete_node.setId(athlete.getId());
-						athlete_node.setStatus(FunctionNode.STATUS_OPENED);
+						athlete_node.setStatus(FIXGRIDTreeItem.STATUS_OPENED);
 						athlete_node.setOpenMultipleInstances(true);
 						athlete_node.setText(athlete.toString());							
 						athlete_node.setParam(Constants.P_ENTITY, Constants.Entity.PERSON.name());
@@ -201,7 +201,7 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 						// add doctors per athlete
 						FunctionNode doctor_node = new FunctionNode(athlete_node, Constants.Page.ENTITYLIST.getUrl());	
 						doctor_node.setId(athlete.getId());
-						doctor_node.setStatus(FunctionNode.STATUS_ENDNODE);
+						doctor_node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
 						doctor_node.setOpenMultipleInstances(true);
 						doctor_node.setText("Doctors");	
 						doctor_node.setParam(Constants.P_PERSON, athlete.getId());
@@ -211,7 +211,7 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 						// add attachments per athlete
 						FunctionNode attachment_node = new FunctionNode(athlete_node, Constants.Page.ENTITYLIST.getUrl());	
 						attachment_node.setId(athlete.getId());
-						attachment_node.setStatus(FunctionNode.STATUS_ENDNODE);
+						attachment_node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
 						attachment_node.setOpenMultipleInstances(true);
 						attachment_node.setText("Attachments");	
 						attachment_node.setParam(Constants.P_PERSON, athlete.getId());

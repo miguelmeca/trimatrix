@@ -65,6 +65,7 @@ public class MailSender {
 	 */
 	private static class SMTPAuthenticator extends javax.mail.Authenticator {
 
+		@Override
 		public PasswordAuthentication getPasswordAuthentication() {
 			String username = SMTP_AUTH_USER;
 			String password = SMTP_AUTH_PWD;

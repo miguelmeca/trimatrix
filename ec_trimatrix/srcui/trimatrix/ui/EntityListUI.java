@@ -163,12 +163,21 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 						public void reactOnNo() {}
 
 						public void reactOnYes() {
-							if(ENTITYLISTLOGIC.delete(entity, selectedID)) {
-								Statusbar.outputSuccess("Entity successfully deleted!");
-								m_gridList.getItems().remove(selectedItem);
-							} else {
-								Statusbar.outputError("Entity could not be deleted!");
-							}							
+							// own entities
+							if(personId==null) {
+								if(ENTITYLISTLOGIC.delete(entity, selectedID)) {
+									Statusbar.outputSuccess("Entity successfully deleted!");
+									m_gridList.getItems().remove(selectedItem);
+									return;
+								}
+							} else {	// other person entities
+								if(ENTITYLISTLOGIC.delete(entity, selectedID, personId)) {
+									Statusbar.outputSuccess("Relation successfully deleted!");
+									m_gridList.getItems().remove(selectedItem);
+									return;
+								}
+							}
+							Statusbar.outputError("Entity/Relation could not be deleted!");				
 						}						
 					}
 			);	

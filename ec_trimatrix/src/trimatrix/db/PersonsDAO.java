@@ -22,6 +22,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 public class PersonsDAO extends HibernateDaoSupport implements IPersonsDAO {
 	private static final Log log = LogFactory.getLog(PersonsDAO.class);
 
+	@Override
 	protected void initDao() {
 		// do nothing
 	}

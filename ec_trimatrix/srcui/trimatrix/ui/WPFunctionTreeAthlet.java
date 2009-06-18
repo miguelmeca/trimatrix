@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclnt.jsfserver.elements.impl.FIXGRIDTreeItem;
 import org.eclnt.jsfserver.managedbean.IDispatcher;
 import org.eclnt.workplace.WorkplaceFunctionTree;
 
@@ -58,7 +59,7 @@ public class WPFunctionTreeAthlet extends WorkplaceFunctionTree {
 				}	
 				node = new FunctionNode(parentNode, page.getUrl());
 				node.setId(Constants.EMPTY);
-				node.setStatus(FunctionNode.STATUS_ENDNODE);
+				node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
 				node.setOpenMultipleInstances(true);
 				if(functionTree.entity != null && functionTree.entity.length() > 0) {
 					node.setParam(Constants.P_ENTITY, functionTree.entity);

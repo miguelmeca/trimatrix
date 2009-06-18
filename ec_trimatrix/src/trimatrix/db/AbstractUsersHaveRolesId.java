@@ -42,6 +42,7 @@ public abstract class AbstractUsersHaveRolesId implements java.io.Serializable {
 		this.roleKey = roleKey;
 	}
 
+	@Override
 	public boolean equals(Object other) {
 		if ((this == other))
 			return true;
@@ -61,6 +62,7 @@ public abstract class AbstractUsersHaveRolesId implements java.io.Serializable {
 						.equals(castOther.getRoleKey())));
 	}
 
+	@Override
 	public int hashCode() {
 		int result = 17;
 

@@ -30,7 +30,7 @@
         </property>         
     </bean>
     
-    <bean id="entityResolverService" class="trimatrix.services.EntityResolverService"
+    <bean id="resolverService" class="trimatrix.services.ResolverService"
         abstract="false" lazy-init="default" autowire="default"
         dependency-check="default">
         <property name="userEntity">
@@ -45,11 +45,6 @@
         <property name="attachmentEntity">
             <ref bean="attachmentEntity" />
         </property>
-    </bean>
-    
-    <bean id="relationResolverService" class="trimatrix.services.RelationResolverService"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">
         <property name="personPersonRelation">
             <ref bean="personPersonRelation" />
         </property>
@@ -84,11 +79,8 @@
         <property name="sqlExecutorService">
             <ref bean="sqlExecutorService" />
         </property> 
-        <property name="entityResolverService">
-            <ref bean="entityResolverService" />
-        </property> 
-        <property name="relationResolverService">
-            <ref bean="relationResolverService" />
+        <property name="resolverService">
+            <ref bean="resolverService" />
         </property> 
     </bean>
     

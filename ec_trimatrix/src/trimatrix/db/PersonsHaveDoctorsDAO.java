@@ -21,6 +21,7 @@ public class PersonsHaveDoctorsDAO extends HibernateDaoSupport implements IPerso
     private static final Log log = LogFactory.getLog(PersonsHaveDoctorsDAO.class);
 
 
+	@Override
 	protected void initDao() {
 		//do nothing
 	}

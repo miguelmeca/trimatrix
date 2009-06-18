@@ -42,6 +42,7 @@ public abstract class AbstractTSexId implements java.io.Serializable {
 		this.languageKey = languageKey;
 	}
 
+	@Override
 	public boolean equals(Object other) {
 		if ((this == other))
 			return true;
@@ -60,6 +61,7 @@ public abstract class AbstractTSexId implements java.io.Serializable {
 						.getLanguageKey().equals(castOther.getLanguageKey())));
 	}
 
+	@Override
 	public int hashCode() {
 		int result = 17;
 

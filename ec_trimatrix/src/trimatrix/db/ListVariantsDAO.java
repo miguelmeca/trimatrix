@@ -21,6 +21,7 @@ public class ListVariantsDAO extends HibernateDaoSupport implements IListVariant
     private static final Log log = LogFactory.getLog(ListVariantsDAO.class);
 
 
+	@Override
 	protected void initDao() {
 		//do nothing
 	}

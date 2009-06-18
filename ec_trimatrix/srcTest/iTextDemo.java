@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import com.lowagie.text.Document;
 import com.lowagie.text.Element;
 import com.lowagie.text.Rectangle;
+import com.lowagie.text.pdf.BaseField;
 import com.lowagie.text.pdf.PdfAction;
 import com.lowagie.text.pdf.PdfAnnotation;
 import com.lowagie.text.pdf.PdfBorderDictionary;
@@ -39,7 +40,7 @@ public class iTextDemo {
 		nameField.setBorderStyle(PdfBorderDictionary.STYLE_SOLID);
 		nameField.setText("");
 		nameField.setAlignment(Element.ALIGN_LEFT);
-		nameField.setOptions(TextField.REQUIRED);				
+		nameField.setOptions(BaseField.REQUIRED);				
 		cell = new PdfPCell();
 		cell.setMinimumHeight(10);
 		cell.setCellEvent(new FieldCell(nameField.getTextField(), 
@@ -73,8 +74,8 @@ public class iTextDemo {
 		ageComb.setText("12");
 		ageComb.setAlignment(Element.ALIGN_RIGHT);
 		ageComb.setMaxCharacterLength(2);
-		ageComb.setOptions(TextField.COMB | 
-			TextField.DO_NOT_SCROLL);
+		ageComb.setOptions(BaseField.COMB | 
+			BaseField.DO_NOT_SCROLL);
 		cell = new PdfPCell();
 		cell.setMinimumHeight(10);
 		cell.setCellEvent(new FieldCell(ageComb.getTextField(), 
@@ -107,8 +108,8 @@ public class iTextDemo {
 		comment.setBorderWidth(1);
 		comment.setBorderStyle(PdfBorderDictionary.STYLE_SOLID);
 		comment.setText("");
-		comment.setOptions(TextField.MULTILINE | 
-			TextField.DO_NOT_SCROLL);
+		comment.setOptions(BaseField.MULTILINE | 
+			BaseField.DO_NOT_SCROLL);
 		cell = new PdfPCell();
 		cell.setMinimumHeight(100);
 		cell.setCellEvent(new FieldCell(comment.getTextField(), 
@@ -143,7 +144,7 @@ public class iTextDemo {
 		submitBtn.
 			setBorderStyle(PdfBorderDictionary.STYLE_BEVELED);
 		submitBtn.setText("POST");
-		submitBtn.setOptions(PushbuttonField.
+		submitBtn.setOptions(BaseField.
 			VISIBLE_BUT_DOES_NOT_PRINT);
 		PdfFormField submitField = submitBtn.getField();
 		submitField.setAction(PdfAction
@@ -167,7 +168,7 @@ public class iTextDemo {
 		resetBtn.setText("RESET");
 		resetBtn
 		.setOptions(
-			PushbuttonField.VISIBLE_BUT_DOES_NOT_PRINT);
+			BaseField.VISIBLE_BUT_DOES_NOT_PRINT);
 		PdfFormField resetField = resetBtn.getField();
 		resetField.setAction(PdfAction.createResetForm(null, 0));
 		cell = new PdfPCell();

@@ -12,35 +12,35 @@ public class RelationListLogic {
 	private ServiceLayer serviceLayer;
 	
 	public List<SGridMetaData> getGridMetaData(Constants.Relation relation) {
-		return serviceLayer.getRelationResolverService().getGridMetaData(relation);
+		return serviceLayer.getResolverService().getGridMetaData(relation);
 	}
 	
 	public List<IRelationData> getData(Constants.Relation relation) {
-		return serviceLayer.getRelationResolverService().getData(relation);
+		return serviceLayer.getResolverService().getData(relation);
 	}	
 	
 	public List<IRelationData> getData(Constants.Relation relation, String personId) {
-		return serviceLayer.getRelationResolverService().getData(relation);
+		return serviceLayer.getResolverService().getData(relation);
 	}
 	
 	public boolean delete(Constants.Relation relation, String id) {
-		return serviceLayer.getRelationResolverService().delete(relation, id);
+		return serviceLayer.getResolverService().delete(relation, id);
 	}
 	
 	public IRelationObject create(Constants.Relation relation) {
-		return serviceLayer.getRelationResolverService().create(relation);
+		return serviceLayer.getResolverService().create(relation);
 	}
 	
 	public IRelationObject get(Constants.Relation relation, String id) {
-		return serviceLayer.getRelationResolverService().get(relation, id);
+		return serviceLayer.getResolverService().get(relation, id);
 	}
 	
 	public void save(Constants.Relation relation, IRelationObject relationObject) {
-		serviceLayer.getRelationResolverService().save(relation, relationObject);
+		serviceLayer.getResolverService().save(relation, relationObject);
 	}
 	
 	public void reload(Constants.Relation relation, IRelationObject relationObject) {
-		serviceLayer.getRelationResolverService().reload(relation, relationObject);
+		serviceLayer.getResolverService().reload(relation, relationObject);
 	}
 
 	public void setServiceLayer(ServiceLayer serviceLayer) {

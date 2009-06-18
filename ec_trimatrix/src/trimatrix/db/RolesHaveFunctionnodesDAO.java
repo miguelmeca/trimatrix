@@ -24,6 +24,7 @@ public class RolesHaveFunctionnodesDAO extends HibernateDaoSupport {
 	private static final Log log = LogFactory
 			.getLog(RolesHaveFunctionnodesDAO.class);
 
+	@Override
 	protected void initDao() {
 		// do nothing
 	}

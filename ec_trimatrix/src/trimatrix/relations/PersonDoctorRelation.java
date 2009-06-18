@@ -9,6 +9,7 @@ import trimatrix.db.IDoctorsDAO;
 import trimatrix.db.IPersonsDAO;
 import trimatrix.db.IPersonsHaveDoctorsDAO;
 import trimatrix.db.Persons;
+import trimatrix.db.PersonsHaveAttachments;
 import trimatrix.db.PersonsHaveDoctors;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;
@@ -36,8 +37,22 @@ public class PersonDoctorRelation implements IRelation {
 			Dictionary.logger.warn(ex.toString());
 			return false;
 		}
-		return true;
-			
+		return true;			
+	}
+	
+	public boolean delete(String partner1, String partner2) {
+		boolean result = true;
+		// find relevant entities
+		PersonsHaveDoctors example = new PersonsHaveDoctors();
+		example.setPartner1(partner1);
+		example.setPartner2(partner2);
+		List<PersonsHaveDoctors> relations = personsHaveDoctorsDAO.findByExample(example);
+		for (PersonsHaveDoctors relation : relations) {
+			if(!delete(relation.getId())) {
+				result = false;
+			}
+		}
+		return result;		
 	}
 
 	public PersonsHaveDoctors create() {		

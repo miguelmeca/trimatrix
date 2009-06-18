@@ -93,11 +93,11 @@ public final class Constants {
 			if(baseRelation==null) return this; 
 			return baseRelation;
 		};
-		public Constants.Entity getParnter1(){ 
+		public Constants.Entity getPartner1(){ 
 			if(baseRelation==null) return this.partner1; 
 			return baseRelation.partner1;
 		};
-		public Constants.Entity getParnter2(){ 
+		public Constants.Entity getPartner2(){ 
 			if(baseRelation==null) return this.partner2; 
 			return baseRelation.partner2;
 		};

@@ -98,7 +98,7 @@ public class DBConnectionTest {
 		usersDAO.merge(newUser);
 
 		/* 3. Select Data */
-		List<Users> users = (List<Users>) usersDAO.findAll();
+		List<Users> users = usersDAO.findAll();
 		for (Users user : users) {
 			Set<KRoles> roles = user.getRoles();
 			if (!Hibernate.isInitialized(roles)) {
@@ -163,6 +163,7 @@ public class DBConnectionTest {
 						.getBean("transactionManager"));
 		// do Operations
 		transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+			@Override
 			protected void doInTransactionWithoutResult(TransactionStatus status) {
 				try {
 					Timestamp now = new java.sql.Timestamp(
@@ -180,7 +181,7 @@ public class DBConnectionTest {
 					usersDAO.delete(newUser);
 
 					/* 3. Select Data without Lazy Loading possible */
-					List<Users> users = (List<Users>) usersDAO.findAll();
+					List<Users> users = usersDAO.findAll();
 					for (Users user : users) {
 						Set<KRoles> roles = user.getRoles();
 						for (KRoles role : roles) {

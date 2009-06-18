@@ -27,7 +27,8 @@ public class Dispatcher extends WorkpageDispatcher
 	/**
      * Returns the expression under which the dispatcher can be reached.
      */
-    protected String getRootExpression()
+    @Override
+	protected String getRootExpression()
     {
         return "#{d}";
     }

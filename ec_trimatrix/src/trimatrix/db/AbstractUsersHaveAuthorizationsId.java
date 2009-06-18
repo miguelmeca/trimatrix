@@ -45,6 +45,7 @@ public abstract class AbstractUsersHaveAuthorizationsId implements
 		this.authorizationKey = authorizationKey;
 	}
 
+	@Override
 	public boolean equals(Object other) {
 		if ((this == other))
 			return true;
@@ -65,6 +66,7 @@ public abstract class AbstractUsersHaveAuthorizationsId implements
 								castOther.getAuthorizationKey())));
 	}
 
+	@Override
 	public int hashCode() {
 		int result = 17;
 
