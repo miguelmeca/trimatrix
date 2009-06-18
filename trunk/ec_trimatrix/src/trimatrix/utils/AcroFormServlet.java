@@ -4,11 +4,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Enumeration;
 
-import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import trimatrix.db.DAOLayer;
 
@@ -42,6 +45,12 @@ public class AcroFormServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+
+		// get DAO layer from context
+		ServletContext context = getServletContext();
+		WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(context);
+		DAOLayer daoLayer = DAOLayer.getFromApplicationContext(ctx);
+		
 		response.setContentType("text/html");
 	    PrintWriter out = response.getWriter();
 	    String title = "Reading All Request Parameters";

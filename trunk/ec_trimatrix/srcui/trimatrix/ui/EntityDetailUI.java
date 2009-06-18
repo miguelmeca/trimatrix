@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
+import org.eclnt.jsfserver.defaultscreens.BasePopup;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoCancelListener;
@@ -150,7 +151,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 	}
 
 	public void onDelete(ActionEvent event) {
-		YESNOPopup.createInstance(
+		YESNOPopup popup = YESNOPopup.createInstance(
 				"Confirm deletion", 
 				"Do you really want to delete the selected entity?", 
 				new IYesNoCancelListener(){
@@ -169,7 +170,9 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 						}								
 					}						
 				}
-		);						
+		);	
+		popup.getModalPopup().setLeft(BasePopup.POS_CENTER);
+		popup.getModalPopup().setTop(BasePopup.POS_CENTER);
 	}
 
 	public void onSave(ActionEvent event) {

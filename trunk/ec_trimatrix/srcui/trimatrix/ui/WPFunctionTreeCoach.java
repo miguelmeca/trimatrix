@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.faces.event.ActionEvent;
 
+import org.eclnt.jsfserver.defaultscreens.BasePopup;
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoCancelListener;
 import org.eclnt.jsfserver.elements.events.BaseActionEventDrop;
@@ -13,11 +15,14 @@ import org.eclnt.jsfserver.elements.impl.FIXGRIDTreeItem;
 import org.eclnt.jsfserver.managedbean.IDispatcher;
 import org.eclnt.workplace.WorkpageContainer;
 import org.eclnt.workplace.WorkplaceFunctionTree;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import trimatrix.db.PersonsHaveAttachments;
+import trimatrix.db.PersonsHaveDoctors;
 import trimatrix.entities.IEntityData;
 import trimatrix.logic.FunctionTreeLogic;
 import trimatrix.relations.PersonAttachmentRelation;
+import trimatrix.relations.PersonDoctorRelation;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SFunctionTree;
 import trimatrix.utils.Constants;
@@ -66,7 +71,7 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
                 	if (datum==null) return;
                 	
                 	if (entity.getBase()==Constants.Entity.ATTACHMENT) {
-                		YESNOPopup.createInstance(
+                		YESNOPopup ynp = YESNOPopup.createInstance(
                 				"Create relation", 
                 				"Do you really want to create a relation between " + getText() + " and " + datum.toString() + "?", 
                 				new IYesNoCancelListener(){
@@ -81,12 +86,47 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
                 						pha.setPerson(entityId);
                 						pha.setAttachment(datum.getId());
                 						pha.setReltypKey(Constants.Relation.ATTACHMENT.type());
-                						relation.save(pha);
+                						try {
+                							relation.save(pha);
+                						} catch (DataIntegrityViolationException dive) {
+                							Statusbar.outputError("Relation could not be saved (Data Integrity)", dive.getRootCause().toString());
+                						} catch (Exception ex){			
+                							Statusbar.outputError("Relation could not be saved", ex.toString());			
+                						} 
                 					}						
                 				}
                 		);
-                	}
-                					
+                		ynp.getModalPopup().setLeft(BasePopup.POS_CENTER);
+                		ynp.getModalPopup().setTop(BasePopup.POS_CENTER);
+                	} else if (entity.getBase()==Constants.Entity.DOCTOR) {
+                		YESNOPopup ynp = YESNOPopup.createInstance(
+                				"Create relation", 
+                				"Do you really want to create a relation between " + getText() + " and " + datum.toString() + "?", 
+                				new IYesNoCancelListener(){
+
+                					public void reactOnCancel() {}
+
+                					public void reactOnNo() {}
+
+                					public void reactOnYes() {				
+                						PersonDoctorRelation relation = dispatchedBean.getOwningDispatcher().getRelationLayer().getPersonDoctorRelation();
+                						PersonsHaveDoctors phd = relation.create();
+                						phd.setPerson(entityId);
+                						phd.setDoctor(datum.getId());
+                						phd.setReltypKey(Constants.Relation.DOCTOR.type());
+                						try {
+                							relation.save(phd);
+                						} catch (DataIntegrityViolationException dive) {
+                							Statusbar.outputError("Relation could not be saved (Data Integrity)", dive.getRootCause().toString());
+                						} catch (Exception ex){			
+                							Statusbar.outputError("Relation could not be saved", ex.toString());			
+                						}                						
+                					}						
+                				}
+                		);
+                		ynp.getModalPopup().setLeft(BasePopup.POS_CENTER);
+                		ynp.getModalPopup().setTop(BasePopup.POS_CENTER);
+                	}  					
                 	
                 } else {
                 	Dictionary.logger.warn(dragInfo[1] + " is not defined as source for drag and drop!");
@@ -158,6 +198,16 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 						athlete_node.setParam(Constants.P_ENTITY, Constants.Entity.PERSON.name());
 						// authorization as parent
 						FUNCTIONTREELOGIC.setAuthority(functionTree, athlete_node);
+						// add doctors per athlete
+						FunctionNode doctor_node = new FunctionNode(athlete_node, Constants.Page.ENTITYLIST.getUrl());	
+						doctor_node.setId(athlete.getId());
+						doctor_node.setStatus(FunctionNode.STATUS_ENDNODE);
+						doctor_node.setOpenMultipleInstances(true);
+						doctor_node.setText("Doctors");	
+						doctor_node.setParam(Constants.P_PERSON, athlete.getId());
+						doctor_node.setParam(Constants.P_ENTITY, Constants.Entity.DOCTOR.name());
+						// authorization as parent
+						FUNCTIONTREELOGIC.setAuthority(functionTree, doctor_node);
 						// add attachments per athlete
 						FunctionNode attachment_node = new FunctionNode(athlete_node, Constants.Page.ENTITYLIST.getUrl());	
 						attachment_node.setId(athlete.getId());
