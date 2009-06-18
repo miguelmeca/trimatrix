@@ -21,6 +21,7 @@ public class AttachmentsDAO extends HibernateDaoSupport implements IAttachmentsD
     private static final Log log = LogFactory.getLog(AttachmentsDAO.class);
 
 
+	@Override
 	protected void initDao() {
 		//do nothing
 	}

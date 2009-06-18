@@ -3,7 +3,6 @@ import java.util.Properties;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
-import javax.activation.FileDataSource;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -15,17 +14,12 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import javax.mail.internet.MimePartDataSource;
-
 import trimatrix.utils.Constants;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.pdf.PdfWriter;
 import com.sun.istack.internal.ByteArrayDataSource;
-
-import eu.medsea.mimeutil.MimeType;
-import eu.medsea.mimeutil.MimeUtil;
 
 public class SendMail {
 	private static final String SMTP_HOST_NAME = Constants.MAIL_BUNDLE
@@ -121,6 +115,7 @@ public class SendMail {
 	 */
 	private class SMTPAuthenticator extends javax.mail.Authenticator {
 
+		@Override
 		public PasswordAuthentication getPasswordAuthentication() {
 			String username = SMTP_AUTH_USER;
 			String password = SMTP_AUTH_PWD;

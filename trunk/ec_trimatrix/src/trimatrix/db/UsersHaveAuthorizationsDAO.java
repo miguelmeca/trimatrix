@@ -24,6 +24,7 @@ public class UsersHaveAuthorizationsDAO extends HibernateDaoSupport {
 	private static final Log log = LogFactory
 			.getLog(UsersHaveAuthorizationsDAO.class);
 
+	@Override
 	protected void initDao() {
 		// do nothing
 	}

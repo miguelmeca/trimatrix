@@ -36,8 +36,22 @@ public class PersonAttachmentRelation implements IRelation {
 			Dictionary.logger.warn(ex.toString());
 			return false;
 		}
-		return true;
-			
+		return true;			
+	}
+	
+	public boolean delete(String partner1, String partner2) {
+		boolean result = true;
+		// find relevant entities
+		PersonsHaveAttachments example = new PersonsHaveAttachments();
+		example.setPartner1(partner1);
+		example.setPartner2(partner2);
+		List<PersonsHaveAttachments> relations = personsHaveAttachmentsDAO.findByExample(example);
+		for (PersonsHaveAttachments relation : relations) {
+			if(!delete(relation.getId())) {
+				result = false;
+			}
+		}
+		return result;
 	}
 
 	public PersonsHaveAttachments create() {		

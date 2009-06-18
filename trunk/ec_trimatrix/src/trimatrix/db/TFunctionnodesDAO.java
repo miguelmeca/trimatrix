@@ -23,6 +23,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 public class TFunctionnodesDAO extends HibernateDaoSupport {
 	private static final Log log = LogFactory.getLog(TFunctionnodesDAO.class);
 
+	@Override
 	protected void initDao() {
 		// do nothing
 	}

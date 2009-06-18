@@ -23,38 +23,42 @@ public class EntityListLogic {
 	 * @return metadata of entity
 	 */
 	public List<SGridMetaData> getGridMetaData(Constants.Entity entity) {
-		return serviceLayer.getEntityResolverService().getGridMetaData(entity);
+		return serviceLayer.getResolverService().getGridMetaData(entity);
 	}
 	
 	public List<IEntityData> getData(Constants.Entity entity) {
-		return serviceLayer.getEntityResolverService().getData(entity);
+		return serviceLayer.getResolverService().getData(entity);
 	}	
 	
 	public List<IEntityData> getData(Constants.Entity entity, String personId) {
 		if(personId==null || personId.length() == 0) {
-			return serviceLayer.getEntityResolverService().getData(entity);
+			return serviceLayer.getResolverService().getData(entity);
 		} 
-		return serviceLayer.getEntityResolverService().getData(entity, personId);
+		return serviceLayer.getResolverService().getData(entity, personId);
 	}
 	
 	public boolean delete(Constants.Entity entity, String id) {
-		return serviceLayer.getEntityResolverService().delete(entity, id);
+		return serviceLayer.getResolverService().delete(entity, id);
+	}
+	
+	public boolean delete(Constants.Entity entity, String id, String personId) {
+		return serviceLayer.getResolverService().delete(entity, id, personId);
 	}
 	
 	public IEntityObject create(Constants.Entity entity) {
-		return serviceLayer.getEntityResolverService().create(entity);
+		return serviceLayer.getResolverService().create(entity);
 	}
 	
 	public IEntityObject get(Constants.Entity entity, String id) {
-		return serviceLayer.getEntityResolverService().get(entity, id);
+		return serviceLayer.getResolverService().get(entity, id);
 	}
 	
 	public void save(Constants.Entity entity, IEntityObject entityObject) {
-		serviceLayer.getEntityResolverService().save(entity, entityObject);
+		serviceLayer.getResolverService().save(entity, entityObject);
 	}
 	
 	public void reload(Constants.Entity entity, IEntityObject entityObject) {
-		serviceLayer.getEntityResolverService().reload(entity, entityObject);
+		serviceLayer.getResolverService().reload(entity, entityObject);
 	}
 	
 	public void saveGridState(Constants.Entity entity, SListVariant data) {

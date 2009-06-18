@@ -8,21 +8,23 @@ import org.springframework.context.ApplicationContext;
 import trimatrix.entities.IEntity;
 import trimatrix.entities.IEntityData;
 import trimatrix.entities.IEntityObject;
+import trimatrix.relations.IRelation;
+import trimatrix.relations.IRelationData;
+import trimatrix.relations.IRelationObject;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
 
-public final class EntityResolverService {
+public final class ResolverService {
 	private IEntity userEntity;
 	private IEntity personEntity;
 	private IEntity doctorEntity;
 	private IEntity attachmentEntity;
+	private IRelation personPersonRelation;
+	private IRelation personDoctorRelation;
+	private IRelation personAttachmentRelation;
 
-	/**
-	 * Get metadata for entity
-	 * @param entity entity
-	 * @return metadata
-	 */
+	// Entities	
 	public List<SGridMetaData> getGridMetaData(Constants.Entity entity) {
 		if (entity.getBase()==Constants.Entity.USER) {
 			return userEntity.getGridMetaData();
@@ -74,6 +76,18 @@ public final class EntityResolverService {
 			return doctorEntity.delete(id);
 		} else if (entity.getBase()==Constants.Entity.ATTACHMENT) {
 			return attachmentEntity.delete(id);
+		}
+		Dictionary.logger.warn("DELETE : Entity " + entity.toString() + " not valid!");
+		return false;
+	}
+	
+	public boolean delete(Constants.Entity entity, String id, String personId) {
+		if (entity.getBase()==Constants.Entity.PERSON) {
+			return personPersonRelation.delete(personId, id);
+		} else if (entity.getBase()==Constants.Entity.DOCTOR) {
+			return personDoctorRelation.delete(personId, id);
+		} else if (entity.getBase()==Constants.Entity.ATTACHMENT) {
+			return personAttachmentRelation.delete(personId, id);
 		}
 		Dictionary.logger.warn("DELETE : Entity " + entity.toString() + " not valid!");
 		return false;
@@ -133,6 +147,90 @@ public final class EntityResolverService {
 		Dictionary.logger.warn("RELOAD : Entity " + entity.toString() + " not valid!");
 	}
 	
+	// Relations
+	public List<SGridMetaData> getGridMetaData(Constants.Relation relation) {
+		if (relation.getBase()==Constants.Relation.PERSONPERSON) {
+			return personPersonRelation.getGridMetaData();
+		} else if (relation.getBase()==Constants.Relation.PERSONDOCTOR) {
+			return personDoctorRelation.getGridMetaData();
+		} else if (relation.getBase()==Constants.Relation.PERSONATTACHMENT) {
+			return personAttachmentRelation.getGridMetaData();
+		}
+		Dictionary.logger.warn("GETMETADATA : Relation " + relation.toString() + " not valid!");
+		return new ArrayList<SGridMetaData>();
+	}
+	
+	public List<IRelationData> getData(Constants.Relation relation) {
+		if (relation.getBase()==Constants.Relation.PERSONPERSON) {
+			return personPersonRelation.getData(relation);
+		} else if (relation.getBase()==Constants.Relation.PERSONDOCTOR) {
+			return personDoctorRelation.getData(relation);
+		} else if (relation.getBase()==Constants.Relation.PERSONATTACHMENT) {
+			return personAttachmentRelation.getData(relation);
+		}
+		Dictionary.logger.warn("GETDATA : Relation " + relation.toString() + " not valid!");
+		return new ArrayList<IRelationData>();
+	}
+	
+	public boolean delete(Constants.Relation relation, String id) {
+		if (relation.getBase()==Constants.Relation.PERSONPERSON) {
+			return personPersonRelation.delete(id);
+		} else if (relation.getBase()==Constants.Relation.PERSONDOCTOR) {
+			return personDoctorRelation.delete(id);
+		} else if (relation.getBase()==Constants.Relation.PERSONATTACHMENT) {
+			return personAttachmentRelation.delete(id);
+		}
+		Dictionary.logger.warn("DELETE : Relation " + relation.toString() + " not valid!");
+		return false;
+	}
+	
+	public IRelationObject create(Constants.Relation relation) {
+		if (relation.getBase()==Constants.Relation.PERSONPERSON) {
+			return personPersonRelation.create();
+		} else if (relation.getBase()==Constants.Relation.PERSONDOCTOR) {
+			return personDoctorRelation.create();
+		} else if (relation.getBase()==Constants.Relation.PERSONATTACHMENT) {
+			return personAttachmentRelation.create();
+		}
+		Dictionary.logger.warn("DELETE : Relation " + relation.toString() + " not valid!");
+		return null;
+	}
+	
+	public IRelationObject get(Constants.Relation relation, String id) {
+		if (relation.getBase()==Constants.Relation.PERSONPERSON) {
+			return personPersonRelation.get(id);
+		} else if (relation.getBase()==Constants.Relation.PERSONDOCTOR) {
+			return personDoctorRelation.get(id);
+		} else if (relation.getBase()==Constants.Relation.PERSONATTACHMENT) {
+			return personAttachmentRelation.get(id);
+		}
+		Dictionary.logger.warn("GET : Relation " + relation.toString() + " not valid!");
+		return null;
+	}
+	
+	public void save(Constants.Relation relation, IRelationObject relationObject) {
+		if (relation.getBase()==Constants.Relation.PERSONPERSON) {
+			personPersonRelation.save(relationObject);
+		} else if (relation.getBase()==Constants.Relation.PERSONDOCTOR) {
+			personDoctorRelation.save(relationObject);
+		} else if (relation.getBase()==Constants.Relation.PERSONATTACHMENT) {
+			personAttachmentRelation.save(relationObject);
+		}
+		Dictionary.logger.warn("SAVE : Relation " + relation.toString() + " not valid!");
+	}
+	
+	public void reload(Constants.Relation relation, IRelationObject relationObject) {
+		if (relation.getBase()==Constants.Relation.PERSONPERSON) {
+			personPersonRelation.reload(relationObject);
+		} else if (relation.getBase()==Constants.Relation.PERSONDOCTOR) {
+			personDoctorRelation.reload(relationObject);
+		} else if (relation.getBase()==Constants.Relation.PERSONATTACHMENT) {
+			personAttachmentRelation.reload(relationObject);
+		}
+		Dictionary.logger.warn("RELOAD : Relation " + relation.toString() + " not valid!");
+	}
+	
+	// Setter 	
 	public void setUserEntity(IEntity userEntity) {
 		this.userEntity = userEntity;
 	}
@@ -148,8 +246,20 @@ public final class EntityResolverService {
 	public void setAttachmentEntity(IEntity attachmentEntity) {
 		this.attachmentEntity = attachmentEntity;
 	}
+	
+	public void setPersonPersonRelation(IRelation personPersonRelation) {
+		this.personPersonRelation = personPersonRelation;
+	}
 
-	public static EntityResolverService getFromApplicationContext(ApplicationContext ctx) {
-		return (EntityResolverService) ctx.getBean("entityResolverService");
+	public void setPersonDoctorRelation(IRelation personDoctorRelation) {
+		this.personDoctorRelation = personDoctorRelation;
+	}
+
+	public void setPersonAttachmentRelation(IRelation personAttachmentRelation) {
+		this.personAttachmentRelation = personAttachmentRelation;
+	}
+
+	public static ResolverService getFromApplicationContext(ApplicationContext ctx) {
+		return (ResolverService) ctx.getBean("entityResolverService");
 	}	
 }

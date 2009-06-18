@@ -20,7 +20,6 @@ import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
 import trimatrix.ui.utils.MyBufferedContentForAttachment;
 import trimatrix.utils.Constants;
-import trimatrix.utils.Dictionary;
 import eu.medsea.mimeutil.MimeType;
 
 @SuppressWarnings("serial")

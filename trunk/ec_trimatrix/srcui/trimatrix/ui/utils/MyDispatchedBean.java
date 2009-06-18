@@ -18,6 +18,7 @@ public class MyDispatchedBean extends DefaultDispatchedBean {
 
 	protected MyDispatchedBean m_this = this;
 
+	@Override
 	public Dispatcher getOwningDispatcher() {
 		return (Dispatcher) super.getOwningDispatcher();
 	}

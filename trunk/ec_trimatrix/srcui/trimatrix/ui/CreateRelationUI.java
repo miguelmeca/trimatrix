@@ -77,7 +77,7 @@ public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serial
     }
 
     public void onSelectPartner1(ActionEvent event) {
-    	final Constants.Entity entity = relation.getParnter1();
+    	final Constants.Entity entity = relation.getPartner1();
     	Constants.Page selectionPage = entity.getSelectionPage();    	
     	IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(entity);
        	entitySelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){
@@ -98,7 +98,7 @@ public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serial
     }
     
     public void onSelectPartner2(ActionEvent event) {
-    	final Constants.Entity entity = relation.getParnter2();
+    	final Constants.Entity entity = relation.getPartner2();
     	Constants.Page selectionPage = entity.getSelectionPage();    	
     	IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(entity);
        	entitySelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){

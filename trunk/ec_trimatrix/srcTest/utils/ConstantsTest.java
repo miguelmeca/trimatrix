@@ -21,14 +21,14 @@ public class ConstantsTest {
 		Assert.assertEquals(Constants.Relation.PERSONDOCTOR, Constants.Relation.DOCTOR.getBase());
 		Assert.assertEquals(Constants.Relation.PERSONDOCTOR, Constants.Relation.PERSONDOCTOR.getBase());
 	
-		Assert.assertEquals(Constants.Entity.PERSON, Constants.Relation.PERSONDOCTOR.getParnter1());
-		Assert.assertEquals(Constants.Entity.DOCTOR, Constants.Relation.PERSONDOCTOR.getParnter2());
-		Assert.assertEquals(Constants.Entity.PERSON, Constants.Relation.DOCTOR.getParnter1());
-		Assert.assertEquals(Constants.Entity.DOCTOR, Constants.Relation.DOCTOR.getParnter2());
+		Assert.assertEquals(Constants.Entity.PERSON, Constants.Relation.PERSONDOCTOR.getPartner1());
+		Assert.assertEquals(Constants.Entity.DOCTOR, Constants.Relation.PERSONDOCTOR.getPartner2());
+		Assert.assertEquals(Constants.Entity.PERSON, Constants.Relation.DOCTOR.getPartner1());
+		Assert.assertEquals(Constants.Entity.DOCTOR, Constants.Relation.DOCTOR.getPartner2());
 		
-		Assert.assertEquals(Constants.Entity.PERSON, Constants.Relation.PERSONPERSON.getParnter1());
-		Assert.assertEquals(Constants.Entity.PERSON, Constants.Relation.PERSONPERSON.getParnter2());
-		Assert.assertEquals(Constants.Entity.PERSON, Constants.Relation.COACH.getParnter1());
-		Assert.assertEquals(Constants.Entity.PERSON, Constants.Relation.COACH.getParnter2());
+		Assert.assertEquals(Constants.Entity.PERSON, Constants.Relation.PERSONPERSON.getPartner1());
+		Assert.assertEquals(Constants.Entity.PERSON, Constants.Relation.PERSONPERSON.getPartner2());
+		Assert.assertEquals(Constants.Entity.PERSON, Constants.Relation.COACH.getPartner1());
+		Assert.assertEquals(Constants.Entity.PERSON, Constants.Relation.COACH.getPartner2());
 	}
 }

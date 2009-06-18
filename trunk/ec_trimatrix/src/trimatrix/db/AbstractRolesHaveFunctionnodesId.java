@@ -45,6 +45,7 @@ public abstract class AbstractRolesHaveFunctionnodesId implements
 		this.functionnodeKey = functionnodeKey;
 	}
 
+	@Override
 	public boolean equals(Object other) {
 		if ((this == other))
 			return true;
@@ -65,6 +66,7 @@ public abstract class AbstractRolesHaveFunctionnodesId implements
 								castOther.getFunctionnodeKey())));
 	}
 
+	@Override
 	public int hashCode() {
 		int result = 17;
 

@@ -23,6 +23,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 public class TSexDAO extends HibernateDaoSupport {
 	private static final Log log = LogFactory.getLog(TSexDAO.class);
 
+	@Override
 	protected void initDao() {
 		// do nothing
 	}

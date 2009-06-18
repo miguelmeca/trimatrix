@@ -29,6 +29,7 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 		super(dispatcher);
 	}
 		
+	@Override
 	public Dispatcher getOwningDispatcher() {
 		return (Dispatcher) super.getOwningDispatcher();
 	}

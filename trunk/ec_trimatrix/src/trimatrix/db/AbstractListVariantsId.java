@@ -60,7 +60,8 @@ public abstract class AbstractListVariantsId  implements java.io.Serializable {
 
 
 
-   public boolean equals(Object other) {
+   @Override
+public boolean equals(Object other) {
          if ( (this == other ) ) return true;
 		 if ( (other == null ) ) return false;
 		 if ( !(other instanceof AbstractListVariantsId) ) return false;
@@ -71,7 +72,8 @@ public abstract class AbstractListVariantsId  implements java.io.Serializable {
  && ( (this.getUserId()==castOther.getUserId()) || ( this.getUserId()!=null && castOther.getUserId()!=null && this.getUserId().equals(castOther.getUserId()) ) );
    }
    
-   public int hashCode() {
+   @Override
+public int hashCode() {
          int result = 17;
          
          result = 37 * result + ( getList() == null ? 0 : this.getList().hashCode() );

@@ -23,6 +23,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 public class TSalutationDAO extends HibernateDaoSupport implements ITSalutationDAO {
 	private static final Log log = LogFactory.getLog(TSalutationDAO.class);
 
+	@Override
 	protected void initDao() {
 		// do nothing
 	}
