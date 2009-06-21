@@ -1,15 +1,28 @@
 package trimatrix.utils;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Properties;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+
+import com.lowagie.text.Document;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfWriter;
+import com.sun.istack.internal.ByteArrayDataSource;
+
+import trimatrix.structures.SAttachment;
 
 public class MailSender {
 	private static final String SMTP_HOST_NAME = Constants.MAIL_BUNDLE
@@ -26,7 +39,7 @@ public class MailSender {
 	 * @param message	Message
 	 * @throws MessagingException
 	 */
-	public static void postMail(String recipients[], String subject, String message)
+	public static void postMail(String recipients[], String subject, String message, SAttachment attachments)
 			throws MessagingException {
 		boolean debug = false;
 		// Set the host smtp address
@@ -55,7 +68,29 @@ public class MailSender {
 
 		// Setting the Subject and Content Type
 		msg.setSubject(subject);
-		msg.setContent(message, "text/plain");
+		
+		// create the message part
+		MimeBodyPart messageBodyPart = new MimeBodyPart();
+
+		// fill message
+		messageBodyPart.setText(message);
+
+		Multipart multipart = new MimeMultipart();
+		multipart.addBodyPart(messageBodyPart);
+		
+		// Attachment handling
+		if (attachments!=null) {
+			messageBodyPart = new MimeBodyPart();		
+			DataSource source = new ByteArrayDataSource(attachments.content, attachments.mimeType);
+			messageBodyPart.setDataHandler(new DataHandler(source));
+			messageBodyPart.setFileName(attachments.name);
+			multipart.addBodyPart(messageBodyPart);
+		}
+		
+		// Put parts in message
+		msg.setContent(multipart);
+		
+		// Send mail
 		Transport.send(msg);
 	}
 

@@ -165,6 +165,7 @@ public final class Constants {
 	public static final List<IEntityData> EMPTYENTITYLIST = new ArrayList<IEntityData>();
 	
 	public static final String UNKNOWN_MIME_TYPE="application/x-unknown-mime-type";
+	public static final String PDF_MIME_TYPE="application/pdf";
 
 	public static final String FILESEPARATOR  = "/"; // seems Cpt.Casa also works with Unix style
 	public static final String POINT = ".";

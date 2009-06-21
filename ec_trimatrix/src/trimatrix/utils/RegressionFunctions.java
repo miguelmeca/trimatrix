@@ -19,7 +19,7 @@ public class RegressionFunctions {
 		this.offset = offset;
 		switch (regression) {
 			case EXP_REGRESSION:
-				result = calculateExponentialRegression(xyArr);
+				result = calculateExponentialRegression(xyArr, offset);
 				break;
 			case LIN_REGRESSION:
 				result = calculateLinearRegression(xyArr);
@@ -44,7 +44,7 @@ public class RegressionFunctions {
 		if (result == null)
 			return 0;
 		return roundSignificant(result.approxFunction.execute(result.a,
-				result.b, x)+offset, SP);
+				result.b, x), SP);
 	}
 
 	/**
@@ -164,6 +164,38 @@ public class RegressionFunctions {
 		return abr;
 	}
 
+	// Exponentielle Regression mit Offset
+	// y = a * e^(b * x)
+	// Regression ueber: ln(y) = ln(a) + b * x
+	static RegressionResult calculateExponentialRegression(double[] xyArr, final double offset) {
+		if (xyArr == null || xyArr.length < 2 || xyArr.length % 2 != 0)
+			return null;
+
+		double[] xyArrConv = new double[xyArr.length];
+
+		for (int i = 0; i < xyArr.length; i += 2) {
+			if (xyArr[i + 1] <= 0)
+				return null;
+			xyArrConv[i] = xyArr[i];
+			xyArrConv[i + 1] = Math.log(xyArr[i + 1]);
+		}
+
+		RegressionResult abr = calculateLinearRegression(xyArrConv);
+		if (abr == null)
+			return null;
+		abr.a = Math.exp(abr.a);
+		abr.titel = "Exp";
+		abr.formel = "y = " + offset + " + " + roundSignificant(abr.a, SP) + " * e ^ ("
+				+ roundSignificant(abr.b, SP) + " * x)";
+		abr.approxFunction = new IApproxFunction() {
+			public double execute(double a, double b, double x) {
+				return offset + a * Math.exp(b * x);
+			}
+		};
+
+		return abr;
+	}
+	
 	// Exponentielle Regression
 	// y = a * e^(b * x)
 	// Regression ueber: ln(y) = ln(a) + b * x

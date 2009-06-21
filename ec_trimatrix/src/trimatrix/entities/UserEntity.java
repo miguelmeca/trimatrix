@@ -74,6 +74,7 @@ public final class UserEntity implements IEntity {
 		entity.setDeleted(true);
 		try {
 			entitiesDAO.merge(entity);
+			// no standard handling for deletion of relationtships see docu
 		} catch (Exception ex) {
 			return false;
 		}

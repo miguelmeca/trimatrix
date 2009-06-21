@@ -10,12 +10,14 @@ trimatrix.db.relation class
 trimatrix.db.relationDAO class
 	add generic type to List variables => List<entity>
 	add @SuppressWarnings("unchecked") annotations to methods returning a List<entity>
-	add reload() method
+	add reload() method	
 	extract IRelationDAO interface with all methods selected
-	add RelationDAO to DAOLayer
+	add real IRelationDAO interface and implement the deleteByPartners method
+	add RelationDAO to DAOLayer	
 trimatrix.db.dbContext.xml
 	add RelationDAO to autoProxyCreator bean
 	add RelationDAO to daoLayer bean
+	add RelationDAO to daoLayer bean list (relationDAOs)
 trimatrix.utils.Constants class
 	add relation to Relation enum
 trimatrix.relations

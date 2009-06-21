@@ -1,5 +1,7 @@
 package trimatrix.db;
 
+import java.util.List;
+
 import org.springframework.context.ApplicationContext;
 
 public class DAOLayer {
@@ -11,8 +13,16 @@ public class DAOLayer {
 	private IPersonsHaveDoctorsDAO personsHaveDoctorsDAO;
 	private IPersonsHaveAttachmentsDAO personsHaveAttachmentsDAO;	
 	private ITSalutationDAO tsalutationDAO;
-	private IListVariantsDAO listVariantsDAO;
-		
+	private IListVariantsDAO listVariantsDAO;	
+	private List<IRelationDAO> relationDAOs;		
+	
+	public int deleteRelationsByPartner(String partnerId) {
+		int count = 0;
+		for(IRelationDAO relation : relationDAOs) {
+			count += relation.deleteByPartners(partnerId);
+		}
+		return count;
+	}
 	public IUsersDAO getUsersDAO() {
 		return usersDAO;
 	}
@@ -86,6 +96,14 @@ public class DAOLayer {
 
 	public void setListVariantsDAO(IListVariantsDAO listVariantsDAO) {
 		this.listVariantsDAO = listVariantsDAO;
+	}
+
+	public List<IRelationDAO> getRelationDAOs() {
+		return relationDAOs;
+	}
+
+	public void setRelationDAOs(List<IRelationDAO> relationDAOs) {
+		this.relationDAOs = relationDAOs;
 	}
 
 	public static DAOLayer getFromApplicationContext(ApplicationContext ctx) {

@@ -21,6 +21,7 @@ import trimatrix.exceptions.MandatoryCheckException;
 import trimatrix.ui.utils.MyBufferedContentForAttachment;
 import trimatrix.utils.Constants;
 import eu.medsea.mimeutil.MimeType;
+import eu.medsea.mimeutil.MimeUtil;
 
 @SuppressWarnings("serial")
 @CCGenClass (expressionBase="#{d.AttachmentDetailUI}")
@@ -115,7 +116,7 @@ public class AttachmentDetailUI extends AEntityDetailUI implements Serializable,
 			 entity.setFileSize(size);			 
 			 // Mime type detection
 			 ByteArrayInputStream byteInputStream = new ByteArrayInputStream(bae.getHexBytes());
-			 Collection<?> mimeTypes = eu.medsea.mimeutil.MimeUtil.getMimeTypes(byteInputStream);			
+			 Collection<?> mimeTypes = MimeUtil.getMimeTypes(byteInputStream);			
 			 if(mimeTypes.size()>0) {
 				 entity.setMimeType(((MimeType)mimeTypes.toArray()[0]).toString());
 			 } else {

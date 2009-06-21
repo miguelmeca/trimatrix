@@ -20,7 +20,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @author MyEclipse Persistence Tools
  */
 
-public class PersonsHaveRelationsDAO extends HibernateDaoSupport implements IPersonsHaveRelationsDAO {
+public class PersonsHaveRelationsDAO extends HibernateDaoSupport implements IPersonsHaveRelationsDAO, IRelationDAO {
 	private static final Log log = LogFactory
 			.getLog(PersonsHaveRelationsDAO.class);
 	@Override
@@ -195,6 +195,25 @@ public class PersonsHaveRelationsDAO extends HibernateDaoSupport implements IPer
 	public static IPersonsHaveRelationsDAO getFromApplicationContext(
 			ApplicationContext ctx) {
 		return (IPersonsHaveRelationsDAO) ctx.getBean("PersonsHaveRelationsDAO");
+	}
+	
+	@SuppressWarnings("unchecked")
+	public int deleteByPartners(String partnerId) {
+		int count = 0;
+    	log.debug("finding PersonsHaveRelations instance with partner1 or partner2 : "+ partnerId);
+          try {
+             String queryString = "from PersonsHaveRelations as model where model.partner1 = '" + partnerId + "' or model.partner2 = '" + partnerId + "'";
+             List<PersonsHaveRelations> relations = getHibernateTemplate().find(queryString);
+             // delete instance
+             for (PersonsHaveRelations relation : relations) {
+            	 delete(relation);
+            	 count++;
+             }
+          } catch (RuntimeException re) {
+             log.error("delete by partners failed", re);
+             throw re;
+          }
+          return count;
 	}
 	
 	public void reload(PersonsHaveRelations relation) {

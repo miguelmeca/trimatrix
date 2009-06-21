@@ -1,5 +1,6 @@
 package trimatrix.db;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -7,6 +8,8 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
+import trimatrix.relations.IRelationObject;
 
 /**
  	* A data access object (DAO) providing persistence and search support for PersonsHaveDoctors entities.
@@ -17,7 +20,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
   * @author MyEclipse Persistence Tools 
  */
 
-public class PersonsHaveDoctorsDAO extends HibernateDaoSupport implements IPersonsHaveDoctorsDAO  {
+public class PersonsHaveDoctorsDAO extends HibernateDaoSupport implements IPersonsHaveDoctorsDAO, IRelationDAO  {
     private static final Log log = LogFactory.getLog(PersonsHaveDoctorsDAO.class);
 
 
@@ -174,8 +177,27 @@ public class PersonsHaveDoctorsDAO extends HibernateDaoSupport implements IPerso
 			throw re;
 		}
 	}
+    
+    @SuppressWarnings("unchecked")
+	public int deleteByPartners(String partnerId) {
+		int count = 0;
+    	log.debug("finding PersonsHaveDoctors instance with partner1 or partner2 : "+ partnerId);
+          try {
+             String queryString = "from PersonsHaveDoctors as model where model.person = '" + partnerId + "' or model.doctor = '" + partnerId + "'";
+             List<PersonsHaveDoctors> relations = getHibernateTemplate().find(queryString);
+             // delete instance
+             for (PersonsHaveDoctors relation : relations) {
+            	 delete(relation);
+            	 count++;
+             }
+          } catch (RuntimeException re) {
+             log.error("delete by partners failed", re);
+             throw re;
+          }
+          return count;
+	}
 
 	public static IPersonsHaveDoctorsDAO getFromApplicationContext(ApplicationContext ctx) {
     	return (IPersonsHaveDoctorsDAO) ctx.getBean("PersonsHaveDoctorsDAO");
-	}
+	}	
 }
