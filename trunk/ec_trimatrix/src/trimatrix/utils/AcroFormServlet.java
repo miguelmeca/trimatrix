@@ -2,6 +2,10 @@ package trimatrix.utils;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Enumeration;
 
 import javax.servlet.ServletContext;
@@ -54,7 +58,9 @@ public class AcroFormServlet extends HttpServlet {
 		DAOLayer daoLayer = DAOLayer.getFromApplicationContext(ctx);
 		
 		response.setContentType("text/html");
-	    PrintWriter out = response.getWriter();
+		//response.setContentType("application/pdf");
+		PrintWriter out = response.getWriter();
+
 	    String title = "Reading All Request Parameters";
 	    out.println(ServletUtils.headWithTitle(title) +
 	                "<BODY BGCOLOR=\"#FDF5E6\">\n" +
@@ -65,10 +71,12 @@ public class AcroFormServlet extends HttpServlet {
 	    Enumeration<String> paramNames = request.getParameterNames();
 	    while(paramNames.hasMoreElements()) {
 	      String paramName = paramNames.nextElement();
+	      System.out.println(paramName);
 	      out.println("<TR><TD>" + paramName + "\n<TD>");
 	      String[] paramValues = request.getParameterValues(paramName);
 	      if (paramValues.length == 1) {
 	        String paramValue = paramValues[0];
+	        System.out.println(paramValue);
 	        if (paramValue.length() == 0)
 	          out.print("<I>No Value</I>");
 	        else
@@ -83,6 +91,14 @@ public class AcroFormServlet extends HttpServlet {
 	    }
 	    out.println("</TABLE>\n</BODY></HTML>");
 	    
+	    // special handling
+	    String speed = request.getParameter("speed");
+	    String hr = request.getParameter("hr");
+	    String lactate = request.getParameter("lactate");
+	    insertValues(speed, hr, lactate);
+	    
+	    
+//	    response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	}
 
 	/**
@@ -111,5 +127,44 @@ public class AcroFormServlet extends HttpServlet {
 	public void init() throws ServletException {
 		// Put your code here
 	}
+	
+	private void insertValues(String speed, String heartrate, String lactate) {
+		Connection conn = null;
 
+        try
+        {
+            String userName = "trimatrix";
+            String password = "trimatrix";
+            String url = "jdbc:mysql://localhost/trimatrix";
+            Class.forName ("com.mysql.jdbc.Driver").newInstance ();
+            conn = DriverManager.getConnection (url, userName, password);
+            System.out.println ("Database connection established");   
+            
+            Statement d = conn.createStatement();
+            d.executeUpdate("DELETE FROM test");
+            d.close(); 
+            
+            Statement i = conn.createStatement();
+            String insertStmt = "INSERT INTO test VALUES('" + speed + "','" + heartrate + "','" + lactate + "')";
+            System.out.println(insertStmt);
+            i.executeUpdate(insertStmt);
+            i.close(); 
+        }
+        catch (Exception e)
+        {
+            System.err.println ("Cannot connect to database server " + e.toString());
+        }
+        finally
+        {
+            if (conn != null)
+            {
+                try
+                {
+                    conn.close ();
+                    System.out.println ("Database connection terminated");
+                }
+                catch (Exception e) { /* ignore close errors */ }
+            }
+        }
+    }
 }

@@ -94,6 +94,13 @@
         <property name="listVariantsDAO">
             <ref bean="ListVariantsDAO" />
         </property>        
+        <property name="relationDAOs">
+        	<list>
+        		<ref bean="PersonsHaveRelationsDAO" />
+        		<ref bean="PersonsHaveDoctorsDAO" /> 
+        		<ref bean="PersonsHaveAttachmentsDAO" />   
+        	</list>
+        </property> 
     </bean>
 
 	<bean id="UsersDAO" class="trimatrix.db.UsersDAO">

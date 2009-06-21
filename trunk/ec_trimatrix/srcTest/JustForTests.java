@@ -1,4 +1,5 @@
 import java.io.File;
+import java.text.MessageFormat;
 
 
 public class JustForTests {
@@ -7,9 +8,8 @@ public class JustForTests {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String icon = "./webcontent/images/mimeicons/xls.gif";
-		File iconFile = new File(icon);	
-		System.out.println(iconFile.exists());
+		String s = String.format("Welcome %s at %s", "Real's HowTo", 12);
+		System.out.println(s);
 	}
 
 }

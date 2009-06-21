@@ -1,6 +1,8 @@
 	package trimatrix.ui;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.faces.event.ActionEvent;
@@ -13,6 +15,7 @@ import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoCancelListener;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
+import trimatrix.db.KRoles;
 import trimatrix.db.Persons;
 import trimatrix.db.Users;
 import trimatrix.entities.UserEntity;
@@ -32,6 +35,19 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable, IEnti
    
 	private Users entity;    
     
+	protected boolean isAdmin;
+	public boolean isAdmin() {return isAdmin;}	
+	public void setAdmin(boolean isAdmin) {	this.isAdmin = isAdmin;	}
+
+	protected boolean isCoach;
+	public boolean isCoach() {return isCoach;}
+	public void setCoach(boolean isCoach) {	this.isCoach = isCoach;	}
+
+	protected boolean isAthlete;
+	public boolean isAthlete() {return isAthlete;}	
+	public void setAthlete(boolean isAthlete) {	this.isAthlete = isAthlete;	}
+	
+
 	public UserDetailUI(IWorkpageDispatcher dispatcher) {		
 		super(dispatcher, new String[] {UserEntity.USER_NAME, UserEntity.EMAIL});
 		// get wrapping entity detail UI bean
@@ -50,6 +66,7 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable, IEnti
     
 	public void init() {
 		fillMaps();
+		fillRoles();
     	// set state
 		setState();
         
@@ -62,6 +79,10 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable, IEnti
 		if(!Dictionary.isEmailValid((String)values.get(UserEntity.EMAIL))) {
 			throw new EmailNotValidException((String)values.get(values.get(UserEntity.EMAIL)));
 		}	
+		// check if at least one role selected
+		if(!isAdmin && !isCoach && !isAthlete) {
+			throw new MandatoryCheckException("roles");
+		}		
 		// fill values to entities properties
 		fillEntityProperties();
 	}	
@@ -77,6 +98,8 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable, IEnti
 		entity.setCurrencyKey((String)values.get(UserEntity.CURRENCY));
 		// active
 		entity.setActive((Boolean)values.get(UserEntity.ACTIVE));
+		// set roles
+		setRoles();
 	}
 	
 	/**
@@ -99,6 +122,32 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable, IEnti
 		for(String field : MANDATORY_FIELDS){
 			bgpaint.put(field,Constants.BGP_MANDATORY);
 		}		
+	}
+	
+	/**
+	 * Get roles for specific user
+	 */
+	public void fillRoles() {
+		isAdmin = false;
+		isCoach = false;
+		isAthlete = false;
+		Set<KRoles> roles = entity.getRoles();
+		for (KRoles role : roles) {
+			if(role.getKey().equals(Constants.Role.ADMIN.getName())) isAdmin = true;
+			if(role.getKey().equals(Constants.Role.COACH.getName())) isCoach= true;
+			if(role.getKey().equals(Constants.Role.ATHLETE.getName())) isAthlete = true;
+		}
+	}
+
+	/**
+	 * Set specific roles
+	 */
+	private void setRoles() {
+		Set<KRoles> roles = new HashSet<KRoles>();
+		if (isAdmin) roles.add(new KRoles(Constants.Role.ADMIN.getName()));
+		if (isCoach) roles.add(new KRoles(Constants.Role.COACH.getName()));
+		if (isAthlete) roles.add(new KRoles(Constants.Role.ATHLETE.getName()));
+		entity.setRoles(roles);
 	}
 	
 	/**
@@ -161,7 +210,7 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable, IEnti
 							ENTITYLISTLOGIC.save(Constants.Entity.USER, entity);
 							String receiver = entity.getEmail();
 							String message = "Hello Trimatrix User, \n a new password " + password + " is generated for your user " + entity.getUserName() + ". \n\n regards your Trimatrix Team"; 
-							MailSender.postMail(new String[] {receiver}, "New password generated", message );
+							MailSender.postMail(new String[] {receiver}, "New password generated", message, null);
 							Statusbar.outputSuccess("Password successfully send to " + receiver);
 						} catch (Exception ex) {
 							Statusbar.outputError("Password couldn't be generated/sent!", ex.toString());

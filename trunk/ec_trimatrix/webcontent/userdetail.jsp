@@ -46,6 +46,23 @@
 <t:label id="g_27" height="20" text="#{rr.literals.user_initial}" width="85" x="20" y="210" />
 <t:checkbox id="g_28" align="center" enabled="false" height="20" selected="#{d.UserDetailUI.values.initial}" x="115" y="210" />
 </t:row>
+<t:rowdistance id="g_29" height="25" />
+<t:row id="g_30" >
+<t:foldablepane id="g_31" text="#{rr.literals.roles}" width="100%" >
+<t:row id="g_32" >
+<t:label id="g_33" height="20" text="#{rr.literals.role_admin}" width="85" x="20" y="210" />
+<t:checkbox id="g_34" align="center" enabled="#{d.UserDetailUI.enabled}" height="20" selected="#{d.UserDetailUI.admin}" x="115" y="210" />
+</t:row>
+<t:row id="g_35" >
+<t:label id="g_36" height="20" text="#{rr.literals.role_trainer}" width="85" x="20" y="210" />
+<t:checkbox id="g_37" align="center" enabled="#{d.UserDetailUI.enabled}" height="20" selected="#{d.UserDetailUI.coach}" x="115" y="210" />
+</t:row>
+<t:row id="g_38" >
+<t:label id="g_39" height="20" text="#{rr.literals.role_athlet}" width="85" x="20" y="210" />
+<t:checkbox id="g_40" align="center" enabled="#{d.UserDetailUI.enabled}" height="20" selected="#{d.UserDetailUI.athlete}" x="115" y="210" />
+</t:row>
+</t:foldablepane>
+</t:row>
 </t:rowbodypane>
 <t:pageaddons id="g_pa"/>
 </f:subview>

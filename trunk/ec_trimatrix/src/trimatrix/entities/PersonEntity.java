@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.springframework.orm.hibernate3.HibernateTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
+import trimatrix.db.DAOLayer;
 import trimatrix.db.IPersonsDAO;
 import trimatrix.db.IUsersDAO;
 import trimatrix.db.Persons;
@@ -43,6 +45,7 @@ public final class PersonEntity implements IEntity {
 	private Dictionary dictionaryService;
 	private IPersonsDAO entitiesDAO;
 	private IUsersDAO usersDAO;
+	private DAOLayer daoLayer;
 	private HibernateTransactionManager transactionManager;
 		
 	/* (non-Javadoc)
@@ -113,14 +116,23 @@ public final class PersonEntity implements IEntity {
 				try {
 					Persons entity = entitiesDAO.findById(id);
 					if(entity==null) return false;
-					entity.setDeleted(true);
-					entitiesDAO.merge(entity);					
-					// delete relationships
-					List<Users> users = usersDAO.findByProperty(UserEntity.PERSON, entity);
-					for(Users user : users) {
-						user.setPerson(null);
-						usersDAO.merge(user);
-					}				
+					// check if user admin or creator
+					if (dictionaryService.getMyRoles().contains(Constants.Role.ADMIN.getName())||entity.getCreatedBy().equals(dictionaryService.getMyUser().getId())) {
+						entity.setDeleted(true);
+						entitiesDAO.merge(entity);
+						int deleted = daoLayer.deleteRelationsByPartner(id);
+						// delete one-to-one relationship to user entity
+						List<Users> users = usersDAO.findByProperty(UserEntity.PERSON, entity);
+						for(Users user : users) {
+							user.setPerson(null);
+							usersDAO.merge(user);
+						}	
+						Statusbar.outputSuccess("Successfully deleted entity incl. " + deleted + " relations!");
+					} else {
+						Statusbar.outputAlert("Do delete this object you have to be admin or the creator of this object!");
+						return false;
+					}						
+								
 					// TODO delete PersonPersonRelations
 				} catch (Exception ex) {
 					status.setRollbackOnly();
@@ -289,11 +301,7 @@ public final class PersonEntity implements IEntity {
 	
 	public void setDictionaryService(Dictionary dictionaryService) {
 		this.dictionaryService = dictionaryService;
-	}	
-	
-	public void setTransactionManager(HibernateTransactionManager transactionManager) {
-		this.transactionManager = transactionManager;
-	}
+	}		
 
 	public void setEntitiesDAO(IPersonsDAO entitiesDAO) {
 		this.entitiesDAO = entitiesDAO;
@@ -301,5 +309,13 @@ public final class PersonEntity implements IEntity {
 
 	public void setUsersDAO(IUsersDAO usersDAO) {
 		this.usersDAO = usersDAO;
-	}	
+	}
+	
+	public void setDaoLayer(DAOLayer daoLayer) {
+		this.daoLayer = daoLayer;
+	}
+	
+	public void setTransactionManager(HibernateTransactionManager transactionManager) {
+		this.transactionManager = transactionManager;
+	}
 }

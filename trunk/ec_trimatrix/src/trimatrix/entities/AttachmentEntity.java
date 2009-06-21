@@ -12,6 +12,7 @@ import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import trimatrix.db.Attachments;
+import trimatrix.db.DAOLayer;
 import trimatrix.db.IAttachmentsDAO;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;
@@ -33,6 +34,7 @@ public class AttachmentEntity implements IEntity {
 	private SQLExecutorService sqlExecutorService;
 	private Dictionary dictionaryService;
 	private IAttachmentsDAO entitiesDAO;
+	private DAOLayer daoLayer;
 	private HibernateTransactionManager transactionManager;
 
 	public IEntityObject create() {
@@ -58,11 +60,12 @@ public class AttachmentEntity implements IEntity {
 					if (dictionaryService.getMyRoles().contains(Constants.Role.ADMIN.getName())||entity.getOwner().getId().equals(dictionaryService.getMyPerson().getId())) {
 						entity.setDeleted(true);
 						entitiesDAO.merge(entity);	
+						int deleted = daoLayer.deleteRelationsByPartner(id);
+						Statusbar.outputSuccess(String.format("Successfully deleted entity incl. %s relations!", deleted));
 					} else {
 						Statusbar.outputAlert("Do delete this object you have to be admin or owner of this object!");
 						return false;
 					}
-					// TODO delete relations
 				} catch (Exception ex) {
 					status.setRollbackOnly();
 					return false;
@@ -208,6 +211,10 @@ public class AttachmentEntity implements IEntity {
 
 	public void setEntitiesDAO(IAttachmentsDAO entitiesDAO) {
 		this.entitiesDAO = entitiesDAO;
+	}
+	
+	public void setDaoLayer(DAOLayer daoLayer) {
+		this.daoLayer = daoLayer;
 	}
 
 	public void setTransactionManager(HibernateTransactionManager transactionManager) {

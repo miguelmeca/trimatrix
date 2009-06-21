@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.springframework.orm.hibernate3.HibernateTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
+import trimatrix.db.DAOLayer;
 import trimatrix.db.Doctors;
 import trimatrix.db.IDoctorsDAO;
 import trimatrix.services.SQLExecutorService;
@@ -37,6 +39,7 @@ public class DoctorEntity implements IEntity {
 	private SQLExecutorService sqlExecutorService;
 	private Dictionary dictionaryService;
 	private IDoctorsDAO entitiesDAO;
+	private DAOLayer daoLayer;
 	private HibernateTransactionManager transactionManager;
 
 	public IEntityObject create() {
@@ -57,9 +60,16 @@ public class DoctorEntity implements IEntity {
 				try {
 					Doctors entity = entitiesDAO.findById(id);
 					if(entity==null) return false;
-					entity.setDeleted(true);
-					entitiesDAO.merge(entity);
-					// TODO delete PersonDoctor relation
+					// check if user admin or creator
+					if (dictionaryService.getMyRoles().contains(Constants.Role.ADMIN.getName())||entity.getCreatedBy().equals(dictionaryService.getMyUser().getId())) {
+						entity.setDeleted(true);
+						entitiesDAO.merge(entity);
+						int deleted = daoLayer.deleteRelationsByPartner(id);
+						Statusbar.outputSuccess("Successfully deleted entity incl. " + deleted + " relations!");
+					} else {
+						Statusbar.outputAlert("Do delete this object you have to be admin or the creator of this object!");
+						return false;
+					}					
 				} catch (Exception ex) {
 					status.setRollbackOnly();
 					return false;
@@ -227,6 +237,10 @@ public class DoctorEntity implements IEntity {
 
 	public void setEntitiesDAO(IDoctorsDAO entitiesDAO) {
 		this.entitiesDAO = entitiesDAO;
+	}
+	
+	public void setDaoLayer(DAOLayer daoLayer) {
+		this.daoLayer = daoLayer;
 	}
 
 	public void setTransactionManager(HibernateTransactionManager transactionManager) {

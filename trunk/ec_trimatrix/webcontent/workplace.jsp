@@ -22,7 +22,7 @@
 </t:pane>
 <t:splitpane id="g_8" border="top:0" dividercolor="#FFFFFF00" dividerlocation="#{d.WorkplaceUI.dividerLocation}" dividersize="5" height="100%" orientation="horizontal" width="100%" >
 <t:splitpanesplit id="g_9" padding="1" rowdistance="35" >
-<t:rowdistance id="g_10" />
+<t:rowdistance id="g_10" height="35" />
 <t:row id="g_11" >
 <t:outlookbar id="g_12" height="100%" width="100%" >
 <t:outlookbaritem id="g_13" actionListener="#{d.WorkplaceUI.onSwitchRole}" clientname="admin" rendered="#{d.WorkplaceUI.renderAdmin}" text="#{rr.literals.role_admin}" />
@@ -35,24 +35,29 @@
 </t:outlookbarcontent>
 </t:outlookbar>
 </t:row>
+<t:row id="g_20" >
+<t:pane id="g_21" height="25" width="100%" >
+<t:rowworkplacefunctiontree id="g_22" foreground="#000000" objectbinding="#{d.WPFunctionTreeTest}" />
+</t:pane>
+</t:row>
 </t:splitpanesplit>
-<t:splitpanesplit id="g_20" >
-<t:rowworkpagecontainer id="g_21" animationtype="foglight" objectbinding="#{d.workpageContainer}" />
+<t:splitpanesplit id="g_23" >
+<t:rowworkpagecontainer id="g_24" animationtype="foglight" objectbinding="#{d.workpageContainer}" />
 </t:splitpanesplit>
 </t:splitpane>
 </t:row>
 </t:rowbodypane>
-<t:row id="g_22" >
-<t:pane id="g_23" width="100%" >
-<t:rowworkpageselector id="g_24" objectbinding="#{d.workpageContainer}" />
+<t:row id="g_25" >
+<t:pane id="g_26" width="100%" >
+<t:rowworkpageselector id="g_27" objectbinding="#{d.workpageContainer}" />
 </t:pane>
 </t:row>
 <t:popupmenu id="WORKPLACE" >
-<t:menuitem id="g_25" actionListener="#{d.workpageContainer.onCloseCurrentWorkpage}" hotkey="ctrl-115" text="#{rr.literals.close_current_wp}" />
-<t:menuitem id="g_26" actionListener="#{d.workpageContainer.onCloseAllWorkpages}" hotkey="ctrl-shift-115" text="#{rr.literals.close_all_wps}" />
+<t:menuitem id="g_28" actionListener="#{d.workpageContainer.onCloseCurrentWorkpage}" hotkey="ctrl-115" text="#{rr.literals.close_current_wp}" />
+<t:menuitem id="g_29" actionListener="#{d.workpageContainer.onCloseAllWorkpages}" hotkey="ctrl-shift-115" text="#{rr.literals.close_all_wps}" />
 </t:popupmenu>
-<t:beanprocessing id="g_27" >
-<t:sessioncloser id="g_28" />
+<t:beanprocessing id="g_30" >
+<t:sessioncloser id="g_31" />
 </t:beanprocessing>
 <t:pageaddons id="g_pa"/>
 </f:subview>

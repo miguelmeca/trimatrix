@@ -26,84 +26,76 @@ public class iTextDemo {
 		document.open();
 		
 		PdfPTable table = new PdfPTable(2);
-		table.getDefaultCell().setPadding(5f); // Code 1
+		table.getDefaultCell().setPadding(5f);
 		table.setHorizontalAlignment(Element.ALIGN_LEFT);
+		int[] widths = {180,450};
+		table.setWidths(widths);
 		PdfPCell cell;		
-		
-		// Code 2, add name TextField		
-		table.addCell("Name"); 
-		TextField nameField = new TextField(writer, 
-			new Rectangle(0,0,200,10), "nameField");
-		nameField.setBackgroundColor(Color.WHITE);
-		nameField.setBorderColor(Color.BLACK);
-		nameField.setBorderWidth(1);
-		nameField.setBorderStyle(PdfBorderDictionary.STYLE_SOLID);
-		nameField.setText("");
-		nameField.setAlignment(Element.ALIGN_LEFT);
-		nameField.setOptions(BaseField.REQUIRED);				
+
+		// speed	
+		table.addCell("Geschwindigkeit"); 
+		TextField speedField = new TextField(writer, 
+			new Rectangle(0,0,100,10), "speed");
+		speedField.setBackgroundColor(Color.WHITE);
+		speedField.setBorderColor(Color.BLACK);
+		speedField.setBorderWidth(1);
+		speedField.setBorderStyle(PdfBorderDictionary.STYLE_SOLID);
+		speedField.setText("");
+		speedField.setAlignment(Element.ALIGN_LEFT);
+		speedField.setOptions(BaseField.REQUIRED);				
 		cell = new PdfPCell();
 		cell.setMinimumHeight(10);
-		cell.setCellEvent(new FieldCell(nameField.getTextField(), 
-			200, writer));
+		cell.setCellEvent(new FieldCell(speedField.getTextField(), 300, writer));
 		table.addCell(cell);
-		
-		// force upper case javascript
-		writer.addJavaScript(
-			"var nameField = this.getField('nameField');" +
-			"nameField.setAction('Keystroke'," +
-			"'forceUpperCase()');" +
-			"" +
-			"function forceUpperCase(){" +
-			"if(!event.willCommit)event.change = " +
-			"event.change.toUpperCase();" +
-			"}");
-		
-		
-		// Code 3, add empty row
-		table.addCell("");
-		table.addCell("");
-		
-		
-		// Code 4, add age TextField
-		table.addCell("Age");
-		TextField ageComb = new TextField(writer, new Rectangle(0,
-			 0, 30, 10), "ageField");
-		ageComb.setBorderColor(Color.BLACK);
-		ageComb.setBorderWidth(1);
-		ageComb.setBorderStyle(PdfBorderDictionary.STYLE_SOLID);
-		ageComb.setText("12");
-		ageComb.setAlignment(Element.ALIGN_RIGHT);
-		ageComb.setMaxCharacterLength(2);
-		ageComb.setOptions(BaseField.COMB | 
-			BaseField.DO_NOT_SCROLL);
-		cell = new PdfPCell();
-		cell.setMinimumHeight(10);
-		cell.setCellEvent(new FieldCell(ageComb.getTextField(), 
-			30, writer));
-		table.addCell(cell);
-		
-		// validate age javascript
-		writer.addJavaScript(
-			"var ageField = this.getField('ageField');" +
-			"ageField.setAction('Validate','checkAge()');" +
-			"function checkAge(){" +
-			"if(event.value < 12){" +
-			"app.alert('Warning! Applicant\\'s age can not" +
-			" be younger than 12.');" +
-			"event.value = 12;" +
-			"}}");		
-		
-		
 		
 		// add empty row
 		table.addCell("");
 		table.addCell("");
 		
+		// heart rate
+		table.addCell("Herzfrequenz"); 
+		TextField hrField = new TextField(writer, 
+			new Rectangle(0,0,100,10), "hr");
+		hrField.setBackgroundColor(Color.WHITE);
+		hrField.setBorderColor(Color.BLACK);
+		hrField.setBorderWidth(1);
+		hrField.setBorderStyle(PdfBorderDictionary.STYLE_SOLID);
+		hrField.setText("");
+		hrField.setAlignment(Element.ALIGN_LEFT);
+		hrField.setOptions(BaseField.REQUIRED);				
+		cell = new PdfPCell();
+		cell.setMinimumHeight(10);
+		cell.setCellEvent(new FieldCell(hrField.getTextField(), 300, writer));
+		table.addCell(cell);
 		
-		// Code 5, add age TextField
-		table.addCell("Comment");
+		// add empty row
+		table.addCell("");
+		table.addCell("");
+		
+		// lactate
+		table.addCell("Laktat"); 
+		TextField lacField = new TextField(writer, 
+			new Rectangle(0,0,100,10), "lactate");
+		lacField.setBackgroundColor(Color.WHITE);
+		lacField.setBorderColor(Color.BLACK);
+		lacField.setBorderWidth(1);
+		lacField.setBorderStyle(PdfBorderDictionary.STYLE_SOLID);
+		lacField.setText("");
+		lacField.setAlignment(Element.ALIGN_LEFT);
+		lacField.setOptions(BaseField.REQUIRED);				
+		cell = new PdfPCell();
+		cell.setMinimumHeight(10);
+		cell.setCellEvent(new FieldCell(lacField.getTextField(), 300, writer));
+		table.addCell(cell);
+		
+		// add empty row
+		table.addCell("");
+		table.addCell("");
+		
+		// add commet textfield
+		table.addCell("Kommentar");
 		TextField comment = new TextField(writer, 
-			new Rectangle(0, 0,200,	100), "commentField");
+			new Rectangle(0, 0,100,	100), "comment");
 		comment.setBorderColor(Color.BLACK);
 		comment.setBorderWidth(1);
 		comment.setBorderStyle(PdfBorderDictionary.STYLE_SOLID);
@@ -113,7 +105,7 @@ public class iTextDemo {
 		cell = new PdfPCell();
 		cell.setMinimumHeight(100);
 		cell.setCellEvent(new FieldCell(comment.getTextField(), 
-			200, writer));
+			300, writer));
 		table.addCell(cell);
 		
 		
@@ -132,12 +124,7 @@ public class iTextDemo {
 			"}}");			
 		
 		
-		// add empty row
-		table.addCell("");
-		table.addCell("");
-		
-		
-		// Code 6, add submit button	
+		// submit button	
 		PushbuttonField submitBtn = new PushbuttonField(writer,
 				new Rectangle(0, 0, 35, 15),"submitPOST");
 		submitBtn.setBackgroundColor(Color.GRAY);
@@ -151,15 +138,14 @@ public class iTextDemo {
 		.createSubmitForm(
 		"http://localhost:50000/trimatrix/servlet/AcroForm",
 		null, PdfAction.SUBMIT_HTML_FORMAT));
-		
+		//submitField.setAction(PdfAction.javaScript("app.alert(this.submitForm('http://localhost:50000/trimatrix/servlet/AcroForm'))", writer));
+				
 		cell = new PdfPCell();
 		cell.setMinimumHeight(15);
 		cell.setCellEvent(new FieldCell(submitField, 35, writer));
 		table.addCell(cell);
-		
-		
-		
-		// Code 7, add reset button
+				
+		// reset button
 		PushbuttonField resetBtn = new PushbuttonField(writer,
 				new Rectangle(0, 0, 35, 15), "reset");
 		resetBtn.setBackgroundColor(Color.GRAY);
@@ -198,8 +184,7 @@ public class iTextDemo {
 			PdfContentByte[] canvas){
 			try{
 				// delete cell border
-				PdfContentByte cb = canvas[PdfPTable
-					.LINECANVAS];
+				PdfContentByte cb = canvas[PdfPTable.LINECANVAS];
 				cb.reset();
 				
 				formField.setWidget(
@@ -207,9 +192,7 @@ public class iTextDemo {
 						rect.getBottom(), 
 						rect.getLeft()+width, 
 						rect.getTop()), 
-						PdfAnnotation
-						.HIGHLIGHT_NONE);
-				
+						PdfAnnotation.HIGHLIGHT_NONE);				
 				writer.addAnnotation(formField);
 			}catch(Exception e){
 				System.out.println(e);

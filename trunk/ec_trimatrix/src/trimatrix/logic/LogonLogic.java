@@ -75,6 +75,8 @@ public class LogonLogic {
 	public void changePassword(String password) throws Exception {
 		serviceLayer.getDictionaryService().getMyUser().setUserHash(password);
 		serviceLayer.getDictionaryService().getMyUser().setInitial(false);
+		// set active for at first logon this is set to false by standard
+		serviceLayer.getDictionaryService().getMyUser().setActive(true);
 		daoLayer.getUsersDAO().merge(serviceLayer.getDictionaryService().getMyUser());
 	}
 		
