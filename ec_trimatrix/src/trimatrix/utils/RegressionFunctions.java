@@ -1,5 +1,6 @@
 package trimatrix.utils;
 
+import org.apache.commons.lang.NotImplementedException;
 import org.jfree.data.function.Function2D;
 
 /**
@@ -13,10 +14,8 @@ public class RegressionFunctions {
 	private static final int SP = 4;
 
 	private RegressionResult result;
-	private double offset;
 
 	public RegressionFunctions(int regression, double[] xyArr, double offset) {
-		this.offset = offset;
 		switch (regression) {
 			case EXP_REGRESSION:
 				result = calculateExponentialRegression(xyArr, offset);
@@ -45,6 +44,18 @@ public class RegressionFunctions {
 			return 0;
 		return roundSignificant(result.approxFunction.execute(result.a,
 				result.b, x), SP);
+	}
+	
+	/**
+	 * Inverse calculate function for y value
+	 * @param y
+	 * @return
+	 */
+	public double getX(double y) {
+		if (result == null)
+			return 0;
+		return roundSignificant(result.approxFunction.executeInv(result.a,
+				result.b, y), SP);
 	}
 
 	/**
@@ -97,6 +108,9 @@ public class RegressionFunctions {
 			public double execute(double a, double b, double x) {
 				return a + b * x;
 			}
+			public double executeInv(double a, double b, double y) {
+				return (y-a)/b;
+			}
 		};
 
 		return abr;
@@ -129,6 +143,9 @@ public class RegressionFunctions {
 			public double execute(double a, double b, double x) {
 				return a * Math.pow(x, b);
 			}
+			public double executeInv(double a, double b, double y) {
+				throw new NotImplementedException();
+			}
 		};
 
 		return abr;
@@ -158,6 +175,9 @@ public class RegressionFunctions {
 		abr.approxFunction = new IApproxFunction() {
 			public double execute(double a, double b, double x) {
 				return a + b * Math.log(x);
+			}
+			public double executeInv(double a, double b, double y) {
+				throw new NotImplementedException();
 			}
 		};
 
@@ -191,6 +211,9 @@ public class RegressionFunctions {
 			public double execute(double a, double b, double x) {
 				return offset + a * Math.exp(b * x);
 			}
+			public double executeInv(double a, double b, double y) {
+				return (Math.log(y-offset) - Math.log(a)) / b;
+			}
 		};
 
 		return abr;
@@ -222,9 +245,11 @@ public class RegressionFunctions {
 		abr.approxFunction = new IApproxFunction() {
 			public double execute(double a, double b, double x) {
 				return a * Math.exp(b * x);
+			}	
+			public double executeInv(double a, double b, double y) {
+				return (Math.log(y) - Math.log(a)) / b;
 			}
 		};
-
 		return abr;
 	}
 
@@ -286,6 +311,9 @@ public class RegressionFunctions {
 			public double execute(double a, double b, double x) {
 				return a * (1 - Math.exp(-b * x));
 			}
+			public double executeInv(double a, double b, double y) {
+				throw new NotImplementedException();
+			}
 		};
 
 		return abr;
@@ -332,6 +360,12 @@ public class RegressionFunctions {
 		return xTest;
 	}
 
+	/**
+	 * Function for rounding
+	 * @param d	value
+	 * @param significantPrecision	precision
+	 * @return	rounded value	
+	 */
 	private static double roundSignificant(double d, int significantPrecision) {
 		if (d == 0 || significantPrecision < 1 || significantPrecision > 14)
 			return d;
@@ -343,6 +377,48 @@ public class RegressionFunctions {
 		}
 		return Math.round(d) / mul10;
 	}
+	
+	/**
+	 * Get correlation factor by Pearson
+	 * @param xyArr1	first xy value array 
+	 * @param xyArr2	second xy value array
+	 * @return correlation
+	 */
+	public static Double getPearsonCorrelation(double[] xyArr1,double[] xyArr2){
+		if (xyArr1 == null || xyArr1.length < 2 || xyArr1.length % 2 != 0)
+			return null;
+		if (xyArr2 == null || xyArr2.length < 2 || xyArr2.length % 2 != 0)
+			return null;
+		
+        double sum_sq_x = 0;
+
+        double sum_sq_y = 0;
+        double sum_coproduct = 0;
+
+        double mean_x = xyArr1[0];
+        double mean_y = xyArr2[0];
+
+        for(int i=2;i<xyArr1.length+1;i+=1){
+            double sweep =Double.valueOf(i-1)/i;
+
+            double delta_x = xyArr1[i-1]-mean_x;
+            double delta_y = xyArr2[i-1]-mean_y;
+
+            sum_sq_x += delta_x * delta_x * sweep;
+            sum_sq_y += delta_y * delta_y * sweep;
+
+            sum_coproduct += delta_x * delta_y * sweep;
+
+            mean_x += delta_x / i;
+            mean_y += delta_y / i;
+        }
+        
+        double pop_sd_x = (double) Math.sqrt(sum_sq_x/xyArr1.length);
+        double pop_sd_y = (double) Math.sqrt(sum_sq_y/xyArr1.length);
+
+        double cov_x_y = sum_coproduct / xyArr1.length;
+        return cov_x_y / (pop_sd_x*pop_sd_y);
+    }
 
 	public static class RegressionResult {
 		double a;
@@ -357,6 +433,7 @@ public class RegressionFunctions {
 
 	interface IApproxFunction {
 		double execute(double a, double b, double x);
+		double executeInv(double a, double b, double x);
 	}
 
 	interface IFunctionFromX {

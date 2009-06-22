@@ -65,23 +65,34 @@
 </t:row>
 <t:rowdistance id="g_40" />
 <t:row id="g_41" >
-<t:heximage id="g_42" align="center" border="#808080" height="400" hexdata="#{d.TestUI.diagram}" valign="center" width="600" />
+<t:label id="g_42" text="Korrelationsfaktor" width="150" />
+<t:field id="g_43" border="top:0;bottom:0;left:0;right:0" enabled="false" text="#{d.TestUI.correlation}" width="200" />
 </t:row>
-<t:rowdistance id="g_43" height="15" />
-<t:row id="g_44" >
-<t:label id="g_45" text="Geschwindigkeit" width="150" />
-<t:field id="g_46" text="#{d.TestUI.speed}" width="50" />
+<t:rowdistance id="g_44" />
+<t:row id="g_45" >
+<t:heximage id="g_46" align="center" border="#808080" height="300" hexdata="#{d.TestUI.diagram}" valign="center" width="400" />
 <t:coldistance id="g_47" />
-<t:button id="g_48" actionListener="#{d.TestUI.onCalculate}" text="Berechne Laktat" />
+<t:heximage id="g_48" align="center" border="#808080" height="300" hexdata="#{d.TestUI.diagram2}" valign="center" width="400" />
 </t:row>
-<t:rowdistance id="g_49" />
+<t:rowdistance id="g_49" height="15" />
 <t:row id="g_50" >
-<t:label id="g_51" text="Laktat" width="150" />
-<t:field id="g_52" enabled="false" text="#{d.TestUI.lactat}" width="50" />
+<t:pane id="g_51" >
+<t:row id="g_52" >
+<t:label id="g_53" text="Geschwindigkeit" width="150" />
+<t:field id="g_54" text="#{d.TestUI.speed}" width="50" />
+<t:coldistance id="g_55" />
 </t:row>
-<t:rowdistance id="g_53" height="15" />
-<t:row id="g_54" >
-<t:button id="g_55" actionListener="#{d.TestUI.onRefreshDiagram}" text="Neuladen" />
+<t:rowdistance id="g_56" />
+<t:row id="g_57" >
+<t:label id="g_58" text="Laktat" width="150" />
+<t:field id="g_59" text="#{d.TestUI.lactat}" width="50" />
+</t:row>
+</t:pane>
+<t:button id="g_60" actionListener="#{d.TestUI.onCalculate}" text="Berechne Laktat/Geschwindigkeit" />
+</t:row>
+<t:rowdistance id="g_61" height="15" />
+<t:row id="g_62" >
+<t:button id="g_63" actionListener="#{d.TestUI.onRefreshDiagram}" text="Neuladen" />
 </t:row>
 </t:foldablepane>
 </t:row>
