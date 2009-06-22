@@ -25,19 +25,20 @@
 <t:rowdistance id="g_9" height="10" />
 <t:row id="g_10" >
 <t:icon id="g_11" actionListener="#{d.EntityListUI.gridList.textSearcher.onPrevious}" image="/eclntjsfserver/images/control_playbackwards.png" />
-<t:field id="g_12" actionListener="#{d.EntityListUI.gridList.textSearcher.text}" bgpaint="image(100%-5,50%,/images/icons/magnifier.png,rightmiddle)" width="100" />
+<t:field id="g_12" bgpaint="image(100%-5,50%,/images/icons/magnifier.png,rightmiddle)" text="#{d.EntityListUI.gridList.textSearcher.text}" width="100" />
 <t:icon id="g_13" actionListener="#{d.EntityListUI.gridList.textSearcher.onNext}" image="/eclntjsfserver/images/control_play.png" />
 <t:coldistance id="g_14" width="100%" />
-<t:filedownloadlink id="g_15" actionListener="#{d.EntityListUI.gridList.exporter.exportURLCsvWholeGrid}" filename="grid.csv" opensupported="true" text="CSV" />
-<t:filedownloadlink id="g_16" actionListener="#{d.EntityListUI.gridList.exporter.exportURLXMLWholeGrid}" filename="grid.xml" opensupported="true" text="XML" />
+<t:link id="g_15" actionListener="#{d.EntityListUI.gridList.onOpenGridFunctions}" text="Liste..." />
+<t:filedownloadlink id="g_16" actionListener="#{d.EntityListUI.gridList.exporter.exportURLCsvWholeGrid}" filename="grid.csv" opensupported="true" text="CSV" />
+<t:filedownloadlink id="g_17" actionListener="#{d.EntityListUI.gridList.exporter.exportURLXMLWholeGrid}" filename="grid.xml" opensupported="true" text="XML" />
 </t:row>
-<t:rowdynamiccontent id="g_17" contentbinding="#{d.EntityListUI.dynRow}" />
-<t:rowdistance id="g_18" />
-<t:row id="g_19" >
-<t:button id="g_20" actionListener="#{d.EntityListUI.onRefresh}" text="#{rr.literals.list_refresh}" />
-<t:coldistance id="g_21" width="100%" />
-<t:button id="g_22" actionListener="#{d.EntityListUI.gridList.onEditColumnDetails}" text="#{rr.literals.list_configure}" />
-<t:button id="g_23" actionListener="#{d.EntityListUI.saveGridState}" text="#{rr.literals.save}" />
+<t:rowdynamiccontent id="g_18" contentbinding="#{d.EntityListUI.dynRow}" />
+<t:rowdistance id="g_19" />
+<t:row id="g_20" >
+<t:button id="g_21" actionListener="#{d.EntityListUI.onRefresh}" text="#{rr.literals.list_refresh}" />
+<t:coldistance id="g_22" width="100%" />
+<t:button id="g_23" actionListener="#{d.EntityListUI.gridList.onEditColumnDetails}" text="#{rr.literals.list_configure}" />
+<t:button id="g_24" actionListener="#{d.EntityListUI.saveGridState}" text="#{rr.literals.save}" />
 </t:row>
 <t:pageaddons id="g_pa"/>
 </f:subview>
