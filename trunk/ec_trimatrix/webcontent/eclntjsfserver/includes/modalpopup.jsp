@@ -9,6 +9,9 @@
 <f:view>
 <h:form>
 <f:subview id="eclntjsfserver_includes_modalpopupg_3">
+<t:beanprocessing id="g_2221" >
+<t:clipboardset id="g_2222" value="#{eclntdefscr.clipboard.contentSet}" trigger="#{eclntdefscr.clipboard.contentSetTrigger}"/>
+</t:beanprocessing>
 <t:modalpopup id="g_24" 
               isnew="#{eclntdefscr.modalPopups[0].isnew}"
               ismaximized="#{eclntdefscr.modalPopups[0].ismaximized}"

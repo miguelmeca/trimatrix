@@ -1,7 +1,10 @@
 package utils;
 
+import org.junit.Assert;
 import org.junit.Test;
 
+import trimatrix.exceptions.ArrayNotEvenException;
+import trimatrix.exceptions.OutOfBoundsException;
 import trimatrix.utils.RegressionFunctions;
 import trimatrix.utils.RegressionFunctions.RegressionResult;
 
@@ -32,5 +35,23 @@ public class RegressionTest {
 		double corr = RegressionFunctions.getPearsonCorrelation(xyArr, xyArr2);
 		System.out.println(regression.getX(2.139));
 		System.out.println("Korrelationsfaktor : " + corr);		
+	}
+	
+	@Test
+	public void testMultiLinearFunction() {
+		double[] xyArr = {8,120,10,130,12,150};
+		double y;
+		try {
+			y = RegressionFunctions.getYFromMultiLinearFunction(xyArr, 11);
+			Assert.assertEquals(140.0, y);
+			y = RegressionFunctions.getYFromMultiLinearFunction(xyArr, 8);
+			Assert.assertEquals(120.0, y);
+			y = RegressionFunctions.getYFromMultiLinearFunction(xyArr, 8.5);
+			Assert.assertEquals(122.5, y);
+		} catch (OutOfBoundsException e) {
+			e.printStackTrace();
+		} catch (ArrayNotEvenException e) {
+			e.printStackTrace();
+		}		
 	}
 }

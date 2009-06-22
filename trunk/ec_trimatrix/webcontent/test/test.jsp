@@ -87,12 +87,17 @@
 <t:label id="g_58" text="Laktat" width="150" />
 <t:field id="g_59" text="#{d.TestUI.lactat}" width="50" />
 </t:row>
-</t:pane>
-<t:button id="g_60" actionListener="#{d.TestUI.onCalculate}" text="Berechne Laktat/Geschwindigkeit" />
+<t:rowdistance id="g_60" />
+<t:row id="g_61" >
+<t:label id="g_62" text="Herzfrequenz" width="150" />
+<t:field id="g_63" text="#{d.TestUI.hr}" width="50" />
 </t:row>
-<t:rowdistance id="g_61" height="15" />
-<t:row id="g_62" >
-<t:button id="g_63" actionListener="#{d.TestUI.onRefreshDiagram}" text="Neuladen" />
+</t:pane>
+<t:button id="g_64" actionListener="#{d.TestUI.onCalculate}" text="Berechne Werte" />
+</t:row>
+<t:rowdistance id="g_65" height="15" />
+<t:row id="g_66" >
+<t:button id="g_67" actionListener="#{d.TestUI.onRefreshDiagram}" text="Neuladen" />
 </t:row>
 </t:foldablepane>
 </t:row>

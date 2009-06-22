@@ -11,7 +11,7 @@
 <f:view>
 	<h:form>
 		<f:subview id="eclntjsfserver_popups_griddetailsg_4">
-			<t:rowbodypane id="g_1" padding="0">
+			<t:rowbodypane id="g_1" padding="1">
 
 				<t:row id="g_2">
 

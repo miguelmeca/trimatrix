@@ -28,6 +28,8 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.TextAnchor;
 
+import trimatrix.exceptions.ArrayNotEvenException;
+import trimatrix.exceptions.OutOfBoundsException;
 import trimatrix.structures.SAttachment;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
@@ -56,6 +58,9 @@ import com.lowagie.text.pdf.TextField;
 public class TestUI extends MyWorkpageDispatchedBean implements Serializable
 {
     protected RegressionFunctions regression;
+    
+    double[] xyArr_1 = { 8, 0.09, 10, 0.14, 12, 0.49, 14, 0.95, 16, 1.74, 18, 4.47, 20, 10.21, 22, 13.25 };
+	double[] xyArr_2 = { 8, 120, 10, 131, 12, 144, 14, 157, 16, 171, 18, 179, 20, 190, 22, 193 };
 	
 	protected String m_diagram;
     public String getDiagram() { return m_diagram; }
@@ -121,6 +126,12 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
         	}
         	if(speed==null) return;
         	m_lactat = String.valueOf(regression.getY(speed)); 
+        	try {
+				m_hr = String.valueOf(RegressionFunctions.getYFromMultiLinearFunction(xyArr_2, speed));
+			} catch (Exception ex) {
+				Statusbar.outputError("Error at calculating heart rate", ex.toString());
+        		return;
+			}
         	return;
     	}
     	if(m_lactat!=null && m_lactat.length()>0) {
@@ -132,15 +143,19 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
         		return;
         	}
         	if(lactat==null) return;
-        	m_speed = String.valueOf(regression.getX(lactat)); 
+        	double speed = regression.getX(lactat);
+        	m_speed = String.valueOf(speed); 
+        	try {
+				m_hr = String.valueOf(RegressionFunctions.getYFromMultiLinearFunction(xyArr_2, speed));
+			} catch (Exception ex) {
+				Statusbar.outputError("Error at calculating heart rate", ex.toString());
+        		return;
+			}
         	return;
     	}    	   	
     }
 
-    public void onRefreshDiagram(ActionEvent event) {
-    	double[] xyArr_1 = { 8, 0.09, 10, 0.14, 12, 0.49, 14, 0.95, 16, 1.74, 18, 4.47, 20, 10.21, 22, 13.25 };
-    	double[] xyArr_2 = { 8, 120, 10, 131, 12, 144, 14, 157, 16, 171, 18, 179, 20, 190, 22, 193 };
-    	
+    public void onRefreshDiagram(ActionEvent event) {   	
     	// paint chart 1		
     	double[] xyArr = xyArr_1;
     	XYSeries series1 = new XYSeries("Messpunkte");
