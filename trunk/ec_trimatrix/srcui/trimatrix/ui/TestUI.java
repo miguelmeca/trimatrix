@@ -60,6 +60,10 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
 	protected String m_diagram;
     public String getDiagram() { return m_diagram; }
     public void setDiagram(String value) { m_diagram = value; }
+    
+    protected String m_diagram2;
+    public String getDiagram2() { return m_diagram2; }
+    public void setDiagram2(String value) { m_diagram2 = value; }
 
     protected String m_valuesLactat;
     public String getValuesLactat() { return m_valuesLactat; }
@@ -76,6 +80,10 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
     protected String m_formula;
     public String getFormula() { return m_formula; }
     public void setFormula(String value) { m_formula = value; }
+    
+    protected String m_correlation;
+    public String getCorrelation() { return m_correlation; }
+    public void setCorrelation(String value) { m_correlation = value; }
 
     protected String m_speed;
     public String getSpeed() { return m_speed; }
@@ -103,23 +111,39 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
     
     public void onCalculate(ActionEvent event) {
     	if(regression==null) return;
-    	if(m_speed==null) return;
-    	Double speed = null;
-    	try {
-    		speed = Double.valueOf(m_speed);
-    	} catch (Exception ex) {
-    		Statusbar.outputError("Speed is not valid", ex.toString());
-    		return;
+    	if(m_speed!=null && m_speed.length()>0) {
+    		Double speed = null;
+        	try {
+        		speed = Double.valueOf(m_speed);
+        	} catch (Exception ex) {
+        		Statusbar.outputError("Speed is not valid", ex.toString());
+        		return;
+        	}
+        	if(speed==null) return;
+        	m_lactat = String.valueOf(regression.getY(speed)); 
+        	return;
     	}
-    	if(speed==null) return;
-    	m_lactat = String.valueOf(regression.getY(speed));    	
+    	if(m_lactat!=null && m_lactat.length()>0) {
+    		Double lactat = null;
+        	try {
+        		lactat = Double.valueOf(m_lactat);
+        	} catch (Exception ex) {
+        		Statusbar.outputError("Lactat is not valid", ex.toString());
+        		return;
+        	}
+        	if(lactat==null) return;
+        	m_speed = String.valueOf(regression.getX(lactat)); 
+        	return;
+    	}    	   	
     }
 
     public void onRefreshDiagram(ActionEvent event) {
-    	// paint chart
-		double[] xyArr = { 120, 0.09, 131, 0.14, 144, 0.49, 157, 0.95, 171, 1.74, 179, 4.47, 190, 10.21, 193, 13.25 };
-
-		XYSeries series1 = new XYSeries("Messpunkte");
+    	double[] xyArr_1 = { 8, 0.09, 10, 0.14, 12, 0.49, 14, 0.95, 16, 1.74, 18, 4.47, 20, 10.21, 22, 13.25 };
+    	double[] xyArr_2 = { 8, 120, 10, 131, 12, 144, 14, 157, 16, 171, 18, 179, 20, 190, 22, 193 };
+    	
+    	// paint chart 1		
+    	double[] xyArr = xyArr_1;
+    	XYSeries series1 = new XYSeries("Messpunkte");
 		double offset = 1.55;
 		int i = 0;
 		series1.add(xyArr[i++], xyArr[i++] + offset);
@@ -133,15 +157,25 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
 
 		regression = new RegressionFunctions(RegressionFunctions.EXP_REGRESSION, xyArr, offset);
 		RegressionResult result = regression.getResult();
+		
+		double[] xyArrReg = xyArr.clone();
+		
+		for(i=1;i<xyArrReg.length;i+=2){
+			xyArrReg[i] = regression.getY(xyArrReg[i-1])-offset;
+		}		
+		
+		double corr = RegressionFunctions.getPearsonCorrelation(xyArr, xyArrReg);
+		m_correlation = String.valueOf(corr);
+		
 		m_formula = result.getFormel();
 		XYSeries series2 = DatasetUtilities.sampleFunction2DToSeries(regression
-				.getRegressionFunction2D(), 120, 200, 80, "Laktat");
+				.getRegressionFunction2D(), 8, 22, 140, "Laktat");
 		XYSeriesCollection dataset = new XYSeriesCollection();
 		dataset.addSeries(series1);
 		dataset.addSeries(series2);
 
 		final JFreeChart chart = ChartFactory.createXYLineChart(
-				"Leistungstest", "Herzfrequenz[1/min]", "Laktat[mmol/l]",
+				"Laktat", "Geschwindigkeit[km/h]", "Laktat[mmol/l]",
 				dataset, PlotOrientation.VERTICAL, true, true, false);
 
 		// get a reference to the plot for further customisation...
@@ -166,12 +200,58 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
 		// Convert to png/binary for UI
         try {
         	ByteArrayOutputStream bos = new ByteArrayOutputStream();
-			ChartUtilities.writeChartAsPNG(bos, chart, 600, 400);
+			ChartUtilities.writeChartAsPNG(bos, chart, 400, 300);
 			bos.close();
 			byte[] image = bos.toByteArray();
 	        m_diagram = ValueManager.encodeHexString(image);
 		} catch (Exception ex) {
 			Statusbar.outputError("Error creating Diagram",ex.toString());
+		}
+		
+		// paint chart 2	
+		xyArr = xyArr_2;
+		series1 = new XYSeries("Messpunkte");
+		i = 0;
+		offset = 0;
+		series1.add(xyArr[i++], xyArr[i++] + offset);
+		series1.add(xyArr[i++], xyArr[i++] + offset);
+		series1.add(xyArr[i++], xyArr[i++] + offset);
+		series1.add(xyArr[i++], xyArr[i++] + offset);
+		series1.add(xyArr[i++], xyArr[i++] + offset);
+		series1.add(xyArr[i++], xyArr[i++] + offset);
+		series1.add(xyArr[i++], xyArr[i++] + offset);
+		series1.add(xyArr[i++], xyArr[i++] + offset);
+		dataset.removeAllSeries();
+		dataset.addSeries(series1);
+
+		final JFreeChart chart2 = ChartFactory.createXYLineChart(
+				"Herzfrequenz", "Geschwindigkeit[km/h]", "Herzfrequenz[1/min]",
+				dataset, PlotOrientation.VERTICAL, true, true, false);
+
+		// get a reference to the plot for further customisation...
+		final XYPlot plot2 = chart2.getXYPlot();
+		plot2.setBackgroundPaint(Color.lightGray);
+		plot2.setDomainGridlinePaint(Color.white);
+		plot2.setRangeGridlinePaint(Color.white);
+
+		final XYLineAndShapeRenderer renderer2 = new XYLineAndShapeRenderer(true, true);
+		plot2.setRenderer(renderer2);
+
+		// add some annotations...
+		annotation = new XYTextAnnotation("Pulswerte", 190, 20);
+		annotation.setFont(font);
+		annotation.setTextAnchor(TextAnchor.HALF_ASCENT_LEFT);
+		plot2.addAnnotation(annotation);
+	
+		// Convert to png/binary for UI
+        try {
+        	ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			ChartUtilities.writeChartAsPNG(bos, chart2, 400, 300);
+			bos.close();
+			byte[] image = bos.toByteArray();
+	        m_diagram2 = ValueManager.encodeHexString(image);
+		} catch (Exception ex) {
+			Statusbar.outputError("Error creating Diagram2",ex.toString());
 		}
     }
 
