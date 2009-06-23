@@ -59,10 +59,19 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
 {
     protected RegressionFunctions regression;
     
-    double[] xyArr_1 = { 8, 0.09, 10, 0.14, 12, 0.49, 14, 0.95, 16, 1.74, 18, 4.47, 20, 10.21, 22, 13.25 };
-	double[] xyArr_2 = { 8, 120, 10, 131, 12, 144, 14, 157, 16, 171, 18, 179, 20, 190, 22, 193 };
+    //double[] xyArr_1 = { 8, 0.09, 10, 0.14, 12, 0.49, 14, 0.95, 16, 1.74, 18, 4.47, 20, 10.21, 22, 13.25 };
+    
+    double[] xyArr_org_1 = { 8, 1.64, 10, 1.69, 12, 2.04, 14, 2.5, 16, 3.29, 18, 6.02, 20, 11.76, 22, 14.80 };	
+    double[] xyArr_org_2 = { 8, 120, 10, 131, 12, 144, 14, 157, 16, 171, 18, 179, 20, 190, 22, 193 };
+    
+    double[] xyArr_1 = null;	
+    double[] xyArr_2 = null;
 	
-	protected String m_diagram;
+    protected String m_offset = "0.0";
+    public String getOffset() { return m_offset; }
+    public void setOffset(String value) { m_offset = value; }
+    
+    protected String m_diagram;
     public String getDiagram() { return m_diagram; }
     public void setDiagram(String value) { m_diagram = value; }
     
@@ -154,28 +163,86 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
         	return;
     	}    	   	
     }
+    
+    public void onRefreshDiagram2(ActionEvent event) {  
+    	if(m_valuesSpeed==null || m_valuesSpeed.length()==0) {
+    		Statusbar.outputError("Speed values missing");
+    		return;
+    	}
+    	if(m_valuesLactat==null || m_valuesLactat.length()==0) {
+    		Statusbar.outputError("Lactate values missing");
+    		return;
+    	}
+    	
+    	if(m_valuesHr==null || m_valuesHr.length()==0) {
+    		Statusbar.outputError("Heartrate values missing");
+    		return;
+    	}    	
+    	
+    	String[] arrSpeed = m_valuesSpeed.split(" ");
+    	String[] arrLactat = m_valuesLactat.split(" ");
+    	String[] arrHr = m_valuesHr.split(" ");
+    	
+    	if(!(arrSpeed.length==arrLactat.length && arrSpeed.length==arrHr.length)) {
+    		Statusbar.outputError("Different count of values");
+    		return;
+    	}
+    	
+    	int len = arrSpeed.length;
+    	xyArr_1 = new double[len*2];
+    	xyArr_2 = new double[len*2];
+    	
+    	try {
+    		for(int i=0;i<len;i++){
+        		int index = i * 2;
+        		xyArr_1[index] = Double.valueOf(arrSpeed[i]);
+        		xyArr_1[index+1] = Double.valueOf(arrLactat[i]);
+        		xyArr_2[index] = Double.valueOf(arrSpeed[i]);
+        		xyArr_2[index+1] = Double.valueOf(arrHr[i]);
+        		
+        	}
+    	} catch (Exception ex) {
+    		Statusbar.outputError("Error converting values", ex.toString());
+    		return;
+    	}    		
+    	paintDiagram();
+    }
 
     public void onRefreshDiagram(ActionEvent event) {   	
-    	// paint chart 1		
-    	double[] xyArr = xyArr_1;
+    	xyArr_1 = xyArr_org_1;
+    	xyArr_2 = xyArr_org_2;
+    	paintDiagram();
+    }
+    
+	private void paintDiagram() {
+		// paint chart 1	
+    	double offset;
+    	try {
+    		offset = Double.valueOf(m_offset);
+    	} catch (Exception ex) {
+    		Statusbar.outputError("Offset is not valid", ex.toString());
+    		return;
+    	}
+    	
+    	double[] xyArr = new double[xyArr_1.length];
+    	for(int i=1;i<xyArr_1.length;i+=2){
+			xyArr[i-1] = xyArr_1[i-1];
+			xyArr[i] = xyArr_1[i]-offset;
+		}	    	
+    	
+    	int arrLen = xyArr_1.length;	   	
+
     	XYSeries series1 = new XYSeries("Messpunkte");
-		double offset = 1.55;
-		int i = 0;
-		series1.add(xyArr[i++], xyArr[i++] + offset);
-		series1.add(xyArr[i++], xyArr[i++] + offset);
-		series1.add(xyArr[i++], xyArr[i++] + offset);
-		series1.add(xyArr[i++], xyArr[i++] + offset);
-		series1.add(xyArr[i++], xyArr[i++] + offset);
-		series1.add(xyArr[i++], xyArr[i++] + offset);
-		series1.add(xyArr[i++], xyArr[i++] + offset);
-		series1.add(xyArr[i++], xyArr[i++] + offset);
+		for(int i=1;i<xyArr_1.length;i+=2){
+			series1.add(xyArr[i-1], xyArr[i] + offset);
+		}
 
 		regression = new RegressionFunctions(RegressionFunctions.EXP_REGRESSION, xyArr, offset);
 		RegressionResult result = regression.getResult();
 		
 		double[] xyArrReg = xyArr.clone();
 		
-		for(i=1;i<xyArrReg.length;i+=2){
+		for(int i=1;i<xyArrReg.length;i+=2){
 			xyArrReg[i] = regression.getY(xyArrReg[i-1])-offset;
 		}		
 		
@@ -226,16 +293,9 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
 		// paint chart 2	
 		xyArr = xyArr_2;
 		series1 = new XYSeries("Messpunkte");
-		i = 0;
-		offset = 0;
-		series1.add(xyArr[i++], xyArr[i++] + offset);
-		series1.add(xyArr[i++], xyArr[i++] + offset);
-		series1.add(xyArr[i++], xyArr[i++] + offset);
-		series1.add(xyArr[i++], xyArr[i++] + offset);
-		series1.add(xyArr[i++], xyArr[i++] + offset);
-		series1.add(xyArr[i++], xyArr[i++] + offset);
-		series1.add(xyArr[i++], xyArr[i++] + offset);
-		series1.add(xyArr[i++], xyArr[i++] + offset);
+		for(int i=1;i<xyArr_1.length;i+=2){
+			series1.add(xyArr[i-1], xyArr[i]);
+		}
 		dataset.removeAllSeries();
 		dataset.addSeries(series1);
 
@@ -268,7 +328,7 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
 		} catch (Exception ex) {
 			Statusbar.outputError("Error creating Diagram2",ex.toString());
 		}
-    }
+	}
 
     public void onRefreshProtocol(ActionEvent event) {
     	Connection conn = null;

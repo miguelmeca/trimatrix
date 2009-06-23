@@ -97,7 +97,12 @@
 </t:row>
 <t:rowdistance id="g_65" height="15" />
 <t:row id="g_66" >
-<t:button id="g_67" actionListener="#{d.TestUI.onRefreshDiagram}" text="Neuladen" />
+<t:label id="g_67" text="Offset für Berechnung" width="150" />
+<t:field id="g_68" regex="[0123456789.]+" regexmode="1" text="#{d.TestUI.offset}" width="50" />
+<t:coldistance id="g_69" />
+<t:button id="g_70" actionListener="#{d.TestUI.onRefreshDiagram2}" text="Neuladen" />
+<t:coldistance id="g_71" />
+<t:button id="g_72" actionListener="#{d.TestUI.onRefreshDiagram}" text="Neuladen Fixwerte" />
 </t:row>
 </t:foldablepane>
 </t:row>
