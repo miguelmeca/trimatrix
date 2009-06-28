@@ -15,94 +15,94 @@
 <t:row id="g_2" >
 <t:label id="g_3" align="center" font="size:20;weight:bold" text="Test" width="100%" />
 </t:row>
-<t:rowdistance id="g_4" height="15" />
-<t:row id="g_5" >
-<t:foldablepane id="g_6" opened="true" text="Definition" width="100%" >
-<t:row id="g_7" >
-<t:label id="g_8" text="Name des Athleten" width="150" />
-<t:field id="g_9" text="#{d.TestUI.name}" width="200" />
+<t:row id="g_4" >
+<t:button id="g_5" bgpaint="roundedrectangle(0,0,100%,100%,10,10,#FF0000);rectangle(10,0,100%,100%,#FF0000)" stylevariant="WP_ISOLATEDWORKPAGE" text="Trimatrix Session" />
+<t:coldistance id="g_6" width="1" />
+<t:button id="g_7" bgpaint="rectangle(0,0,100%-10,100%,#FF0000);roundedrectangle(0,0,100%,100%,10,10,#FF0000)" font="weight:bold" stylevariant="WP_ISOLATEDWORKPAGE" text="X" />
 </t:row>
-<t:rowdistance id="g_10" />
+<t:rowdistance id="g_8" height="15" />
+<t:row id="g_9" >
+<t:foldablepane id="g_10" opened="true" text="Definition" width="100%" >
 <t:row id="g_11" >
-<t:label id="g_12" text="Email Empfänger (Doktor)" width="150" />
-<t:field id="g_13" text="#{d.TestUI.email}" width="200" />
-<t:coldistance id="g_14" />
+<t:label id="g_12" text="Name des Athleten" width="150" />
+<t:field id="g_13" text="#{d.TestUI.name}" width="200" />
 </t:row>
-<t:rowdistance id="g_15" height="15" />
-<t:row id="g_16" >
-<t:button id="g_17" actionListener="#{d.TestUI.onSend}" text="Test senden" />
+<t:rowdistance id="g_14" />
+<t:row id="g_15" >
+<t:label id="g_16" text="Email Empfänger (Doktor)" width="150" />
+<t:field id="g_17" text="#{d.TestUI.email}" width="200" />
+<t:coldistance id="g_18" />
+</t:row>
+<t:rowdistance id="g_19" height="15" />
+<t:row id="g_20" >
+<t:button id="g_21" actionListener="#{d.TestUI.onSend}" text="Test senden" />
 </t:row>
 </t:foldablepane>
 </t:row>
-<t:rowdistance id="g_18" />
-<t:row id="g_19" >
-<t:foldablepane id="g_20" text="Testprotokoll" width="100%" >
-<t:row id="g_21" >
-<t:label id="g_22" text="Geschwindigkeit" width="150" />
-<t:field id="g_23" text="#{d.TestUI.valuesSpeed}" width="400" />
+<t:rowdistance id="g_22" />
+<t:row id="g_23" >
+<t:foldablepane id="g_24" text="Testprotokoll" width="100%" >
+<t:row id="g_25" >
+<t:label id="g_26" text="Geschwindigkeit" width="150" />
+<t:field id="g_27" text="#{d.TestUI.valuesSpeed}" width="400" />
 </t:row>
-<t:row id="g_24" >
-<t:label id="g_25" text="Herzfrequenz" width="150" />
-<t:field id="g_26" text="#{d.TestUI.valuesHr}" width="400" />
-</t:row>
-<t:rowdistance id="g_27" />
 <t:row id="g_28" >
-<t:label id="g_29" text="Laktat" width="150" />
-<t:field id="g_30" text="#{d.TestUI.valuesLactat}" width="400" />
+<t:label id="g_29" text="Herzfrequenz" width="150" />
+<t:field id="g_30" text="#{d.TestUI.valuesHr}" width="400" />
 </t:row>
-<t:rowdistance id="g_31" height="15" />
+<t:rowdistance id="g_31" />
 <t:row id="g_32" >
-<t:button id="g_33" actionListener="#{d.TestUI.onRefreshProtocol}" text="Neuladen" />
+<t:label id="g_33" text="Laktat" width="150" />
+<t:field id="g_34" text="#{d.TestUI.valuesLactat}" width="400" />
+</t:row>
+<t:rowdistance id="g_35" height="15" />
+<t:row id="g_36" >
+<t:button id="g_37" actionListener="#{d.TestUI.onRefreshProtocol}" text="Neuladen" />
 </t:row>
 </t:foldablepane>
 </t:row>
-<t:rowdistance id="g_34" />
-<t:row id="g_35" >
-<t:foldablepane id="g_36" text="Diagramm" width="100%" >
-<t:row id="g_37" >
-<t:label id="g_38" text="Formel" width="150" />
-<t:field id="g_39" border="top:0;bottom:0;left:0;right:0" enabled="false" text="#{d.TestUI.formula}" width="200" />
-</t:row>
-<t:rowdistance id="g_40" />
+<t:rowdistance id="g_38" />
+<t:row id="g_39" >
+<t:foldablepane id="g_40" text="Diagramm" width="100%" >
 <t:row id="g_41" >
-<t:label id="g_42" text="Korrelationsfaktor" width="150" />
-<t:field id="g_43" border="top:0;bottom:0;left:0;right:0" enabled="false" text="#{d.TestUI.correlation}" width="200" />
+<t:label id="g_42" text="Formel" width="150" />
+<t:field id="g_43" border="top:0;bottom:0;left:0;right:0" enabled="false" text="#{d.TestUI.formula}" width="200" />
 </t:row>
 <t:rowdistance id="g_44" />
 <t:row id="g_45" >
-<t:heximage id="g_46" align="center" border="#808080" height="300" hexdata="#{d.TestUI.diagram}" valign="center" width="400" />
-<t:coldistance id="g_47" />
-<t:heximage id="g_48" align="center" border="#808080" height="300" hexdata="#{d.TestUI.diagram2}" valign="center" width="400" />
+<t:label id="g_46" text="Korrelationsfaktor" width="150" />
+<t:field id="g_47" border="top:0;bottom:0;left:0;right:0" enabled="false" text="#{d.TestUI.correlation}" width="200" />
 </t:row>
-<t:rowdistance id="g_49" height="15" />
-<t:row id="g_50" >
-<t:pane id="g_51" >
-<t:row id="g_52" >
-<t:label id="g_53" text="Geschwindigkeit" width="150" />
-<t:field id="g_54" text="#{d.TestUI.speed}" width="50" />
-<t:coldistance id="g_55" />
+<t:rowdistance id="g_48" />
+<t:row id="g_49" >
+<t:heximage id="g_50" align="center" border="#808080" height="300" hexdata="#{d.TestUI.diagram}" valign="center" width="400" />
+<t:coldistance id="g_51" />
+<t:heximage id="g_52" align="center" border="#808080" height="300" hexdata="#{d.TestUI.diagram2}" valign="center" width="400" />
 </t:row>
-<t:rowdistance id="g_56" />
-<t:row id="g_57" >
-<t:label id="g_58" text="Laktat" width="150" />
-<t:field id="g_59" text="#{d.TestUI.lactat}" width="50" />
+<t:rowdistance id="g_53" height="15" />
+<t:row id="g_54" >
+<t:pane id="g_55" >
+<t:row id="g_56" >
+<t:label id="g_57" text="Geschwindigkeit" width="150" />
+<t:field id="g_58" text="#{d.TestUI.speed}" width="50" />
+<t:coldistance id="g_59" />
 </t:row>
 <t:rowdistance id="g_60" />
 <t:row id="g_61" >
-<t:label id="g_62" text="Herzfrequenz" width="150" />
-<t:field id="g_63" text="#{d.TestUI.hr}" width="50" />
+<t:label id="g_62" text="Laktat" width="150" />
+<t:field id="g_63" text="#{d.TestUI.lactat}" width="50" />
+</t:row>
+<t:rowdistance id="g_64" />
+<t:row id="g_65" >
+<t:label id="g_66" text="Herzfrequenz" width="150" />
+<t:field id="g_67" text="#{d.TestUI.hr}" width="50" />
 </t:row>
 </t:pane>
-<t:button id="g_64" actionListener="#{d.TestUI.onCalculate}" text="Berechne Werte" />
+<t:button id="g_68" actionListener="#{d.TestUI.onCalculate}" text="Berechne Werte" />
 </t:row>
-<t:rowdistance id="g_65" height="15" />
-<t:row id="g_66" >
-<t:label id="g_67" text="Offset für Berechnung" width="150" />
-<t:field id="g_68" regex="[0123456789.]+" regexmode="1" text="#{d.TestUI.offset}" width="50" />
-<t:coldistance id="g_69" />
-<t:button id="g_70" actionListener="#{d.TestUI.onRefreshDiagram2}" text="Neuladen" />
-<t:coldistance id="g_71" />
-<t:button id="g_72" actionListener="#{d.TestUI.onRefreshDiagram}" text="Neuladen Fixwerte" />
+<t:rowdistance id="g_69" height="15" />
+<t:row id="g_70" >
+<t:button id="g_71" actionListener="#{d.TestUI.onRefreshDiagram}" text="Neuladen" />
 </t:row>
 </t:foldablepane>
 </t:row>
