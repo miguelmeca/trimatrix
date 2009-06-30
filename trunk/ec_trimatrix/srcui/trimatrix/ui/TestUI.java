@@ -8,12 +8,17 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Vector;
 
 import javax.faces.event.ActionEvent;
 import javax.mail.MessagingException;
 
 import org.eclnt.editor.annotations.CCGenClass;
+import org.eclnt.jsfserver.defaultscreens.ModelessPopup;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
+import org.eclnt.jsfserver.elements.impl.BUTTONComponent;
+import org.eclnt.jsfserver.elements.impl.ROWDYNAMICCONTENTBinding;
+import org.eclnt.jsfserver.elements.util.DefaultModelessPopupListener;
 import org.eclnt.util.valuemgmt.ValueManager;
 import org.eclnt.workplace.IWorkpageDispatcher;
 import org.jfree.chart.ChartFactory;
@@ -57,6 +62,40 @@ import com.lowagie.text.pdf.TextField;
 
 public class TestUI extends MyWorkpageDispatchedBean implements Serializable
 {
+    public void onLabelDelete(ActionEvent event) {
+    	BUTTONComponent button =(BUTTONComponent)event.getSource();
+    	String description = button.getAttributeValueAsString("clientname");
+    	Label _label = null;
+    	for (Label label:labels) {
+    		if(label.description.equals(description)) {
+    			_label = label;
+    			break;
+    		}
+    	}
+    	if (_label!=null) {
+    		labels.remove(_label);
+    	}
+    	setLabelRowDynamic();    	
+    }
+
+    protected Vector<Label> labels = new Vector<Label>();
+	
+	protected ROWDYNAMICCONTENTBinding m_labelRow = new ROWDYNAMICCONTENTBinding();
+    public ROWDYNAMICCONTENTBinding getLabelRow() { return m_labelRow; }
+    public void setLabelRow(ROWDYNAMICCONTENTBinding value) { m_labelRow = value; }
+
+    private void setLabelRowDynamic() {
+		StringBuffer xml = new StringBuffer();
+		for(Label label:labels) {
+			xml.append("<t:button bgpaint='roundedrectangle(0,0,100%,100%,10,10," + label.color + ");rectangle(10,0,100%,100%," + label.color + ")' stylevariant='WP_ISOLATEDWORKPAGE' text='"+ label.description  +"' />");
+			xml.append("<t:coldistance width='1' />");
+			xml.append("<t:button actionListener='#{d.TestUI.onLabelDelete}' clientname='" + label.description + "' bgpaint='rectangle(0,0,100%-10,100%," + label.color + ");roundedrectangle(0,0,100%,100%,10,10," + label.color + ")' font='weight:bold' stylevariant='WP_ISOLATEDWORKPAGE' text='X' />");
+			xml.append("<t:coldistance />");
+		}
+		xml.append("<t:button actionListener='#{d.TestUI.onLabelSearch}' contentareafilled='false' image='/images/icons/magnifier.png' text='Label' />");
+		m_labelRow.setContentXml(xml.toString());
+	}
+    
     protected RegressionFunctions regression;
     
     //double[] xyArr_1 = { 8, 0.09, 10, 0.14, 12, 0.49, 14, 0.95, 16, 1.74, 18, 4.47, 20, 10.21, 22, 13.25 };
@@ -121,6 +160,9 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
 
     public TestUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
+		labels.add(new Label("#FF0000", "Test"));
+		labels.add(new Label("#FFFF00", "Test 2"));
+		setLabelRowDynamic();
     }
     
     public void onCalculate(ActionEvent event) {
@@ -540,6 +582,25 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
 		Statusbar.outputSuccess("Email successfully sended");
     }
     
+    public void onLabelSearch(ActionEvent event) {
+    	LabelPopUpUI labelPopUpUI = getLabelPopUpUI();
+    	labelPopUpUI.setEntity(Constants.Entity.ATTACHMENT);
+    	labelPopUpUI.setEntityID("123456");
+    	labelPopUpUI.prepareCallback(new LabelPopUpUI.IApplyingCallback(){
+			public void apply(Label label) {
+				labels.add(label);
+				//m_popup.close();
+				//setLabelRowDynamic();				
+				// Refresh
+			}
+		});		
+		//m_popup = getWorkpage().createModalPopupInWorkpageContext();    
+    	ModelessPopup m_popup = getOwningDispatcher().createModelessPopup();    	
+    	m_popup.open(Constants.Page.LABELPOPUP.getUrl(), "Label", 250, 300, new DefaultModelessPopupListener(m_popup)); 
+    	m_popup.setUndecorated(true);
+    	m_popup.setCloseonclickoutside(true);
+    }
+    
 class FieldCell implements PdfPCellEvent{
 		
 		PdfFormField formField;
@@ -575,4 +636,15 @@ class FieldCell implements PdfPCellEvent{
 			}
 		}
 	}
+
+public static class Label{
+	public String color;
+	public String description;
+	
+	public Label(String color, String description) {
+		super();
+		this.color = color;
+		this.description = description;
+	}	
+}
 }

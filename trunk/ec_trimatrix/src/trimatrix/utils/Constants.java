@@ -23,7 +23,8 @@ public final class Constants {
 		DOCTORSELECTION("/doctorselection.jsp", "Ärztesuche"),
 		ATTACHMENTSELECTION("/attachmentselection.jsp", "Anhangssuche"),
 		RELATIONLIST("/relationlist.jsp", "Beziehungen"),
-		CREATERELATION("/createrelation.jsp", "Beziehungsanlage");
+		CREATERELATION("/createrelation.jsp", "Beziehungsanlage"),
+		LABELPOPUP("/labelpopup.jsp", "Labels");
 		private final String url;
 		private final String description;
 		Page(String url, String description) {

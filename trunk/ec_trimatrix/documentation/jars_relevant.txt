@@ -29,6 +29,7 @@ hibernate-validator.jar
 hibernate3.jar
 iText-2.1.6.jar
 jaas.jar
+jama.jar (Java Maths)
 javassist.jar
 jaxen-1.1-beta-7.jar
 jcommon-1.0.16.jar (for jfreechart)

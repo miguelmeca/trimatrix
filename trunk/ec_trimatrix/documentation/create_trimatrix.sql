@@ -75,6 +75,21 @@ CREATE TABLE `doctors` (
 
 insert  into `doctors`(`id`,`name`,`street`,`housenumber`,`postcode`,`city`,`state`,`country_key`,`email`,`homepage`,`telephone`,`mobile`,`fax`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('c94e3cff-495d-11de-921e-1178275b5596','Medizinalrat Dr. Helmut Schwitzer','Kirchweg','2','6391','Fieberbrunn','Tirol','at','office@drschwitzer.at','http://www.drschwitzer.at','05354 / 56535',NULL,'05354 / 56535 - 75','1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-05-27 23:05:17','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('d0782a5c-495d-11de-921e-1178275b5596','Dr. Michael Plattner','Dorf','39','6373','Jochberg','Tirol','at','michael.plattner@gmail.com',NULL,'05355 / 20071',NULL,NULL,'1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-05-27 23:05:40','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
 
+/*Table structure for table `entities_have_labels` */
+
+DROP TABLE IF EXISTS `entities_have_labels`;
+
+CREATE TABLE `entities_have_labels` (
+  `id` int(11) NOT NULL,
+  `entity` varchar(36) NOT NULL,
+  `label` varchar(36) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_entities_have_labels_uk` (`entity`,`label`),
+  KEY `fk_entities_have_labels_labels` (`label`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+/*Data for the table `entities_have_labels` */
+
 /*Table structure for table `k_authorizations` */
 
 DROP TABLE IF EXISTS `k_authorizations`;
@@ -214,6 +229,21 @@ CREATE TABLE `k_sex` (
 /*Data for the table `k_sex` */
 
 insert  into `k_sex`(`key`) values ('m'),('w');
+
+/*Table structure for table `labels` */
+
+DROP TABLE IF EXISTS `labels`;
+
+CREATE TABLE `labels` (
+  `id` varchar(36) NOT NULL,
+  `person_id` varchar(36) NOT NULL,
+  `description` varchar(45) DEFAULT NULL,
+  `color` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_labels_persons` (`person_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+/*Data for the table `labels` */
 
 /*Table structure for table `list_variants` */
 
@@ -545,7 +575,7 @@ CREATE TABLE `test` (
 
 /*Data for the table `test` */
 
-insert  into `test`(`speed`,`heartrate`,`lactate`) values ('10 12 14','120 125 130','1.55 1.68 2.02');
+insert  into `test`(`speed`,`heartrate`,`lactate`) values ('1 2','2 3','4 5');
 
 /*Table structure for table `users` */
 
@@ -608,6 +638,47 @@ CREATE TABLE `users_have_roles` (
 /*Data for the table `users_have_roles` */
 
 insert  into `users_have_roles`(`user_id`,`role_key`) values ('e96bcbd2-676d-102c-ace2-9cc3fca64c87','admin'),('e96bcbd2-676d-102c-ace2-9cc3fca64c87','athlete'),('e96bcbd2-676d-102c-ace2-9cc3fca64c87','coach'),('e96bcbd2-676d-102c-ace2-9cc3fca64c88','coach'),('e96bcbd2-676d-102c-ace2-9cc3fca64c89','athlete');
+
+/*Table structure for table `entities` */
+
+DROP TABLE IF EXISTS `entities`;
+
+/*!50001 DROP VIEW IF EXISTS `entities` */;
+/*!50001 DROP TABLE IF EXISTS `entities` */;
+
+/*!50001 CREATE TABLE `entities` (
+  `id` varchar(36) NOT NULL DEFAULT '',
+  `entity` varchar(11) NOT NULL DEFAULT '',
+  `deleted` tinyint(4) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 */;
+
+/*Table structure for table `relations` */
+
+DROP TABLE IF EXISTS `relations`;
+
+/*!50001 DROP VIEW IF EXISTS `relations` */;
+/*!50001 DROP TABLE IF EXISTS `relations` */;
+
+/*!50001 CREATE TABLE `relations` (
+  `id` varchar(36) NOT NULL DEFAULT '',
+  `partner1` varchar(36) DEFAULT NULL,
+  `partner2` varchar(36) DEFAULT NULL,
+  `reltyp_key` varchar(10) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 */;
+
+/*View structure for view entities */
+
+/*!50001 DROP TABLE IF EXISTS `entities` */;
+/*!50001 DROP VIEW IF EXISTS `entities` */;
+
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `entities` AS select `users`.`id` AS `id`,'Users' AS `entity`,`users`.`deleted` AS `deleted` from `users` union select `persons`.`id` AS `id`,'Persons' AS `entity`,`persons`.`deleted` AS `deleted` from `persons` union select `attachments`.`id` AS `id`,'Attachments' AS `entity`,`attachments`.`deleted` AS `deleted` from `attachments` union select `doctors`.`id` AS `id`,'Doctors' AS `entity`,`doctors`.`deleted` AS `deleted` from `doctors` */;
+
+/*View structure for view relations */
+
+/*!50001 DROP TABLE IF EXISTS `relations` */;
+/*!50001 DROP VIEW IF EXISTS `relations` */;
+
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `relations` AS select `persons_have_attachments`.`id` AS `id`,`persons_have_attachments`.`person` AS `partner1`,`persons_have_attachments`.`attachment` AS `partner2`,`persons_have_attachments`.`reltyp_key` AS `reltyp_key` from `persons_have_attachments` union select `persons_have_doctors`.`id` AS `id`,`persons_have_doctors`.`person` AS `partner1`,`persons_have_doctors`.`doctor` AS `partner2`,`persons_have_doctors`.`reltyp_key` AS `reltyp_key` from `persons_have_doctors` union select `persons_have_relations`.`id` AS `id`,`persons_have_relations`.`partner1` AS `partner1`,`persons_have_relations`.`partner2` AS `partner2`,`persons_have_relations`.`reltyp_key` AS `reltyp_key` from `persons_have_relations` */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
