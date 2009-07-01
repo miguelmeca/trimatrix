@@ -6,7 +6,13 @@ import java.util.Set;
 /**
  * KRoles entity. @author MyEclipse Persistence Tools
  */
-public class KRoles extends AbstractKRoles implements java.io.Serializable {
+
+public class KRoles implements java.io.Serializable {
+
+	// Fields
+
+	private String key;
+	private Set<RolesHaveFunctionnodes> functionnodes = new HashSet<RolesHaveFunctionnodes>();
 
 	// Constructors
 
@@ -16,10 +22,18 @@ public class KRoles extends AbstractKRoles implements java.io.Serializable {
 
 	/** full constructor */
 	public KRoles(String key) {
-		super(key);
+		this.key = key;
 	}
-	
-	private Set<RolesHaveFunctionnodes> functionnodes = new HashSet<RolesHaveFunctionnodes>();
+
+	// Property accessors
+
+	public String getKey() {
+		return this.key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
 
 	public Set<RolesHaveFunctionnodes> getFunctionnodes() {
 		return functionnodes;
@@ -28,5 +42,4 @@ public class KRoles extends AbstractKRoles implements java.io.Serializable {
 	public void setFunctionnodes(Set<RolesHaveFunctionnodes> functionnodes) {
 		this.functionnodes = functionnodes;
 	}
-
 }

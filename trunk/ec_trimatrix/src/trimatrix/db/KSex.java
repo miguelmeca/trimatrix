@@ -3,7 +3,12 @@ package trimatrix.db;
 /**
  * KSex entity. @author MyEclipse Persistence Tools
  */
-public class KSex extends AbstractKSex implements java.io.Serializable {
+
+public class KSex implements java.io.Serializable {
+
+	// Fields
+
+	private String key;
 
 	// Constructors
 
@@ -13,7 +18,17 @@ public class KSex extends AbstractKSex implements java.io.Serializable {
 
 	/** full constructor */
 	public KSex(String key) {
-		super(key);
+		this.key = key;
+	}
+
+	// Property accessors
+
+	public String getKey() {
+		return this.key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
 	}
 
 }

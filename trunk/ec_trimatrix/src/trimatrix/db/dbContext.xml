@@ -198,11 +198,6 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="TTitleDAO" class="trimatrix.db.TTitleDAO">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean>
 	<bean id="UsersHaveAuthorizationsDAO"
 		class="trimatrix.db.UsersHaveAuthorizationsDAO">
 		<property name="sessionFactory">
@@ -244,6 +239,23 @@
 		</property>
 	</bean>
 	<bean id="ListVariantsDAO" class="trimatrix.db.ListVariantsDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="EntitiesHaveLabelsDAO"
+		class="trimatrix.db.EntitiesHaveLabelsDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="LabelsDAO" class="trimatrix.db.LabelsDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="KFunctionnodesDAO"
+		class="trimatrix.db.KFunctionnodesDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>

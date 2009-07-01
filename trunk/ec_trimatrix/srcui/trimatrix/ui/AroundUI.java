@@ -12,7 +12,7 @@ import trimatrix.ui.utils.MyDispatchedBean;
 
 public class AroundUI extends MyDispatchedBean implements Serializable
 {
-	
+    
 	public AroundUI(IDispatcher dispatcher)
     {
         super(dispatcher);

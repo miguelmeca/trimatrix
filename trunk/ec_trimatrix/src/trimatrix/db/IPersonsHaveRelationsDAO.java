@@ -16,11 +16,9 @@ public interface IPersonsHaveRelationsDAO {
 
 	public abstract PersonsHaveRelations findById(java.lang.String id);
 
-	@SuppressWarnings("unchecked")
 	public abstract List<PersonsHaveRelations> findByExample(
 			PersonsHaveRelations instance);
 
-	@SuppressWarnings("unchecked")
 	public abstract List<PersonsHaveRelations> findByProperty(
 			String propertyName, Object value);
 
@@ -32,7 +30,6 @@ public interface IPersonsHaveRelationsDAO {
 
 	public abstract List<PersonsHaveRelations> findByDefault_(Object default_);
 
-	@SuppressWarnings("unchecked")
 	public abstract List<PersonsHaveRelations> findAll();
 
 	public abstract PersonsHaveRelations merge(

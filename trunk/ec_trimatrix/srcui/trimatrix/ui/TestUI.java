@@ -78,6 +78,10 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
     	setLabelRowDynamic();    	
     }
 
+    public void onRefresh(ActionEvent event) {
+    	setLabelRowDynamic();
+    }
+    
     protected Vector<Label> labels = new Vector<Label>();
 	
 	protected ROWDYNAMICCONTENTBinding m_labelRow = new ROWDYNAMICCONTENTBinding();
@@ -583,22 +587,21 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
     }
     
     public void onLabelSearch(ActionEvent event) {
+    	final ModelessPopup popup = getOwningDispatcher().createModelessPopup();  
     	LabelPopUpUI labelPopUpUI = getLabelPopUpUI();
     	labelPopUpUI.setEntity(Constants.Entity.ATTACHMENT);
     	labelPopUpUI.setEntityID("123456");
     	labelPopUpUI.prepareCallback(new LabelPopUpUI.IApplyingCallback(){
 			public void apply(Label label) {
-				labels.add(label);
-				//m_popup.close();
-				//setLabelRowDynamic();				
-				// Refresh
+				labels.add(label);				
+				setLabelRowDynamic();
+				popup.close();
 			}
 		});		
 		//m_popup = getWorkpage().createModalPopupInWorkpageContext();    
-    	ModelessPopup m_popup = getOwningDispatcher().createModelessPopup();    	
-    	m_popup.open(Constants.Page.LABELPOPUP.getUrl(), "Label", 250, 300, new DefaultModelessPopupListener(m_popup)); 
-    	m_popup.setUndecorated(true);
-    	m_popup.setCloseonclickoutside(true);
+    	popup.open(Constants.Page.LABELPOPUP.getUrl(), "Label", 250, 300, new DefaultModelessPopupListener(popup)); 
+    	popup.setUndecorated(true);
+    	popup.setCloseonclickoutside(true);
     }
     
 class FieldCell implements PdfPCellEvent{
