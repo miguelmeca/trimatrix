@@ -28,14 +28,11 @@ public interface IDoctorsDAO {
 
 	public abstract Doctors findById(java.lang.String id);
 
-	@SuppressWarnings("unchecked")
 	public abstract List<Doctors> findByExample(Doctors instance);
 
-	@SuppressWarnings("unchecked")
 	public abstract List<Doctors> findByProperty(String propertyName,
 			Object value);
 
-	@SuppressWarnings("unchecked")
 	public abstract List<Doctors> findAll();
 
 	public abstract Doctors merge(Doctors detachedInstance);

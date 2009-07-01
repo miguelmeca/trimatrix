@@ -38,7 +38,6 @@
 		<mapping resource="trimatrix/db/TFunctionnodes.hbm.xml" />
 		<mapping resource="trimatrix/db/UsersHaveRoles.hbm.xml" />
 		<mapping resource="trimatrix/db/KAuthorizations.hbm.xml" />
-		<mapping resource="trimatrix/db/TTitle.hbm.xml" />
 		<mapping
 			resource="trimatrix/db/UsersHaveAuthorizations.hbm.xml" />
 		<mapping resource="trimatrix/db/RolesHaveFunctionnodes.hbm.xml" />
@@ -49,6 +48,9 @@
 		<mapping resource="trimatrix/db/Attachments.hbm.xml" />
 		<mapping resource="trimatrix/db/PersonsHaveAttachments.hbm.xml" />
 		<mapping resource="trimatrix/db/ListVariants.hbm.xml" />
+		<mapping resource="trimatrix/db/EntitiesHaveLabels.hbm.xml" />
+		<mapping resource="trimatrix/db/Labels.hbm.xml" />
+		<mapping resource="trimatrix/db/KFunctionnodes.hbm.xml" />
 	</session-factory>
 
 </hibernate-configuration>

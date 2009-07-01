@@ -16,11 +16,9 @@ public interface IPersonsHaveAttachmentsDAO {
 
 	public abstract PersonsHaveAttachments findById(java.lang.String id);
 
-	@SuppressWarnings("unchecked")
 	public abstract List<PersonsHaveAttachments> findByExample(
 			PersonsHaveAttachments instance);
 
-	@SuppressWarnings("unchecked")
 	public abstract List<PersonsHaveAttachments> findByProperty(
 			String propertyName, Object value);
 
@@ -34,7 +32,6 @@ public interface IPersonsHaveAttachmentsDAO {
 
 	public abstract List<PersonsHaveAttachments> findByStandard(Object standard);
 
-	@SuppressWarnings("unchecked")
 	public abstract List<PersonsHaveAttachments> findAll();
 
 	public abstract PersonsHaveAttachments merge(

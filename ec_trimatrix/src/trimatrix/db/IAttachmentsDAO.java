@@ -10,14 +10,11 @@ public interface IAttachmentsDAO {
 
 	public abstract Attachments findById(java.lang.String id);
 
-	@SuppressWarnings("unchecked")
 	public abstract List<Attachments> findByExample(Attachments instance);
 
-	@SuppressWarnings("unchecked")
 	public abstract List<Attachments> findByProperty(String propertyName,
 			Object value);
 
-	@SuppressWarnings("unchecked")
 	public abstract List<Attachments> findAll();
 
 	public abstract Attachments merge(Attachments detachedInstance);

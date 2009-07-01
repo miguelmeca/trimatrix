@@ -3,7 +3,14 @@ package trimatrix.db;
 /**
  * TRoles entity. @author MyEclipse Persistence Tools
  */
-public class TRoles extends AbstractTRoles implements java.io.Serializable {
+
+public class TRoles implements java.io.Serializable {
+
+	// Fields
+
+	private TRolesId id;
+	private String description;
+	private String descriptionLong;
 
 	// Constructors
 
@@ -13,12 +20,40 @@ public class TRoles extends AbstractTRoles implements java.io.Serializable {
 
 	/** minimal constructor */
 	public TRoles(TRolesId id) {
-		super(id);
+		this.id = id;
 	}
 
 	/** full constructor */
 	public TRoles(TRolesId id, String description, String descriptionLong) {
-		super(id, description, descriptionLong);
+		this.id = id;
+		this.description = description;
+		this.descriptionLong = descriptionLong;
+	}
+
+	// Property accessors
+
+	public TRolesId getId() {
+		return this.id;
+	}
+
+	public void setId(TRolesId id) {
+		this.id = id;
+	}
+
+	public String getDescription() {
+		return this.description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getDescriptionLong() {
+		return this.descriptionLong;
+	}
+
+	public void setDescriptionLong(String descriptionLong) {
+		this.descriptionLong = descriptionLong;
 	}
 
 }

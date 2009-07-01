@@ -3,8 +3,12 @@ package trimatrix.db;
 /**
  * KSalutation entity. @author MyEclipse Persistence Tools
  */
-public class KSalutation extends AbstractKSalutation implements
-		java.io.Serializable {
+
+public class KSalutation implements java.io.Serializable {
+
+	// Fields
+
+	private String key;
 
 	// Constructors
 
@@ -14,7 +18,17 @@ public class KSalutation extends AbstractKSalutation implements
 
 	/** full constructor */
 	public KSalutation(String key) {
-		super(key);
+		this.key = key;
+	}
+
+	// Property accessors
+
+	public String getKey() {
+		return this.key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
 	}
 
 }

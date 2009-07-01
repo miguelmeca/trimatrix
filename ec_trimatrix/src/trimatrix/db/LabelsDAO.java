@@ -1,7 +1,6 @@
 package trimatrix.db;
 
 import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
@@ -10,26 +9,29 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
  * A data access object (DAO) providing persistence and search support for
- * TTitle entities. Transaction control of the save(), update() and delete()
+ * Labels entities. Transaction control of the save(), update() and delete()
  * operations can directly support Spring container-managed transactions or they
  * can be augmented to handle user-managed Spring transactions. Each of these
  * methods provides additional information for how to configure it for the
  * desired type of transaction control.
  * 
- * @see trimatrix.db.TTitle
+ * @see trimatrix.db.Labels
  * @author MyEclipse Persistence Tools
  */
 
-public class TTitleDAO extends HibernateDaoSupport {
-	private static final Log log = LogFactory.getLog(TTitleDAO.class);
+public class LabelsDAO extends HibernateDaoSupport {
+	private static final Log log = LogFactory.getLog(LabelsDAO.class);
+	// property constants
+	public static final String PERSON_ID = "personId";
+	public static final String DESCRIPTION = "description";
+	public static final String COLOR = "color";
 
-	@Override
 	protected void initDao() {
 		// do nothing
 	}
 
-	public void save(TTitle transientInstance) {
-		log.debug("saving TTitle instance");
+	public void save(Labels transientInstance) {
+		log.debug("saving Labels instance");
 		try {
 			getHibernateTemplate().save(transientInstance);
 			log.debug("save successful");
@@ -39,8 +41,8 @@ public class TTitleDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public void delete(TTitle persistentInstance) {
-		log.debug("deleting TTitle instance");
+	public void delete(Labels persistentInstance) {
+		log.debug("deleting Labels instance");
 		try {
 			getHibernateTemplate().delete(persistentInstance);
 			log.debug("delete successful");
@@ -50,11 +52,11 @@ public class TTitleDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public TTitle findById(java.lang.String id) {
-		log.debug("getting TTitle instance with id: " + id);
+	public Labels findById(java.lang.String id) {
+		log.debug("getting Labels instance with id: " + id);
 		try {
-			TTitle instance = (TTitle) getHibernateTemplate().get(
-					"trimatrix.db.TTitle", id);
+			Labels instance = (Labels) getHibernateTemplate().get(
+					"trimatrix.db.Labels", id);
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);
@@ -62,8 +64,8 @@ public class TTitleDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public List findByExample(TTitle instance) {
-		log.debug("finding TTitle instance by example");
+	public List findByExample(Labels instance) {
+		log.debug("finding Labels instance by example");
 		try {
 			List results = getHibernateTemplate().findByExample(instance);
 			log.debug("find by example successful, result size: "
@@ -76,10 +78,10 @@ public class TTitleDAO extends HibernateDaoSupport {
 	}
 
 	public List findByProperty(String propertyName, Object value) {
-		log.debug("finding TTitle instance with property: " + propertyName
+		log.debug("finding Labels instance with property: " + propertyName
 				+ ", value: " + value);
 		try {
-			String queryString = "from TTitle as model where model."
+			String queryString = "from Labels as model where model."
 					+ propertyName + "= ?";
 			return getHibernateTemplate().find(queryString, value);
 		} catch (RuntimeException re) {
@@ -88,10 +90,22 @@ public class TTitleDAO extends HibernateDaoSupport {
 		}
 	}
 
+	public List findByPersonId(Object personId) {
+		return findByProperty(PERSON_ID, personId);
+	}
+
+	public List findByDescription(Object description) {
+		return findByProperty(DESCRIPTION, description);
+	}
+
+	public List findByColor(Object color) {
+		return findByProperty(COLOR, color);
+	}
+
 	public List findAll() {
-		log.debug("finding all TTitle instances");
+		log.debug("finding all Labels instances");
 		try {
-			String queryString = "from TTitle";
+			String queryString = "from Labels";
 			return getHibernateTemplate().find(queryString);
 		} catch (RuntimeException re) {
 			log.error("find all failed", re);
@@ -99,10 +113,10 @@ public class TTitleDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public TTitle merge(TTitle detachedInstance) {
-		log.debug("merging TTitle instance");
+	public Labels merge(Labels detachedInstance) {
+		log.debug("merging Labels instance");
 		try {
-			TTitle result = (TTitle) getHibernateTemplate().merge(
+			Labels result = (Labels) getHibernateTemplate().merge(
 					detachedInstance);
 			log.debug("merge successful");
 			return result;
@@ -112,8 +126,8 @@ public class TTitleDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public void attachDirty(TTitle instance) {
-		log.debug("attaching dirty TTitle instance");
+	public void attachDirty(Labels instance) {
+		log.debug("attaching dirty Labels instance");
 		try {
 			getHibernateTemplate().saveOrUpdate(instance);
 			log.debug("attach successful");
@@ -123,8 +137,8 @@ public class TTitleDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public void attachClean(TTitle instance) {
-		log.debug("attaching clean TTitle instance");
+	public void attachClean(Labels instance) {
+		log.debug("attaching clean Labels instance");
 		try {
 			getHibernateTemplate().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
@@ -134,7 +148,7 @@ public class TTitleDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public static TTitleDAO getFromApplicationContext(ApplicationContext ctx) {
-		return (TTitleDAO) ctx.getBean("TTitleDAO");
+	public static LabelsDAO getFromApplicationContext(ApplicationContext ctx) {
+		return (LabelsDAO) ctx.getBean("LabelsDAO");
 	}
 }

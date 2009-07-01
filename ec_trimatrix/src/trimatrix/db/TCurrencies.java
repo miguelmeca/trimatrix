@@ -3,8 +3,14 @@ package trimatrix.db;
 /**
  * TCurrencies entity. @author MyEclipse Persistence Tools
  */
-public class TCurrencies extends AbstractTCurrencies implements
-		java.io.Serializable {
+
+public class TCurrencies implements java.io.Serializable {
+
+	// Fields
+
+	private TCurrenciesId id;
+	private String description;
+	private String descriptionLong;
 
 	// Constructors
 
@@ -14,13 +20,41 @@ public class TCurrencies extends AbstractTCurrencies implements
 
 	/** minimal constructor */
 	public TCurrencies(TCurrenciesId id) {
-		super(id);
+		this.id = id;
 	}
 
 	/** full constructor */
 	public TCurrencies(TCurrenciesId id, String description,
 			String descriptionLong) {
-		super(id, description, descriptionLong);
+		this.id = id;
+		this.description = description;
+		this.descriptionLong = descriptionLong;
+	}
+
+	// Property accessors
+
+	public TCurrenciesId getId() {
+		return this.id;
+	}
+
+	public void setId(TCurrenciesId id) {
+		this.id = id;
+	}
+
+	public String getDescription() {
+		return this.description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getDescriptionLong() {
+		return this.descriptionLong;
+	}
+
+	public void setDescriptionLong(String descriptionLong) {
+		this.descriptionLong = descriptionLong;
 	}
 
 }

@@ -28,6 +28,8 @@
 <t:rowdistance id="g_11" />
 <t:row id="g_12" >
 <t:button id="g_13" actionListener="#{d.LabelPopUpUI.onApply}" hotkey="10" text="Apply" />
+<t:coldistance id="g_14" />
+<t:button id="g_15" actionListener="#{d.LabelPopUpUI.onCreate}" rendered="#{d.LabelPopUpUI.renderCreate}" text="#{d.LabelPopUpUI.txtCreate}" />
 </t:row>
 </t:pane>
 </t:row>

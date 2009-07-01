@@ -10,15 +10,12 @@ public interface IPersonsHaveDoctorsDAO {
 
 	public abstract PersonsHaveDoctors findById(java.lang.String id);
 
-	@SuppressWarnings("unchecked")
 	public abstract List<PersonsHaveDoctors> findByExample(
 			PersonsHaveDoctors instance);
 
-	@SuppressWarnings("unchecked")
 	public abstract List<PersonsHaveDoctors> findByProperty(
 			String propertyName, Object value);
 
-	@SuppressWarnings("unchecked")
 	public abstract List<PersonsHaveDoctors> findAll();
 
 	public abstract PersonsHaveDoctors merge(PersonsHaveDoctors detachedInstance);
