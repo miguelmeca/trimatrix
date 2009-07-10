@@ -2,12 +2,10 @@ package trimatrix.ui;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Random;
 
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
-import org.eclnt.jsfserver.defaultscreens.ModelessPopup;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.elements.events.BaseActionEventFlush;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
@@ -16,7 +14,6 @@ import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.db.Labels;
 import trimatrix.logic.LabelLogic;
-import trimatrix.ui.TestUI.Label;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
 
@@ -28,8 +25,7 @@ public class LabelPopUpUI extends MyWorkpageDispatchedBean implements Serializab
 	protected List<Labels> allLabels;
 	
 	public LabelPopUpUI(IWorkpageDispatcher dispatcher) {
-		super(dispatcher);
-		initialize();
+		super(dispatcher);		
 	}
 
 	private Constants.Entity entity;
@@ -56,13 +52,17 @@ public class LabelPopUpUI extends MyWorkpageDispatchedBean implements Serializab
     public String getTxtCreate() { return m_txtCreate; }
     public void setTxtCreate(String value) { m_txtCreate = value; }  
 
-    private void initialize() {
+    public void initialize() {  
+    	// reset search text
+    	m_searchText = Constants.EMPTY;
+    	// don't show create button
+    	m_renderCreate = false;
     	// get all labels
-    	allLabels = LABELLOGIC.getAllLabels();
-    	// build grid
-    	m_grid.getItems().clear();
+    	allLabels = LABELLOGIC.getAllLabels();    
+    	// build grid for first display
+    	m_grid.getItems().clear();    			
     	for(Labels label:allLabels) {
-    		GridItem item = new GridItem(label.getDescription());
+    		GridItem item = new GridItem(label);
             m_grid.getItems().add(item);
     	}
     }
@@ -70,31 +70,36 @@ public class LabelPopUpUI extends MyWorkpageDispatchedBean implements Serializab
     public class GridItem extends FIXGRIDItem implements java.io.Serializable
     {
     	private boolean select;
-    	private String text;
+    	private Labels label;
     	
-    	public GridItem(String text) {
+    	public GridItem(Labels label) {
     		super();
     		this.select = false;
-			this.text = text;
+    		this.label = label;
     	}
     	
-		public GridItem(boolean select, String text) {
+		public GridItem(boolean select, Labels label) {
 			super();
 			this.select = select;
-			this.text = text;
+			this.label = label;
 		}
 		public boolean isSelect() {
-			ModelessPopup popup;
 			return select;
 		}
 		public void setSelect(boolean select) {
 			this.select = select;
 		}
-		public String getText() {
-			return text;
+		
+		public String getDescription() {
+			return label.getDescription();
 		}
-		public void setText(String text) {
-			this.text = text;
+		
+		public String getColor() {
+			return label.getColor();
+		}
+		
+		public Labels getLabel() {
+			return label;
 		}
 
 		@Override
@@ -109,15 +114,20 @@ public class LabelPopUpUI extends MyWorkpageDispatchedBean implements Serializab
     	if (event instanceof BaseActionEventFlush) {
     		BaseActionEventFlush flushEvent = (BaseActionEventFlush)event;
     		if(flushEvent.getFlushWasTriggeredByTimer()) {
-    			m_grid.getItems().clear();
-                int maxi = (new Random()).nextInt(20) + 2;
-                for (int i=0; i<maxi; i++)
-                {
-                    
-                }
-                m_grid.selectItem(0);
-                if(m_searchText!=null && m_searchText.length() > 0 && 
-                   (m_grid.getItems().size()==0 || !m_grid.getSelectedItem().text.equalsIgnoreCase(m_searchText))) {
+    			// check search text
+    			boolean searchText = (m_searchText!=null && m_searchText.trim().length() > 0);
+    			m_grid.getItems().clear();    			
+    	    	for(Labels label:allLabels) {
+    	    		if(searchText) {
+    	    			if(!label.getDescription().toUpperCase().contains(m_searchText.toUpperCase())) continue;
+    	    		}
+    	    		GridItem item = new GridItem(label);
+    	            m_grid.getItems().add(item);
+    	    	}
+
+                if(m_grid.getItems().size() > 0) m_grid.selectItem(0);
+                if(searchText && 
+                   (m_grid.getItems().size()==0 || !m_grid.getSelectedItem().getDescription().equalsIgnoreCase(m_searchText))) {
                 	m_renderCreate = true;
                 	m_txtCreate = "Create " + m_searchText;
                 }
@@ -129,18 +139,22 @@ public class LabelPopUpUI extends MyWorkpageDispatchedBean implements Serializab
     
     public void onApply(ActionEvent event) {
     	Statusbar.outputMessage("Apply value(s)!");
-    	Label label = new Label("#FF0000", m_grid.getSelectedItem().text);
-    	callback.apply(label);
+    	callback.apply(m_grid.getSelectedItem().getLabel());
     }
     
     public void onCreate(ActionEvent event) {
     	Statusbar.outputMessage("Create value(s)!");
-    	Label label = new Label("#FF0000", m_searchText);
+    	// TODO Move to logic layer
+    	Labels label = new Labels();
+    	label.setColor("#FF0000"); // create with default Color
+        label.setDescription(m_searchText);
+        label.setPersonId("0b0b7658-2ddb-11de-86ae-00301bb60f17");
+        label.setId("123456");
     	callback.apply(label);
     }
     
     public interface IApplyingCallback {
-    	public void apply(Label label);
+    	public void apply(Labels label);
     }
     
     protected IApplyingCallback callback;
