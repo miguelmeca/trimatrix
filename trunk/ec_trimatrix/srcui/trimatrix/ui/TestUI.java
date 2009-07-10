@@ -33,9 +33,11 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.TextAnchor;
 
+import trimatrix.db.Labels;
 import trimatrix.structures.SAttachment;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Dictionary;
 import trimatrix.utils.MailSender;
 import trimatrix.utils.RegressionFunctions;
 import trimatrix.utils.RegressionFunctions.RegressionResult;
@@ -65,9 +67,9 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
     public void onLabelDelete(ActionEvent event) {
     	BUTTONComponent button =(BUTTONComponent)event.getSource();
     	String description = button.getAttributeValueAsString("clientname");
-    	Label _label = null;
-    	for (Label label:labels) {
-    		if(label.description.equals(description)) {
+    	Labels _label = null;
+    	for (Labels label:labels) {
+    		if(label.getDescription().equals(description)) {
     			_label = label;
     			break;
     		}
@@ -82,7 +84,7 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
     	setLabelRowDynamic();
     }
     
-    protected Vector<Label> labels = new Vector<Label>();
+    protected Vector<Labels> labels = new Vector<Labels>();
 	
 	protected ROWDYNAMICCONTENTBinding m_labelRow = new ROWDYNAMICCONTENTBinding();
     public ROWDYNAMICCONTENTBinding getLabelRow() { return m_labelRow; }
@@ -90,10 +92,17 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
 
     private void setLabelRowDynamic() {
 		StringBuffer xml = new StringBuffer();
-		for(Label label:labels) {
-			xml.append("<t:button bgpaint='roundedrectangle(0,0,100%,100%,10,10," + label.color + ");rectangle(10,0,100%,100%," + label.color + ")' stylevariant='WP_ISOLATEDWORKPAGE' text='"+ label.description  +"' />");
+		for(Labels label:labels) {
+			// get inverted color for font
+			String backColor = label.getColor();
+			Color background = Color.decode(backColor);
+			Color foreground = Dictionary.getInvertedColor(background);
+			String fontColor = Integer.toHexString(foreground.getRGB());
+			fontColor = "#" + fontColor.substring(2, fontColor.length());			
+
+			xml.append("<t:button bgpaint='roundedrectangle(0,0,100%,100%,10,10," + label.getColor() + ");rectangle(10,0,100%,100%," + label.getColor() + ")' stylevariant='WP_ISOLATEDWORKPAGE' foreground ='" + fontColor + "' text='"+ label.getDescription()  +"' />");
 			xml.append("<t:coldistance width='1' />");
-			xml.append("<t:button actionListener='#{d.TestUI.onLabelDelete}' clientname='" + label.description + "' bgpaint='rectangle(0,0,100%-10,100%," + label.color + ");roundedrectangle(0,0,100%,100%,10,10," + label.color + ")' font='weight:bold' stylevariant='WP_ISOLATEDWORKPAGE' text='X' />");
+			xml.append("<t:button actionListener='#{d.TestUI.onLabelDelete}' clientname='" + label.getDescription() + "' bgpaint='rectangle(0,0,100%-10,100%," + label.getColor() + ");roundedrectangle(0,0,100%,100%,10,10," + label.getColor() + ")' foreground ='" + fontColor + "' font='weight:bold' stylevariant='WP_ISOLATEDWORKPAGE' text='X' />");
 			xml.append("<t:coldistance />");
 		}
 		xml.append("<t:button actionListener='#{d.TestUI.onLabelSearch}' contentareafilled='false' image='/images/icons/magnifier.png' text='Label' />");
@@ -164,8 +173,6 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
 
     public TestUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
-		labels.add(new Label("#FF0000", "Test"));
-		labels.add(new Label("#FFFF00", "Test 2"));
 		setLabelRowDynamic();
     }
     
@@ -591,8 +598,9 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
     	LabelPopUpUI labelPopUpUI = getLabelPopUpUI();
     	labelPopUpUI.setEntity(Constants.Entity.ATTACHMENT);
     	labelPopUpUI.setEntityID("123456");
+    	labelPopUpUI.initialize();
     	labelPopUpUI.prepareCallback(new LabelPopUpUI.IApplyingCallback(){
-			public void apply(Label label) {
+			public void apply(Labels label) {
 				labels.add(label);				
 				setLabelRowDynamic();
 				popup.close();
@@ -639,15 +647,4 @@ class FieldCell implements PdfPCellEvent{
 			}
 		}
 	}
-
-public static class Label{
-	public String color;
-	public String description;
-	
-	public Label(String color, String description) {
-		super();
-		this.color = color;
-		this.description = description;
-	}	
-}
 }

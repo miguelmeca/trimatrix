@@ -1,5 +1,4 @@
-import java.io.File;
-import java.text.MessageFormat;
+import java.awt.Color;
 
 
 public class JustForTests {
@@ -8,8 +7,8 @@ public class JustForTests {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String s = String.format("Welcome %s at %s", "Real's HowTo", 12);
-		System.out.println(s);
+		Color col = Color.decode("#FF0000");
+		System.out.println(col.toString());
 	}
 
 }

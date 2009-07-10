@@ -1,5 +1,6 @@
 package trimatrix.utils;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -116,6 +117,18 @@ public final class Dictionary {
 
 	public void setMyRoles(List<String> myRoles) {
 		this.myRoles = myRoles;
+	}
+	
+	public static Color getInvertedColor(Color color) {
+		int red = color.getRed();
+		int green = color.getGreen();
+		int blue = color.getBlue();
+		
+		red = 255 - red;
+		green = 255 - green;
+		blue = 255 - blue;
+		
+		return new Color(red, green, blue);
 	}
 
 	public static Dictionary getFromApplicationContext(ApplicationContext ctx) {
