@@ -14,6 +14,7 @@ public class DAOLayer {
 	private IPersonsHaveAttachmentsDAO personsHaveAttachmentsDAO;	
 	private ITSalutationDAO tsalutationDAO;
 	private IListVariantsDAO listVariantsDAO;	
+	private ILabelsDAO labelsDAO;
 	private List<IRelationDAO> relationDAOs;		
 	
 	public int deleteRelationsByPartner(String partnerId) {
@@ -96,8 +97,16 @@ public class DAOLayer {
 
 	public void setListVariantsDAO(IListVariantsDAO listVariantsDAO) {
 		this.listVariantsDAO = listVariantsDAO;
-	}
+	}	
 
+	public ILabelsDAO getLabelsDAO() {
+		return labelsDAO;
+	}
+	
+	public void setLabelsDAO(ILabelsDAO labelsDAO) {
+		this.labelsDAO = labelsDAO;
+	}
+	
 	public List<IRelationDAO> getRelationDAOs() {
 		return relationDAOs;
 	}

@@ -41,6 +41,17 @@
         </property> 
     </bean>
     
+    <bean id="labelLogic" class="trimatrix.logic.LabelLogic"
+        abstract="false" lazy-init="default" autowire="default"
+        dependency-check="default">
+        <property name="serviceLayer">
+            <ref bean="serviceLayer" />            
+        </property>   
+        <property name="daoLayer">
+            <ref bean="daoLayer" />            
+        </property>   
+    </bean>
+    
     <bean id="logicLayer" class="trimatrix.logic.LogicLayer"
         abstract="false" lazy-init="default" autowire="default"
         dependency-check="default">
@@ -55,6 +66,9 @@
         </property> 
         <property name="relationListLogic">
             <ref bean="relationListLogic" />
+        </property> 
+        <property name="labelLogic">
+            <ref bean="labelLogic" />
         </property> 
     </bean>    
 </beans>

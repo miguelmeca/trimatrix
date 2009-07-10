@@ -1,6 +1,7 @@
 package trimatrix.ui;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Random;
 
 import javax.faces.event.ActionEvent;
@@ -13,6 +14,8 @@ import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
+import trimatrix.db.Labels;
+import trimatrix.logic.LabelLogic;
 import trimatrix.ui.TestUI.Label;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
@@ -21,8 +24,12 @@ import trimatrix.utils.Constants;
 
 public class LabelPopUpUI extends MyWorkpageDispatchedBean implements Serializable
 {    
-    public LabelPopUpUI(IWorkpageDispatcher dispatcher) {
+	protected final LabelLogic LABELLOGIC = getLogic().getLabelLogic();
+	protected List<Labels> allLabels;
+	
+	public LabelPopUpUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
+		initialize();
 	}
 
 	private Constants.Entity entity;
@@ -49,6 +56,17 @@ public class LabelPopUpUI extends MyWorkpageDispatchedBean implements Serializab
     public String getTxtCreate() { return m_txtCreate; }
     public void setTxtCreate(String value) { m_txtCreate = value; }  
 
+    private void initialize() {
+    	// get all labels
+    	allLabels = LABELLOGIC.getAllLabels();
+    	// build grid
+    	m_grid.getItems().clear();
+    	for(Labels label:allLabels) {
+    		GridItem item = new GridItem(label.getDescription());
+            m_grid.getItems().add(item);
+    	}
+    }
+    
     public class GridItem extends FIXGRIDItem implements java.io.Serializable
     {
     	private boolean select;
@@ -95,8 +113,7 @@ public class LabelPopUpUI extends MyWorkpageDispatchedBean implements Serializab
                 int maxi = (new Random()).nextInt(20) + 2;
                 for (int i=0; i<maxi; i++)
                 {
-                    GridItem gi = new GridItem(m_searchText + " " + i);
-                    m_grid.getItems().add(gi);
+                    
                 }
                 m_grid.selectItem(0);
                 if(m_searchText!=null && m_searchText.length() > 0 && 

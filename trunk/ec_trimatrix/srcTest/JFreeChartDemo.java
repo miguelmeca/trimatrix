@@ -4,8 +4,12 @@ import javax.swing.JPanel;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.ChartRenderingInfo;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.entity.ChartEntity;
+import org.jfree.chart.entity.EntityCollection;
+import org.jfree.chart.entity.StandardEntityCollection;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
@@ -30,6 +34,7 @@ public class JFreeChartDemo extends ApplicationFrame {
 		ChartPanel chartPanel = new ChartPanel(chart);
 		chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
 		setContentPane(chartPanel);
+		ChartRenderingInfo info = chartPanel.getChartRenderingInfo(); 
 	}
 
 	/**
@@ -93,6 +98,7 @@ public class JFreeChartDemo extends ApplicationFrame {
 				);
 		// NOW DO SOME OPTIONAL CUSTOMISATION OF THE CHART...
 		chart.setBackgroundPaint(Color.white);
+		
 		// get a reference to the plot for further customisation...
 		XYPlot plot = (XYPlot) chart.getPlot();
 		plot.setBackgroundPaint(Color.lightGray);
@@ -119,7 +125,8 @@ public class JFreeChartDemo extends ApplicationFrame {
 	 */
 	public static JPanel createDemoPanel() {
 		JFreeChart chart = createChart(createDataset());
-		return new ChartPanel(chart);
+		ChartPanel panel = new ChartPanel(chart);		
+		return panel;
 	}
 
 	/**
