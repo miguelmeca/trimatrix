@@ -19,17 +19,15 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @author MyEclipse Persistence Tools
  */
 
-public class LabelsDAO extends HibernateDaoSupport {
+public class LabelsDAO extends HibernateDaoSupport implements ILabelsDAO {
 	private static final Log log = LogFactory.getLog(LabelsDAO.class);
-	// property constants
-	public static final String PERSON_ID = "personId";
-	public static final String DESCRIPTION = "description";
-	public static final String COLOR = "color";
-
 	protected void initDao() {
 		// do nothing
 	}
 
+	/* (non-Javadoc)
+	 * @see trimatrix.db.ILabelsDAO#save(trimatrix.db.Labels)
+	 */
 	public void save(Labels transientInstance) {
 		log.debug("saving Labels instance");
 		try {
@@ -41,6 +39,9 @@ public class LabelsDAO extends HibernateDaoSupport {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see trimatrix.db.ILabelsDAO#delete(trimatrix.db.Labels)
+	 */
 	public void delete(Labels persistentInstance) {
 		log.debug("deleting Labels instance");
 		try {
@@ -52,6 +53,9 @@ public class LabelsDAO extends HibernateDaoSupport {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see trimatrix.db.ILabelsDAO#findById(java.lang.String)
+	 */
 	public Labels findById(java.lang.String id) {
 		log.debug("getting Labels instance with id: " + id);
 		try {
@@ -64,10 +68,14 @@ public class LabelsDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public List findByExample(Labels instance) {
+	/* (non-Javadoc)
+	 * @see trimatrix.db.ILabelsDAO#findByExample(trimatrix.db.Labels)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Labels> findByExample(Labels instance) {
 		log.debug("finding Labels instance by example");
 		try {
-			List results = getHibernateTemplate().findByExample(instance);
+			List<Labels> results = getHibernateTemplate().findByExample(instance);
 			log.debug("find by example successful, result size: "
 					+ results.size());
 			return results;
@@ -76,8 +84,12 @@ public class LabelsDAO extends HibernateDaoSupport {
 			throw re;
 		}
 	}
-
-	public List findByProperty(String propertyName, Object value) {
+	
+	/* (non-Javadoc)
+	 * @see trimatrix.db.ILabelsDAO#findByProperty(java.lang.String, java.lang.Object)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Labels> findByProperty(String propertyName, Object value) {
 		log.debug("finding Labels instance with property: " + propertyName
 				+ ", value: " + value);
 		try {
@@ -90,19 +102,32 @@ public class LabelsDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public List findByPersonId(Object personId) {
+	/* (non-Javadoc)
+	 * @see trimatrix.db.ILabelsDAO#findByPersonId(java.lang.Object)
+	 */
+	public List<Labels> findByPersonId(Object personId) {
 		return findByProperty(PERSON_ID, personId);
 	}
 
-	public List findByDescription(Object description) {
+	/* (non-Javadoc)
+	 * @see trimatrix.db.ILabelsDAO#findByDescription(java.lang.Object)
+	 */
+	public List<Labels> findByDescription(Object description) {
 		return findByProperty(DESCRIPTION, description);
 	}
 
-	public List findByColor(Object color) {
+	/* (non-Javadoc)
+	 * @see trimatrix.db.ILabelsDAO#findByColor(java.lang.Object)
+	 */
+	public List<Labels> findByColor(Object color) {
 		return findByProperty(COLOR, color);
 	}
 
-	public List findAll() {
+	/* (non-Javadoc)
+	 * @see trimatrix.db.ILabelsDAO#findAll()
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Labels> findAll() {
 		log.debug("finding all Labels instances");
 		try {
 			String queryString = "from Labels";
@@ -113,6 +138,9 @@ public class LabelsDAO extends HibernateDaoSupport {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see trimatrix.db.ILabelsDAO#merge(trimatrix.db.Labels)
+	 */
 	public Labels merge(Labels detachedInstance) {
 		log.debug("merging Labels instance");
 		try {
@@ -126,6 +154,9 @@ public class LabelsDAO extends HibernateDaoSupport {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see trimatrix.db.ILabelsDAO#attachDirty(trimatrix.db.Labels)
+	 */
 	public void attachDirty(Labels instance) {
 		log.debug("attaching dirty Labels instance");
 		try {
@@ -137,6 +168,9 @@ public class LabelsDAO extends HibernateDaoSupport {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see trimatrix.db.ILabelsDAO#attachClean(trimatrix.db.Labels)
+	 */
 	public void attachClean(Labels instance) {
 		log.debug("attaching clean Labels instance");
 		try {
@@ -148,7 +182,7 @@ public class LabelsDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public static LabelsDAO getFromApplicationContext(ApplicationContext ctx) {
-		return (LabelsDAO) ctx.getBean("LabelsDAO");
+	public static ILabelsDAO getFromApplicationContext(ApplicationContext ctx) {
+		return (ILabelsDAO) ctx.getBean("LabelsDAO");
 	}
 }

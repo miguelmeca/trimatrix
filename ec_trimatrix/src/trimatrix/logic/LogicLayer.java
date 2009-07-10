@@ -7,6 +7,7 @@ public final class LogicLayer {
 	private EntityListLogic entityListLogic;
 	private FunctionTreeLogic functionTreeLogic;
 	private RelationListLogic relationListLogic;
+	private LabelLogic labelLogic;
 	
 	public LogonLogic getLogonLogic() {
 		return logonLogic;
@@ -31,8 +32,13 @@ public final class LogicLayer {
 	}
 	public void setRelationListLogic(RelationListLogic relationListLogic) {
 		this.relationListLogic = relationListLogic;
+	}	
+	public LabelLogic getLabelLogic() {
+		return labelLogic;
 	}
-	
+	public void setLabelLogic(LabelLogic labelLogic) {
+		this.labelLogic = labelLogic;
+	}
 	public static LogicLayer getFromApplicationContext(ApplicationContext ctx) {
 		return (LogicLayer) ctx.getBean("logicLayer");
 	}

@@ -60,6 +60,7 @@
                 <idref local="PersonsHaveAttachmentsDAO" />
                 <idref local="TSalutationDAO" />
                 <idref local="ListVariantsDAO" />
+                <idref local="LabelsDAO" />
             </list>
         </property>
     </bean>
@@ -93,7 +94,10 @@
         </property>  
         <property name="listVariantsDAO">
             <ref bean="ListVariantsDAO" />
-        </property>        
+        </property>      
+        <property name="labelsDAO">
+            <ref bean="LabelsDAO" />
+        </property>    
         <property name="relationDAOs">
         	<list>
         		<ref bean="PersonsHaveRelationsDAO" />
