@@ -1,11 +1,22 @@
 package trimatrix.ui.utils;
 
+import java.awt.Color;
+import java.util.List;
+
+import javax.faces.event.ActionEvent;
+
+import org.apache.commons.digester.SetRootRule;
 import org.eclnt.jsfserver.defaultscreens.ModalPopup;
+import org.eclnt.jsfserver.defaultscreens.ModelessPopup;
 import org.eclnt.jsfserver.defaultscreens.ModalPopup.IModalPopupListener;
+import org.eclnt.jsfserver.elements.impl.BUTTONComponent;
+import org.eclnt.jsfserver.elements.impl.ROWDYNAMICCONTENTBinding;
+import org.eclnt.jsfserver.elements.util.DefaultModelessPopupListener;
 import org.eclnt.workplace.IWorkpageDispatcher;
 import org.eclnt.workplace.WorkpageDispatchedBean;
 
 import trimatrix.db.DAOLayer;
+import trimatrix.db.Labels;
 import trimatrix.logic.LogicLayer;
 import trimatrix.relations.RelationLayer;
 import trimatrix.services.ServiceLayer;
@@ -24,17 +35,100 @@ import trimatrix.ui.UserSelectionUI;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
 
-public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements IModalPopupListener{
-
+public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements IModalPopupListener{	
+	
 	public MyWorkpageDispatchedBean(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
+		enableLabeling = false;
+	}	
+	
+	public MyWorkpageDispatchedBean(IWorkpageDispatcher dispatcher, boolean enableLabeling) {
+		super(dispatcher);
+		this.enableLabeling = enableLabeling;
+		// get class name of base class for labeling functionality
+		className = this.getClass().getName();
+	    if (className.lastIndexOf('.') > 0) {
+	    	className = className.substring(className.lastIndexOf('.')+1);
+	    }
 	}
-		
+	
 	@Override
 	public Dispatcher getOwningDispatcher() {
 		return (Dispatcher) super.getOwningDispatcher();
 	}
+		
+	// ------------------------------------------------------------------------
+	// logic for label functionality
+	// ------------------------------------------------------------------------
+	private static final String CLIENTNAME = "clientname";
 	
+	private String className;
+	private boolean enableLabeling;
+	
+	protected ROWDYNAMICCONTENTBinding m_labelRow = new ROWDYNAMICCONTENTBinding();
+    public ROWDYNAMICCONTENTBinding getLabelRow() { return m_labelRow; }
+    public void setLabelRow(ROWDYNAMICCONTENTBinding value) { m_labelRow = value; }
+	
+	public void onLabelDelete(ActionEvent event) {
+		// return if labeling functionality is not set
+		if(!enableLabeling) return;
+		// return if entity id is not set
+		String entityID = getWorkpage().getId();
+		if(entityID==null||entityID.length()==0) return;
+    	BUTTONComponent button =(BUTTONComponent)event.getSource();
+    	String label_id = button.getAttributeValueAsString(CLIENTNAME);
+    	getLogic().getLabelLogic().deleteLabelRelation(entityID, label_id);
+    	setLabelRowDynamic();    	
+    }
+	
+	protected void setLabelRowDynamic() { 
+		// return if labeling functionality is not set
+		if(!enableLabeling) return;
+		// return if entity id is not set
+		String entityID = getWorkpage().getId();
+		if(entityID==null||entityID.length()==0) return;
+		// build dynamic row with labels
+		StringBuffer xml = new StringBuffer();
+		List<Labels> labels = getLogic().getLabelLogic().getLabelsByEntity("123456");
+		for(Labels label:labels) {
+			// get inverted color for font
+			Color background = Color.decode(label.getColor());
+			String fontColor = Dictionary.getBlackOrWhite(background);		
+
+			xml.append("<t:button bgpaint='roundedrectangle(0,0,100%,100%,10,10," + label.getColor() + ");rectangle(10,0,100%,100%," + label.getColor() + ")' stylevariant='WP_ISOLATEDWORKPAGE' foreground ='" + fontColor + "' font='weight:bold' text='"+ label.getDescription()  +"' />");
+			xml.append("<t:coldistance width='1' />");
+			xml.append("<t:button actionListener='#{d." + className + ".onLabelDelete}' clientname='" + label.getId() + "' bgpaint='rectangle(0,0,100%-10,100%," + label.getColor() + ");roundedrectangle(0,0,100%,100%,10,10," + label.getColor() + ")' foreground ='" + fontColor + "' font='weight:bold' stylevariant='WP_ISOLATEDWORKPAGE' text='X' />");
+			xml.append("<t:coldistance />");
+		}
+		xml.append("<t:button actionListener='#{d." + className + ".onLabelSearch}' contentareafilled='false' image='/images/icons/magnifier.png' text='Label' />");
+		m_labelRow.setContentXml(xml.toString());
+	}	
+	 
+	public void onLabelSearch(ActionEvent event) {
+		// return if labeling functionality is not set
+		if(!enableLabeling) return;
+		// return if entity id is not set
+		String entityID = getWorkpage().getId();
+		if(entityID==null||entityID.length()==0) return;
+	   	final ModelessPopup popup = getOwningDispatcher().createModelessPopup();  
+	   	LabelPopUpUI labelPopUpUI = getLabelPopUpUI();
+	   	labelPopUpUI.setEntityID(entityID);
+	   	labelPopUpUI.initialize();
+	   	labelPopUpUI.prepareCallback(new LabelPopUpUI.IApplyingCallback(){
+			public void apply() {
+				setLabelRowDynamic();
+				popup.close();
+			}
+		});		
+	   	popup.open(Constants.Page.LABELPOPUP.getUrl(), "Label", 250, 300, new DefaultModelessPopupListener(popup)); 
+	   	popup.setUndecorated(true);
+	   	popup.setCloseonclickoutside(true);
+	} 
+	 
+	
+	// ------------------------------------------------------------------------
+	// logic for PopUp
+	// ------------------------------------------------------------------------	
 	protected ModalPopup m_popup;
 
 	public void reactOnPopupClosedByUser() {
