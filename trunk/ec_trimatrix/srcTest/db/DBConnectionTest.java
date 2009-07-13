@@ -26,6 +26,8 @@ import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import trimatrix.db.DAOLayer;
+import trimatrix.db.EntitiesHaveLabels;
+import trimatrix.db.EntitiesHaveLabelsId;
 import trimatrix.db.IPersonsDAO;
 import trimatrix.db.IUsersDAO;
 import trimatrix.db.KRoles;
@@ -247,6 +249,20 @@ public class DBConnectionTest {
 		daoLayer.getPersonsHaveRelationsDAO().delete(relation2);
 	}
 
+	@Test
+	public void testEntitiesHaveLabels() {
+		// create relation
+		EntitiesHaveLabels relation = new EntitiesHaveLabels();
+		EntitiesHaveLabelsId id = new EntitiesHaveLabelsId("test","label","person");
+		relation.setId(id);
+		daoLayer.getEntitiesHaveLabelsDAO().save(relation);
+		
+		// get relation
+		List<EntitiesHaveLabels> relations = daoLayer.getEntitiesHaveLabelsDAO().findByEntity("test");
+		Assert.assertEquals(1, relations.size());
+		daoLayer.getEntitiesHaveLabelsDAO().delete(relation);	
+	}
+	
 	@After
 	public void tearDown() throws Exception {
 	}

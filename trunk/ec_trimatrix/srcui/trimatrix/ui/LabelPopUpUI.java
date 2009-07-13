@@ -6,7 +6,6 @@ import java.util.List;
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
-import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.elements.events.BaseActionEventFlush;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
@@ -23,6 +22,7 @@ public class LabelPopUpUI extends MyWorkpageDispatchedBean implements Serializab
 {    
 	protected final LabelLogic LABELLOGIC = getLogic().getLabelLogic();
 	protected List<Labels> allLabels;
+	private String searchText_old;
 	
 	public LabelPopUpUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);		
@@ -36,7 +36,7 @@ public class LabelPopUpUI extends MyWorkpageDispatchedBean implements Serializab
 	public String getEntityID() { return entityID; }
 	public void setEntityID(String entityID) { this.entityID = entityID; }
 
-	protected String m_searchText;
+	protected String m_searchText;	
     public String getSearchText() { return m_searchText; }
     public void setSearchText(String value) { m_searchText = value; }  
 
@@ -55,6 +55,7 @@ public class LabelPopUpUI extends MyWorkpageDispatchedBean implements Serializab
     public void initialize() {  
     	// reset search text
     	m_searchText = Constants.EMPTY;
+    	searchText_old = Constants.EMPTY;
     	// don't show create button
     	m_renderCreate = false;
     	// get all labels
@@ -69,27 +70,13 @@ public class LabelPopUpUI extends MyWorkpageDispatchedBean implements Serializab
     
     public class GridItem extends FIXGRIDItem implements java.io.Serializable
     {
-    	private boolean select;
     	private Labels label;
     	
     	public GridItem(Labels label) {
     		super();
-    		this.select = false;
     		this.label = label;
     	}
-    	
-		public GridItem(boolean select, Labels label) {
-			super();
-			this.select = select;
-			this.label = label;
-		}
-		public boolean isSelect() {
-			return select;
-		}
-		public void setSelect(boolean select) {
-			this.select = select;
-		}
-		
+    			
 		public String getDescription() {
 			return label.getDescription();
 		}
@@ -103,58 +90,54 @@ public class LabelPopUpUI extends MyWorkpageDispatchedBean implements Serializab
 		}
 
 		@Override
-		public void onRowExecute() {
-			// TODO Auto-generated method stub
+		public void onRowExecute() {			
 			super.onRowExecute();
+			apply(label);
 		} 
     }
     
     public void onSearch(ActionEvent event) {
     	// flush by timer or enter?
     	if (event instanceof BaseActionEventFlush) {
-    		BaseActionEventFlush flushEvent = (BaseActionEventFlush)event;
-    		if(flushEvent.getFlushWasTriggeredByTimer()) {
-    			// check search text
+    		BaseActionEventFlush flushEvent = (BaseActionEventFlush)event;    		
+    		// check search text, just do work when sthg changed
+    		if(!searchText_old.equalsIgnoreCase(m_searchText)) {
     			boolean searchText = (m_searchText!=null && m_searchText.trim().length() > 0);
-    			m_grid.getItems().clear();    			
-    	    	for(Labels label:allLabels) {
-    	    		if(searchText) {
-    	    			if(!label.getDescription().toUpperCase().contains(m_searchText.toUpperCase())) continue;
-    	    		}
-    	    		GridItem item = new GridItem(label);
-    	            m_grid.getItems().add(item);
-    	    	}
+        		m_grid.getItems().clear();    			
+        	    for(Labels label:allLabels) {
+        	    	if(searchText) {
+        	    		if(!label.getDescription().toUpperCase().contains(m_searchText.toUpperCase())) continue;
+        	    	}
+        	    	GridItem item = new GridItem(label);
+        	        m_grid.getItems().add(item);
+        	    }
 
                 if(m_grid.getItems().size() > 0) m_grid.selectItem(0);
-                if(searchText && 
-                   (m_grid.getItems().size()==0 || !m_grid.getSelectedItem().getDescription().equalsIgnoreCase(m_searchText))) {
-                	m_renderCreate = true;
-                	m_txtCreate = "Create " + m_searchText;
+                if(searchText && (m_grid.getItems().size()==0 || !m_grid.getSelectedItem().getDescription().equalsIgnoreCase(m_searchText))) {
+                  	m_renderCreate = true;
+                   	m_txtCreate = "Create " + m_searchText;
                 }
-    		} else {
-    			onApply(null);
+    		}
+    		// if enter is pressed
+            if(!flushEvent.getFlushWasTriggeredByTimer()) {
+    			GridItem item = m_grid.getSelectedItem();
+    			if(item==null) return;
+    			apply(item.getLabel());
     		}    		
     	}        
     }
     
-    public void onApply(ActionEvent event) {
-    	Statusbar.outputMessage("Apply value(s)!");
-    	callback.apply(m_grid.getSelectedItem().getLabel());
+    private void apply(Labels label) {
+    	if(LABELLOGIC.createLabelRelation(entityID, label.getId())) callback.apply();
     }
     
     public void onCreate(ActionEvent event) {
-    	Statusbar.outputMessage("Create value(s)!");
-    	// TODO Move to logic layer
-    	Labels label = new Labels();
-    	label.setColor("#FF0000"); // create with default Color
-        label.setDescription(m_searchText);
-        label.setPersonId("0b0b7658-2ddb-11de-86ae-00301bb60f17");
-        label.setId("123456");
-    	callback.apply(label);
+    	Labels label = LABELLOGIC.createLabel(m_searchText, Constants.WHITE);
+    	apply(label);
     }
     
     public interface IApplyingCallback {
-    	public void apply(Labels label);
+    	public void apply();
     }
     
     protected IApplyingCallback callback;

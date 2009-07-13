@@ -19,18 +19,17 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @author MyEclipse Persistence Tools
  */
 
-public class EntitiesHaveLabelsDAO extends HibernateDaoSupport {
+public class EntitiesHaveLabelsDAO extends HibernateDaoSupport implements IEntitiesHaveLabelsDAO {
 	private static final Log log = LogFactory
 			.getLog(EntitiesHaveLabelsDAO.class);
-	// property constants
-	public static final String ENTITY = "entity";
-	public static final String LABEL = "label";
-	public static final String PERSON_ID = "personId";
 
 	protected void initDao() {
 		// do nothing
 	}
 
+	/* (non-Javadoc)
+	 * @see trimatrix.db.IEntitiesHaveLabelsDAO#save(trimatrix.db.EntitiesHaveLabels)
+	 */
 	public void save(EntitiesHaveLabels transientInstance) {
 		log.debug("saving EntitiesHaveLabels instance");
 		try {
@@ -42,6 +41,9 @@ public class EntitiesHaveLabelsDAO extends HibernateDaoSupport {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see trimatrix.db.IEntitiesHaveLabelsDAO#delete(trimatrix.db.EntitiesHaveLabels)
+	 */
 	public void delete(EntitiesHaveLabels persistentInstance) {
 		log.debug("deleting EntitiesHaveLabels instance");
 		try {
@@ -53,7 +55,10 @@ public class EntitiesHaveLabelsDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public EntitiesHaveLabels findById(java.lang.Integer id) {
+	/* (non-Javadoc)
+	 * @see trimatrix.db.IEntitiesHaveLabelsDAO#findById(trimatrix.db.EntitiesHaveLabelsId)
+	 */
+	public EntitiesHaveLabels findById(trimatrix.db.EntitiesHaveLabelsId id) {
 		log.debug("getting EntitiesHaveLabels instance with id: " + id);
 		try {
 			EntitiesHaveLabels instance = (EntitiesHaveLabels) getHibernateTemplate()
@@ -65,10 +70,14 @@ public class EntitiesHaveLabelsDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public List findByExample(EntitiesHaveLabels instance) {
+	/* (non-Javadoc)
+	 * @see trimatrix.db.IEntitiesHaveLabelsDAO#findByExample(trimatrix.db.EntitiesHaveLabels)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<EntitiesHaveLabels> findByExample(EntitiesHaveLabels instance) {
 		log.debug("finding EntitiesHaveLabels instance by example");
 		try {
-			List results = getHibernateTemplate().findByExample(instance);
+			List<EntitiesHaveLabels> results = getHibernateTemplate().findByExample(instance);
 			log.debug("find by example successful, result size: "
 					+ results.size());
 			return results;
@@ -78,7 +87,11 @@ public class EntitiesHaveLabelsDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public List findByProperty(String propertyName, Object value) {
+	/* (non-Javadoc)
+	 * @see trimatrix.db.IEntitiesHaveLabelsDAO#findByProperty(java.lang.String, java.lang.Object)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<EntitiesHaveLabels> findByProperty(String propertyName, Object value) {
 		log.debug("finding EntitiesHaveLabels instance with property: "
 				+ propertyName + ", value: " + value);
 		try {
@@ -90,20 +103,28 @@ public class EntitiesHaveLabelsDAO extends HibernateDaoSupport {
 			throw re;
 		}
 	}
-
-	public List findByEntity(Object entity) {
-		return findByProperty(ENTITY, entity);
+	
+	/* (non-Javadoc)
+	 * @see trimatrix.db.IEntitiesHaveLabelsDAO#findByEntity(java.lang.String)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<EntitiesHaveLabels> findByEntity(String entity) {
+		log.debug("finding EntitiesHaveLabels instance with entity: " + entity);
+		try {
+			String queryString = "from EntitiesHaveLabels where entity = ?";
+			return getHibernateTemplate().find(queryString, entity);
+		} catch (RuntimeException re) {
+			log.error("find by entity name failed", re);
+			throw re;
+		}
 	}
+	
 
-	public List findByLabel(Object label) {
-		return findByProperty(LABEL, label);
-	}
-
-	public List findByPersonId(Object personId) {
-		return findByProperty(PERSON_ID, personId);
-	}
-
-	public List findAll() {
+	/* (non-Javadoc)
+	 * @see trimatrix.db.IEntitiesHaveLabelsDAO#findAll()
+	 */
+	@SuppressWarnings("unchecked")
+	public List<EntitiesHaveLabels> findAll() {
 		log.debug("finding all EntitiesHaveLabels instances");
 		try {
 			String queryString = "from EntitiesHaveLabels";
@@ -114,6 +135,9 @@ public class EntitiesHaveLabelsDAO extends HibernateDaoSupport {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see trimatrix.db.IEntitiesHaveLabelsDAO#merge(trimatrix.db.EntitiesHaveLabels)
+	 */
 	public EntitiesHaveLabels merge(EntitiesHaveLabels detachedInstance) {
 		log.debug("merging EntitiesHaveLabels instance");
 		try {
@@ -127,6 +151,9 @@ public class EntitiesHaveLabelsDAO extends HibernateDaoSupport {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see trimatrix.db.IEntitiesHaveLabelsDAO#attachDirty(trimatrix.db.EntitiesHaveLabels)
+	 */
 	public void attachDirty(EntitiesHaveLabels instance) {
 		log.debug("attaching dirty EntitiesHaveLabels instance");
 		try {
@@ -138,6 +165,9 @@ public class EntitiesHaveLabelsDAO extends HibernateDaoSupport {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see trimatrix.db.IEntitiesHaveLabelsDAO#attachClean(trimatrix.db.EntitiesHaveLabels)
+	 */
 	public void attachClean(EntitiesHaveLabels instance) {
 		log.debug("attaching clean EntitiesHaveLabels instance");
 		try {
@@ -149,8 +179,8 @@ public class EntitiesHaveLabelsDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public static EntitiesHaveLabelsDAO getFromApplicationContext(
+	public static IEntitiesHaveLabelsDAO getFromApplicationContext(
 			ApplicationContext ctx) {
-		return (EntitiesHaveLabelsDAO) ctx.getBean("EntitiesHaveLabelsDAO");
+		return (IEntitiesHaveLabelsDAO) ctx.getBean("EntitiesHaveLabelsDAO");
 	}
 }
