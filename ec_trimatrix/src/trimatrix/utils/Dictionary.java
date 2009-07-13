@@ -119,16 +119,20 @@ public final class Dictionary {
 		this.myRoles = myRoles;
 	}
 	
-	public static Color getInvertedColor(Color color) {
+	public static String getBlackOrWhite(Color color) {
+		// get RGB
 		int red = color.getRed();
 		int green = color.getGreen();
 		int blue = color.getBlue();
 		
-		red = 255 - red;
-		green = 255 - green;
-		blue = 255 - blue;
+		// transform to gray scale and get alpha
+		double alpha = red * 0.299 + green * 0.587 + blue * 0.114;
 		
-		return new Color(red, green, blue);
+		if (alpha < 186) {
+			return Constants.WHITE;
+		} else {
+			return Constants.BLACK;
+		}
 	}
 
 	public static Dictionary getFromApplicationContext(ApplicationContext ctx) {

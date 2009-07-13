@@ -6,18 +6,16 @@
 -->
 <hibernate-mapping>
     <class name="trimatrix.db.EntitiesHaveLabels" table="entities_have_labels" catalog="trimatrix">
-        <id name="id" type="java.lang.Integer">
-            <column name="id" />
-            <generator class="assigned" />
-        </id>
-        <property name="entity" type="java.lang.String">
-            <column name="entity" length="36" not-null="true" />
-        </property>
-        <property name="label" type="java.lang.String">
-            <column name="label" length="36" not-null="true" />
-        </property>
-        <property name="personId" type="java.lang.String">
-            <column name="person_id" length="36" not-null="true" />
-        </property>
+        <composite-id name="id" class="trimatrix.db.EntitiesHaveLabelsId">
+            <key-property name="entity" type="java.lang.String">
+                <column name="entity" length="36" />
+            </key-property>
+            <key-property name="label" type="java.lang.String">
+                <column name="label" length="36" />
+            </key-property>
+            <key-property name="personId" type="java.lang.String">
+                <column name="person_id" length="36" />
+            </key-property>
+        </composite-id>
     </class>
 </hibernate-mapping>

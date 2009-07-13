@@ -21,15 +21,13 @@
 <t:row id="g_7" >
 <t:fixgrid id="g_8" avoidroundtrips="true" background="#ffffff40" drawoddevenrows="false" height="100%" objectbinding="#{d.LabelPopUpUI.grid}" rowheight="18" sbvisibleamount="30" suppressheadline="true" width="100%" >
 <t:gridcol id="g_9" text="Column" width="100%" >
-<t:checkbox id="g_10" selected=".{select}" text=".{description}" />
+<t:label id="g_10" text=".{description}" />
 </t:gridcol>
 </t:fixgrid>
 </t:row>
 <t:rowdistance id="g_11" />
 <t:row id="g_12" >
-<t:button id="g_13" actionListener="#{d.LabelPopUpUI.onApply}" hotkey="10" text="Apply" />
-<t:coldistance id="g_14" />
-<t:button id="g_15" actionListener="#{d.LabelPopUpUI.onCreate}" rendered="#{d.LabelPopUpUI.renderCreate}" text="#{d.LabelPopUpUI.txtCreate}" />
+<t:button id="g_13" actionListener="#{d.LabelPopUpUI.onCreate}" rendered="#{d.LabelPopUpUI.renderCreate}" text="#{d.LabelPopUpUI.txtCreate}" />
 </t:row>
 </t:pane>
 </t:row>

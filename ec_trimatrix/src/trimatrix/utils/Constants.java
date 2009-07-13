@@ -171,4 +171,7 @@ public final class Constants {
 	public static final String FILESEPARATOR  = "/"; // seems Cpt.Casa also works with Unix style
 	public static final String POINT = ".";
 	
+	// colors as string
+	public static final String WHITE = "#FFFFFF";
+	public static final String BLACK = "#000000";
 }

@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.List;
 import java.util.Vector;
 
 import javax.faces.event.ActionEvent;
@@ -33,7 +34,9 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.TextAnchor;
 
+import trimatrix.db.EntitiesHaveLabels;
 import trimatrix.db.Labels;
+import trimatrix.logic.LabelLogic;
 import trimatrix.structures.SAttachment;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
@@ -64,19 +67,13 @@ import com.lowagie.text.pdf.TextField;
 
 public class TestUI extends MyWorkpageDispatchedBean implements Serializable
 {
+	
+	protected final LabelLogic LABELLOGIC = getLogic().getLabelLogic();
+	
     public void onLabelDelete(ActionEvent event) {
     	BUTTONComponent button =(BUTTONComponent)event.getSource();
-    	String description = button.getAttributeValueAsString("clientname");
-    	Labels _label = null;
-    	for (Labels label:labels) {
-    		if(label.getDescription().equals(description)) {
-    			_label = label;
-    			break;
-    		}
-    	}
-    	if (_label!=null) {
-    		labels.remove(_label);
-    	}
+    	String label_id = button.getAttributeValueAsString("clientname");
+    	LABELLOGIC.deleteLabelRelation("123456", label_id);
     	setLabelRowDynamic();    	
     }
 
@@ -84,25 +81,21 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
     	setLabelRowDynamic();
     }
     
-    protected Vector<Labels> labels = new Vector<Labels>();
-	
 	protected ROWDYNAMICCONTENTBinding m_labelRow = new ROWDYNAMICCONTENTBinding();
     public ROWDYNAMICCONTENTBinding getLabelRow() { return m_labelRow; }
     public void setLabelRow(ROWDYNAMICCONTENTBinding value) { m_labelRow = value; }
 
-    private void setLabelRowDynamic() {
+    private void setLabelRowDynamic() {    	
 		StringBuffer xml = new StringBuffer();
+		List<Labels> labels = LABELLOGIC.getLabelsByEntity("123456");
 		for(Labels label:labels) {
 			// get inverted color for font
-			String backColor = label.getColor();
-			Color background = Color.decode(backColor);
-			Color foreground = Dictionary.getInvertedColor(background);
-			String fontColor = Integer.toHexString(foreground.getRGB());
-			fontColor = "#" + fontColor.substring(2, fontColor.length());			
+			Color background = Color.decode(label.getColor());
+			String fontColor = Dictionary.getBlackOrWhite(background);		
 
-			xml.append("<t:button bgpaint='roundedrectangle(0,0,100%,100%,10,10," + label.getColor() + ");rectangle(10,0,100%,100%," + label.getColor() + ")' stylevariant='WP_ISOLATEDWORKPAGE' foreground ='" + fontColor + "' text='"+ label.getDescription()  +"' />");
+			xml.append("<t:button bgpaint='roundedrectangle(0,0,100%,100%,10,10," + label.getColor() + ");rectangle(10,0,100%,100%," + label.getColor() + ")' stylevariant='WP_ISOLATEDWORKPAGE' foreground ='" + fontColor + "' font='weight:bold' text='"+ label.getDescription()  +"' />");
 			xml.append("<t:coldistance width='1' />");
-			xml.append("<t:button actionListener='#{d.TestUI.onLabelDelete}' clientname='" + label.getDescription() + "' bgpaint='rectangle(0,0,100%-10,100%," + label.getColor() + ");roundedrectangle(0,0,100%,100%,10,10," + label.getColor() + ")' foreground ='" + fontColor + "' font='weight:bold' stylevariant='WP_ISOLATEDWORKPAGE' text='X' />");
+			xml.append("<t:button actionListener='#{d.TestUI.onLabelDelete}' clientname='" + label.getId() + "' bgpaint='rectangle(0,0,100%-10,100%," + label.getColor() + ");roundedrectangle(0,0,100%,100%,10,10," + label.getColor() + ")' foreground ='" + fontColor + "' font='weight:bold' stylevariant='WP_ISOLATEDWORKPAGE' text='X' />");
 			xml.append("<t:coldistance />");
 		}
 		xml.append("<t:button actionListener='#{d.TestUI.onLabelSearch}' contentareafilled='false' image='/images/icons/magnifier.png' text='Label' />");
@@ -600,8 +593,7 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
     	labelPopUpUI.setEntityID("123456");
     	labelPopUpUI.initialize();
     	labelPopUpUI.prepareCallback(new LabelPopUpUI.IApplyingCallback(){
-			public void apply(Labels label) {
-				labels.add(label);				
+			public void apply() {
 				setLabelRowDynamic();
 				popup.close();
 			}
