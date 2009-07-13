@@ -27,15 +27,11 @@ public class LabelPopUpUI extends MyWorkpageDispatchedBean implements Serializab
 	public LabelPopUpUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);		
 	}
-
-	private Constants.Entity entity;
-    public Constants.Entity getEntity() { return entity; }
-	public void setEntity(Constants.Entity entity) { this.entity = entity; }
 	
-	private String entityID;	
+	protected String entityID;	
 	public String getEntityID() { return entityID; }
 	public void setEntityID(String entityID) { this.entityID = entityID; }
-
+	
 	protected String m_searchText;	
     public String getSearchText() { return m_searchText; }
     public void setSearchText(String value) { m_searchText = value; }  

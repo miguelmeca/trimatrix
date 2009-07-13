@@ -9,7 +9,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
-import java.util.Vector;
 
 import javax.faces.event.ActionEvent;
 import javax.mail.MessagingException;
@@ -34,7 +33,6 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.TextAnchor;
 
-import trimatrix.db.EntitiesHaveLabels;
 import trimatrix.db.Labels;
 import trimatrix.logic.LabelLogic;
 import trimatrix.structures.SAttachment;
@@ -66,42 +64,7 @@ import com.lowagie.text.pdf.TextField;
 @CCGenClass (expressionBase="#{d.TestUI}")
 
 public class TestUI extends MyWorkpageDispatchedBean implements Serializable
-{
-	
-	protected final LabelLogic LABELLOGIC = getLogic().getLabelLogic();
-	
-    public void onLabelDelete(ActionEvent event) {
-    	BUTTONComponent button =(BUTTONComponent)event.getSource();
-    	String label_id = button.getAttributeValueAsString("clientname");
-    	LABELLOGIC.deleteLabelRelation("123456", label_id);
-    	setLabelRowDynamic();    	
-    }
-
-    public void onRefresh(ActionEvent event) {
-    	setLabelRowDynamic();
-    }
-    
-	protected ROWDYNAMICCONTENTBinding m_labelRow = new ROWDYNAMICCONTENTBinding();
-    public ROWDYNAMICCONTENTBinding getLabelRow() { return m_labelRow; }
-    public void setLabelRow(ROWDYNAMICCONTENTBinding value) { m_labelRow = value; }
-
-    private void setLabelRowDynamic() {    	
-		StringBuffer xml = new StringBuffer();
-		List<Labels> labels = LABELLOGIC.getLabelsByEntity("123456");
-		for(Labels label:labels) {
-			// get inverted color for font
-			Color background = Color.decode(label.getColor());
-			String fontColor = Dictionary.getBlackOrWhite(background);		
-
-			xml.append("<t:button bgpaint='roundedrectangle(0,0,100%,100%,10,10," + label.getColor() + ");rectangle(10,0,100%,100%," + label.getColor() + ")' stylevariant='WP_ISOLATEDWORKPAGE' foreground ='" + fontColor + "' font='weight:bold' text='"+ label.getDescription()  +"' />");
-			xml.append("<t:coldistance width='1' />");
-			xml.append("<t:button actionListener='#{d.TestUI.onLabelDelete}' clientname='" + label.getId() + "' bgpaint='rectangle(0,0,100%-10,100%," + label.getColor() + ");roundedrectangle(0,0,100%,100%,10,10," + label.getColor() + ")' foreground ='" + fontColor + "' font='weight:bold' stylevariant='WP_ISOLATEDWORKPAGE' text='X' />");
-			xml.append("<t:coldistance />");
-		}
-		xml.append("<t:button actionListener='#{d.TestUI.onLabelSearch}' contentareafilled='false' image='/images/icons/magnifier.png' text='Label' />");
-		m_labelRow.setContentXml(xml.toString());
-	}
-    
+{   
     protected RegressionFunctions regression;
     
     //double[] xyArr_1 = { 8, 0.09, 10, 0.14, 12, 0.49, 14, 0.95, 16, 1.74, 18, 4.47, 20, 10.21, 22, 13.25 };
@@ -165,7 +128,8 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
     public void setEmail(String value) { m_email = value; }
 
     public TestUI(IWorkpageDispatcher dispatcher) {
-		super(dispatcher);
+		super(dispatcher, true);	
+		getWorkpage().setId("123456");
 		setLabelRowDynamic();
     }
     
@@ -584,25 +548,8 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
 			return;
 		}
 		Statusbar.outputSuccess("Email successfully sended");
-    }
+    } 
     
-    public void onLabelSearch(ActionEvent event) {
-    	final ModelessPopup popup = getOwningDispatcher().createModelessPopup();  
-    	LabelPopUpUI labelPopUpUI = getLabelPopUpUI();
-    	labelPopUpUI.setEntity(Constants.Entity.ATTACHMENT);
-    	labelPopUpUI.setEntityID("123456");
-    	labelPopUpUI.initialize();
-    	labelPopUpUI.prepareCallback(new LabelPopUpUI.IApplyingCallback(){
-			public void apply() {
-				setLabelRowDynamic();
-				popup.close();
-			}
-		});		
-		//m_popup = getWorkpage().createModalPopupInWorkpageContext();    
-    	popup.open(Constants.Page.LABELPOPUP.getUrl(), "Label", 250, 300, new DefaultModelessPopupListener(popup)); 
-    	popup.setUndecorated(true);
-    	popup.setCloseonclickoutside(true);
-    }
     
 class FieldCell implements PdfPCellEvent{
 		
