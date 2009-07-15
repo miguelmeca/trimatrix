@@ -8,17 +8,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.List;
 
 import javax.faces.event.ActionEvent;
 import javax.mail.MessagingException;
 
 import org.eclnt.editor.annotations.CCGenClass;
-import org.eclnt.jsfserver.defaultscreens.ModelessPopup;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
-import org.eclnt.jsfserver.elements.impl.BUTTONComponent;
-import org.eclnt.jsfserver.elements.impl.ROWDYNAMICCONTENTBinding;
-import org.eclnt.jsfserver.elements.util.DefaultModelessPopupListener;
 import org.eclnt.util.valuemgmt.ValueManager;
 import org.eclnt.workplace.IWorkpageDispatcher;
 import org.jfree.chart.ChartFactory;
@@ -33,12 +28,9 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.TextAnchor;
 
-import trimatrix.db.Labels;
-import trimatrix.logic.LabelLogic;
 import trimatrix.structures.SAttachment;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
-import trimatrix.utils.Dictionary;
 import trimatrix.utils.MailSender;
 import trimatrix.utils.RegressionFunctions;
 import trimatrix.utils.RegressionFunctions.RegressionResult;

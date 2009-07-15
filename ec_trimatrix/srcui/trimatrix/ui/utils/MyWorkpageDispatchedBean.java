@@ -1,11 +1,12 @@
 package trimatrix.ui.utils;
 
 import java.awt.Color;
+import java.lang.annotation.Annotation;
 import java.util.List;
 
 import javax.faces.event.ActionEvent;
 
-import org.apache.commons.digester.SetRootRule;
+import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.ModalPopup;
 import org.eclnt.jsfserver.defaultscreens.ModelessPopup;
 import org.eclnt.jsfserver.defaultscreens.ModalPopup.IModalPopupListener;
@@ -45,11 +46,9 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 	public MyWorkpageDispatchedBean(IWorkpageDispatcher dispatcher, boolean enableLabeling) {
 		super(dispatcher);
 		this.enableLabeling = enableLabeling;
-		// get class name of base class for labeling functionality
-		className = this.getClass().getName();
-	    if (className.lastIndexOf('.') > 0) {
-	    	className = className.substring(className.lastIndexOf('.')+1);
-	    }
+		// get expression base by annotation
+	    CCGenClass ccgenClass = getClass().getAnnotation(CCGenClass.class);	    
+    	if(ccgenClass!=null) expressionBase = ccgenClass.expressionBase().replace('}', '.');
 	}
 	
 	@Override
@@ -62,7 +61,7 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 	// ------------------------------------------------------------------------
 	private static final String CLIENTNAME = "clientname";
 	
-	private String className;
+	private String expressionBase;
 	private boolean enableLabeling;
 	
 	protected ROWDYNAMICCONTENTBinding m_labelRow = new ROWDYNAMICCONTENTBinding();
@@ -97,10 +96,10 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 
 			xml.append("<t:button bgpaint='roundedrectangle(0,0,100%,100%,10,10," + label.getColor() + ");rectangle(10,0,100%,100%," + label.getColor() + ")' stylevariant='WP_ISOLATEDWORKPAGE' foreground ='" + fontColor + "' font='weight:bold' text='"+ label.getDescription()  +"' />");
 			xml.append("<t:coldistance width='1' />");
-			xml.append("<t:button actionListener='#{d." + className + ".onLabelDelete}' clientname='" + label.getId() + "' bgpaint='rectangle(0,0,100%-10,100%," + label.getColor() + ");roundedrectangle(0,0,100%,100%,10,10," + label.getColor() + ")' foreground ='" + fontColor + "' font='weight:bold' stylevariant='WP_ISOLATEDWORKPAGE' text='X' />");
+			xml.append("<t:button actionListener='" + expressionBase + "onLabelDelete}' clientname='" + label.getId() + "' bgpaint='rectangle(0,0,100%-10,100%," + label.getColor() + ");roundedrectangle(0,0,100%,100%,10,10," + label.getColor() + ")' foreground ='" + fontColor + "' font='weight:bold' stylevariant='WP_ISOLATEDWORKPAGE' text='X' />");
 			xml.append("<t:coldistance />");
 		}
-		xml.append("<t:button actionListener='#{d." + className + ".onLabelSearch}' contentareafilled='false' image='/images/icons/magnifier.png' text='Label' />");
+		xml.append("<t:button actionListener='" + expressionBase + "onLabelSearch}' contentareafilled='false' image='/images/icons/magnifier.png' text='Label' />");
 		m_labelRow.setContentXml(xml.toString());
 	}	
 	 
