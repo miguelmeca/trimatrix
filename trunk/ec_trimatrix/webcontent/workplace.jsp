@@ -42,22 +42,38 @@
 </t:row>
 </t:splitpanesplit>
 <t:splitpanesplit id="g_23" >
-<t:rowworkpagecontainer id="g_24" animationtype="foglight" objectbinding="#{d.workpageContainer}" />
+<t:row id="g_24" >
+<t:pane id="g_25" height="100%" width="100%" >
+<t:rowworkpagecontainer id="g_26" animationtype="foglight" objectbinding="#{d.workpageContainer}" />
+</t:pane>
+<t:pane id="g_27" height="100%" >
+<t:rowdistance id="g_28" height="100%" />
+<t:row id="g_29" >
+<t:icon id="g_30" actionListener="#{d.WorkplaceUI.onShowHideLabels}" image="#{d.WorkplaceUI.labelsShowHideImage}" />
+</t:row>
+</t:pane>
+<t:pane id="g_31" height="100%" rendered="#{d.WorkplaceUI.renderLabels}" rowdistance="35" >
+<t:rowdistance id="g_32" height="35" />
+<t:row id="g_33" >
+<t:button id="g_34" text="button" />
+</t:row>
+</t:pane>
+</t:row>
 </t:splitpanesplit>
 </t:splitpane>
 </t:row>
 </t:rowbodypane>
-<t:row id="g_25" >
-<t:pane id="g_26" width="100%" >
-<t:rowworkpageselector id="g_27" objectbinding="#{d.workpageContainer}" />
+<t:row id="g_35" >
+<t:pane id="g_36" width="100%" >
+<t:rowworkpageselector id="g_37" objectbinding="#{d.workpageContainer}" />
 </t:pane>
 </t:row>
 <t:popupmenu id="WORKPLACE" >
-<t:menuitem id="g_28" actionListener="#{d.workpageContainer.onCloseCurrentWorkpage}" hotkey="ctrl-115" text="#{rr.literals.close_current_wp}" />
-<t:menuitem id="g_29" actionListener="#{d.workpageContainer.onCloseAllWorkpages}" hotkey="ctrl-shift-115" text="#{rr.literals.close_all_wps}" />
+<t:menuitem id="g_38" actionListener="#{d.workpageContainer.onCloseCurrentWorkpage}" hotkey="ctrl-115" text="#{rr.literals.close_current_wp}" />
+<t:menuitem id="g_39" actionListener="#{d.workpageContainer.onCloseAllWorkpages}" hotkey="ctrl-shift-115" text="#{rr.literals.close_all_wps}" />
 </t:popupmenu>
-<t:beanprocessing id="g_30" >
-<t:sessioncloser id="g_31" />
+<t:beanprocessing id="g_40" >
+<t:sessioncloser id="g_41" />
 </t:beanprocessing>
 <t:pageaddons id="g_pa"/>
 </f:subview>

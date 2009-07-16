@@ -23,6 +23,10 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
    
     protected String m_dividerLocation = DIVIDERLOCATIONMAX;
     public String getDividerLocation() { return m_dividerLocation; }      
+    
+    protected boolean m_renderLabels;
+    public boolean getRenderLabels() { return m_renderLabels; }
+    public void setRenderLabels(boolean value) { m_renderLabels = value; }
 
     protected boolean m_renderCoach;
     public boolean getRenderCoach() { return m_renderCoach; }
@@ -93,4 +97,17 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
         else
             m_dividerLocation = DIVIDERLOCATIONMIN;
 	}
+	
+	public String getLabelsShowHideImage() 
+    {
+        if (!m_renderLabels)
+            return Constants.SIDE_CONTRACT;
+        else
+            return Constants.SIDE_EXPAND;
+    }
+	
+	public void onShowHideLabels(ActionEvent event) {
+		m_renderLabels = !m_renderLabels;
+	}
+	
 }
