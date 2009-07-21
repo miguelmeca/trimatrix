@@ -3,6 +3,7 @@
 
 <%@taglib prefix="f" uri="http://java.sun.com/jsf/core"%>
 <%@taglib prefix="h" uri="http://java.sun.com/jsf/html"%>
+
 <%@taglib prefix="t" uri="/WEB-INF/eclnt"%>
 
 
@@ -58,12 +59,18 @@
 									<t:label id="g_24" font="weight:bold"
 										text="#{eclnti18n.GRID_wholegrid}" />
 								</t:row>
-								<t:row id="g_25">
-									<t:coldistance id="g_26" width="10" />
-									<t:filedownloadlink id="g_27" filename="${temp}/grid.csv"
-										opensupported="true" text="#{eclnti18n.GRID_exportcsv}"
-										url="#{eclntdefscr.gridDetails.exportURLCsvWholeGrid}" />
-								</t:row>
+                                <t:row id="g_1125">
+                                    <t:coldistance id="g_1126" width="10" />
+                                    <t:filedownloadlink id="g_1127" filename="${temp}/grid.pdf"
+                                        opensupported="true" text="#{eclnti18n.GRID_exportpdf}"
+                                        url="#{eclntdefscr.gridDetails.exportURLPdfWholeGrid}" />
+                                </t:row>
+                                <t:row id="g_25">
+                                    <t:coldistance id="g_26" width="10" />
+                                    <t:filedownloadlink id="g_27" filename="${temp}/grid.csv"
+                                        opensupported="true" text="#{eclnti18n.GRID_exportcsv}"
+                                        url="#{eclntdefscr.gridDetails.exportURLCsvWholeGrid}" />
+                                </t:row>
 								<t:row id="g_28">
 									<t:coldistance id="g_29" width="10" />
 									<t:filedownloadlink id="g_30" filename="${temp}/grid.xml"
@@ -86,6 +93,12 @@
                                 <t:row id="g_100036">
                                     <t:label id="g_100037" font="weight:bold"
                                         text="#{eclnti18n.GRID_wholerows}" />
+                                </t:row>
+                                <t:row id="g_2225">
+                                    <t:coldistance id="g_2226" width="10" />
+                                    <t:filedownloadlink id="g_2227" filename="${temp}/grid.pdf"
+                                        opensupported="true" text="#{eclnti18n.GRID_exportpdf}"
+                                        url="#{eclntdefscr.gridDetails.exportURLPdfRows}" />
                                 </t:row>
                                 <t:row id="g_100038">
                                     <t:coldistance id="g_100039" width="10" />
