@@ -56,8 +56,14 @@
     <tag name="filechooser" variant="default">
         <set attribute="background" value="#FFFFFF"/>
     </tag>
+    <tag name="filedownloadlink" variant="default">
+        <set attribute="foreground" value="#F0F0E0"/>
+    </tag>
     <tag name="fileupload" variant="default">
         <set attribute="background" value="#FFFFFF"/>
+    </tag>
+    <tag name="fileuploadlink" variant="default">
+        <set attribute="foreground" value="#F0F0E0"/>
     </tag>
     <tag name="fixgrid" variant="default">
         <set attribute="background" value="#FFFFFF10"/>

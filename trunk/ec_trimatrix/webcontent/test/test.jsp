@@ -32,73 +32,76 @@
 <t:rowdistance id="g_16" height="15" />
 <t:row id="g_17" >
 <t:button id="g_18" actionListener="#{d.TestUI.onSend}" text="Test senden" />
+<t:coldistance id="g_19" />
+<t:button id="g_20" bgpaint="roundedrectangle(0,0,100%,100%,10,10,#FF0000,#FF0000,vertical)" contentareafilled="false" focusable="false" text="     " tooltip="Farbe ändern" />
+<t:button id="g_21" contentareafilled="false" text="Bestellung" />
 </t:row>
 </t:foldablepane>
 </t:row>
-<t:rowdistance id="g_19" />
-<t:row id="g_20" >
-<t:foldablepane id="g_21" text="Testprotokoll" width="100%" >
-<t:row id="g_22" >
-<t:label id="g_23" text="Geschwindigkeit" width="150" />
-<t:field id="g_24" text="#{d.TestUI.valuesSpeed}" width="400" />
-</t:row>
+<t:rowdistance id="g_22" />
+<t:row id="g_23" >
+<t:foldablepane id="g_24" text="Testprotokoll" width="100%" >
 <t:row id="g_25" >
-<t:label id="g_26" text="Herzfrequenz" width="150" />
-<t:field id="g_27" text="#{d.TestUI.valuesHr}" width="400" />
+<t:label id="g_26" text="Geschwindigkeit" width="150" />
+<t:field id="g_27" text="#{d.TestUI.valuesSpeed}" width="400" />
 </t:row>
-<t:rowdistance id="g_28" />
-<t:row id="g_29" >
-<t:label id="g_30" text="Laktat" width="150" />
-<t:field id="g_31" text="#{d.TestUI.valuesLactat}" width="400" />
+<t:row id="g_28" >
+<t:label id="g_29" text="Herzfrequenz" width="150" />
+<t:field id="g_30" text="#{d.TestUI.valuesHr}" width="400" />
 </t:row>
-<t:rowdistance id="g_32" height="15" />
-<t:row id="g_33" >
-<t:button id="g_34" actionListener="#{d.TestUI.onRefreshProtocol}" text="Neuladen" />
+<t:rowdistance id="g_31" />
+<t:row id="g_32" >
+<t:label id="g_33" text="Laktat" width="150" />
+<t:field id="g_34" text="#{d.TestUI.valuesLactat}" width="400" />
+</t:row>
+<t:rowdistance id="g_35" height="15" />
+<t:row id="g_36" >
+<t:button id="g_37" actionListener="#{d.TestUI.onRefreshProtocol}" text="Neuladen" />
 </t:row>
 </t:foldablepane>
 </t:row>
-<t:rowdistance id="g_35" />
-<t:row id="g_36" >
-<t:foldablepane id="g_37" text="Diagramm" width="100%" >
-<t:row id="g_38" >
-<t:label id="g_39" text="Formel" width="150" />
-<t:field id="g_40" border="top:0;bottom:0;left:0;right:0" enabled="false" text="#{d.TestUI.formula}" width="200" />
+<t:rowdistance id="g_38" />
+<t:row id="g_39" >
+<t:foldablepane id="g_40" text="Diagramm" width="100%" >
+<t:row id="g_41" >
+<t:label id="g_42" text="Formel" width="150" />
+<t:field id="g_43" border="top:0;bottom:0;left:0;right:0" enabled="false" text="#{d.TestUI.formula}" width="200" />
 </t:row>
-<t:rowdistance id="g_41" />
-<t:row id="g_42" >
-<t:label id="g_43" text="Korrelationsfaktor" width="150" />
-<t:field id="g_44" border="top:0;bottom:0;left:0;right:0" enabled="false" text="#{d.TestUI.correlation}" width="200" />
+<t:rowdistance id="g_44" />
+<t:row id="g_45" >
+<t:label id="g_46" text="Korrelationsfaktor" width="150" />
+<t:field id="g_47" border="top:0;bottom:0;left:0;right:0" enabled="false" text="#{d.TestUI.correlation}" width="200" />
 </t:row>
-<t:rowdistance id="g_45" />
-<t:row id="g_46" >
-<t:heximage id="g_47" align="center" border="#808080" height="300" hexdata="#{d.TestUI.diagram}" valign="center" width="400" />
-<t:coldistance id="g_48" />
-<t:heximage id="g_49" align="center" border="#808080" height="300" hexdata="#{d.TestUI.diagram2}" valign="center" width="400" />
+<t:rowdistance id="g_48" />
+<t:row id="g_49" >
+<t:heximage id="g_50" align="center" border="#808080" height="300" hexdata="#{d.TestUI.diagram}" valign="center" width="400" />
+<t:coldistance id="g_51" />
+<t:heximage id="g_52" align="center" border="#808080" height="300" hexdata="#{d.TestUI.diagram2}" valign="center" width="400" />
 </t:row>
-<t:rowdistance id="g_50" height="15" />
-<t:row id="g_51" >
-<t:pane id="g_52" >
-<t:row id="g_53" >
-<t:label id="g_54" text="Geschwindigkeit" width="150" />
-<t:field id="g_55" text="#{d.TestUI.speed}" width="50" />
-<t:coldistance id="g_56" />
+<t:rowdistance id="g_53" height="15" />
+<t:row id="g_54" >
+<t:pane id="g_55" >
+<t:row id="g_56" >
+<t:label id="g_57" text="Geschwindigkeit" width="150" />
+<t:field id="g_58" text="#{d.TestUI.speed}" width="50" />
+<t:coldistance id="g_59" />
 </t:row>
-<t:rowdistance id="g_57" />
-<t:row id="g_58" >
-<t:label id="g_59" text="Laktat" width="150" />
-<t:field id="g_60" text="#{d.TestUI.lactat}" width="50" />
+<t:rowdistance id="g_60" />
+<t:row id="g_61" >
+<t:label id="g_62" text="Laktat" width="150" />
+<t:field id="g_63" text="#{d.TestUI.lactat}" width="50" />
 </t:row>
-<t:rowdistance id="g_61" />
-<t:row id="g_62" >
-<t:label id="g_63" text="Herzfrequenz" width="150" />
-<t:field id="g_64" text="#{d.TestUI.hr}" width="50" />
+<t:rowdistance id="g_64" />
+<t:row id="g_65" >
+<t:label id="g_66" text="Herzfrequenz" width="150" />
+<t:field id="g_67" text="#{d.TestUI.hr}" width="50" />
 </t:row>
 </t:pane>
-<t:button id="g_65" actionListener="#{d.TestUI.onCalculate}" text="Berechne Werte" />
+<t:button id="g_68" actionListener="#{d.TestUI.onCalculate}" text="Berechne Werte" />
 </t:row>
-<t:rowdistance id="g_66" height="15" />
-<t:row id="g_67" >
-<t:button id="g_68" actionListener="#{d.TestUI.onRefreshDiagram}" text="Neuladen" />
+<t:rowdistance id="g_69" height="15" />
+<t:row id="g_70" >
+<t:button id="g_71" actionListener="#{d.TestUI.onRefreshDiagram}" text="Neuladen" />
 </t:row>
 </t:foldablepane>
 </t:row>
