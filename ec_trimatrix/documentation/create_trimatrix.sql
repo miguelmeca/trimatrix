@@ -11,7 +11,7 @@ MySQL - 5.1.33-community : Database - trimatrix
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`trimatrix` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`trimatrix` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
 USE `trimatrix`;
 
@@ -80,17 +80,17 @@ insert  into `doctors`(`id`,`name`,`street`,`housenumber`,`postcode`,`city`,`sta
 DROP TABLE IF EXISTS `entities_have_labels`;
 
 CREATE TABLE `entities_have_labels` (
-  `id` int(11) NOT NULL,
   `entity` varchar(36) NOT NULL,
   `label` varchar(36) NOT NULL,
   `person_id` varchar(36) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `idx_entities_have_labels_uk` (`entity`,`label`),
+  PRIMARY KEY (`entity`,`label`,`person_id`),
   KEY `fk_entities_have_labels_labels` (`label`),
   KEY `fk_entities_have_labels_persons` (`person_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 /*Data for the table `entities_have_labels` */
+
+insert  into `entities_have_labels`(`entity`,`label`,`person_id`) values ('123456','2d9dccf8-c3f9-4438-b57f-28def741a3ff','0b0b7658-2ddb-11de-86ae-00301bb60f17'),('123456','c4af50f6-2b2a-4d47-ad32-2a6f3a602d06','0b0b7658-2ddb-11de-86ae-00301bb60f17');
 
 /*Table structure for table `k_authorizations` */
 
@@ -247,6 +247,8 @@ CREATE TABLE `labels` (
 
 /*Data for the table `labels` */
 
+insert  into `labels`(`id`,`person_id`,`description`,`color`) values ('55620350-6d49-11de-a69b-604b59d93787','0b0b7658-2ddb-11de-86ae-00301bb60f17','Bestellung','#FF0000'),('55620350-6d49-11de-a69b-604b59d93789','0b0b7658-2ddb-11de-86ae-00301bb60f17','Bestellanforderung','#FFCCCC'),('4d1d19f5-88f3-45c4-87ea-165849c6a270','0b0b7658-2ddb-11de-86ae-00301bb60f17','Hello','#FFFFFF'),('ae1e5063-ebfa-47c4-8187-42a87153474b','0b0b7658-2ddb-11de-86ae-00301bb60f17','Test','#FFFFFF'),('d1fc6adf-f749-4861-9d3a-a79cfa4220d0','0b0b7658-2ddb-11de-86ae-00301bb60f17','testt','#FFFFFF'),('2d9dccf8-c3f9-4438-b57f-28def741a3ff','0b0b7658-2ddb-11de-86ae-00301bb60f17','werwerwer','#FFFFFF'),('60dcb2e0-f5c6-4111-a067-9f58e5f3ad61','0b0b7658-2ddb-11de-86ae-00301bb60f17','Hello World','#FFFFFF'),('c4af50f6-2b2a-4d47-ad32-2a6f3a602d06','0b0b7658-2ddb-11de-86ae-00301bb60f17','Test54','#FFFFFF'),('123456','0b0b7658-2ddb-11de-86ae-00301bb60f17','Reich','#00FF00');
+
 /*Table structure for table `list_variants` */
 
 DROP TABLE IF EXISTS `list_variants`;
@@ -263,7 +265,7 @@ CREATE TABLE `list_variants` (
 
 /*Data for the table `list_variants` */
 
-insert  into `list_variants`(`list`,`entity`,`user_id`,`columns_sequence`,`columns_width`) values ('entitylist','ATTACHMENT','e96bcbd2-676d-102c-ace2-9cc3fca64c87','0;2;1;3;4;5;6','25;232;100;100;100;100;100'),('entitylist','PERSON','e96bcbd2-676d-102c-ace2-9cc3fca64c87','0;1;2;4;3;5;6;7;8;9;10;11;12;13;14;15','100;207;100;100;123;100;100;100;100;100;100;100;100;100;100;121');
+insert  into `list_variants`(`list`,`entity`,`user_id`,`columns_sequence`,`columns_width`) values ('entitylist','ATTACHMENT','e96bcbd2-676d-102c-ace2-9cc3fca64c87','0;2;1;3;4;5;6','25;232;100;100;100;100;100');
 
 /*Table structure for table `persons` */
 
@@ -302,7 +304,7 @@ CREATE TABLE `persons` (
 
 /*Data for the table `persons` */
 
-insert  into `persons`(`id`,`salutation_key`,`name_first`,`name_last`,`sex_key`,`street`,`housenumber`,`postcode`,`city`,`state`,`country_key`,`email`,`homepage`,`telephone`,`mobile`,`fax`,`birthdate`,`picture`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('0b0b7658-2ddb-11de-86ae-00301bb60f17','mr','Markus','Reich','m','DorfstraÃŸe','91','6393','St. Ulrich','Tirol','at','reich.markus@gmail.com','www.meex-rich.com','','0664/3453852',NULL,'1978-10-24 00:00:00',NULL,'1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-07-01 15:34:21','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('10f52302-2ddb-11de-86ae-00301bb60f17','mrs','Daniela','Bucher','w','Moosbach','28/2','6392','St. Jakob','Tirol','at','dany.bucher@gmail.com','www.dany.at','05354/88462','0664/2844263','05354/88462-10','1983-05-17 00:00:00',NULL,'1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-06-03 16:04:34','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('7522bc7f-42cf-415c-a050-da12518a4cd3','mr','Thomas','Mach','m','Dorf','2','6392','St. Jakob','Tirol','de','thomas.mach@egger.com',NULL,NULL,NULL,NULL,'1969-09-15 00:00:00','ÿØÿà\0JFIF\0\0H\0H\0\0ÿÛ\0C\0ÿÀ\0\0`\0`\0ÿÄ\0\0\0\0\0\0\0\0\0\0\0\0	\n\0ÿÄ\0H\0	\0\0\0!1\0AQq	\"a\n$%24‘#35¡Áğ&6BCD±ÑERber‚’ÂáÿÚ\0\0\0?\0»yt³~É/!öç†lòc—–Hã´ÊPwÃ‡æ<±^cøÿ\0wQåş£ı8ãQ&’Ai\"H/ÕË‚ßñ><ó·«!¾¼ôçèíÑır¢ß©Iµ¾^¨›mÓø·V6ÊRGX3\0`1¶1}NùC¹–itÎÂF’™#(µ*TÊk• íâD3cså“€ÀÆê?”#Ò\Z‚éïJt¨şSTEJ}M§ôAñ!d.¹øq‡cÅàô6öÏô{é\'52Ö¿jhôºò¨î”ÕJB²ÉV¯.ÎªHùŸæÂ	<â|qrƒ²™+µŒù3şíQNIräqçëğà¶¢Eæá¿qvgõlİÎÜTÀ\0,@¾[×sùm·s)^d™QnáŸñb7vÏŸæ8yû¤ŞÓ²Ë>íÉÿ\0œyòlğ?»Ñùïğwû^¿>OÇheubn¶²q’ÿ\0É~3¯í•ö«¦ô_¡¬Ğ½ ­£¬Õ…\nqãU4Õ‹EËu\0å¹;îxÆÛ©Ú©¯WtkWjúíÎ¶º¢ó>­F¾²²º(_­Öò ‚b÷N	Ë„jˆ¬I«­J¨]è*\"§ˆOOz…Ç¿8\0Ä’0aÃÁMJLÙSªdö$H/Ûˆˆ\0à€Å„åú¤ƒèüLUTA®”¬—]P£N^\nŠ¶@pa‹ªı IÙ~5ÓìOö§)ß\niõÙT×UÎ=×Kîª©ñC{mYŠqˆ\"	Ky‚Û^­±1ˆ\"ŠY‚8µ-£1‰ƒrÛ$ç|~Ï—/³¢ y’O[˜;\0Ãà>%ù—÷gQ9!ÿ\0æ?ş\\<n}?ˆã¿e:NÒ§ğÉß;Gæ1Ëˆ·Òç\\ú5è6¥ë\"ÜÑ\"’Ä´ë×5«¯)‡ÂS\0Á#í·[fÇŸn–èF¢tâÔ»Ë\\uifºe-×q(ª)ÖÂL1Ö¨G_ÕY\"#Õ„Œ…ıã,D\"â4·¡¦Œiä4s’ìÔÙêBœıd¤{ípq¸-7#ÏZ‰Ğ—Goi¥)Ø©¸á¾YHŞj›ÈÁ|5tëw³Æ\rJ¯Nê”d-SÓŠ ‹RUĞ¶BJ«7À‚9cbx¥û†‚½R±%N–©9F‚|TÕT•\"€Âwˆc\'İ9$Awı:¼–¬+½ê@¯ŸF®¥H£M>EGTõ¡#¬e$×¼M(ÄíŒ0 é_Ğ¤½7KŠúi«°ÔÉ¿9;À/JwÇÎÔ¶IV-@œ$¥®¶?kŒc‰ƒ¡*0HırÃ?¦@×\r¹<~şŸùêpëÓÒ4Ççû¹åœùÿ\0øy\r[Qûğ_øÿ\0§ÑùGıR\'DË?JÓ\'N…g[õvÓµÏw?|¡JXBïÌ±\0±5­¡v’n¡Û)D„D— Ó.–ªdí±ò@sÄµ ^¦”ój©²ïMô`	…òqéêNy…ŠrüÈ`Ÿ8§¼È%³Œ\\r~©p<\0pÙ]µt*éRF\"ÈrŞ@yc°q€p^Ÿúett¶¯ËuríIL“Gx¢ÑM¯ ›NÆ¶Z|A\ZZ±Ø¬OAú±bfŠÁT`‡†9q?Æ¡?æãd¿&—X‚­³®ú!UTH ªCÔtZ|ò%%UÜ¾~©æìñªå4dm–oÛ¿?\rùğ[İ~‘ÖÃoÏ_>nûc«Ë‡‹²é&Íö|¼¼¹ùeˆÎ8ÍgÊµÅÁC¦D„g_T©©§SI@“m?&cõP.I0\"´‘uF–Ê—IT»`^2Qkˆ­øhä$à¶Ab	/’NĞÌû-v×½i$ª#[$\'š’K³\0ç,0Åğ6sîõº¼5÷ŸH¥;qwÀ-{MQ.D U,­-\Z,ŸúXø–1$ˆÉŒëÎìLùÏİmºº9Ô¿vE¸Ók{®NêÈìß Å³#*ÇŠwêÔºº	ÒdÎ$wzÀæ\'lÃÉ˜ä3 h\'¤ƒ/NµzéE¦ı[PË¸ªÅ2|°K\0H˜&;\0€Ãn.äçŞ%¦Íe¹S:e$µí+½çÊ\"(á•\n¥Ã„·mx 9‹¬1ãv“%ûû·wÜÜ6[Ï<:òÿ\0\\=aÿ\08x;‡õ_—ÿ\0<Q/¶’ÃT\\²´ìO¦Ÿ8ÚZğ…‰¦À¤AUM»RU\0û§	Mœ¶îq‹¯¢½£¨s$©jµùy×K§Y‰L›¢ZT‚8H‰1*\\Ø#–’&„8\"Ç	B~4²é©³d^_6+ÔêÑM=5EM7qU&;ÄuH|gsv•.‘N™\Z–rY£XIZñ9\nE92º…Y¶ñd•wn\\’ì²ÅöŸDı	´nz‹æÔN_A½ÔWÔ.5åš{å¡¡T«WW™5‚[\"‹ÚÌ/ æ&\0á[«µh´Ôr{¬²+‹\n†pK¿\'%À19Á\'â¼ú=ÚšÇ¬’•î$e:¹È)”\nTôÉõ\0ÑU×Hª€¬ğ»\"³‰½$Ù>Ñ]Ôû].Jlë³çm-ÇOMş/ú4®U<Y(l±o­$€ÌÂ€]€k\" \"X;ˆ@>¢\0îÿ\0áÃ¥IúÙ_ÏöO\nÏºOåËâ><B^ŸVi»ú.êí--)ŸZ“iÅtHÜÿ\0U‡‹aˆÈD…Tû¹ËxñšÛrÚHğ2©_M\"a>ÄçöŸÉ\'ç†\rjÈ–„²™6¡fuÍâCöuP4&¿Äœy¶CG»ÖòsÃ©£¾0”¼§*r”ôdÅ\n_£§-\\*ëÃìàù›˜‰bŸSl/Ûj2ª©|6àIú*Šu1úÀ¶	Î\'Ë3hw©ÔRÂug÷ÌAbí]}‹uK¶är&ú:¦V/Ï¿êi+d¦)HD¡¥§P¨¦ï¦3¹ÃJ9\"fØ·EìôÒ:…ÍF¹µÉ{¾V£[ezØ°””‡~ñZõB÷UÍ	g%ÉA-\0NÏ‹‡­ıPÿ\0¸p‡6WŞ¬üğwÚ~ŒùùrwçûÏ§çÂP-º[¶Ã¼­ËµùÉj/ œø¢j²IpNï—ˆà±ã%VêUÃaÜ6u]WrS‘L •QUş6½)ÜC#’waÄdÑ:{>®‘JUÑ¨V~œÜjWBŠ%ÇmÜµÕ¿UõUG#úÀÙ.³³0÷Ì»b\ZÂÒÔ„‹Æàï•99Á¹{_ìŸ÷¨\\`ä*çbåò8{lQSæ¢’õÇKÜÔ…Mu\'è*5iìQË‡0a!ƒâ=ë\r-2u&vÓ§§\nî…ÁıIß™áÕöté½«:Ãáw$š»}ºûZNb<T¥øBRJa,	eU‰Ã/cNèé6õ„´¤ú$ÚJ\nj\njtôÚaCCGA–ğ´±ŸC€aÎì82P›ÚÆ<Ï§2<¾#;pãµş?åÇh¦vdD66 Pä¢§ö\\yå›ÈoL3»g8]<ômO£Ö·)^è4½†k=Ez¢mM;\n4«¬¬«m\0sÕeë_fñŒósˆ•\n-MdÚS wêˆj¾ì+›İÀ%‰bùßlóü£\\·«’èh»¿e>G*tãC¸waóÈm\r™i:î¡”›áræÄoÕ9¥räü\0y9`IâêµİÛtÉ·-Ù]´éõ=ÔT¿Üö$ã ß?-Ù\"“IK©ºİQÙ†I³,$\n}ˆu[‘Y_æS<„AÜä‹×›TDD‘lóŸºó;ñÖtl®ÙË~òIÏ™|qÆ9ñÇ—ğşüùp¿“V\'Mˆ8“ˆyïøùä6ùåÀÉÓX‰Ï\"\'9ÛÅßÈñõ.ß¿çøg?~Ù.’2©n½è£KK&H»u‰mj¤uki>j)JÖLJÏÅ•¼‰H »7Åjjâœ¯:ØÔIS“”¤¥R)½ş…V€\rÎwÁÆC`m—aW^mšêx~g ,¬ÖŠo£\nZnãB<İöw99s³ğßÍQ¾—%ÕÍT¯ğÙ3€ïÉ£Ğr`H€Ë+Å…2µuRWÓ\'°§5%À Ë8pØÆÄ}Öİ:xX½:SI¶u&¥jM›¬ê\nb’Š-/~®·®Ô›™Y\"ÕRVJÀ(ãÅ•>t8aêí\ZÈ¤gKí²î]Ááƒìíû€ã´é½”1Ä\\Ã½ú·?/Ç€ü,iÄ3&“*9ÓÎî6#PÆàgXğƒ¾u¯HôÂG{ÔMPÓ»\nIûÍMéyÛHØo®WŠòçÈˆ3ªŞ×gÆ“¢Ö©¨t‹³oŠÉ©íİ1ñ;İnª¿\'ÃY øÈ¸n7;oŒhO…ş–ı&Ûº%]€š‚‹AgXhäÖÖ¤Úi*k\nä*ª·í‹ƒÅÕ\rÒy72ì£±:Vif¬¦Ûèúœ$Ù×ºuE-2P\rX8ÂR«:6\"ê¹ê¶ç¬	\"ßô·OlEäÚª*³¼S©M¨ïÔ5g /x˜ùétÙé\n]•*ŠM;ıæ	Ãœ˜¢Ø;8Á`	\'1£XúSè¥œ™>’¯Qm™ÓèZ˜§Ûª~7\\=ìE\nR>Í€ólqLš¥¬–î¡k\r¿¨6å\"ŸcmT øqZz÷áJ~.Z&İ€,Ü\0xôèŸÒƒL:UéJ6§é…ÑB±&}5-ÔŠ*™jÈ»<7ë[jêJİ!\\;s7ôHRf)¦k<=Sùw\'àÁ¶øñõÊˆ¾Ì$ü}À?2şñçO¬^Ó~›šİ2lÛÛ¤6¢š)À‰n\\Ÿ1ĞèÇÕLéV—ÍÒÌ“€Øqİ‹‹ÕjÊ¢šhv©Q¨ïd³õA\0ÀrfEu\\rev¸jV$ÄÀ4A€-³C“ÕÈİ°	}m|È‹	§ ¹g$³îsÁÃ‚9Í41b?öÿ\0LxUÛ·î¤Yó\'SY—åámJ´WZš\'öTÂJÌ Ä=÷\"\"bZ q…P»¯™Ÿ[İ×J”ãQô€¡pªW\Zé~ì&#8$¸ÂpAëSKk´$Eâ<ñ—?ƒ¾ß‰…%@·‡é ’¸\0€ì9óg Xñ(º>tµÖî‹·©Ô\rÔ%û\näş£==«h®\ZÖdË¥%`„5„WÏô>©#\rñh—Ê@Ôz¨¨5ÏClëúîÕ7(©ÙuÛ¥+‹‰›Ö¶üÆü]ƒû]z\rk¸‘KO«ÔzkpOÚİÖ\ncdWïâ¾õ°}n\\·«ÿÙ','1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-06-12 23:25:01','e96bcbd2-676d-102c-ace2-9cc3fca64c89',0,0);
+insert  into `persons`(`id`,`salutation_key`,`name_first`,`name_last`,`sex_key`,`street`,`housenumber`,`postcode`,`city`,`state`,`country_key`,`email`,`homepage`,`telephone`,`mobile`,`fax`,`birthdate`,`picture`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('0b0b7658-2ddb-11de-86ae-00301bb60f17','mr','Markus','Reich','m','DorfstraÃŸe','91','6393','St. Ulrich','Tirol','at','reich.markus@gmail.com','www.meex-rich.com','','0664/3453852',NULL,'1978-10-24 00:00:00',NULL,'1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-05-26 21:01:18','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('10f52302-2ddb-11de-86ae-00301bb60f17','mrs','Daniela','Bucher','w','Moosbach','28/2','6392','St. Jakob','Tirol','at','dany.bucher@gmail.com','www.dany.at','05354/88462','0664/2844263','05354/88462-10','1983-05-17 00:00:00',NULL,'1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-06-03 16:04:34','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('7522bc7f-42cf-415c-a050-da12518a4cd3','mr','Thomas','Mach','m','Dorf','2','6392','St. Jakob','Tirol','de','thomas.mach@egger.com',NULL,NULL,NULL,NULL,'1969-09-15 00:00:00','ÿØÿà\0JFIF\0\0H\0H\0\0ÿÛ\0C\0ÿÀ\0\0`\0`\0ÿÄ\0\0\0\0\0\0\0\0\0\0\0\0	\n\0ÿÄ\0H\0	\0\0\0!1\0AQq	\"a\n$%24‘#35¡Áğ&6BCD±ÑERber‚’ÂáÿÚ\0\0\0?\0»yt³~É/!öç†lòc—–Hã´ÊPwÃ‡æ<±^cøÿ\0wQåş£ı8ãQ&’Ai\"H/ÕË‚ßñ><ó·«!¾¼ôçèíÑır¢ß©Iµ¾^¨›mÓø·V6ÊRGX3\0`1¶1}NùC¹–itÎÂF’™#(µ*TÊk• íâD3cså“€ÀÆê?”#Ò\Z‚éïJt¨şSTEJ}M§ôAñ!d.¹øq‡cÅàô6öÏô{é\'52Ö¿jhôºò¨î”ÕJB²ÉV¯.ÎªHùŸæÂ	<â|qrƒ²™+µŒù3şíQNIräqçëğà¶¢Eæá¿qvgõlİÎÜTÀ\0,@¾[×sùm·s)^d™QnáŸñb7vÏŸæ8yû¤ŞÓ²Ë>íÉÿ\0œyòlğ?»Ñùïğwû^¿>OÇheubn¶²q’ÿ\0É~3¯í•ö«¦ô_¡¬Ğ½ ­£¬Õ…\nqãU4Õ‹EËu\0å¹;îxÆÛ©Ú©¯WtkWjúíÎ¶º¢ó>­F¾²²º(_­Öò ‚b÷N	Ë„jˆ¬I«­J¨]è*\"§ˆOOz…Ç¿8\0Ä’0aÃÁMJLÙSªdö$H/Ûˆˆ\0à€Å„åú¤ƒèüLUTA®”¬—]P£N^\nŠ¶@pa‹ªı IÙ~5ÓìOö§)ß\niõÙT×UÎ=×Kîª©ñC{mYŠqˆ\"	Ky‚Û^­±1ˆ\"ŠY‚8µ-£1‰ƒrÛ$ç|~Ï—/³¢ y’O[˜;\0Ãà>%ù—÷gQ9!ÿ\0æ?ş\\<n}?ˆã¿e:NÒ§ğÉß;Gæ1Ëˆ·Òç\\ú5è6¥ë\"ÜÑ\"’Ä´ë×5«¯)‡ÂS\0Á#í·[fÇŸn–èF¢tâÔ»Ë\\uifºe-×q(ª)ÖÂL1Ö¨G_ÕY\"#Õ„Œ…ıã,D\"â4·¡¦Œiä4s’ìÔÙêBœıd¤{ípq¸-7#ÏZ‰Ğ—Goi¥)Ø©¸á¾YHŞj›ÈÁ|5tëw³Æ\rJ¯Nê”d-SÓŠ ‹RUĞ¶BJ«7À‚9cbx¥û†‚½R±%N–©9F‚|TÕT•\"€Âwˆc\'İ9$Awı:¼–¬+½ê@¯ŸF®¥H£M>EGTõ¡#¬e$×¼M(ÄíŒ0 é_Ğ¤½7KŠúi«°ÔÉ¿9;À/JwÇÎÔ¶IV-@œ$¥®¶?kŒc‰ƒ¡*0HırÃ?¦@×\r¹<~şŸùêpëÓÒ4Ççû¹åœùÿ\0øy\r[Qûğ_øÿ\0§ÑùGıR\'DË?JÓ\'N…g[õvÓµÏw?|¡JXBïÌ±\0±5­¡v’n¡Û)D„D— Ó.–ªdí±ò@sÄµ ^¦”ój©²ïMô`	…òqéêNy…ŠrüÈ`Ÿ8§¼È%³Œ\\r~©p<\0pÙ]µt*éRF\"ÈrŞ@yc°q€p^Ÿúett¶¯ËuríIL“Gx¢ÑM¯ ›NÆ¶Z|A\ZZ±Ø¬OAú±bfŠÁT`‡†9q?Æ¡?æãd¿&—X‚­³®ú!UTH ªCÔtZ|ò%%UÜ¾~©æìñªå4dm–oÛ¿?\rùğ[İ~‘ÖÃoÏ_>nûc«Ë‡‹²é&Íö|¼¼¹ùeˆÎ8ÍgÊµÅÁC¦D„g_T©©§SI@“m?&cõP.I0\"´‘uF–Ê—IT»`^2Qkˆ­øhä$à¶Ab	/’NĞÌû-v×½i$ª#[$\'š’K³\0ç,0Åğ6sîõº¼5÷ŸH¥;qwÀ-{MQ.D U,­-\Z,ŸúXø–1$ˆÉŒëÎìLùÏİmºº9Ô¿vE¸Ók{®NêÈìß Å³#*ÇŠwêÔºº	ÒdÎ$wzÀæ\'lÃÉ˜ä3 h\'¤ƒ/NµzéE¦ı[PË¸ªÅ2|°K\0H˜&;\0€Ãn.äçŞ%¦Íe¹S:e$µí+½çÊ\"(á•\n¥Ã„·mx 9‹¬1ãv“%ûû·wÜÜ6[Ï<:òÿ\0\\=aÿ\08x;‡õ_—ÿ\0<Q/¶’ÃT\\²´ìO¦Ÿ8ÚZğ…‰¦À¤AUM»RU\0û§	Mœ¶îq‹¯¢½£¨s$©jµùy×K§Y‰L›¢ZT‚8H‰1*\\Ø#–’&„8\"Ç	B~4²é©³d^_6+ÔêÑM=5EM7qU&;ÄuH|gsv•.‘N™\Z–rY£XIZñ9\nE92º…Y¶ñd•wn\\’ì²ÅöŸDı	´nz‹æÔN_A½ÔWÔ.5åš{å¡¡T«WW™5‚[\"‹ÚÌ/ æ&\0á[«µh´Ôr{¬²+‹\n†pK¿\'%À19Á\'â¼ú=ÚšÇ¬’•î$e:¹È)”\nTôÉõ\0ÑU×Hª€¬ğ»\"³‰½$Ù>Ñ]Ôû].Jlë³çm-ÇOMş/ú4®U<Y(l±o­$€ÌÂ€]€k\" \"X;ˆ@>¢\0îÿ\0áÃ¥IúÙ_ÏöO\nÏºOåËâ><B^ŸVi»ú.êí--)ŸZ“iÅtHÜÿ\0U‡‹aˆÈD…Tû¹ËxñšÛrÚHğ2©_M\"a>ÄçöŸÉ\'ç†\rjÈ–„²™6¡fuÍâCöuP4&¿Äœy¶CG»ÖòsÃ©£¾0”¼§*r”ôdÅ\n_£§-\\*ëÃìàù›˜‰bŸSl/Ûj2ª©|6àIú*Šu1úÀ¶	Î\'Ë3hw©ÔRÂug÷ÌAbí]}‹uK¶är&ú:¦V/Ï¿êi+d¦)HD¡¥§P¨¦ï¦3¹ÃJ9\"fØ·EìôÒ:…ÍF¹µÉ{¾V£[ezØ°””‡~ñZõB÷UÍ	g%ÉA-\0NÏ‹‡­ıPÿ\0¸p‡6WŞ¬üğwÚ~ŒùùrwçûÏ§çÂP-º[¶Ã¼­ËµùÉj/ œø¢j²IpNï—ˆà±ã%VêUÃaÜ6u]WrS‘L •QUş6½)ÜC#’waÄdÑ:{>®‘JUÑ¨V~œÜjWBŠ%ÇmÜµÕ¿UõUG#úÀÙ.³³0÷Ì»b\ZÂÒÔ„‹Æàï•99Á¹{_ìŸ÷¨\\`ä*çbåò8{lQSæ¢’õÇKÜÔ…Mu\'è*5iìQË‡0a!ƒâ=ë\r-2u&vÓ§§\nî…ÁıIß™áÕöté½«:Ãáw$š»}ºûZNb<T¥øBRJa,	eU‰Ã/cNèé6õ„´¤ú$ÚJ\nj\njtôÚaCCGA–ğ´±ŸC€aÎì82P›ÚÆ<Ï§2<¾#;pãµş?åÇh¦vdD66 Pä¢§ö\\yå›ÈoL3»g8]<ômO£Ö·)^è4½†k=Ez¢mM;\n4«¬¬«m\0sÕeë_fñŒósˆ•\n-MdÚS wêˆj¾ì+›İÀ%‰bùßlóü£\\·«’èh»¿e>G*tãC¸waóÈm\r™i:î¡”›áræÄoÕ9¥räü\0y9`IâêµİÛtÉ·-Ù]´éõ=ÔT¿Üö$ã ß?-Ù\"“IK©ºİQÙ†I³,$\n}ˆu[‘Y_æS<„AÜä‹×›TDD‘lóŸºó;ñÖtl®ÙË~òIÏ™|qÆ9ñÇ—ğşüùp¿“V\'Mˆ8“ˆyïøùä6ùåÀÉÓX‰Ï\"\'9ÛÅßÈñõ.ß¿çøg?~Ù.’2©n½è£KK&H»u‰mj¤uki>j)JÖLJÏÅ•¼‰H »7Åjjâœ¯:ØÔIS“”¤¥R)½ş…V€\rÎwÁÆC`m—aW^mšêx~g ,¬ÖŠo£\nZnãB<İöw99s³ğßÍQ¾—%ÕÍT¯ğÙ3€ïÉ£Ğr`H€Ë+Å…2µuRWÓ\'°§5%À Ë8pØÆÄ}Öİ:xX½:SI¶u&¥jM›¬ê\nb’Š-/~®·®Ô›™Y\"ÕRVJÀ(ãÅ•>t8aêí\ZÈ¤gKí²î]Ááƒìíû€ã´é½”1Ä\\Ã½ú·?/Ç€ü,iÄ3&“*9ÓÎî6#PÆàgXğƒ¾u¯HôÂG{ÔMPÓ»\nIûÍMéyÛHØo®WŠòçÈˆ3ªŞ×gÆ“¢Ö©¨t‹³oŠÉ©íİ1ñ;İnª¿\'ÃY øÈ¸n7;oŒhO…ş–ı&Ûº%]€š‚‹AgXhäÖÖ¤Úi*k\nä*ª·í‹ƒÅÕ\rÒy72ì£±:Vif¬¦Ûèúœ$Ù×ºuE-2P\rX8ÂR«:6\"ê¹ê¶ç¬	\"ßô·OlEäÚª*³¼S©M¨ïÔ5g /x˜ùétÙé\n]•*ŠM;ıæ	Ãœ˜¢Ø;8Á`	\'1£XúSè¥œ™>’¯Qm™ÓèZ˜§Ûª~7\\=ìE\nR>Í€ólqLš¥¬–î¡k\r¿¨6å\"ŸcmT øqZz÷áJ~.Z&İ€,Ü\0xôèŸÒƒL:UéJ6§é…ÑB±&}5-ÔŠ*™jÈ»<7ë[jêJİ!\\;s7ôHRf)¦k<=Sùw\'àÁ¶øñõÊˆ¾Ì$ü}À?2şñçO¬^Ó~›šİ2lÛÛ¤6¢š)À‰n\\Ÿ1ĞèÇÕLéV—ÍÒÌ“€Øqİ‹‹ÕjÊ¢šhv©Q¨ïd³õA\0ÀrfEu\\rev¸jV$ÄÀ4A€-³C“ÕÈİ°	}m|È‹	§ ¹g$³îsÁÃ‚9Í41b?öÿ\0LxUÛ·î¤Yó\'SY—åámJ´WZš\'öTÂJÌ Ä=÷\"\"bZ q…P»¯™Ÿ[İ×J”ãQô€¡pªW\Zé~ì&#8$¸ÂpAëSKk´$Eâ<ñ—?ƒ¾ß‰…%@·‡é ’¸\0€ì9óg Xñ(º>tµÖî‹·©Ô\rÔ%û\näş£==«h®\ZÖdË¥%`„5„WÏô>©#\rñh—Ê@Ôz¨¨5ÏClëúîÕ7(©ÙuÛ¥+‹‰›Ö¶üÆü]ƒû]z\rk¸‘KO«ÔzkpOÚİÖ\ncdWïâ¾õ°}n\\·«ÿÙ','1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-06-12 23:25:01','e96bcbd2-676d-102c-ace2-9cc3fca64c89',0,0);
 
 /*Table structure for table `persons_have_attachments` */
 
@@ -577,7 +579,7 @@ CREATE TABLE `test` (
 
 /*Data for the table `test` */
 
-insert  into `test`(`speed`,`heartrate`,`lactate`) values ('1 2','2 3','4 5');
+insert  into `test`(`speed`,`heartrate`,`lactate`) values ('10,12','125,130','2.1,2.3');
 
 /*Table structure for table `users` */
 
@@ -649,10 +651,10 @@ DROP TABLE IF EXISTS `entities`;
 /*!50001 DROP TABLE IF EXISTS `entities` */;
 
 /*!50001 CREATE TABLE `entities` (
-  `id` varchar(36) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  `entity` varchar(11) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `id` varchar(36) NOT NULL DEFAULT '',
+  `entity` varchar(11) NOT NULL DEFAULT '',
   `deleted` tinyint(4) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 */;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 */;
 
 /*Table structure for table `relations` */
 
@@ -662,11 +664,11 @@ DROP TABLE IF EXISTS `relations`;
 /*!50001 DROP TABLE IF EXISTS `relations` */;
 
 /*!50001 CREATE TABLE `relations` (
-  `id` varchar(36) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  `partner1` varchar(36) CHARACTER SET utf8 DEFAULT NULL,
-  `partner2` varchar(36) CHARACTER SET utf8 DEFAULT NULL,
-  `reltyp_key` varchar(10) CHARACTER SET utf8 DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 */;
+  `id` varchar(36) NOT NULL DEFAULT '',
+  `partner1` varchar(36) DEFAULT NULL,
+  `partner2` varchar(36) DEFAULT NULL,
+  `reltyp_key` varchar(10) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 */;
 
 /*View structure for view entities */
 

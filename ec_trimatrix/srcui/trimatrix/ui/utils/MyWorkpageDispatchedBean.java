@@ -58,9 +58,7 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 		
 	// ------------------------------------------------------------------------
 	// logic for label functionality
-	// ------------------------------------------------------------------------
-	private static final String CLIENTNAME = "clientname";
-	
+	// ------------------------------------------------------------------------	
 	private String expressionBase;
 	private boolean enableLabeling;
 	
@@ -75,7 +73,7 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 		String entityID = getWorkpage().getId();
 		if(entityID==null||entityID.length()==0) return;
     	BUTTONComponent button =(BUTTONComponent)event.getSource();
-    	String label_id = button.getAttributeValueAsString(CLIENTNAME);
+    	String label_id = button.getAttributeValueAsString(Constants.CLIENTNAME);
     	getLogic().getLabelLogic().deleteLabelRelation(entityID, label_id);
     	setLabelRowDynamic();    	
     }

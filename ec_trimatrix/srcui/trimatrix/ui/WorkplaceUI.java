@@ -6,6 +6,9 @@ import java.util.List;
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
+import org.eclnt.jsfserver.elements.events.BaseActionEventPopupMenuItem;
+import org.eclnt.jsfserver.elements.impl.BUTTONComponent;
 import org.eclnt.jsfserver.elements.impl.OUTLOOKBARITEMComponent;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
@@ -16,7 +19,7 @@ import trimatrix.utils.Constants;
 @CCGenClass (expressionBase="#{d.WorkplaceUI}")
 
 public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializable
-{
+{  
 	private static final String DIVIDERLOCATIONMAX = "150";
 	private static final String DIVIDERLOCATIONMIN = "0";
     protected String m_toggleShowHideImage;
@@ -43,6 +46,11 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 	protected int m_selectedRole = 0;
     public int getSelectedRole() { return m_selectedRole; }
     public void setSelectedRole(int value) { m_selectedRole = value; }
+    
+    private static final String DELETELABEL = "delete";
+    private static final String CHANGELABEL = "change";
+    public String getDeleteLabelCommand() { return DELETELABEL; }
+    public String getChangeLabelCommand() { return CHANGELABEL; }
 
     public void onSwitchRole(ActionEvent event) {
     	if (event.getSource() instanceof OUTLOOKBARITEMComponent) {
@@ -110,4 +118,27 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 		m_renderLabels = !m_renderLabels;
 	}
 	
+	public void onHandleLabels(ActionEvent event) {
+		// handle popupmenue
+		if (event instanceof BaseActionEventPopupMenuItem) {
+			BaseActionEventPopupMenuItem bae = (BaseActionEventPopupMenuItem)event;
+			String command = bae.getCommand();
+			// get label id
+			if (!(event.getSource() instanceof BUTTONComponent)) return;
+	     	BUTTONComponent button =(BUTTONComponent)event.getSource();
+	    	String label_id = button.getAttributeValueAsString(Constants.CLIENTNAME);
+			// delete label
+			if(DELETELABEL.equals(command)) {
+				getLogic().getLabelLogic().deleteLabel(label_id);				
+				return;
+			}
+			// change label
+			if(CHANGELABEL.equals(command)) {
+				getLogic().getLabelLogic().changeLabel(label_id, null, null);	
+				return;
+			}
+			return;
+		}
+				
+	}	
 }

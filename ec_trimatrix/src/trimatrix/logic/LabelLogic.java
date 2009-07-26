@@ -5,6 +5,8 @@ import java.util.UUID;
 import java.util.Vector;
 
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
+import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
+import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoListener;
 import org.hibernate.exception.ConstraintViolationException;
 
 import trimatrix.db.DAOLayer;
@@ -54,6 +56,39 @@ public class LabelLogic {
 			Dictionary.logger.error("Error saving relation entity " + entity_id + " and label " + label_id );
 			return false;
 		}				
+	}
+	
+	public void deleteLabel(String label_id) {
+		// TODO Delete the label
+		// get label
+		final Labels label = daoLayer.getLabelsDAO().findById(label_id);
+		// check if relation to entity exist
+		final List<EntitiesHaveLabels> relations = daoLayer.getEntitiesHaveLabelsDAO().findByLabel(label_id);
+		// popup
+		YESNOPopup.createInstance ( "Delete label", "For label " + label.getDescription() + " there exist " + relations.size() + " relations to entities, sure to delete label?",
+				new IYesNoListener() {
+					public void reactOnNo()	{
+						return;
+					}
+					public void reactOnYes() {
+						// delete all relations
+						if(relations.size() > 0) {				
+							for(EntitiesHaveLabels relation:relations) {
+								daoLayer.getEntitiesHaveLabelsDAO().delete(relation);
+							}
+						}
+						// delete label		
+						if(label!=null) {
+							daoLayer.getLabelsDAO().delete(label);
+						}
+						Statusbar.outputMessage("Delete Label " + label.getDescription());
+					}
+			});		
+	}
+	
+	public void changeLabel(String label_id, String name, String color) {
+		// TODO Change the label
+		Statusbar.outputMessage("Change Label " + label_id);
 	}
 	
 	public List<Labels> getLabelsByEntity(String entity_id) {
