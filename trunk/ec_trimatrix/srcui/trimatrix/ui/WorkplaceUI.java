@@ -6,6 +6,7 @@ import java.util.List;
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
+import org.eclnt.jsfserver.defaultscreens.ModalPopup;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.elements.events.BaseActionEventPopupMenuItem;
 import org.eclnt.jsfserver.elements.impl.BUTTONComponent;
@@ -134,7 +135,11 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 			}
 			// change label
 			if(CHANGELABEL.equals(command)) {
-				getLogic().getLabelLogic().changeLabel(label_id, null, null);	
+				LabelChangePopUp labelChangePopUp = getLabelChangePopUp();
+				labelChangePopUp.setLabel(label_id);
+				m_popup = getWorkpage().createModalPopupInWorkpageContext();    
+				m_popup.setLefTopReferenceComponentIdBottom(button.getId());
+		    	m_popup.open(Constants.Page.LABELCHANGEPOPUP.getUrl(), "Label ändern", 250, 150, this); 
 				return;
 			}
 			return;

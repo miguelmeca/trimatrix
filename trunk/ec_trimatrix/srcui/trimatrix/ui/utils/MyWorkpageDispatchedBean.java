@@ -29,6 +29,7 @@ import trimatrix.ui.EntityDetailUI;
 import trimatrix.ui.EntityListUI;
 import trimatrix.ui.EntitySelectionUI;
 import trimatrix.ui.IEntityDetailUI;
+import trimatrix.ui.LabelChangePopUp;
 import trimatrix.ui.LabelPopUpUI;
 import trimatrix.ui.PersonSelectionUI;
 import trimatrix.ui.UserDetailUI;
@@ -195,5 +196,9 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 	
 	public LabelPopUpUI getLabelPopUpUI() {
 		return (LabelPopUpUI)getOwningDispatcher().getDispatchedBean(LabelPopUpUI.class);
+	}
+	
+	public LabelChangePopUp getLabelChangePopUp() {
+		return (LabelChangePopUp)getOwningDispatcher().getDispatchedBean(LabelChangePopUp.class);
 	}
 }
