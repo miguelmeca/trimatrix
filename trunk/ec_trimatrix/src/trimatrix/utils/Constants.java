@@ -174,4 +174,7 @@ public final class Constants {
 	// colors as string
 	public static final String WHITE = "#FFFFFF";
 	public static final String BLACK = "#000000";
+	
+	// UI parameter
+	public static final String CLIENTNAME = "clientname";
 }

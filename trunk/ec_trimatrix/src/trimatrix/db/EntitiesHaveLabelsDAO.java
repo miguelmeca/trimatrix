@@ -114,7 +114,22 @@ public class EntitiesHaveLabelsDAO extends HibernateDaoSupport implements IEntit
 			String queryString = "from EntitiesHaveLabels where entity = ?";
 			return getHibernateTemplate().find(queryString, entity);
 		} catch (RuntimeException re) {
-			log.error("find by entity name failed", re);
+			log.error("find by entity failed", re);
+			throw re;
+		}
+	}
+	
+	/* (non-Javadoc)
+	 * @see trimatrix.db.IEntitiesHaveLabelsDAO#findByLabel(java.lang.String)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<EntitiesHaveLabels> findByLabel(String label) {
+		log.debug("finding EntitiesHaveLabels instance with label id: " + label);
+		try {
+			String queryString = "from EntitiesHaveLabels where label = ?";
+			return getHibernateTemplate().find(queryString, label);
+		} catch (RuntimeException re) {
+			log.error("find by label id failed", re);
 			throw re;
 		}
 	}
