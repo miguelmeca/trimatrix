@@ -24,7 +24,8 @@ public final class Constants {
 		ATTACHMENTSELECTION("/attachmentselection.jsp", "Anhangssuche"),
 		RELATIONLIST("/relationlist.jsp", "Beziehungen"),
 		CREATERELATION("/createrelation.jsp", "Beziehungsanlage"),
-		LABELPOPUP("/labelpopup.jsp", "Labels");
+		LABELPOPUP("/labelpopup.jsp", "Labels"),
+		LABELCHANGEPOPUP("/popups/labelchange.jsp", "Label ändern");
 		private final String url;
 		private final String description;
 		Page(String url, String description) {
