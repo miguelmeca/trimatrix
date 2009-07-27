@@ -54,30 +54,28 @@
 </t:pane>
 <t:pane id="g_31" height="100%" rendered="#{d.WorkplaceUI.renderLabels}" rowdistance="35" >
 <t:rowdistance id="g_32" height="35" />
-<t:row id="g_33" >
-<t:button id="g_34" actionListener="#{d.WorkplaceUI.onHandleLabels}" bgpaint="roundedrectangle(0,0,100%,100%,5,5,#FF0000)" clientname="55620350-6d49-11de-a69b-604b59d93788" contentareafilled="false" popupmenu="LABEL" stylevariant="WP_ISOLATEDWORKPAGE" text="meinLabel" />
-</t:row>
+<t:rowdynamiccontent id="g_33" contentbinding="#{d.WorkplaceUI.labels}" />
 </t:pane>
 </t:row>
 </t:splitpanesplit>
 </t:splitpane>
 </t:row>
 </t:rowbodypane>
-<t:row id="g_35" >
-<t:pane id="g_36" width="100%" >
-<t:rowworkpageselector id="g_37" objectbinding="#{d.workpageContainer}" />
+<t:row id="g_34" >
+<t:pane id="g_35" width="100%" >
+<t:rowworkpageselector id="g_36" objectbinding="#{d.workpageContainer}" />
 </t:pane>
 </t:row>
 <t:popupmenu id="WORKPLACE" >
-<t:menuitem id="g_38" actionListener="#{d.workpageContainer.onCloseCurrentWorkpage}" hotkey="ctrl-115" text="#{rr.literals.close_current_wp}" />
-<t:menuitem id="g_39" actionListener="#{d.workpageContainer.onCloseAllWorkpages}" hotkey="ctrl-shift-115" text="#{rr.literals.close_all_wps}" />
+<t:menuitem id="g_37" actionListener="#{d.workpageContainer.onCloseCurrentWorkpage}" hotkey="ctrl-115" text="#{rr.literals.close_current_wp}" />
+<t:menuitem id="g_38" actionListener="#{d.workpageContainer.onCloseAllWorkpages}" hotkey="ctrl-shift-115" text="#{rr.literals.close_all_wps}" />
 </t:popupmenu>
 <t:popupmenu id="LABEL" >
-<t:menuitem id="g_40" command="#{d.WorkplaceUI.changeLabelCommand}" text="#{rr.literals.change}" />
-<t:menuitem id="g_41" command="#{d.WorkplaceUI.deleteLabelCommand}" text="#{rr.literals.delete}" />
+<t:menuitem id="g_39" command="#{d.WorkplaceUI.changeLabelCommand}" text="#{rr.literals.change}" />
+<t:menuitem id="g_40" command="#{d.WorkplaceUI.deleteLabelCommand}" text="#{rr.literals.delete}" />
 </t:popupmenu>
-<t:beanprocessing id="g_42" >
-<t:sessioncloser id="g_43" />
+<t:beanprocessing id="g_41" >
+<t:sessioncloser id="g_42" />
 </t:beanprocessing>
 <t:pageaddons id="g_pa"/>
 </f:subview>

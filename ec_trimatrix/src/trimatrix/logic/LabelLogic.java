@@ -88,9 +88,22 @@ public class LabelLogic {
 			});		
 	}
 	
-	public void changeLabel(String label_id, String name, String color) {
-		// TODO Change the label
-		Statusbar.outputMessage("Change Label " + label_id);
+	public boolean changeLabel(String label_id, String description, String color) {
+		Labels label = daoLayer.getLabelsDAO().findById(label_id);
+		if(label==null) return false;
+		label.setColor(color);
+		label.setDescription(description);
+		try {
+			daoLayer.getLabelsDAO().merge(label);
+			return true;
+		} catch (Exception ex) {
+			Dictionary.logger.error(ex.toString());
+			return false;
+		}		
+	}
+	
+	public Labels getLabel(String id) {
+		return daoLayer.getLabelsDAO().findById(id);
 	}
 	
 	public List<Labels> getLabelsByEntity(String entity_id) {
@@ -103,6 +116,10 @@ public class LabelLogic {
 			}
 		}
 		return labels;		
+	}
+	
+	public List<Labels> getLabelsByPerson(String person_id) {
+		return daoLayer.getLabelsDAO().findByPersonId(person_id);
 	}
 	
 	public Labels createLabel(String description, String color) {
