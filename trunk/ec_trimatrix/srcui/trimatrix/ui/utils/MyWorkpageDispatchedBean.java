@@ -1,7 +1,7 @@
 package trimatrix.ui.utils;
 
 import java.awt.Color;
-import java.lang.annotation.Annotation;
+import java.util.Collections;
 import java.util.List;
 
 import javax.faces.event.ActionEvent;
@@ -61,10 +61,11 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 	// logic for label functionality
 	// ------------------------------------------------------------------------	
 	private String expressionBase;
-	private boolean enableLabeling;
+	private boolean enableLabeling;	
 	
 	protected ROWDYNAMICCONTENTBinding m_labelRow = new ROWDYNAMICCONTENTBinding();
-    public ROWDYNAMICCONTENTBinding getLabelRow() { return m_labelRow; }
+    // TODO Optimize call of refresh labels
+	public ROWDYNAMICCONTENTBinding getLabelRow() { setLabelRowDynamic(); return m_labelRow; }
     public void setLabelRow(ROWDYNAMICCONTENTBinding value) { m_labelRow = value; }
 	
 	public void onLabelDelete(ActionEvent event) {
@@ -87,7 +88,7 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 		if(entityID==null||entityID.length()==0) return;
 		// build dynamic row with labels
 		StringBuffer xml = new StringBuffer();
-		List<Labels> labels = getLogic().getLabelLogic().getLabelsByEntity("123456");
+		List<Labels> labels = getLogic().getLabelLogic().getLabelsByEntity(entityID);
 		for(Labels label:labels) {
 			// get inverted color for font
 			Color background = Color.decode(label.getColor());

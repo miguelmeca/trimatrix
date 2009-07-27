@@ -1,20 +1,22 @@
 package trimatrix.ui;
 
+import java.awt.Color;
 import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
-import org.eclnt.jsfserver.defaultscreens.ModalPopup;
-import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.elements.events.BaseActionEventPopupMenuItem;
 import org.eclnt.jsfserver.elements.impl.BUTTONComponent;
 import org.eclnt.jsfserver.elements.impl.OUTLOOKBARITEMComponent;
+import org.eclnt.jsfserver.elements.impl.ROWDYNAMICCONTENTBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
+import trimatrix.db.Labels;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Dictionary;
 
 @SuppressWarnings("serial")
 @CCGenClass (expressionBase="#{d.WorkplaceUI}")
@@ -23,24 +25,24 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 {  
 	private static final String DIVIDERLOCATIONMAX = "150";
 	private static final String DIVIDERLOCATIONMIN = "0";
-    protected String m_toggleShowHideImage;
+    //protected String m_toggleShowHideImage;
    
     protected String m_dividerLocation = DIVIDERLOCATIONMAX;
     public String getDividerLocation() { return m_dividerLocation; }      
     
-    protected boolean m_renderLabels;
+    protected boolean m_renderLabels = true;
     public boolean getRenderLabels() { return m_renderLabels; }
     public void setRenderLabels(boolean value) { m_renderLabels = value; }
 
-    protected boolean m_renderCoach;
+    protected boolean m_renderCoach = false;
     public boolean getRenderCoach() { return m_renderCoach; }
     public void setRenderCoach(boolean value) { m_renderCoach = value; }
 
-    protected boolean m_renderAthlete;
+    protected boolean m_renderAthlete = false;
     public boolean getRenderAthlete() { return m_renderAthlete; }
     public void setRenderAthlete(boolean value) { m_renderAthlete = value; }
 
-    protected boolean m_renderAdmin;
+    protected boolean m_renderAdmin = true;
     public boolean getRenderAdmin() { return m_renderAdmin; }
     public void setRenderAdmin(boolean value) { m_renderAdmin = value; }
        
@@ -131,19 +133,53 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 			// delete label
 			if(DELETELABEL.equals(command)) {
 				getLogic().getLabelLogic().deleteLabel(label_id);				
-				return;
 			}
 			// change label
 			if(CHANGELABEL.equals(command)) {
 				LabelChangePopUp labelChangePopUp = getLabelChangePopUp();
-				labelChangePopUp.setLabel(label_id);
-				m_popup = getWorkpage().createModalPopupInWorkpageContext();    
-				m_popup.setLefTopReferenceComponentIdBottom(button.getId());
+				labelChangePopUp.prepareCallback(new LabelChangePopUp.IPopupCallback(){
+					@Override
+					public void cancel() {
+						m_popup.close();						
+					}					
+				});
+				if(!labelChangePopUp.setLabel(label_id)) {
+					Dictionary.logger.error("Label " + label_id + " not correct!");
+					return;
+				}
+				m_popup = getWorkpage().createModalPopupInWorkpageContext();  				
 		    	m_popup.open(Constants.Page.LABELCHANGEPOPUP.getUrl(), "Label ändern", 250, 150, this); 
-				return;
+		    	m_popup.setUndecorated(true);
 			}
-			return;
-		}
-				
+		}				
 	}	
+	
+	// ------------------------------------------------------------------------
+	// logic for label overview
+	// ------------------------------------------------------------------------	
+	
+	protected ROWDYNAMICCONTENTBinding m_labels = new ROWDYNAMICCONTENTBinding();
+	// TODO Optimize call of refresh labels
+	public ROWDYNAMICCONTENTBinding getLabels() { setLabelRowDynamic(); return m_labels; }
+    public void setLabels(ROWDYNAMICCONTENTBinding value) { m_labels = value; }
+    
+    protected void setLabelRowDynamic() { 		
+    	StringBuffer xml = new StringBuffer();
+    	// get all labels for logged in person
+		List<Labels> labels = getLogic().getLabelLogic().getLabelsByPerson(getServiceLayer().getDictionaryService().getMyPerson().getId());
+		xml.append("<t:pane>");
+		for(Labels label:labels) {
+			// get inverted color for font
+			Color background = Color.decode(label.getColor());
+			String fontColor = Dictionary.getBlackOrWhite(background);		
+
+			xml.append("<t:row>");
+			xml.append("<t:button clientname='" + label.getId() + "' actionListener='#{d.WorkplaceUI.onHandleLabels}' contentareafilled='false' bgpaint='roundedrectangle(0,0,100%,100%,5,5," + label.getColor() + ")' stylevariant='WP_ISOLATEDWORKPAGE' popupmenu='LABEL' foreground ='" + fontColor + "' font='size:10;weight:bold' text='"+ label.getDescription() +"' width = '120' />");
+			xml.append("</t:row>");
+			xml.append("<t:rowdistance />");
+		}
+		xml.append("</t:pane>");
+		m_labels.setContentXml(xml.toString());
+	}
+	
 }

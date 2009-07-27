@@ -19,6 +19,8 @@ public interface IEntitiesHaveLabelsDAO {
 	
 	public abstract List<EntitiesHaveLabels> findByEntity(String entity);
 	
+	public abstract List<EntitiesHaveLabels> findByPerson(String person);
+	
 	public abstract List<EntitiesHaveLabels> findByLabel(String label);
 
 	public abstract List<EntitiesHaveLabels> findAll();
