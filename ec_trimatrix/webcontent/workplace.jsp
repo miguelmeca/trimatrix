@@ -29,9 +29,9 @@
 <t:outlookbaritem id="g_14" actionListener="#{d.WorkplaceUI.onSwitchRole}" clientname="coach" rendered="#{d.WorkplaceUI.renderCoach}" text="#{rr.literals.role_trainer}" />
 <t:outlookbaritem id="g_15" actionListener="#{d.WorkplaceUI.onSwitchRole}" clientname="athlete" rendered="#{d.WorkplaceUI.renderAthlete}" text="#{rr.literals.role_athlet}" />
 <t:outlookbarcontent id="g_16" >
-<t:rowworkplacefunctiontree id="g_17" foreground="#000000" objectbinding="#{d.WPFunctionTreeAthlet}" rendered="#{d.WorkplaceUI.selectedRole == 2}" />
-<t:rowworkplacefunctiontree id="g_18" foreground="#000000" objectbinding="#{d.WPFunctionTreeAdmin}" rendered="#{d.WorkplaceUI.selectedRole == 0}" treenodebgpaint="border(0,0,100%,100%,#C0C0C0,2)" />
-<t:rowworkplacefunctiontree id="g_19" foreground="#000000" objectbinding="#{d.WPFunctionTreeCoach}" rendered="#{d.WorkplaceUI.selectedRole == 1}" />
+<t:rowworkplacefunctiontree id="g_17" foreground="#000000" objectbinding="#{d.WPFunctionTreeAthlet}" rendered="#{d.WorkplaceUI.selectedRole == 2}" singleclickexecute="true" />
+<t:rowworkplacefunctiontree id="g_18" foreground="#000000" objectbinding="#{d.WPFunctionTreeAdmin}" rendered="#{d.WorkplaceUI.selectedRole == 0}" singleclickexecute="true" />
+<t:rowworkplacefunctiontree id="g_19" foreground="#000000" objectbinding="#{d.WPFunctionTreeCoach}" rendered="#{d.WorkplaceUI.selectedRole == 1}" singleclickexecute="true" />
 </t:outlookbarcontent>
 </t:outlookbar>
 </t:row>
@@ -70,7 +70,7 @@
 <t:menuitem id="g_37" actionListener="#{d.workpageContainer.onCloseCurrentWorkpage}" hotkey="ctrl-115" text="#{rr.literals.close_current_wp}" />
 <t:menuitem id="g_38" actionListener="#{d.workpageContainer.onCloseAllWorkpages}" hotkey="ctrl-shift-115" text="#{rr.literals.close_all_wps}" />
 </t:popupmenu>
-<t:popupmenu id="LABEL" >
+<t:popupmenu id="LABEL" popupborder="#808080" >
 <t:menuitem id="g_39" command="#{d.WorkplaceUI.changeLabelCommand}" text="#{rr.literals.change}" />
 <t:menuitem id="g_40" command="#{d.WorkplaceUI.deleteLabelCommand}" text="#{rr.literals.delete}" />
 </t:popupmenu>

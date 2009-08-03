@@ -7,6 +7,9 @@
         <set attribute="height" value="10"/>
         <set attribute="width" value="1"/>
     </tag>
+    <tag name="colorfield" variant="default">
+        <set attribute="background" value="#FFFFFF"/>
+    </tag>
     <tag name="combofield" variant="default">
         <set attribute="background" value="#FFFFFF"/>
     </tag>

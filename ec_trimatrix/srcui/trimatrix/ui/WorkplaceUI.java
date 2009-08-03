@@ -138,7 +138,6 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 			if(CHANGELABEL.equals(command)) {
 				LabelChangePopUp labelChangePopUp = getLabelChangePopUp();
 				labelChangePopUp.prepareCallback(new LabelChangePopUp.IPopupCallback(){
-					@Override
 					public void cancel() {
 						m_popup.close();						
 					}					
@@ -146,10 +145,10 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 				if(!labelChangePopUp.setLabel(label_id)) {
 					Dictionary.logger.error("Label " + label_id + " not correct!");
 					return;
-				}
-				m_popup = getWorkpage().createModalPopupInWorkpageContext();  				
-		    	m_popup.open(Constants.Page.LABELCHANGEPOPUP.getUrl(), "Label ändern", 250, 150, this); 
-		    	m_popup.setUndecorated(true);
+				}			
+				m_popup = getWorkpage().createModalPopupInWorkpageContext();  			
+		    	m_popup.open(Constants.Page.LABELCHANGEPOPUP.getUrl(), "Label ändern",350, 175, this); 
+		    	//m_popup.setUndecorated(true);
 			}
 		}				
 	}	
