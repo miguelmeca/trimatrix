@@ -15,13 +15,13 @@
 <t:row id="g_2" >
 <t:label id="g_3" text="#{rr.literals.color}" width="70" />
 <t:coldistance id="g_4" />
-<t:field id="g_5" text="#{d.LabelChangePopUp.color}" width="100" />
+<t:colorfield id="g_5" value="#{d.LabelChangePopUp.color}" width="100" />
 </t:row>
 <t:rowdistance id="g_6" />
 <t:row id="g_7" >
 <t:label id="g_8" text="#{rr.literals.description}" width="70" />
 <t:coldistance id="g_9" />
-<t:field id="g_10" text="#{d.LabelChangePopUp.description}" width="100" />
+<t:field id="g_10" text="#{d.LabelChangePopUp.description}" width="200" />
 </t:row>
 <t:rowdistance id="g_11" height="10" />
 <t:row id="g_12" >

@@ -1,7 +1,6 @@
 package trimatrix.ui.utils;
 
 import java.awt.Color;
-import java.util.Collections;
 import java.util.List;
 
 import javax.faces.event.ActionEvent;
@@ -42,6 +41,7 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 	public MyWorkpageDispatchedBean(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
 		enableLabeling = false;
+		//getWorkpageContainer().setOpenWorkpagePopupsAsFrame(true);
 	}	
 	
 	public MyWorkpageDispatchedBean(IWorkpageDispatcher dispatcher, boolean enableLabeling) {

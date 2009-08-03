@@ -17,7 +17,8 @@
                         componentbinding="#{OBJECTBINDING.tabbedLine}" 
                         value="#{OBJECTBINDING.tabbedLineIndex}" 
                         width="100%" 
-                        cutwidth="true"/>
+                        cutwidth="true"
+                        reselectable="true"/>
         </t:row>
 <t:popupmenu id="WORKPAGETAB" >
   <t:menuitem id="g_53" command="cmdCLOSEWORKPAGE" image="/eclntjsfserver/images/window_close.png" text="#{eclnti18n.WPSEL_close}" />

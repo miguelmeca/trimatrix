@@ -17,7 +17,7 @@
   <t:button id="g_333" stylevariant="WP_ISOLATEDWORKPAGE" rendered="#{@DISPATCHER@.isMaximized}" actionListener="#{@DISPATCHER@.onMaximize}" contentareafilled="false" image="/eclntjsfserver/images/window_normalsize.png" text="#{eclnti18n.WP_normalsize}" />
   <t:button id="g_33" stylevariant="WP_ISOLATEDWORKPAGE" rendered="#{@DISPATCHER@.isMaximized == false}" actionListener="#{@DISPATCHER@.onMaximize}" contentareafilled="false" image="/eclntjsfserver/images/window_maximize.png" text="#{eclnti18n.WP_maximize}" />
 </t:rowheader>
-<t:rowinclude id="g_4" page="@PAGE@"/>
+<t:rowinclude id="g_4" page="#{@DISPATCHER@.workpage.jspPage}"/>
 <t:rowstatusbar id="g_5" objectbinding="#{@DISPATCHER@.statusbar}" rendered="#{@DISPATCHER@.openedAsPopup}" />
 <t:pageaddons id="g_pa"/>
 </f:subview>
