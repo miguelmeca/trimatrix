@@ -1,6 +1,5 @@
 package trimatrix.utils;
 
-import java.io.ByteArrayOutputStream;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -17,12 +16,9 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-import com.lowagie.text.Document;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.pdf.PdfWriter;
-import com.sun.istack.internal.ByteArrayDataSource;
-
 import trimatrix.structures.SAttachment;
+
+import com.sun.istack.internal.ByteArrayDataSource;
 
 public class MailSender {
 	private static final String SMTP_HOST_NAME = Constants.MAIL_BUNDLE

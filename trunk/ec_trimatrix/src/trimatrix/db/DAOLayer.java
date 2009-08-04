@@ -13,6 +13,7 @@ public class DAOLayer {
 	private IPersonsHaveDoctorsDAO personsHaveDoctorsDAO;
 	private IPersonsHaveAttachmentsDAO personsHaveAttachmentsDAO;	
 	private ITSalutationDAO tsalutationDAO;
+	private ITCategoriesDAO tcategoriesDAO;
 	private IListVariantsDAO listVariantsDAO;	
 	private ILabelsDAO labelsDAO;
 	private IEntitiesHaveLabelsDAO entitiesHaveLabelsDAO;
@@ -92,6 +93,13 @@ public class DAOLayer {
 		this.tsalutationDAO = tsalutationDAO;
 	}	
 		
+	public ITCategoriesDAO getTcategoriesDAO() {
+		return tcategoriesDAO;
+	}
+	public void setTcategoriesDAO(ITCategoriesDAO tcategoriesDAO) {
+		this.tcategoriesDAO = tcategoriesDAO;
+	}
+	
 	public IListVariantsDAO getListVariantsDAO() {
 		return listVariantsDAO;
 	}

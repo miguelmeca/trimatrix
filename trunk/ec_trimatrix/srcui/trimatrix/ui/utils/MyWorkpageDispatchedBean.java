@@ -99,7 +99,7 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 			xml.append("<t:button actionListener='" + expressionBase + "onLabelDelete}' clientname='" + label.getId() + "' bgpaint='rectangle(0,0,100%-10,100%," + label.getColor() + ");roundedrectangle(0,0,100%,100%,10,10," + label.getColor() + ")' foreground ='" + fontColor + "' font='weight:bold' stylevariant='WP_ISOLATEDWORKPAGE' text='X' />");
 			xml.append("<t:coldistance />");
 		}
-		xml.append("<t:button actionListener='" + expressionBase + "onLabelSearch}' contentareafilled='false' image='/images/icons/magnifier.png' text='Label' />");
+		xml.append("<t:button actionListener='" + expressionBase + "onLabelSearch}' contentareafilled='false' image='/images/icons/magnifier.png' text='Label'/>");
 		m_labelRow.setContentXml(xml.toString());
 	}	
 	 

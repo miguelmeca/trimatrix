@@ -10,7 +10,7 @@ import trimatrix.logic.EntityListLogic;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
 
-public class AEntityDetailUI extends MyWorkpageDispatchedBean {
+public abstract class AEntityDetailUI extends MyWorkpageDispatchedBean {
 
 	protected final String[] MANDATORY_FIELDS;
 

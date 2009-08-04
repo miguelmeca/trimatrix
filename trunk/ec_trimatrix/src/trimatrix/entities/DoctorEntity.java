@@ -6,21 +6,18 @@ import java.util.List;
 import java.util.UUID;
 
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
-import org.springframework.orm.hibernate3.HibernateTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import trimatrix.db.DAOLayer;
 import trimatrix.db.Doctors;
 import trimatrix.db.IDoctorsDAO;
-import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
 import trimatrix.utils.Constants.Entity;
 
-public class DoctorEntity implements IEntity {
+public class DoctorEntity extends AEntity {
 	// Constants	 
 	public static final String NAME = "name";
 	public static final String STREET = "street";
@@ -36,11 +33,7 @@ public class DoctorEntity implements IEntity {
     public static final String FAX = "fax";
     
 	// Variables
-	private SQLExecutorService sqlExecutorService;
-	private Dictionary dictionaryService;
 	private IDoctorsDAO entitiesDAO;
-	private DAOLayer daoLayer;
-	private HibernateTransactionManager transactionManager;
 
 	public IEntityObject create() {
 		String id = UUID.randomUUID().toString();
@@ -111,7 +104,7 @@ public class DoctorEntity implements IEntity {
         } else {
         	return Constants.EMPTYENTITYLIST;
         }
-	}
+	}	
 
 	public List<IEntityData> getData() {
 		return sqlExecutorService.getDoctorEntities();
@@ -227,23 +220,7 @@ public class DoctorEntity implements IEntity {
 		}		
 	}
 
-	public void setSqlExecutorService(SQLExecutorService sqlExecutorService) {
-		this.sqlExecutorService = sqlExecutorService;
-	}
-
-	public void setDictionaryService(Dictionary dictionaryService) {
-		this.dictionaryService = dictionaryService;
-	}
-
 	public void setEntitiesDAO(IDoctorsDAO entitiesDAO) {
 		this.entitiesDAO = entitiesDAO;
-	}
-	
-	public void setDaoLayer(DAOLayer daoLayer) {
-		this.daoLayer = daoLayer;
-	}
-
-	public void setTransactionManager(HibernateTransactionManager transactionManager) {
-		this.transactionManager = transactionManager;
-	}
+	}	
 }

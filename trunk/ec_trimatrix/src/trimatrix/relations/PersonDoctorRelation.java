@@ -9,7 +9,6 @@ import trimatrix.db.IDoctorsDAO;
 import trimatrix.db.IPersonsDAO;
 import trimatrix.db.IPersonsHaveDoctorsDAO;
 import trimatrix.db.Persons;
-import trimatrix.db.PersonsHaveAttachments;
 import trimatrix.db.PersonsHaveDoctors;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;

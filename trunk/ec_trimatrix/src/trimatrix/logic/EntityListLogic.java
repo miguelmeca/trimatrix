@@ -37,6 +37,10 @@ public class EntityListLogic {
 		return serviceLayer.getResolverService().getData(entity, personId);
 	}
 	
+	public List<IEntityData> getData(Constants.Entity entity, List<String> ids) {
+		return serviceLayer.getResolverService().getData(entity, ids);
+	}
+	
 	public boolean delete(Constants.Entity entity, String id) {
 		return serviceLayer.getResolverService().delete(entity, id);
 	}

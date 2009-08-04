@@ -7,7 +7,6 @@ import java.util.UUID;
 import trimatrix.db.IPersonsDAO;
 import trimatrix.db.IPersonsHaveRelationsDAO;
 import trimatrix.db.Persons;
-import trimatrix.db.PersonsHaveAttachments;
 import trimatrix.db.PersonsHaveRelations;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;

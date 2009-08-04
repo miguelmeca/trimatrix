@@ -8,7 +8,6 @@ import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.db.Labels;
-import trimatrix.ui.EntitySelectionUI.ISelectionCallback;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 
 @CCGenClass (expressionBase="#{d.LabelChangePopUp}")
