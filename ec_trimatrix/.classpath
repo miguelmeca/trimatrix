@@ -70,5 +70,6 @@
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/iText-2.1.6.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/Jama.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/eclntjsfserver.jar"/>
 	<classpathentry kind="output" path="webcontent/WEB-INF/classes"/>
 </classpath>
