@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.io.ByteArrayOutputStream;
+
 import org.eclnt.util.valuemgmt.ValueManager;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;

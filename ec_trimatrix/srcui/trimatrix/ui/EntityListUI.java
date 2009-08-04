@@ -1,6 +1,7 @@
 package trimatrix.ui;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.event.ActionEvent;
@@ -68,6 +69,16 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 		// set up grid output		
 		gridMetaData = ENTITYLISTLOGIC.getGridMetaData(entity);		
 		buildData();
+	}
+	
+	// Constructor for LabelSearchResult
+	public EntityListUI(IWorkpageDispatcher dispatcher, Constants.Entity entity) {
+		super(dispatcher);
+		// show no buttons
+		authorization = new SAuthorization(Constants.FALSE, Constants.FALSE, Constants.FALSE);	
+		this.entity = entity;
+		personId = null;
+		gridMetaData = ENTITYLISTLOGIC.getGridMetaData(entity);		
 	}
 
 	protected FIXGRIDListBinding<GridListItem> m_gridList = new FIXGRIDListBinding<GridListItem>(
@@ -186,9 +197,24 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 		} 
 	}
 
+	// common build method
 	private void buildData() {
 		// load entities from database
 		gridData = ENTITYLISTLOGIC.getData(entity, personId);
+		// rebuild grid list
+		m_gridList.getItems().clear();
+		for (IEntityData datum : gridData) {
+			m_gridList.getItems().add(new GridListItem(datum));
+		}
+		setRowDynamic();
+		// load grid state
+		loadGridState();
+	}
+	
+	// special build method for labelsearch
+	public void buildData(List<String> ids) {
+		// load entities from database
+		gridData = ENTITYLISTLOGIC.getData(entity, ids);
 		// rebuild grid list
 		m_gridList.getItems().clear();
 		for (IEntityData datum : gridData) {

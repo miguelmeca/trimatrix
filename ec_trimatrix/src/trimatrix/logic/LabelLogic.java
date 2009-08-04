@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.Vector;
 
-import org.eclnt.jsfserver.defaultscreens.ModalPopup;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoListener;
@@ -15,7 +14,6 @@ import trimatrix.db.EntitiesHaveLabels;
 import trimatrix.db.EntitiesHaveLabelsId;
 import trimatrix.db.Labels;
 import trimatrix.services.ServiceLayer;
-import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
 
 public class LabelLogic {

@@ -6,21 +6,20 @@ import java.util.List;
 import java.util.UUID;
 
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
-import org.springframework.orm.hibernate3.HibernateTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import trimatrix.db.Attachments;
-import trimatrix.db.DAOLayer;
 import trimatrix.db.IAttachmentsDAO;
-import trimatrix.services.SQLExecutorService;
+import trimatrix.db.TCategories;
+import trimatrix.db.TCategoriesId;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
 import trimatrix.utils.Constants.Entity;
 
-public class AttachmentEntity implements IEntity {
+public class AttachmentEntity extends AEntity {
 	// Constants	
 	public static final String ICON = "icon";
 	public static final String DESCRIPTION = "description";	
@@ -31,11 +30,7 @@ public class AttachmentEntity implements IEntity {
     public static final String FILESIZE = "filesize"; 
     
 	// Variables
-	private SQLExecutorService sqlExecutorService;
-	private Dictionary dictionaryService;
 	private IAttachmentsDAO entitiesDAO;
-	private DAOLayer daoLayer;
-	private HibernateTransactionManager transactionManager;
 
 	public IEntityObject create() {
 		String id = UUID.randomUUID().toString();
@@ -91,7 +86,27 @@ public class AttachmentEntity implements IEntity {
 		return entity;
 	}
 	
-	
+	public IEntityData getData(String id) {
+		Data datum = new Data();
+		Attachments entity = (Attachments)get(id);
+		if(entity!=null) {
+			datum.id = entity.getId();	
+			String categoryKey = entity.getCategoryKey();
+			String language = dictionaryService.getLanguage();
+			TCategories category = daoLayer.getTcategoriesDAO().findById(new TCategoriesId(categoryKey, language));
+			if(category!=null) {
+				datum.category = category.getDescription();
+			} else {
+				Dictionary.logger.warn("Category " + categoryKey + " not found!");
+			}
+			datum.description = entity.getDescription();
+			datum.owner = entity.getOwner().toString();
+			datum.mimetype = entity.getMimeType();
+			datum.filename = entity.getFileName();
+			datum.filesize = entity.getFileSize();
+		}
+		return datum;
+	}	
 
 	public List<IEntityData> getData(Entity entity) {
 		if (entity == Constants.Entity.ATTACHMENT) {
@@ -201,23 +216,7 @@ public class AttachmentEntity implements IEntity {
 		}			
 	}
 
-	public void setSqlExecutorService(SQLExecutorService sqlExecutorService) {
-		this.sqlExecutorService = sqlExecutorService;
-	}
-
-	public void setDictionaryService(Dictionary dictionaryService) {
-		this.dictionaryService = dictionaryService;
-	}
-
 	public void setEntitiesDAO(IAttachmentsDAO entitiesDAO) {
 		this.entitiesDAO = entitiesDAO;
-	}
-	
-	public void setDaoLayer(DAOLayer daoLayer) {
-		this.daoLayer = daoLayer;
-	}
-
-	public void setTransactionManager(HibernateTransactionManager transactionManager) {
-		this.transactionManager = transactionManager;
-	}
+	}	
 }

@@ -93,6 +93,9 @@
         <property name="tsalutationDAO">
             <ref bean="TSalutationDAO" />
         </property>  
+        <property name="tcategoriesDAO">
+            <ref bean="TCategoriesDAO" />
+        </property>  
         <property name="listVariantsDAO">
             <ref bean="ListVariantsDAO" />
         </property>      
@@ -264,6 +267,11 @@
 	</bean>
 	<bean id="KFunctionnodesDAO"
 		class="trimatrix.db.KFunctionnodesDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TCategoriesDAO" class="trimatrix.db.TCategoriesDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>

@@ -14,11 +14,15 @@ public class WPFunctionTreeTest extends WorkplaceFunctionTree {
 	// TODO adapt logic
 	@Override
 	protected void loadFunctionTree() {
-		FunctionNode top;
+		FunctionNode test;
+		FunctionNode label;
         
         getFtree().getRootNode().removeAllChildNodes(true);
         
-        top = new FunctionNode(getFtree().getRootNode(),"/test/test.jsp");
-        top.setText("Test"); top.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
+        test = new FunctionNode(getFtree().getRootNode(),"/test/test.jsp");
+        test.setText("Test"); test.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
+        
+        label = new FunctionNode(getFtree().getRootNode(),"/labelsearchresult.jsp");
+        label.setText("Label"); label.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
 	}
 }

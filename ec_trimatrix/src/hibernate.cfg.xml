@@ -51,6 +51,7 @@
 		<mapping resource="trimatrix/db/EntitiesHaveLabels.hbm.xml" />
 		<mapping resource="trimatrix/db/Labels.hbm.xml" />
 		<mapping resource="trimatrix/db/KFunctionnodes.hbm.xml" />
+		<mapping resource="trimatrix/db/TCategories.hbm.xml" />
 	</session-factory>
 
 </hibernate-configuration>

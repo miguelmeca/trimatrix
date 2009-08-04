@@ -7,12 +7,11 @@ import java.util.UUID;
 
 import trimatrix.db.IUsersDAO;
 import trimatrix.db.Users;
-import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
 
-public final class UserEntity implements IEntity {
+public final class UserEntity extends AEntity {
 	// Constants
 	public static final String USER_NAME = "user_name";
 	public static final String EMAIL = "email";
@@ -24,8 +23,6 @@ public final class UserEntity implements IEntity {
 	public static final String LOCKED = "locked";
 	
 	// Variables
-	private SQLExecutorService sqlExecutorService;	
-	private Dictionary dictionaryService;
 	private IUsersDAO entitiesDAO;
 	
 	/* (non-Javadoc)
@@ -192,14 +189,6 @@ public final class UserEntity implements IEntity {
 		public boolean getActive() {
 			return active;
 		}		
-	}
-
-	public void setSqlExecutorService(SQLExecutorService sqlExecutorService) {
-		this.sqlExecutorService = sqlExecutorService;
-	}	
-
-	public void setDictionaryService(Dictionary dictionaryService) {
-		this.dictionaryService = dictionaryService;
 	}
 
 	public void setEntitiesDAO(IUsersDAO entitiesDAO) {

@@ -67,6 +67,20 @@ public final class ResolverService {
 		return new ArrayList<IEntityData>();
 	}
 	
+	public List<IEntityData> getData(Constants.Entity entity, List<String> ids) {
+		if (entity.getBase()==Constants.Entity.USER) {
+			return userEntity.getData(ids);
+		} else if (entity.getBase()==Constants.Entity.PERSON) {
+			return personEntity.getData(ids);
+		} else if (entity.getBase()==Constants.Entity.DOCTOR) {
+			return doctorEntity.getData(ids);
+		} else if (entity.getBase()==Constants.Entity.ATTACHMENT) {
+			return attachmentEntity.getData(ids);
+		}
+		Dictionary.logger.warn("GETDATA : Entity " + entity.toString() + " not valid!");
+		return new ArrayList<IEntityData>();
+	}
+	
 	public boolean delete(Constants.Entity entity, String id) {
 		if (entity.getBase()==Constants.Entity.USER) {
 			return userEntity.delete(id);

@@ -6,22 +6,19 @@ import java.util.List;
 import java.util.UUID;
 
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
-import org.springframework.orm.hibernate3.HibernateTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import trimatrix.db.DAOLayer;
 import trimatrix.db.IPersonsDAO;
 import trimatrix.db.IUsersDAO;
 import trimatrix.db.Persons;
 import trimatrix.db.Users;
-import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
 
-public final class PersonEntity implements IEntity {
+public final class PersonEntity extends AEntity {
 	// Constants	 
 	public static final String SALUTATION = "salutation";
 	public static final String NAME_FIRST = "name_first";
@@ -41,12 +38,8 @@ public final class PersonEntity implements IEntity {
     public static final String FAX = "fax";
 	
     // Variables
-	private SQLExecutorService sqlExecutorService;
-	private Dictionary dictionaryService;
 	private IPersonsDAO entitiesDAO;
 	private IUsersDAO usersDAO;
-	private DAOLayer daoLayer;
-	private HibernateTransactionManager transactionManager;
 		
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IUserEntity#getGridMetaData()
@@ -295,27 +288,11 @@ public final class PersonEntity implements IEntity {
 		}		
 	}
 
-	public void setSqlExecutorService(SQLExecutorService sqlExecutorService) {
-		this.sqlExecutorService = sqlExecutorService;
-	}
-	
-	public void setDictionaryService(Dictionary dictionaryService) {
-		this.dictionaryService = dictionaryService;
-	}		
-
 	public void setEntitiesDAO(IPersonsDAO entitiesDAO) {
 		this.entitiesDAO = entitiesDAO;
 	}
 
 	public void setUsersDAO(IUsersDAO usersDAO) {
 		this.usersDAO = usersDAO;
-	}
-	
-	public void setDaoLayer(DAOLayer daoLayer) {
-		this.daoLayer = daoLayer;
-	}
-	
-	public void setTransactionManager(HibernateTransactionManager transactionManager) {
-		this.transactionManager = transactionManager;
 	}
 }

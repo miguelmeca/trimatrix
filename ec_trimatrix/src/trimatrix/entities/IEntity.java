@@ -7,14 +7,18 @@ import org.springframework.dao.DataIntegrityViolationException;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
 
-public interface IEntity {
+public interface IEntity {	
 
 	public abstract List<SGridMetaData> getGridMetaData();
 
 	public abstract List<IEntityData> getData(Constants.Entity entity,
 			String personId);
+	
+	public abstract List<IEntityData> getData(List<String> ids);
 
 	public abstract List<IEntityData> getData(Constants.Entity entity);
+	
+	public abstract IEntityData getData(String id);
 
 	public abstract List<IEntityData> getData();
 
