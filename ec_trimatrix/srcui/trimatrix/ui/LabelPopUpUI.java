@@ -129,6 +129,7 @@ public class LabelPopUpUI extends MyWorkpageDispatchedBean implements Serializab
     
     public void onCreate(ActionEvent event) {
     	Labels label = LABELLOGIC.createLabel(m_searchText, Constants.WHITE);
+    	getWorkplaceUI().setLabelRowDynamic();
     	apply(label);
     }
     

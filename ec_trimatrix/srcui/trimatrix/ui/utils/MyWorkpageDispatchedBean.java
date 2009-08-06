@@ -16,7 +16,6 @@ import org.eclnt.jsfserver.elements.util.DefaultModelessPopupListener;
 import org.eclnt.jsfserver.managedbean.IDispatcher;
 import org.eclnt.workplace.IWorkpage;
 import org.eclnt.workplace.IWorkpageDispatcher;
-import org.eclnt.workplace.IWorkpageLifecycleListener;
 import org.eclnt.workplace.WorkpageDispatchedBean;
 
 import trimatrix.db.DAOLayer;
@@ -37,6 +36,7 @@ import trimatrix.ui.LabelPopUpUI;
 import trimatrix.ui.PersonSelectionUI;
 import trimatrix.ui.UserDetailUI;
 import trimatrix.ui.UserSelectionUI;
+import trimatrix.ui.WorkplaceUI;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
 
@@ -160,7 +160,7 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 	   	labelPopUpUI.initialize();
 	   	labelPopUpUI.prepareCallback(new LabelPopUpUI.IApplyingCallback(){
 			public void apply() {
-				setLabelRowDynamic();
+				setLabelRowDynamic();				
 				popup.close();
 			}
 		});		
@@ -248,5 +248,8 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 	public LabelChangePopUp getLabelChangePopUp() {
 		return (LabelChangePopUp)getOwningDispatcher().getDispatchedBean(LabelChangePopUp.class);
 	}
-
+	
+	public WorkplaceUI getWorkplaceUI() {
+		return (WorkplaceUI)getOwningDispatcher().getDispatchedBean(WorkplaceUI.class);
+	}
 }

@@ -14,9 +14,9 @@
 <t:row id="g_1" >
 <t:pane id="g_2" >
 <t:row id="g_3" >
-<t:button id="g_4" actionListener="#{d.EntityListUI.onNew}" enabled="#{d.EntityListUI.createAllowed}" text="#{rr.literals.new}" />
+<t:button id="g_4" actionListener="#{d.EntityListUI.onNew}" enabled="#{d.EntityListUI.createAllowed}" rendered="#{d.EntityListUI.renderButtons}" text="#{rr.literals.new}" />
 <t:coldistance id="g_5" />
-<t:button id="g_6" actionListener="#{d.EntityListUI.onDelete}" enabled="#{d.EntityListUI.deleteAllowed}" text="#{rr.literals.delete}" />
+<t:button id="g_6" actionListener="#{d.EntityListUI.onDelete}" enabled="#{d.EntityListUI.deleteAllowed}" rendered="#{d.EntityListUI.renderButtons}" text="#{rr.literals.delete}" />
 </t:row>
 </t:pane>
 </t:row>
@@ -33,10 +33,10 @@
 <t:rowdynamiccontent id="g_16" contentbinding="#{d.EntityListUI.dynRow}" />
 <t:rowdistance id="g_17" />
 <t:row id="g_18" >
-<t:button id="g_19" actionListener="#{d.EntityListUI.onRefresh}" text="#{rr.literals.list_refresh}" />
+<t:button id="g_19" actionListener="#{d.EntityListUI.onRefresh}" rendered="#{d.EntityListUI.renderButtons}" text="#{rr.literals.list_refresh}" />
 <t:coldistance id="g_20" width="100%" />
-<t:button id="g_21" actionListener="#{d.EntityListUI.gridList.onEditColumnDetails}" text="#{rr.literals.list_configure}" />
-<t:button id="g_22" actionListener="#{d.EntityListUI.saveGridState}" text="#{rr.literals.save}" />
+<t:button id="g_21" actionListener="#{d.EntityListUI.gridList.onEditColumnDetails}" rendered="#{d.EntityListUI.renderButtons}" text="#{rr.literals.list_configure}" />
+<t:button id="g_22" actionListener="#{d.EntityListUI.saveGridState}" rendered="#{d.EntityListUI.renderButtons}" text="#{rr.literals.save}" />
 </t:row>
 <t:pageaddons id="g_pa"/>
 </f:subview>

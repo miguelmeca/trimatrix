@@ -1,7 +1,6 @@
 package trimatrix.ui;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.event.ActionEvent;
@@ -43,6 +42,8 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 	public boolean getCreateAllowed() { return authorization.create; }
 	public boolean getDeleteAllowed() { return authorization.delete; }
 	public boolean getChangeAllowed() { return authorization.change; }	
+	private boolean renderButtons;
+	public boolean getRenderButtons() { return renderButtons; }
 
 	// Constructor
 	public EntityListUI(IWorkpageDispatcher dispatcher) {
@@ -56,6 +57,8 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 		if(change==null || !change.equals(Constants.TRUE)) change = Constants.FALSE;
 		if(delete==null || !delete.equals(Constants.TRUE)) delete = Constants.FALSE;
 		authorization = new SAuthorization(create, change, delete);	
+		// render buttons
+		renderButtons = true;
 		// get entity
 		String strEntity = getWorkpage().getParam(Constants.P_ENTITY);
 		try {
@@ -67,7 +70,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 		// get entity id
 		personId = getWorkpage().getParam(Constants.P_PERSON);
 		// set up grid output		
-		gridMetaData = ENTITYLISTLOGIC.getGridMetaData(entity);		
+		gridMetaData = ENTITYLISTLOGIC.getGridMetaData(entity);				
 		buildData();
 	}
 	
@@ -75,6 +78,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 	public EntityListUI(IWorkpageDispatcher dispatcher, Constants.Entity entity) {
 		super(dispatcher);
 		// show no buttons
+		renderButtons = false;
 		authorization = new SAuthorization(Constants.FALSE, Constants.FALSE, Constants.FALSE);	
 		this.entity = entity;
 		personId = null;
