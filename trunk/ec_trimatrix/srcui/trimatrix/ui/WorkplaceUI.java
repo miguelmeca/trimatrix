@@ -72,7 +72,7 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 
 	public WorkplaceUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
-		initialize();		
+		initialize();			
 	}
 	
 	private void initialize() {
@@ -187,11 +187,10 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 	// ------------------------------------------------------------------------	
 	
 	protected ROWDYNAMICCONTENTBinding m_labels = new ROWDYNAMICCONTENTBinding();
-	// TODO Optimize call of refresh labels
 	public ROWDYNAMICCONTENTBinding getLabels() { setLabelRowDynamic(); return m_labels; }
     public void setLabels(ROWDYNAMICCONTENTBinding value) { m_labels = value; }
     
-    protected void setLabelRowDynamic() { 		
+    public void setLabelRowDynamic() { 		
     	StringBuffer xml = new StringBuffer();
     	// get all labels for logged in person
 		List<Labels> labels = getLogic().getLabelLogic().getLabelsByPerson(getServiceLayer().getDictionaryService().getMyPerson().getId());
