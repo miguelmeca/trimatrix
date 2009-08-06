@@ -5,7 +5,7 @@ import org.eclnt.workplace.Workpage;
 
 import trimatrix.structures.SAuthorization;
 
-public class MyWorkpage extends Workpage {
+public class MyWorkpage extends Workpage{
 
 	private Object parentBean;
 	private SAuthorization authorization;
@@ -37,5 +37,10 @@ public class MyWorkpage extends Workpage {
 
 	public void setAuthorization(SAuthorization authorization) {
 		this.authorization = authorization;
+	}
+
+	@Override
+	public boolean close() {
+		return super.close();
 	}	
 }
