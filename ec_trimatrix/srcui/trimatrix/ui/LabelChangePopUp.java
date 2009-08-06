@@ -26,6 +26,7 @@ public class LabelChangePopUp extends MyWorkpageDispatchedBean implements Serial
 
     public void onChange(ActionEvent event) {
     	if(getLogic().getLabelLogic().changeLabel(label_id, m_description, m_color)) callback.cancel();
+    	refreshLabels();
     }
 
     protected String m_description;

@@ -7,12 +7,16 @@ import java.util.List;
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
+import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
+import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoListener;
 import org.eclnt.jsfserver.elements.events.BaseActionEventPopupMenuItem;
 import org.eclnt.jsfserver.elements.impl.BUTTONComponent;
 import org.eclnt.jsfserver.elements.impl.OUTLOOKBARITEMComponent;
 import org.eclnt.jsfserver.elements.impl.ROWDYNAMICCONTENTBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
+import trimatrix.db.EntitiesHaveLabels;
 import trimatrix.db.Labels;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
@@ -68,7 +72,7 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 
 	public WorkplaceUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
-		initialize();
+		initialize();		
 	}
 	
 	private void initialize() {
@@ -132,7 +136,31 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 	    	String label_id = button.getAttributeValueAsString(Constants.CLIENTNAME);
 			// delete label
 			if(DELETELABEL.equals(command)) {
-				getLogic().getLabelLogic().deleteLabel(label_id);				
+				// get label
+				final Labels label = getDaoLayer().getLabelsDAO().findById(label_id);
+				// check if relation to entity exist
+				final List<EntitiesHaveLabels> relations = getDaoLayer().getEntitiesHaveLabelsDAO().findByLabel(label_id);
+				// popup
+				YESNOPopup.createInstance ( "Delete label", "For label " + label.getDescription() + " there exist " + relations.size() + " relations to entities, sure to delete label?",
+						new IYesNoListener() {
+							public void reactOnNo()	{
+								return;
+							}
+							public void reactOnYes() {
+								// delete all relations
+								if(relations.size() > 0) {				
+									for(EntitiesHaveLabels relation:relations) {
+										getDaoLayer().getEntitiesHaveLabelsDAO().delete(relation);
+										refreshLabels();
+									}
+								}
+								// delete label		
+								if(label!=null) {
+									getDaoLayer().getLabelsDAO().delete(label);
+								}
+								Statusbar.outputMessage("Delete Label " + label.getDescription());
+							}
+					});	
 			}
 			// change label
 			if(CHANGELABEL.equals(command)) {
@@ -149,7 +177,8 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 				m_popup = getWorkpage().createModalPopupInWorkpageContext();  			
 		    	m_popup.open(Constants.Page.LABELCHANGEPOPUP.getUrl(), "Label ändern",350, 175, this); 
 		    	//m_popup.setUndecorated(true);
-			}
+			}		
+			
 		}				
 	}	
 	

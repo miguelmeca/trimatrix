@@ -2,6 +2,7 @@ package trimatrix.ui.utils;
 
 import java.awt.Color;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.event.ActionEvent;
 
@@ -12,7 +13,10 @@ import org.eclnt.jsfserver.defaultscreens.ModalPopup.IModalPopupListener;
 import org.eclnt.jsfserver.elements.impl.BUTTONComponent;
 import org.eclnt.jsfserver.elements.impl.ROWDYNAMICCONTENTBinding;
 import org.eclnt.jsfserver.elements.util.DefaultModelessPopupListener;
+import org.eclnt.jsfserver.managedbean.IDispatcher;
+import org.eclnt.workplace.IWorkpage;
 import org.eclnt.workplace.IWorkpageDispatcher;
+import org.eclnt.workplace.IWorkpageLifecycleListener;
 import org.eclnt.workplace.WorkpageDispatchedBean;
 
 import trimatrix.db.DAOLayer;
@@ -40,16 +44,17 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 	
 	public MyWorkpageDispatchedBean(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
-		enableLabeling = false;
-		//getWorkpageContainer().setOpenWorkpagePopupsAsFrame(true);
-	}	
+		labelingEnabled = false;		
+	}		
 	
-	public MyWorkpageDispatchedBean(IWorkpageDispatcher dispatcher, boolean enableLabeling) {
+	public MyWorkpageDispatchedBean(IWorkpageDispatcher dispatcher, boolean labelingEnabled) {
 		super(dispatcher);
-		this.enableLabeling = enableLabeling;
+		this.labelingEnabled = labelingEnabled;
 		// get expression base by annotation
 	    CCGenClass ccgenClass = getClass().getAnnotation(CCGenClass.class);	    
     	if(ccgenClass!=null) expressionBase = ccgenClass.expressionBase().replace('}', '.');
+    	// initialize Label row
+    	if(labelingEnabled) setLabelRowDynamic();
 	}
 	
 	@Override
@@ -61,28 +66,68 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 	// logic for label functionality
 	// ------------------------------------------------------------------------	
 	private String expressionBase;
-	private boolean enableLabeling;	
+	private boolean labelingEnabled;	
+	public boolean isLabelingEnabled() { return labelingEnabled; }
 	
 	protected ROWDYNAMICCONTENTBinding m_labelRow = new ROWDYNAMICCONTENTBinding();
-    // TODO Optimize call of refresh labels
-	public ROWDYNAMICCONTENTBinding getLabelRow() { setLabelRowDynamic(); return m_labelRow; }
+	public ROWDYNAMICCONTENTBinding getLabelRow() { return m_labelRow; }
     public void setLabelRow(ROWDYNAMICCONTENTBinding value) { m_labelRow = value; }
 	
-	public void onLabelDelete(ActionEvent event) {
+	/**
+	 * Refresh the pages which have labeling functionality
+	 */
+	public void refreshLabels() {
+		List<IWorkpage> workpages = getWorkpageContainer().getAllWorkpages();
+		for (IWorkpage workpage : workpages) {
+			Map<Class<?>,Object> mapDispatcher = (Map)workpage.getDispatcher();
+			for(Object bean : mapDispatcher.values()) {
+				if(bean instanceof MyWorkpageDispatchedBean) {
+					MyWorkpageDispatchedBean dispatchedBean = (MyWorkpageDispatchedBean)bean;
+					if(dispatchedBean.isLabelingEnabled()) {
+						dispatchedBean.setLabelRowDynamic();
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 * OBSOLET
+	 * Recursive walk through all dispatchers and check
+	 * if labeling is enabled, then refresh labels
+	 * @param dispatcher
+	 */
+	private void refreshLabels(IDispatcher dispatcher) {
+		Map<Class<?>,Object> mapDispatcher = (Map)dispatcher;
+		for(Object bean : mapDispatcher.values()) {
+			// if bean is dispatcher then do recursion
+			if(bean instanceof IDispatcher) {
+				refreshLabels(dispatcher);
+			// if bean is dispatched bean then go further
+			} else if(bean instanceof MyWorkpageDispatchedBean) {
+				MyWorkpageDispatchedBean dispatchedBean = (MyWorkpageDispatchedBean)bean;
+				if(dispatchedBean.isLabelingEnabled()) {
+					dispatchedBean.setLabelRowDynamic();
+				}
+			}
+		}
+	}
+    
+    public void onLabelDelete(ActionEvent event) {
 		// return if labeling functionality is not set
-		if(!enableLabeling) return;
+		if(!labelingEnabled) return;
 		// return if entity id is not set
 		String entityID = getWorkpage().getId();
 		if(entityID==null||entityID.length()==0) return;
     	BUTTONComponent button =(BUTTONComponent)event.getSource();
     	String label_id = button.getAttributeValueAsString(Constants.CLIENTNAME);
     	getLogic().getLabelLogic().deleteLabelRelation(entityID, label_id);
-    	setLabelRowDynamic();    	
+    	setLabelRowDynamic();        	
     }
 	
 	protected void setLabelRowDynamic() { 
 		// return if labeling functionality is not set
-		if(!enableLabeling) return;
+		if(!labelingEnabled) return;
 		// return if entity id is not set
 		String entityID = getWorkpage().getId();
 		if(entityID==null||entityID.length()==0) return;
@@ -105,7 +150,7 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 	 
 	public void onLabelSearch(ActionEvent event) {
 		// return if labeling functionality is not set
-		if(!enableLabeling) return;
+		if(!labelingEnabled) return;
 		// return if entity id is not set
 		String entityID = getWorkpage().getId();
 		if(entityID==null||entityID.length()==0) return;
@@ -203,4 +248,5 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 	public LabelChangePopUp getLabelChangePopUp() {
 		return (LabelChangePopUp)getOwningDispatcher().getDispatchedBean(LabelChangePopUp.class);
 	}
+
 }
