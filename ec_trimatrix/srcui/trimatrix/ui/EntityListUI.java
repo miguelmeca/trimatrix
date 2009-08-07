@@ -75,14 +75,15 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 	}
 	
 	// Constructor for LabelSearchResult
-	public EntityListUI(IWorkpageDispatcher dispatcher, Constants.Entity entity) {
+	public EntityListUI(IWorkpageDispatcher dispatcher, Constants.Entity entity, List<String> ids) {
 		super(dispatcher);
 		// show no buttons
 		renderButtons = false;
 		authorization = new SAuthorization(Constants.FALSE, Constants.FALSE, Constants.FALSE);	
 		this.entity = entity;
 		personId = null;
-		gridMetaData = ENTITYLISTLOGIC.getGridMetaData(entity);		
+		gridMetaData = ENTITYLISTLOGIC.getGridMetaData(entity);
+		buildData(ids);
 	}
 
 	protected FIXGRIDListBinding<GridListItem> m_gridList = new FIXGRIDListBinding<GridListItem>(
