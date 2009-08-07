@@ -2,8 +2,11 @@ package trimatrix.services;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -22,6 +25,7 @@ import trimatrix.relations.PersonDoctorRelation;
 import trimatrix.relations.PersonPersonRelation;
 import trimatrix.structures.SFunctionTree;
 import trimatrix.structures.SValueList;
+import trimatrix.ui.EntityListUI;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
 
@@ -47,6 +51,7 @@ public class SQLExecutorService {
 	private static final String RELTYPSVALUELISTQUERY = "RelTypsValueList";
 	private static final String COUNTRYVALUELISTQUERY = "CountryValueList";
 	private static final String CATEGORYVALUELISTQUERY = "CategoryValueList";
+	private static final String ENTITIESBYLABELLISTQUERY = "EntitiesByLabelList";
 	
 	private HibernateTransactionManager transactionManager;
 	private Dictionary dictionaryService;
@@ -573,6 +578,43 @@ public class SQLExecutorService {
 		session.close();
 		return list;
 	}
+	
+	/**
+	 * Retrieve all entities and ids for a certain label
+	 * @param labelId Label
+	 * @param deleted deleted
+	 * @return entities which have the label assigned	
+	 */
+	public Map<Constants.Entity, List<String>> getEntitiesByLabelList(String labelId, boolean deleted) {
+		Map<Constants.Entity, List<String>> map = new HashMap<Constants.Entity, List<String>>();		
+		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		Session session = sessionFactory.openSession();		
+		Query query = session.getNamedQuery(ENTITIESBYLABELLISTQUERY);
+		query.setString("p_label_id", labelId);
+		query.setBoolean("p_deleted", deleted);
+		List<Object[]> result = query.list();
+		for(Object[] line : result) {			
+			try {
+				Constants.Entity entity = Constants.Entity.valueOf(((String)line[0]).toUpperCase());
+				String entityId = (String)line[1];
+				// check if entity already in map
+				if(!map.containsKey(entity)) map.put(entity, new ArrayList<String>());
+				// add id
+				map.get(entity).add(entityId);	
+			} catch (Exception ex) {			
+				Statusbar.outputError("No or wrong entity", "For list view processing an entity has to be set!");
+				continue;
+			}
+					
+		}
+		session.close();
+		return map;
+	}
+	
+	public Map<Constants.Entity, List<String>> getEntitiesByLabelList(String labelId) {
+		return getEntitiesByLabelList(labelId, false); 
+	}
+
 
 	public void setTransactionManager(HibernateTransactionManager transactionManager) {
 		this.transactionManager = transactionManager;

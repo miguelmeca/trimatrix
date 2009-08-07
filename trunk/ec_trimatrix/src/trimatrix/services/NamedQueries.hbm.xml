@@ -452,4 +452,18 @@ WHERE t_categories.language_key = :p_lang_key
   <return-scalar column="description" type="java.lang.String"/>
   <return-scalar column="description_long" type="java.lang.String"/>
  </sql-query>
+ 
+<sql-query cacheable="true" name="EntitiesByLabelList" read-only="true">
+SELECT
+  e.entity entity,
+  e.id  
+FROM entities_have_labels AS ehl
+  JOIN entities AS e
+    ON e.id = ehl.entity
+WHERE ehl.label = :p_label_id
+AND   e.deleted = :p_deleted
+ORDER BY e.entity
+  <return-scalar column="entity" type="java.lang.String"/>
+  <return-scalar column="id" type="java.lang.String"/>
+</sql-query> 
 </hibernate-mapping>
