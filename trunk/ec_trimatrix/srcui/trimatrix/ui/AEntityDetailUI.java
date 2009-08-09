@@ -21,8 +21,13 @@ public abstract class AEntityDetailUI extends MyWorkpageDispatchedBean {
 	protected Map<String, Object> values = new HashMap<String, Object>();
     protected Map<String, String> bgpaint = new HashMap<String, String>();
 	
-	public AEntityDetailUI(IWorkpageDispatcher dispatcher, String[] mandatory_fields) {
+    public AEntityDetailUI(IWorkpageDispatcher dispatcher, String[] mandatory_fields) {
 		super(dispatcher);
+		MANDATORY_FIELDS = mandatory_fields;
+	}
+    
+	public AEntityDetailUI(IWorkpageDispatcher dispatcher, String[] mandatory_fields, boolean labelingEnabled) {
+		super(dispatcher, labelingEnabled);
 		MANDATORY_FIELDS = mandatory_fields;
 	}
 	

@@ -6,6 +6,7 @@ import java.util.Collection;
 
 import javax.faces.event.ActionEvent;
 
+import org.apache.commons.digester.SetRootRule;
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.bufferedcontent.BufferedContentMgr;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
@@ -37,12 +38,14 @@ public class AttachmentDetailUI extends AEntityDetailUI implements Serializable,
 	private Attachments entity;	
     
 	public AttachmentDetailUI(IWorkpageDispatcher dispatcher) {
-		super(dispatcher, new String[] {AttachmentEntity.DESCRIPTION, AttachmentEntity.CATEGORY, AttachmentEntity.FILENAME});
+		super(dispatcher, new String[] {AttachmentEntity.DESCRIPTION, AttachmentEntity.CATEGORY, AttachmentEntity.FILENAME}, true);
 		// get wrapping entity detail UI bean
 		entityDetailUI = getEntityDetailUI();		
 		entityDetailUI.setEntityDetailUI(this);		
         // init data
         init(entityDetailUI.getEntityObject());
+        // labeling
+        setLabelRowDynamic();
     }
 
     public void init(Object entityObject) {
