@@ -25,7 +25,8 @@ public final class Constants {
 		RELATIONLIST("/relationlist.jsp", "Beziehungen"),
 		CREATERELATION("/createrelation.jsp", "Beziehungsanlage"),
 		LABELPOPUP("/labelpopup.jsp", "Labels"),
-		LABELCHANGEPOPUP("/popups/labelchange.jsp", "Label ändern");
+		LABELCHANGEPOPUP("/popups/labelchange.jsp", "Label ändern"),
+		LABELSEARCHRESULT("/labelsearchresult.jsp", "Label Suchergebnis");
 		private final String url;
 		private final String description;
 		Page(String url, String description) {

@@ -14,7 +14,10 @@ import org.eclnt.jsfserver.elements.events.BaseActionEventPopupMenuItem;
 import org.eclnt.jsfserver.elements.impl.BUTTONComponent;
 import org.eclnt.jsfserver.elements.impl.OUTLOOKBARITEMComponent;
 import org.eclnt.jsfserver.elements.impl.ROWDYNAMICCONTENTBinding;
+import org.eclnt.workplace.IWorkpage;
+import org.eclnt.workplace.IWorkpageContainer;
 import org.eclnt.workplace.IWorkpageDispatcher;
+import org.eclnt.workplace.Workpage;
 
 import trimatrix.db.EntitiesHaveLabels;
 import trimatrix.db.Labels;
@@ -126,18 +129,17 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 	}
 	
 	public void onHandleLabels(ActionEvent event) {
+		// get label id
+		if (!(event.getSource() instanceof BUTTONComponent)) return;
+     	BUTTONComponent button =(BUTTONComponent)event.getSource();
+    	String label_id = button.getAttributeValueAsString(Constants.CLIENTNAME);
+    	final Labels label = getDaoLayer().getLabelsDAO().findById(label_id);
 		// handle popupmenue
 		if (event instanceof BaseActionEventPopupMenuItem) {
 			BaseActionEventPopupMenuItem bae = (BaseActionEventPopupMenuItem)event;
-			String command = bae.getCommand();
-			// get label id
-			if (!(event.getSource() instanceof BUTTONComponent)) return;
-	     	BUTTONComponent button =(BUTTONComponent)event.getSource();
-	    	String label_id = button.getAttributeValueAsString(Constants.CLIENTNAME);
+			String command = bae.getCommand();			
 			// delete label
-			if(DELETELABEL.equals(command)) {
-				// get label
-				final Labels label = getDaoLayer().getLabelsDAO().findById(label_id);
+			if(DELETELABEL.equals(command)) {				
 				// check if relation to entity exist
 				final List<EntitiesHaveLabels> relations = getDaoLayer().getEntitiesHaveLabelsDAO().findByLabel(label_id);
 				// popup
@@ -179,7 +181,14 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 		    	//m_popup.setUndecorated(true);
 			}		
 			
-		}				
+		} else {
+			// Standard click navigate to search result
+			IWorkpageDispatcher wpd = getOwningDispatcher();
+			IWorkpageContainer wpc = getWorkpageContainer();
+			IWorkpage wp = new Workpage( wpd, Constants.Page.LABELSEARCHRESULT.getUrl(), label_id, label.getDescription(), null, true);			
+			wp.setParam(Constants.P_LABEL, label_id);	
+			wpc.addWorkpage(wp);
+		}
 	}	
 	
 	// ------------------------------------------------------------------------
