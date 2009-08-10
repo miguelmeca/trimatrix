@@ -15,10 +15,8 @@ public interface ILabelsDAO {
 
 	public abstract Labels findById(java.lang.String id);
 
-	@SuppressWarnings("unchecked")
 	public abstract List<Labels> findByExample(Labels instance);
 
-	@SuppressWarnings("unchecked")
 	public abstract List<Labels> findByProperty(String propertyName,
 			Object value);
 
@@ -28,7 +26,6 @@ public interface ILabelsDAO {
 
 	public abstract List<Labels> findByColor(Object color);
 
-	@SuppressWarnings("unchecked")
 	public abstract List<Labels> findAll();
 
 	public abstract Labels merge(Labels detachedInstance);

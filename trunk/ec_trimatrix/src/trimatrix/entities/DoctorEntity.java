@@ -1,6 +1,5 @@
 package trimatrix.entities;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -11,7 +10,6 @@ import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import trimatrix.db.Doctors;
-import trimatrix.db.IDoctorsDAO;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
@@ -32,9 +30,6 @@ public class DoctorEntity extends AEntity {
     public static final String MOBILE = "mobile";
     public static final String FAX = "fax";
     
-	// Variables
-	private IDoctorsDAO entitiesDAO;
-
 	public IEntityObject create() {
 		String id = UUID.randomUUID().toString();
 		Doctors entity = new Doctors();
@@ -51,7 +46,7 @@ public class DoctorEntity extends AEntity {
 		Boolean result = (Boolean)transactionTemplate.execute(new TransactionCallback() {
 			public Object doInTransaction(TransactionStatus status) {
 				try {
-					Doctors entity = entitiesDAO.findById(id);
+					Doctors entity = (Doctors)entitiesDAO.findById(id);
 					if(entity==null) return false;
 					// check if user admin or creator
 					if (dictionaryService.getMyRoles().contains(Constants.Role.ADMIN.getName())||entity.getCreatedBy().equals(dictionaryService.getMyUser().getId())) {
@@ -72,20 +67,6 @@ public class DoctorEntity extends AEntity {
 			}			
 		});		
 		return result;		
-	}
-
-	public IEntityObject get(String id) {
-		Doctors entity = entitiesDAO.findById(id);
-		if(entity==null) return null;
-		if(entity.getDeleted()) {
-			Dictionary.logger.warn("Doctor marked as deleted");
-			return null;
-		}
-		if(entity.getTest()) {
-			Dictionary.logger.warn("Doctor marked for test");
-			return null;
-		}
-		return entity;
 	}
 
 	public List<IEntityData> getData(Entity entity, String personId) {
@@ -125,22 +106,6 @@ public class DoctorEntity extends AEntity {
         gridMetaData.add(new SGridMetaData("Handy", MOBILE, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("Fax", FAX, SGridMetaData.Component.FIELD));
         return gridMetaData;
-	}
-
-	public void reload(IEntityObject entityObject) {
-		Doctors entity = (Doctors)entityObject;
-		entitiesDAO.reload(entity);		
-	}
-
-	public void save(IEntityObject entityObject) {
-		Doctors entity = (Doctors)entityObject;
-		// set creation data
-		Timestamp now = new java.sql.Timestamp((new java.util.Date()).getTime());
-		if(entity.getCreatedAt() == null) entity.setCreatedAt(now);
-		if(entity.getCreatedBy() == null) entity.setCreatedBy(dictionaryService.getMyUser().getId());
-		entity.setModifiedAt(now);
-		entity.setModifiedBy(dictionaryService.getMyUser().getId());
-		entitiesDAO.merge(entity);		
 	}
 	
 	public static class Data implements IEntityData {
@@ -218,9 +183,5 @@ public class DoctorEntity extends AEntity {
 		public String getFax() {
 			return fax;
 		}		
-	}
-
-	public void setEntitiesDAO(IDoctorsDAO entitiesDAO) {
-		this.entitiesDAO = entitiesDAO;
 	}	
 }

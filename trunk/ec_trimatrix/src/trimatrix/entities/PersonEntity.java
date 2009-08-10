@@ -10,8 +10,7 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import trimatrix.db.IPersonsDAO;
-import trimatrix.db.IUsersDAO;
+import trimatrix.db.IEntityDAO;
 import trimatrix.db.Persons;
 import trimatrix.db.Users;
 import trimatrix.structures.SGridMetaData;
@@ -36,10 +35,9 @@ public final class PersonEntity extends AEntity {
     public static final String TELEPHONE = "telephone";
     public static final String MOBILE = "mobile";
     public static final String FAX = "fax";
-	
+ 
     // Variables
-	private IPersonsDAO entitiesDAO;
-	private IUsersDAO usersDAO;
+	private IEntityDAO<Users> usersDAO;
 		
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IUserEntity#getGridMetaData()
@@ -101,13 +99,14 @@ public final class PersonEntity extends AEntity {
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#delete(java.lang.String)
 	 */
+	@Override
 	public boolean delete(final String id) {
 		// all in one transaction		
 		final TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
 		Boolean result = (Boolean)transactionTemplate.execute(new TransactionCallback() {
 			public Object doInTransaction(TransactionStatus status) {
 				try {
-					Persons entity = entitiesDAO.findById(id);
+					Persons entity = (Persons)entitiesDAO.findById(id);
 					if(entity==null) return false;
 					// check if user admin or creator
 					if (dictionaryService.getMyRoles().contains(Constants.Role.ADMIN.getName())||entity.getCreatedBy().equals(dictionaryService.getMyUser().getId())) {
@@ -124,8 +123,7 @@ public final class PersonEntity extends AEntity {
 					} else {
 						Statusbar.outputAlert("Do delete this object you have to be admin or the creator of this object!");
 						return false;
-					}						
-								
+					}								
 					// TODO delete PersonPersonRelations
 				} catch (Exception ex) {
 					status.setRollbackOnly();
@@ -150,46 +148,7 @@ public final class PersonEntity extends AEntity {
 		entity.setDeleted(false);
 		entity.setTest(false);		
 		return entity;
-	}
-	
-	/* (non-Javadoc)
-	 * @see trimatrix.entities.IEntity#get(java.lang.String)
-	 */
-	public Persons get(String id) {
-		Persons entity = entitiesDAO.findById(id);
-		if(entity==null) return null;
-		if(entity.getDeleted()) {
-			Dictionary.logger.warn("Person marked as deleted");
-			return null;
-		}
-		if(entity.getTest()) {
-			Dictionary.logger.warn("Person marked for test");
-			return null;
-		}
-		return entity;
-	}
-	
-	/* (non-Javadoc)
-	 * @see trimatrix.entities.IEntity#save(java.lang.Object)
-	 */
-	public void save(IEntityObject entityObject) {
-		Persons entity = (Persons)entityObject;
-		// set creation data
-		Timestamp now = new java.sql.Timestamp((new java.util.Date()).getTime());
-		if(entity.getCreatedAt() == null) entity.setCreatedAt(now);
-		if(entity.getCreatedBy() == null) entity.setCreatedBy(dictionaryService.getMyUser().getId());
-		entity.setModifiedAt(now);
-		entity.setModifiedBy(dictionaryService.getMyUser().getId());
-		entitiesDAO.merge(entity);
-	}
-	
-	/* (non-Javadoc)
-	 * @see trimatrix.entities.IEntity#reload(trimatrix.entities.IEntityObject)
-	 */
-	public void reload(IEntityObject entityObject) {
-		Persons entity = (Persons)entityObject;
-		entitiesDAO.reload(entity);
-	}
+	}	
 	
 	public static class Data implements IEntityData {
 		public String id;
@@ -288,11 +247,7 @@ public final class PersonEntity extends AEntity {
 		}		
 	}
 
-	public void setEntitiesDAO(IPersonsDAO entitiesDAO) {
-		this.entitiesDAO = entitiesDAO;
-	}
-
-	public void setUsersDAO(IUsersDAO usersDAO) {
+	public void setUsersDAO(IEntityDAO<Users> usersDAO) {
 		this.usersDAO = usersDAO;
 	}
 }

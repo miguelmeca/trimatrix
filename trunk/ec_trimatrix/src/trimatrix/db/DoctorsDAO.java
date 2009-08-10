@@ -8,6 +8,8 @@ import org.hibernate.LockMode;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import trimatrix.entities.IEntityObject;
+
 /**
  	* A data access object (DAO) providing persistence and search support for Doctors entities.
  			* Transaction control of the save(), update() and delete() operations 
@@ -17,7 +19,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
   * @author MyEclipse Persistence Tools 
  */
 
-public class DoctorsDAO extends HibernateDaoSupport implements IDoctorsDAO  {
+public class DoctorsDAO extends HibernateDaoSupport implements IEntityDAO<Doctors> {
     private static final Log log = LogFactory.getLog(DoctorsDAO.class);
 	@Override
 	protected void initDao() {
@@ -118,7 +120,7 @@ public class DoctorsDAO extends HibernateDaoSupport implements IDoctorsDAO  {
     /* (non-Javadoc)
 	 * @see trimatrix.db.IDoctorsDAO#merge(trimatrix.db.Doctors)
 	 */
-    public Doctors merge(Doctors detachedInstance) {
+    public Doctors merge(IEntityObject detachedInstance) {
         log.debug("merging Doctors instance");
         try {
             Doctors result = (Doctors) getHibernateTemplate()
@@ -162,7 +164,7 @@ public class DoctorsDAO extends HibernateDaoSupport implements IDoctorsDAO  {
     /* (non-Javadoc)
 	 * @see trimatrix.db.IDoctorsDAO#reload(trimatrix.db.Doctors)
 	 */
-    public void reload(Doctors doctor) {
+    public void reload(IEntityObject doctor) {
 		String id = doctor.getId();
 		log.debug("reloading Doctor instance with id: " + id);
 		try {
@@ -173,7 +175,8 @@ public class DoctorsDAO extends HibernateDaoSupport implements IDoctorsDAO  {
 		}
 	}
 
-	public static IDoctorsDAO getFromApplicationContext(ApplicationContext ctx) {
-    	return (IDoctorsDAO) ctx.getBean("DoctorsDAO");
+	@SuppressWarnings("unchecked")
+	public static IEntityDAO<Doctors> getFromApplicationContext(ApplicationContext ctx) {
+    	return (IEntityDAO<Doctors>) ctx.getBean("DoctorsDAO");
 	}
 }

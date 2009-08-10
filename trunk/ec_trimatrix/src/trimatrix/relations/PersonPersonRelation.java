@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import trimatrix.db.IPersonsDAO;
+import trimatrix.db.IEntityDAO;
 import trimatrix.db.IPersonsHaveRelationsDAO;
 import trimatrix.db.Persons;
 import trimatrix.db.PersonsHaveRelations;
@@ -22,7 +22,7 @@ public class PersonPersonRelation implements IRelation {
 	// Variables
 	private SQLExecutorService sqlExecutorService;
 	private Dictionary dictionaryService;
-	private IPersonsDAO personsDAO;
+	private IEntityDAO<Persons> personsDAO;
 	private IPersonsHaveRelationsDAO personsHaveRelationsDAO;
 	
 	public boolean delete(String id) {
@@ -143,7 +143,7 @@ public class PersonPersonRelation implements IRelation {
 		this.dictionaryService = dictionaryService;
 	}	
 
-	public void setPersonsDAO(IPersonsDAO personsDAO) {
+	public void setPersonsDAO(IEntityDAO<Persons> personsDAO) {
 		this.personsDAO = personsDAO;
 	}
 

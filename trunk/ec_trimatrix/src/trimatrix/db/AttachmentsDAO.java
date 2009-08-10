@@ -8,6 +8,8 @@ import org.hibernate.LockMode;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import trimatrix.entities.IEntityObject;
+
 /**
  	* A data access object (DAO) providing persistence and search support for Attachments entities.
  			* Transaction control of the save(), update() and delete() operations 
@@ -17,7 +19,11 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
   * @author MyEclipse Persistence Tools 
  */
 
-public class AttachmentsDAO extends HibernateDaoSupport implements IAttachmentsDAO  {
+/**
+ * @author reich
+ *
+ */
+public class AttachmentsDAO extends HibernateDaoSupport implements IEntityDAO<Attachments>  {
     private static final Log log = LogFactory.getLog(AttachmentsDAO.class);
 
 
@@ -27,8 +33,8 @@ public class AttachmentsDAO extends HibernateDaoSupport implements IAttachmentsD
 	}
     
     /* (non-Javadoc)
-	 * @see trimatrix.db.IAttachmentsDAO#save(trimatrix.db.Attachments)
-	 */
+     * @see trimatrix.db.IDAO#save(java.lang.Object)
+     */
     public void save(Attachments transientInstance) {
         log.debug("saving Attachments instance");
         try {
@@ -41,7 +47,7 @@ public class AttachmentsDAO extends HibernateDaoSupport implements IAttachmentsD
     }
     
 	/* (non-Javadoc)
-	 * @see trimatrix.db.IAttachmentsDAO#delete(trimatrix.db.Attachments)
+	 * @see trimatrix.db.IDAO#delete(java.lang.Object)
 	 */
 	public void delete(Attachments persistentInstance) {
         log.debug("deleting Attachments instance");
@@ -55,8 +61,8 @@ public class AttachmentsDAO extends HibernateDaoSupport implements IAttachmentsD
     }
     
     /* (non-Javadoc)
-	 * @see trimatrix.db.IAttachmentsDAO#findById(java.lang.String)
-	 */
+     * @see trimatrix.db.IDAO#findById(java.lang.String)
+     */
     public Attachments findById( java.lang.String id) {
         log.debug("getting Attachments instance with id: " + id);
         try {
@@ -70,8 +76,8 @@ public class AttachmentsDAO extends HibernateDaoSupport implements IAttachmentsD
     }
     
     /* (non-Javadoc)
-	 * @see trimatrix.db.IAttachmentsDAO#findByExample(trimatrix.db.Attachments)
-	 */
+     * @see trimatrix.db.IDAO#findByExample(java.lang.Object)
+     */
     @SuppressWarnings("unchecked")
     public List<Attachments> findByExample(Attachments instance) {
         log.debug("finding Attachments instance by example");
@@ -86,8 +92,8 @@ public class AttachmentsDAO extends HibernateDaoSupport implements IAttachmentsD
     }    
     
     /* (non-Javadoc)
-	 * @see trimatrix.db.IAttachmentsDAO#findByProperty(java.lang.String, java.lang.Object)
-	 */
+     * @see trimatrix.db.IDAO#findByProperty(java.lang.String, java.lang.Object)
+     */
     @SuppressWarnings("unchecked")
     public List<Attachments> findByProperty(String propertyName, Object value) {
       log.debug("finding Attachments instance with property: " + propertyName
@@ -103,8 +109,8 @@ public class AttachmentsDAO extends HibernateDaoSupport implements IAttachmentsD
 	}
 
     /* (non-Javadoc)
-	 * @see trimatrix.db.IAttachmentsDAO#findAll()
-	 */
+     * @see trimatrix.db.IDAO#findAll()
+     */
     @SuppressWarnings("unchecked")
 	public List<Attachments> findAll() {
 		log.debug("finding all Attachments instances");
@@ -118,9 +124,9 @@ public class AttachmentsDAO extends HibernateDaoSupport implements IAttachmentsD
 	}
 	
     /* (non-Javadoc)
-	 * @see trimatrix.db.IAttachmentsDAO#merge(trimatrix.db.Attachments)
-	 */
-    public Attachments merge(Attachments detachedInstance) {
+     * @see trimatrix.db.IDAO#merge(java.lang.Object)
+     */
+    public Attachments merge(IEntityObject detachedInstance) {
         log.debug("merging Attachments instance");
         try {
             Attachments result = (Attachments) getHibernateTemplate()
@@ -134,8 +140,8 @@ public class AttachmentsDAO extends HibernateDaoSupport implements IAttachmentsD
     }
 
     /* (non-Javadoc)
-	 * @see trimatrix.db.IAttachmentsDAO#attachDirty(trimatrix.db.Attachments)
-	 */
+     * @see trimatrix.db.IDAO#attachDirty(java.lang.Object)
+     */
     public void attachDirty(Attachments instance) {
         log.debug("attaching dirty Attachments instance");
         try {
@@ -145,11 +151,11 @@ public class AttachmentsDAO extends HibernateDaoSupport implements IAttachmentsD
             log.error("attach failed", re);
             throw re;
         }
-    }
-    
+    }    
+
     /* (non-Javadoc)
-	 * @see trimatrix.db.IAttachmentsDAO#attachClean(trimatrix.db.Attachments)
-	 */
+     * @see trimatrix.db.IDAO#attachClean(java.lang.Object)
+     */
     public void attachClean(Attachments instance) {
         log.debug("attaching clean Attachments instance");
         try {
@@ -162,9 +168,9 @@ public class AttachmentsDAO extends HibernateDaoSupport implements IAttachmentsD
     }
 	
 	/* (non-Javadoc)
-	 * @see trimatrix.db.IAttachmentsDAO#reload(trimatrix.db.Attachments)
+	 * @see trimatrix.db.IDAO#reload(java.lang.Object)
 	 */
-	public void reload(Attachments attachments) {
+	public void reload(IEntityObject attachments) {
 		String id = attachments.getId();
 		log.debug("reloading Attachment instance with id: " + id);
 		try {
@@ -175,7 +181,8 @@ public class AttachmentsDAO extends HibernateDaoSupport implements IAttachmentsD
 		}
 	}
 	
-	public static IAttachmentsDAO getFromApplicationContext(ApplicationContext ctx) {
-    	return (IAttachmentsDAO) ctx.getBean("AttachmentsDAO");
+	@SuppressWarnings("unchecked")
+	public static IEntityDAO<Attachments> getFromApplicationContext(ApplicationContext ctx) {
+    	return (IEntityDAO<Attachments>) ctx.getBean("AttachmentsDAO");
 	}
 }

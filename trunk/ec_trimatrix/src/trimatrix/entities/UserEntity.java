@@ -1,15 +1,12 @@
 package trimatrix.entities;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import trimatrix.db.IUsersDAO;
 import trimatrix.db.Users;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
-import trimatrix.utils.Dictionary;
 
 public final class UserEntity extends AEntity {
 	// Constants
@@ -20,10 +17,7 @@ public final class UserEntity extends AEntity {
 	public static final String PERSON = "person";
 	public static final String ACTIVE = "active";
 	public static final String INITIAL = "initial";
-	public static final String LOCKED = "locked";
-	
-	// Variables
-	private IUsersDAO entitiesDAO;
+	public static final String LOCKED = "locked";	
 	
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IUserEntity#getGridMetaData()
@@ -62,38 +56,6 @@ public final class UserEntity extends AEntity {
 		return sqlExecutorService.getUserEntities();
 	}
 	
-	/* (non-Javadoc)
-	 * @see trimatrix.entities.IEntity#delete(java.lang.String)
-	 */
-	public boolean delete(String id) {
-		Users entity = entitiesDAO.findById(id);
-		if(entity==null) return false;
-		entity.setDeleted(true);
-		try {
-			entitiesDAO.merge(entity);
-			// no standard handling for deletion of relationtships see docu
-		} catch (Exception ex) {
-			return false;
-		}
-		return true;		
-	}
-	
-	/* (non-Javadoc)
-	 * @see trimatrix.entities.IEntity#get(java.lang.String)
-	 */
-	public Users get(String id) {
-		Users entity = entitiesDAO.findById(id);
-		if(entity==null) return null;
-		if(entity.getDeleted()) {
-			Dictionary.logger.warn("User marked as deleted");
-			return null;
-		}
-		if(entity.getTest()) {
-			Dictionary.logger.warn("User marked for test");
-			return null;
-		}
-		return entity;
-	}
 	
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#create()
@@ -110,28 +72,6 @@ public final class UserEntity extends AEntity {
 		entity.setTest(false);
 		
 		return entity;
-	}
-	
-	/* (non-Javadoc)
-	 * @see trimatrix.entities.IEntity#save(java.lang.Object)
-	 */
-	public void save(IEntityObject entityObject) {
-		Users entity = (Users)entityObject;
-		// set creation data
-		Timestamp now = new java.sql.Timestamp((new java.util.Date()).getTime());
-		if(entity.getCreatedAt() == null) entity.setCreatedAt(now);
-		if(entity.getCreatedBy() == null) entity.setCreatedBy(dictionaryService.getMyUser().getId());
-		entity.setModifiedAt(now);
-		entity.setModifiedBy(dictionaryService.getMyUser().getId());
-		entitiesDAO.merge(entity);
-	}
-	
-	/* (non-Javadoc)
-	 * @see trimatrix.entities.IEntity#reload(trimatrix.entities.IEntityObject)
-	 */
-	public void reload(IEntityObject entityObject) {
-		Users entity = (Users)entityObject;
-		entitiesDAO.reload(entity);
 	}
 	
 	public static class Data implements IEntityData {
@@ -189,9 +129,5 @@ public final class UserEntity extends AEntity {
 		public boolean getActive() {
 			return active;
 		}		
-	}
-
-	public void setEntitiesDAO(IUsersDAO entitiesDAO) {
-		this.entitiesDAO = entitiesDAO;
 	}	
 }

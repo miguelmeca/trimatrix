@@ -10,6 +10,7 @@
             <column name="id" length="36" />
             <generator class="assigned" />
         </id>
+        <timestamp name="modifiedAt" column="modified_at" unsaved-value="null"/>
         <property name="name" type="java.lang.String">
             <column name="name" length="100" />
         </property>
@@ -54,11 +55,6 @@
         <property name="createdBy" type="java.lang.String">
             <column name="created_by" length="36">
                 <comment>Datensatz erstellt von</comment>
-            </column>
-        </property>
-        <property name="modifiedAt" type="java.sql.Timestamp">
-            <column name="modified_at" length="19">
-                <comment>Datensatz geändert am</comment>
             </column>
         </property>
         <property name="modifiedBy" type="java.lang.String">
