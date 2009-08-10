@@ -274,6 +274,6 @@ public final class ResolverService {
 	}
 
 	public static ResolverService getFromApplicationContext(ApplicationContext ctx) {
-		return (ResolverService) ctx.getBean("entityResolverService");
+		return (ResolverService) ctx.getBean("resolverService");
 	}	
 }
