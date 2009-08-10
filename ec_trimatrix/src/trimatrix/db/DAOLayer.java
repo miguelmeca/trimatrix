@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.context.ApplicationContext;
 
 public class DAOLayer {
-	private IUsersDAO usersDAO;
-	private IPersonsDAO personsDAO;
-	private IDoctorsDAO doctorsDAO;
-	private IAttachmentsDAO attachmentsDAO;
+	private IEntityDAO<Users> usersDAO;
+	private IEntityDAO<Persons> personsDAO;
+	private IEntityDAO<Doctors> doctorsDAO;
+	private IEntityDAO<Attachments> attachmentsDAO;
 	private IPersonsHaveRelationsDAO personsHaveRelationsDAO;
 	private IPersonsHaveDoctorsDAO personsHaveDoctorsDAO;
 	private IPersonsHaveAttachmentsDAO personsHaveAttachmentsDAO;	
@@ -26,35 +26,35 @@ public class DAOLayer {
 		}
 		return count;
 	}
-	public IUsersDAO getUsersDAO() {
+	public IEntityDAO<Users> getUsersDAO() {
 		return usersDAO;
 	}
 
-	public void setUsersDAO(IUsersDAO usersDAO) {
+	public void setUsersDAO(IEntityDAO<Users> usersDAO) {
 		this.usersDAO = usersDAO;
 	}
 
-	public IPersonsDAO getPersonsDAO() {
+	public IEntityDAO<Persons> getPersonsDAO() {
 		return personsDAO;
 	}
 
-	public void setPersonsDAO(IPersonsDAO personsDAO) {
+	public void setPersonsDAO(IEntityDAO<Persons> personsDAO) {
 		this.personsDAO = personsDAO;
 	}	
 	
-	public IDoctorsDAO getDoctorsDAO() {
+	public IEntityDAO<Doctors> getDoctorsDAO() {
 		return doctorsDAO;
 	}
 
-	public void setDoctorsDAO(IDoctorsDAO doctorsDAO) {
+	public void setDoctorsDAO(IEntityDAO<Doctors> doctorsDAO) {
 		this.doctorsDAO = doctorsDAO;
 	}
 
-	public IAttachmentsDAO getAttachmentsDAO() {
+	public IEntityDAO<Attachments> getAttachmentsDAO() {
 		return attachmentsDAO;
 	}
 
-	public void setAttachmentsDAO(IAttachmentsDAO attachmentsDAO) {
+	public void setAttachmentsDAO(IEntityDAO<Attachments> attachmentsDAO) {
 		this.attachmentsDAO = attachmentsDAO;
 	}	
 

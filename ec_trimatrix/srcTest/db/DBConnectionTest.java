@@ -28,8 +28,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 import trimatrix.db.DAOLayer;
 import trimatrix.db.EntitiesHaveLabels;
 import trimatrix.db.EntitiesHaveLabelsId;
-import trimatrix.db.IPersonsDAO;
-import trimatrix.db.IUsersDAO;
+import trimatrix.db.IEntityDAO;
 import trimatrix.db.KRoles;
 import trimatrix.db.Persons;
 import trimatrix.db.PersonsHaveRelations;
@@ -53,8 +52,8 @@ public class DBConnectionTest {
 	public void testUsers() {
 		Timestamp now = new java.sql.Timestamp((new java.util.Date()).getTime());
 		/* 1. Create instance of PersistenceLayer */
-		IUsersDAO usersDAO = daoLayer.getUsersDAO();
-		IPersonsDAO personsDAO = daoLayer.getPersonsDAO();
+		IEntityDAO<Users> usersDAO = daoLayer.getUsersDAO();
+		IEntityDAO<Persons> personsDAO = daoLayer.getPersonsDAO();
 
 		/* 2. Create Test User */
 		String id = UUID.randomUUID().toString();
@@ -124,7 +123,7 @@ public class DBConnectionTest {
 	@Test
 	public void testPersons() throws Exception {
 		/* 1. Create instance of PersistenceLayer */
-		IPersonsDAO personsDAO = daoLayer.getPersonsDAO();
+		IEntityDAO<Persons> personsDAO = daoLayer.getPersonsDAO();
 
 		/* 2. Create Test Person */
 		Persons newPerson = new Persons();
@@ -171,7 +170,7 @@ public class DBConnectionTest {
 					Timestamp now = new java.sql.Timestamp(
 							(new java.util.Date()).getTime());
 					/* 1. Create instance of PersistenceLayer */
-					IUsersDAO usersDAO = daoLayer.getUsersDAO();
+					IEntityDAO<Users> usersDAO = daoLayer.getUsersDAO();
 
 					/* 2. Create Test User */
 					Users newUser = new Users();
@@ -213,7 +212,7 @@ public class DBConnectionTest {
 			Timestamp now = new java.sql.Timestamp(
 					(new java.util.Date()).getTime());
 			/* 1. Create instance of PersistenceLayer */
-			IUsersDAO usersDAO = daoLayer.getUsersDAO();
+			IEntityDAO<Users> usersDAO = daoLayer.getUsersDAO();
 
 			/* 2. Create Test User */
 			Users newUser = new Users();

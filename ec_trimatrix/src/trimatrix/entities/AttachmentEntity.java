@@ -1,6 +1,5 @@
 package trimatrix.entities;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -11,7 +10,6 @@ import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import trimatrix.db.Attachments;
-import trimatrix.db.IAttachmentsDAO;
 import trimatrix.db.TCategories;
 import trimatrix.db.TCategoriesId;
 import trimatrix.structures.SGridMetaData;
@@ -29,9 +27,6 @@ public class AttachmentEntity extends AEntity {
     public static final String FILENAME = "filename"; 
     public static final String FILESIZE = "filesize"; 
     
-	// Variables
-	private IAttachmentsDAO entitiesDAO;
-
 	public IEntityObject create() {
 		String id = UUID.randomUUID().toString();
 		Attachments entity = new Attachments();
@@ -43,13 +38,14 @@ public class AttachmentEntity extends AEntity {
 		return entity;
 	}
 
+	@Override
 	public boolean delete(final String id) {
 		// all in one transaction		
 		final TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
 		Boolean result = (Boolean)transactionTemplate.execute(new TransactionCallback() {
 			public Object doInTransaction(TransactionStatus status) {
 				try {
-					Attachments entity = entitiesDAO.findById(id);
+					Attachments entity = (Attachments)entitiesDAO.findById(id);
 					if(entity==null) return false;
 					// check if user admin or owner
 					if (dictionaryService.getMyRoles().contains(Constants.Role.ADMIN.getName())||entity.getOwner().getId().equals(dictionaryService.getMyPerson().getId())) {
@@ -70,21 +66,7 @@ public class AttachmentEntity extends AEntity {
 			}			
 		});		
 		return result;		
-	}
-
-	public IEntityObject get(String id) {
-		Attachments entity = entitiesDAO.findById(id);
-		if(entity==null) return null;
-		if(entity.getDeleted()) {
-			Dictionary.logger.warn("Attachment marked as deleted");
-			return null;
-		}
-		if(entity.getTest()) {
-			Dictionary.logger.warn("Attachment marked for test");
-			return null;
-		}
-		return entity;
-	}
+	}	
 	
 	public IEntityData getData(String id) {
 		Data datum = new Data();
@@ -140,22 +122,6 @@ public class AttachmentEntity extends AEntity {
         gridMetaData.add(new SGridMetaData("Dateiname", FILENAME, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("Dateigröße", FILESIZE, SGridMetaData.Component.FIELD));
         return gridMetaData;
-	}
-
-	public void reload(IEntityObject entityObject) {
-		Attachments entity = (Attachments)entityObject;
-		entitiesDAO.reload(entity);		
-	}
-
-	public void save(IEntityObject entityObject) {
-		Attachments entity = (Attachments)entityObject;
-		// set creation data
-		Timestamp now = new java.sql.Timestamp((new java.util.Date()).getTime());
-		if(entity.getCreatedAt() == null) entity.setCreatedAt(now);
-		if(entity.getCreatedBy() == null) entity.setCreatedBy(dictionaryService.getMyUser().getId());
-		entity.setModifiedAt(now);
-		entity.setModifiedBy(dictionaryService.getMyUser().getId());
-		entitiesDAO.merge(entity);		
 	}
 	
 	public static class Data implements IEntityData {
@@ -214,9 +180,5 @@ public class AttachmentEntity extends AEntity {
 		public Integer getFilesize() {
 			return filesize;
 		}			
-	}
-
-	public void setEntitiesDAO(IAttachmentsDAO entitiesDAO) {
-		this.entitiesDAO = entitiesDAO;
 	}	
 }

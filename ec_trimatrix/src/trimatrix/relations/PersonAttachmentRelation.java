@@ -5,8 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import trimatrix.db.Attachments;
-import trimatrix.db.IAttachmentsDAO;
-import trimatrix.db.IPersonsDAO;
+import trimatrix.db.IEntityDAO;
 import trimatrix.db.IPersonsHaveAttachmentsDAO;
 import trimatrix.db.Persons;
 import trimatrix.db.PersonsHaveAttachments;
@@ -24,8 +23,8 @@ public class PersonAttachmentRelation implements IRelation {
 	// Variables
 	private SQLExecutorService sqlExecutorService;
 	private Dictionary dictionaryService;
-	private IPersonsDAO personsDAO;
-	private IAttachmentsDAO attachmentsDAO;
+	private IEntityDAO<Persons> personsDAO;
+	private IEntityDAO<Attachments> attachmentsDAO;
 	private IPersonsHaveAttachmentsDAO personsHaveAttachmentsDAO;
 	
 	public boolean delete(String id) {
@@ -146,11 +145,11 @@ public class PersonAttachmentRelation implements IRelation {
 		this.dictionaryService = dictionaryService;
 	}	
 
-	public void setPersonsDAO(IPersonsDAO personsDAO) {
+	public void setPersonsDAO(IEntityDAO<Persons> personsDAO) {
 		this.personsDAO = personsDAO;
 	}
 
-	public void setAttachmentsDAO(IAttachmentsDAO attachmentsDAO) {
+	public void setAttachmentsDAO(IEntityDAO<Attachments> attachmentsDAO) {
 		this.attachmentsDAO = attachmentsDAO;
 	}
 

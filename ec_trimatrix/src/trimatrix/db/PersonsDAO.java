@@ -7,6 +7,8 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import trimatrix.entities.IEntityObject;
+
 /**
  * A data access object (DAO) providing persistence and search support for
  * Persons entities. Transaction control of the save(), update() and delete()
@@ -19,7 +21,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @author MyEclipse Persistence Tools
  */
 
-public class PersonsDAO extends HibernateDaoSupport implements IPersonsDAO {
+public class PersonsDAO extends HibernateDaoSupport implements IEntityDAO<Persons> {
 	private static final Log log = LogFactory.getLog(PersonsDAO.class);
 
 	@Override
@@ -112,7 +114,7 @@ public class PersonsDAO extends HibernateDaoSupport implements IPersonsDAO {
 		}
 	}
 
-	public Persons merge(Persons detachedInstance) {
+	public Persons merge(IEntityObject detachedInstance) {
 		log.debug("merging Persons instance");
 		try {
 			Persons result = (Persons) getHibernateTemplate().merge(
@@ -147,7 +149,7 @@ public class PersonsDAO extends HibernateDaoSupport implements IPersonsDAO {
 		}
 	}
 	
-	public void reload(Persons person) {
+	public void reload(IEntityObject person) {
 		String id = person.getId();
 		log.debug("reloading Persons instance with id: " + id);
 		try {
