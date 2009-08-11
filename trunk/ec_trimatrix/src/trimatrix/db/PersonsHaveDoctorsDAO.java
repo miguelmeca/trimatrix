@@ -8,6 +8,8 @@ import org.hibernate.LockMode;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import trimatrix.relations.IRelationObject;
+
 /**
  	* A data access object (DAO) providing persistence and search support for PersonsHaveDoctors entities.
  			* Transaction control of the save(), update() and delete() operations 
@@ -17,7 +19,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
   * @author MyEclipse Persistence Tools 
  */
 
-public class PersonsHaveDoctorsDAO extends HibernateDaoSupport implements IPersonsHaveDoctorsDAO, IRelationDAO  {
+public class PersonsHaveDoctorsDAO extends HibernateDaoSupport implements IRelationDAO<PersonsHaveDoctors>  {
     private static final Log log = LogFactory.getLog(PersonsHaveDoctorsDAO.class);
 
 
@@ -43,7 +45,7 @@ public class PersonsHaveDoctorsDAO extends HibernateDaoSupport implements IPerso
 	/* (non-Javadoc)
 	 * @see trimatrix.db.IPersonsHaveDoctors#delete(trimatrix.db.PersonsHaveDoctors)
 	 */
-	public void delete(PersonsHaveDoctors persistentInstance) {
+	public void delete(IRelationObject persistentInstance) {
         log.debug("deleting PersonsHaveDoctors instance");
         try {
             getHibernateTemplate().delete(persistentInstance);
@@ -73,7 +75,7 @@ public class PersonsHaveDoctorsDAO extends HibernateDaoSupport implements IPerso
 	 * @see trimatrix.db.IPersonsHaveDoctors#findByExample(trimatrix.db.PersonsHaveDoctors)
 	 */
     @SuppressWarnings("unchecked")
-    public List<PersonsHaveDoctors> findByExample(PersonsHaveDoctors instance) {
+    public List<PersonsHaveDoctors> findByExample(IRelationObject instance) {
         log.debug("finding PersonsHaveDoctors instance by example");
         try {
             List<PersonsHaveDoctors> results = getHibernateTemplate().findByExample(instance);
@@ -120,7 +122,7 @@ public class PersonsHaveDoctorsDAO extends HibernateDaoSupport implements IPerso
     /* (non-Javadoc)
 	 * @see trimatrix.db.IPersonsHaveDoctors#merge(trimatrix.db.PersonsHaveDoctors)
 	 */
-    public PersonsHaveDoctors merge(PersonsHaveDoctors detachedInstance) {
+    public PersonsHaveDoctors merge(IRelationObject detachedInstance) {
         log.debug("merging PersonsHaveDoctors instance");
         try {
             PersonsHaveDoctors result = (PersonsHaveDoctors) getHibernateTemplate()
@@ -164,7 +166,7 @@ public class PersonsHaveDoctorsDAO extends HibernateDaoSupport implements IPerso
     /* (non-Javadoc)
 	 * @see trimatrix.db.IPersonsHaveDoctors#reload(trimatrix.db.PersonsHaveDoctors)
 	 */
-    public void reload(PersonsHaveDoctors relation) {
+    public void reload(IRelationObject relation) {
 		String id = relation.getId();
 		log.debug("reloading PersonsHaveDoctors instance with id: " + id);
 		try {
@@ -194,7 +196,8 @@ public class PersonsHaveDoctorsDAO extends HibernateDaoSupport implements IPerso
           return count;
 	}
 
-	public static IPersonsHaveDoctorsDAO getFromApplicationContext(ApplicationContext ctx) {
-    	return (IPersonsHaveDoctorsDAO) ctx.getBean("PersonsHaveDoctorsDAO");
+	@SuppressWarnings("unchecked")
+	public static IRelationDAO<PersonsHaveDoctors> getFromApplicationContext(ApplicationContext ctx) {
+    	return (IRelationDAO<PersonsHaveDoctors>) ctx.getBean("PersonsHaveDoctorsDAO");
 	}	
 }

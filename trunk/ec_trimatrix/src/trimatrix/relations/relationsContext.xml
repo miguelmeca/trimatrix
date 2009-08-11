@@ -12,10 +12,7 @@
         <property name="dictionaryService">
             <ref bean="dictionaryService" />
         </property>
-        <property name="personsDAO">
-            <ref bean="PersonsDAO" />
-        </property>
-        <property name="personsHaveRelationsDAO">
+        <property name="relationsDAO">
             <ref bean="PersonsHaveRelationsDAO" />
         </property>
     </bean>   
@@ -29,13 +26,7 @@
         <property name="dictionaryService">
             <ref bean="dictionaryService" />
         </property>
-        <property name="personsDAO">
-            <ref bean="PersonsDAO" />
-        </property>
-        <property name="doctorsDAO">
-            <ref bean="DoctorsDAO" />
-        </property>
-        <property name="personsHaveDoctorsDAO">
+        <property name="relationsDAO">
             <ref bean="PersonsHaveDoctorsDAO" />
         </property>
     </bean>  
@@ -49,13 +40,7 @@
         <property name="dictionaryService">
             <ref bean="dictionaryService" />
         </property>
-        <property name="personsDAO">
-            <ref bean="PersonsDAO" />
-        </property>
-        <property name="attachmentsDAO">
-            <ref bean="AttachmentsDAO" />
-        </property>
-        <property name="personsHaveAttachmentsDAO">
+        <property name="relationsDAO">
             <ref bean="PersonsHaveAttachmentsDAO" />
         </property>
     </bean>  

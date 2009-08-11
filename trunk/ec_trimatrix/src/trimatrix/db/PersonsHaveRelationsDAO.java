@@ -8,6 +8,8 @@ import org.hibernate.LockMode;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import trimatrix.relations.IRelationObject;
+
 /**
  * A data access object (DAO) providing persistence and search support for
  * PersonsHaveRelations entities. Transaction control of the save(), update()
@@ -20,7 +22,13 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @author MyEclipse Persistence Tools
  */
 
-public class PersonsHaveRelationsDAO extends HibernateDaoSupport implements IPersonsHaveRelationsDAO, IRelationDAO {
+public class PersonsHaveRelationsDAO extends HibernateDaoSupport implements IRelationDAO<PersonsHaveRelations> {
+	// property constants
+	public static final String PARTNER1 = "partner1";
+	public static final String PARTNER2 = "partner2";
+	public static final String RELTYP_KEY = "reltypKey";
+	public static final String DEFAULT_ = "default_";
+	
 	private static final Log log = LogFactory
 			.getLog(PersonsHaveRelationsDAO.class);
 	@Override
@@ -45,7 +53,7 @@ public class PersonsHaveRelationsDAO extends HibernateDaoSupport implements IPer
 	/* (non-Javadoc)
 	 * @see trimatrix.db.IPersonsHaveRelationsDAO#delete(trimatrix.db.PersonsHaveRelations)
 	 */
-	public void delete(PersonsHaveRelations persistentInstance) {
+	public void delete(IRelationObject persistentInstance) {
 		log.debug("deleting PersonsHaveRelations instance");
 		try {
 			getHibernateTemplate().delete(persistentInstance);
@@ -75,7 +83,7 @@ public class PersonsHaveRelationsDAO extends HibernateDaoSupport implements IPer
 	 * @see trimatrix.db.IPersonsHaveRelationsDAO#findByExample(trimatrix.db.PersonsHaveRelations)
 	 */
 	@SuppressWarnings("unchecked")
-	public List<PersonsHaveRelations> findByExample(PersonsHaveRelations instance) {
+	public List<PersonsHaveRelations> findByExample(IRelationObject instance) {
 		log.debug("finding PersonsHaveRelations instance by example");
 		try {
 			List<PersonsHaveRelations> results = getHibernateTemplate().findByExample(instance);
@@ -151,7 +159,7 @@ public class PersonsHaveRelationsDAO extends HibernateDaoSupport implements IPer
 	/* (non-Javadoc)
 	 * @see trimatrix.db.IPersonsHaveRelationsDAO#merge(trimatrix.db.PersonsHaveRelations)
 	 */
-	public PersonsHaveRelations merge(PersonsHaveRelations detachedInstance) {
+	public PersonsHaveRelations merge(IRelationObject detachedInstance) {
 		log.debug("merging PersonsHaveRelations instance");
 		try {
 			PersonsHaveRelations result = (PersonsHaveRelations) getHibernateTemplate()
@@ -191,11 +199,6 @@ public class PersonsHaveRelationsDAO extends HibernateDaoSupport implements IPer
 			throw re;
 		}
 	}
-
-	public static IPersonsHaveRelationsDAO getFromApplicationContext(
-			ApplicationContext ctx) {
-		return (IPersonsHaveRelationsDAO) ctx.getBean("PersonsHaveRelationsDAO");
-	}
 	
 	@SuppressWarnings("unchecked")
 	public int deleteByPartners(String partnerId) {
@@ -216,7 +219,7 @@ public class PersonsHaveRelationsDAO extends HibernateDaoSupport implements IPer
           return count;
 	}
 	
-	public void reload(PersonsHaveRelations relation) {
+	public void reload(IRelationObject relation) {
 		String id = relation.getId();
 		log.debug("reloading PersonsHaveRelations instance with id: " + id);
 		try {
@@ -227,5 +230,10 @@ public class PersonsHaveRelationsDAO extends HibernateDaoSupport implements IPer
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
+	public static IRelationDAO<PersonsHaveRelations> getFromApplicationContext(
+			ApplicationContext ctx) {
+		return (IRelationDAO<PersonsHaveRelations>) ctx.getBean("PersonsHaveRelationsDAO");
+	}
 
 }

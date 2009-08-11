@@ -6,10 +6,8 @@ import java.util.List;
 
 import org.springframework.orm.hibernate3.HibernateTransactionManager;
 
-import trimatrix.db.Attachments;
 import trimatrix.db.DAOLayer;
 import trimatrix.db.IEntityDAO;
-import trimatrix.db.Users;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.utils.Dictionary;
 
