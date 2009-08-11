@@ -14,8 +14,9 @@ public class DAOLayer {
 	private IRelationDAO<PersonsHaveRelations> personsHaveRelationsDAO;
 	private IRelationDAO<PersonsHaveDoctors> personsHaveDoctorsDAO;
 	private IRelationDAO<PersonsHaveAttachments> personsHaveAttachmentsDAO;	
-	private ITSalutationDAO tsalutationDAO;
-	private ITCategoriesDAO tcategoriesDAO;
+	private ITextDAO<TSalutation, TSalutationId> tsalutationDAO;
+	private ITextDAO<TCategories, TCategoriesId> tcategoriesDAO;
+	private ITextDAO<TProfiles, TProfilesId> tprofilesDAO;
 	private IListVariantsDAO listVariantsDAO;	
 	private ILabelsDAO labelsDAO;
 	private IEntitiesHaveLabelsDAO entitiesHaveLabelsDAO;
@@ -87,21 +88,27 @@ public class DAOLayer {
 		this.personsHaveAttachmentsDAO = personsHaveAttachmentsDAO;
 	}
 
-	public ITSalutationDAO getTsalutationDAO() {
+	public ITextDAO<TSalutation, TSalutationId> getTsalutationDAO() {
 		return tsalutationDAO;
 	}
 
-	public void setTsalutationDAO(ITSalutationDAO tsalutationDAO) {
+	public void setTsalutationDAO(ITextDAO<TSalutation, TSalutationId> tsalutationDAO) {
 		this.tsalutationDAO = tsalutationDAO;
 	}	
 		
-	public ITCategoriesDAO getTcategoriesDAO() {
+	public ITextDAO<TCategories, TCategoriesId> getTcategoriesDAO() {
 		return tcategoriesDAO;
 	}
-	public void setTcategoriesDAO(ITCategoriesDAO tcategoriesDAO) {
+	public void setTcategoriesDAO(ITextDAO<TCategories, TCategoriesId> tcategoriesDAO) {
 		this.tcategoriesDAO = tcategoriesDAO;
 	}
 	
+	public ITextDAO<TProfiles, TProfilesId> getTprofilesDAO() {
+		return tprofilesDAO;
+	}
+	public void setTprofilesDAO(ITextDAO<TProfiles, TProfilesId> tprofilesDAO) {
+		this.tprofilesDAO = tprofilesDAO;
+	}
 	public IListVariantsDAO getListVariantsDAO() {
 		return listVariantsDAO;
 	}
