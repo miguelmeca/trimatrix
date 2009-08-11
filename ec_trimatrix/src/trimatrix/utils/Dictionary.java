@@ -13,7 +13,8 @@ import java.util.regex.Pattern;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationContext;
 
 import trimatrix.db.Persons;
@@ -21,7 +22,8 @@ import trimatrix.db.Users;
 
 public final class Dictionary {
 	// global logger
-	public static Logger logger = Logger.getLogger("trimatrix");
+	public static final Log logger = LogFactory.getLog("trimatrix");
+	//public static Logger logger = Logger.getLogger("trimatrix");
 	// actual user logged on
 	private Users myUser;
 	// actual role

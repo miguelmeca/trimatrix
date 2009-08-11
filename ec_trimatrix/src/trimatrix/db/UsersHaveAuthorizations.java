@@ -3,8 +3,11 @@ package trimatrix.db;
 /**
  * UsersHaveAuthorizations entity. @author MyEclipse Persistence Tools
  */
-public class UsersHaveAuthorizations extends AbstractUsersHaveAuthorizations
-		implements java.io.Serializable {
+public class UsersHaveAuthorizations implements java.io.Serializable {
+
+	// Fields
+
+	private UsersHaveAuthorizationsId id;
 
 	// Constructors
 
@@ -14,7 +17,16 @@ public class UsersHaveAuthorizations extends AbstractUsersHaveAuthorizations
 
 	/** full constructor */
 	public UsersHaveAuthorizations(UsersHaveAuthorizationsId id) {
-		super(id);
+		this.id = id;
 	}
 
+	// Property accessors
+
+	public UsersHaveAuthorizationsId getId() {
+		return this.id;
+	}
+
+	public void setId(UsersHaveAuthorizationsId id) {
+		this.id = id;
+	}
 }

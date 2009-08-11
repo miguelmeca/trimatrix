@@ -3,8 +3,12 @@ package trimatrix.db;
 /**
  * RolesHaveFunctionnodesId entity. @author MyEclipse Persistence Tools
  */
-public class RolesHaveFunctionnodesId extends AbstractRolesHaveFunctionnodesId
-		implements java.io.Serializable {
+public class RolesHaveFunctionnodesId implements java.io.Serializable {
+
+	// Fields
+
+	private String roleKey;
+	private String functionnodeKey;
 
 	// Constructors
 
@@ -13,8 +17,62 @@ public class RolesHaveFunctionnodesId extends AbstractRolesHaveFunctionnodesId
 	}
 
 	/** full constructor */
-	public RolesHaveFunctionnodesId(String roleKey, String functionnodeKey) {
-		super(roleKey, functionnodeKey);
+	public RolesHaveFunctionnodesId(String roleKey,
+			String functionnodeKey) {
+		this.roleKey = roleKey;
+		this.functionnodeKey = functionnodeKey;
+	}
+
+	// Property accessors
+
+	public String getRoleKey() {
+		return this.roleKey;
+	}
+
+	public void setRoleKey(String roleKey) {
+		this.roleKey = roleKey;
+	}
+
+	public String getFunctionnodeKey() {
+		return this.functionnodeKey;
+	}
+
+	public void setFunctionnodeKey(String functionnodeKey) {
+		this.functionnodeKey = functionnodeKey;
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		if ((this == other))
+			return true;
+		if ((other == null))
+			return false;
+		if (!(other instanceof RolesHaveFunctionnodesId))
+			return false;
+		RolesHaveFunctionnodesId castOther = (RolesHaveFunctionnodesId) other;
+
+		return ((this.getRoleKey() == castOther.getRoleKey()) || (this
+				.getRoleKey() != null
+				&& castOther.getRoleKey() != null && this.getRoleKey().equals(
+				castOther.getRoleKey())))
+				&& ((this.getFunctionnodeKey() == castOther
+						.getFunctionnodeKey()) || (this.getFunctionnodeKey() != null
+						&& castOther.getFunctionnodeKey() != null && this
+						.getFunctionnodeKey().equals(
+								castOther.getFunctionnodeKey())));
+	}
+
+	@Override
+	public int hashCode() {
+		int result = 17;
+
+		result = 37 * result
+				+ (getRoleKey() == null ? 0 : this.getRoleKey().hashCode());
+		result = 37
+				* result
+				+ (getFunctionnodeKey() == null ? 0 : this.getFunctionnodeKey()
+						.hashCode());
+		return result;
 	}
 
 }

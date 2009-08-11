@@ -8,6 +8,8 @@ import org.hibernate.LockMode;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import trimatrix.relations.IRelationObject;
+
 /**
  * A data access object (DAO) providing persistence and search support for
  * PersonsHaveAttachments entities. Transaction control of the save(), update()
@@ -20,7 +22,13 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @author MyEclipse Persistence Tools
  */
 
-public class PersonsHaveAttachmentsDAO extends HibernateDaoSupport implements IPersonsHaveAttachmentsDAO, IRelationDAO {
+public class PersonsHaveAttachmentsDAO extends HibernateDaoSupport implements IRelationDAO<PersonsHaveAttachments> {
+	// property constants
+	public static final String PERSON = "person";
+	public static final String ATTACHMENT = "attachment";
+	public static final String RELTYP_KEY = "reltypKey";
+	public static final String STANDARD = "standard";
+	
 	private static final Log log = LogFactory
 			.getLog(PersonsHaveAttachmentsDAO.class);
 	@Override
@@ -41,11 +49,11 @@ public class PersonsHaveAttachmentsDAO extends HibernateDaoSupport implements IP
 			throw re;
 		}
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see trimatrix.db.IPersonsHaveAttachmentsDAO#delete(trimatrix.db.PersonsHaveAttachments)
 	 */
-	public void delete(PersonsHaveAttachments persistentInstance) {
+	public void delete(IRelationObject persistentInstance) {
 		log.debug("deleting PersonsHaveAttachments instance");
 		try {
 			getHibernateTemplate().delete(persistentInstance);
@@ -75,7 +83,7 @@ public class PersonsHaveAttachmentsDAO extends HibernateDaoSupport implements IP
 	 * @see trimatrix.db.IPersonsHaveAttachmentsDAO#findByExample(trimatrix.db.PersonsHaveAttachments)
 	 */
 	@SuppressWarnings("unchecked")
-	public List<PersonsHaveAttachments> findByExample(PersonsHaveAttachments instance) {
+	public List<PersonsHaveAttachments> findByExample(IRelationObject instance) {
 		log.debug("finding PersonsHaveAttachments instance by example");
 		try {
 			List<PersonsHaveAttachments> results = getHibernateTemplate().findByExample(instance);
@@ -151,7 +159,7 @@ public class PersonsHaveAttachmentsDAO extends HibernateDaoSupport implements IP
 	/* (non-Javadoc)
 	 * @see trimatrix.db.IPersonsHaveAttachmentsDAO#merge(trimatrix.db.PersonsHaveAttachments)
 	 */
-	public PersonsHaveAttachments merge(PersonsHaveAttachments detachedInstance) {
+	public PersonsHaveAttachments merge(IRelationObject detachedInstance) {
 		log.debug("merging PersonsHaveAttachments instance");
 		try {
 			PersonsHaveAttachments result = (PersonsHaveAttachments) getHibernateTemplate()
@@ -195,7 +203,7 @@ public class PersonsHaveAttachmentsDAO extends HibernateDaoSupport implements IP
 	/* (non-Javadoc)
 	 * @see trimatrix.db.IPersonsHaveAttachmentsDAO#reload(trimatrix.db.PersonsHaveAttachments)
 	 */
-	public void reload(PersonsHaveAttachments relation) {
+	public void reload(IRelationObject relation) {
 		String id = relation.getId();
 		log.debug("reloading PersonsHaveAttachments instance with id: " + id);
 		try {
@@ -225,9 +233,10 @@ public class PersonsHaveAttachmentsDAO extends HibernateDaoSupport implements IP
           return count;
 	}
 	
-	public static IPersonsHaveAttachmentsDAO getFromApplicationContext(
+	@SuppressWarnings("unchecked")
+	public static IRelationDAO<PersonsHaveAttachments> getFromApplicationContext(
 			ApplicationContext ctx) {
-		return (IPersonsHaveAttachmentsDAO) ctx
+		return (IRelationDAO<PersonsHaveAttachments>) ctx
 				.getBean("PersonsHaveAttachmentsDAO");
 	}
 }

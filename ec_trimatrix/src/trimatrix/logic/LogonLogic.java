@@ -6,18 +6,20 @@ import java.util.Locale;
 import java.util.Set;
 
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
+import org.eclnt.util.log.CLog;
 
 import trimatrix.db.DAOLayer;
 import trimatrix.db.KRoles;
 import trimatrix.db.Users;
 import trimatrix.services.ServiceLayer;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Dictionary;
 
 public class LogonLogic {
 	private ServiceLayer serviceLayer;
 	private DAOLayer daoLayer;
 
-	public boolean logon(String username, String password) {
+	public boolean logon(String username, String password) {		
 		List<Users> users = daoLayer.getUsersDAO().findByProperty("userName", username);
 		if(users.size()==0) {
 			return false;
@@ -43,6 +45,8 @@ public class LogonLogic {
 			myRoles.add(role.getKey());
 		}
 		serviceLayer.getDictionaryService().setMyRoles(myRoles);
+		
+		CLog.L.log(CLog.LL_INF, "User " + username + " logged on!");
 		return true;
 	}
 	

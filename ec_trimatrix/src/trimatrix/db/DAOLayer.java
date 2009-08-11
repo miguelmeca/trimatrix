@@ -4,24 +4,26 @@ import java.util.List;
 
 import org.springframework.context.ApplicationContext;
 
+import trimatrix.relations.IRelationObject;
+
 public class DAOLayer {
 	private IEntityDAO<Users> usersDAO;
 	private IEntityDAO<Persons> personsDAO;
 	private IEntityDAO<Doctors> doctorsDAO;
 	private IEntityDAO<Attachments> attachmentsDAO;
-	private IPersonsHaveRelationsDAO personsHaveRelationsDAO;
-	private IPersonsHaveDoctorsDAO personsHaveDoctorsDAO;
-	private IPersonsHaveAttachmentsDAO personsHaveAttachmentsDAO;	
+	private IRelationDAO<PersonsHaveRelations> personsHaveRelationsDAO;
+	private IRelationDAO<PersonsHaveDoctors> personsHaveDoctorsDAO;
+	private IRelationDAO<PersonsHaveAttachments> personsHaveAttachmentsDAO;	
 	private ITSalutationDAO tsalutationDAO;
 	private ITCategoriesDAO tcategoriesDAO;
 	private IListVariantsDAO listVariantsDAO;	
 	private ILabelsDAO labelsDAO;
 	private IEntitiesHaveLabelsDAO entitiesHaveLabelsDAO;
-	private List<IRelationDAO> relationDAOs;		
+	private List<IRelationDAO<IRelationObject>> relationDAOs;		
 	
 	public int deleteRelationsByPartner(String partnerId) {
 		int count = 0;
-		for(IRelationDAO relation : relationDAOs) {
+		for(IRelationDAO<IRelationObject> relation : relationDAOs) {
 			count += relation.deleteByPartners(partnerId);
 		}
 		return count;
@@ -58,30 +60,30 @@ public class DAOLayer {
 		this.attachmentsDAO = attachmentsDAO;
 	}	
 
-	public IPersonsHaveRelationsDAO getPersonsHaveRelationsDAO() {
+	public IRelationDAO<PersonsHaveRelations> getPersonsHaveRelationsDAO() {
 		return personsHaveRelationsDAO;
 	}
 
 	public void setPersonsHaveRelationsDAO(
-			IPersonsHaveRelationsDAO personsHaveRelationsDAO) {
+			IRelationDAO<PersonsHaveRelations> personsHaveRelationsDAO) {
 		this.personsHaveRelationsDAO = personsHaveRelationsDAO;
 	}	
 
-	public IPersonsHaveDoctorsDAO getPersonsHaveDoctorsDAO() {
+	public IRelationDAO<PersonsHaveDoctors> getPersonsHaveDoctorsDAO() {
 		return personsHaveDoctorsDAO;
 	}
 
 	public void setPersonsHaveDoctorsDAO(
-			IPersonsHaveDoctorsDAO personsHaveDoctorsDAO) {
+			IRelationDAO<PersonsHaveDoctors> personsHaveDoctorsDAO) {
 		this.personsHaveDoctorsDAO = personsHaveDoctorsDAO;
 	}	
 
-	public IPersonsHaveAttachmentsDAO getPersonsHaveAttachmentsDAO() {
+	public IRelationDAO<PersonsHaveAttachments> getPersonsHaveAttachmentsDAO() {
 		return personsHaveAttachmentsDAO;
 	}
 
 	public void setPersonsHaveAttachmentsDAO(
-			IPersonsHaveAttachmentsDAO personsHaveAttachmentsDAO) {
+			IRelationDAO<PersonsHaveAttachments> personsHaveAttachmentsDAO) {
 		this.personsHaveAttachmentsDAO = personsHaveAttachmentsDAO;
 	}
 
@@ -123,11 +125,11 @@ public class DAOLayer {
 			IEntitiesHaveLabelsDAO entitiesHaveLabelsDAO) {
 		this.entitiesHaveLabelsDAO = entitiesHaveLabelsDAO;
 	}
-	public List<IRelationDAO> getRelationDAOs() {
+	public List<IRelationDAO<IRelationObject>> getRelationDAOs() {
 		return relationDAOs;
 	}
 
-	public void setRelationDAOs(List<IRelationDAO> relationDAOs) {
+	public void setRelationDAOs(List<IRelationDAO<IRelationObject>> relationDAOs) {
 		this.relationDAOs = relationDAOs;
 	}
 
