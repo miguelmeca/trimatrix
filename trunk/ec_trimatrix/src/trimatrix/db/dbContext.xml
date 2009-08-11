@@ -59,6 +59,8 @@
                 <idref local="PersonsHaveDoctorsDAO" />
                 <idref local="PersonsHaveAttachmentsDAO" />
                 <idref local="TSalutationDAO" />
+                <idref local="TCategoriesDAO" />
+                <idref local="TProfilesDAO" />
                 <idref local="ListVariantsDAO" />
                 <idref local="LabelsDAO" />
                 <idref local="EntitiesHaveLabelsDAO" />
@@ -96,6 +98,9 @@
         <property name="tcategoriesDAO">
             <ref bean="TCategoriesDAO" />
         </property>  
+        <property name="tprofilesDAO">
+            <ref bean="TProfilesDAO" />
+        </property>
         <property name="listVariantsDAO">
             <ref bean="ListVariantsDAO" />
         </property>      
@@ -277,6 +282,23 @@
 		</property>
 	</bean>
 	<bean id="EntitiesDAO" class="trimatrix.db.EntitiesDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="PersonsAthleteDAO"
+		class="trimatrix.db.PersonsAthleteDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TProfilesDAO" class="trimatrix.db.TProfilesDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="PersonsHaveProfilesDAO"
+		class="trimatrix.db.PersonsHaveProfilesDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>

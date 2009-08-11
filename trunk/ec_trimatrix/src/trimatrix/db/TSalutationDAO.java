@@ -20,7 +20,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @author MyEclipse Persistence Tools
  */
 
-public class TSalutationDAO extends HibernateDaoSupport implements ITSalutationDAO {
+public class TSalutationDAO extends HibernateDaoSupport implements ITextDAO<TSalutation, TSalutationId> {
 	private static final Log log = LogFactory.getLog(TSalutationDAO.class);
 
 	@Override
@@ -71,16 +71,10 @@ public class TSalutationDAO extends HibernateDaoSupport implements ITSalutationD
 		}
 	}
 	
-	/* (non-Javadoc)
-	 * @see trimatrix.db.ITSalutationDAO#findById(java.lang.String, java.lang.String)
-	 */
 	public TSalutation findById(String key, String languageKey) {
 		return findById(new TSalutationId(key, languageKey));
 	}
 
-	/* (non-Javadoc)
-	 * @see trimatrix.db.ITSalutationDAO#findByExample(trimatrix.db.TSalutation)
-	 */
 	@SuppressWarnings("unchecked")
 	public List<TSalutation> findByExample(TSalutation instance) {
 		log.debug("finding TSalutation instance by example");
@@ -95,9 +89,6 @@ public class TSalutationDAO extends HibernateDaoSupport implements ITSalutationD
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see trimatrix.db.ITSalutationDAO#findByProperty(java.lang.String, java.lang.Object)
-	 */
 	@SuppressWarnings("unchecked")
 	public List<TSalutation> findByProperty(String propertyName, Object value) {
 		log.debug("finding TSalutation instance with property: " + propertyName
@@ -112,9 +103,6 @@ public class TSalutationDAO extends HibernateDaoSupport implements ITSalutationD
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see trimatrix.db.ITSalutationDAO#findAll()
-	 */
 	@SuppressWarnings("unchecked")
 	public List<TSalutation> findAll() {
 		log.debug("finding all TSalutation instances");
@@ -127,9 +115,6 @@ public class TSalutationDAO extends HibernateDaoSupport implements ITSalutationD
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see trimatrix.db.ITSalutationDAO#merge(trimatrix.db.TSalutation)
-	 */
 	public TSalutation merge(TSalutation detachedInstance) {
 		log.debug("merging TSalutation instance");
 		try {
@@ -143,9 +128,6 @@ public class TSalutationDAO extends HibernateDaoSupport implements ITSalutationD
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see trimatrix.db.ITSalutationDAO#attachDirty(trimatrix.db.TSalutation)
-	 */
 	public void attachDirty(TSalutation instance) {
 		log.debug("attaching dirty TSalutation instance");
 		try {
@@ -157,9 +139,6 @@ public class TSalutationDAO extends HibernateDaoSupport implements ITSalutationD
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see trimatrix.db.ITSalutationDAO#attachClean(trimatrix.db.TSalutation)
-	 */
 	public void attachClean(TSalutation instance) {
 		log.debug("attaching clean TSalutation instance");
 		try {
@@ -171,8 +150,9 @@ public class TSalutationDAO extends HibernateDaoSupport implements ITSalutationD
 		}
 	}
 
-	public static ITSalutationDAO getFromApplicationContext(
+	@SuppressWarnings("unchecked")
+	public static ITextDAO<TSalutation, TSalutationId> getFromApplicationContext(
 			ApplicationContext ctx) {
-		return (ITSalutationDAO) ctx.getBean("TSalutationDAO");
+		return (ITextDAO<TSalutation, TSalutationId>) ctx.getBean("TSalutationDAO");
 	}
 }

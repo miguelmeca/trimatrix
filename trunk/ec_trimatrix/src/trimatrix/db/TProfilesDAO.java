@@ -9,24 +9,24 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
- 	* A data access object (DAO) providing persistence and search support for TCategories entities.
+ 	* A data access object (DAO) providing persistence and search support for TProfiles entities.
  			* Transaction control of the save(), update() and delete() operations 
 		can directly support Spring container-managed transactions or they can be augmented	to handle user-managed Spring transactions. 
 		Each of these methods provides additional information for how to configure it for the desired type of transaction control. 	
-	 * @see trimatrix.db.TCategories
+	 * @see trimatrix.db.TProfiles
   * @author MyEclipse Persistence Tools 
  */
 
-public class TCategoriesDAO extends HibernateDaoSupport implements ITextDAO<TCategories, TCategoriesId> {
-    private static final Log log = LogFactory.getLog(TCategoriesDAO.class);
+public class TProfilesDAO extends HibernateDaoSupport implements ITextDAO<TProfiles, TProfilesId>  {
+    private static final Log log = LogFactory.getLog(TProfilesDAO.class);
 
 
 	protected void initDao() {
 		//do nothing
 	}
     
-    public void save(TCategories transientInstance) {
-        log.debug("saving TCategories instance");
+    public void save(TProfiles transientInstance) {
+        log.debug("saving TProfiles instance");
         try {
             getHibernateTemplate().save(transientInstance);
             log.debug("save successful");
@@ -36,8 +36,8 @@ public class TCategoriesDAO extends HibernateDaoSupport implements ITextDAO<TCat
         }
     }
     
-	public void delete(TCategories persistentInstance) {
-        log.debug("deleting TCategories instance");
+	public void delete(TProfiles persistentInstance) {
+        log.debug("deleting TProfiles instance");
         try {
             getHibernateTemplate().delete(persistentInstance);
             log.debug("delete successful");
@@ -47,11 +47,11 @@ public class TCategoriesDAO extends HibernateDaoSupport implements ITextDAO<TCat
         }
     }
     
-    public TCategories findById( trimatrix.db.TCategoriesId id) {
-        log.debug("getting TCategories instance with id: " + id);
+    public TProfiles findById( trimatrix.db.TProfilesId id) {
+        log.debug("getting TProfiles instance with id: " + id);
         try {
-            TCategories instance = (TCategories) getHibernateTemplate()
-                    .get("trimatrix.db.TCategories", id);
+            TProfiles instance = (TProfiles) getHibernateTemplate()
+                    .get("trimatrix.db.TProfiles", id);
             return instance;
         } catch (RuntimeException re) {
             log.error("get failed", re);
@@ -59,15 +59,15 @@ public class TCategoriesDAO extends HibernateDaoSupport implements ITextDAO<TCat
         }
     }
     
-    public TCategories findById(String key, String languageKey) {
-		return findById(new TCategoriesId(key, languageKey));
+    public TProfiles findById(String key, String languageKey) {
+		return findById(new TProfilesId(key, languageKey));
 	}
-        
+    
     @SuppressWarnings("unchecked")
-	public List<TCategories> findByExample(TCategories instance) {
-        log.debug("finding TCategories instance by example");
+    public List<TProfiles> findByExample(TProfiles instance) {
+        log.debug("finding TProfiles instance by example");
         try {
-            List<TCategories> results = getHibernateTemplate().findByExample(instance);
+            List<TProfiles> results = getHibernateTemplate().findByExample(instance);
             log.debug("find by example successful, result size: " + results.size());
             return results;
         } catch (RuntimeException re) {
@@ -77,11 +77,11 @@ public class TCategoriesDAO extends HibernateDaoSupport implements ITextDAO<TCat
     }    
     
     @SuppressWarnings("unchecked")
-    public List<TCategories> findByProperty(String propertyName, Object value) {
-      log.debug("finding TCategories instance with property: " + propertyName
+    public List<TProfiles> findByProperty(String propertyName, Object value) {
+      log.debug("finding TProfiles instance with property: " + propertyName
             + ", value: " + value);
       try {
-         String queryString = "from TCategories as model where model." 
+         String queryString = "from TProfiles as model where model." 
          						+ propertyName + "= ?";
 		 return getHibernateTemplate().find(queryString, value);
       } catch (RuntimeException re) {
@@ -90,11 +90,11 @@ public class TCategoriesDAO extends HibernateDaoSupport implements ITextDAO<TCat
       }
 	}
 
-    @SuppressWarnings("unchecked")
-	public List<TCategories> findAll() {
-		log.debug("finding all TCategories instances");
+	@SuppressWarnings("unchecked")
+	public List<TProfiles> findAll() {
+		log.debug("finding all TProfiles instances");
 		try {
-			String queryString = "from TCategories";
+			String queryString = "from TProfiles";
 		 	return getHibernateTemplate().find(queryString);
 		} catch (RuntimeException re) {
 			log.error("find all failed", re);
@@ -102,10 +102,10 @@ public class TCategoriesDAO extends HibernateDaoSupport implements ITextDAO<TCat
 		}
 	}
 	
-    public TCategories merge(TCategories detachedInstance) {
-        log.debug("merging TCategories instance");
+    public TProfiles merge(TProfiles detachedInstance) {
+        log.debug("merging TProfiles instance");
         try {
-            TCategories result = (TCategories) getHibernateTemplate()
+            TProfiles result = (TProfiles) getHibernateTemplate()
                     .merge(detachedInstance);
             log.debug("merge successful");
             return result;
@@ -115,8 +115,8 @@ public class TCategoriesDAO extends HibernateDaoSupport implements ITextDAO<TCat
         }
     }
 
-    public void attachDirty(TCategories instance) {
-        log.debug("attaching dirty TCategories instance");
+    public void attachDirty(TProfiles instance) {
+        log.debug("attaching dirty TProfiles instance");
         try {
             getHibernateTemplate().saveOrUpdate(instance);
             log.debug("attach successful");
@@ -126,8 +126,8 @@ public class TCategoriesDAO extends HibernateDaoSupport implements ITextDAO<TCat
         }
     }
     
-    public void attachClean(TCategories instance) {
-        log.debug("attaching clean TCategories instance");
+    public void attachClean(TProfiles instance) {
+        log.debug("attaching clean TProfiles instance");
         try {
             getHibernateTemplate().lock(instance, LockMode.NONE);
             log.debug("attach successful");
@@ -137,8 +137,7 @@ public class TCategoriesDAO extends HibernateDaoSupport implements ITextDAO<TCat
         }
     }
 
-	@SuppressWarnings("unchecked")
-	public static ITextDAO<TCategories, TCategoriesId> getFromApplicationContext(ApplicationContext ctx) {
-    	return (ITextDAO<TCategories, TCategoriesId>) ctx.getBean("TCategoriesDAO");
+	public static TProfilesDAO getFromApplicationContext(ApplicationContext ctx) {
+    	return (TProfilesDAO) ctx.getBean("TProfilesDAO");
 	}
 }
