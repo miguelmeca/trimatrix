@@ -10,7 +10,6 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import trimatrix.db.IEntityDAO;
 import trimatrix.db.Persons;
 import trimatrix.db.Users;
 import trimatrix.structures.SGridMetaData;
@@ -35,10 +34,7 @@ public final class PersonEntity extends AEntity {
     public static final String TELEPHONE = "telephone";
     public static final String MOBILE = "mobile";
     public static final String FAX = "fax";
- 
-    // Variables
-	private IEntityDAO<Users> usersDAO;
-		
+ 	
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IUserEntity#getGridMetaData()
 	 */
@@ -114,10 +110,10 @@ public final class PersonEntity extends AEntity {
 						entitiesDAO.merge(entity);
 						int deleted = daoLayer.deleteRelationsByPartner(id);
 						// delete one-to-one relationship to user entity
-						List<Users> users = usersDAO.findByProperty(UserEntity.PERSON, entity);
+						List<Users> users = daoLayer.getUsersDAO().findByProperty(UserEntity.PERSON, entity);
 						for(Users user : users) {
 							user.setPerson(null);
-							usersDAO.merge(user);
+							daoLayer.getUsersDAO().merge(user);
 						}	
 						Statusbar.outputSuccess("Successfully deleted entity incl. " + deleted + " relations!");
 					} else {
@@ -245,9 +241,5 @@ public final class PersonEntity extends AEntity {
 		public Timestamp getBirthdate() {
 			return birthdate;
 		}		
-	}
-
-	public void setUsersDAO(IEntityDAO<Users> usersDAO) {
-		this.usersDAO = usersDAO;
 	}
 }

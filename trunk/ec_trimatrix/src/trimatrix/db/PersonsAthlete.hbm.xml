@@ -10,14 +10,14 @@
             <column name="id" length="36" />
             <generator class="assigned" />
         </id>
-        <property name="height" type="java.lang.Long">
-            <column name="height" precision="10" scale="0" />
+        <property name="height" type="java.lang.Double">
+            <column name="height" precision="10" />
         </property>
         <property name="heightUnit" type="java.lang.String">
             <column name="height_unit" length="5" />
         </property>
-        <property name="weight" type="java.lang.Long">
-            <column name="weight" precision="10" scale="0" />
+        <property name="weight" type="java.lang.Double">
+            <column name="weight" precision="10" />
         </property>
         <property name="weightUnit" type="java.lang.String">
             <column name="weight_unit" length="5" />

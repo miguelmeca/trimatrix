@@ -3,7 +3,7 @@ package trimatrix.logic;
 import java.util.List;
 
 import trimatrix.db.DAOLayer;
-import trimatrix.db.IListVariantsDAO;
+import trimatrix.db.IComplexDAO;
 import trimatrix.db.ListVariants;
 import trimatrix.db.ListVariantsId;
 import trimatrix.entities.IEntityData;
@@ -75,7 +75,7 @@ public class EntityListLogic {
 	public SListVariant loadGridState(Constants.Entity entity) {
 		String user_id = serviceLayer.getDictionaryService().getMyUser().getId();
 		ListVariantsId lv_id = new ListVariantsId(Constants.P_ENTITYLIST, entity.name(), user_id);
-		IListVariantsDAO dao = daoLayer.getListVariantsDAO();
+		IComplexDAO<ListVariants, ListVariantsId> dao = daoLayer.getListVariantsDAO();
 		ListVariants lv = dao.findById(lv_id);		
 		if (lv==null) return null;
 		return new SListVariant(lv.getColumnsSequence(), lv.getColumnsWidth());

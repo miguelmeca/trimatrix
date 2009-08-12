@@ -10,6 +10,8 @@ import trimatrix.utils.Constants;
  */
 public class Persons extends AbstractPersons implements java.io.Serializable, IEntityObject {
 
+	private PersonsAthlete profileAthlete;
+	
 	// Constructors
 
 	/** default constructor */
@@ -34,6 +36,14 @@ public class Persons extends AbstractPersons implements java.io.Serializable, IE
 	public String toString() {
 		// same as DB entity implementation
 		return (getNameFirst() + " " + getNameLast()).replace(Constants.NULL, Constants.EMPTY).trim();
+	}
+
+	public PersonsAthlete getProfileAthlete() {
+		return profileAthlete;
+	}
+
+	public void setProfileAthlete(PersonsAthlete profileAthlete) {
+		this.profileAthlete = profileAthlete;
 	}
 
 }

@@ -17,7 +17,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
   * @author MyEclipse Persistence Tools 
  */
 
-public class ListVariantsDAO extends HibernateDaoSupport implements IListVariantsDAO  {
+public class ListVariantsDAO extends HibernateDaoSupport implements IComplexDAO<ListVariants, ListVariantsId>  {
     private static final Log log = LogFactory.getLog(ListVariantsDAO.class);
 
 
@@ -163,7 +163,8 @@ public class ListVariantsDAO extends HibernateDaoSupport implements IListVariant
         }
     }
 
-	public static IListVariantsDAO getFromApplicationContext(ApplicationContext ctx) {
-    	return (IListVariantsDAO) ctx.getBean("ListVariantsDAO");
+	@SuppressWarnings("unchecked")
+	public static IComplexDAO<ListVariants, ListVariantsId> getFromApplicationContext(ApplicationContext ctx) {
+    	return (IComplexDAO<ListVariants, ListVariantsId>) ctx.getBean("ListVariantsDAO");
 	}
 }

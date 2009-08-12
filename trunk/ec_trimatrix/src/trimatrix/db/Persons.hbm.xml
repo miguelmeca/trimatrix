@@ -10,7 +10,8 @@
    <column length="36" name="id"/>
    <generator class="assigned"/>
   </id>
-  <timestamp name="modifiedAt" column="modified_at" unsaved-value="null"/>
+  <timestamp column="modified_at" generated="never" name="modifiedAt"
+   source="vm" unsaved-value="null"/>
   <property generated="never" lazy="false" name="salutationKey" type="java.lang.String">
    <column length="10" name="salutation_key"/>
   </property>
@@ -85,5 +86,6 @@
   <property generated="never" lazy="false" name="test" type="java.lang.Boolean">
    <column name="test"/>
   </property>
+  <one-to-one class="trimatrix.db.PersonsAthlete" lazy="false" name="profileAthlete"/>
  </class>
 </hibernate-mapping>

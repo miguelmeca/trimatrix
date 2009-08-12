@@ -58,12 +58,14 @@
                 <idref local="PersonsHaveRelationsDAO" />
                 <idref local="PersonsHaveDoctorsDAO" />
                 <idref local="PersonsHaveAttachmentsDAO" />
+                <idref local="PersonsAthleteDAO" />
                 <idref local="TSalutationDAO" />
                 <idref local="TCategoriesDAO" />
                 <idref local="TProfilesDAO" />
                 <idref local="ListVariantsDAO" />
                 <idref local="LabelsDAO" />
                 <idref local="EntitiesHaveLabelsDAO" />
+                <idref local="PersonsHaveProfilesDAO" />
             </list>
         </property>
     </bean>
@@ -110,6 +112,9 @@
         <property name="entitiesHaveLabelsDAO">
             <ref bean="EntitiesHaveLabelsDAO" />
         </property>   
+        <property name="personAthleteDAO">
+            <ref bean="PersonsAthleteDAO" />
+        </property> 
         <property name="relationDAOs">
         	<list>
         		<ref bean="PersonsHaveRelationsDAO" />
