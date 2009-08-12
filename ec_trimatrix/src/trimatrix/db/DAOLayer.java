@@ -17,8 +17,11 @@ public class DAOLayer {
 	private ITextDAO<TSalutation, TSalutationId> tsalutationDAO;
 	private ITextDAO<TCategories, TCategoriesId> tcategoriesDAO;
 	private ITextDAO<TProfiles, TProfilesId> tprofilesDAO;
-	private IListVariantsDAO listVariantsDAO;	
+	private ISimpleDAO<PersonsAthlete> personAthleteDAO;
+	private IComplexDAO<ListVariants, ListVariantsId> listVariantsDAO;	
+	private IComplexDAO<PersonsHaveProfiles, PersonsHaveProfilesId> personsHaveProfiles;
 	private ILabelsDAO labelsDAO;
+	
 	private IEntitiesHaveLabelsDAO entitiesHaveLabelsDAO;
 	private List<IRelationDAO<IRelationObject>> relationDAOs;		
 	
@@ -109,11 +112,27 @@ public class DAOLayer {
 	public void setTprofilesDAO(ITextDAO<TProfiles, TProfilesId> tprofilesDAO) {
 		this.tprofilesDAO = tprofilesDAO;
 	}
-	public IListVariantsDAO getListVariantsDAO() {
+	
+	public ISimpleDAO<PersonsAthlete> getPersonAthleteDAO() {
+		return personAthleteDAO;
+	}
+	public void setPersonAthleteDAO(ISimpleDAO<PersonsAthlete> personAthleteDAO) {
+		this.personAthleteDAO = personAthleteDAO;
+	}
+	public IComplexDAO<ListVariants, ListVariantsId> getListVariantsDAO() {
 		return listVariantsDAO;
 	}
 
-	public void setListVariantsDAO(IListVariantsDAO listVariantsDAO) {
+	public IComplexDAO<PersonsHaveProfiles, PersonsHaveProfilesId> getPersonsHaveProfiles() {
+		return personsHaveProfiles;
+	}
+	
+	public void setPersonsHaveProfiles(
+			IComplexDAO<PersonsHaveProfiles, PersonsHaveProfilesId> personsHaveProfiles) {
+		this.personsHaveProfiles = personsHaveProfiles;
+	}
+	
+	public void setListVariantsDAO(IComplexDAO<ListVariants, ListVariantsId> listVariantsDAO) {
 		this.listVariantsDAO = listVariantsDAO;
 	}	
 

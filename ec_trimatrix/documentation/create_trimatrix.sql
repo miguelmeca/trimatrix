@@ -185,14 +185,14 @@ insert  into `k_languages`(`key`,`logon`) values ('de',1),('en',1),('fr',0);
 DROP TABLE IF EXISTS `k_profiles`;
 
 CREATE TABLE `k_profiles` (
-  `key` varchar(36) NOT NULL,
+  `table_key` varchar(36) NOT NULL,
   `table` varchar(50) NOT NULL DEFAULT '0' COMMENT 'Language relevant for logon',
-  PRIMARY KEY (`key`)
+  PRIMARY KEY (`table_key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Specifies all possible profiles for entity person';
 
 /*Data for the table `k_profiles` */
 
-insert  into `k_profiles`(`key`,`table`) values ('athlete','persons_athlete');
+insert  into `k_profiles`(`table_key`,`table`) values ('athlete','persons_athlete');
 
 /*Table structure for table `k_reltyps` */
 
@@ -326,9 +326,9 @@ DROP TABLE IF EXISTS `persons_athlete`;
 
 CREATE TABLE `persons_athlete` (
   `id` varchar(36) NOT NULL,
-  `height` decimal(10,0) DEFAULT NULL,
+  `height` decimal(10,2) DEFAULT NULL,
   `height_unit` varchar(5) DEFAULT NULL,
-  `weight` decimal(10,0) DEFAULT NULL,
+  `weight` decimal(10,2) DEFAULT NULL,
   `weight_unit` varchar(5) DEFAULT NULL,
   `max_hr` int(11) DEFAULT NULL,
   `resting_hr` int(11) DEFAULT NULL,
@@ -338,6 +338,8 @@ CREATE TABLE `persons_athlete` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Athlete profile for persons';
 
 /*Data for the table `persons_athlete` */
+
+insert  into `persons_athlete`(`id`,`height`,`height_unit`,`weight`,`weight_unit`,`max_hr`,`resting_hr`,`vo2_max`) values ('0b0b7658-2ddb-11de-86ae-00301bb60f17','184.00','cm','72.00','kg',186,42,76);
 
 /*Table structure for table `persons_have_attachments` */
 
@@ -545,18 +547,18 @@ insert  into `t_languages`(`key`,`language_key`,`description`,`description_long`
 DROP TABLE IF EXISTS `t_profiles`;
 
 CREATE TABLE `t_profiles` (
-  `key` varchar(36) NOT NULL,
+  `table_key` varchar(36) NOT NULL,
   `language_key` varchar(2) NOT NULL,
   `description` varchar(20) DEFAULT NULL,
   `description_long` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`key`,`language_key`),
-  KEY `fk_t_profiles_k_profiles` (`key`),
+  PRIMARY KEY (`table_key`,`language_key`),
+  KEY `fk_t_profiles_k_profiles` (`table_key`),
   KEY `fk_t_profiles_k_languages` (`language_key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Texts for defined profiles';
 
 /*Data for the table `t_profiles` */
 
-insert  into `t_profiles`(`key`,`language_key`,`description`,`description_long`) values ('athlete','de','Athletenprofil','Athletenprofil'),('athlete','en','Athleteprofile','Athleteprofile');
+insert  into `t_profiles`(`table_key`,`language_key`,`description`,`description_long`) values ('athlete','de','Athletenprofil','Athletenprofil'),('athlete','en','Athleteprofile','Athleteprofile');
 
 /*Table structure for table `t_reltyps` */
 

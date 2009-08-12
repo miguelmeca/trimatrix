@@ -16,7 +16,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
   * @author MyEclipse Persistence Tools 
  */
 
-public class PersonsHaveProfilesDAO extends HibernateDaoSupport  {
+public class PersonsHaveProfilesDAO extends HibernateDaoSupport implements IComplexDAO<PersonsHaveProfiles, PersonsHaveProfilesId> {
     private static final Log log = LogFactory.getLog(PersonsHaveProfilesDAO.class);
 
 
@@ -57,12 +57,12 @@ public class PersonsHaveProfilesDAO extends HibernateDaoSupport  {
             throw re;
         }
     }
-    
-    
-    public List findByExample(PersonsHaveProfiles instance) {
+        
+    @SuppressWarnings("unchecked")
+	public List<PersonsHaveProfiles> findByExample(PersonsHaveProfiles instance) {
         log.debug("finding PersonsHaveProfiles instance by example");
         try {
-            List results = getHibernateTemplate().findByExample(instance);
+            List<PersonsHaveProfiles> results = getHibernateTemplate().findByExample(instance);
             log.debug("find by example successful, result size: " + results.size());
             return results;
         } catch (RuntimeException re) {
@@ -71,7 +71,8 @@ public class PersonsHaveProfilesDAO extends HibernateDaoSupport  {
         }
     }    
     
-    public List findByProperty(String propertyName, Object value) {
+    @SuppressWarnings("unchecked")
+	public List<PersonsHaveProfiles> findByProperty(String propertyName, Object value) {
       log.debug("finding PersonsHaveProfiles instance with property: " + propertyName
             + ", value: " + value);
       try {
@@ -85,7 +86,8 @@ public class PersonsHaveProfilesDAO extends HibernateDaoSupport  {
 	}
 
 
-	public List findAll() {
+	@SuppressWarnings("unchecked")
+	public List<PersonsHaveProfiles> findAll() {
 		log.debug("finding all PersonsHaveProfiles instances");
 		try {
 			String queryString = "from PersonsHaveProfiles";
@@ -131,7 +133,8 @@ public class PersonsHaveProfilesDAO extends HibernateDaoSupport  {
         }
     }
 
-	public static PersonsHaveProfilesDAO getFromApplicationContext(ApplicationContext ctx) {
-    	return (PersonsHaveProfilesDAO) ctx.getBean("PersonsHaveProfilesDAO");
+	@SuppressWarnings("unchecked")
+	public static IComplexDAO<PersonsHaveProfiles, PersonsHaveProfilesId> getFromApplicationContext(ApplicationContext ctx) {
+    	return (IComplexDAO<PersonsHaveProfiles, PersonsHaveProfilesId>) ctx.getBean("PersonsHaveProfilesDAO");
 	}
 }

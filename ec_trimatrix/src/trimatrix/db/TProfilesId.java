@@ -11,7 +11,7 @@ public class TProfilesId  implements java.io.Serializable {
 
     // Fields    
 
-     private String key;
+     private String tableKey;
      private String languageKey;
 
 
@@ -24,19 +24,19 @@ public class TProfilesId  implements java.io.Serializable {
     
     /** full constructor */
     public TProfilesId(String key, String languageKey) {
-        this.key = key;
+        this.tableKey = key;
         this.languageKey = languageKey;
     }
 
    
     // Property accessors
 
-    public String getKey() {
-        return this.key;
+    public String getTableKey() {
+        return this.tableKey;
     }
     
-    public void setKey(String key) {
-        this.key = key;
+    public void setTableKey(String tableKey) {
+        this.tableKey = tableKey;
     }
 
     public String getLanguageKey() {
@@ -56,14 +56,14 @@ public class TProfilesId  implements java.io.Serializable {
 		 if ( !(other instanceof TProfilesId) ) return false;
 		 TProfilesId castOther = ( TProfilesId ) other; 
          
-		 return ( (this.getKey()==castOther.getKey()) || ( this.getKey()!=null && castOther.getKey()!=null && this.getKey().equals(castOther.getKey()) ) )
+		 return ( (this.getTableKey()==castOther.getTableKey()) || ( this.getTableKey()!=null && castOther.getTableKey()!=null && this.getTableKey().equals(castOther.getTableKey()) ) )
  && ( (this.getLanguageKey()==castOther.getLanguageKey()) || ( this.getLanguageKey()!=null && castOther.getLanguageKey()!=null && this.getLanguageKey().equals(castOther.getLanguageKey()) ) );
    }
    
    public int hashCode() {
          int result = 17;
          
-         result = 37 * result + ( getKey() == null ? 0 : this.getKey().hashCode() );
+         result = 37 * result + ( getTableKey() == null ? 0 : this.getTableKey().hashCode() );
          result = 37 * result + ( getLanguageKey() == null ? 0 : this.getLanguageKey().hashCode() );
          return result;
    }   

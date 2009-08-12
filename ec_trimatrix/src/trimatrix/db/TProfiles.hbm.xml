@@ -7,8 +7,8 @@
 <hibernate-mapping>
     <class name="trimatrix.db.TProfiles" table="t_profiles" catalog="trimatrix">
         <composite-id name="id" class="trimatrix.db.TProfilesId">
-            <key-property name="key" type="java.lang.String">
-                <column name="key" length="36" />
+            <key-property name="tableKey" type="java.lang.String">
+                <column name="table_key" length="36" />
             </key-property>
             <key-property name="languageKey" type="java.lang.String">
                 <column name="language_key" length="2" />
