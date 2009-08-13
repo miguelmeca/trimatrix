@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.UUID;
 
 import trimatrix.db.Attachments;
-import trimatrix.db.IEntityDAO;
 import trimatrix.db.Persons;
 import trimatrix.db.PersonsHaveAttachments;
 import trimatrix.structures.SGridMetaData;

@@ -416,8 +416,8 @@ public class RegressionFunctions {
             mean_y += delta_y / i;
         }
         
-        double pop_sd_x = (double) Math.sqrt(sum_sq_x/xyArr1.length);
-        double pop_sd_y = (double) Math.sqrt(sum_sq_y/xyArr1.length);
+        double pop_sd_x = Math.sqrt(sum_sq_x/xyArr1.length);
+        double pop_sd_y = Math.sqrt(sum_sq_y/xyArr1.length);
 
         double cov_x_y = sum_coproduct / xyArr1.length;
         return cov_x_y / (pop_sd_x*pop_sd_y);

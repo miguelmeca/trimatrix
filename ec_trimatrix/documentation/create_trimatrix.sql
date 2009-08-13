@@ -11,7 +11,7 @@ MySQL - 5.1.33-community : Database - trimatrix
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`trimatrix` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`trimatrix` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 USE `trimatrix`;
 
@@ -179,20 +179,6 @@ CREATE TABLE `k_languages` (
 /*Data for the table `k_languages` */
 
 insert  into `k_languages`(`key`,`logon`) values ('de',1),('en',1),('fr',0);
-
-/*Table structure for table `k_profiles` */
-
-DROP TABLE IF EXISTS `k_profiles`;
-
-CREATE TABLE `k_profiles` (
-  `table_key` varchar(36) NOT NULL,
-  `table` varchar(50) NOT NULL DEFAULT '0' COMMENT 'Language relevant for logon',
-  PRIMARY KEY (`table_key`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Specifies all possible profiles for entity person';
-
-/*Data for the table `k_profiles` */
-
-insert  into `k_profiles`(`table_key`,`table`) values ('athlete','persons_athlete');
 
 /*Table structure for table `k_reltyps` */
 
@@ -383,20 +369,6 @@ CREATE TABLE `persons_have_doctors` (
 
 insert  into `persons_have_doctors`(`id`,`person`,`doctor`,`reltyp_key`,`standard`) values ('f12d0178-496f-11de-921e-1178275b5596','10f52302-2ddb-11de-86ae-00301bb60f17','c94e3cff-495d-11de-921e-1178275b5596','doctor',0),('f73f73b4-496f-11de-921e-1178275b5596','0b0b7658-2ddb-11de-86ae-00301bb60f17','c94e3cff-495d-11de-921e-1178275b5596','doctor',0);
 
-/*Table structure for table `persons_have_profiles` */
-
-DROP TABLE IF EXISTS `persons_have_profiles`;
-
-CREATE TABLE `persons_have_profiles` (
-  `person_id` varchar(36) NOT NULL,
-  `profile_key` varchar(36) NOT NULL,
-  PRIMARY KEY (`person_id`,`profile_key`),
-  KEY `fk_persons_have_profiles_persons` (`person_id`),
-  KEY `fk_persons_have_profiles_persons_profiles` (`profile_key`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='A person can have certain different profiles';
-
-/*Data for the table `persons_have_profiles` */
-
 /*Table structure for table `persons_have_relations` */
 
 DROP TABLE IF EXISTS `persons_have_relations`;
@@ -541,24 +513,6 @@ CREATE TABLE `t_languages` (
 /*Data for the table `t_languages` */
 
 insert  into `t_languages`(`key`,`language_key`,`description`,`description_long`) values ('de','de','Deutsch','Deutsch'),('de','en','German','German'),('en','de','Englisch','Englisch'),('en','en','English','English');
-
-/*Table structure for table `t_profiles` */
-
-DROP TABLE IF EXISTS `t_profiles`;
-
-CREATE TABLE `t_profiles` (
-  `table_key` varchar(36) NOT NULL,
-  `language_key` varchar(2) NOT NULL,
-  `description` varchar(20) DEFAULT NULL,
-  `description_long` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`table_key`,`language_key`),
-  KEY `fk_t_profiles_k_profiles` (`table_key`),
-  KEY `fk_t_profiles_k_languages` (`language_key`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Texts for defined profiles';
-
-/*Data for the table `t_profiles` */
-
-insert  into `t_profiles`(`table_key`,`language_key`,`description`,`description_long`) values ('athlete','de','Athletenprofil','Athletenprofil'),('athlete','en','Athleteprofile','Athleteprofile');
 
 /*Table structure for table `t_reltyps` */
 
@@ -718,10 +672,10 @@ DROP TABLE IF EXISTS `entities`;
 /*!50001 DROP TABLE IF EXISTS `entities` */;
 
 /*!50001 CREATE TABLE `entities` (
-  `id` varchar(36) NOT NULL DEFAULT '',
-  `entity` varchar(10) NOT NULL DEFAULT '',
+  `id` varchar(36) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `entity` varchar(10) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `deleted` tinyint(4) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 */;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 */;
 
 /*Table structure for table `relations` */
 
@@ -731,11 +685,11 @@ DROP TABLE IF EXISTS `relations`;
 /*!50001 DROP TABLE IF EXISTS `relations` */;
 
 /*!50001 CREATE TABLE `relations` (
-  `id` varchar(36) NOT NULL DEFAULT '',
-  `partner1` varchar(36) DEFAULT NULL,
-  `partner2` varchar(36) DEFAULT NULL,
-  `reltyp_key` varchar(10) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 */;
+  `id` varchar(36) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `partner1` varchar(36) CHARACTER SET utf8 DEFAULT NULL,
+  `partner2` varchar(36) CHARACTER SET utf8 DEFAULT NULL,
+  `reltyp_key` varchar(10) CHARACTER SET utf8 DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 */;
 
 /*View structure for view entities */
 

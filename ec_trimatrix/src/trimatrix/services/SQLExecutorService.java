@@ -25,7 +25,6 @@ import trimatrix.relations.PersonDoctorRelation;
 import trimatrix.relations.PersonPersonRelation;
 import trimatrix.structures.SFunctionTree;
 import trimatrix.structures.SValueList;
-import trimatrix.ui.EntityListUI;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
 

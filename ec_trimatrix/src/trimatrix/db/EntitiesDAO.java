@@ -24,6 +24,7 @@ public class EntitiesDAO extends HibernateDaoSupport {
 
 	// property constants
 
+	@Override
 	protected void initDao() {
 		// do nothing
 	}

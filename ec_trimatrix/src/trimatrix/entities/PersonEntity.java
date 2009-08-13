@@ -11,6 +11,7 @@ import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import trimatrix.db.Persons;
+import trimatrix.db.PersonsAthlete;
 import trimatrix.db.Users;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
@@ -34,6 +35,14 @@ public final class PersonEntity extends AEntity {
     public static final String TELEPHONE = "telephone";
     public static final String MOBILE = "mobile";
     public static final String FAX = "fax";
+    
+    public static final String HEIGHT = "height";
+	public static final String HEIGHT_UNIT = "height_unit";
+    public static final String WEIGHT = "weight";  
+    public static final String WEIGHT_UNIT = "weight_unit";
+    public static final String MAX_HR = "max_hr";
+    public static final String RESTING_HR = "resting_hr";
+    public static final String VO2_MAX = "vo2_max";    
  	
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IUserEntity#getGridMetaData()
@@ -131,6 +140,21 @@ public final class PersonEntity extends AEntity {
 			
 		});		
 		return result;
+	}
+	
+	public boolean deleteProfile(String id, Constants.Profiles profile) {
+		switch (profile) {
+		case ATHLETE:
+			PersonsAthlete athlete = daoLayer.getPersonAthleteDAO().findById(id);
+			if(athlete==null) {
+				Dictionary.logger.warn("PersonAthlete : Profil athlete not found => " + id );		
+				return false;
+			} 
+			daoLayer.getPersonAthleteDAO().delete(athlete);		
+			Dictionary.logger.info("PersonAthlete : Deletion of profil athlete successful => " + id );
+			break;
+		}		
+		return true;
 	}
 	
 	/* (non-Javadoc)

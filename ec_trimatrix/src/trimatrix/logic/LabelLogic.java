@@ -5,8 +5,6 @@ import java.util.UUID;
 import java.util.Vector;
 
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
-import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
-import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoListener;
 import org.hibernate.exception.ConstraintViolationException;
 
 import trimatrix.db.DAOLayer;

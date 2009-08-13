@@ -22,6 +22,7 @@ import trimatrix.db.Users;
 
 public final class Dictionary {
 	// global logger
+	// TODO replace logger with CLog.L logger
 	public static final Log logger = LogFactory.getLog("trimatrix");
 	//public static Logger logger = Logger.getLogger("trimatrix");
 	// actual user logged on

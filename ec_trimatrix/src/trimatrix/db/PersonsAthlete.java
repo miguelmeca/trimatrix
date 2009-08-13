@@ -1,9 +1,9 @@
 package trimatrix.db;
 
+
 /**
  * PersonsAthlete entity. @author MyEclipse Persistence Tools
  */
-
 public class PersonsAthlete implements java.io.Serializable {
 
 	// Fields

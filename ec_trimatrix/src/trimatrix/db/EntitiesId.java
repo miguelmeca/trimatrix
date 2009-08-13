@@ -57,6 +57,7 @@ public class EntitiesId implements java.io.Serializable {
 		this.deleted = deleted;
 	}
 
+	@Override
 	public boolean equals(Object other) {
 		if ((this == other))
 			return true;
@@ -79,6 +80,7 @@ public class EntitiesId implements java.io.Serializable {
 						.equals(castOther.getDeleted())));
 	}
 
+	@Override
 	public int hashCode() {
 		int result = 17;
 

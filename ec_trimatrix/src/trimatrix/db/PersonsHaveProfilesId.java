@@ -50,7 +50,8 @@ public class PersonsHaveProfilesId  implements java.io.Serializable {
 
 
 
-   public boolean equals(Object other) {
+   @Override
+public boolean equals(Object other) {
          if ( (this == other ) ) return true;
 		 if ( (other == null ) ) return false;
 		 if ( !(other instanceof PersonsHaveProfilesId) ) return false;
@@ -60,7 +61,8 @@ public class PersonsHaveProfilesId  implements java.io.Serializable {
  && ( (this.getProfileKey()==castOther.getProfileKey()) || ( this.getProfileKey()!=null && castOther.getProfileKey()!=null && this.getProfileKey().equals(castOther.getProfileKey()) ) );
    }
    
-   public int hashCode() {
+   @Override
+public int hashCode() {
          int result = 17;
          
          result = 37 * result + ( getPersonId() == null ? 0 : this.getPersonId().hashCode() );

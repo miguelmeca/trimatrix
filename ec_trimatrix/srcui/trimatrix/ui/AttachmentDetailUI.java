@@ -6,7 +6,6 @@ import java.util.Collection;
 
 import javax.faces.event.ActionEvent;
 
-import org.apache.commons.digester.SetRootRule;
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.bufferedcontent.BufferedContentMgr;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
