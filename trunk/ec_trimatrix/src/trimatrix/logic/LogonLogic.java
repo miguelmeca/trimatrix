@@ -14,6 +14,7 @@ import trimatrix.db.KRoles;
 import trimatrix.db.Users;
 import trimatrix.services.ServiceLayer;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Dictionary;
 
 public class LogonLogic {
 	private ServiceLayer serviceLayer;
@@ -43,10 +44,12 @@ public class LogonLogic {
 		List<String> myRoles = new ArrayList<String>();
 		for (KRoles role : roles) {
 			myRoles.add(role.getKey());
+			// set admin explicitly
+			
 		}
 		serviceLayer.getDictionaryService().setMyRoles(myRoles);
 		
-		CLog.L.log(CLogConstants.LL_INF, "User " + username + " logged on!");
+		Dictionary.logger.info("User " + username + " logged on!");
 		return true;
 	}
 	

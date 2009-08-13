@@ -137,15 +137,16 @@ public final class ResolverService {
 	
 	public void save(Constants.Entity entity, IEntityObject entityObject) {
 		if (entity.getBase()==Constants.Entity.USER) {
-			userEntity.save(entityObject);
+			userEntity.save(entityObject);			
 		} else if (entity.getBase()==Constants.Entity.PERSON) {
 			personEntity.save(entityObject);
 		} else if (entity.getBase()==Constants.Entity.DOCTOR) {
 			doctorEntity.save(entityObject);
 		} else if (entity.getBase()==Constants.Entity.ATTACHMENT) {
 			attachmentEntity.save(entityObject);
-		}
-		Dictionary.logger.warn("SAVE : Entity " + entity.toString() + " not valid!");
+		} else {
+			Dictionary.logger.warn("SAVE : Entity " + entity.toString() + " not valid!");
+		}		
 	}
 	
 	public void reload(Constants.Entity entity, IEntityObject entityObject) {
@@ -157,8 +158,9 @@ public final class ResolverService {
 			doctorEntity.reload(entityObject);
 		} else if (entity.getBase()==Constants.Entity.ATTACHMENT) {
 			attachmentEntity.reload(entityObject);
-		}
-		Dictionary.logger.warn("RELOAD : Entity " + entity.toString() + " not valid!");
+		} else {
+			Dictionary.logger.warn("RELOAD : Entity " + entity.toString() + " not valid!");
+		}		
 	}
 	
 	// Relations
@@ -229,8 +231,9 @@ public final class ResolverService {
 			personDoctorRelation.save(relationObject);
 		} else if (relation.getBase()==Constants.Relation.PERSONATTACHMENT) {
 			personAttachmentRelation.save(relationObject);
-		}
-		Dictionary.logger.warn("SAVE : Relation " + relation.toString() + " not valid!");
+		} else {
+			Dictionary.logger.warn("SAVE : Relation " + relation.toString() + " not valid!");
+		}		
 	}
 	
 	public void reload(Constants.Relation relation, IRelationObject relationObject) {
@@ -240,8 +243,9 @@ public final class ResolverService {
 			personDoctorRelation.reload(relationObject);
 		} else if (relation.getBase()==Constants.Relation.PERSONATTACHMENT) {
 			personAttachmentRelation.reload(relationObject);
-		}
-		Dictionary.logger.warn("RELOAD : Relation " + relation.toString() + " not valid!");
+		} else {
+			Dictionary.logger.warn("RELOAD : Relation " + relation.toString() + " not valid!");
+		}		
 	}
 	
 	// Setter 	

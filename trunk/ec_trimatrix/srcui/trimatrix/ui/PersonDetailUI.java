@@ -35,7 +35,7 @@ public class PersonDetailUI extends AEntityDetailUI implements Serializable, IEn
     
     protected boolean renderAthlete = false;    
     public boolean getRenderAthlete() { return renderAthlete; }
-
+    
 	public String getBorder() {
     	if(entity.getPicture() == null || entity.getPicture().length == 0) {
     		return BORDER;
