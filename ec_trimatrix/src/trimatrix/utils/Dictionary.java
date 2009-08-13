@@ -25,6 +25,7 @@ public final class Dictionary {
 	// TODO replace logger with CLog.L logger
 	public static final Log logger = LogFactory.getLog("trimatrix");
 	//public static Logger logger = Logger.getLogger("trimatrix");
+	
 	// actual user logged on
 	private Users myUser;
 	// actual role
@@ -116,11 +117,11 @@ public final class Dictionary {
 
 	public List<String> getMyRoles() {
 		return myRoles;
-	}
+	}	
 
 	public void setMyRoles(List<String> myRoles) {
 		this.myRoles = myRoles;
-	}
+	}	
 	
 	public static String getBlackOrWhite(Color color) {
 		// get RGB

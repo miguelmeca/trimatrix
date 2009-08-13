@@ -21,7 +21,7 @@ outputclassmethod: (optional) if  set to true then extended log information
 is output per line: the method and the classname of the log output. By default
 it is switched off because of performance reasons.
 -->
-<logging level="ALL"
-         console="true"
+<logging level="INFO"
+         console="false"
          outputclassmethod="false">
 </logging>

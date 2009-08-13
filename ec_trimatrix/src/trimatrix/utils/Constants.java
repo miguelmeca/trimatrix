@@ -123,7 +123,10 @@ public final class Constants {
 	}	
 	// all functionnodes
 	public static enum FunctionNode {
-		ATHLETES_OWN, COACHES_OWN, DOCTORS_OWN, ATTACHMENTS_OWN
+		MASTERDATA,
+		ATHLETES_OWN, COACHES_OWN, DOCTORS_OWN, ATTACHMENTS_OWN,		
+		USERS_ALL, PERSONS_ALL, DOCTORS_ALL, ATTACHMENTS_ALL,
+		RELATIONS, RELATIONS_COACH, RELATION_DOCTOR, RELATION_ATTACHMENT
 	}
 	// all used profiles for persons
 	public static enum Profiles {
