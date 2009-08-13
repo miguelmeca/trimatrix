@@ -199,7 +199,8 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 	public ROWDYNAMICCONTENTBinding getLabels() { setLabelRowDynamic(); return m_labels; }
     public void setLabels(ROWDYNAMICCONTENTBinding value) { m_labels = value; }
     
-    public void setLabelRowDynamic() { 		
+    @Override
+	public void setLabelRowDynamic() { 		
     	StringBuffer xml = new StringBuffer();
     	// get all labels for logged in person
 		List<Labels> labels = getLogic().getLabelLogic().getLabelsByPerson(getServiceLayer().getDictionaryService().getMyPerson().getId());

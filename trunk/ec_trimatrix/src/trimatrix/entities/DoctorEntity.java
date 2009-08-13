@@ -40,6 +40,7 @@ public class DoctorEntity extends AEntity {
 		return entity;
 	}
 
+	@Override
 	public boolean delete(final String id) {
 		// all in one transaction		
 		final TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);

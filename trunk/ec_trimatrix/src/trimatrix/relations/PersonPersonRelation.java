@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import trimatrix.db.IEntityDAO;
 import trimatrix.db.Persons;
 import trimatrix.db.PersonsHaveRelations;
 import trimatrix.structures.SGridMetaData;

@@ -13,6 +13,7 @@ import org.eclnt.util.valuemgmt.ValueManager;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.db.Persons;
+import trimatrix.db.PersonsAthlete;
 import trimatrix.entities.PersonEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
@@ -32,7 +33,10 @@ public class PersonDetailUI extends AEntityDetailUI implements Serializable, IEn
     protected ValidValuesBinding countriesVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.COUNTRY);
     public ValidValuesBinding getCountriesVvb() { return countriesVvb; }
     
-    public String getBorder() {
+    protected boolean renderAthlete = false;    
+    public boolean getRenderAthlete() { return renderAthlete; }
+
+	public String getBorder() {
     	if(entity.getPicture() == null || entity.getPicture().length == 0) {
     		return BORDER;
     	}
@@ -58,6 +62,8 @@ public class PersonDetailUI extends AEntityDetailUI implements Serializable, IEn
     }
     
     public void init() {
+    	// set profiles
+    	setProfiles();
     	// set fields
     	fillMaps();   
     	// set state
@@ -99,6 +105,17 @@ public class PersonDetailUI extends AEntityDetailUI implements Serializable, IEn
 		entity.setTelephone((String)values.get(PersonEntity.TELEPHONE));
 		entity.setMobile((String)values.get(PersonEntity.MOBILE));
 		entity.setFax((String)values.get(PersonEntity.FAX));
+		// athlete profil
+		PersonsAthlete athlete = entity.getProfileAthlete();
+		if(athlete!=null) {
+			athlete.setHeight((Double)values.get(PersonEntity.HEIGHT));
+			athlete.setHeightUnit((String)values.get(PersonEntity.HEIGHT_UNIT));
+			athlete.setWeight((Double)values.get(PersonEntity.WEIGHT));
+			athlete.setWeightUnit((String)values.get(PersonEntity.WEIGHT_UNIT));
+			athlete.setMaxHr((Integer)values.get(PersonEntity.MAX_HR));
+			athlete.setRestingHr((Integer)values.get(PersonEntity.RESTING_HR));
+			athlete.setVo2Max((Integer)values.get(PersonEntity.VO2_MAX));
+		}
 	}
 	
 	private void fillMaps() {
@@ -125,12 +142,33 @@ public class PersonDetailUI extends AEntityDetailUI implements Serializable, IEn
 		values.put(PersonEntity.MOBILE, entity.getMobile());
 		values.put(PersonEntity.FAX, entity.getFax());
 		
+		// athlete profil
+		PersonsAthlete athlete = entity.getProfileAthlete();
+		if(athlete!=null) {
+			values.put(PersonEntity.HEIGHT, athlete.getHeight());
+			values.put(PersonEntity.HEIGHT_UNIT, athlete.getHeightUnit());
+			values.put(PersonEntity.WEIGHT, athlete.getWeight());
+			values.put(PersonEntity.WEIGHT_UNIT, athlete.getWeightUnit());
+			values.put(PersonEntity.MAX_HR, athlete.getMaxHr());
+			values.put(PersonEntity.RESTING_HR, athlete.getRestingHr());
+			values.put(PersonEntity.VO2_MAX, athlete.getVo2Max());
+		}
+		
 		// add bgpaint of fields
 		bgpaint.clear();
 		// mandatory fields
 		for(String field : MANDATORY_FIELDS){
 			bgpaint.put(field,Constants.BGP_MANDATORY);
 		}		
+	}
+	
+	private void setProfiles() {
+		renderAthlete = false;
+		// athlete
+		PersonsAthlete athlete = entity.getProfileAthlete();
+		if(athlete!=null) {
+			renderAthlete = true;
+		}
 	}
 	
 	public String getPicture() {

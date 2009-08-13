@@ -95,6 +95,28 @@
 </t:row>
 </t:foldablepane>
 </t:row>
+<t:row id="g_64" rendered="#{d.PersonDetailUI.renderAthlete}" >
+<t:foldablepane id="g_65" rowdistance="5" text="Athlet" width="100%" >
+<t:row id="g_66" >
+<t:label id="g_67" text="VO2Max" width="100" x="15" y="15" />
+<t:field id="g_68" attributemacro="entityDetailMacro(PersonDetailUI,vo2_max)" width="200" x="115" y="15" />
+<t:coldistance id="g_69" />
+<t:label id="g_70" height="20" width="100" x="365" y="15" />
+<t:field id="g_71" height="20" width="200" x="465" y="15" />
+</t:row>
+<t:row id="g_72" >
+<t:label id="g_73" width="100" x="15" y="45" />
+<t:field id="g_74" width="200" x="115" y="45" />
+<t:coldistance id="g_75" />
+<t:label id="g_76" height="20" width="100" x="365" y="45" />
+<t:field id="g_77" height="20" width="200" x="465" y="45" />
+</t:row>
+<t:row id="g_78" >
+<t:label id="g_79" width="100" x="15" y="75" />
+<t:field id="g_80" width="200" x="115" y="75" />
+</t:row>
+</t:foldablepane>
+</t:row>
 </t:rowbodypane>
 <t:pageaddons id="g_pa"/>
 </f:subview>

@@ -21,6 +21,7 @@ public class TCategoriesDAO extends HibernateDaoSupport implements ITextDAO<TCat
     private static final Log log = LogFactory.getLog(TCategoriesDAO.class);
 
 
+	@Override
 	protected void initDao() {
 		//do nothing
 	}

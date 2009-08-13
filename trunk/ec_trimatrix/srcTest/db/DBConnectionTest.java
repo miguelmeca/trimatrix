@@ -32,12 +32,8 @@ import trimatrix.db.IEntityDAO;
 import trimatrix.db.KRoles;
 import trimatrix.db.Persons;
 import trimatrix.db.PersonsAthlete;
-import trimatrix.db.PersonsHaveProfilesDAO;
 import trimatrix.db.PersonsHaveRelations;
 import trimatrix.db.RolesHaveFunctionnodes;
-import trimatrix.db.TProfiles;
-import trimatrix.db.TProfilesDAO;
-import trimatrix.db.TProfilesId;
 import trimatrix.db.Users;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SFunctionTree;
@@ -268,31 +264,13 @@ public class DBConnectionTest {
 	}
 	
 	@Test 
-	public void testPersonsAthlete() {
-		// Create profile		
-		TProfiles profile = new TProfiles(new TProfilesId("test", "fr"));
-		profile.setDescription("Test Description");
-		profile.setDescriptionLong("Test Description Long");
-		daoLayer.getTprofilesDAO().save(profile);
-		TProfiles profile2 = daoLayer.getTprofilesDAO().findById("test", "fr");
-		Assert.assertEquals(profile2.getDescription(), "Test Description");
-		// Delete profile
-		daoLayer.getTprofilesDAO().delete(profile2);		
-		
-		// Create athlete profile
-		String id = UUID.randomUUID().toString();
-		PersonsAthlete athlete = new PersonsAthlete(id);
-		athlete.setHeight(175.5);
-		athlete.setWeight(72.2);
-		daoLayer.getPersonAthleteDAO().save(athlete);
-		PersonsAthlete athlete2 = daoLayer.getPersonAthleteDAO().findById(id);
-		Assert.assertEquals(175.5, athlete2.getHeight());
-		// Delete athlete profile
-		daoLayer.getPersonAthleteDAO().delete(athlete2);
-		
+	public void testPersonsAthlete() {		
 		// Athlete profile
-		Persons person = daoLayer.getPersonsDAO().findById("10f52302-2ddb-11de-86ae-00301bb60f17");
-		PersonsAthlete athlete3 = person.getProfileAthlete();		
+		Persons person = daoLayer.getPersonsDAO().findById("0b0b7658-2ddb-11de-86ae-00301bb60f17");
+		PersonsAthlete athlete = person.getProfileAthlete();
+		athlete.setRestingHr(46);
+		daoLayer.getPersonsDAO().merge(person);		
+		System.out.println(athlete.getHeight());
 	}
 	
 	@After

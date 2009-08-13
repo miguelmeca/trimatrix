@@ -51,6 +51,7 @@ public class EntitiesHaveLabelsId implements java.io.Serializable {
 		this.personId = personId;
 	}
 
+	@Override
 	public boolean equals(Object other) {
 		if ((this == other))
 			return true;
@@ -74,6 +75,7 @@ public class EntitiesHaveLabelsId implements java.io.Serializable {
 						.getPersonId().equals(castOther.getPersonId())));
 	}
 
+	@Override
 	public int hashCode() {
 		int result = 17;
 

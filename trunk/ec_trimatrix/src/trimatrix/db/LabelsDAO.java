@@ -22,6 +22,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 public class LabelsDAO extends HibernateDaoSupport implements ILabelsDAO {
 	private static final Log log = LogFactory.getLog(LabelsDAO.class);
+	@Override
 	protected void initDao() {
 		// do nothing
 	}

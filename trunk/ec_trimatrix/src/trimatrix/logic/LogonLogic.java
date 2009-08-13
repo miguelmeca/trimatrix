@@ -7,13 +7,13 @@ import java.util.Set;
 
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.util.log.CLog;
+import org.eclnt.util.log.CLogConstants;
 
 import trimatrix.db.DAOLayer;
 import trimatrix.db.KRoles;
 import trimatrix.db.Users;
 import trimatrix.services.ServiceLayer;
 import trimatrix.utils.Constants;
-import trimatrix.utils.Dictionary;
 
 public class LogonLogic {
 	private ServiceLayer serviceLayer;
@@ -46,7 +46,7 @@ public class LogonLogic {
 		}
 		serviceLayer.getDictionaryService().setMyRoles(myRoles);
 		
-		CLog.L.log(CLog.LL_INF, "User " + username + " logged on!");
+		CLog.L.log(CLogConstants.LL_INF, "User " + username + " logged on!");
 		return true;
 	}
 	

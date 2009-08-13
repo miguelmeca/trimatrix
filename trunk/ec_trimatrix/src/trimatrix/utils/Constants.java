@@ -125,6 +125,10 @@ public final class Constants {
 	public static enum FunctionNode {
 		ATHLETES_OWN, COACHES_OWN, DOCTORS_OWN, ATTACHMENTS_OWN
 	}
+	// all used profiles for persons
+	public static enum Profiles {
+		ATHLETE
+	}
 	// modes
 	public static enum Mode {
 		SHOW, CHANGE, NEW

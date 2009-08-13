@@ -24,6 +24,7 @@ public class EntitiesHaveLabelsDAO extends HibernateDaoSupport implements IEntit
 	private static final Log log = LogFactory
 			.getLog(EntitiesHaveLabelsDAO.class);
 
+	@Override
 	protected void initDao() {
 		// do nothing
 	}

@@ -86,6 +86,7 @@
   <property generated="never" lazy="false" name="test" type="java.lang.Boolean">
    <column name="test"/>
   </property>
-  <one-to-one class="trimatrix.db.PersonsAthlete" lazy="false" name="profileAthlete"/>
+  <one-to-one cascade="all" class="trimatrix.db.PersonsAthlete"
+   lazy="false" name="profileAthlete"/>
  </class>
 </hibernate-mapping>

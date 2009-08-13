@@ -50,7 +50,8 @@ public class TCategoriesId  implements java.io.Serializable {
 
 
 
-   public boolean equals(Object other) {
+   @Override
+public boolean equals(Object other) {
          if ( (this == other ) ) return true;
 		 if ( (other == null ) ) return false;
 		 if ( !(other instanceof TCategoriesId) ) return false;
@@ -60,7 +61,8 @@ public class TCategoriesId  implements java.io.Serializable {
  && ( (this.getLanguageKey()==castOther.getLanguageKey()) || ( this.getLanguageKey()!=null && castOther.getLanguageKey()!=null && this.getLanguageKey().equals(castOther.getLanguageKey()) ) );
    }
    
-   public int hashCode() {
+   @Override
+public int hashCode() {
          int result = 17;
          
          result = 37 * result + ( getKey() == null ? 0 : this.getKey().hashCode() );

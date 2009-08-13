@@ -29,6 +29,7 @@ public class KFunctionnodesDAO extends HibernateDaoSupport {
 	public static final String CREATE = "create";
 	public static final String DELETE = "delete";
 
+	@Override
 	protected void initDao() {
 		// do nothing
 	}
