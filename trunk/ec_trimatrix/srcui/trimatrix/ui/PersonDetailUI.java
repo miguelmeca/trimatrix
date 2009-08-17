@@ -25,6 +25,8 @@ import trimatrix.utils.Dictionary;
 
 public class PersonDetailUI extends AEntityDetailUI implements Serializable, IEntityDetailUI
 {
+    
+	// #{d.WorkplaceUI.renderAdmin}
 	private final static String BORDER = "#808080";
 	
 	protected ValidValuesBinding salutationsVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.SALUTATION);
@@ -33,8 +35,9 @@ public class PersonDetailUI extends AEntityDetailUI implements Serializable, IEn
     protected ValidValuesBinding countriesVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.COUNTRY);
     public ValidValuesBinding getCountriesVvb() { return countriesVvb; }
     
-    protected boolean renderAthlete = false;    
-    public boolean getRenderAthlete() { return renderAthlete; }
+    private boolean athlete;
+    public boolean isAthlete() { return athlete; }
+    public void setAthlete(boolean value) { athlete = value; };
     
 	public String getBorder() {
     	if(entity.getPicture() == null || entity.getPicture().length == 0) {
@@ -62,13 +65,35 @@ public class PersonDetailUI extends AEntityDetailUI implements Serializable, IEn
     }
     
     public void init() {
-    	// set profiles
     	setProfiles();
     	// set fields
     	fillMaps();   
     	// set state
     	setState();
-    }    
+    }   
+    
+    private void setProfiles() {
+    	athlete = false;
+    	if(entity.getProfileAthlete()!=null) athlete = true;
+    }
+        
+	@Override
+	public void prepareSave() {		
+		// case  => profil not set yet => create
+		if(entity.getProfileAthlete()==null && athlete) {
+			PersonsAthlete athlete = new PersonsAthlete(entity.getId());
+			getDaoLayer().getPersonAthleteDAO().save(athlete);		
+			entity.setProfileAthlete(athlete);	
+			return;
+		} 
+		// case 2 => profil already set => delete
+		if(entity.getProfileAthlete()!=null && !athlete) {
+			PersonsAthlete athlete = entity.getProfileAthlete();
+			getDaoLayer().getPersonAthleteDAO().delete(athlete); 
+			entity.setProfileAthlete(null);
+			return;
+		} 
+	}
 
 	public void validate() throws MandatoryCheckException, EmailNotValidException {		
 		// mandatory check
@@ -108,13 +133,14 @@ public class PersonDetailUI extends AEntityDetailUI implements Serializable, IEn
 		// athlete profil
 		PersonsAthlete athlete = entity.getProfileAthlete();
 		if(athlete!=null) {
-			athlete.setHeight((Double)values.get(PersonEntity.HEIGHT));
-			athlete.setHeightUnit((String)values.get(PersonEntity.HEIGHT_UNIT));
-			athlete.setWeight((Double)values.get(PersonEntity.WEIGHT));
-			athlete.setWeightUnit((String)values.get(PersonEntity.WEIGHT_UNIT));
-			athlete.setMaxHr((Integer)values.get(PersonEntity.MAX_HR));
-			athlete.setRestingHr((Integer)values.get(PersonEntity.RESTING_HR));
-			athlete.setVo2Max((Integer)values.get(PersonEntity.VO2_MAX));
+//			athlete.setHeight((Double)values.get(PersonEntity.HEIGHT));
+//			athlete.setHeightUnit((String)values.get(PersonEntity.HEIGHT_UNIT));
+//			athlete.setWeight((Double)values.get(PersonEntity.WEIGHT));
+//			athlete.setWeightUnit((String)values.get(PersonEntity.WEIGHT_UNIT));
+//			athlete.setMaxHr((Integer)values.get(PersonEntity.MAX_HR));
+//			athlete.setRestingHr((Integer)values.get(PersonEntity.RESTING_HR));			
+			String value = (String)values.get(PersonEntity.VO2_MAX);
+			athlete.setVo2Max(Integer.valueOf(value));
 		}
 	}
 	
@@ -162,15 +188,6 @@ public class PersonDetailUI extends AEntityDetailUI implements Serializable, IEn
 		}		
 	}
 	
-	private void setProfiles() {
-		renderAthlete = false;
-		// athlete
-		PersonsAthlete athlete = entity.getProfileAthlete();
-		if(athlete!=null) {
-			renderAthlete = true;
-		}
-	}
-	
 	public String getPicture() {
 		try {
 			return ValueManager.encodeHexString(entity.getPicture());
@@ -188,5 +205,5 @@ public class PersonDetailUI extends AEntityDetailUI implements Serializable, IEn
 	 
 	 public void onRemoveImage(ActionEvent event) {
 		 entity.setPicture(null);
-	 }	
+	 } 
 }

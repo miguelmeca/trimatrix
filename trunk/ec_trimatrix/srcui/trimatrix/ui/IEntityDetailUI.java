@@ -21,4 +21,8 @@ public interface IEntityDetailUI {
 	 * @throws EmailNotValidException 
 	 */
 	public void validate() throws MandatoryCheckException, EmailNotValidException;
+	
+	public void prepareSave();
+	
+	public void postSave();
 }
