@@ -178,8 +178,10 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 	public void onSave(ActionEvent event) {
 		// delegate to specific detail UI
 		try {	
+			entityDetailUI.prepareSave();
 			entityDetailUI.validate();
 			ENTITYLISTLOGIC.save(entity, entityObject);
+			entityDetailUI.postSave();
 			getWorkpage().setTitle(entityObject.toString());
 			Statusbar.outputSuccess("Entity saved");
 			refreshParent();

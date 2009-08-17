@@ -67,5 +67,8 @@ public abstract class AEntityDetailUI extends MyWorkpageDispatchedBean {
 	public Map<String, Object> getValues() {
 		return values;
 	}
-
+	
+	public void prepareSave() {};
+	
+	public void postSave() {};
 }

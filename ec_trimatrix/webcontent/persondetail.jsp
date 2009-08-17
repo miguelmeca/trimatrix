@@ -95,7 +95,7 @@
 </t:row>
 </t:foldablepane>
 </t:row>
-<t:row id="g_64" rendered="#{d.PersonDetailUI.renderAthlete}" >
+<t:row id="g_64" rendered="#{d.PersonDetailUI.athlete}" >
 <t:foldablepane id="g_65" rowdistance="5" text="#{rr.literals.athlete}" width="100%" >
 <t:row id="g_66" >
 <t:label id="g_67" text="#{rr.literals.vo2_max}" width="100" x="15" y="15" />
@@ -117,11 +117,11 @@
 </t:row>
 </t:foldablepane>
 </t:row>
-<t:row id="g_81" rendered="#{d.WorkplaceUI.renderAdmin}" >
+<t:row id="g_81" rendered="true" >
 <t:foldablepane id="g_82" rowdistance="5" text="Admin" width="100%" >
 <t:row id="g_83" >
 <t:label id="g_84" text="#{rr.literals.profile_athlete}" width="100" x="15" y="15" />
-<t:checkbox id="g_85" width="200" x="115" y="15" />
+<t:checkbox id="g_85" enabled="#{d.PersonDetailUI.enabled}" selected="#{d.PersonDetailUI.athlete}" />
 </t:row>
 </t:foldablepane>
 </t:row>
