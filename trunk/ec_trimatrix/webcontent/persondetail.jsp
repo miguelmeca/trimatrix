@@ -98,30 +98,36 @@
 <t:row id="g_64" rendered="#{d.PersonDetailUI.athlete}" >
 <t:foldablepane id="g_65" rowdistance="5" text="#{rr.literals.athlete}" width="100%" >
 <t:row id="g_66" >
-<t:label id="g_67" text="#{rr.literals.vo2_max}" width="100" x="15" y="15" />
-<t:field id="g_68" attributemacro="entityDetailMacro(PersonDetailUI,vo2_max)" regex="[1-9]+[0-9]*" regexmode="1" width="200" x="115" y="15" />
+<t:label id="g_67" text="#{rr.literals.height}" width="100" x="15" y="45" />
+<t:field id="g_68" attributemacro="entityDetailMacro(PersonDetailUI,height)" regex="\d{0,15}\.{0,1}\d{0,2}" regexmode="1" width="50" x="115" y="45" />
 <t:coldistance id="g_69" />
-<t:label id="g_70" height="20" width="100" x="365" y="15" />
-<t:field id="g_71" height="20" width="200" x="465" y="15" />
+<t:label id="g_70" text="cm" width="15" />
+<t:coldistance id="g_71" />
+<t:label id="g_72" height="20" text="#{rr.literals.weight}" width="100" x="365" y="45" />
+<t:field id="g_73" attributemacro="entityDetailMacro(PersonDetailUI,weight)" height="20" width="50" x="465" y="45" />
+<t:coldistance id="g_74" />
+<t:label id="g_75" text="kg" />
 </t:row>
-<t:row id="g_72" >
-<t:label id="g_73" width="100" x="15" y="45" />
-<t:field id="g_74" regex="\d{0,15}\.{0,1}\d{0,2}" regexmode="1" width="200" x="115" y="45" />
-<t:coldistance id="g_75" />
-<t:label id="g_76" height="20" width="100" x="365" y="45" />
-<t:field id="g_77" height="20" width="200" x="465" y="45" />
+<t:row id="g_76" >
+<t:label id="g_77" text="#{rr.literals.hr_rest}" width="100" x="15" y="75" />
+<t:field id="g_78" attributemacro="entityDetailMacro(PersonDetailUI,resting_hr)" regex="^[2-9]{1}[0-9]{1}$|^[1-2]{1}[0-9]{1}[0-9]{1}$" regexmode="1" userhint="[20-299]" width="50" x="115" y="75" />
+<t:coldistance id="g_79" width="35" />
+<t:label id="g_80" text="#{rr.literals.hr_max}" width="100" />
+<t:field id="g_81" attributemacro="entityDetailMacro(PersonDetailUI,max_hr)" regex="^[2-9]{1}[0-9]{1}$|^[1-2]{1}[0-9]{1}[0-9]{1}$" userhint="[20-299]" width="50" />
 </t:row>
-<t:row id="g_78" >
-<t:label id="g_79" width="100" x="15" y="75" />
-<t:field id="g_80" width="200" x="115" y="75" />
+<t:row id="g_82" >
+<t:label id="g_83" text="#{rr.literals.vo2_max}" width="100" x="15" y="15" />
+<t:field id="g_84" attributemacro="entityDetailMacro(PersonDetailUI,vo2_max)" regex="^[0-9]{1,2}$|^100$" regexmode="1" userhint="[0-100]" width="50" x="115" y="15" />
+<t:coldistance id="g_85" />
+<t:label id="g_86" height="20" width="100" x="365" y="15" />
 </t:row>
 </t:foldablepane>
 </t:row>
-<t:row id="g_81" rendered="true" >
-<t:foldablepane id="g_82" rowdistance="5" text="Admin" width="100%" >
-<t:row id="g_83" >
-<t:label id="g_84" text="#{rr.literals.profile_athlete}" width="100" x="15" y="15" />
-<t:checkbox id="g_85" enabled="#{d.PersonDetailUI.enabled}" selected="#{d.PersonDetailUI.athlete}" />
+<t:row id="g_87" rendered="true" >
+<t:foldablepane id="g_88" rowdistance="5" text="Admin" width="100%" >
+<t:row id="g_89" >
+<t:label id="g_90" text="#{rr.literals.profile_athlete}" width="100" x="15" y="15" />
+<t:checkbox id="g_91" enabled="#{d.PersonDetailUI.enabled}" flush="true" selected="#{d.PersonDetailUI.athlete}" />
 </t:row>
 </t:foldablepane>
 </t:row>

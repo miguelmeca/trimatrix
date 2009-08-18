@@ -11,7 +11,7 @@ MySQL - 5.1.33-community : Database - trimatrix
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`trimatrix` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`trimatrix` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 USE `trimatrix`;
 
@@ -232,6 +232,17 @@ CREATE TABLE `k_sex` (
 
 insert  into `k_sex`(`key`) values ('m'),('w');
 
+/*Table structure for table `k_testtypes` */
+
+DROP TABLE IF EXISTS `k_testtypes`;
+
+CREATE TABLE `k_testtypes` (
+  `key` varchar(10) NOT NULL,
+  PRIMARY KEY (`key`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+/*Data for the table `k_testtypes` */
+
 /*Table structure for table `labels` */
 
 DROP TABLE IF EXISTS `labels`;
@@ -325,7 +336,7 @@ CREATE TABLE `persons_athlete` (
 
 /*Data for the table `persons_athlete` */
 
-insert  into `persons_athlete`(`id`,`height`,`height_unit`,`weight`,`weight_unit`,`max_hr`,`resting_hr`,`vo2_max`) values ('0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+insert  into `persons_athlete`(`id`,`height`,`height_unit`,`weight`,`weight_unit`,`max_hr`,`resting_hr`,`vo2_max`) values ('0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL,NULL,NULL,NULL,NULL,46,NULL);
 
 /*Table structure for table `persons_have_attachments` */
 
@@ -588,6 +599,22 @@ CREATE TABLE `t_sex` (
 
 insert  into `t_sex`(`key`,`language_key`,`description`,`description_long`) values ('m','de','männlich','männlich'),('w','de','weiblich','weiblich'),('m','en','male','male'),('w','en','female','female');
 
+/*Table structure for table `t_testtypes` */
+
+DROP TABLE IF EXISTS `t_testtypes`;
+
+CREATE TABLE `t_testtypes` (
+  `key` varchar(10) NOT NULL,
+  `language_key` varchar(2) NOT NULL,
+  `description` varchar(20) DEFAULT NULL,
+  `description_long` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`key`,`language_key`),
+  KEY `fk_t_testtypes_k_languages` (`language_key`),
+  KEY `fk_t_testtypes_k_testtypes` (`key`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+/*Data for the table `t_testtypes` */
+
 /*Table structure for table `test` */
 
 DROP TABLE IF EXISTS `test`;
@@ -622,7 +649,7 @@ CREATE TABLE `tests` (
   PRIMARY KEY (`id`),
   KEY `fk_tests_persons` (`person_id`),
   KEY `fk_tests_doctors` (`doctor_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Table contains tests definition';
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Table contains tests definition';
 
 /*Data for the table `tests` */
 
@@ -632,14 +659,14 @@ DROP TABLE IF EXISTS `tests_ergo`;
 
 CREATE TABLE `tests_ergo` (
   `id` varchar(36) NOT NULL,
-  `power_init` decimal(2,1) DEFAULT NULL,
-  `power_step` decimal(2,1) DEFAULT NULL,
-  `cadence_low` decimal(2,1) DEFAULT NULL,
-  `cadence_high` decimal(2,1) DEFAULT NULL COMMENT 'Datensatz erstellt am',
+  `power_init` decimal(4,1) DEFAULT NULL,
+  `power_step` decimal(4,1) DEFAULT NULL,
+  `cadence_low` decimal(4,1) DEFAULT NULL,
+  `cadence_high` decimal(4,1) DEFAULT NULL COMMENT 'Datensatz erstellt am',
   `step_time` int(11) DEFAULT NULL COMMENT 'Datensatz erstellt von',
   PRIMARY KEY (`id`),
   KEY `fk_tests_ergo_tests` (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Tests specific for ergometers';
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Tests specific for ergometers';
 
 /*Data for the table `tests_ergo` */
 
@@ -661,7 +688,7 @@ CREATE TABLE `tests_protocol` (
   `rq` text,
   PRIMARY KEY (`id`),
   KEY `fk_tests_treadmill_tests` (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Testprotocol for specific test';
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Testprotocol for specific test';
 
 /*Data for the table `tests_protocol` */
 
@@ -673,14 +700,14 @@ CREATE TABLE `tests_treadmill` (
   `id` varchar(36) NOT NULL,
   `speed_variable` tinyint(1) DEFAULT '0',
   `incline_variable` tinyint(1) DEFAULT '0',
-  `speed_init` decimal(2,1) DEFAULT NULL,
-  `speed_step` decimal(2,1) DEFAULT NULL,
-  `incline_init` decimal(2,1) DEFAULT NULL,
-  `incline_step` decimal(2,1) DEFAULT NULL COMMENT 'Datensatz erstellt am',
+  `speed_init` decimal(3,1) DEFAULT NULL,
+  `speed_step` decimal(3,1) DEFAULT NULL,
+  `incline_init` decimal(3,1) DEFAULT NULL,
+  `incline_step` decimal(3,1) DEFAULT NULL COMMENT 'Datensatz erstellt am',
   `step_time` int(11) DEFAULT NULL COMMENT 'Datensatz erstellt von',
   PRIMARY KEY (`id`),
   KEY `fk_tests_treadmill_tests` (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Tests specific for treadmills';
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Tests specific for treadmills';
 
 /*Data for the table `tests_treadmill` */
 
@@ -754,10 +781,10 @@ DROP TABLE IF EXISTS `entities`;
 /*!50001 DROP TABLE IF EXISTS `entities` */;
 
 /*!50001 CREATE TABLE `entities` (
-  `id` varchar(36) NOT NULL DEFAULT '',
-  `entity` varchar(10) NOT NULL DEFAULT '',
+  `id` varchar(36) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `entity` varchar(10) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `deleted` tinyint(4) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 */;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 */;
 
 /*Table structure for table `relations` */
 
@@ -767,11 +794,11 @@ DROP TABLE IF EXISTS `relations`;
 /*!50001 DROP TABLE IF EXISTS `relations` */;
 
 /*!50001 CREATE TABLE `relations` (
-  `id` varchar(36) NOT NULL DEFAULT '',
-  `partner1` varchar(36) DEFAULT NULL,
-  `partner2` varchar(36) DEFAULT NULL,
-  `reltyp_key` varchar(10) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 */;
+  `id` varchar(36) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `partner1` varchar(36) CHARACTER SET utf8 DEFAULT NULL,
+  `partner2` varchar(36) CHARACTER SET utf8 DEFAULT NULL,
+  `reltyp_key` varchar(10) CHARACTER SET utf8 DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 */;
 
 /*View structure for view entities */
 

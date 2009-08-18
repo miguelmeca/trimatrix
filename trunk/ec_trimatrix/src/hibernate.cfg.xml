@@ -39,16 +39,16 @@
 
 		<!-- Bind the getCurrentSession() method to the thread. -->
 		<property name="current_session_context_class">thread</property>
-		
+
 		<!-- Activate Envers                
-		<property name="hibernate.ejb.event.post-insert">org.hibernate.ejb.event.EJB3PostInsertEventListener,org.hibernate.envers.event.AuditEventListener</property>
-   		<property name="hibernate.ejb.event.post-update">org.hibernate.ejb.event.EJB3PostUpdateEventListener,org.hibernate.envers.event.AuditEventListener</property>
-  		<property name="hibernate.ejb.event.post-delete">org.hibernate.ejb.event.EJB3PostDeleteEventListener,org.hibernate.envers.event.AuditEventListener</property>
-   		<property name="hibernate.ejb.event.pre-collection-update">org.hibernate.envers.event.AuditEventListener</property>
-   		<property name="hibernate.ejb.event.pre-collection-remove">org.hibernate.envers.event.AuditEventListener</property>
-   		<property name="hibernate.ejb.event.post-collection-recreate">org.hibernate.envers.event.AuditEventListener</property>
-		 -->
-		 
+			<property name="hibernate.ejb.event.post-insert">org.hibernate.ejb.event.EJB3PostInsertEventListener,org.hibernate.envers.event.AuditEventListener</property>
+			<property name="hibernate.ejb.event.post-update">org.hibernate.ejb.event.EJB3PostUpdateEventListener,org.hibernate.envers.event.AuditEventListener</property>
+			<property name="hibernate.ejb.event.post-delete">org.hibernate.ejb.event.EJB3PostDeleteEventListener,org.hibernate.envers.event.AuditEventListener</property>
+			<property name="hibernate.ejb.event.pre-collection-update">org.hibernate.envers.event.AuditEventListener</property>
+			<property name="hibernate.ejb.event.pre-collection-remove">org.hibernate.envers.event.AuditEventListener</property>
+			<property name="hibernate.ejb.event.post-collection-recreate">org.hibernate.envers.event.AuditEventListener</property>
+		-->
+
 		<mapping resource="trimatrix/db/Users.hbm.xml" />
 		<mapping resource="trimatrix/db/Persons.hbm.xml" />
 		<mapping resource="trimatrix/db/TLanguages.hbm.xml" />
@@ -67,7 +67,8 @@
 		<mapping resource="trimatrix/db/TFunctionnodes.hbm.xml" />
 		<mapping resource="trimatrix/db/UsersHaveRoles.hbm.xml" />
 		<mapping resource="trimatrix/db/KAuthorizations.hbm.xml" />
-		<mapping resource="trimatrix/db/UsersHaveAuthorizations.hbm.xml" />
+		<mapping
+			resource="trimatrix/db/UsersHaveAuthorizations.hbm.xml" />
 		<mapping resource="trimatrix/db/RolesHaveFunctionnodes.hbm.xml" />
 		<mapping resource="trimatrix/services/NamedQueries.hbm.xml" />
 		<mapping resource="trimatrix/db/PersonsHaveRelations.hbm.xml" />
@@ -82,6 +83,10 @@
 		<mapping resource="trimatrix/db/TCategories.hbm.xml" />
 		<mapping resource="trimatrix/db/Entities.hbm.xml" />
 		<mapping resource="trimatrix/db/PersonsAthlete.hbm.xml" />
+		<mapping class="trimatrix.db.TestsTreadmill"></mapping>
+		<mapping class="trimatrix.db.TestsProtocol"></mapping>
+		<mapping class="trimatrix.db.TestsErgo"></mapping>
+		<mapping class="trimatrix.db.Tests"></mapping>
 	</session-factory>
 
 </hibernate-configuration>

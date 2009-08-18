@@ -133,14 +133,17 @@ public class PersonDetailUI extends AEntityDetailUI implements Serializable, IEn
 		// athlete profil
 		PersonsAthlete athlete = entity.getProfileAthlete();
 		if(athlete!=null) {
-//			athlete.setHeight((Double)values.get(PersonEntity.HEIGHT));
-//			athlete.setHeightUnit((String)values.get(PersonEntity.HEIGHT_UNIT));
-//			athlete.setWeight((Double)values.get(PersonEntity.WEIGHT));
-//			athlete.setWeightUnit((String)values.get(PersonEntity.WEIGHT_UNIT));
-//			athlete.setMaxHr((Integer)values.get(PersonEntity.MAX_HR));
-//			athlete.setRestingHr((Integer)values.get(PersonEntity.RESTING_HR));			
-			String value = (String)values.get(PersonEntity.VO2_MAX);
-			athlete.setVo2Max(Integer.valueOf(value));
+			athlete.setHeight((Double)values.get(PersonEntity.HEIGHT));
+			athlete.setHeightUnit((String)values.get(PersonEntity.HEIGHT_UNIT));
+			athlete.setWeight((Double)values.get(PersonEntity.WEIGHT));
+			athlete.setWeightUnit((String)values.get(PersonEntity.WEIGHT_UNIT));
+			athlete.setMaxHr((Integer)values.get(PersonEntity.MAX_HR));
+			athlete.setRestingHr((Integer)values.get(PersonEntity.RESTING_HR));		
+			
+//			String value = (String)values.get(PersonEntity.VO2_MAX);
+//			athlete.setVo2Max(Integer.valueOf(value));
+			
+			athlete.setVo2Max((Integer)values.get(PersonEntity.VO2_MAX));
 		}
 	}
 	

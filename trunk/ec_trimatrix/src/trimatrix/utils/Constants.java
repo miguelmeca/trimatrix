@@ -17,10 +17,12 @@ public final class Constants {
 		USERDETAIL("/userdetail.jsp","Bentuzer"),
 		PERSONDETAIL("/persondetail.jsp","Personen"),
 		DOCTORDETAIL("/doctordetail.jsp","Ärzte"),
+		TESTDETAIL("/testdetail.jsp","Tests"),
 		ATTACHMENTDETAIL("/attachmentdetail.jsp","Anhänge"),
 		USERSELECTION("/userselection.jsp", "Benutzersuche"),
 		PERSONSELECTION("/personselection.jsp", "Personensuche"),
 		DOCTORSELECTION("/doctorselection.jsp", "Ärztesuche"),
+		TESTSELECTION("/testselection.jsp", "Testssuche"),
 		ATTACHMENTSELECTION("/attachmentselection.jsp", "Anhangssuche"),
 		RELATIONLIST("/relationlist.jsp", "Beziehungen"),
 		CREATERELATION("/createrelation.jsp", "Beziehungsanlage"),
@@ -42,10 +44,12 @@ public final class Constants {
 		USER(null, Page.USERDETAIL, Page.USERSELECTION), 
 		PERSON(null, Page.PERSONDETAIL, Page.PERSONSELECTION), 
 		DOCTOR(null, Page.DOCTORDETAIL, Page.DOCTORSELECTION),
+		TEST(null, Page.TESTDETAIL, Page.TESTSELECTION),
 		ATTACHMENT(null, Page.ATTACHMENTDETAIL, Page.ATTACHMENTSELECTION),
 		MYCOACHES(PERSON, Page.PERSONDETAIL, Page.PERSONSELECTION), 
 		MYATHLETES(PERSON, Page.PERSONDETAIL, Page.PERSONSELECTION),
 		MYDOCTORS(DOCTOR, Page.DOCTORDETAIL, Page.DOCTORSELECTION),
+		MYTESTS(TEST, Page.TESTDETAIL, Page.TESTSELECTION),
 		MYATTACHMENTS(ATTACHMENT, Page.ATTACHMENTDETAIL, Page.ATTACHMENTSELECTION);
 		private final Entity baseEntity;
 		private final Page detailPage;
@@ -124,8 +128,8 @@ public final class Constants {
 	// all functionnodes
 	public static enum FunctionNode {
 		MASTERDATA,
-		ATHLETES_OWN, COACHES_OWN, DOCTORS_OWN, ATTACHMENTS_OWN,		
-		USERS_ALL, PERSONS_ALL, DOCTORS_ALL, ATTACHMENTS_ALL,
+		ATHLETES_OWN, COACHES_OWN, DOCTORS_OWN, ATTACHMENTS_OWN, TESTS_OWN,		
+		USERS_ALL, PERSONS_ALL, DOCTORS_ALL, ATTACHMENTS_ALL, TESTS_ALL,
 		RELATIONS, RELATIONS_COACH, RELATION_DOCTOR, RELATION_ATTACHMENT
 	}
 	// all used profiles for persons
