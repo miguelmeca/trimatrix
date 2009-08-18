@@ -1,9 +1,12 @@
 package trimatrix.db;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
 /**
  * TAuthorizationsId entity. @author MyEclipse Persistence Tools
  */
-
+@Embeddable
 public class TAuthorizationsId implements java.io.Serializable {
 
 	// Fields
@@ -25,6 +28,7 @@ public class TAuthorizationsId implements java.io.Serializable {
 
 	// Property accessors
 
+	@Column(name = "key", nullable = false, length = 36)
 	public String getKey() {
 		return this.key;
 	}
@@ -33,6 +37,7 @@ public class TAuthorizationsId implements java.io.Serializable {
 		this.key = key;
 	}
 
+	@Column(name = "language_key", nullable = false, length = 2)
 	public String getLanguageKey() {
 		return this.languageKey;
 	}
@@ -41,7 +46,6 @@ public class TAuthorizationsId implements java.io.Serializable {
 		this.languageKey = languageKey;
 	}
 
-	@Override
 	public boolean equals(Object other) {
 		if ((this == other))
 			return true;
@@ -60,7 +64,6 @@ public class TAuthorizationsId implements java.io.Serializable {
 						.getLanguageKey().equals(castOther.getLanguageKey())));
 	}
 
-	@Override
 	public int hashCode() {
 		int result = 17;
 

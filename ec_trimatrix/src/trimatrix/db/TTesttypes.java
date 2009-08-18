@@ -8,31 +8,32 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- * TSex entity. @author MyEclipse Persistence Tools
+ * TTesttypes entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_sex", catalog = "trimatrix")
-public class TSex implements java.io.Serializable {
+@Table(name = "t_testtypes", catalog = "trimatrix")
+public class TTesttypes implements java.io.Serializable {
 
 	// Fields
 
-	private TSexId id;
+	private TTesttypesId id;
 	private String description;
 	private String descriptionLong;
 
 	// Constructors
 
 	/** default constructor */
-	public TSex() {
+	public TTesttypes() {
 	}
 
 	/** minimal constructor */
-	public TSex(TSexId id) {
+	public TTesttypes(TTesttypesId id) {
 		this.id = id;
 	}
 
 	/** full constructor */
-	public TSex(TSexId id, String description, String descriptionLong) {
+	public TTesttypes(TTesttypesId id, String description,
+			String descriptionLong) {
 		this.id = id;
 		this.description = description;
 		this.descriptionLong = descriptionLong;
@@ -41,13 +42,13 @@ public class TSex implements java.io.Serializable {
 	// Property accessors
 	@EmbeddedId
 	@AttributeOverrides( {
-			@AttributeOverride(name = "key", column = @Column(name = "key", nullable = false, length = 1)),
+			@AttributeOverride(name = "key", column = @Column(name = "key", nullable = false, length = 10)),
 			@AttributeOverride(name = "languageKey", column = @Column(name = "language_key", nullable = false, length = 2)) })
-	public TSexId getId() {
+	public TTesttypesId getId() {
 		return this.id;
 	}
 
-	public void setId(TSexId id) {
+	public void setId(TTesttypesId id) {
 		this.id = id;
 	}
 
