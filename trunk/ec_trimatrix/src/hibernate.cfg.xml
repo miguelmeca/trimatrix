@@ -51,24 +51,15 @@
 
 		<mapping resource="trimatrix/db/Users.hbm.xml" />
 		<mapping resource="trimatrix/db/Persons.hbm.xml" />
-		<mapping resource="trimatrix/db/TLanguages.hbm.xml" />
 		<mapping resource="trimatrix/db/KLanguages.hbm.xml" />
-		<mapping resource="trimatrix/db/TCurrencies.hbm.xml" />
-		<mapping resource="trimatrix/db/TCountries.hbm.xml" />
-		<mapping resource="trimatrix/db/TSalutation.hbm.xml" />
 		<mapping resource="trimatrix/db/KSex.hbm.xml" />
-		<mapping resource="trimatrix/db/TAuthorizations.hbm.xml" />
 		<mapping resource="trimatrix/db/KRoles.hbm.xml" />
 		<mapping resource="trimatrix/db/KSalutation.hbm.xml" />
-		<mapping resource="trimatrix/db/TSex.hbm.xml" />
 		<mapping resource="trimatrix/db/KCurrencies.hbm.xml" />
 		<mapping resource="trimatrix/db/KCountries.hbm.xml" />
-		<mapping resource="trimatrix/db/TRoles.hbm.xml" />
-		<mapping resource="trimatrix/db/TFunctionnodes.hbm.xml" />
 		<mapping resource="trimatrix/db/UsersHaveRoles.hbm.xml" />
 		<mapping resource="trimatrix/db/KAuthorizations.hbm.xml" />
-		<mapping
-			resource="trimatrix/db/UsersHaveAuthorizations.hbm.xml" />
+		<mapping resource="trimatrix/db/UsersHaveAuthorizations.hbm.xml" />
 		<mapping resource="trimatrix/db/RolesHaveFunctionnodes.hbm.xml" />
 		<mapping resource="trimatrix/services/NamedQueries.hbm.xml" />
 		<mapping resource="trimatrix/db/PersonsHaveRelations.hbm.xml" />
@@ -80,13 +71,22 @@
 		<mapping resource="trimatrix/db/EntitiesHaveLabels.hbm.xml" />
 		<mapping resource="trimatrix/db/Labels.hbm.xml" />
 		<mapping resource="trimatrix/db/KFunctionnodes.hbm.xml" />
-		<mapping resource="trimatrix/db/TCategories.hbm.xml" />
 		<mapping resource="trimatrix/db/Entities.hbm.xml" />
 		<mapping resource="trimatrix/db/PersonsAthlete.hbm.xml" />
 		<mapping class="trimatrix.db.TestsTreadmill"></mapping>
 		<mapping class="trimatrix.db.TestsProtocol"></mapping>
 		<mapping class="trimatrix.db.TestsErgo"></mapping>
 		<mapping class="trimatrix.db.Tests"></mapping>
+		<mapping class="trimatrix.db.TTesttypes" />
+		<mapping class="trimatrix.db.TCountries" />
+		<mapping class="trimatrix.db.TCategories" />
+		<mapping class="trimatrix.db.TCurrencies" />
+		<mapping class="trimatrix.db.TAuthorizations" />
+		<mapping class="trimatrix.db.TFunctionnodes" />
+		<mapping class="trimatrix.db.TRoles" />
+		<mapping class="trimatrix.db.TLanguages" />
+		<mapping class="trimatrix.db.TSalutation" />
+		<mapping class="trimatrix.db.TSex" />
 	</session-factory>
 
 </hibernate-configuration>

@@ -4,10 +4,10 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
- * TRolesId entity. @author MyEclipse Persistence Tools
+ * TTesttypesId entity. @author MyEclipse Persistence Tools
  */
 @Embeddable
-public class TRolesId implements java.io.Serializable {
+public class TTesttypesId implements java.io.Serializable {
 
 	// Fields
 
@@ -17,18 +17,18 @@ public class TRolesId implements java.io.Serializable {
 	// Constructors
 
 	/** default constructor */
-	public TRolesId() {
+	public TTesttypesId() {
 	}
 
 	/** full constructor */
-	public TRolesId(String key, String languageKey) {
+	public TTesttypesId(String key, String languageKey) {
 		this.key = key;
 		this.languageKey = languageKey;
 	}
 
 	// Property accessors
 
-	@Column(name = "key", nullable = false, length = 36)
+	@Column(name = "key", nullable = false, length = 10)
 	public String getKey() {
 		return this.key;
 	}
@@ -51,9 +51,9 @@ public class TRolesId implements java.io.Serializable {
 			return true;
 		if ((other == null))
 			return false;
-		if (!(other instanceof TRolesId))
+		if (!(other instanceof TTesttypesId))
 			return false;
-		TRolesId castOther = (TRolesId) other;
+		TTesttypesId castOther = (TTesttypesId) other;
 
 		return ((this.getKey() == castOther.getKey()) || (this.getKey() != null
 				&& castOther.getKey() != null && this.getKey().equals(

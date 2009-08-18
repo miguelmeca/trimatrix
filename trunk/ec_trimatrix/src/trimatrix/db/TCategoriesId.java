@@ -1,77 +1,79 @@
 package trimatrix.db;
 
-
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
 /**
  * TCategoriesId entity. @author MyEclipse Persistence Tools
  */
+@Embeddable
+public class TCategoriesId implements java.io.Serializable {
 
-public class TCategoriesId  implements java.io.Serializable {
+	// Fields
 
+	private String key;
+	private String languageKey;
 
-    // Fields    
+	// Constructors
 
-     private String key;
-     private String languageKey;
+	/** default constructor */
+	public TCategoriesId() {
+	}
 
+	/** full constructor */
+	public TCategoriesId(String key, String languageKey) {
+		this.key = key;
+		this.languageKey = languageKey;
+	}
 
-    // Constructors
+	// Property accessors
 
-    /** default constructor */
-    public TCategoriesId() {
-    }
+	@Column(name = "key", nullable = false, length = 10)
+	public String getKey() {
+		return this.key;
+	}
 
-    
-    /** full constructor */
-    public TCategoriesId(String key, String languageKey) {
-        this.key = key;
-        this.languageKey = languageKey;
-    }
+	public void setKey(String key) {
+		this.key = key;
+	}
 
-   
-    // Property accessors
+	@Column(name = "language_key", nullable = false, length = 2)
+	public String getLanguageKey() {
+		return this.languageKey;
+	}
 
-    public String getKey() {
-        return this.key;
-    }
-    
-    public void setKey(String key) {
-        this.key = key;
-    }
+	public void setLanguageKey(String languageKey) {
+		this.languageKey = languageKey;
+	}
 
-    public String getLanguageKey() {
-        return this.languageKey;
-    }
-    
-    public void setLanguageKey(String languageKey) {
-        this.languageKey = languageKey;
-    }
-   
+	public boolean equals(Object other) {
+		if ((this == other))
+			return true;
+		if ((other == null))
+			return false;
+		if (!(other instanceof TCategoriesId))
+			return false;
+		TCategoriesId castOther = (TCategoriesId) other;
 
+		return ((this.getKey() == castOther.getKey()) || (this.getKey() != null
+				&& castOther.getKey() != null && this.getKey().equals(
+				castOther.getKey())))
+				&& ((this.getLanguageKey() == castOther.getLanguageKey()) || (this
+						.getLanguageKey() != null
+						&& castOther.getLanguageKey() != null && this
+						.getLanguageKey().equals(castOther.getLanguageKey())));
+	}
 
+	public int hashCode() {
+		int result = 17;
 
-   @Override
-public boolean equals(Object other) {
-         if ( (this == other ) ) return true;
-		 if ( (other == null ) ) return false;
-		 if ( !(other instanceof TCategoriesId) ) return false;
-		 TCategoriesId castOther = ( TCategoriesId ) other; 
-         
-		 return ( (this.getKey()==castOther.getKey()) || ( this.getKey()!=null && castOther.getKey()!=null && this.getKey().equals(castOther.getKey()) ) )
- && ( (this.getLanguageKey()==castOther.getLanguageKey()) || ( this.getLanguageKey()!=null && castOther.getLanguageKey()!=null && this.getLanguageKey().equals(castOther.getLanguageKey()) ) );
-   }
-   
-   @Override
-public int hashCode() {
-         int result = 17;
-         
-         result = 37 * result + ( getKey() == null ? 0 : this.getKey().hashCode() );
-         result = 37 * result + ( getLanguageKey() == null ? 0 : this.getLanguageKey().hashCode() );
-         return result;
-   }   
-
-
-
-
+		result = 37 * result
+				+ (getKey() == null ? 0 : this.getKey().hashCode());
+		result = 37
+				* result
+				+ (getLanguageKey() == null ? 0 : this.getLanguageKey()
+						.hashCode());
+		return result;
+	}
 
 }
