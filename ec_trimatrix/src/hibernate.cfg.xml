@@ -51,14 +51,8 @@
 
 		<mapping resource="trimatrix/db/Users.hbm.xml" />
 		<mapping resource="trimatrix/db/Persons.hbm.xml" />
-		<mapping resource="trimatrix/db/KLanguages.hbm.xml" />
-		<mapping resource="trimatrix/db/KSex.hbm.xml" />
 		<mapping resource="trimatrix/db/KRoles.hbm.xml" />
-		<mapping resource="trimatrix/db/KSalutation.hbm.xml" />
-		<mapping resource="trimatrix/db/KCurrencies.hbm.xml" />
-		<mapping resource="trimatrix/db/KCountries.hbm.xml" />
 		<mapping resource="trimatrix/db/UsersHaveRoles.hbm.xml" />
-		<mapping resource="trimatrix/db/KAuthorizations.hbm.xml" />
 		<mapping resource="trimatrix/db/UsersHaveAuthorizations.hbm.xml" />
 		<mapping resource="trimatrix/db/RolesHaveFunctionnodes.hbm.xml" />
 		<mapping resource="trimatrix/services/NamedQueries.hbm.xml" />
@@ -70,7 +64,6 @@
 		<mapping resource="trimatrix/db/ListVariants.hbm.xml" />
 		<mapping resource="trimatrix/db/EntitiesHaveLabels.hbm.xml" />
 		<mapping resource="trimatrix/db/Labels.hbm.xml" />
-		<mapping resource="trimatrix/db/KFunctionnodes.hbm.xml" />
 		<mapping resource="trimatrix/db/Entities.hbm.xml" />
 		<mapping resource="trimatrix/db/PersonsAthlete.hbm.xml" />
 		<mapping class="trimatrix.db.TestsTreadmill"></mapping>
