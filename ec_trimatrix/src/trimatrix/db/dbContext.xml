@@ -9,7 +9,7 @@
 	</bean>
 
 	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="lobHandler" ref="defaultLobHandler"></property>
 		<property name="configLocation" value="classpath:hibernate.cfg.xml">
 		</property>
@@ -55,10 +55,14 @@
                 <idref local="PersonsDAO" />
                 <idref local="DoctorsDAO" />
                 <idref local="AttachmentsDAO" />
+                <idref local="TestsDAO" />
                 <idref local="PersonsHaveRelationsDAO" />
                 <idref local="PersonsHaveDoctorsDAO" />
                 <idref local="PersonsHaveAttachmentsDAO" />
                 <idref local="PersonsAthleteDAO" />
+                <idref local="TestsErgoDAO" />
+                <idref local="TestsTreadmillDAO" />
+                <idref local="TestsProtocolDAO" />
                 <idref local="TSalutationDAO" />
                 <idref local="TCategoriesDAO" />
                 <idref local="ListVariantsDAO" />
@@ -82,6 +86,9 @@
         </property> 
         <property name="attachmentsDAO">
             <ref bean="AttachmentsDAO" />
+        </property> 
+        <property name="testsDAO">
+            <ref bean="TestsDAO" />
         </property> 
         <property name="personsHaveRelationsDAO">
             <ref bean="PersonsHaveRelationsDAO" />    
@@ -109,6 +116,15 @@
         </property>   
         <property name="personAthleteDAO">
             <ref bean="PersonsAthleteDAO" />
+        </property> 
+        <property name="testsErgoDAO">
+            <ref bean="TestsErgoDAO" />
+        </property> 
+        <property name="testsTreadmillDAO">
+            <ref bean="TestsTreadmillDAO" />
+        </property> 
+        <property name="testsProtocolDAO">
+            <ref bean="TestsProtocolDAO" />
         </property> 
         <property name="relationDAOs">
         	<list>
@@ -292,4 +308,24 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	</beans>
+	<bean id="TestsTreadmillDAO"
+		class="trimatrix.db.TestsTreadmillDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TestsProtocolDAO" class="trimatrix.db.TestsProtocolDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TestsErgoDAO" class="trimatrix.db.TestsErgoDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TestsDAO" class="trimatrix.db.TestsDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean></beans>

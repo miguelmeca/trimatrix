@@ -11,12 +11,16 @@ public class DAOLayer {
 	private IEntityDAO<Persons> personsDAO;
 	private IEntityDAO<Doctors> doctorsDAO;
 	private IEntityDAO<Attachments> attachmentsDAO;
+	private IEntityDAO<Tests> testsDAO;
 	private IRelationDAO<PersonsHaveRelations> personsHaveRelationsDAO;
 	private IRelationDAO<PersonsHaveDoctors> personsHaveDoctorsDAO;
 	private IRelationDAO<PersonsHaveAttachments> personsHaveAttachmentsDAO;	
 	private ITextDAO<TSalutation, TSalutationId> tsalutationDAO;
 	private ITextDAO<TCategories, TCategoriesId> tcategoriesDAO;
-	private ISimpleDAO<PersonsAthlete> personAthleteDAO;
+	private ISimpleDAO<PersonsAthlete> personAthleteDAO;	
+	private ISimpleDAO<TestsErgo> testsErgoDAO;
+	private ISimpleDAO<TestsTreadmill> testsTreadmillDAO;
+	private ISimpleDAO<TestsProtocol> testsProtocolDAO;	
 	private IComplexDAO<ListVariants, ListVariantsId> listVariantsDAO;	
 	private ILabelsDAO labelsDAO;
 	
@@ -89,6 +93,12 @@ public class DAOLayer {
 		this.personsHaveAttachmentsDAO = personsHaveAttachmentsDAO;
 	}
 
+	public IEntityDAO<Tests> getTestsDAO() {
+		return testsDAO;
+	}
+	public void setTestsDAO(IEntityDAO<Tests> testsDAO) {
+		this.testsDAO = testsDAO;
+	}
 	public ITextDAO<TSalutation, TSalutationId> getTsalutationDAO() {
 		return tsalutationDAO;
 	}
@@ -109,6 +119,25 @@ public class DAOLayer {
 	}
 	public void setPersonAthleteDAO(ISimpleDAO<PersonsAthlete> personAthleteDAO) {
 		this.personAthleteDAO = personAthleteDAO;
+	}
+	
+	public ISimpleDAO<TestsErgo> getTestsErgoDAO() {
+		return testsErgoDAO;
+	}
+	public void setTestsErgoDAO(ISimpleDAO<TestsErgo> testsErgoDAO) {
+		this.testsErgoDAO = testsErgoDAO;
+	}
+	public ISimpleDAO<TestsTreadmill> getTestsTreadmillDAO() {
+		return testsTreadmillDAO;
+	}
+	public void setTestsTreadmillDAO(ISimpleDAO<TestsTreadmill> testsTreadmillDAO) {
+		this.testsTreadmillDAO = testsTreadmillDAO;
+	}
+	public ISimpleDAO<TestsProtocol> getTestsProtocolDAO() {
+		return testsProtocolDAO;
+	}
+	public void setTestsProtocolDAO(ISimpleDAO<TestsProtocol> testsProtocolDAO) {
+		this.testsProtocolDAO = testsProtocolDAO;
 	}
 	public IComplexDAO<ListVariants, ListVariantsId> getListVariantsDAO() {
 		return listVariantsDAO;

@@ -34,6 +34,10 @@ import trimatrix.db.Persons;
 import trimatrix.db.PersonsAthlete;
 import trimatrix.db.PersonsHaveRelations;
 import trimatrix.db.RolesHaveFunctionnodes;
+import trimatrix.db.Tests;
+import trimatrix.db.TestsErgo;
+import trimatrix.db.TestsProtocol;
+import trimatrix.db.TestsTreadmill;
 import trimatrix.db.Users;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SFunctionTree;
@@ -268,9 +272,38 @@ public class DBConnectionTest {
 		// Athlete profile
 		Persons person = daoLayer.getPersonsDAO().findById("0b0b7658-2ddb-11de-86ae-00301bb60f17");
 		PersonsAthlete athlete = person.getProfileAthlete();
-		athlete.setRestingHr(46);
 		daoLayer.getPersonsDAO().merge(person);		
 		System.out.println(athlete.getHeight());
+	}
+	
+	@Test
+	public void testTests() {
+		String id = UUID.randomUUID().toString();
+		Tests test = new Tests(id);		
+		// ergo
+		TestsErgo ergo = new TestsErgo(id);
+		ergo.setCadenceLow(90d);
+		ergo.setCadenceHigh(95d);
+		test.setTestsErgo(ergo);
+		// treadmill
+		TestsTreadmill treadmill = new TestsTreadmill(id);
+		treadmill.setSpeedVariable(true);
+		treadmill.setStepTime(90);
+		test.setTestsTreadmill(treadmill);
+		// protocoll
+		TestsProtocol protocol = new TestsProtocol(id);
+		protocol.setModel("Testmodell");
+		test.setTestsProtocol(protocol);
+		// test
+		test.setDescription("Das ist ein Test für einen Text!");
+		test.setType("TREADMILL");
+		daoLayer.getTestsDAO().save(test);
+		Tests test2 = daoLayer.getTestsDAO().findById(id);
+		Assert.assertEquals("TREADMILL", test2.getType());
+		Assert.assertNotNull(test2.getTestsErgo());
+		Assert.assertNotNull(test2.getTestsTreadmill());
+		Assert.assertNotNull(test2.getTestsProtocol());
+		daoLayer.getTestsDAO().delete(test2);
 	}
 	
 	@After

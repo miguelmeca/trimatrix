@@ -18,6 +18,7 @@ import trimatrix.entities.AttachmentEntity;
 import trimatrix.entities.DoctorEntity;
 import trimatrix.entities.IEntityData;
 import trimatrix.entities.PersonEntity;
+import trimatrix.entities.TestEntity;
 import trimatrix.entities.UserEntity;
 import trimatrix.relations.IRelationData;
 import trimatrix.relations.PersonAttachmentRelation;
@@ -37,6 +38,7 @@ public class SQLExecutorService {
 	private static final String PERSONENTITYLISTQUERY = "PersonEntityList";
 	private static final String DOCTORENTITYLISTQUERY = "DoctorEntityList";
 	private static final String ATTACHMENTENTITYLISTQUERY = "AttachmentEntityList";
+	private static final String TESTENTITYLISTQUERY = "TestEntityList";
 	private static final String FUNCTIONTREEQUERY = "FunctionTree";
 	private static final String LANGUAGEVALUELISTQUERY = "LanguageValueList";
 	private static final String SALUTATIONVALUELISTQUERY = "SalutationValueList";
@@ -262,6 +264,37 @@ public class SQLExecutorService {
 	
 	public List<IEntityData> getAttachmentEntities() {
 		return getAttachmentEntities(dictionaryService.getLanguage(), false, false);
+	}
+	
+	/**
+	 * Retrieve test entities
+	 * @param lang_key
+	 * @param deleted
+	 * @param test
+	 * @return test entities
+	 */
+	@SuppressWarnings("unchecked")
+	public List<IEntityData> getTestEntities(String lang_key, boolean deleted, boolean test) {
+		List<IEntityData> data = new ArrayList<IEntityData>();
+		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		Query query = session.getNamedQuery(TESTENTITYLISTQUERY);
+		query.setString("p_lang_key", lang_key);
+		query.setBoolean("p_deleted", deleted);
+		query.setBoolean("p_test", test);
+		List<Object[]> result = query.list();
+		for(Object[] line : result) {
+			TestEntity.Data datum = new TestEntity.Data();
+			int i = 0;
+			datum.id = (String)line[i++];		
+			data.add(datum);
+		}
+		session.close();
+		return data;
+	}
+	
+	public List<IEntityData> getTestEntities() {
+		return getTestEntities(dictionaryService.getLanguage(), false, false);
 	}
 	
 	/**
