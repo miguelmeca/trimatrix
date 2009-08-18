@@ -3,6 +3,8 @@ package trimatrix.db;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.ManyToOne;
+
 /**
  * KRoles entity. @author MyEclipse Persistence Tools
  */
@@ -34,7 +36,7 @@ public class KRoles implements java.io.Serializable {
 	public void setKey(String key) {
 		this.key = key;
 	}
-
+	
 	public Set<RolesHaveFunctionnodes> getFunctionnodes() {
 		return functionnodes;
 	}

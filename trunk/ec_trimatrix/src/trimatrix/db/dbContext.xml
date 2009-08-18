@@ -151,11 +151,6 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="KLanguagesDAO" class="trimatrix.db.KLanguagesDAO">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean>
 	<bean id="TCurrenciesDAO" class="trimatrix.db.TCurrenciesDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
@@ -171,11 +166,6 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="KSexDAO" class="trimatrix.db.KSexDAO">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean>
 	<bean id="TAuthorizationsDAO"
 		class="trimatrix.db.TAuthorizationsDAO">
 		<property name="sessionFactory">
@@ -187,22 +177,7 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="KSalutationDAO" class="trimatrix.db.KSalutationDAO">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean>
 	<bean id="TSexDAO" class="trimatrix.db.TSexDAO">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean>
-	<bean id="KCurrenciesDAO" class="trimatrix.db.KCurrenciesDAO">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean>
-	<bean id="KCountriesDAO" class="trimatrix.db.KCountriesDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
@@ -220,12 +195,6 @@
 	</bean>
 	<bean id="UsersHaveRolesDAO"
 		class="trimatrix.db.UsersHaveRolesDAO">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean>
-	<bean id="KAuthorizationsDAO"
-		class="trimatrix.db.KAuthorizationsDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
@@ -282,12 +251,6 @@
 		</property>
 	</bean>
 	<bean id="LabelsDAO" class="trimatrix.db.LabelsDAO">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean>
-	<bean id="KFunctionnodesDAO"
-		class="trimatrix.db.KFunctionnodesDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
