@@ -30,6 +30,7 @@ public class Tests implements java.io.Serializable, IEntityObject {
 	private String id;
 	private String personId;
 	private String doctorId;
+	private String coachId;
 	private String type;
 	private Timestamp date;
 	private String description;
@@ -102,6 +103,15 @@ public class Tests implements java.io.Serializable, IEntityObject {
 
 	public void setDoctorId(String doctorId) {
 		this.doctorId = doctorId;
+	}
+
+	@Column(name = "coach_id", length = 36)
+	public String getCoachId() {
+		return coachId;
+	}
+
+	public void setCoachId(String coachId) {
+		this.coachId = coachId;
 	}
 
 	@Column(name = "type", length = 10)

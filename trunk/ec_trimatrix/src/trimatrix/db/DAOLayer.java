@@ -17,6 +17,7 @@ public class DAOLayer {
 	private IRelationDAO<PersonsHaveAttachments> personsHaveAttachmentsDAO;	
 	private ITextDAO<TSalutation, TSalutationId> tsalutationDAO;
 	private ITextDAO<TCategories, TCategoriesId> tcategoriesDAO;
+	private ITextDAO<TTesttypes, TTesttypesId> ttesttypesDAO;
 	private ISimpleDAO<PersonsAthlete> personAthleteDAO;	
 	private ISimpleDAO<TestsErgo> testsErgoDAO;
 	private ISimpleDAO<TestsTreadmill> testsTreadmillDAO;
@@ -114,6 +115,12 @@ public class DAOLayer {
 		this.tcategoriesDAO = tcategoriesDAO;
 	}
 	
+	public ITextDAO<TTesttypes, TTesttypesId> getTtesttypesDAO() {
+		return ttesttypesDAO;
+	}
+	public void setTtesttypesDAO(ITextDAO<TTesttypes, TTesttypesId> ttesttypesDAO) {
+		this.ttesttypesDAO = ttesttypesDAO;
+	}
 	public ISimpleDAO<PersonsAthlete> getPersonAthleteDAO() {
 		return personAthleteDAO;
 	}
