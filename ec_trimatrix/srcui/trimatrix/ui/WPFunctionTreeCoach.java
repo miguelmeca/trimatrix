@@ -218,6 +218,16 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 						attachment_node.setParam(Constants.P_ENTITY, Constants.Entity.ATTACHMENT.name());
 						// authorization as parent
 						FUNCTIONTREELOGIC.setAuthority(functionTree, attachment_node);
+						// add tests per athlete
+						FunctionNode test_node = new FunctionNode(athlete_node, Constants.Page.ENTITYLIST.getUrl());	
+						test_node.setId(athlete.getId());
+						test_node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
+						test_node.setOpenMultipleInstances(true);
+						test_node.setText("Tests");	
+						test_node.setParam(Constants.P_PERSON, athlete.getId());
+						test_node.setParam(Constants.P_ENTITY, Constants.Entity.TEST.name());
+						// authorization as parent
+						FUNCTIONTREELOGIC.setAuthority(functionTree, test_node);
 					}								
 				}
 			} else {

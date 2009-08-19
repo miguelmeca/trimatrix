@@ -39,7 +39,7 @@ public final class TestEntity extends AEntity {
         gridMetaData.add(new SGridMetaData("Person", PERSON, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("Arzt", DOCTOR, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("Beschreibung", DESCRIPTION, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("Protokoll", PROTOCOL, SGridMetaData.Component.CHECKBOX));
+        gridMetaData.add(new SGridMetaData("#{rr.literals.protocol}", PROTOCOL, SGridMetaData.Component.CHECKBOX));
         gridMetaData.add(new SGridMetaData("Testdatum", DATE, SGridMetaData.Component.CALENDARFIELD));
         return gridMetaData;
     }
@@ -56,9 +56,9 @@ public final class TestEntity extends AEntity {
 	 */
 	public List<IEntityData> getData(Constants.Entity entity) {
 		if (entity == Constants.Entity.TEST) {
-			return Constants.EMPTYENTITYLIST;
+			return sqlExecutorService.getTestEntities();
         } else if (entity == Constants.Entity.MYTESTS) {
-        	return Constants.EMPTYENTITYLIST;
+        	return sqlExecutorService.getTestEntities(dictionaryService.getMyPerson().getId(), null);
         } else {
         	return Constants.EMPTYENTITYLIST;
         }		
@@ -69,7 +69,7 @@ public final class TestEntity extends AEntity {
 	 */
 	public List<IEntityData> getData(Constants.Entity entity, String personId) {
 		if (entity == Constants.Entity.TEST) {
-			return Constants.EMPTYENTITYLIST;
+			return sqlExecutorService.getTestEntities(personId, null);
         } else {
         	return Constants.EMPTYENTITYLIST;
         }		

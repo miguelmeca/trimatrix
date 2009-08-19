@@ -3,6 +3,8 @@ package trimatrix.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationContext;
 
 import trimatrix.entities.IEntity;
@@ -13,154 +15,182 @@ import trimatrix.relations.IRelationData;
 import trimatrix.relations.IRelationObject;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
-import trimatrix.utils.Dictionary;
 
 public final class ResolverService {
+	public static final Log logger = LogFactory.getLog(ResolverService.class);
+	
 	private IEntity userEntity;
 	private IEntity personEntity;
 	private IEntity doctorEntity;
 	private IEntity attachmentEntity;
+	private IEntity testEntity;
 	private IRelation personPersonRelation;
 	private IRelation personDoctorRelation;
 	private IRelation personAttachmentRelation;
 
 	// Entities	
 	public List<SGridMetaData> getGridMetaData(Constants.Entity entity) {
-		if (entity.getBase()==Constants.Entity.USER) {
+		switch (entity.getBase()) {
+		case USER:
 			return userEntity.getGridMetaData();
-		} else if (entity.getBase()==Constants.Entity.PERSON) {
+		case PERSON:
 			return personEntity.getGridMetaData();
-		} else if (entity.getBase()==Constants.Entity.DOCTOR) {
+		case DOCTOR:
 			return doctorEntity.getGridMetaData();
-		} else if (entity.getBase()==Constants.Entity.ATTACHMENT) {
+		case ATTACHMENT:
 			return attachmentEntity.getGridMetaData();
+		case TEST:
+			return testEntity.getGridMetaData();
 		}
-		Dictionary.logger.warn("GETMETADATA : Entity " + entity.toString() + " not valid!");
+		logger.warn("GETMETADATA : Entity " + entity.toString() + " not valid!");
 		return new ArrayList<SGridMetaData>();
 	}
 	
 	public List<IEntityData> getData(Constants.Entity entity) {
-		if (entity.getBase()==Constants.Entity.USER) {
+		switch (entity.getBase()) {
+		case USER:
 			return userEntity.getData(entity);
-		} else if (entity.getBase()==Constants.Entity.PERSON) {
+		case PERSON:
 			return personEntity.getData(entity);
-		} else if (entity.getBase()==Constants.Entity.DOCTOR) {
+		case DOCTOR:
 			return doctorEntity.getData(entity);
-		} else if (entity.getBase()==Constants.Entity.ATTACHMENT) {
+		case ATTACHMENT:
 			return attachmentEntity.getData(entity);
+		case TEST:
+			return testEntity.getData(entity);
 		}
-		Dictionary.logger.warn("GETDATA : Entity " + entity.toString() + " not valid!");
+		logger.warn("GETDATA : Entity " + entity.toString() + " not valid!");
 		return new ArrayList<IEntityData>();
 	}
 	
 	public List<IEntityData> getData(Constants.Entity entity, String personId) {
-		if (entity.getBase()==Constants.Entity.USER) {
+		switch (entity.getBase()) {
+		case USER:
 			return userEntity.getData(entity, personId);
-		} else if (entity.getBase()==Constants.Entity.PERSON) {
+		case PERSON:
 			return personEntity.getData(entity, personId);
-		} else if (entity.getBase()==Constants.Entity.DOCTOR) {
+		case DOCTOR:
 			return doctorEntity.getData(entity, personId);
-		} else if (entity.getBase()==Constants.Entity.ATTACHMENT) {
+		case ATTACHMENT:
 			return attachmentEntity.getData(entity, personId);
+		case TEST:
+			return testEntity.getData(entity, personId);
 		}
-		Dictionary.logger.warn("GETDATA : Entity " + entity.toString() + " not valid!");
+		logger.warn("GETDATA : Entity " + entity.toString() + " not valid!");
 		return new ArrayList<IEntityData>();
 	}
 	
 	public List<IEntityData> getData(Constants.Entity entity, List<String> ids) {
-		if (entity.getBase()==Constants.Entity.USER) {
+		switch (entity.getBase()) {
+		case USER:
 			return userEntity.getData(ids);
-		} else if (entity.getBase()==Constants.Entity.PERSON) {
+		case PERSON:
 			return personEntity.getData(ids);
-		} else if (entity.getBase()==Constants.Entity.DOCTOR) {
+		case DOCTOR:
 			return doctorEntity.getData(ids);
-		} else if (entity.getBase()==Constants.Entity.ATTACHMENT) {
+		case ATTACHMENT:
 			return attachmentEntity.getData(ids);
+		case TEST:
+			return testEntity.getData(ids);
 		}
-		Dictionary.logger.warn("GETDATA : Entity " + entity.toString() + " not valid!");
+		logger.warn("GETDATA : Entity " + entity.toString() + " not valid!");
 		return new ArrayList<IEntityData>();
 	}
 	
 	public boolean delete(Constants.Entity entity, String id) {
-		if (entity.getBase()==Constants.Entity.USER) {
+		switch (entity.getBase()) {
+		case USER:
 			return userEntity.delete(id);
-		} else if (entity.getBase()==Constants.Entity.PERSON) {
+		case PERSON:
 			return personEntity.delete(id);
-		} else if (entity.getBase()==Constants.Entity.DOCTOR) {
+		case DOCTOR:
 			return doctorEntity.delete(id);
-		} else if (entity.getBase()==Constants.Entity.ATTACHMENT) {
+		case ATTACHMENT:
 			return attachmentEntity.delete(id);
+		case TEST:
+			return testEntity.delete(id);
 		}
-		Dictionary.logger.warn("DELETE : Entity " + entity.toString() + " not valid!");
+		logger.warn("DELETE : Entity " + entity.toString() + " not valid!");
 		return false;
 	}
 	
 	public boolean delete(Constants.Entity entity, String id, String personId) {
-		if (entity.getBase()==Constants.Entity.PERSON) {
+		switch (entity.getBase()) {
+		case PERSON:
 			return personPersonRelation.delete(personId, id);
-		} else if (entity.getBase()==Constants.Entity.DOCTOR) {
+		case DOCTOR:
 			return personDoctorRelation.delete(personId, id);
-		} else if (entity.getBase()==Constants.Entity.ATTACHMENT) {
+		case ATTACHMENT:
 			return personAttachmentRelation.delete(personId, id);
 		}
-		Dictionary.logger.warn("DELETE : Entity " + entity.toString() + " not valid!");
+		logger.warn("DELETE : Entity " + entity.toString() + " not valid!");
 		return false;
 	}
 	
 	public IEntityObject create(Constants.Entity entity) {
-		if (entity.getBase()==Constants.Entity.USER) {
+		switch (entity.getBase()) {
+		case USER:
 			return userEntity.create();
-		} else if (entity.getBase()==Constants.Entity.PERSON) {
+		case PERSON:
 			return personEntity.create();
-		} else if (entity.getBase()==Constants.Entity.DOCTOR) {
+		case DOCTOR:
 			return doctorEntity.create();
-		} else if (entity.getBase()==Constants.Entity.ATTACHMENT) {
+		case ATTACHMENT:
 			return attachmentEntity.create();
+		case TEST:
+			return testEntity.create();
 		}
-		Dictionary.logger.warn("CREATE : Entity " + entity.toString() + " not valid!");
+		logger.warn("CREATE : Entity " + entity.toString() + " not valid!");
 		return null;
 	}
 	
 	public IEntityObject get(Constants.Entity entity, String id) {
-		if (entity.getBase()==Constants.Entity.USER) {
+		switch (entity.getBase()) {
+		case USER:
 			return userEntity.get(id);
-		} else if (entity.getBase()==Constants.Entity.PERSON) {
+		case PERSON:
 			return personEntity.get(id);
-		}  else if (entity.getBase()==Constants.Entity.DOCTOR) {
+		case DOCTOR:
 			return doctorEntity.get(id);
-		} else if (entity.getBase()==Constants.Entity.ATTACHMENT) {
+		case ATTACHMENT:
 			return attachmentEntity.get(id);
+		case TEST:
+			return testEntity.get(id);
 		}
-		Dictionary.logger.warn("GET : Entity " + entity.toString() + " not valid!");
+		logger.warn("GET : Entity " + entity.toString() + " not valid!");
 		return null;
 	}
 	
 	public void save(Constants.Entity entity, IEntityObject entityObject) {
-		if (entity.getBase()==Constants.Entity.USER) {
-			userEntity.save(entityObject);			
-		} else if (entity.getBase()==Constants.Entity.PERSON) {
+		switch (entity.getBase()) {
+		case USER:
+			userEntity.save(entityObject);
+		case PERSON:
 			personEntity.save(entityObject);
-		} else if (entity.getBase()==Constants.Entity.DOCTOR) {
+		case DOCTOR:
 			doctorEntity.save(entityObject);
-		} else if (entity.getBase()==Constants.Entity.ATTACHMENT) {
+		case ATTACHMENT:
 			attachmentEntity.save(entityObject);
-		} else {
-			Dictionary.logger.warn("SAVE : Entity " + entity.toString() + " not valid!");
-		}		
+		case TEST:
+			testEntity.save(entityObject);
+		}
+		logger.warn("SAVE : Entity " + entity.toString() + " not valid!");
 	}
 	
 	public void reload(Constants.Entity entity, IEntityObject entityObject) {
-		if (entity.getBase()==Constants.Entity.USER) {
+		switch (entity.getBase()) {
+		case USER:
 			userEntity.reload(entityObject);
-		} else if (entity.getBase()==Constants.Entity.PERSON) {
+		case PERSON:
 			personEntity.reload(entityObject);
-		} else if (entity.getBase()==Constants.Entity.DOCTOR) {
+		case DOCTOR:
 			doctorEntity.reload(entityObject);
-		} else if (entity.getBase()==Constants.Entity.ATTACHMENT) {
+		case ATTACHMENT:
 			attachmentEntity.reload(entityObject);
-		} else {
-			Dictionary.logger.warn("RELOAD : Entity " + entity.toString() + " not valid!");
-		}		
+		case TEST:
+			testEntity.save(entityObject);
+		}
+		logger.warn("RELOAD : Entity " + entity.toString() + " not valid!");				
 	}
 	
 	// Relations
@@ -172,7 +202,7 @@ public final class ResolverService {
 		} else if (relation.getBase()==Constants.Relation.PERSONATTACHMENT) {
 			return personAttachmentRelation.getGridMetaData();
 		}
-		Dictionary.logger.warn("GETMETADATA : Relation " + relation.toString() + " not valid!");
+		logger.warn("GETMETADATA : Relation " + relation.toString() + " not valid!");
 		return new ArrayList<SGridMetaData>();
 	}
 	
@@ -184,7 +214,7 @@ public final class ResolverService {
 		} else if (relation.getBase()==Constants.Relation.PERSONATTACHMENT) {
 			return personAttachmentRelation.getData(relation);
 		}
-		Dictionary.logger.warn("GETDATA : Relation " + relation.toString() + " not valid!");
+		logger.warn("GETDATA : Relation " + relation.toString() + " not valid!");
 		return new ArrayList<IRelationData>();
 	}
 	
@@ -196,7 +226,7 @@ public final class ResolverService {
 		} else if (relation.getBase()==Constants.Relation.PERSONATTACHMENT) {
 			return personAttachmentRelation.delete(id);
 		}
-		Dictionary.logger.warn("DELETE : Relation " + relation.toString() + " not valid!");
+		logger.warn("DELETE : Relation " + relation.toString() + " not valid!");
 		return false;
 	}
 	
@@ -208,7 +238,7 @@ public final class ResolverService {
 		} else if (relation.getBase()==Constants.Relation.PERSONATTACHMENT) {
 			return personAttachmentRelation.create();
 		}
-		Dictionary.logger.warn("DELETE : Relation " + relation.toString() + " not valid!");
+		logger.warn("DELETE : Relation " + relation.toString() + " not valid!");
 		return null;
 	}
 	
@@ -220,7 +250,7 @@ public final class ResolverService {
 		} else if (relation.getBase()==Constants.Relation.PERSONATTACHMENT) {
 			return personAttachmentRelation.get(id);
 		}
-		Dictionary.logger.warn("GET : Relation " + relation.toString() + " not valid!");
+		logger.warn("GET : Relation " + relation.toString() + " not valid!");
 		return null;
 	}
 	
@@ -232,7 +262,7 @@ public final class ResolverService {
 		} else if (relation.getBase()==Constants.Relation.PERSONATTACHMENT) {
 			personAttachmentRelation.save(relationObject);
 		} else {
-			Dictionary.logger.warn("SAVE : Relation " + relation.toString() + " not valid!");
+			logger.warn("SAVE : Relation " + relation.toString() + " not valid!");
 		}		
 	}
 	
@@ -244,7 +274,7 @@ public final class ResolverService {
 		} else if (relation.getBase()==Constants.Relation.PERSONATTACHMENT) {
 			personAttachmentRelation.reload(relationObject);
 		} else {
-			Dictionary.logger.warn("RELOAD : Relation " + relation.toString() + " not valid!");
+			logger.warn("RELOAD : Relation " + relation.toString() + " not valid!");
 		}		
 	}
 	
@@ -263,6 +293,10 @@ public final class ResolverService {
 
 	public void setAttachmentEntity(IEntity attachmentEntity) {
 		this.attachmentEntity = attachmentEntity;
+	}
+	
+	public void setTestEntity(IEntity testEntity) {
+		this.testEntity = testEntity;
 	}
 	
 	public void setPersonPersonRelation(IRelation personPersonRelation) {

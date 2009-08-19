@@ -45,6 +45,9 @@
         <property name="attachmentEntity">
             <ref bean="attachmentEntity" />
         </property>
+        <property name="testEntity">
+            <ref bean="testEntity" />
+        </property>
         <property name="personPersonRelation">
             <ref bean="personPersonRelation" />
         </property>

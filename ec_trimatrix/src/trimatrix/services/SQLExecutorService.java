@@ -274,7 +274,7 @@ public class SQLExecutorService {
 	 * @return test entities
 	 */
 	@SuppressWarnings("unchecked")
-	public List<IEntityData> getTestEntities(String lang_key, boolean deleted, boolean test) {
+	public List<IEntityData> getTestEntities(String lang_key, String person_id, String user_id, boolean deleted, boolean test) {
 		List<IEntityData> data = new ArrayList<IEntityData>();
 		SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
@@ -282,11 +282,21 @@ public class SQLExecutorService {
 		query.setString("p_lang_key", lang_key);
 		query.setBoolean("p_deleted", deleted);
 		query.setBoolean("p_test", test);
+		query.setBoolean("p_user_on", user_id!=null);
+		query.setBoolean("p_person_on", person_id!=null);
+		query.setString("p_user", user_id);
+		query.setString("p_person", person_id);
 		List<Object[]> result = query.list();
 		for(Object[] line : result) {
 			TestEntity.Data datum = new TestEntity.Data();
 			int i = 0;
 			datum.id = (String)line[i++];		
+			datum.person = (String)line[i++];
+			datum.doctor = (String)line[i++];
+			datum.type = (String)line[i++];
+			datum.date = (Timestamp)line[i++];
+			datum.description = (String)line[i++];
+			datum.protocol = (Boolean)line[i++];	
 			data.add(datum);
 		}
 		session.close();
@@ -294,7 +304,11 @@ public class SQLExecutorService {
 	}
 	
 	public List<IEntityData> getTestEntities() {
-		return getTestEntities(dictionaryService.getLanguage(), false, false);
+		return getTestEntities(dictionaryService.getLanguage(), null, null, false, false);
+	}
+	
+	public List<IEntityData> getTestEntities(String person_id, String user_id) {
+		return getTestEntities(dictionaryService.getLanguage(), person_id, user_id, false, false);
 	}
 	
 	/**
