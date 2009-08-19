@@ -85,6 +85,38 @@ WHERE persons.test = :p_test
   <return-scalar column="fax" type="java.lang.String"/>
 </sql-query> 
 
+ <sql-query cacheable="true" name="TestEntityList" read-only="true">
+SELECT
+  tests.id,
+  TRIM(CONCAT(persons.name_first,' ', persons.name_last)) person,  
+  doctors.name doctor,
+  t_testtypes.description type,
+  tests.date,
+  tests.description,
+  IF(tests_protocol.id IS NULL, 0, 1) protocol
+FROM tests
+  LEFT OUTER JOIN tests_protocol
+    ON tests_protocol.id = tests.id
+  LEFT OUTER JOIN persons
+    ON persons.id = tests.person_id  
+  LEFT OUTER JOIN doctors
+    ON doctors.id = tests.doctor_id    
+  LEFT OUTER JOIN t_testtypes
+    ON t_testtypes.key = tests.type
+    AND t_testtypes.language_key = :p_lang_key
+WHERE tests.test = :p_test
+    AND tests.deleted = :p_deleted
+    AND ( tests.person_id = :p_person OR 0 = :p_person_on )   
+    AND ( tests.created_by = :p_user OR 0 = :p_user_on )
+  <return-scalar column="id" type="java.lang.String"/>
+  <return-scalar column="person" type="java.lang.String"/>
+  <return-scalar column="doctor" type="java.lang.String"/>
+  <return-scalar column="type" type="java.lang.String"/>
+  <return-scalar column="date" type="java.sql.Timestamp"/>
+  <return-scalar column="description" type="java.lang.String"/>
+  <return-scalar column="protocol" type="java.lang.Boolean"/>
+</sql-query> 
+
 <sql-query cacheable="true" name="DoctorEntityList" read-only="true">
 SELECT
   doctors.id,
