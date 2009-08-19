@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -34,6 +36,8 @@ import trimatrix.utils.Dictionary;
  *
  */
 public class SQLExecutorService {
+	public static final Log logger = LogFactory.getLog(SQLExecutorService.class);
+	
 	private static final String USERENTITYLISTQUERY = "UserEntityList";
 	private static final String PERSONENTITYLISTQUERY = "PersonEntityList";
 	private static final String DOCTORENTITYLISTQUERY = "DoctorEntityList";
@@ -52,6 +56,7 @@ public class SQLExecutorService {
 	private static final String RELTYPSVALUELISTQUERY = "RelTypsValueList";
 	private static final String COUNTRYVALUELISTQUERY = "CountryValueList";
 	private static final String CATEGORYVALUELISTQUERY = "CategoryValueList";
+	private static final String TESTTYPEVALUELISTQUERY = "TestTypeValueList";
 	private static final String ENTITIESBYLABELLISTQUERY = "EntitiesByLabelList";
 	
 	private HibernateTransactionManager transactionManager;
@@ -82,7 +87,7 @@ public class SQLExecutorService {
 			try {
 				datum.key = Constants.FunctionNode.valueOf(((String)line[i++]).toUpperCase());
 			} catch (Exception ex) {
-				Dictionary.logger.warn(ex.getMessage());
+				logger.warn(ex.getMessage());
 			}		 
 			datum.page = (String)line[i++];
 			datum.entity = (String)line[i++];
@@ -274,7 +279,7 @@ public class SQLExecutorService {
 	 * @return test entities
 	 */
 	@SuppressWarnings("unchecked")
-	public List<IEntityData> getTestEntities(String lang_key, String person_id, String user_id, boolean deleted, boolean test) {
+	public List<IEntityData> getTestEntities(String lang_key, String person_id, String coach_id, boolean deleted, boolean test) {
 		List<IEntityData> data = new ArrayList<IEntityData>();
 		SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
@@ -282,9 +287,9 @@ public class SQLExecutorService {
 		query.setString("p_lang_key", lang_key);
 		query.setBoolean("p_deleted", deleted);
 		query.setBoolean("p_test", test);
-		query.setBoolean("p_user_on", user_id!=null);
+		query.setBoolean("p_coach_on", coach_id!=null);
 		query.setBoolean("p_person_on", person_id!=null);
-		query.setString("p_user", user_id);
+		query.setString("p_coach", coach_id);
 		query.setString("p_person", person_id);
 		List<Object[]> result = query.list();
 		for(Object[] line : result) {
@@ -293,6 +298,7 @@ public class SQLExecutorService {
 			datum.id = (String)line[i++];		
 			datum.person = (String)line[i++];
 			datum.doctor = (String)line[i++];
+			datum.coach = (String)line[i++];
 			datum.type = (String)line[i++];
 			datum.date = (Timestamp)line[i++];
 			datum.description = (String)line[i++];
@@ -307,8 +313,8 @@ public class SQLExecutorService {
 		return getTestEntities(dictionaryService.getLanguage(), null, null, false, false);
 	}
 	
-	public List<IEntityData> getTestEntities(String person_id, String user_id) {
-		return getTestEntities(dictionaryService.getLanguage(), person_id, user_id, false, false);
+	public List<IEntityData> getTestEntities(String person_id, String coach_id) {
+		return getTestEntities(dictionaryService.getLanguage(), person_id, coach_id, false, false);
 	}
 	
 	/**
@@ -592,22 +598,32 @@ public class SQLExecutorService {
 	public List<SValueList> getValueList(Constants.ValueList valueList, String lang_key) {
 		List<SValueList> list = new ArrayList<SValueList>();
 		String namedQuery = null;
-		if(valueList==Constants.ValueList.LANGUAGE) {
+		switch (valueList) {
+		case LANGUAGE:
 			namedQuery = LANGUAGEVALUELISTQUERY;
-		} else if (valueList==Constants.ValueList.LOGONLANGUAGE) {
+			break;
+		case LOGONLANGUAGE:
 			namedQuery = LOGONLANGUAGEVALUELISTQUERY;
-		} else if (valueList==Constants.ValueList.SALUTATION) {
+			break;
+		case SALUTATION:
 			namedQuery = SALUTATIONVALUELISTQUERY;
-		} else if (valueList==Constants.ValueList.RELTYPS) {
-				namedQuery = RELTYPSVALUELISTQUERY;			
-		} else if (valueList==Constants.ValueList.COUNTRY) {
-				namedQuery = COUNTRYVALUELISTQUERY;			
-		} else if (valueList==Constants.ValueList.CATEGORY) {
-				namedQuery = CATEGORYVALUELISTQUERY;			
-		}else {
-			Dictionary.logger.warn("Valuelist not found: " + valueList.name());
+			break;
+		case RELTYPS:
+			namedQuery = RELTYPSVALUELISTQUERY;
+			break;
+		case COUNTRY:
+			namedQuery = COUNTRYVALUELISTQUERY;
+			break;
+		case CATEGORY:
+			namedQuery = CATEGORYVALUELISTQUERY;
+			break;
+		case TESTTYPE:
+			namedQuery = TESTTYPEVALUELISTQUERY;
+			break;	
+		default:
+			logger.warn("Valuelist not found: " + valueList.name());
 			return list;
-		}
+		}		
 		SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();		
 		Query query = session.getNamedQuery(namedQuery);

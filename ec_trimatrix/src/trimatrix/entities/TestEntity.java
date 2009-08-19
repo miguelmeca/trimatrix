@@ -11,6 +11,8 @@ import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import trimatrix.db.PersonsAthlete;
+import trimatrix.db.TTesttypes;
+import trimatrix.db.TTesttypesId;
 import trimatrix.db.Tests;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
@@ -26,6 +28,7 @@ public final class TestEntity extends AEntity {
 	public static final String TYPE = "type";
     public static final String PERSON = "person";  
     public static final String DOCTOR = "doctor";
+    public static final String COACH = "coach";
     public static final String DESCRIPTION = "description";
     public static final String DATE = "date";
     public static final String PROTOCOL = "protocol";
@@ -35,12 +38,13 @@ public final class TestEntity extends AEntity {
 	 */
 	public List<SGridMetaData> getGridMetaData() {
         List<SGridMetaData> gridMetaData = new ArrayList<SGridMetaData>();
+        gridMetaData.add(new SGridMetaData("Testdatum", DATE, SGridMetaData.Component.CALENDARFIELD));
         gridMetaData.add(new SGridMetaData("Typ", TYPE, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("Person", PERSON, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("Arzt", DOCTOR, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData("Trainer", COACH, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("Beschreibung", DESCRIPTION, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("#{rr.literals.protocol}", PROTOCOL, SGridMetaData.Component.CHECKBOX));
-        gridMetaData.add(new SGridMetaData("Testdatum", DATE, SGridMetaData.Component.CALENDARFIELD));
+        gridMetaData.add(new SGridMetaData("#{rr.literals.protocol}", PROTOCOL, SGridMetaData.Component.CHECKBOX));       
         return gridMetaData;
     }
 	
@@ -59,6 +63,8 @@ public final class TestEntity extends AEntity {
 			return sqlExecutorService.getTestEntities();
         } else if (entity == Constants.Entity.MYTESTS) {
         	return sqlExecutorService.getTestEntities(dictionaryService.getMyPerson().getId(), null);
+        } else if (entity == Constants.Entity.COACHTESTS) {
+			return sqlExecutorService.getTestEntities(null, dictionaryService.getMyPerson().getId());	
         } else {
         	return Constants.EMPTYENTITYLIST;
         }		
@@ -67,12 +73,34 @@ public final class TestEntity extends AEntity {
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#getData(trimatrix.utils.Constants.Entity, java.lang.String)
 	 */
-	public List<IEntityData> getData(Constants.Entity entity, String personId) {
+	public List<IEntityData> getData(Constants.Entity entity, String personId) {		
 		if (entity == Constants.Entity.TEST) {
 			return sqlExecutorService.getTestEntities(personId, null);
-        } else {
+		} else if (entity == Constants.Entity.COACHTESTS) {
+			return sqlExecutorService.getTestEntities(null, personId);
+		} else {
         	return Constants.EMPTYENTITYLIST;
         }		
+	}
+	
+	@Override
+	public IEntityData getData(String id) {
+		Data datum = new Data();
+		Tests entity = (Tests)get(id);
+		if(entity!=null) {
+			datum.id = entity.getId();	
+			String type = entity.getType();
+			String language = dictionaryService.getLanguage();
+			TTesttypes testtype = daoLayer.getTtesttypesDAO().findById(new TTesttypesId(type, language));
+			if(testtype!=null) {
+				datum.type = testtype.getDescription();
+			} else {
+				Dictionary.logger.warn("Testtype " + type + " not found!");
+			}
+			datum.description = entity.getDescription();
+			datum.date = entity.getDate();
+		}
+		return datum;
 	}
 	
 	/* (non-Javadoc)
@@ -141,6 +169,7 @@ public final class TestEntity extends AEntity {
 		public String type;
 		public String person;
 		public String doctor;
+		public String coach;
 		public String description;
 		public boolean protocol;
 		public Timestamp date;
@@ -168,6 +197,10 @@ public final class TestEntity extends AEntity {
 
 		public String getDoctor() {
 			return doctor;
+		}
+		
+		public String getCoach() {
+			return coach;
 		}
 
 		public String getDescription() {

@@ -90,6 +90,7 @@ SELECT
   tests.id,
   TRIM(CONCAT(persons.name_first,' ', persons.name_last)) person,  
   doctors.name doctor,
+  TRIM(CONCAT(coaches.name_first,' ', coaches.name_last)) coach,  
   t_testtypes.description type,
   tests.date,
   tests.description,
@@ -99,6 +100,8 @@ FROM tests
     ON tests_protocol.id = tests.id
   LEFT OUTER JOIN persons
     ON persons.id = tests.person_id  
+  LEFT OUTER JOIN persons coaches
+    ON coaches.id = tests.coach_id    
   LEFT OUTER JOIN doctors
     ON doctors.id = tests.doctor_id    
   LEFT OUTER JOIN t_testtypes
@@ -107,10 +110,11 @@ FROM tests
 WHERE tests.test = :p_test
     AND tests.deleted = :p_deleted
     AND ( tests.person_id = :p_person OR 0 = :p_person_on )   
-    AND ( tests.created_by = :p_user OR 0 = :p_user_on )
+    AND ( tests.coach_id = :p_coach OR 0 = :p_coach_on )
   <return-scalar column="id" type="java.lang.String"/>
   <return-scalar column="person" type="java.lang.String"/>
   <return-scalar column="doctor" type="java.lang.String"/>
+  <return-scalar column="coach" type="java.lang.String"/>
   <return-scalar column="type" type="java.lang.String"/>
   <return-scalar column="date" type="java.sql.Timestamp"/>
   <return-scalar column="description" type="java.lang.String"/>
@@ -451,6 +455,20 @@ FROM k_categories
   JOIN t_categories
     ON k_categories.key = t_categories.key
 WHERE t_categories.language_key = :p_lang_key
+  <return-scalar column="key" type="java.lang.String"/>
+  <return-scalar column="description" type="java.lang.String"/>
+  <return-scalar column="description_long" type="java.lang.String"/>
+</sql-query> 
+
+ <sql-query cacheable="true" name="TestTypeValueList" read-only="true">
+SELECT
+  k_testtypes.key,
+  t_testtypes.description,
+  t_testtypes.description_long
+FROM k_testtypes
+  JOIN t_testtypes
+    ON k_testtypes.key = t_testtypes.key
+WHERE t_testtypes.language_key = :p_lang_key
   <return-scalar column="key" type="java.lang.String"/>
   <return-scalar column="description" type="java.lang.String"/>
   <return-scalar column="description_long" type="java.lang.String"/>

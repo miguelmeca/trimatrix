@@ -50,6 +50,7 @@ public final class Constants {
 		MYATHLETES(PERSON, Page.PERSONDETAIL, Page.PERSONSELECTION),
 		MYDOCTORS(DOCTOR, Page.DOCTORDETAIL, Page.DOCTORSELECTION),
 		MYTESTS(TEST, Page.TESTDETAIL, Page.TESTSELECTION),
+		COACHTESTS(TEST, Page.TESTDETAIL, Page.TESTSELECTION),
 		MYATTACHMENTS(ATTACHMENT, Page.ATTACHMENTDETAIL, Page.ATTACHMENTSELECTION);
 		private final Entity baseEntity;
 		private final Page detailPage;
@@ -123,7 +124,7 @@ public final class Constants {
 	}
 	// all value lists
 	public static enum ValueList {
-		LANGUAGE, CURRENCY, LOGONLANGUAGE, SALUTATION, RELTYPS, COUNTRY, CATEGORY
+		LANGUAGE, CURRENCY, LOGONLANGUAGE, SALUTATION, RELTYPS, COUNTRY, CATEGORY, TESTTYPE
 	}	
 	// all functionnodes
 	public static enum FunctionNode {

@@ -1,6 +1,7 @@
 package trimatrix.db;
 
 import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
@@ -19,7 +20,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @author MyEclipse Persistence Tools
  */
 
-public class TTesttypesDAO extends HibernateDaoSupport {
+public class TTesttypesDAO extends HibernateDaoSupport implements ITextDAO<TTesttypes, TTesttypesId>{
 	private static final Log log = LogFactory.getLog(TTesttypesDAO.class);
 
 	protected void initDao() {
@@ -58,6 +59,10 @@ public class TTesttypesDAO extends HibernateDaoSupport {
 			log.error("get failed", re);
 			throw re;
 		}
+	}
+	
+	public TTesttypes findById(String key, String languageKey) {
+		return findById(new TTesttypesId(key, languageKey));
 	}
 
 	public List<TTesttypes> findByExample(TTesttypes instance) {
