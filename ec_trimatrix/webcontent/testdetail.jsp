@@ -18,18 +18,36 @@
 <t:row id="g_5" >
 <t:label id="g_6" text="#{rr.literals.type}" width="100" />
 <t:combobox id="g_7" attributemacro="entityDetailMacro(TestDetailUI,type)" validvaluesbinding="#{d.TestDetailUI.testTypesVvb}" width="200" />
+<t:coldistance id="g_8" />
+<t:label id="g_9" text="#{rr.literals.test_date}" width="100" />
+<t:calendarfield id="g_10" attributemacro="entityDetailMacro(TestDetailUI,date)" timezone="CET" width="200" />
 </t:row>
-<t:rowdistance id="g_8" />
-<t:row id="g_9" >
-<t:label id="g_10" rowalignmenty="top" text="#{rr.literals.description}" width="100" />
-<t:textarea id="g_11" attributemacro="entityDetailMacro(TestDetailUI,description)" height="100" width="200" />
+<t:rowdistance id="g_11" />
+<t:row id="g_12" >
+<t:label id="g_13" text="#{rr.literals.athlete}" width="100" />
+<t:field id="g_14" attributemacro="entityDetailMacro(TestDetailUI,person)" enabled="false" focusable="false" width="175" />
+<t:button id="g_15" actionListener="#{d.TestDetailUI.onAthleteSearch}" contentareafilled="false" image="/images/icons/magnifier.png" />
+<t:coldistance id="g_16" />
+<t:label id="g_17" text="#{rr.literals.doctor}" width="100" />
+<t:field id="g_18" attributemacro="entityDetailMacro(TestDetailUI,doctor)" enabled="false" focusable="false" width="175" />
+<t:button id="g_19" actionListener="#{d.TestDetailUI.onDoctorSearch}" contentareafilled="false" image="/images/icons/magnifier.png" />
 </t:row>
-<t:rowdistance id="g_12" />
-<t:row id="g_13" >
-<t:label id="g_14" text="#{rr.literals.test_date}" width="100" />
-<t:calendarfield id="g_15" attributemacro="entityDetailMacro(TestDetailUI,date)" timezone="CET" width="200" />
+<t:rowdistance id="g_20" />
+<t:row id="g_21" >
+<t:label id="g_22" rowalignmenty="top" text="#{rr.literals.description}" width="100" />
+<t:textarea id="g_23" attributemacro="entityDetailMacro(TestDetailUI,description)" height="100" width="510" />
 </t:row>
+<t:row id="g_24" />
 </t:foldablepane>
+</t:row>
+<t:row id="g_25" >
+<t:foldablepane id="g_26" text="#{rr.literals.treadmill}" width="100%" />
+</t:row>
+<t:row id="g_27" >
+<t:foldablepane id="g_28" text="#{rr.literals.ergo}" width="100%" />
+</t:row>
+<t:row id="g_29" >
+<t:foldablepane id="g_30" text="#{rr.literals.test_protocol}" width="100%" />
 </t:row>
 </t:rowbodypane>
 <t:pageaddons id="g_pa"/>
