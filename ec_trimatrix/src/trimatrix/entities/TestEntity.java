@@ -11,9 +11,8 @@ import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import trimatrix.db.PersonsAthlete;
-import trimatrix.db.TTesttypes;
-import trimatrix.db.TTesttypesId;
 import trimatrix.db.Tests;
+import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
@@ -62,9 +61,9 @@ public final class TestEntity extends AEntity {
 		if (entity == Constants.Entity.TEST) {
 			return sqlExecutorService.getTestEntities();
         } else if (entity == Constants.Entity.MYTESTS) {
-        	return sqlExecutorService.getTestEntities(dictionaryService.getMyPerson().getId(), null);
+        	return sqlExecutorService.getTestEntities(PERSON, dictionaryService.getMyPerson().getId());
         } else if (entity == Constants.Entity.COACHTESTS) {
-			return sqlExecutorService.getTestEntities(null, dictionaryService.getMyPerson().getId());	
+        	return sqlExecutorService.getTestEntities(COACH, dictionaryService.getMyPerson().getId());	
         } else {
         	return Constants.EMPTYENTITYLIST;
         }		
@@ -75,9 +74,9 @@ public final class TestEntity extends AEntity {
 	 */
 	public List<IEntityData> getData(Constants.Entity entity, String personId) {		
 		if (entity == Constants.Entity.TEST) {
-			return sqlExecutorService.getTestEntities(personId, null);
+			return sqlExecutorService.getTestEntities(PERSON, personId);
 		} else if (entity == Constants.Entity.COACHTESTS) {
-			return sqlExecutorService.getTestEntities(null, personId);
+			return sqlExecutorService.getTestEntities(COACH, personId);
 		} else {
         	return Constants.EMPTYENTITYLIST;
         }		
@@ -85,22 +84,9 @@ public final class TestEntity extends AEntity {
 	
 	@Override
 	public IEntityData getData(String id) {
-		Data datum = new Data();
-		Tests entity = (Tests)get(id);
-		if(entity!=null) {
-			datum.id = entity.getId();	
-			String type = entity.getType();
-			String language = dictionaryService.getLanguage();
-			TTesttypes testtype = daoLayer.getTtesttypesDAO().findById(new TTesttypesId(type, language));
-			if(testtype!=null) {
-				datum.type = testtype.getDescription();
-			} else {
-				Dictionary.logger.warn("Testtype " + type + " not found!");
-			}
-			datum.description = entity.getDescription();
-			datum.date = entity.getDate();
-		}
-		return datum;
+		List<IEntityData> result = sqlExecutorService.getTestEntities(SQLExecutorService.ID, id);
+		if (result.size()==0) return null;
+		return result.get(0);
 	}
 	
 	/* (non-Javadoc)

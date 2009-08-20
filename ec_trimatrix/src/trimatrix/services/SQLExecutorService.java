@@ -38,6 +38,8 @@ import trimatrix.utils.Dictionary;
 public class SQLExecutorService {
 	public static final Log logger = LogFactory.getLog(SQLExecutorService.class);
 	
+	public static final String ID = "ID";
+	
 	private static final String USERENTITYLISTQUERY = "UserEntityList";
 	private static final String PERSONENTITYLISTQUERY = "PersonEntityList";
 	private static final String DOCTORENTITYLISTQUERY = "DoctorEntityList";
@@ -242,7 +244,7 @@ public class SQLExecutorService {
 	 * @return attachment entities
 	 */
 	@SuppressWarnings("unchecked")
-	public List<IEntityData> getAttachmentEntities(String lang_key, boolean deleted, boolean test) {
+	public List<IEntityData> getAttachmentEntities(String lang_key, String parameterName, String parameterValue, boolean deleted, boolean test) {
 		List<IEntityData> data = new ArrayList<IEntityData>();
 		SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
@@ -250,6 +252,13 @@ public class SQLExecutorService {
 		query.setString("p_lang_key", lang_key);
 		query.setBoolean("p_deleted", deleted);
 		query.setBoolean("p_test", test);
+		// handle parameter
+		query.setBoolean("p_id_on", false);
+		query.setString("p_id", null);
+		if (ID.equals(parameterName)) {
+			query.setBoolean("p_id_on", true);
+			query.setString("p_id", parameterValue);
+		}
 		List<Object[]> result = query.list();
 		for(Object[] line : result) {
 			AttachmentEntity.Data datum = new AttachmentEntity.Data();
@@ -268,7 +277,11 @@ public class SQLExecutorService {
 	}
 	
 	public List<IEntityData> getAttachmentEntities() {
-		return getAttachmentEntities(dictionaryService.getLanguage(), false, false);
+		return getAttachmentEntities(dictionaryService.getLanguage(), null, null, false, false);
+	}
+	
+	public List<IEntityData> getAttachmentEntities(String parameterName, String parameterValue) {
+		return getAttachmentEntities(dictionaryService.getLanguage(), parameterName, parameterValue, false, false);
 	}
 	
 	/**
@@ -279,7 +292,7 @@ public class SQLExecutorService {
 	 * @return test entities
 	 */
 	@SuppressWarnings("unchecked")
-	public List<IEntityData> getTestEntities(String lang_key, String person_id, String coach_id, boolean deleted, boolean test) {
+	public List<IEntityData> getTestEntities(String lang_key, String parameterName, String parameterValue, boolean deleted, boolean test) {
 		List<IEntityData> data = new ArrayList<IEntityData>();
 		SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
@@ -287,10 +300,25 @@ public class SQLExecutorService {
 		query.setString("p_lang_key", lang_key);
 		query.setBoolean("p_deleted", deleted);
 		query.setBoolean("p_test", test);
-		query.setBoolean("p_coach_on", coach_id!=null);
-		query.setBoolean("p_person_on", person_id!=null);
-		query.setString("p_coach", coach_id);
-		query.setString("p_person", person_id);
+		// handle parameter
+		query.setBoolean("p_person_on", false);
+		query.setBoolean("p_coach_on", false);
+		query.setBoolean("p_id_on", false);
+		query.setString("p_person", null);
+		query.setString("p_coach", null);
+		query.setString("p_id", null);
+		if (TestEntity.PERSON.equals(parameterName)) {
+			query.setBoolean("p_person_on", true);
+			query.setString("p_person", parameterValue);
+		}
+		if (TestEntity.COACH.equals(parameterName)) {
+			query.setBoolean("p_coach_on", true);
+			query.setString("p_coach", parameterValue);
+		}
+		if (ID.equals(parameterName)) {
+			query.setBoolean("p_id_on", true);
+			query.setString("p_id", parameterValue);
+		}
 		List<Object[]> result = query.list();
 		for(Object[] line : result) {
 			TestEntity.Data datum = new TestEntity.Data();
@@ -313,8 +341,8 @@ public class SQLExecutorService {
 		return getTestEntities(dictionaryService.getLanguage(), null, null, false, false);
 	}
 	
-	public List<IEntityData> getTestEntities(String person_id, String coach_id) {
-		return getTestEntities(dictionaryService.getLanguage(), person_id, coach_id, false, false);
+	public List<IEntityData> getTestEntities(String parameterName, String parameterValue) {
+		return getTestEntities(dictionaryService.getLanguage(), parameterName, parameterValue, false, false);
 	}
 	
 	/**
