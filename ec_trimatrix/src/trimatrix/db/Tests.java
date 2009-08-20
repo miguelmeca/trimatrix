@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -91,7 +92,7 @@ public class Tests implements java.io.Serializable, IEntityObject {
 		this.id = id;
 	}
 
-	@Column(name = "person_id", length = 36)
+	@Column(name = "person_id", length = 36, updatable = false, insertable = false)	
 	public String getPersonId() {
 		return this.personId;
 	}
@@ -100,7 +101,7 @@ public class Tests implements java.io.Serializable, IEntityObject {
 		this.personId = personId;
 	}
 
-	@Column(name = "doctor_id", length = 36)
+	@Column(name = "doctor_id", length = 36, updatable = false, insertable = false)
 	public String getDoctorId() {
 		return this.doctorId;
 	}
@@ -229,8 +230,9 @@ public class Tests implements java.io.Serializable, IEntityObject {
 		return testsProtocol;
 	}
 	
-	@ManyToOne(cascade = CascadeType.ALL )
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST} )
 	@LazyCollection(LazyCollectionOption.FALSE)
+	@JoinColumn(name="person_id")
 	public Persons getAthlete() {
 		return athlete;
 	}
@@ -239,8 +241,9 @@ public class Tests implements java.io.Serializable, IEntityObject {
 		this.athlete = athlete;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL )
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST} )
 	@LazyCollection(LazyCollectionOption.FALSE)
+	@JoinColumn(name="doctor_id")
 	public Doctors getDoctor() {
 		return doctor;
 	}
