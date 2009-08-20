@@ -10,8 +10,7 @@ import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import trimatrix.db.Attachments;
-import trimatrix.db.TCategories;
-import trimatrix.db.TCategoriesId;
+import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
@@ -70,25 +69,9 @@ public class AttachmentEntity extends AEntity {
 	
 	@Override
 	public IEntityData getData(String id) {
-		Data datum = new Data();
-		Attachments entity = (Attachments)get(id);
-		if(entity!=null) {
-			datum.id = entity.getId();	
-			String categoryKey = entity.getCategoryKey();
-			String language = dictionaryService.getLanguage();
-			TCategories category = daoLayer.getTcategoriesDAO().findById(new TCategoriesId(categoryKey, language));
-			if(category!=null) {
-				datum.category = category.getDescription();
-			} else {
-				Dictionary.logger.warn("Category " + categoryKey + " not found!");
-			}
-			datum.description = entity.getDescription();
-			datum.owner = entity.getOwner().toString();
-			datum.mimetype = entity.getMimeType();
-			datum.filename = entity.getFileName();
-			datum.filesize = entity.getFileSize();
-		}
-		return datum;
+		List<IEntityData> result = sqlExecutorService.getAttachmentEntities(SQLExecutorService.ID, id);
+		if (result.size()==0) return null;
+		return result.get(0);
 	}	
 
 	public List<IEntityData> getData(Entity entity) {
