@@ -74,12 +74,17 @@ public class LabelLogic {
 		return daoLayer.getLabelsDAO().findById(id);
 	}
 	
+	/**
+	 * Find all labels for a entity. Additionally restricted by person logged on
+	 * @param entity_id Entity ID
+	 * @return Labels
+	 */
 	public List<Labels> getLabelsByEntity(String entity_id) {
 		List<Labels> labels = new Vector<Labels>();
 		List<EntitiesHaveLabels> relations = daoLayer.getEntitiesHaveLabelsDAO().findByEntity(entity_id);
 		for(EntitiesHaveLabels relation:relations) {
 			Labels label = daoLayer.getLabelsDAO().findById(relation.getId().getLabel());
-			if(label!=null) {
+			if(label!=null && label.getPersonId().equals(serviceLayer.getDictionaryService().getMyPerson().getId())) {
 				labels.add(label);
 			}
 		}

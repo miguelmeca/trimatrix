@@ -20,11 +20,15 @@ import org.springframework.context.ApplicationContext;
 import trimatrix.db.Persons;
 import trimatrix.db.Users;
 
-public final class Dictionary {
+public class Dictionary {
 	// global logger
 	// TODO replace logger with CLog.L logger
 	public static final Log logger = LogFactory.getLog("trimatrix");
 	//public static Logger logger = Logger.getLogger("trimatrix");
+	
+	public Dictionary() {
+		System.out.println("!Dictionary Bean created!");
+	}
 	
 	// actual user logged on
 	private Users myUser;

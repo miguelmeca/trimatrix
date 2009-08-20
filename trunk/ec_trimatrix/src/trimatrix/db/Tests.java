@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -46,6 +47,9 @@ public class Tests implements java.io.Serializable, IEntityObject {
 	private TestsTreadmill testsTreadmill;
 	private TestsProtocol testsProtocol;
 
+	private Persons athlete;
+	private Doctors doctor;
+	
 	// Constructors
 
 	/** default constructor */
@@ -223,6 +227,26 @@ public class Tests implements java.io.Serializable, IEntityObject {
     @LazyToOne(LazyToOneOption.FALSE)
 	public TestsProtocol getTestsProtocol() {
 		return testsProtocol;
+	}
+	
+	@ManyToOne(cascade = CascadeType.ALL )
+	@LazyCollection(LazyCollectionOption.FALSE)
+	public Persons getAthlete() {
+		return athlete;
+	}
+
+	public void setAthlete(Persons athlete) {
+		this.athlete = athlete;
+	}
+
+	@ManyToOne(cascade = CascadeType.ALL )
+	@LazyCollection(LazyCollectionOption.FALSE)
+	public Doctors getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(Doctors doctor) {
+		this.doctor = doctor;
 	}
 
 	public void setTestsProtocol(TestsProtocol testsProtocol) {
