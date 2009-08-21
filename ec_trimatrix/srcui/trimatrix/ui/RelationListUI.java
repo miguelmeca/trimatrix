@@ -113,8 +113,7 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 			}
 		});		
 		m_popup = getWorkpage().createModalPopupInWorkpageContext();    
-		m_popup.setTop(BasePopup.POS_CENTER);
-    	m_popup.setLeft(BasePopup.POS_CENTER);
+		m_popup.setLeftTopReferenceCentered();
     	m_popup.open(Constants.Page.CREATERELATION.getUrl(), "Beziehung anlegen", 400, 300, this); 
 	}
 	
@@ -143,8 +142,7 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 					}						
 				}
 		);
-		popup.getModalPopup().setLeft(BasePopup.POS_CENTER);
-		popup.getModalPopup().setTop(BasePopup.POS_CENTER);
+		popup.getModalPopup().setLeftTopReferenceCentered();
 	}
 		
 	public class MyARRAYGRIDItem extends ARRAYGRIDItem {

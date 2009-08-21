@@ -197,8 +197,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 						}						
 					}
 			);	
-			popup.getModalPopup().setLeft(BasePopup.POS_CENTER);
-    		popup.getModalPopup().setTop(BasePopup.POS_CENTER);
+			popup.getModalPopup().setLeftTopReferenceCentered();
 		} 
 	}
 

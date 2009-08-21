@@ -144,6 +144,8 @@ public final class TestEntity extends AEntity {
 		String id = UUID.randomUUID().toString();
 		Tests entity = new Tests();
 		entity.setId(id);
+		// set actual user as coach, normally just coaches are able to create tests
+	    entity.setCoach(dictionaryService.getMyPerson());
 		// default values
 		entity.setDeleted(false);
 		entity.setTest(false);		

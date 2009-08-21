@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.faces.event.ActionEvent;
 
-import org.eclnt.jsfserver.defaultscreens.BasePopup;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoCancelListener;
@@ -96,8 +95,7 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
                 					}						
                 				}
                 		);
-                		ynp.getModalPopup().setLeft(BasePopup.POS_CENTER);
-                		ynp.getModalPopup().setTop(BasePopup.POS_CENTER);
+                		ynp.getModalPopup().setLeftTopReferenceCentered();
                 	} else if (entity.getBase()==Constants.Entity.DOCTOR) {
                 		YESNOPopup ynp = YESNOPopup.createInstance(
                 				"Create relation", 
@@ -124,8 +122,7 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
                 					}						
                 				}
                 		);
-                		ynp.getModalPopup().setLeft(BasePopup.POS_CENTER);
-                		ynp.getModalPopup().setTop(BasePopup.POS_CENTER);
+                		ynp.getModalPopup().setLeftTopReferenceCentered();
                 	}  					
                 	
                 } else {

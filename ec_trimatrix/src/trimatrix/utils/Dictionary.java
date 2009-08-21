@@ -21,14 +21,11 @@ import trimatrix.db.Persons;
 import trimatrix.db.Users;
 
 public class Dictionary {
-	// global logger
-	// TODO replace logger with CLog.L logger
-	public static final Log logger = LogFactory.getLog("trimatrix");
-	//public static Logger logger = Logger.getLogger("trimatrix");
 	
-	public Dictionary() {
-		System.out.println("!Dictionary Bean created!");
-	}
+	// TODO put logger in every relevant class
+	public static final Log logger = LogFactory.getLog("trimatrix");
+	//CLog.L logger
+	//public static Logger logger = Logger.getLogger("trimatrix");
 	
 	// actual user logged on
 	private Users myUser;
