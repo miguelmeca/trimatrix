@@ -193,4 +193,7 @@ public final class Constants {
 	
 	// UI parameter
 	public static final String CLIENTNAME = "clientname";
+	
+	// Resources
+	public static final String LITERALS = "literals"; 
 }

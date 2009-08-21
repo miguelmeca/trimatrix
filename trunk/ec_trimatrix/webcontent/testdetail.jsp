@@ -17,7 +17,7 @@
 <t:foldablepane id="g_4" text="#{rr.literals.details}" width="100%" >
 <t:row id="g_5" >
 <t:label id="g_6" text="#{rr.literals.type}" width="100" />
-<t:combobox id="g_7" attributemacro="entityDetailMacro(TestDetailUI,type)" validvaluesbinding="#{d.TestDetailUI.testTypesVvb}" width="200" />
+<t:combobox id="g_7" actionListener="#{d.TestDetailUI.onTypeChange}" attributemacro="entityDetailMacro(TestDetailUI,type)" flush="true" validvaluesbinding="#{d.TestDetailUI.testTypesVvb}" width="200" />
 <t:coldistance id="g_8" />
 <t:label id="g_9" text="#{rr.literals.test_date}" width="100" />
 <t:calendarfield id="g_10" attributemacro="entityDetailMacro(TestDetailUI,date)" timezone="CET" width="200" />
@@ -41,10 +41,10 @@
 </t:foldablepane>
 </t:row>
 <t:row id="g_25" >
-<t:foldablepane id="g_26" text="#{rr.literals.treadmill}" width="100%" />
+<t:foldablepane id="g_26" rendered="#{d.TestDetailUI.treadmill}" text="#{rr.literals.treadmill}" width="100%" />
 </t:row>
 <t:row id="g_27" >
-<t:foldablepane id="g_28" text="#{rr.literals.ergo}" width="100%" />
+<t:foldablepane id="g_28" rendered="#{d.TestDetailUI.ergo}" text="#{rr.literals.ergo}" width="100%" />
 </t:row>
 <t:row id="g_29" >
 <t:foldablepane id="g_30" text="#{rr.literals.test_protocol}" width="100%" />

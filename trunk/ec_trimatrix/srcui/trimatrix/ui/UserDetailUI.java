@@ -180,8 +180,7 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable, IEnti
 				m_popup.close();
 			}});    	
     	m_popup = getWorkpage().createModalPopupInWorkpageContext();    
-    	m_popup.setTop(BasePopup.POS_CENTER);
-    	m_popup.setLeft(BasePopup.POS_CENTER);
+    	m_popup.setLeftTopReferenceCentered();
     	m_popup.open(Constants.Page.PERSONSELECTION.getUrl(), "Personensuche", 800, 600, this);    	
     }
 	
@@ -218,8 +217,7 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable, IEnti
 					}						
 				}
 		);	
-		popup.getModalPopup().setLeft(BasePopup.POS_CENTER);
-		popup.getModalPopup().setTop(BasePopup.POS_CENTER);
+		popup.getModalPopup().setLeftTopReferenceCentered();
 	}
 	
 	public void onPersonClicked(ActionEvent event) {

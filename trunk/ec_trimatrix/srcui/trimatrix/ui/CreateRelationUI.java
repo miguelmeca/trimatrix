@@ -71,8 +71,7 @@ public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serial
     	if (popup!=null) {
     		popup.getModalPopup().setWidth(300);
     		popup.getModalPopup().setHeight(150);
-    		popup.getModalPopup().setLeft(BasePopup.POS_CENTER);
-    		popup.getModalPopup().setTop(BasePopup.POS_CENTER);
+    		popup.getModalPopup().setLeftTopReferenceCentered();
     	}
     }
 
@@ -92,8 +91,7 @@ public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serial
        	String height = HttpSessionAccess.getCurrentRequest().getHeader("eclnt-height");
        	Dictionary.logger.warn("Width: " + width + " - Height: " + height);
        	m_popup = getWorkpage().createModalPopupInWorkpageContext();      
-       	m_popup.setTop(BasePopup.POS_CENTER);
-    	m_popup.setLeft(BasePopup.POS_CENTER);
+       	m_popup.setLeftTopReferenceCentered();
        	m_popup.open(selectionPage.getUrl(), selectionPage.getDescription(), 800, 600, this);
     }
     
@@ -113,8 +111,7 @@ public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serial
        	String height = HttpSessionAccess.getCurrentRequest().getHeader("eclnt-height");
        	Dictionary.logger.warn("Width: " + width + " - Height: " + height);
        	m_popup = getWorkpage().createModalPopupInWorkpageContext();    
-       	m_popup.setTop(BasePopup.POS_CENTER);
-    	m_popup.setLeft(BasePopup.POS_CENTER);
+       	m_popup.setLeftTopReferenceCentered();
        	m_popup.open(selectionPage.getUrl(), selectionPage.getDescription(), 800, 600, this);
     }   
 

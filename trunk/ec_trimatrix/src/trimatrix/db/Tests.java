@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -50,6 +51,7 @@ public class Tests implements java.io.Serializable, IEntityObject {
 
 	private Persons athlete;
 	private Doctors doctor;
+	private Persons coach;
 	
 	// Constructors
 
@@ -110,7 +112,7 @@ public class Tests implements java.io.Serializable, IEntityObject {
 		this.doctorId = doctorId;
 	}
 
-	@Column(name = "coach_id", length = 36)
+	@Column(name = "coach_id", length = 36, updatable = false, insertable = false)
 	public String getCoachId() {
 		return coachId;
 	}
@@ -230,8 +232,7 @@ public class Tests implements java.io.Serializable, IEntityObject {
 		return testsProtocol;
 	}
 	
-	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST} )
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
 	@JoinColumn(name="person_id")
 	public Persons getAthlete() {
 		return athlete;
@@ -241,8 +242,7 @@ public class Tests implements java.io.Serializable, IEntityObject {
 		this.athlete = athlete;
 	}
 
-	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST} )
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
 	@JoinColumn(name="doctor_id")
 	public Doctors getDoctor() {
 		return doctor;
@@ -250,6 +250,16 @@ public class Tests implements java.io.Serializable, IEntityObject {
 
 	public void setDoctor(Doctors doctor) {
 		this.doctor = doctor;
+	}		
+	
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+	@JoinColumn(name="coach_id")
+	public Persons getCoach() {
+		return coach;
+	}
+
+	public void setCoach(Persons coach) {
+		this.coach = coach;
 	}
 
 	public void setTestsProtocol(TestsProtocol testsProtocol) {

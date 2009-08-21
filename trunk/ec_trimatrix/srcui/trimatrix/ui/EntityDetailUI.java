@@ -171,8 +171,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 					}						
 				}
 		);	
-		popup.getModalPopup().setLeft(BasePopup.POS_CENTER);
-		popup.getModalPopup().setTop(BasePopup.POS_CENTER);
+		popup.getModalPopup().setLeftTopReferenceCentered();
 	}
 
 	public void onSave(ActionEvent event) {

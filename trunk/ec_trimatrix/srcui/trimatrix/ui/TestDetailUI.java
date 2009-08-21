@@ -7,25 +7,39 @@ import java.util.Date;
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
-import org.eclnt.jsfserver.defaultscreens.BasePopup;
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
+import trimatrix.db.Doctors;
 import trimatrix.db.Persons;
 import trimatrix.db.Tests;
-import trimatrix.db.TestsErgoDAO;
-import trimatrix.db.Users;
 import trimatrix.entities.TestEntity;
-import trimatrix.entities.UserEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Helper;
 
 @CCGenClass (expressionBase="#{d.TestDetailUI}")
 
 public class TestDetailUI extends AEntityDetailUI implements Serializable, IEntityDetailUI
 {
-    public void onDoctorSearch(ActionEvent event) {}
+    public void onDoctorSearch(ActionEvent event) {
+    	IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(Constants.Entity.DOCTOR);
+       	entitySelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){
+			public void cancel() {
+				m_popup.close();				
+			}
+			public void idSelected(String id) {
+				Doctors doctor = (Doctors)ENTITYLISTLOGIC.get(Constants.Entity.DOCTOR, id);
+				entity.setDoctor(doctor);
+				setDoctorDescription(entity);	
+				m_popup.close();
+			}});    	
+    	m_popup = getWorkpage().createModalPopupInWorkpageContext();    
+    	m_popup.setLeftTopReferenceCentered();
+    	m_popup.open(Constants.Page.DOCTORSELECTION.getUrl(), Helper.getLiteral("doctor_search"), 800, 600, this);
+    }
 
     public void onAthleteSearch(ActionEvent event) {
     	IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(Constants.Entity.PERSON);
@@ -35,14 +49,17 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable, IEnti
 			}
 			public void idSelected(String id) {
 				Persons person = (Persons)ENTITYLISTLOGIC.get(Constants.Entity.PERSON, id);
-				entity.setPersonId(person.getId());
+				entity.setAthlete(person);
 				setAthleteDescription(entity);	
 				m_popup.close();
 			}});    	
     	m_popup = getWorkpage().createModalPopupInWorkpageContext();    
-    	m_popup.setTop(BasePopup.POS_CENTER);
-    	m_popup.setLeft(BasePopup.POS_CENTER);
-    	m_popup.open(Constants.Page.PERSONSELECTION.getUrl(), "Personensuche", 800, 600, this);
+    	m_popup.setLeftTopReferenceCentered();
+    	m_popup.open(Constants.Page.PERSONSELECTION.getUrl(), Helper.getLiteral("athlete_search"), 800, 600, this);
+    }
+    
+    public void onTypeChange(ActionEvent event) {
+    	entity.setType((String)values.get(TestEntity.TYPE));
     }
     
 	private Tests entity;	
@@ -80,8 +97,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable, IEnti
     	// mandatory check
 		checkMandatory();
 		// fill values to entities properties
-		fillEntityProperties();
-		
+		fillEntityProperties();		
 	}
     
     private void fillEntityProperties() {
@@ -95,6 +111,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable, IEnti
 		entity.setDate(timestamp);
 		entity.setType((String)values.get(TestEntity.TYPE));
 		setAthleteDescription(entity);
+		setDoctorDescription(entity);
 	}
 	
 	private void fillMaps() {
@@ -108,6 +125,8 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable, IEnti
 		} 
 		values.put(TestEntity.DATE, date);
 		values.put(TestEntity.TYPE, entity.getType());
+		setAthleteDescription(entity);	
+		setDoctorDescription(entity);	
 		
 		// add bgpaint of fields
 		bgpaint.clear();
@@ -124,6 +143,27 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable, IEnti
 			athleteDescription = athlete.toString();
 		}
 		values.put(TestEntity.PERSON, athleteDescription);
+	}
+	
+	private void setDoctorDescription(Tests test) {
+		Doctors doctor = test.getDoctor();
+		String doctorDescription = Constants.EMPTY;
+		if (doctor!=null) {
+			doctorDescription = doctor.toString();
+		}
+		values.put(TestEntity.DOCTOR, doctorDescription);
+	}
+	
+	public boolean isErgo() {
+		Statusbar.outputMessage("Type: " + entity.getType());
+		if (entity.getType()==null || !entity.getType().equals("ergo")) return false;		
+		return true;
+	}
+	
+	public boolean isTreadmill() {
+		Statusbar.outputMessage("Type: " + entity.getType());
+		if (entity.getType()==null || !entity.getType().equals("treadmill")) return false;
+		return true;
 	}
 
 }
