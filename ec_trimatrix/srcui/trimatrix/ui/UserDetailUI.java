@@ -8,12 +8,13 @@ import java.util.UUID;
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
-import org.eclnt.jsfserver.defaultscreens.BasePopup;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoCancelListener;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
+import org.hibernate.validator.ClassValidator;
+import org.hibernate.validator.InvalidValue;
 
 import trimatrix.db.KRoles;
 import trimatrix.db.Persons;
@@ -76,7 +77,10 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable, IEnti
 		// mandatory check
 		checkMandatory();
         // email check
-		if(!Dictionary.isEmailValid((String)values.get(UserEntity.EMAIL))) {
+		ClassValidator<Users> validator = new ClassValidator<Users>(Users.class);
+		String email = (String)values.get(UserEntity.EMAIL);
+		InvalidValue[] invalidValues = validator.getPotentialInvalidValues(UserEntity.EMAIL, email);
+		if(invalidValues.length>0) {
 			throw new EmailNotValidException((String)values.get(values.get(UserEntity.EMAIL)));
 		}	
 		// check if at least one role selected

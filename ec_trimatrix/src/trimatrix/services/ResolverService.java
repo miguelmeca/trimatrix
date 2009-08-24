@@ -164,15 +164,15 @@ public final class ResolverService {
 	public void save(Constants.Entity entity, IEntityObject entityObject) {
 		switch (entity.getBase()) {
 		case USER:
-			userEntity.save(entityObject);
+			userEntity.save(entityObject); break;
 		case PERSON:
-			personEntity.save(entityObject);
+			personEntity.save(entityObject); break;
 		case DOCTOR:
-			doctorEntity.save(entityObject);
+			doctorEntity.save(entityObject); break;
 		case ATTACHMENT:
-			attachmentEntity.save(entityObject);
+			attachmentEntity.save(entityObject); break;
 		case TEST:
-			testEntity.save(entityObject);
+			testEntity.save(entityObject); break;
 		}
 		logger.warn("SAVE : Entity " + entity.toString() + " not valid!");
 	}
@@ -180,15 +180,15 @@ public final class ResolverService {
 	public void reload(Constants.Entity entity, IEntityObject entityObject) {
 		switch (entity.getBase()) {
 		case USER:
-			userEntity.reload(entityObject);
+			userEntity.reload(entityObject); break;
 		case PERSON:
-			personEntity.reload(entityObject);
+			personEntity.reload(entityObject); break;
 		case DOCTOR:
-			doctorEntity.reload(entityObject);
+			doctorEntity.reload(entityObject); break;
 		case ATTACHMENT:
-			attachmentEntity.reload(entityObject);
+			attachmentEntity.reload(entityObject); break;
 		case TEST:
-			testEntity.save(entityObject);
+			testEntity.save(entityObject); break;
 		}
 		logger.warn("RELOAD : Entity " + entity.toString() + " not valid!");				
 	}

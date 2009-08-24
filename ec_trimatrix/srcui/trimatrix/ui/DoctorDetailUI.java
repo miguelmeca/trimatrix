@@ -5,9 +5,13 @@ import java.io.Serializable;
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
+import org.hibernate.validator.ClassValidator;
+import org.hibernate.validator.InvalidValue;
 
 import trimatrix.db.Doctors;
+import trimatrix.db.Users;
 import trimatrix.entities.DoctorEntity;
+import trimatrix.entities.UserEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
 import trimatrix.utils.Constants;
@@ -50,9 +54,14 @@ public class DoctorDetailUI extends AEntityDetailUI implements Serializable, IEn
 		// mandatory check
 		checkMandatory();
         // email check
-		if(!Dictionary.isEmailValid((String)values.get(DoctorEntity.EMAIL))) {
+		
+		// email check
+		ClassValidator<Doctors> validator = new ClassValidator<Doctors>(Doctors.class);
+		String email = (String)values.get(DoctorEntity.EMAIL);
+		InvalidValue[] invalidValues = validator.getPotentialInvalidValues(DoctorEntity.EMAIL, email);
+		if(invalidValues.length>0) {
 			throw new EmailNotValidException((String)values.get(values.get(DoctorEntity.EMAIL)));
-		}	
+		}
 		// fill values to entities properties
 		fillEntityProperties();
 	}

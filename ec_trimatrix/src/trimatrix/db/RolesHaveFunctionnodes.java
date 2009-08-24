@@ -1,8 +1,17 @@
 package trimatrix.db;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  * RolesHaveFunctionnodes entity. @author MyEclipse Persistence Tools
  */
+@Entity
+@Table(name = "roles_have_functionnodes", catalog = "trimatrix")
 public class RolesHaveFunctionnodes implements java.io.Serializable {
 
 	// Fields
@@ -24,8 +33,8 @@ public class RolesHaveFunctionnodes implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public RolesHaveFunctionnodes(RolesHaveFunctionnodesId id,
-			Integer node, Integer parent, Integer order) {
+	public RolesHaveFunctionnodes(RolesHaveFunctionnodesId id, Integer node,
+			Integer parent, Integer order) {
 		this.id = id;
 		this.node = node;
 		this.parent = parent;
@@ -33,7 +42,10 @@ public class RolesHaveFunctionnodes implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@EmbeddedId
+	@AttributeOverrides( {
+			@AttributeOverride(name = "roleKey", column = @Column(name = "role_key", nullable = false, length = 36)),
+			@AttributeOverride(name = "functionnodeKey", column = @Column(name = "functionnode_key", nullable = false, length = 36)) })
 	public RolesHaveFunctionnodesId getId() {
 		return this.id;
 	}
@@ -42,6 +54,7 @@ public class RolesHaveFunctionnodes implements java.io.Serializable {
 		this.id = id;
 	}
 
+	@Column(name = "node")
 	public Integer getNode() {
 		return this.node;
 	}
@@ -50,6 +63,7 @@ public class RolesHaveFunctionnodes implements java.io.Serializable {
 		this.node = node;
 	}
 
+	@Column(name = "parent")
 	public Integer getParent() {
 		return this.parent;
 	}
@@ -58,6 +72,7 @@ public class RolesHaveFunctionnodes implements java.io.Serializable {
 		this.parent = parent;
 	}
 
+	@Column(name = "order")
 	public Integer getOrder() {
 		return this.order;
 	}
