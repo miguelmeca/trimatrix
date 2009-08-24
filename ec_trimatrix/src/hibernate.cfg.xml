@@ -54,7 +54,6 @@
 		<mapping resource="trimatrix/services/NamedQueries.hbm.xml" />
 		<mapping resource="trimatrix/db/PersonsHaveRelations.hbm.xml" />
 		<mapping resource="trimatrix/db/PersonsHaveDoctors.hbm.xml" />
-		<mapping resource="trimatrix/db/Attachments.hbm.xml" />
 		<mapping resource="trimatrix/db/PersonsHaveAttachments.hbm.xml" />
 		<mapping resource="trimatrix/db/ListVariants.hbm.xml" />
 		<mapping resource="trimatrix/db/EntitiesHaveLabels.hbm.xml" />
@@ -80,6 +79,8 @@
 		<mapping class="trimatrix.db.KRoles" />
 		<mapping class="trimatrix.db.RolesHaveFunctionnodes" />
 		<mapping class="trimatrix.db.Entities" />
+		<mapping class="trimatrix.db.TestsSwim" />
+		<mapping class="trimatrix.db.Attachments" />
 	</session-factory>
 
 </hibernate-configuration>

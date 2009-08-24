@@ -15,11 +15,11 @@ public class TestsErgo implements java.io.Serializable {
 	// Fields
 
 	private String id;
-	private Double powerInit;
-	private Double powerStep;
-	private Double cadenceLow;
-	private Double cadenceHigh;
-	private Integer stepTime;
+	private Integer powerInit;
+	private Integer powerStep;
+	private Integer cadenceLow;
+	private Integer cadenceHigh;
+	private String stepTime;
 
 	// Constructors
 
@@ -33,8 +33,8 @@ public class TestsErgo implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public TestsErgo(String id, Double powerInit, Double powerStep,
-			Double cadenceLow, Double cadenceHigh, Integer stepTime) {
+	public TestsErgo(String id, Integer powerInit, Integer powerStep,
+			Integer cadenceLow, Integer cadenceHigh, String stepTime) {
 		this.id = id;
 		this.powerInit = powerInit;
 		this.powerStep = powerStep;
@@ -54,48 +54,48 @@ public class TestsErgo implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "power_init", precision = 4, scale = 1)
-	public Double getPowerInit() {
+	@Column(name = "power_init")
+	public Integer getPowerInit() {
 		return this.powerInit;
 	}
 
-	public void setPowerInit(Double powerInit) {
+	public void setPowerInit(Integer powerInit) {
 		this.powerInit = powerInit;
 	}
 
-	@Column(name = "power_step", precision = 4, scale = 1)
-	public Double getPowerStep() {
+	@Column(name = "power_step")
+	public Integer getPowerStep() {
 		return this.powerStep;
 	}
 
-	public void setPowerStep(Double powerStep) {
+	public void setPowerStep(Integer powerStep) {
 		this.powerStep = powerStep;
 	}
 
-	@Column(name = "cadence_low", precision = 4, scale = 1)
-	public Double getCadenceLow() {
+	@Column(name = "cadence_low")
+	public Integer getCadenceLow() {
 		return this.cadenceLow;
 	}
 
-	public void setCadenceLow(Double cadenceLow) {
+	public void setCadenceLow(Integer cadenceLow) {
 		this.cadenceLow = cadenceLow;
 	}
 
-	@Column(name = "cadence_high", precision = 4, scale = 1)
-	public Double getCadenceHigh() {
+	@Column(name = "cadence_high")
+	public Integer getCadenceHigh() {
 		return this.cadenceHigh;
 	}
 
-	public void setCadenceHigh(Double cadenceHigh) {
+	public void setCadenceHigh(Integer cadenceHigh) {
 		this.cadenceHigh = cadenceHigh;
 	}
 
-	@Column(name = "step_time")
-	public Integer getStepTime() {
+	@Column(name = "step_time", length = 5)
+	public String getStepTime() {
 		return this.stepTime;
 	}
 
-	public void setStepTime(Integer stepTime) {
+	public void setStepTime(String stepTime) {
 		this.stepTime = stepTime;
 	}
 
