@@ -45,6 +45,7 @@ public class Tests implements java.io.Serializable, IEntityObject {
 	// Relations
 	private TestsErgo testsErgo;
 	private TestsTreadmill testsTreadmill;
+	private TestsSwim testsSwim;
 	private TestsProtocol testsProtocol;
 
 	private Persons athlete;
@@ -221,6 +222,17 @@ public class Tests implements java.io.Serializable, IEntityObject {
 
 	public void setTestsTreadmill(TestsTreadmill testsTreadmill) {
 		this.testsTreadmill = testsTreadmill;
+	}
+
+	@OneToOne(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    @LazyToOne(LazyToOneOption.FALSE)	
+	public TestsSwim getTestsSwim() {
+		return testsSwim;
+	}
+
+	public void setTestsSwim(TestsSwim testsSwim) {
+		this.testsSwim = testsSwim;
 	}
 
 	@OneToOne(cascade = CascadeType.ALL)

@@ -19,9 +19,9 @@ public class TestsTreadmill implements java.io.Serializable {
 	private Boolean inclineVariable;
 	private Double speedInit;
 	private Double speedStep;
-	private Double inclineInit;
-	private Double inclineStep;
-	private Integer stepTime;
+	private Integer inclineInit;
+	private Integer inclineStep;
+	private String stepTime;
 
 	// Constructors
 
@@ -37,7 +37,7 @@ public class TestsTreadmill implements java.io.Serializable {
 	/** full constructor */
 	public TestsTreadmill(String id, Boolean speedVariable,
 			Boolean inclineVariable, Double speedInit, Double speedStep,
-			Double inclineInit, Double inclineStep, Integer stepTime) {
+			Integer inclineInit, Integer inclineStep, String stepTime) {
 		this.id = id;
 		this.speedVariable = speedVariable;
 		this.inclineVariable = inclineVariable;
@@ -95,30 +95,30 @@ public class TestsTreadmill implements java.io.Serializable {
 		this.speedStep = speedStep;
 	}
 
-	@Column(name = "incline_init", precision = 2, scale = 1)
-	public Double getInclineInit() {
+	@Column(name = "incline_init")
+	public Integer getInclineInit() {
 		return this.inclineInit;
 	}
 
-	public void setInclineInit(Double inclineInit) {
+	public void setInclineInit(Integer inclineInit) {
 		this.inclineInit = inclineInit;
 	}
 
-	@Column(name = "incline_step", precision = 2, scale = 1)
-	public Double getInclineStep() {
+	@Column(name = "incline_step")
+	public Integer getInclineStep() {
 		return this.inclineStep;
 	}
 
-	public void setInclineStep(Double inclineStep) {
+	public void setInclineStep(Integer inclineStep) {
 		this.inclineStep = inclineStep;
 	}
 
-	@Column(name = "step_time")
-	public Integer getStepTime() {
+	@Column(name = "step_time", length = 5)
+	public String getStepTime() {
 		return this.stepTime;
 	}
 
-	public void setStepTime(Integer stepTime) {
+	public void setStepTime(String stepTime) {
 		this.stepTime = stepTime;
 	}
 

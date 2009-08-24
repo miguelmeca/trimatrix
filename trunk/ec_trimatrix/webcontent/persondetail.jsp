@@ -99,12 +99,12 @@
 <t:foldablepane id="g_65" rowdistance="5" text="#{rr.literals.athlete}" width="100%" >
 <t:row id="g_66" >
 <t:label id="g_67" text="#{rr.literals.height}" width="100" x="15" y="45" />
-<t:field id="g_68" attributemacro="entityDetailMacro(PersonDetailUI,height)" regex="\d{0,15}\.{0,1}\d{0,2}" regexmode="1" width="50" x="115" y="45" />
+<t:field id="g_68" attributemacro="entityDetailMacro(PersonDetailUI,height)" regex="\d{0,3}\.{0,1}\d{0,2}" regexmode="1" width="50" x="115" y="45" />
 <t:coldistance id="g_69" />
 <t:label id="g_70" text="cm" width="15" />
 <t:coldistance id="g_71" />
 <t:label id="g_72" height="20" text="#{rr.literals.weight}" width="100" x="365" y="45" />
-<t:field id="g_73" attributemacro="entityDetailMacro(PersonDetailUI,weight)" height="20" width="50" x="465" y="45" />
+<t:field id="g_73" attributemacro="entityDetailMacro(PersonDetailUI,weight)" height="20" regex="\d{0,3}\.{0,1}\d{0,2}" regexmode="1" width="50" x="465" y="45" />
 <t:coldistance id="g_74" />
 <t:label id="g_75" text="kg" />
 </t:row>

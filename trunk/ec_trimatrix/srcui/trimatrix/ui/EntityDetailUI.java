@@ -187,13 +187,13 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 			changeMode(Constants.Mode.SHOW);
 			entityDetailUI.init();
 		} catch (MandatoryCheckException mce) {
-			Statusbar.outputError("Not all mandatory fields filled", "Value for field " + mce.getField() + " missing!" );
+			Statusbar.outputAlert("Not all mandatory fields filled", "Value for field " + mce.getField() + " missing!" );
 		} catch (EmailNotValidException env) {
-			Statusbar.outputError("Email is not valid", "The email address " + env.getEmail() + " is not valid!" );
+			Statusbar.outputAlert("Email is not valid", "The email address " + env.getEmail() + " is not valid!" );
 		} catch (DataIntegrityViolationException dive) {
-			Statusbar.outputError("Entity could not be saved (Data Integrity)", dive.getRootCause().toString());
+			Statusbar.outputAlert("Entity could not be saved (Data Integrity)", dive.getRootCause().toString());
 		} catch (Exception ex){			
-			Statusbar.outputError("Entity could not be saved", ex.toString());			
+			Statusbar.outputAlert("Entity could not be saved", ex.toString());			
 		} 	
 	}
 	

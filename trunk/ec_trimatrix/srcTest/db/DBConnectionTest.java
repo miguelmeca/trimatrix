@@ -37,6 +37,7 @@ import trimatrix.db.RolesHaveFunctionnodes;
 import trimatrix.db.Tests;
 import trimatrix.db.TestsErgo;
 import trimatrix.db.TestsProtocol;
+import trimatrix.db.TestsSwim;
 import trimatrix.db.TestsTreadmill;
 import trimatrix.db.Users;
 import trimatrix.services.SQLExecutorService;
@@ -282,14 +283,17 @@ public class DBConnectionTest {
 		Tests test = new Tests(id);		
 		// ergo
 		TestsErgo ergo = new TestsErgo(id);
-		ergo.setCadenceLow(90d);
-		ergo.setCadenceHigh(95d);
+		ergo.setCadenceLow(90);
+		ergo.setCadenceHigh(95);
 		test.setTestsErgo(ergo);
 		// treadmill
 		TestsTreadmill treadmill = new TestsTreadmill(id);
 		treadmill.setSpeedVariable(true);
-		treadmill.setStepTime(90);
+		treadmill.setStepTime("00:01");
 		test.setTestsTreadmill(treadmill);
+		// swim
+		TestsSwim swim = new TestsSwim(id);
+		test.setTestsSwim(swim);
 		// protocoll
 		TestsProtocol protocol = new TestsProtocol(id);
 		protocol.setModel("Testmodell");
@@ -302,6 +306,7 @@ public class DBConnectionTest {
 		Assert.assertEquals("TREADMILL", test2.getType());
 		Assert.assertNotNull(test2.getTestsErgo());
 		Assert.assertNotNull(test2.getTestsTreadmill());
+		Assert.assertNotNull(test2.getTestsSwim());
 		Assert.assertNotNull(test2.getTestsProtocol());
 		daoLayer.getTestsDAO().delete(test2);
 	}

@@ -65,7 +65,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable, IEnti
 	private Tests entity;	
 	
 	public TestDetailUI(IWorkpageDispatcher dispatcher) {
-		super(dispatcher, new String[] {TestEntity.PERSON, TestEntity.TYPE, TestEntity.DOCTOR, TestEntity.DATE}, true);
+		super(dispatcher, new String[] {TestEntity.PERSON, TestEntity.TYPE, TestEntity.DATE}, true);
 		// get wrapping entity detail UI bean
 		entityDetailUI = getEntityDetailUI();		
 		entityDetailUI.setEntityDetailUI(this);		
@@ -128,6 +128,36 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable, IEnti
 		setAthleteDescription(entity);	
 		setDoctorDescription(entity);	
 		
+		// ergo
+		if(entity.getTestsErgo()!=null) {
+			values.put(TestEntity.POWER_INIT, entity.getTestsErgo().getPowerInit());
+			values.put(TestEntity.POWER_STEP, entity.getTestsErgo().getPowerStep());
+			values.put(TestEntity.CADENCE_LOW, entity.getTestsErgo().getCadenceLow());
+			values.put(TestEntity.CADENCE_HIGH, entity.getTestsErgo().getCadenceHigh());
+			values.put(TestEntity.ERGO_STEP_TIME, entity.getTestsErgo().getStepTime());
+		}
+		
+		// treadmill
+		if(entity.getTestsTreadmill()!=null) {
+			values.put(TestEntity.SPEED_VARIABLE, entity.getTestsTreadmill().getSpeedVariable());
+			values.put(TestEntity.SPEED_INIT, entity.getTestsTreadmill().getSpeedInit());
+			values.put(TestEntity.SPEED_STEP, entity.getTestsTreadmill().getSpeedStep());
+			values.put(TestEntity.INCLINE_VARIABLE, entity.getTestsTreadmill().getInclineVariable());
+			values.put(TestEntity.INCLINE_INIT, entity.getTestsTreadmill().getInclineInit());
+			values.put(TestEntity.INCLINE_STEP, entity.getTestsTreadmill().getInclineStep());
+			values.put(TestEntity.ERGO_STEP_TIME, entity.getTestsTreadmill().getStepTime());
+		}
+		
+		// swim
+		if(entity.getTestsSwim()!=null) {
+			values.put(TestEntity.DATE2, entity.getTestsSwim().getDate2());
+			values.put(TestEntity.ASSISTANT_NAME, entity.getTestsSwim().getAssistantName());
+			values.put(TestEntity.BATHS, entity.getTestsSwim().getBaths());
+			values.put(TestEntity.POOL, entity.getTestsSwim().getPool());
+			values.put(TestEntity.DISTANCE, entity.getTestsSwim().getDistance());
+			values.put(TestEntity.SPLITS, entity.getTestsSwim().getSplits());
+		}		
+		
 		// add bgpaint of fields
 		bgpaint.clear();
 		// mandatory fields
@@ -155,14 +185,17 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable, IEnti
 	}
 	
 	public boolean isErgo() {
-		Statusbar.outputMessage("Type: " + entity.getType());
 		if (entity.getType()==null || !entity.getType().equals("ergo")) return false;		
 		return true;
 	}
 	
 	public boolean isTreadmill() {
-		Statusbar.outputMessage("Type: " + entity.getType());
 		if (entity.getType()==null || !entity.getType().equals("treadmill")) return false;
+		return true;
+	}
+	
+	public boolean isSwim() {
+		if (entity.getType()==null || !entity.getType().equals("swim")) return false;
 		return true;
 	}
 

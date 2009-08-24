@@ -21,6 +21,7 @@ public class DAOLayer {
 	private ISimpleDAO<PersonsAthlete> personAthleteDAO;	
 	private ISimpleDAO<TestsErgo> testsErgoDAO;
 	private ISimpleDAO<TestsTreadmill> testsTreadmillDAO;
+	private ISimpleDAO<TestsSwim> testsSwimDAO;
 	private ISimpleDAO<TestsProtocol> testsProtocolDAO;	
 	private IComplexDAO<ListVariants, ListVariantsId> listVariantsDAO;	
 	private ILabelsDAO labelsDAO;
@@ -139,6 +140,13 @@ public class DAOLayer {
 	}
 	public void setTestsTreadmillDAO(ISimpleDAO<TestsTreadmill> testsTreadmillDAO) {
 		this.testsTreadmillDAO = testsTreadmillDAO;
+	}
+	
+	public ISimpleDAO<TestsSwim> getTestsSwimDAO() {
+		return testsSwimDAO;
+	}
+	public void setTestsSwimDAO(ISimpleDAO<TestsSwim> testsSwimDAO) {
+		this.testsSwimDAO = testsSwimDAO;
 	}
 	public ISimpleDAO<TestsProtocol> getTestsProtocolDAO() {
 		return testsProtocolDAO;
