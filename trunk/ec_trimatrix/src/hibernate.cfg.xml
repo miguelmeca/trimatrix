@@ -48,28 +48,22 @@
 			<property name="hibernate.ejb.event.pre-collection-remove">org.hibernate.envers.event.AuditEventListener</property>
 			<property name="hibernate.ejb.event.post-collection-recreate">org.hibernate.envers.event.AuditEventListener</property>
 		-->
-
-		<mapping resource="trimatrix/db/Users.hbm.xml" />
-		<mapping resource="trimatrix/db/Persons.hbm.xml" />
-		<mapping resource="trimatrix/db/KRoles.hbm.xml" />
 		<mapping resource="trimatrix/db/UsersHaveRoles.hbm.xml" />
-		<mapping resource="trimatrix/db/UsersHaveAuthorizations.hbm.xml" />
-		<mapping resource="trimatrix/db/RolesHaveFunctionnodes.hbm.xml" />
+		<mapping
+			resource="trimatrix/db/UsersHaveAuthorizations.hbm.xml" />
 		<mapping resource="trimatrix/services/NamedQueries.hbm.xml" />
 		<mapping resource="trimatrix/db/PersonsHaveRelations.hbm.xml" />
-		<mapping resource="trimatrix/db/Doctors.hbm.xml" />
 		<mapping resource="trimatrix/db/PersonsHaveDoctors.hbm.xml" />
 		<mapping resource="trimatrix/db/Attachments.hbm.xml" />
 		<mapping resource="trimatrix/db/PersonsHaveAttachments.hbm.xml" />
 		<mapping resource="trimatrix/db/ListVariants.hbm.xml" />
 		<mapping resource="trimatrix/db/EntitiesHaveLabels.hbm.xml" />
 		<mapping resource="trimatrix/db/Labels.hbm.xml" />
-		<mapping resource="trimatrix/db/Entities.hbm.xml" />
 		<mapping resource="trimatrix/db/PersonsAthlete.hbm.xml" />
-		<mapping class="trimatrix.db.TestsTreadmill"></mapping>
-		<mapping class="trimatrix.db.TestsProtocol"></mapping>
-		<mapping class="trimatrix.db.TestsErgo"></mapping>
-		<mapping class="trimatrix.db.Tests"></mapping>
+		<mapping class="trimatrix.db.TestsTreadmill" />
+		<mapping class="trimatrix.db.TestsProtocol" />
+		<mapping class="trimatrix.db.TestsErgo" />
+		<mapping class="trimatrix.db.Tests" />
 		<mapping class="trimatrix.db.TTesttypes" />
 		<mapping class="trimatrix.db.TCountries" />
 		<mapping class="trimatrix.db.TCategories" />
@@ -80,6 +74,12 @@
 		<mapping class="trimatrix.db.TLanguages" />
 		<mapping class="trimatrix.db.TSalutation" />
 		<mapping class="trimatrix.db.TSex" />
+		<mapping class="trimatrix.db.Persons" />
+		<mapping class="trimatrix.db.Doctors" />
+		<mapping class="trimatrix.db.Users" />
+		<mapping class="trimatrix.db.KRoles" />
+		<mapping class="trimatrix.db.RolesHaveFunctionnodes" />
+		<mapping class="trimatrix.db.Entities" />
 	</session-factory>
 
 </hibernate-configuration>

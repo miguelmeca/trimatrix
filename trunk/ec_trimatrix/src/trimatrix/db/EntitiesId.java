@@ -1,9 +1,12 @@
 package trimatrix.db;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
 /**
  * EntitiesId entity. @author MyEclipse Persistence Tools
  */
-
+@Embeddable
 public class EntitiesId implements java.io.Serializable {
 
 	// Fields
@@ -33,6 +36,7 @@ public class EntitiesId implements java.io.Serializable {
 
 	// Property accessors
 
+	@Column(name = "id", nullable = false, length = 36)
 	public String getId() {
 		return this.id;
 	}
@@ -41,6 +45,7 @@ public class EntitiesId implements java.io.Serializable {
 		this.id = id;
 	}
 
+	@Column(name = "entity", nullable = false, length = 10)
 	public String getEntity() {
 		return this.entity;
 	}
@@ -49,6 +54,7 @@ public class EntitiesId implements java.io.Serializable {
 		this.entity = entity;
 	}
 
+	@Column(name = "deleted")
 	public Short getDeleted() {
 		return this.deleted;
 	}
@@ -57,7 +63,6 @@ public class EntitiesId implements java.io.Serializable {
 		this.deleted = deleted;
 	}
 
-	@Override
 	public boolean equals(Object other) {
 		if ((this == other))
 			return true;
@@ -80,7 +85,6 @@ public class EntitiesId implements java.io.Serializable {
 						.equals(castOther.getDeleted())));
 	}
 
-	@Override
 	public int hashCode() {
 		int result = 17;
 

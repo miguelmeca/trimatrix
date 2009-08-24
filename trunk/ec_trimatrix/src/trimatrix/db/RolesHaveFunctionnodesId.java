@@ -1,8 +1,12 @@
 package trimatrix.db;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
 /**
  * RolesHaveFunctionnodesId entity. @author MyEclipse Persistence Tools
  */
+@Embeddable
 public class RolesHaveFunctionnodesId implements java.io.Serializable {
 
 	// Fields
@@ -17,14 +21,14 @@ public class RolesHaveFunctionnodesId implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public RolesHaveFunctionnodesId(String roleKey,
-			String functionnodeKey) {
+	public RolesHaveFunctionnodesId(String roleKey, String functionnodeKey) {
 		this.roleKey = roleKey;
 		this.functionnodeKey = functionnodeKey;
 	}
 
 	// Property accessors
 
+	@Column(name = "role_key", nullable = false, length = 36)
 	public String getRoleKey() {
 		return this.roleKey;
 	}
@@ -33,6 +37,7 @@ public class RolesHaveFunctionnodesId implements java.io.Serializable {
 		this.roleKey = roleKey;
 	}
 
+	@Column(name = "functionnode_key", nullable = false, length = 36)
 	public String getFunctionnodeKey() {
 		return this.functionnodeKey;
 	}
@@ -41,7 +46,6 @@ public class RolesHaveFunctionnodesId implements java.io.Serializable {
 		this.functionnodeKey = functionnodeKey;
 	}
 
-	@Override
 	public boolean equals(Object other) {
 		if ((this == other))
 			return true;
@@ -62,7 +66,6 @@ public class RolesHaveFunctionnodesId implements java.io.Serializable {
 								castOther.getFunctionnodeKey())));
 	}
 
-	@Override
 	public int hashCode() {
 		int result = 17;
 

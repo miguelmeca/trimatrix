@@ -7,10 +7,14 @@ import java.util.Date;
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.elements.events.BaseActionEventUpload;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.util.valuemgmt.ValueManager;
 import org.eclnt.workplace.IWorkpageDispatcher;
+import org.hibernate.validator.ClassValidator;
+import org.hibernate.validator.InvalidValue;
+import org.hibernate.validator.Validator;
 
 import trimatrix.db.Persons;
 import trimatrix.db.PersonsAthlete;
@@ -99,9 +103,12 @@ public class PersonDetailUI extends AEntityDetailUI implements Serializable, IEn
 		// mandatory check
 		checkMandatory();
         // email check
-		if(!Dictionary.isEmailValid((String)values.get(PersonEntity.EMAIL))) {
+		ClassValidator<Persons> validator = new ClassValidator<Persons>(Persons.class);
+		String email = (String)values.get(PersonEntity.EMAIL);
+		InvalidValue[] invalidValues = validator.getPotentialInvalidValues(PersonEntity.EMAIL, email);
+		if(invalidValues.length>0) {
 			throw new EmailNotValidException((String)values.get(values.get(PersonEntity.EMAIL)));
-		}	
+		}		
 		// fill values to entities properties
 		fillEntityProperties();
 	}
