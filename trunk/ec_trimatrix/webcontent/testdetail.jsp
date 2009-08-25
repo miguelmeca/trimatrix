@@ -68,27 +68,27 @@
 <t:foldablepane id="g_45" rendered="#{d.TestDetailUI.treadmill}" text="#{rr.literals.treadmill}" width="100%" >
 <t:row id="g_46" >
 <t:label id="g_47" text="#{rr.literals.speed_init}" width="150" />
-<t:field id="g_48" regex="\d{0,2}\.{0,1}\d{0,2}" regexmode="1" userhint="km/h" width="50" />
+<t:field id="g_48" attributemacro="entityDetailMacro(TestDetailUI,speed_init)" regex="\d{0,2}\.{0,1}\d{0,2}" regexmode="1" userhint="km/h" width="50" />
 <t:coldistance id="g_49" />
-<t:checkbox id="g_50" text="#{rr.literals.variable}" />
+<t:checkbox id="g_50" attributemacro="entityDetailMacro(TestDetailUI,speed_variable)" text="#{rr.literals.variable}" />
 <t:coldistance id="g_51" />
 <t:label id="g_52" text="#{rr.literals.speed_step}" width="150" />
-<t:field id="g_53" regex="\d{0,2}\.{0,1}\d{0,2}" regexmode="1" userhint="km/h" width="50" />
+<t:field id="g_53" attributemacro="entityDetailMacro(TestDetailUI,speed_step)" regex="\d{0,2}\.{0,1}\d{0,2}" regexmode="1" userhint="km/h" width="50" />
 </t:row>
 <t:rowdistance id="g_54" />
 <t:row id="g_55" >
 <t:label id="g_56" text="#{rr.literals.incline_init}" width="150" />
-<t:formattedfield id="g_57" format="int" userhint="%" width="50" />
+<t:formattedfield id="g_57" attributemacro="entityDetailMacro(TestDetailUI,incline_init)" format="int" userhint="%" width="50" />
 <t:coldistance id="g_58" />
-<t:checkbox id="g_59" text="#{rr.literals.variable}" />
+<t:checkbox id="g_59" attributemacro="entityDetailMacro(TestDetailUI,incline_variable)" text="#{rr.literals.variable}" />
 <t:coldistance id="g_60" />
 <t:label id="g_61" text="#{rr.literals.incline_step}" width="150" />
-<t:formattedfield id="g_62" format="int" userhint="%" width="50" />
+<t:formattedfield id="g_62" attributemacro="entityDetailMacro(TestDetailUI,incline_step)" format="int" userhint="%" width="50" />
 </t:row>
 <t:rowdistance id="g_63" />
 <t:row id="g_64" >
 <t:label id="g_65" text="#{rr.literals.time_step}" width="150" />
-<t:field id="g_66" regex="\d\d:[0-5]\d" regexmode="1" userhint="mm:ss" width="50" />
+<t:field id="g_66" attributemacro="entityDetailMacro(TestDetailUI,treadmill_step_time)" regex="\d\d:[0-5]\d" regexmode="1" userhint="mm:ss" width="50" />
 </t:row>
 </t:foldablepane>
 </t:row>

@@ -59,7 +59,7 @@ public class PersonsAthlete implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "height", precision = 10)
+	@Column(name = "height", columnDefinition="decimal")
 	public Double getHeight() {
 		return this.height;
 	}
@@ -77,7 +77,7 @@ public class PersonsAthlete implements java.io.Serializable {
 		this.heightUnit = heightUnit;
 	}
 
-	@Column(name = "weight", precision = 10)
+	@Column(name = "weight", columnDefinition="decimal")
 	public Double getWeight() {
 		return this.weight;
 	}

@@ -138,7 +138,7 @@ public class Tests implements java.io.Serializable, IEntityObject {
 		this.date = date;
 	}
 
-	@Column(name = "description", length = 65535)
+	@Column(name = "description", columnDefinition="text")
 	public String getDescription() {
 		return this.description;
 	}
