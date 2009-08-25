@@ -66,7 +66,7 @@ public class TestsProtocol implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "description", length = 65535)
+	@Column(name = "description", columnDefinition="text")
 	public String getDescription() {
 		return this.description;
 	}
@@ -111,7 +111,7 @@ public class TestsProtocol implements java.io.Serializable {
 		this.countSteps = countSteps;
 	}
 
-	@Column(name = "lactate", length = 65535)
+	@Column(name = "lactate", columnDefinition="text")
 	public String getLactate() {
 		return this.lactate;
 	}
@@ -120,7 +120,7 @@ public class TestsProtocol implements java.io.Serializable {
 		this.lactate = lactate;
 	}
 
-	@Column(name = "hr", length = 65535)
+	@Column(name = "hr", columnDefinition="text")
 	public String getHr() {
 		return this.hr;
 	}
@@ -129,7 +129,7 @@ public class TestsProtocol implements java.io.Serializable {
 		this.hr = hr;
 	}
 
-	@Column(name = "o2_absorption", length = 65535)
+	@Column(name = "o2_absorption", columnDefinition="text")
 	public String getO2Absorption() {
 		return this.o2Absorption;
 	}
@@ -138,7 +138,7 @@ public class TestsProtocol implements java.io.Serializable {
 		this.o2Absorption = o2Absorption;
 	}
 
-	@Column(name = "co2_emission", length = 65535)
+	@Column(name = "co2_emission", columnDefinition="text")
 	public String getCo2Emission() {
 		return this.co2Emission;
 	}
@@ -147,7 +147,7 @@ public class TestsProtocol implements java.io.Serializable {
 		this.co2Emission = co2Emission;
 	}
 
-	@Column(name = "rq", length = 65535)
+	@Column(name = "rq", columnDefinition="text")
 	public String getRq() {
 		return this.rq;
 	}

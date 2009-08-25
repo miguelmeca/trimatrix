@@ -77,7 +77,7 @@ public class TestsTreadmill implements java.io.Serializable {
 		this.inclineVariable = inclineVariable;
 	}
 
-	@Column(name = "speed_init", precision = 2, scale = 1)
+	@Column(name = "speed_init", columnDefinition="decimal")
 	public Double getSpeedInit() {
 		return this.speedInit;
 	}
@@ -86,7 +86,7 @@ public class TestsTreadmill implements java.io.Serializable {
 		this.speedInit = speedInit;
 	}
 
-	@Column(name = "speed_step", precision = 2, scale = 1)
+	@Column(name = "speed_step", columnDefinition="decimal")
 	public Double getSpeedStep() {
 		return this.speedStep;
 	}

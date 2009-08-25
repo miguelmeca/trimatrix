@@ -193,7 +193,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 		} catch (DataIntegrityViolationException dive) {
 			Statusbar.outputAlert("Entity could not be saved (Data Integrity)", dive.getRootCause().toString());
 		} catch (Exception ex){			
-			Statusbar.outputAlert("Entity could not be saved", ex.toString());			
+			Statusbar.outputAlert(ex.toString(), "Entity could not be saved");				
 		} 	
 	}
 	
