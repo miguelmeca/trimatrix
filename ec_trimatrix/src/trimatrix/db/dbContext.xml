@@ -11,8 +11,31 @@
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="lobHandler" ref="defaultLobHandler"></property>
-		<property name="configLocation" value="classpath:hibernate.cfg.xml">
+		<property name="configLocation" value="classpath:hibernate.cfg.xml"></property>
+		<!-- Activate Revision
+		<property name="eventListeners">
+			<map>
+			<entry key="post-update">
+				<bean class="org.hibernate.envers.event.AuditEventListener" />
+			</entry>
+			<entry key="post-insert">
+				<bean class="org.hibernate.envers.event.AuditEventListener" />
+			</entry>
+			<entry key="post-delete">
+				<bean class="org.hibernate.envers.event.AuditEventListener" />
+			</entry>
+			<entry key="pre-collection-update">
+				<bean class="org.hibernate.envers.event.AuditEventListener" />
+			</entry>	
+			<entry key="pre-collection-remove">
+				<bean class="org.hibernate.envers.event.AuditEventListener" />
+			</entry>
+			<entry key="post-collection-recreate">
+				<bean class="org.hibernate.envers.event.AuditEventListener" />
+			</entry>					
+			</map>		
 		</property>
+		-->
 	</bean>
 
 	<!-- A transaction manager for a single JDBC connection -->

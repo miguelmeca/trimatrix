@@ -1,90 +1,96 @@
 package trimatrix.db;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
+
 /**
  * ListVariantsId entity. @author MyEclipse Persistence Tools
  */
+@Embeddable
 
-public class ListVariantsId implements java.io.Serializable {
+public class ListVariantsId  implements java.io.Serializable {
 
-	// Fields
 
-	private String list;
-	private String entity;
-	private String userId;
+    // Fields    
 
-	// Constructors
+     private String list;
+     private String entity;
+     private String userId;
 
-	/** default constructor */
-	public ListVariantsId() {
-	}
 
-	/** full constructor */
-	public ListVariantsId(String list, String entity, String userId) {
-		this.list = list;
-		this.entity = entity;
-		this.userId = userId;
-	}
+    // Constructors
 
-	// Property accessors
+    /** default constructor */
+    public ListVariantsId() {
+    }
 
-	public String getList() {
-		return this.list;
-	}
+    
+    /** full constructor */
+    public ListVariantsId(String list, String entity, String userId) {
+        this.list = list;
+        this.entity = entity;
+        this.userId = userId;
+    }
 
-	public void setList(String list) {
-		this.list = list;
-	}
+   
+    // Property accessors
 
-	public String getEntity() {
-		return this.entity;
-	}
+    @Column(name="list", nullable=false, length=25)
 
-	public void setEntity(String entity) {
-		this.entity = entity;
-	}
+    public String getList() {
+        return this.list;
+    }
+    
+    public void setList(String list) {
+        this.list = list;
+    }
 
-	public String getUserId() {
-		return this.userId;
-	}
+    @Column(name="entity", nullable=false, length=25)
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+    public String getEntity() {
+        return this.entity;
+    }
+    
+    public void setEntity(String entity) {
+        this.entity = entity;
+    }
 
-	@Override
-	public boolean equals(Object other) {
-		if ((this == other))
-			return true;
-		if ((other == null))
-			return false;
-		if (!(other instanceof ListVariantsId))
-			return false;
-		ListVariantsId castOther = (ListVariantsId) other;
+    @Column(name="user_id", nullable=false, length=36)
 
-		return ((this.getList() == castOther.getList()) || (this.getList() != null
-				&& castOther.getList() != null && this.getList().equals(
-				castOther.getList())))
-				&& ((this.getEntity() == castOther.getEntity()) || (this
-						.getEntity() != null
-						&& castOther.getEntity() != null && this.getEntity()
-						.equals(castOther.getEntity())))
-				&& ((this.getUserId() == castOther.getUserId()) || (this
-						.getUserId() != null
-						&& castOther.getUserId() != null && this.getUserId()
-						.equals(castOther.getUserId())));
-	}
+    public String getUserId() {
+        return this.userId;
+    }
+    
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+   
 
-	@Override
-	public int hashCode() {
-		int result = 17;
 
-		result = 37 * result
-				+ (getList() == null ? 0 : this.getList().hashCode());
-		result = 37 * result
-				+ (getEntity() == null ? 0 : this.getEntity().hashCode());
-		result = 37 * result
-				+ (getUserId() == null ? 0 : this.getUserId().hashCode());
-		return result;
-	}
+
+   public boolean equals(Object other) {
+         if ( (this == other ) ) return true;
+		 if ( (other == null ) ) return false;
+		 if ( !(other instanceof ListVariantsId) ) return false;
+		 ListVariantsId castOther = ( ListVariantsId ) other; 
+         
+		 return ( (this.getList()==castOther.getList()) || ( this.getList()!=null && castOther.getList()!=null && this.getList().equals(castOther.getList()) ) )
+ && ( (this.getEntity()==castOther.getEntity()) || ( this.getEntity()!=null && castOther.getEntity()!=null && this.getEntity().equals(castOther.getEntity()) ) )
+ && ( (this.getUserId()==castOther.getUserId()) || ( this.getUserId()!=null && castOther.getUserId()!=null && this.getUserId().equals(castOther.getUserId()) ) );
+   }
+   
+   public int hashCode() {
+         int result = 17;
+         
+         result = 37 * result + ( getList() == null ? 0 : this.getList().hashCode() );
+         result = 37 * result + ( getEntity() == null ? 0 : this.getEntity().hashCode() );
+         result = 37 * result + ( getUserId() == null ? 0 : this.getUserId().hashCode() );
+         return result;
+   }   
+
+
+
+
 
 }

@@ -149,7 +149,7 @@ public class Attachments  implements java.io.Serializable, IEntityObject {
         this.fileSize = fileSize;
     }
     
-    @Column(name="file_content")
+    @Column(name="file_content", columnDefinition="mediumblob")    
     public byte[] getFileContent() {
         return this.fileContent;
     }

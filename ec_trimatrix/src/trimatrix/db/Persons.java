@@ -13,7 +13,6 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
 import org.hibernate.validator.Email;
-import org.hibernate.validator.NotEmpty;
 
 import trimatrix.entities.IEntityObject;
 import trimatrix.utils.Constants;
@@ -257,7 +256,7 @@ public class Persons implements java.io.Serializable, IEntityObject {
 		this.birthdate = birthdate;
 	}
 
-	@Column(name = "picture")
+	@Column(name = "picture", columnDefinition="blob")
 	public byte[] getPicture() {
 		return this.picture;
 	}
