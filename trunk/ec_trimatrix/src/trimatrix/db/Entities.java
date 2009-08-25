@@ -34,7 +34,7 @@ public class Entities implements java.io.Serializable {
 	@AttributeOverrides( {
 			@AttributeOverride(name = "id", column = @Column(name = "id", nullable = false, length = 36)),
 			@AttributeOverride(name = "entity", column = @Column(name = "entity", nullable = false, length = 10)),
-			@AttributeOverride(name = "deleted", column = @Column(name = "deleted")) })
+			@AttributeOverride(name = "deleted", column = @Column(name = "deleted", columnDefinition="tinyint")) })
 	public EntitiesId getId() {
 		return this.id;
 	}

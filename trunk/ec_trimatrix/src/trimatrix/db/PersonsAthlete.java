@@ -1,9 +1,15 @@
 package trimatrix.db;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * PersonsAthlete entity. @author MyEclipse Persistence Tools
  */
+@Entity
+@Table(name = "persons_athlete", catalog = "trimatrix")
 public class PersonsAthlete implements java.io.Serializable {
 
 	// Fields
@@ -43,7 +49,8 @@ public class PersonsAthlete implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@Column(name = "id", unique = true, nullable = false, length = 36)
 	public String getId() {
 		return this.id;
 	}
@@ -52,6 +59,7 @@ public class PersonsAthlete implements java.io.Serializable {
 		this.id = id;
 	}
 
+	@Column(name = "height", precision = 10)
 	public Double getHeight() {
 		return this.height;
 	}
@@ -60,6 +68,7 @@ public class PersonsAthlete implements java.io.Serializable {
 		this.height = height;
 	}
 
+	@Column(name = "height_unit", length = 5)
 	public String getHeightUnit() {
 		return this.heightUnit;
 	}
@@ -68,6 +77,7 @@ public class PersonsAthlete implements java.io.Serializable {
 		this.heightUnit = heightUnit;
 	}
 
+	@Column(name = "weight", precision = 10)
 	public Double getWeight() {
 		return this.weight;
 	}
@@ -76,6 +86,7 @@ public class PersonsAthlete implements java.io.Serializable {
 		this.weight = weight;
 	}
 
+	@Column(name = "weight_unit", length = 5)
 	public String getWeightUnit() {
 		return this.weightUnit;
 	}
@@ -84,6 +95,7 @@ public class PersonsAthlete implements java.io.Serializable {
 		this.weightUnit = weightUnit;
 	}
 
+	@Column(name = "max_hr")
 	public Integer getMaxHr() {
 		return this.maxHr;
 	}
@@ -92,6 +104,7 @@ public class PersonsAthlete implements java.io.Serializable {
 		this.maxHr = maxHr;
 	}
 
+	@Column(name = "resting_hr")
 	public Integer getRestingHr() {
 		return this.restingHr;
 	}
@@ -100,6 +113,7 @@ public class PersonsAthlete implements java.io.Serializable {
 		this.restingHr = restingHr;
 	}
 
+	@Column(name = "vo2_max")
 	public Integer getVo2Max() {
 		return this.vo2Max;
 	}

@@ -39,6 +39,10 @@
 
 		<!-- Bind the getCurrentSession() method to the thread. -->
 		<property name="current_session_context_class">thread</property>
+		
+		<!--  
+		<property name="hbm2ddl.auto">validate</property>
+		-->
 
 		<!-- Activate Envers                
 			<property name="hibernate.ejb.event.post-insert">org.hibernate.ejb.event.EJB3PostInsertEventListener,org.hibernate.envers.event.AuditEventListener</property>
@@ -48,6 +52,7 @@
 			<property name="hibernate.ejb.event.pre-collection-remove">org.hibernate.envers.event.AuditEventListener</property>
 			<property name="hibernate.ejb.event.post-collection-recreate">org.hibernate.envers.event.AuditEventListener</property>
 		-->
+
 		<mapping resource="trimatrix/db/UsersHaveRoles.hbm.xml" />
 		<mapping
 			resource="trimatrix/db/UsersHaveAuthorizations.hbm.xml" />
@@ -55,10 +60,8 @@
 		<mapping resource="trimatrix/db/PersonsHaveRelations.hbm.xml" />
 		<mapping resource="trimatrix/db/PersonsHaveDoctors.hbm.xml" />
 		<mapping resource="trimatrix/db/PersonsHaveAttachments.hbm.xml" />
-		<mapping resource="trimatrix/db/ListVariants.hbm.xml" />
 		<mapping resource="trimatrix/db/EntitiesHaveLabels.hbm.xml" />
 		<mapping resource="trimatrix/db/Labels.hbm.xml" />
-		<mapping resource="trimatrix/db/PersonsAthlete.hbm.xml" />
 		<mapping class="trimatrix.db.TestsTreadmill" />
 		<mapping class="trimatrix.db.TestsProtocol" />
 		<mapping class="trimatrix.db.TestsErgo" />
@@ -81,6 +84,8 @@
 		<mapping class="trimatrix.db.Entities" />
 		<mapping class="trimatrix.db.TestsSwim" />
 		<mapping class="trimatrix.db.Attachments" />
+		<mapping class="trimatrix.db.ListVariants" />
+		<mapping class="trimatrix.db.PersonsAthlete" />
 	</session-factory>
 
 </hibernate-configuration>
