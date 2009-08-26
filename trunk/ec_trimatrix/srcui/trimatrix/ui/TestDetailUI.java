@@ -7,6 +7,8 @@ import java.util.Date;
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
+import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
+import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
@@ -14,6 +16,7 @@ import trimatrix.db.Doctors;
 import trimatrix.db.Persons;
 import trimatrix.db.Tests;
 import trimatrix.db.TestsErgo;
+import trimatrix.db.TestsProtocol;
 import trimatrix.db.TestsSwim;
 import trimatrix.db.TestsTreadmill;
 import trimatrix.entities.TestEntity;
@@ -26,6 +29,14 @@ import trimatrix.utils.Helper;
 
 public class TestDetailUI extends AEntityDetailUI implements Serializable, IEntityDetailUI
 {
+    protected FIXGRIDListBinding<GridTreadmillItem> m_gridTreadmill = new FIXGRIDListBinding<GridTreadmillItem>();
+    public FIXGRIDListBinding<GridTreadmillItem> getGridTreadmill() { return m_gridTreadmill; }
+    public void setGridTreadmill(FIXGRIDListBinding<GridTreadmillItem> value) { m_gridTreadmill = value; }
+
+    public class GridTreadmillItem extends FIXGRIDItem implements java.io.Serializable
+    {
+    }
+
     public void onDoctorSearch(ActionEvent event) {
     	IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(Constants.Entity.DOCTOR);
        	entitySelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){
@@ -185,7 +196,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable, IEnti
 		if(isTreadmill()) {
 			TestsTreadmill treadmill = entity.getTestsTreadmill();
 			treadmill.setSpeedVariable((Boolean)values.get(TestEntity.SPEED_VARIABLE));
-			treadmill.setSpeedInit((Double)values.get(TestEntity.SPEED_INIT));
+			treadmill.setSpeedInit((Double)values.get(TestEntity.SPEED_INIT));			
 			treadmill.setSpeedStep((Double)values.get(TestEntity.SPEED_STEP));
 			treadmill.setInclineVariable((Boolean)values.get(TestEntity.INCLINE_VARIABLE));
 			treadmill.setInclineInit((Integer)values.get(TestEntity.INCLINE_INIT));
@@ -223,33 +234,40 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable, IEnti
 		setDoctorDescription(entity);	
 		
 		// ergo
-		if(isErgo()) {
-			values.put(TestEntity.POWER_INIT, entity.getTestsErgo().getPowerInit());
-			values.put(TestEntity.POWER_STEP, entity.getTestsErgo().getPowerStep());
-			values.put(TestEntity.CADENCE_LOW, entity.getTestsErgo().getCadenceLow());
-			values.put(TestEntity.CADENCE_HIGH, entity.getTestsErgo().getCadenceHigh());
-			values.put(TestEntity.ERGO_STEP_TIME, entity.getTestsErgo().getStepTime());
+		TestsErgo ergo = entity.getTestsErgo();
+		if(ergo!=null) {
+			values.put(TestEntity.POWER_INIT, ergo.getPowerInit());
+			values.put(TestEntity.POWER_STEP, ergo.getPowerStep());
+			values.put(TestEntity.CADENCE_LOW, ergo.getCadenceLow());
+			values.put(TestEntity.CADENCE_HIGH, ergo.getCadenceHigh());
+			values.put(TestEntity.ERGO_STEP_TIME, ergo.getStepTime());
 		}
 		
-		// treadmill
-		if(isTreadmill()) {
-			values.put(TestEntity.SPEED_VARIABLE, entity.getTestsTreadmill().getSpeedVariable());
-			values.put(TestEntity.SPEED_INIT, entity.getTestsTreadmill().getSpeedInit());
-			values.put(TestEntity.SPEED_STEP, entity.getTestsTreadmill().getSpeedStep());
-			values.put(TestEntity.INCLINE_VARIABLE, entity.getTestsTreadmill().getInclineVariable());
-			values.put(TestEntity.INCLINE_INIT, entity.getTestsTreadmill().getInclineInit());
-			values.put(TestEntity.INCLINE_STEP, entity.getTestsTreadmill().getInclineStep());
-			values.put(TestEntity.ERGO_STEP_TIME, entity.getTestsTreadmill().getStepTime());
+		// treadmill		
+		TestsTreadmill treadmill = entity.getTestsTreadmill();
+		if(treadmill!=null) {
+			values.put(TestEntity.SPEED_VARIABLE, treadmill.getSpeedVariable());
+			values.put(TestEntity.SPEED_INIT, treadmill.getSpeedInit());
+			values.put(TestEntity.SPEED_STEP, treadmill.getSpeedStep());
+			values.put(TestEntity.INCLINE_VARIABLE, treadmill.getInclineVariable());
+			values.put(TestEntity.INCLINE_INIT, treadmill.getInclineInit());
+			values.put(TestEntity.INCLINE_STEP, treadmill.getInclineStep());
+			values.put(TestEntity.TREADMILL_STEP_TIME, treadmill.getStepTime());
+		} else {
+			// reset checkboxes for gui update
+			values.put(TestEntity.INCLINE_VARIABLE, false);
+			values.put(TestEntity.SPEED_VARIABLE, false);
 		}
 		
 		// swim
-		if(isSwim()) {
-			values.put(TestEntity.DATE2, entity.getTestsSwim().getDate2());
-			values.put(TestEntity.ASSISTANT_NAME, entity.getTestsSwim().getAssistantName());
-			values.put(TestEntity.BATHS, entity.getTestsSwim().getBaths());
-			values.put(TestEntity.POOL, entity.getTestsSwim().getPool());
-			values.put(TestEntity.DISTANCE, entity.getTestsSwim().getDistance());
-			values.put(TestEntity.SPLITS, entity.getTestsSwim().getSplits());
+		TestsSwim swim = entity.getTestsSwim();
+		if(swim!=null) {
+			values.put(TestEntity.DATE2, swim.getDate2());
+			values.put(TestEntity.ASSISTANT_NAME, swim.getAssistantName());
+			values.put(TestEntity.BATHS, swim.getBaths());
+			values.put(TestEntity.POOL, swim.getPool());
+			values.put(TestEntity.DISTANCE, swim.getDistance());
+			values.put(TestEntity.SPLITS, swim.getSplits());
 		}		
 		
 		// add bgpaint of fields
@@ -292,5 +310,22 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable, IEnti
 		if (entity.getType()==null || !entity.getType().equals("swim")) return false;
 		return true;
 	}
-
+	
+	public boolean isTypeEnabled() {
+		// type just enabled as long as no protocol is created
+		if(!isProtocol() && super.m_enabled) return true;
+		return false;
+	}
+	
+	public boolean isProtocol() {
+		if(entity.getTestsProtocol()!=null) return true;
+		return false;
+	}
+	
+	public void onProtocolCreate(ActionEvent event) {
+		// create protocol
+		TestsProtocol protocol = new TestsProtocol(entity.getId());
+		getDaoLayer().getTestsProtocolDAO().save(protocol);		
+		entity.setTestsProtocol(protocol);
+    }
 }

@@ -68,7 +68,7 @@ public class TestsTreadmill implements java.io.Serializable {
 		this.speedVariable = speedVariable;
 	}
 
-	@Column(name = "incline_variable")
+	@Column(name = "incline_variable")		
 	public Boolean getInclineVariable() {
 		return this.inclineVariable;
 	}
