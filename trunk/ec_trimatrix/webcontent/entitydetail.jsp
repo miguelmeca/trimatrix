@@ -21,10 +21,12 @@
 <t:coldistance id="g_8" width="3" />
 <t:button id="g_9" actionListener="#{d.EntityDetailUI.onCancel}" rendered="#{d.EntityDetailUI.renderCancelButton}" text="#{rr.literals.cancel}" />
 <t:coldistance id="g_10" width="100%" />
-<t:button id="g_11" actionListener="#{d.EntityDetailUI.onDelete}" enabled="#{d.EntityDetailUI.deleteAllowed}" rendered="#{d.EntityDetailUI.renderDeleteButton}" text="#{rr.literals.delete}" />
+<t:button id="g_11" actionListener="#{d.EntityDetailUI.onCopy}" rendered="#{d.EntityDetailUI.renderCopyButton}" text="#{rr.literals.copy}" />
+<t:coldistance id="g_12" width="3" />
+<t:button id="g_13" actionListener="#{d.EntityDetailUI.onDelete}" enabled="#{d.EntityDetailUI.deleteAllowed}" rendered="#{d.EntityDetailUI.renderDeleteButton}" text="#{rr.literals.delete}" />
 </t:row>
-<t:rowdistance id="g_12" />
-<t:rowinclude id="g_13" page="#{d.EntityDetailUI.entityDetailPage}" />
+<t:rowdistance id="g_14" />
+<t:rowinclude id="g_15" page="#{d.EntityDetailUI.entityDetailPage}" />
 <t:pageaddons id="g_pa"/>
 </f:subview>
 </h:form>

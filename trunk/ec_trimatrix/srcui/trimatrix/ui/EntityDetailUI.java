@@ -64,6 +64,12 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 	
 	protected boolean renderNewButton;
 	public boolean getRenderNewButton() { return renderNewButton; }
+	
+	protected boolean renderCopyButton;
+	public boolean getRenderCopyButton() { 
+		if(entityDetailUI==null) return false;
+		return renderCopyButton && entityDetailUI.isCopyable(); 
+	}
 
 	public EntityDetailUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);		
@@ -100,7 +106,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
     		if(change==null || !change.equals(Constants.TRUE)) change = Constants.FALSE;
     		if(delete==null || !delete.equals(Constants.TRUE)) delete = Constants.FALSE;
     		authorization = new SAuthorization(create, change, delete);
-        }
+        }        
         // change mode to set buttons
         changeMode(mode);               
         // set entity detail page 
@@ -109,7 +115,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
     	if(mode == Constants.Mode.NEW) {
     		entityObject = ENTITYLISTLOGIC.create(entity);
     		id = entityObject.getId();
-    		getWorkpage().setId(id);
+    		getWorkpage().setId(id);    		
         } else {          	
         	// catch NullPointerException if entity doesn't exist
         	try {
@@ -133,7 +139,9 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
         		Statusbar.outputError("Entity doesn't exist!", "Maybe the entity is marked as deleted!");
             	getWorkpageContainer().closeWorkpage(getWorkpage());
         	}        	
-        }     	
+        }
+    	// set copy button
+    	// TODO implement copy functionality
 	}
 	
 	private void refreshParent() {		
@@ -225,6 +233,22 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 		
 	}
 	
+	public void onCopy(ActionEvent event) {		
+		// copy object
+		String newId = entityDetailUI.copyEntity();;
+		if(newId!=null) {
+			// create separate workpage
+			IWorkpageDispatcher wpd = getOwningDispatcher();
+			IWorkpageContainer wpc = getWorkpageContainer();
+			
+			IWorkpage wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.getUrl(),
+					newId,"Copy of " + entityObject.toString(), null, true, parentBean, authorization);				
+			wp.setParam(Constants.P_ENTITY, entity.name());
+			wp.setParam(Constants.P_MODE, Constants.Mode.SHOW.name());
+			wpc.addWorkpage(wp);
+		}	
+	}
+	
 	private void changeMode(Constants.Mode mode) {
 		this.mode = mode;
 		if (mode == Constants.Mode.CHANGE) {
@@ -233,6 +257,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 			renderEditButton = false;
 			renderSaveButton = true;
 			renderCancelButton = true;
+			renderCopyButton = false;
 			
 		} 
 		if (mode == Constants.Mode.SHOW) {
@@ -240,7 +265,8 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 			renderDeleteButton = true;
 			renderEditButton = true;
 			renderSaveButton = false;
-			renderCancelButton = false;			
+			renderCancelButton = false;	
+			renderCopyButton = true;
 		}		
 		if (mode == Constants.Mode.NEW) {
 			renderNewButton = false;
@@ -248,6 +274,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 			renderEditButton = false;
 			renderSaveButton = true;
 			renderCancelButton = true;
+			renderCopyButton = false;
 		}
 	}
 

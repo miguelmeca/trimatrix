@@ -26,7 +26,7 @@ import eu.medsea.mimeutil.MimeUtil;
 @SuppressWarnings("serial")
 @CCGenClass (expressionBase="#{d.AttachmentDetailUI}")
 
-public class AttachmentDetailUI extends AEntityDetailUI implements Serializable, IEntityDetailUI
+public class AttachmentDetailUI extends AEntityDetailUI implements Serializable
 {
     protected ValidValuesBinding categoriesVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.CATEGORY);
     public ValidValuesBinding getCategoriesVvb() { return categoriesVvb; }

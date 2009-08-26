@@ -10,7 +10,7 @@ import trimatrix.logic.EntityListLogic;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
 
-public abstract class AEntityDetailUI extends MyWorkpageDispatchedBean {
+public abstract class AEntityDetailUI extends MyWorkpageDispatchedBean implements IEntityDetailUI {
 
 	protected final String[] MANDATORY_FIELDS;
 
@@ -71,4 +71,10 @@ public abstract class AEntityDetailUI extends MyWorkpageDispatchedBean {
 	public void prepareSave() {};
 	
 	public void postSave() {};
+	
+	// by default entity could not be copied
+	public boolean isCopyable() {return false;};
+	
+	// by default copy function is disabled	
+	public String copyEntity() {return null;};
 }
