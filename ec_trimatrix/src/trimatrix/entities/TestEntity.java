@@ -37,7 +37,7 @@ public final class TestEntity extends AEntity {
     public static final String POWER_STEP = "power_step";  
     public static final String CADENCE_LOW = "cadence_low";
     public static final String CADENCE_HIGH = "cadence_high";
-    public static final String ERGO_STEP_TIME = "step_time";    
+    public static final String ERGO_STEP_TIME = "ergo_step_time";    
  	
     // Constants Treadmill
     public static final String SPEED_INIT = "speed_init";
@@ -46,7 +46,7 @@ public final class TestEntity extends AEntity {
     public static final String INCLINE_INIT = "incline_init";
     public static final String INCLINE_STEP = "incline_step";  
     public static final String INCLINE_VARIABLE = "incline_variable";
-    public static final String TREADMILL_STEP_TIME = "step_time";  
+    public static final String TREADMILL_STEP_TIME = "treadmill_step_time";  
     
     // Constants Swim
     public static final String ASSISTANT_NAME = "assistant_name";

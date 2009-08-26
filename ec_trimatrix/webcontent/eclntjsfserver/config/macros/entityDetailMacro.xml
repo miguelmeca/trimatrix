@@ -8,6 +8,7 @@ macro is defined in an XML file on its own.
         <tag name="t:combobox"/>
         <tag name="t:button"/>
         <tag name="t:calendarfield"/>
+        <tag name="t:formattedfield"/>
     </applysto>
     <parameters>
         <parameter name="bean"/>
