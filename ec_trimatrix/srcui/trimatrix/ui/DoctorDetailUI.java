@@ -20,7 +20,7 @@ import trimatrix.utils.Dictionary;
 @SuppressWarnings("serial")
 @CCGenClass (expressionBase="#{d.DoctorDetailUI}")
 
-public class DoctorDetailUI extends AEntityDetailUI implements Serializable, IEntityDetailUI
+public class DoctorDetailUI extends AEntityDetailUI implements Serializable
 {
 	protected ValidValuesBinding countriesVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.COUNTRY);
     public ValidValuesBinding getCountriesVvb() { return countriesVvb; }

@@ -24,7 +24,7 @@ import trimatrix.utils.Constants;
 @SuppressWarnings("serial")
 @CCGenClass (expressionBase="#{d.PersonDetailUI}")
 
-public class PersonDetailUI extends AEntityDetailUI implements Serializable, IEntityDetailUI
+public class PersonDetailUI extends AEntityDetailUI implements Serializable
 {
     
 	// #{d.WorkplaceUI.renderAdmin}

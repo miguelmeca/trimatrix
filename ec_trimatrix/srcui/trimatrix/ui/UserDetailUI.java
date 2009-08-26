@@ -29,7 +29,7 @@ import trimatrix.utils.MailSender;
 @SuppressWarnings("serial")
 @CCGenClass (expressionBase="#{d.UserDetailUI}")
 
-public class UserDetailUI extends AEntityDetailUI implements Serializable, IEntityDetailUI
+public class UserDetailUI extends AEntityDetailUI implements Serializable
 {    
 	protected ValidValuesBinding languagesVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.LANGUAGE);
     public ValidValuesBinding getLanguagesVvb() { return languagesVvb; }
