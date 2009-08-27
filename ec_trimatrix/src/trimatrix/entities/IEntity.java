@@ -33,6 +33,6 @@ public interface IEntity {
 
 	public abstract void reload(IEntityObject entityObject);
 	
-	public abstract String copy(IEntityObject entityObject);
+	public abstract IEntityObject copy(IEntityObject entityObject);
 
 }

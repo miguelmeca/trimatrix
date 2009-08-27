@@ -95,7 +95,7 @@ public abstract class AEntity implements IEntity{
 	}
 
 	@Override
-	public String copy(IEntityObject entityObject) {
+	public IEntityObject copy(IEntityObject entityObject) {
 		return null;
 	}	
 }

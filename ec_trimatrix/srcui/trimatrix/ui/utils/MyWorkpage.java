@@ -19,9 +19,10 @@ public class MyWorkpage extends Workpage{
 	
 	public MyWorkpage(IWorkpageDispatcher dispatcher, String jspPage,
 			String id, String title, String iconURL, boolean isDecorated, 
-			Object parentBean, SAuthorization authorization) {
+			Object parentBean, SAuthorization authorization, IEntityObject entityObject) {
 		super(dispatcher, jspPage, id, title, iconURL, isDecorated);
 		this.parentBean = parentBean;	
+		this.entityObject = entityObject;
 		this.authorization = authorization;
 	}		
 

@@ -1,6 +1,5 @@
 package utils;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.UUID;
 
 import junit.framework.Assert;
@@ -27,6 +26,8 @@ public class CloneBeanTest {
 			testCopy.setId(newId);
 			testCopy.getTestsTreadmill().setId(newId);
 			daoLayer.getTestsDAO().save(testCopy);
+			Tests test2 = daoLayer.getTestsDAO().findById(newId);
+			daoLayer.getTestsDAO().delete(test2);
 		} catch (Exception ex) {
 			Assert.fail("Error with Apache BeanUtil!");
 		}		
