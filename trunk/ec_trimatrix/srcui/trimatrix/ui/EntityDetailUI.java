@@ -113,35 +113,39 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
         // set entity detail page 
         m_entityDetailPage = entity.getDetailPage().getUrl();
         // check if in new mode
-    	if(mode == Constants.Mode.NEW) {    		
-    		entityObject = ENTITYLISTLOGIC.create(entity);
+        switch (mode) {
+		case NEW:
+			entityObject = ENTITYLISTLOGIC.create(entity);
     		id = entityObject.getId();
-    		getWorkpage().setId(id);    		
-        } else {          	
-        	// catch NullPointerException if entity doesn't exist
-        	try {
-        		if (entityObject==null) {
-        			id = getWorkpage().getId();
-                	// if id is not set, get id of own entity
-            		if (id == null || id.length()==0) {
-                		if (entity == Constants.Entity.USER) {
-                        	id = getServiceLayer().getDictionaryService().getMyUser().getId();          	           
-                		} else if (entity == Constants.Entity.PERSON) {
-                        	id = getServiceLayer().getDictionaryService().getMyUser().getPerson().getId(); 
-                        } 
-                	}
-            		// get entity
-            		entityObject = ENTITYLISTLOGIC.get(entity, id);  
-        		}        		
+    		getWorkpage().setId(id);    
+			break;			
+		case COPY:
+			// set title of workpage
+			id = getWorkpage().getId();
+    		getWorkpage().setTitle(entityObject.toString());
+    		break;
+		default:
+			// catch NullPointerException if entity doesn't exist
+        	try {        		
+        		id = getWorkpage().getId();
+                // if id is not set, get id of own entity
+            	if (id == null || id.length()==0) {
+                	if (entity == Constants.Entity.USER) {
+                       	id = getServiceLayer().getDictionaryService().getMyUser().getId();          	           
+                	} else if (entity == Constants.Entity.PERSON) {
+                       	id = getServiceLayer().getDictionaryService().getMyUser().getPerson().getId(); 
+                    } 
+                }
+            	// get entity
+            	entityObject = ENTITYLISTLOGIC.get(entity, id);          		        		
         		// set title of workpage
         		getWorkpage().setTitle(entityObject.toString());
         	} catch (NullPointerException npe) {
         		Statusbar.outputError("Entity doesn't exist!", "Maybe the entity is marked as deleted!");
             	getWorkpageContainer().closeWorkpage(getWorkpage());
-        	}        	
-        }
-    	// set copy button
-    	// TODO implement copy functionality
+        	} 
+			break;
+		}
 	}
 	
 	private void refreshParent() {		
@@ -212,7 +216,8 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 	
 	public void onCancel(ActionEvent event) {
 		// when called in save mode, close page
-		if (mode == Constants.Mode.NEW) {
+		if (mode == Constants.Mode.NEW ||
+			mode == Constants.Mode.COPY	) {
 			getWorkpageContainer().closeWorkpage(getWorkpage());
 		} else {
 			ENTITYLISTLOGIC.reload(entity, entityObject);   
@@ -226,7 +231,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 		IWorkpageDispatcher wpd = getOwningDispatcher();
 		IWorkpageContainer wpc = getWorkpageContainer();
 		IWorkpage wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.getUrl(),
-				null, "New entity", null, true, parentBean, null);
+				null, "New entity", null, true, parentBean, null, null);
 		wp.setParam(Constants.P_ENTITY, entity.name());
 		wp.setParam(Constants.P_MODE, Constants.Mode.NEW.name());
 		wpc.addWorkpage(wp);
@@ -235,16 +240,16 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 	
 	public void onCopy(ActionEvent event) {		
 		// copy object
-		String newId = ENTITYLISTLOGIC.copy(entity, entityObject);
-		if(newId!=null) {
+		IEntityObject newEntity = ENTITYLISTLOGIC.copy(entity, entityObject);
+		if(newEntity!=null) {
 			// create separate workpage
 			IWorkpageDispatcher wpd = getOwningDispatcher();
 			IWorkpageContainer wpc = getWorkpageContainer();
 			
 			IWorkpage wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.getUrl(),
-					newId,"Copy of " + entityObject.toString(), null, true, parentBean, authorization);				
+					newEntity.getId(),"Copy of " + entityObject.toString(), null, true, parentBean, authorization, newEntity );				
 			wp.setParam(Constants.P_ENTITY, entity.name());
-			wp.setParam(Constants.P_MODE, Constants.Mode.SHOW.name());
+			wp.setParam(Constants.P_MODE, Constants.Mode.COPY.name());
 			wpc.addWorkpage(wp);
 		}	
 	}
@@ -268,7 +273,8 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 			renderCancelButton = false;	
 			renderCopyButton = true;
 		}		
-		if (mode == Constants.Mode.NEW) {
+		if (mode == Constants.Mode.NEW || 
+			mode == Constants.Mode.COPY	) {
 			renderNewButton = false;
 			renderDeleteButton = false;
 			renderEditButton = false;

@@ -11,8 +11,6 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
-
 import trimatrix.db.PersonsAthlete;
 import trimatrix.db.Tests;
 import trimatrix.services.SQLExecutorService;
@@ -181,7 +179,7 @@ public final class TestEntity extends AEntity {
 	
 	
 	@Override
-	public String copy(IEntityObject entityObject) {
+	public IEntityObject copy(IEntityObject entityObject) {
 		Tests entity = (Tests)entityObject;
 		String id = UUID.randomUUID().toString();
 		// copy entity
@@ -194,8 +192,7 @@ public final class TestEntity extends AEntity {
 			if(entityCopy.getTestsErgo()!=null) entityCopy.getTestsErgo().setId(id);
 			if(entityCopy.getTestsTreadmill()!=null) entityCopy.getTestsTreadmill().setId(id);
 			if(entityCopy.getTestsSwim()!=null) entityCopy.getTestsSwim().setId(id);
-			save(entityCopy);
-			return id;
+			return entityCopy;
 		} catch (Exception ex) {
 			Statusbar.outputAlert(ex.toString(), "Copy failed!");
 			return null;

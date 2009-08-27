@@ -193,7 +193,7 @@ public final class ResolverService {
 		logger.warn("RELOAD : Entity " + entity.toString() + " not valid!");				
 	}
 	
-	public String copy(Constants.Entity entity, IEntityObject entityObject) {
+	public IEntityObject copy(Constants.Entity entity, IEntityObject entityObject) {
 		switch (entity.getBase()) {
 		case USER:
 			return userEntity.copy(entityObject); 

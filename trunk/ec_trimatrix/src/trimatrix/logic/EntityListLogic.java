@@ -66,7 +66,7 @@ public class EntityListLogic {
 		serviceLayer.getResolverService().reload(entity, entityObject);
 	}
 	
-	public String copy(Constants.Entity entity, IEntityObject entityObject) {
+	public IEntityObject copy(Constants.Entity entity, IEntityObject entityObject) {
 		return serviceLayer.getResolverService().copy(entity, entityObject);
 	}
 	

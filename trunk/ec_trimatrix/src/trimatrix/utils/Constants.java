@@ -140,7 +140,7 @@ public final class Constants {
 	}
 	// modes
 	public static enum Mode {
-		SHOW, CHANGE, NEW
+		SHOW, CHANGE, NEW, COPY
 	}	
 	
 	public static final String NULL = "null";
