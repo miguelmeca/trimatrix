@@ -1,0 +1,34 @@
+package utils;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.UUID;
+
+import junit.framework.Assert;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+
+import trimatrix.db.DAOLayer;
+import trimatrix.db.Tests;
+import trimatrix.utils.ContextStatic;
+
+public class CloneBeanTest {
+	
+	private ApplicationContext context = ContextStatic.getInstance();
+	private DAOLayer daoLayer = DAOLayer.getFromApplicationContext(context);
+	
+	@Test
+	public void testClone() {
+		Tests test = daoLayer.getTestsDAO().findById("aa109083-8cfb-11de-a422-4e7d893777af");
+		try {
+			Tests testCopy = (Tests)BeanUtils.cloneBean(test);
+			String newId = UUID.randomUUID().toString();
+			testCopy.setId(newId);
+			testCopy.getTestsTreadmill().setId(newId);
+			daoLayer.getTestsDAO().save(testCopy);
+		} catch (Exception ex) {
+			Assert.fail("Error with Apache BeanUtil!");
+		}		
+	}
+}

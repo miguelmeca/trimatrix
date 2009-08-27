@@ -92,5 +92,10 @@ public abstract class AEntity implements IEntity{
 	
 	public void setEntitiesDAO(IEntityDAO<? extends IEntityObject> entitiesDAO) {
 		this.entitiesDAO = entitiesDAO;
+	}
+
+	@Override
+	public String copy(IEntityObject entityObject) {
+		return null;
 	}	
 }

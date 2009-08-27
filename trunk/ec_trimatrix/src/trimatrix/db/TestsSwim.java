@@ -1,10 +1,13 @@
 package trimatrix.db;
 
+import java.lang.reflect.InvocationTargetException;
 import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.apache.commons.beanutils.BeanUtils;
 
 
 /**
@@ -123,14 +126,5 @@ public class TestsSwim  implements java.io.Serializable {
     
     public void setSplits(Integer splits) {
         this.splits = splits;
-    }
-   
-
-
-
-
-
-
-
-
+    }    
 }

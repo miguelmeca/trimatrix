@@ -98,5 +98,4 @@ public class TestsErgo implements java.io.Serializable {
 	public void setStepTime(String stepTime) {
 		this.stepTime = stepTime;
 	}
-
 }

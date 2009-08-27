@@ -3,11 +3,13 @@ package trimatrix.ui.utils;
 import org.eclnt.workplace.IWorkpageDispatcher;
 import org.eclnt.workplace.Workpage;
 
+import trimatrix.entities.IEntityObject;
 import trimatrix.structures.SAuthorization;
 
 public class MyWorkpage extends Workpage{
 
 	private Object parentBean;
+	private IEntityObject entityObject;
 	private SAuthorization authorization;
 	
 	public MyWorkpage(IWorkpageDispatcher dispatcher, String jspPage,
@@ -37,6 +39,14 @@ public class MyWorkpage extends Workpage{
 
 	public void setAuthorization(SAuthorization authorization) {
 		this.authorization = authorization;
+	}
+
+	public IEntityObject getEntityObject() {
+		return entityObject;
+	}
+
+	public void setEntityObject(IEntityObject entityObject) {
+		this.entityObject = entityObject;
 	}
 
 	@Override

@@ -22,6 +22,10 @@ import trimatrix.entities.IEntityObject;
 /**
  * Tests entity. @author MyEclipse Persistence Tools
  */
+/**
+ * @author reich
+ *
+ */
 @Entity
 @Table(name = "tests", catalog = "trimatrix")
 public class Tests implements java.io.Serializable, IEntityObject {
