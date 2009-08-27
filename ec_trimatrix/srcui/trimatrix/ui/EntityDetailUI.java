@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
-import org.eclnt.jsfserver.defaultscreens.BasePopup;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoCancelListener;
@@ -88,6 +87,8 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
         	parentBean = ((MyWorkpage)wp).getParentBean();
         	// authorization
         	authorization = ((MyWorkpage)wp).getAuthorization();
+        	// entity object
+        	entityObject = ((MyWorkpage)wp).getEntityObject();
         }
         // get mode 
         String strMode = getWorkpage().getParam(Constants.P_MODE);
@@ -112,29 +113,28 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
         // set entity detail page 
         m_entityDetailPage = entity.getDetailPage().getUrl();
         // check if in new mode
-    	if(mode == Constants.Mode.NEW) {
+    	if(mode == Constants.Mode.NEW) {    		
     		entityObject = ENTITYLISTLOGIC.create(entity);
     		id = entityObject.getId();
     		getWorkpage().setId(id);    		
         } else {          	
         	// catch NullPointerException if entity doesn't exist
         	try {
-        		id = getWorkpage().getId();
-            	// if id is not set, get id of own entity
-        		if (id == null || id.length()==0) {
-            		if (entity == Constants.Entity.USER) {
-                    	id = getServiceLayer().getDictionaryService().getMyUser().getId();          	           
-            		} else if (entity == Constants.Entity.PERSON) {
-                    	id = getServiceLayer().getDictionaryService().getMyUser().getPerson().getId(); 
-                    } 
-            	}
-        		// get entity
-        		entityObject = ENTITYLISTLOGIC.get(entity, id);  
+        		if (entityObject==null) {
+        			id = getWorkpage().getId();
+                	// if id is not set, get id of own entity
+            		if (id == null || id.length()==0) {
+                		if (entity == Constants.Entity.USER) {
+                        	id = getServiceLayer().getDictionaryService().getMyUser().getId();          	           
+                		} else if (entity == Constants.Entity.PERSON) {
+                        	id = getServiceLayer().getDictionaryService().getMyUser().getPerson().getId(); 
+                        } 
+                	}
+            		// get entity
+            		entityObject = ENTITYLISTLOGIC.get(entity, id);  
+        		}        		
         		// set title of workpage
         		getWorkpage().setTitle(entityObject.toString());
-            	if(entityObject==null) {
-            		throw new NullPointerException();
-            	}
         	} catch (NullPointerException npe) {
         		Statusbar.outputError("Entity doesn't exist!", "Maybe the entity is marked as deleted!");
             	getWorkpageContainer().closeWorkpage(getWorkpage());
@@ -235,7 +235,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 	
 	public void onCopy(ActionEvent event) {		
 		// copy object
-		String newId = entityDetailUI.copyEntity();;
+		String newId = ENTITYLISTLOGIC.copy(entity, entityObject);
 		if(newId!=null) {
 			// create separate workpage
 			IWorkpageDispatcher wpd = getOwningDispatcher();

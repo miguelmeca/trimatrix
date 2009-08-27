@@ -14,6 +14,7 @@ import trimatrix.structures.SListVariant;
 import trimatrix.utils.Constants;
 
 public class EntityListLogic {	
+	// TODO direct access Layers through UI
 	private ServiceLayer serviceLayer;
 	private DAOLayer daoLayer;
 		
@@ -63,6 +64,10 @@ public class EntityListLogic {
 	
 	public void reload(Constants.Entity entity, IEntityObject entityObject) {
 		serviceLayer.getResolverService().reload(entity, entityObject);
+	}
+	
+	public String copy(Constants.Entity entity, IEntityObject entityObject) {
+		return serviceLayer.getResolverService().copy(entity, entityObject);
 	}
 	
 	public void saveGridState(Constants.Entity entity, SListVariant data) {

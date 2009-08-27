@@ -32,5 +32,7 @@ public interface IEntity {
 			throws DataIntegrityViolationException;
 
 	public abstract void reload(IEntityObject entityObject);
+	
+	public abstract String copy(IEntityObject entityObject);
 
 }

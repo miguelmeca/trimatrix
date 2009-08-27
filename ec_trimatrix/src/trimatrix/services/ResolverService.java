@@ -188,9 +188,26 @@ public final class ResolverService {
 		case ATTACHMENT:
 			attachmentEntity.reload(entityObject); break;
 		case TEST:
-			testEntity.save(entityObject); break;
+			testEntity.reload(entityObject); break;
 		}
 		logger.warn("RELOAD : Entity " + entity.toString() + " not valid!");				
+	}
+	
+	public String copy(Constants.Entity entity, IEntityObject entityObject) {
+		switch (entity.getBase()) {
+		case USER:
+			return userEntity.copy(entityObject); 
+		case PERSON:
+			return personEntity.copy(entityObject); 
+		case DOCTOR:
+			return doctorEntity.copy(entityObject); 
+		case ATTACHMENT:
+			return attachmentEntity.copy(entityObject); 
+		case TEST:
+			return testEntity.copy(entityObject); 
+		}
+		logger.warn("COPY : Entity " + entity.toString() + " not valid!");	
+		return null;
 	}
 	
 	// Relations

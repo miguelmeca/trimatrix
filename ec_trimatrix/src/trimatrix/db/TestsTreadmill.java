@@ -1,9 +1,13 @@
 package trimatrix.db;
 
+import java.lang.reflect.InvocationTargetException;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.apache.commons.beanutils.BeanUtils;
 
 /**
  * TestsTreadmill entity. @author MyEclipse Persistence Tools
@@ -121,5 +125,4 @@ public class TestsTreadmill implements java.io.Serializable {
 	public void setStepTime(String stepTime) {
 		this.stepTime = stepTime;
 	}
-
 }

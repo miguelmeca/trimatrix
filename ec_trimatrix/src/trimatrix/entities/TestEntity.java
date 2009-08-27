@@ -5,10 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
+
+import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
 
 import trimatrix.db.PersonsAthlete;
 import trimatrix.db.Tests;
@@ -176,6 +179,29 @@ public final class TestEntity extends AEntity {
 		return entity;
 	}	
 	
+	
+	@Override
+	public String copy(IEntityObject entityObject) {
+		Tests entity = (Tests)entityObject;
+		String id = UUID.randomUUID().toString();
+		// copy entity
+		try {
+			Tests entityCopy = (Tests)BeanUtils.cloneBean(entity);
+			entityCopy.setId(id);		
+			// set actual logged person as coach
+			entityCopy.setCoach(dictionaryService.getMyPerson());
+			// copy specific data		
+			if(entityCopy.getTestsErgo()!=null) entityCopy.getTestsErgo().setId(id);
+			if(entityCopy.getTestsTreadmill()!=null) entityCopy.getTestsTreadmill().setId(id);
+			if(entityCopy.getTestsSwim()!=null) entityCopy.getTestsSwim().setId(id);
+			save(entityCopy);
+			return id;
+		} catch (Exception ex) {
+			Statusbar.outputAlert(ex.toString(), "Copy failed!");
+			return null;
+		}				
+	}
+
 	public static class Data implements IEntityData {
 		public String id;
 		public String type;
