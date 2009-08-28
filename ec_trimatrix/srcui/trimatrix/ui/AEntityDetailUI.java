@@ -71,10 +71,4 @@ public abstract class AEntityDetailUI extends MyWorkpageDispatchedBean implement
 	public void prepareSave() {};
 	
 	public void postSave() {};
-	
-	// by default entity could not be copied
-	public boolean isCopyable() {return false;};
-	
-	// by default copy function is disabled	
-	public String copyEntity() {return null;};
 }

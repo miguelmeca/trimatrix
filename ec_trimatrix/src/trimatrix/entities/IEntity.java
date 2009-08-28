@@ -34,5 +34,7 @@ public interface IEntity {
 	public abstract void reload(IEntityObject entityObject);
 	
 	public abstract IEntityObject copy(IEntityObject entityObject);
+	
+	public abstract boolean isCopyable(IEntityObject entityObject);
 
 }

@@ -210,6 +210,23 @@ public final class ResolverService {
 		return null;
 	}
 	
+	public boolean isCopyable(Constants.Entity entity, IEntityObject entityObject) {
+		switch (entity.getBase()) {
+		case USER:
+			return userEntity.isCopyable(entityObject); 
+		case PERSON:
+			return personEntity.isCopyable(entityObject); 
+		case DOCTOR:
+			return doctorEntity.isCopyable(entityObject); 
+		case ATTACHMENT:
+			return attachmentEntity.isCopyable(entityObject); 
+		case TEST:
+			return testEntity.isCopyable(entityObject); 
+		}
+		logger.warn("ISCOPYABLE : Entity " + entity.toString() + " not valid!");	
+		return false;
+	}
+	
 	// Relations
 	public List<SGridMetaData> getGridMetaData(Constants.Relation relation) {
 		if (relation.getBase()==Constants.Relation.PERSONPERSON) {

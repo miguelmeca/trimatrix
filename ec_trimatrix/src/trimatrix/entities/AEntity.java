@@ -9,6 +9,7 @@ import org.springframework.orm.hibernate3.HibernateTransactionManager;
 import trimatrix.db.DAOLayer;
 import trimatrix.db.IEntityDAO;
 import trimatrix.services.SQLExecutorService;
+import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
 
 public abstract class AEntity implements IEntity{	
@@ -94,8 +95,11 @@ public abstract class AEntity implements IEntity{
 		this.entitiesDAO = entitiesDAO;
 	}
 
-	@Override
 	public IEntityObject copy(IEntityObject entityObject) {
 		return null;
+	}	
+	
+	public boolean isCopyable(IEntityObject entityObject) {
+		return false;
 	}	
 }
