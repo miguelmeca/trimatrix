@@ -1,7 +1,6 @@
 package trimatrix.ui;
 
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.UUID;
@@ -15,9 +14,6 @@ import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
-import org.springframework.metadata.commons.CommonsAttributes;
-
-import com.sun.mail.imap.protocol.Status;
 
 import trimatrix.db.Doctors;
 import trimatrix.db.Persons;
@@ -269,7 +265,12 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 		// swim
 		TestsSwim swim = entity.getTestsSwim();
 		if(swim!=null) {
-			values.put(TestEntity.DATE2, swim.getDate2());
+			Date date2 = null;
+			Timestamp timestamp2 = swim.getDate2();
+			if (timestamp2!=null) {
+				date2 =  new Date(timestamp2.getTime());
+			} 
+			values.put(TestEntity.DATE2, date2);
 			values.put(TestEntity.ASSISTANT_NAME, swim.getAssistantName());
 			values.put(TestEntity.BATHS, swim.getBaths());
 			values.put(TestEntity.POOL, swim.getPool());
@@ -334,36 +335,5 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 		TestsProtocol protocol = new TestsProtocol(entity.getId());
 		getDaoLayer().getTestsProtocolDAO().save(protocol);		
 		entity.setTestsProtocol(protocol);
-    }
-	
-	@Override
-	public boolean isCopyable() {
-		// just admins and coaches are able to copy tests
-		if(getServiceLayer().getDictionaryService().getMyRoles().contains(Constants.Role.ADMIN.getName()) ||
-		   getServiceLayer().getDictionaryService().getMyRoles().contains(Constants.Role.COACH.getName())) return true;
-		return false;
-	}
-	
-	@Override
-	public String copyEntity() {	
-		// create and clone entity
-		// TODO move to entity class
-		Tests test = new Tests();
-		try {
-			PropertyUtils.copyProperties(test, entity);
-			// TODO copy also specific test data
-			// set new ID
-			String newId = UUID.randomUUID().toString();
-			test.setId(newId);
-			// set actual user as coach, normally just coaches are able to create tests
-		    entity.setCoach(getServiceLayer().getDictionaryService().getMyPerson());
-			// set back created by and at property => is set in save method of entity
-		    ENTITYLISTLOGIC.save(Constants.Entity.TEST, test);
-			return test.getId();
-		} catch (Exception ex) {
-			Statusbar.outputAlert(ex.toString(), "Error occured");
-			return null;
-		}		
-	}
-	
+    }	
 }

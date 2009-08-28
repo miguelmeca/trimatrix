@@ -38,6 +38,8 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 	
 	private Object parentBean;
 	
+	private boolean copyable;
+	
 	private SAuthorization authorization;
 	public boolean getCreateAllowed() { return authorization.create; }
 	public boolean getDeleteAllowed() { return authorization.delete; }
@@ -65,10 +67,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 	public boolean getRenderNewButton() { return renderNewButton; }
 	
 	protected boolean renderCopyButton;
-	public boolean getRenderCopyButton() { 
-		if(entityDetailUI==null) return false;
-		return renderCopyButton && entityDetailUI.isCopyable(); 
-	}
+	public boolean getRenderCopyButton() { return renderCopyButton && copyable; }
 
 	public EntityDetailUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);		
@@ -146,6 +145,8 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
         	} 
 			break;
 		}
+        // set if copyable
+        copyable = ENTITYLISTLOGIC.isCopyable(entity, entityObject);
 	}
 	
 	private void refreshParent() {		

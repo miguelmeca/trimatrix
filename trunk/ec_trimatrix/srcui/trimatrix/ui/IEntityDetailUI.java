@@ -24,9 +24,5 @@ public interface IEntityDetailUI {
 	
 	public void prepareSave();
 	
-	public void postSave();
-	
-	public String copyEntity();
-	
-	public boolean isCopyable();
+	public void postSave();	
 }

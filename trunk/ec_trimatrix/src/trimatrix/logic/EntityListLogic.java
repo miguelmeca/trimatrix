@@ -70,6 +70,10 @@ public class EntityListLogic {
 		return serviceLayer.getResolverService().copy(entity, entityObject);
 	}
 	
+	public boolean isCopyable(Constants.Entity entity, IEntityObject entityObject) {
+		return serviceLayer.getResolverService().isCopyable(entity, entityObject);
+	}
+	
 	public void saveGridState(Constants.Entity entity, SListVariant data) {
 		String user_id = serviceLayer.getDictionaryService().getMyUser().getId();
 		ListVariantsId lv_id = new ListVariantsId(Constants.P_ENTITYLIST, entity.name(), user_id);

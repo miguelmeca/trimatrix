@@ -198,6 +198,16 @@ public final class TestEntity extends AEntity {
 			return null;
 		}				
 	}
+	
+	
+
+	@Override
+	public boolean isCopyable(IEntityObject entityObject) {
+		// just enabled for admins and coaches
+		if(dictionaryService.getMyRoles().contains(Constants.Role.ADMIN.getName()) ||
+		   dictionaryService.getMyRoles().contains(Constants.Role.COACH.getName())) return true;
+		   return false;
+	}
 
 	public static class Data implements IEntityData {
 		public String id;
