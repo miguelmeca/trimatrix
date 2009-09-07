@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
-import org.eclnt.jsfserver.defaultscreens.BasePopup;
 import org.eclnt.jsfserver.defaultscreens.OKPopup;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;

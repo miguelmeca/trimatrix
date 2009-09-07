@@ -23,7 +23,6 @@ import trimatrix.entities.UserEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
 import trimatrix.utils.Constants;
-import trimatrix.utils.Dictionary;
 import trimatrix.utils.MailSender;
 
 @SuppressWarnings("serial")

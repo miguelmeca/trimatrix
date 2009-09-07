@@ -1,13 +1,9 @@
 package trimatrix.db;
 
-import java.lang.reflect.InvocationTargetException;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.apache.commons.beanutils.BeanUtils;
 
 /**
  * TestsTreadmill entity. @author MyEclipse Persistence Tools
