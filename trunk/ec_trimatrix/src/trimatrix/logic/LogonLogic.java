@@ -6,8 +6,6 @@ import java.util.Locale;
 import java.util.Set;
 
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
-import org.eclnt.util.log.CLog;
-import org.eclnt.util.log.CLogConstants;
 
 import trimatrix.db.DAOLayer;
 import trimatrix.db.KRoles;

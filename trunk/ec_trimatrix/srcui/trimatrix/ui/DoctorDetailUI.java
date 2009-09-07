@@ -9,13 +9,10 @@ import org.hibernate.validator.ClassValidator;
 import org.hibernate.validator.InvalidValue;
 
 import trimatrix.db.Doctors;
-import trimatrix.db.Users;
 import trimatrix.entities.DoctorEntity;
-import trimatrix.entities.UserEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
 import trimatrix.utils.Constants;
-import trimatrix.utils.Dictionary;
 
 @SuppressWarnings("serial")
 @CCGenClass (expressionBase="#{d.DoctorDetailUI}")

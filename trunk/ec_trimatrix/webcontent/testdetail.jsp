@@ -144,24 +144,47 @@
 </t:row>
 <t:rowdistance id="g_106" />
 <t:row id="g_107" >
-<t:fixgrid id="g_108" avoidroundtrips="true" border="#808080" multiselect="false" objectbinding="#{d.TestDetailUI.gridTreadmill}" width="100%" >
-<t:gridcol id="g_109" align="center" text="Stufe" width="50" />
-<t:gridcol id="g_110" align="center" text="Geschwindigkeit" width="90" />
-<t:gridcol id="g_111" align="center" text="Steigung" width="60" />
-<t:gridcol id="g_112" align="center" text="Zeit (Stufe)" width="75" />
-<t:gridcol id="g_113" align="center" text="Zeit(Gesamt)" width="75" />
-<t:gridcol id="g_114" align="center" text="Laktat" width="45" />
-<t:gridcol id="g_115" align="center" text="HF" width="45" />
-<t:gridcol id="g_116" align="center" text="O2" width="45" />
-<t:gridcol id="g_117" align="center" text="CO2" width="45" />
-<t:gridcol id="g_118" align="center" text="RQ" width="45" />
+<t:fixgrid id="g_108" avoidroundtrips="true" border="#808080" enabled="#{d.TestDetailUI.enabled}" multiselect="false" objectbinding="#{d.TestDetailUI.gridTreadmill}" sbvisibleamount="20" width="100%" >
+<t:gridcol id="g_109" columnresizingenabled="false" width="20" >
+<t:gridrowselector id="g_110" />
+</t:gridcol>
+<t:gridcol id="g_111" align="center" text="Stufe" width="50" >
+<t:formattedfield id="g_112" enabled="false" format="int" value=".{step}" />
+</t:gridcol>
+<t:gridcol id="g_113" align="center" text="Geschwindigkeit" width="90" >
+<t:formattedfield id="g_114" enabled="#{d.TestDetailUI.enabled}" format="double" value=".{speed}" />
+</t:gridcol>
+<t:gridcol id="g_115" align="center" text="Steigung" width="60" >
+<t:formattedfield id="g_116" enabled="#{d.TestDetailUI.enabled}" format="double" value=".{incline}" />
+</t:gridcol>
+<t:gridcol id="g_117" align="center" text="Zeit (Stufe)" width="75" >
+<t:field id="g_118" enabled="#{d.TestDetailUI.enabled}" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{step_time}" userhint="mm:ss" />
+</t:gridcol>
+<t:gridcol id="g_119" align="center" text="Zeit(Gesamt)" width="75" >
+<t:field id="g_120" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{time_total}" userhint="mm:ss" />
+</t:gridcol>
+<t:gridcol id="g_121" align="center" text="Laktat" width="45" >
+<t:formattedfield id="g_122" enabled="#{d.TestDetailUI.enabled}" format="double" value=".{lactate}" />
+</t:gridcol>
+<t:gridcol id="g_123" align="center" text="HF" width="45" >
+<t:formattedfield id="g_124" enabled="#{d.TestDetailUI.enabled}" format="int" value=".{hr}" />
+</t:gridcol>
+<t:gridcol id="g_125" align="center" text="O2" width="45" >
+<t:formattedfield id="g_126" enabled="#{d.TestDetailUI.enabled}" format="double" value=".{o2_absorption}" />
+</t:gridcol>
+<t:gridcol id="g_127" align="center" text="CO2" width="45" >
+<t:formattedfield id="g_128" enabled="#{d.TestDetailUI.enabled}" format="double" value=".{co2_emission}" />
+</t:gridcol>
+<t:gridcol id="g_129" align="center" text="RQ" width="45" >
+<t:formattedfield id="g_130" enabled="#{d.TestDetailUI.enabled}" format="double" value=".{rq}" />
+</t:gridcol>
 </t:fixgrid>
 </t:row>
-<t:rowdistance id="g_119" />
-<t:row id="g_120" >
-<t:button id="g_121" text="Hinzufügen" />
-<t:coldistance id="g_122" />
-<t:button id="g_123" text="Entfernen" />
+<t:rowdistance id="g_131" />
+<t:row id="g_132" >
+<t:button id="g_133" actionListener="#{d.TestDetailUI.onAddItem}" enabled="#{d.TestDetailUI.enabled}" text="Hinzufügen" />
+<t:coldistance id="g_134" />
+<t:button id="g_135" actionListener="#{d.TestDetailUI.onRemoveItem}" enabled="#{d.TestDetailUI.enabled}" text="Entfernen" />
 </t:row>
 </t:pane>
 </t:row>
