@@ -12,7 +12,7 @@ import trimatrix.db.EntitiesHaveLabels;
 import trimatrix.db.EntitiesHaveLabelsId;
 import trimatrix.db.Labels;
 import trimatrix.services.ServiceLayer;
-import trimatrix.utils.Dictionary;
+import trimatrix.utils.Helper;
 
 public class LabelLogic {
 	private DAOLayer daoLayer;
@@ -36,7 +36,7 @@ public class LabelLogic {
 			Statusbar.outputMessage("Label already assigned!");
 			return false;
 		} catch(Exception ex) {
-			Dictionary.logger.error("Error saving relation entity " + entity_id + " and label " + label_id );
+			Helper.logger.error("Error saving relation entity " + entity_id + " and label " + label_id );
 			return false;
 		}				
 	}
@@ -51,7 +51,7 @@ public class LabelLogic {
 			daoLayer.getEntitiesHaveLabelsDAO().delete(relation);
 			return true;
 		} catch(Exception ex) {
-			Dictionary.logger.error("Error saving relation entity " + entity_id + " and label " + label_id );
+			Helper.logger.error("Error saving relation entity " + entity_id + " and label " + label_id );
 			return false;
 		}				
 	}	
@@ -65,7 +65,7 @@ public class LabelLogic {
 			daoLayer.getLabelsDAO().merge(label);
 			return true;
 		} catch (Exception ex) {
-			Dictionary.logger.error(ex.toString());
+			Helper.logger.error(ex.toString());
 			return false;
 		}		
 	}

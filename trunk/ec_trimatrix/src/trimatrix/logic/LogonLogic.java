@@ -12,7 +12,7 @@ import trimatrix.db.KRoles;
 import trimatrix.db.Users;
 import trimatrix.services.ServiceLayer;
 import trimatrix.utils.Constants;
-import trimatrix.utils.Dictionary;
+import trimatrix.utils.Helper;
 
 public class LogonLogic {
 	private ServiceLayer serviceLayer;
@@ -47,7 +47,7 @@ public class LogonLogic {
 		}
 		serviceLayer.getDictionaryService().setMyRoles(myRoles);
 		
-		Dictionary.logger.info("User " + username + " logged on!");
+		Helper.logger.info("User " + username + " logged on!");
 		return true;
 	}
 	

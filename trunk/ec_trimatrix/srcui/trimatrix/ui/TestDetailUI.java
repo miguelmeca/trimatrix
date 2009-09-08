@@ -28,107 +28,7 @@ import trimatrix.utils.Helper;
 @CCGenClass (expressionBase="#{d.TestDetailUI}")
 
 public class TestDetailUI extends AEntityDetailUI implements Serializable
-{
-    protected FIXGRIDListBinding<GridTreadmillItem> m_gridTreadmill = new FIXGRIDListBinding<GridTreadmillItem>(true);
-    public FIXGRIDListBinding<GridTreadmillItem> getGridTreadmill() { return m_gridTreadmill; }
-    public void setGridTreadmill(FIXGRIDListBinding<GridTreadmillItem> value) { m_gridTreadmill = value; }
-
-    public class GridTreadmillItem extends FIXGRIDItem implements java.io.Serializable
-    {
-    	Integer step;
-    	Double speed;
-    	Double incline;
-    	String step_time;
-    	String time_total;
-    	Double lactate;
-    	Integer hr;
-    	Double o2_absorption;
-    	Double co2_emission;
-    	Double rq;
-		public Integer getStep() {
-			return step;
-		}
-		public void setStep(Integer step) {
-			this.step = step;
-		}
-		public Double getSpeed() {
-			return speed;
-		}
-		public void setSpeed(Double speed) {
-			this.speed = speed;
-		}
-		public Double getIncline() {
-			return incline;
-		}
-		public void setIncline(Double incline) {
-			this.incline = incline;
-		}
-		public String getStep_time() {
-			return step_time;
-		}
-		public void setStep_time(String step_time) {
-			this.step_time = step_time;
-		}
-		public String getTime_total() {
-			return time_total;
-		}
-		public void setTime_total(String time_total) {
-			this.time_total = time_total;
-		}
-		public Double getLactate() {
-			return lactate;
-		}
-		public void setLactate(Double lactate) {
-			this.lactate = lactate;
-		}
-		public Integer getHr() {
-			return hr;
-		}
-		public void setHr(Integer hr) {
-			this.hr = hr;
-		}
-		public Double getO2_absorption() {
-			return o2_absorption;
-		}
-		public void setO2_absorption(Double o2_absorption) {
-			this.o2_absorption = o2_absorption;
-		}
-		public Double getCo2_emission() {
-			return co2_emission;
-		}
-		public void setCo2_emission(Double co2_emission) {
-			this.co2_emission = co2_emission;
-		}
-		public Double getRq() {
-			return rq;
-		}
-		public void setRq(Double rq) {
-			this.rq = rq;
-		}
-    }
-    
-    public void onAddItem(ActionEvent ae)    
-    {
-    	GridTreadmillItem item = new GridTreadmillItem();
-    	item.setStep(m_gridTreadmill.getRows().size()+1);
-    	m_gridTreadmill.getItems().add(item);
-    }
-    
-    public void onRemoveItem(ActionEvent ae)
-    {
-    	GridTreadmillItem selected = m_gridTreadmill.getSelectedItem();
-    	if(selected==null) return;
-    	m_gridTreadmill.getItems().remove(selected);
-    	// recalculate step numbers and total time
-    	int step = 1;
-    	for (GridTreadmillItem item : m_gridTreadmill.getItems()) {
-    		item.setStep(step++);
-    	}
-    	
-    }
-
-    
-
+{	
     public void onDoctorSearch(ActionEvent event) {
     	IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(Constants.Entity.DOCTOR);
        	entitySelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){
@@ -425,4 +325,84 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 		getDaoLayer().getTestsProtocolDAO().save(protocol);		
 		entity.setTestsProtocol(protocol);
     }	
+	
+	// ------------------------------------------------------------------------
+	// logic for treadmill protocol
+	// ------------------------------------------------------------------------	
+	protected FIXGRIDListBinding<GridTreadmillItem> m_gridTreadmill = new FIXGRIDListBinding<GridTreadmillItem>(true);
+    public FIXGRIDListBinding<GridTreadmillItem> getGridTreadmill() { return m_gridTreadmill; }
+    public void setGridTreadmill(FIXGRIDListBinding<GridTreadmillItem> value) { m_gridTreadmill = value; }
+
+    public class GridTreadmillItem extends FIXGRIDItem implements java.io.Serializable
+    {
+    	Integer step;
+    	Double speed;
+    	Double incline;
+    	String step_time;
+    	String time_total;
+    	Double lactate;
+    	Integer hr;
+    	Double o2_absorption;
+    	Double co2_emission;
+    	Double rq;
+    	
+    	public GridTreadmillItem(Integer step) {
+    		this.step = step;
+    	}
+    	
+		public Integer getStep() {return step;}
+		public void setStep(Integer step) {this.step = step;}
+		
+		public Double getSpeed() {return speed;}
+		public void setSpeed(Double speed) {this.speed = speed;}
+		
+		public Double getIncline() {return incline;}
+		public void setIncline(Double incline) {this.incline = incline;}
+		
+		public String getStep_time() {return step_time;}
+		public void setStep_time(String step_time) {this.step_time = step_time;}
+		
+		public String getTime_total() {
+			if(step==1) {
+				return step_time;
+			}
+			// get previous step
+			GridTreadmillItem preItem = m_gridTreadmill.getItems().get(step-2);
+			return Helper.calculateDuration(preItem.getTime_total(), step_time);			
+		}
+		public void setTime_total(String time_total) {this.time_total = time_total;}
+		
+		public Double getLactate() {return lactate;}
+		public void setLactate(Double lactate) {this.lactate = lactate;}
+		
+		public Integer getHr() {return hr;}
+		public void setHr(Integer hr) {this.hr = hr;}
+		
+		public Double getO2_absorption() {return o2_absorption;}		
+		public void setO2_absorption(Double o2_absorption) {this.o2_absorption = o2_absorption;}
+		
+		public Double getCo2_emission() {return co2_emission;}
+		public void setCo2_emission(Double co2_emission) {this.co2_emission = co2_emission;}
+		
+		public Double getRq() {return rq;}
+		public void setRq(Double rq) {this.rq = rq;}
+    }
+    
+    public void onAddItem(ActionEvent ae) {
+    	int step = m_gridTreadmill.getRows().size()+1;
+    	GridTreadmillItem item = new GridTreadmillItem(step);
+    	m_gridTreadmill.getItems().add(item);
+    }
+    
+    public void onRemoveItem(ActionEvent ae) {
+    	GridTreadmillItem selected = m_gridTreadmill.getSelectedItem();
+    	if(selected==null) return;
+    	m_gridTreadmill.getItems().remove(selected);
+    	// recalculate step numbers and total time
+    	int step = 1;
+    	for (GridTreadmillItem item : m_gridTreadmill.getItems()) {
+    		item.setStep(step++);
+    	}
+    	
+    }   
 }

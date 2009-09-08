@@ -16,7 +16,7 @@ import trimatrix.db.Tests;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
-import trimatrix.utils.Dictionary;
+import trimatrix.utils.Helper;
 
 public final class TestEntity extends AEntity {
 	// Enums
@@ -140,7 +140,7 @@ public final class TestEntity extends AEntity {
 					status.setRollbackOnly();
 					return false;
 				}				
-				Dictionary.logger.info("DoctorEntity : Deletion of doctor successful => " + id );
+				Helper.logger.info("DoctorEntity : Deletion of doctor successful => " + id );
 				return true;
 			}			
 		});		
@@ -152,11 +152,11 @@ public final class TestEntity extends AEntity {
 		case ATHLETE:
 			PersonsAthlete athlete = daoLayer.getPersonAthleteDAO().findById(id);
 			if(athlete==null) {
-				Dictionary.logger.warn("PersonAthlete : Profil athlete not found => " + id );		
+				Helper.logger.warn("PersonAthlete : Profil athlete not found => " + id );		
 				return false;
 			} 
 			daoLayer.getPersonAthleteDAO().delete(athlete);		
-			Dictionary.logger.info("PersonAthlete : Deletion of profil athlete successful => " + id );
+			Helper.logger.info("PersonAthlete : Deletion of profil athlete successful => " + id );
 			break;
 		}		
 		return true;

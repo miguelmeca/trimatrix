@@ -15,7 +15,7 @@ import trimatrix.db.PersonsAthlete;
 import trimatrix.db.Users;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
-import trimatrix.utils.Dictionary;
+import trimatrix.utils.Helper;
 
 public final class PersonEntity extends AEntity {
 	// Constants	 
@@ -134,7 +134,7 @@ public final class PersonEntity extends AEntity {
 					status.setRollbackOnly();
 					return false;
 				}				
-				Dictionary.logger.info("PersonEntity : Deletion of person successful => " + id );
+				Helper.logger.info("PersonEntity : Deletion of person successful => " + id );
 				return true;
 			}
 			
@@ -147,11 +147,11 @@ public final class PersonEntity extends AEntity {
 		case ATHLETE:
 			PersonsAthlete athlete = daoLayer.getPersonAthleteDAO().findById(id);
 			if(athlete==null) {
-				Dictionary.logger.warn("PersonAthlete : Profil athlete not found => " + id );		
+				Helper.logger.warn("PersonAthlete : Profil athlete not found => " + id );		
 				return false;
 			} 
 			daoLayer.getPersonAthleteDAO().delete(athlete);		
-			Dictionary.logger.info("PersonAthlete : Deletion of profil athlete successful => " + id );
+			Helper.logger.info("PersonAthlete : Deletion of profil athlete successful => " + id );
 			break;
 		}		
 		return true;

@@ -26,7 +26,7 @@ import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SFunctionTree;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Context;
-import trimatrix.utils.Dictionary;
+import trimatrix.utils.Helper;
 
 @SuppressWarnings("serial")
 public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
@@ -126,7 +126,7 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
                 	}  					
                 	
                 } else {
-                	Dictionary.logger.warn(dragInfo[1] + " is not defined as source for drag and drop!");
+                	Helper.logger.warn(dragInfo[1] + " is not defined as source for drag and drop!");
                 	return;
                 } 
             }
@@ -168,7 +168,7 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 				try {
 					page = Constants.Page.valueOf(functionTree.page);						
 				} catch (Exception ex) {
-					Dictionary.logger.warn(ex.toString());
+					Helper.logger.warn(ex.toString());
 					continue;
 				}	
 				node = new FunctionNode(parentNode, page.getUrl());

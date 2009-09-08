@@ -1,5 +1,6 @@
 package utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -20,5 +21,13 @@ public class JSONArrayToListTest {
 		jsonConfig.setRootClass(Double.TYPE);
 		List<Double> output = (List<Double>) JSONSerializer.toJava( jsonArray, jsonConfig );  
 		Assert.assertEquals(1.33d, output.get(0));
+		
+		List<Double> input = new ArrayList<Double>();
+		input.add(new Double(1.34));
+		input.add(new Double(1.51));
+		input.add(new Double(2.01));
+		input.add(new Double(4.59));
+		JSONArray jsonArray2 = (JSONArray)JSONSerializer.toJSON(input);
+		Assert.assertEquals("[1.34,1.51,2.01,4.59]", jsonArray2.toString());	
 	}
 }
