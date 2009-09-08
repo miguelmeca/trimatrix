@@ -57,6 +57,9 @@ public final class TestEntity extends AEntity {
     public static final String DISTANCE = "distance";  
     public static final String SPLITS = "splits";
     
+    // Constants Protocoll
+    public static final String PROTOCOL_DESCRIPTION = "protocol_descritpion";
+    
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IUserEntity#getGridMetaData()
 	 */

@@ -136,11 +136,11 @@
 </t:row>
 </t:tabbedpanetab>
 <t:tabbedpanetab id="g_100" padding="5" rendered="#{d.TestDetailUI.protocol}" rowdistance="2" text="#{rr.literals.test_protocol}" >
-<t:row id="g_101" >
+<t:row id="g_101" comment="treadmill protocol" >
 <t:pane id="g_102" >
 <t:row id="g_103" >
 <t:label id="g_104" rowalignmenty="top" text="#{rr.literals.description}" width="100" />
-<t:textarea id="g_105" attributemacro="entityDetailMacro(TestDetailUI,description)" height="100" width="510" />
+<t:textarea id="g_105" attributemacro="entityDetailMacro(TestDetailUI,protocol_description)" height="100" width="510" />
 </t:row>
 <t:rowdistance id="g_106" />
 <t:row id="g_107" >
@@ -152,13 +152,13 @@
 <t:formattedfield id="g_112" enabled="false" format="int" value=".{step}" />
 </t:gridcol>
 <t:gridcol id="g_113" align="center" text="Geschwindigkeit" width="90" >
-<t:formattedfield id="g_114" enabled="#{d.TestDetailUI.enabled}" format="double" value=".{speed}" />
+<t:formattedfield id="g_114" enabled="false" format="double" value=".{speed}" />
 </t:gridcol>
 <t:gridcol id="g_115" align="center" text="Steigung" width="60" >
-<t:formattedfield id="g_116" enabled="#{d.TestDetailUI.enabled}" format="double" value=".{incline}" />
+<t:formattedfield id="g_116" enabled="false" format="int" value=".{incline}" />
 </t:gridcol>
 <t:gridcol id="g_117" align="center" text="Zeit (Stufe)" width="75" >
-<t:field id="g_118" enabled="#{d.TestDetailUI.enabled}" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{step_time}" userhint="mm:ss" />
+<t:field id="g_118" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{step_time}" userhint="mm:ss" />
 </t:gridcol>
 <t:gridcol id="g_119" align="center" text="Zeit(Gesamt)" width="75" >
 <t:field id="g_120" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{time_total}" userhint="mm:ss" />
