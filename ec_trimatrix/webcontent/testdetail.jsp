@@ -144,7 +144,7 @@
 </t:row>
 <t:rowdistance id="g_106" />
 <t:row id="g_107" >
-<t:fixgrid id="g_108" avoidroundtrips="true" border="#808080" enabled="#{d.TestDetailUI.enabled}" multiselect="false" objectbinding="#{d.TestDetailUI.gridTreadmill}" sbvisibleamount="20" width="100%" >
+<t:fixgrid id="g_108" avoidroundtrips="1" border="#808080" enabled="#{d.TestDetailUI.enabled}" multiselect="false" objectbinding="#{d.TestDetailUI.gridTreadmill}" sbvisibleamount="20" width="100%" >
 <t:gridcol id="g_109" columnresizingenabled="false" width="20" >
 <t:gridrowselector id="g_110" />
 </t:gridcol>

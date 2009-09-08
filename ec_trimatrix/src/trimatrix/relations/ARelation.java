@@ -3,6 +3,7 @@ package trimatrix.relations;
 import trimatrix.db.IRelationDAO;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.utils.Dictionary;
+import trimatrix.utils.Helper;
 
 public abstract class ARelation implements IRelation {
 	protected SQLExecutorService sqlExecutorService;
@@ -18,7 +19,7 @@ public abstract class ARelation implements IRelation {
 			IRelationObject relation = get(id);
 			relationsDAO.delete(relation);
 		} catch (Exception ex) {
-			Dictionary.logger.warn(ex.toString());
+			Helper.logger.warn(ex.toString());
 			return false;
 		}
 		return true;			

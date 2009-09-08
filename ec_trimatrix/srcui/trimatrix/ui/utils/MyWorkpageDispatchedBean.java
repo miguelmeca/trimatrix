@@ -38,7 +38,7 @@ import trimatrix.ui.UserDetailUI;
 import trimatrix.ui.UserSelectionUI;
 import trimatrix.ui.WorkplaceUI;
 import trimatrix.utils.Constants;
-import trimatrix.utils.Dictionary;
+import trimatrix.utils.Helper;
 
 public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements IModalPopupListener{	
 	
@@ -137,7 +137,7 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 		for(Labels label:labels) {
 			// get inverted color for font
 			Color background = Color.decode(label.getColor());
-			String fontColor = Dictionary.getBlackOrWhite(background);		
+			String fontColor = Helper.getBlackOrWhite(background);		
 
 			xml.append("<t:button bgpaint='roundedrectangle(0,0,100%,100%,10,10," + label.getColor() + ");rectangle(10,0,100%,100%," + label.getColor() + ")' stylevariant='WP_ISOLATEDWORKPAGE' foreground ='" + fontColor + "' font='weight:bold' text='"+ label.getDescription()  +"' />");
 			xml.append("<t:coldistance width='1' />");
@@ -233,7 +233,7 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 		if (entity == Constants.Entity.DOCTOR) return (EntitySelectionUI)getOwningDispatcher().getDispatchedBean(DoctorSelectionUI.class);
 		if (entity == Constants.Entity.ATTACHMENT) return (EntitySelectionUI)getOwningDispatcher().getDispatchedBean(AttachmentSelectionUI.class);
 		
-		Dictionary.logger.warn("For entity " + entity.name() + " no SelectionUI available!");
+		Helper.logger.warn("For entity " + entity.name() + " no SelectionUI available!");
 		return null;
 	}
 	

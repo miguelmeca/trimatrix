@@ -9,7 +9,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import trimatrix.utils.Dictionary;
+import trimatrix.utils.Helper;
 import eu.medsea.mimeutil.MimeType;
 
 
@@ -20,7 +20,7 @@ public class MimeTypeTest {
 		File testFile = new File("testingdata/tom.jpg");
 		byte[] testBytes;
 		try {
-			testBytes = Dictionary.getBytesFromFile(testFile);
+			testBytes = Helper.getBytesFromFile(testFile);
 			ByteArrayInputStream byteInputStream = new ByteArrayInputStream(testBytes);
 			Collection<?> mimeTypes = eu.medsea.mimeutil.MimeUtil.getMimeTypes(byteInputStream);			
 			MimeType mimeType = (MimeType)mimeTypes.toArray()[0];

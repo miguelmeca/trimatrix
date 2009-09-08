@@ -13,7 +13,7 @@ import trimatrix.db.Attachments;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
-import trimatrix.utils.Dictionary;
+import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.Entity;
 
 public class AttachmentEntity extends AEntity {
@@ -60,7 +60,7 @@ public class AttachmentEntity extends AEntity {
 					status.setRollbackOnly();
 					return false;
 				}				
-				Dictionary.logger.info("AttachmentEntity : Deletion of attachment successful => " + id );
+				Helper.logger.info("AttachmentEntity : Deletion of attachment successful => " + id );
 				return true;
 			}			
 		});		
@@ -136,7 +136,7 @@ public class AttachmentEntity extends AEntity {
 			if (filename == null || filename.length() == 0) return Constants.DEFAULT_ICON;
 			String extension = filename.substring(filename.lastIndexOf(Constants.POINT) + 1);
 			String icon = Constants.PATH_MIMEICONS + extension + Constants.POINT + Constants.GIF_EXTENSION;
-			if (!Dictionary.isFileInWebRoot(icon)) return Constants.DEFAULT_ICON;
+			if (!Helper.isFileInWebRoot(icon)) return Constants.DEFAULT_ICON;
 			// all ok return gif of extension
 			return icon;
 		}

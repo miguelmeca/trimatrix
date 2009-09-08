@@ -12,7 +12,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 import trimatrix.db.Doctors;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
-import trimatrix.utils.Dictionary;
+import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.Entity;
 
 public class DoctorEntity extends AEntity {
@@ -63,7 +63,7 @@ public class DoctorEntity extends AEntity {
 					status.setRollbackOnly();
 					return false;
 				}				
-				Dictionary.logger.info("DoctorEntity : Deletion of doctor successful => " + id );
+				Helper.logger.info("DoctorEntity : Deletion of doctor successful => " + id );
 				return true;
 			}			
 		});		

@@ -23,7 +23,7 @@ import trimatrix.db.EntitiesHaveLabels;
 import trimatrix.db.Labels;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
-import trimatrix.utils.Dictionary;
+import trimatrix.utils.Helper;
 
 @SuppressWarnings("serial")
 @CCGenClass (expressionBase="#{d.WorkplaceUI}")
@@ -173,7 +173,7 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 					}					
 				});
 				if(!labelChangePopUp.setLabel(label_id)) {
-					Dictionary.logger.error("Label " + label_id + " not correct!");
+					Helper.logger.error("Label " + label_id + " not correct!");
 					return;
 				}			
 				m_popup = getWorkpage().createModalPopupInWorkpageContext();  			
@@ -208,7 +208,7 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 		for(Labels label:labels) {
 			// get inverted color for font
 			Color background = Color.decode(label.getColor());
-			String fontColor = Dictionary.getBlackOrWhite(background);		
+			String fontColor = Helper.getBlackOrWhite(background);		
 
 			xml.append("<t:row>");
 			xml.append("<t:button clientname='" + label.getId() + "' actionListener='#{d.WorkplaceUI.onHandleLabels}' contentareafilled='false' bgpaint='roundedrectangle(0,0,100%,100%,5,5," + label.getColor() + ")' stylevariant='WP_ISOLATEDWORKPAGE' popupmenu='LABEL' foreground ='" + fontColor + "' font='size:10;weight:bold' text='"+ label.getDescription() +"' width = '120' />");

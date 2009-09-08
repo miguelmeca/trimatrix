@@ -5,14 +5,14 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import trimatrix.utils.Dictionary;
+import trimatrix.utils.Helper;
 
 public class DictionaryServiceTest {
 
 	@Test
 	public void testIsEmailValid() {
-		assertTrue(Dictionary.isEmailValid("reich.markus@gmail.com"));
-		assertFalse(Dictionary.isEmailValid("reich@go"));
-		assertFalse(Dictionary.isEmailValid("reich.markus"));
+		assertTrue(Helper.isEmailValid("reich.markus@gmail.com"));
+		assertFalse(Helper.isEmailValid("reich@go"));
+		assertFalse(Helper.isEmailValid("reich.markus"));
 	}
 }

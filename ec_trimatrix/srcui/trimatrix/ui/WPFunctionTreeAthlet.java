@@ -13,7 +13,7 @@ import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SFunctionTree;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Context;
-import trimatrix.utils.Dictionary;
+import trimatrix.utils.Helper;
 
 @SuppressWarnings("serial")
 public class WPFunctionTreeAthlet extends WorkplaceFunctionTree {
@@ -54,7 +54,7 @@ public class WPFunctionTreeAthlet extends WorkplaceFunctionTree {
 				try {
 					page = Constants.Page.valueOf(functionTree.page);						
 				} catch (Exception ex) {
-					Dictionary.logger.warn(ex.toString());
+					Helper.logger.warn(ex.toString());
 					continue;
 				}	
 				node = new FunctionNode(parentNode, page.getUrl());

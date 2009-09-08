@@ -10,6 +10,7 @@ import trimatrix.db.DAOLayer;
 import trimatrix.db.IEntityDAO;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.utils.Dictionary;
+import trimatrix.utils.Helper;
 
 public abstract class AEntity implements IEntity{	
 	// Variables
@@ -31,11 +32,11 @@ public abstract class AEntity implements IEntity{
 		IEntityObject entity = entitiesDAO.findById(id);
 		if(entity==null) return null;
 		if(entity.getDeleted()) {
-			Dictionary.logger.warn(this.getClass().getSimpleName() + " marked as deleted");
+			Helper.logger.warn(this.getClass().getSimpleName() + " marked as deleted");
 			return null;
 		}
 		if(entity.getTest()) {
-			Dictionary.logger.warn(this.getClass().getSimpleName() + " marked for test");
+			Helper.logger.warn(this.getClass().getSimpleName() + " marked for test");
 			return null;
 		}
 		return entity;
