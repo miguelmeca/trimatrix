@@ -12,6 +12,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONSerializer;
 
 import org.eclnt.editor.annotations.CCGenClass;
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
@@ -222,7 +223,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 			protocol.setModel((String)values.get(TestEntity.MODEL));
 			protocol.setModelLactate((String)values.get(TestEntity.MODEL_LACTATE));
 			protocol.setModelSpiro((String)values.get(TestEntity.MODEL_SPIRO));			
-	    	fillProtocol();		
+			fillProtocol();		
 		}		
 	}
 	
@@ -288,7 +289,11 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 			values.put(TestEntity.MODEL, protocol.getModel());
 			values.put(TestEntity.MODEL_LACTATE, protocol.getModelLactate());
 			values.put(TestEntity.MODEL_SPIRO, protocol.getModelSpiro());
-			buildProtocolGrid();
+			try {
+				buildProtocolGrid();
+			} catch (Exception ex) {
+				Statusbar.outputAlert(ex.toString(), "Testprotokoll schreiben");
+			}
 		}
 		
 		// add bgpaint of fields
@@ -365,8 +370,8 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     	String time_total;
     	Double lactate;
     	Integer hr;
-    	Double o2_absorption;
-    	Double co2_emission;
+    	Integer o2_absorption;
+    	Integer co2_emission;
     	Double rq;
     	
     	public AGridItem(Integer step) {
@@ -408,11 +413,11 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 		public Integer getHr() {return hr;}
 		public void setHr(Integer hr) {this.hr = hr;}
 		
-		public Double getO2_absorption() {return o2_absorption;}		
-		public void setO2_absorption(Double o2_absorption) {this.o2_absorption = o2_absorption;}
+		public Integer getO2_absorption() {return o2_absorption;}		
+		public void setO2_absorption(Integer o2_absorption) {this.o2_absorption = o2_absorption;}
 		
-		public Double getCo2_emission() {return co2_emission;}
-		public void setCo2_emission(Double co2_emission) {this.co2_emission = co2_emission;}
+		public Integer getCo2_emission() {return co2_emission;}
+		public void setCo2_emission(Integer co2_emission) {this.co2_emission = co2_emission;}
 		
 		public Double getRq() {return rq;}
 		public void setRq(Double rq) {this.rq = rq;}
@@ -514,8 +519,8 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     	
     	List<Double> lactates = new ArrayList<Double>();
     	List<Integer> hrs = new ArrayList<Integer>();
-    	List<Double> o2_absorptions = new ArrayList<Double>();
-    	List<Double> co2_emissions = new ArrayList<Double>();
+    	List<Integer> o2_absorptions = new ArrayList<Integer>();
+    	List<Integer> co2_emissions = new ArrayList<Integer>();
     	List<Double> rqs = new ArrayList<Double>();
     	// build lists
     	for (AGridItem item : grid.getItems()) {
@@ -542,24 +547,34 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     }
     
     @SuppressWarnings("unchecked")
-	private void buildProtocolGrid() {
+	private void buildProtocolGrid() throws Exception {
     	TestsProtocol protocol = entity.getTestsProtocol();
-    	// transform JSON to lists
-    	List<Double> lactates = (List<Double>) JSONSerializer.toJava(JSONSerializer.toJSON(protocol.getLactate()));  
-    	List<Integer> hrs = (List<Integer>) JSONSerializer.toJava(JSONSerializer.toJSON(protocol.getHr())); 
-    	List<Double> o2_absorptions = (List<Double>) JSONSerializer.toJava(JSONSerializer.toJSON(protocol.getO2Absorption())); 
-    	List<Double> co2_emissions = (List<Double>) JSONSerializer.toJava(JSONSerializer.toJSON(protocol.getCo2Emission())); 
-    	List<Double> rqs = (List<Double>) JSONSerializer.toJava(JSONSerializer.toJSON(protocol.getRq()));     	
+    	// transform JSON to lists    	
+   		List<Double> lactates = null;   		
+   		String lactate = protocol.getLactate();
+   		if(lactate!=null) lactates = (List<Double>) JSONSerializer.toJava(JSONSerializer.toJSON(lactate));     	   		
+    	List<Integer> hrs = null;
+    	String hr = protocol.getHr();
+    	if(hr!=null) hrs = (List<Integer>) JSONSerializer.toJava(JSONSerializer.toJSON(hr)); 	    	
+    	List<Integer> o2_absorptions = null;
+    	String o2_absorption = protocol.getO2Absorption();
+    	if(o2_absorption!=null) o2_absorptions = (List<Integer>) JSONSerializer.toJava(JSONSerializer.toJSON(o2_absorption));
+    	List<Integer> co2_emissions = null;
+    	String co2_emission = protocol.getCo2Emission();
+    	if(co2_emission!=null) co2_emissions = (List<Integer>) JSONSerializer.toJava(JSONSerializer.toJSON(co2_emission));
+    	List<Double> rqs = null;   		
+   		String rq = protocol.getRq();
+   		if(rq!=null) rqs = (List<Double>) JSONSerializer.toJava(JSONSerializer.toJSON(rq));    	
     	// treadmill
     	if(isTreadmill()) {
     		m_gridTreadmill.getItems().clear();
         	for(int i = 1; i<=protocol.getCountSteps();i++) {
         		GridTreadmillItem item = new GridTreadmillItem(i);   
-        		item.setLactate(lactates.get(i-1));   
-        		item.setHr(hrs.get(i-1));
-        		item.setO2_absorption(o2_absorptions.get(i-1));
-        		item.setCo2_emission(co2_emissions.get(i-1));
-        		item.setRq(rqs.get(i-1));
+        		if(lactates!=null) item.setLactate(lactates.get(i-1));   
+        		if(hrs!=null) item.setHr(hrs.get(i-1));
+        		if(o2_absorptions!=null) item.setO2_absorption(o2_absorptions.get(i-1));
+        		if(co2_emissions!=null) item.setCo2_emission(co2_emissions.get(i-1));
+        		if(rqs!=null) item.setRq(rqs.get(i-1));
         		m_gridTreadmill.getItems().add(item);
         	}
         	return;
@@ -569,11 +584,11 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     		m_gridErgo.getItems().clear();
         	for(int i = 1; i<=protocol.getCountSteps();i++) {
         		GridErgoItem item = new GridErgoItem(i);   
-        		item.setLactate(lactates.get(i-1));   
-        		item.setHr(hrs.get(i-1));
-        		item.setO2_absorption(o2_absorptions.get(i-1));
-        		item.setCo2_emission(co2_emissions.get(i-1));
-        		item.setRq(rqs.get(i-1));
+        		if(lactates!=null) item.setLactate(lactates.get(i-1));   
+        		if(hrs!=null) item.setHr(hrs.get(i-1));
+        		if(o2_absorptions!=null) item.setO2_absorption(o2_absorptions.get(i-1));
+        		if(co2_emissions!=null) item.setCo2_emission(co2_emissions.get(i-1));
+        		if(rqs!=null) item.setRq(rqs.get(i-1));
         		m_gridErgo.getItems().add(item);
         	}
         	return;
