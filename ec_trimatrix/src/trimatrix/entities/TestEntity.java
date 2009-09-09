@@ -58,7 +58,10 @@ public final class TestEntity extends AEntity {
     public static final String SPLITS = "splits";
     
     // Constants Protocoll
-    public static final String PROTOCOL_DESCRIPTION = "protocol_descritpion";
+    public static final String PROTOCOL_DESCRIPTION = "protocol_description";
+    public static final String MODEL = "model";
+    public static final String MODEL_LACTATE = "model_lactate";
+    public static final String MODEL_SPIRO = "model_spiro";
     
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IUserEntity#getGridMetaData()
