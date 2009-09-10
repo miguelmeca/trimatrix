@@ -156,111 +156,119 @@
 </t:row>
 <t:rowdistance id="g_115" />
 <t:row id="g_116" >
-<t:fixgrid id="g_117" avoidroundtrips="1" border="#808080" enabled="#{d.TestDetailUI.enabled}" multiselect="false" objectbinding="#{d.TestDetailUI.gridTreadmill}" sbvisibleamount="20" width="100%" >
-<t:gridcol id="g_118" columnresizingenabled="false" width="20" >
-<t:gridrowselector id="g_119" />
+<t:coldistance id="g_117" width="100%" />
+<t:link id="g_118" actionListener="#{d.TestDetailUI.gridTreadmill.onOpenGridFunctions}" text="#{rr.literals.export}" />
+</t:row>
+<t:row id="g_119" >
+<t:fixgrid id="g_120" avoidroundtrips="1" border="#808080" enabled="#{d.TestDetailUI.enabled}" multiselect="false" objectbinding="#{d.TestDetailUI.gridTreadmill}" sbvisibleamount="20" width="100%" >
+<t:gridcol id="g_121" columnresizingenabled="false" width="20" >
+<t:gridrowselector id="g_122" />
 </t:gridcol>
-<t:gridcol id="g_120" align="center" text="Stufe" width="50" >
-<t:formattedfield id="g_121" enabled="false" format="int" value=".{step}" />
+<t:gridcol id="g_123" align="center" text="#{rr.literals.step}" width="50" >
+<t:formattedfield id="g_124" enabled="false" format="int" value=".{step}" />
 </t:gridcol>
-<t:gridcol id="g_122" align="center" text="Geschwindigkeit" width="90" >
-<t:formattedfield id="g_123" enabled="false" format="double" value=".{speed}" />
+<t:gridcol id="g_125" align="center" text="#{rr.literals.speed}" width="90" >
+<t:formattedfield id="g_126" enabled="false" format="double" value=".{speed}" />
 </t:gridcol>
-<t:gridcol id="g_124" align="center" text="Steigung" width="60" >
-<t:formattedfield id="g_125" enabled="false" format="int" value=".{incline}" />
+<t:gridcol id="g_127" align="center" text="#{rr.literals.incline}" width="60" >
+<t:formattedfield id="g_128" enabled="false" format="int" value=".{incline}" />
 </t:gridcol>
-<t:gridcol id="g_126" align="center" text="Zeit (Stufe)" width="75" >
-<t:field id="g_127" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{step_time}" userhint="mm:ss" />
+<t:gridcol id="g_129" align="center" text="#{rr.literals.time_step}" width="75" >
+<t:field id="g_130" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{step_time}" userhint="mm:ss" />
 </t:gridcol>
-<t:gridcol id="g_128" align="center" text="Zeit(Gesamt)" width="75" >
-<t:field id="g_129" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{time_total}" userhint="mm:ss" />
+<t:gridcol id="g_131" align="center" text="#{rr.literals.total_time}" width="75" >
+<t:field id="g_132" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{time_total}" userhint="mm:ss" />
 </t:gridcol>
-<t:gridcol id="g_130" align="center" text="Laktat" width="45" >
-<t:formattedfield id="g_131" enabled="#{d.TestDetailUI.enabled}" format="double" value=".{lactate}" />
+<t:gridcol id="g_133" align="center" text="#{rr.literals.lactate}" width="45" >
+<t:formattedfield id="g_134" bgpaint="mandatory()" enabled="#{d.TestDetailUI.enabled}" format="double" value=".{lactate}" />
 </t:gridcol>
-<t:gridcol id="g_132" align="center" text="HF" width="45" >
-<t:formattedfield id="g_133" enabled="#{d.TestDetailUI.enabled}" format="int" value=".{hr}" />
+<t:gridcol id="g_135" align="center" text="#{rr.literals.hr}" width="45" >
+<t:formattedfield id="g_136" bgpaint="mandatory()" enabled="#{d.TestDetailUI.enabled}" format="int" value=".{hr}" />
 </t:gridcol>
-<t:gridcol id="g_134" align="center" text="O2" width="45" >
-<t:formattedfield id="g_135" enabled="#{d.TestDetailUI.enabled}" format="int" value=".{o2_absorption}" />
+<t:gridcol id="g_137" align="center" text="O2" width="45" >
+<t:formattedfield id="g_138" enabled="#{d.TestDetailUI.enabled}" format="int" value=".{o2_absorption}" />
 </t:gridcol>
-<t:gridcol id="g_136" align="center" text="CO2" width="45" >
-<t:formattedfield id="g_137" enabled="#{d.TestDetailUI.enabled}" format="int" value=".{co2_emission}" />
+<t:gridcol id="g_139" align="center" text="CO2" width="45" >
+<t:formattedfield id="g_140" enabled="#{d.TestDetailUI.enabled}" format="int" value=".{co2_emission}" />
 </t:gridcol>
-<t:gridcol id="g_138" align="center" text="RQ" width="45" >
-<t:formattedfield id="g_139" enabled="#{d.TestDetailUI.enabled}" format="double" value=".{rq}" />
+<t:gridcol id="g_141" align="center" text="RQ" width="45" >
+<t:formattedfield id="g_142" enabled="#{d.TestDetailUI.enabled}" format="double" value=".{rq}" />
 </t:gridcol>
 </t:fixgrid>
 </t:row>
-<t:rowdistance id="g_140" />
-<t:row id="g_141" >
-<t:button id="g_142" actionListener="#{d.TestDetailUI.onAddItem}" enabled="#{d.TestDetailUI.enabled}" text="Hinzufügen" />
-<t:coldistance id="g_143" />
-<t:button id="g_144" actionListener="#{d.TestDetailUI.onRemoveItem}" enabled="#{d.TestDetailUI.enabled}" text="Entfernen" />
+<t:rowdistance id="g_143" />
+<t:row id="g_144" >
+<t:button id="g_145" actionListener="#{d.TestDetailUI.onAddItem}" enabled="#{d.TestDetailUI.enabled}" text="Hinzufügen" />
+<t:coldistance id="g_146" />
+<t:button id="g_147" actionListener="#{d.TestDetailUI.onRemoveItem}" enabled="#{d.TestDetailUI.enabled}" text="Entfernen" />
 </t:row>
 </t:pane>
 </t:row>
-<t:row id="g_145" comment="ergo protocol" rendered="#{d.TestDetailUI.ergo}" >
-<t:pane id="g_146" height="100%" rowdistance="2" width="100%" >
-<t:row id="g_147" >
-<t:label id="g_148" rowalignmenty="top" text="#{rr.literals.description}" width="100" />
-<t:textarea id="g_149" attributemacro="entityDetailMacro(TestDetailUI,protocol_description)" height="100" width="510" />
-</t:row>
+<t:row id="g_148" comment="ergo protocol" rendered="#{d.TestDetailUI.ergo}" >
+<t:pane id="g_149" height="100%" rowdistance="2" width="100%" >
 <t:row id="g_150" >
-<t:label id="g_151" text="#{rr.literals.model_ergo}" width="100" />
-<t:field id="g_152" attributemacro="entityDetailMacro(TestDetailUI,model)" width="200" />
+<t:label id="g_151" rowalignmenty="top" text="#{rr.literals.description}" width="100" />
+<t:textarea id="g_152" attributemacro="entityDetailMacro(TestDetailUI,protocol_description)" height="100" width="510" />
 </t:row>
 <t:row id="g_153" >
-<t:label id="g_154" text="#{rr.literals.model_lactate}" width="100" />
-<t:field id="g_155" attributemacro="entityDetailMacro(TestDetailUI,model_lactate)" width="200" />
+<t:label id="g_154" text="#{rr.literals.model_ergo}" width="100" />
+<t:field id="g_155" attributemacro="entityDetailMacro(TestDetailUI,model)" width="200" />
 </t:row>
 <t:row id="g_156" >
-<t:label id="g_157" text="#{rr.literals.model_spiro}" width="100" />
-<t:field id="g_158" attributemacro="entityDetailMacro(TestDetailUI,model_spiro)" width="200" />
+<t:label id="g_157" text="#{rr.literals.model_lactate}" width="100" />
+<t:field id="g_158" attributemacro="entityDetailMacro(TestDetailUI,model_lactate)" width="200" />
 </t:row>
-<t:rowdistance id="g_159" />
-<t:row id="g_160" >
-<t:fixgrid id="g_161" avoidroundtrips="1" border="#808080" enabled="#{d.TestDetailUI.enabled}" multiselect="false" objectbinding="#{d.TestDetailUI.gridErgo}" sbvisibleamount="20" width="100%" >
-<t:gridcol id="g_162" columnresizingenabled="false" width="20" >
-<t:gridrowselector id="g_163" />
+<t:row id="g_159" >
+<t:label id="g_160" text="#{rr.literals.model_spiro}" width="100" />
+<t:field id="g_161" attributemacro="entityDetailMacro(TestDetailUI,model_spiro)" width="200" />
+</t:row>
+<t:rowdistance id="g_162" />
+<t:row id="g_163" >
+<t:coldistance id="g_164" width="100%" />
+<t:link id="g_165" actionListener="#{d.TestDetailUI.gridErgo.onOpenGridFunctions}" text="#{rr.literals.export}" />
+</t:row>
+<t:row id="g_166" >
+<t:fixgrid id="g_167" avoidroundtrips="1" border="#808080" enabled="#{d.TestDetailUI.enabled}" multiselect="false" objectbinding="#{d.TestDetailUI.gridErgo}" sbvisibleamount="20" width="100%" >
+<t:gridcol id="g_168" columnresizingenabled="false" width="20" >
+<t:gridrowselector id="g_169" />
 </t:gridcol>
-<t:gridcol id="g_164" align="center" text="Stufe" width="50" >
-<t:formattedfield id="g_165" enabled="false" format="int" value=".{step}" />
+<t:gridcol id="g_170" align="center" text="#{rr.literals.step}" width="50" >
+<t:formattedfield id="g_171" enabled="false" format="int" value=".{step}" />
 </t:gridcol>
-<t:gridcol id="g_166" align="center" text="Watt" width="90" >
-<t:formattedfield id="g_167" enabled="false" format="int" value=".{power}" />
+<t:gridcol id="g_172" align="center" text="#{rr.literals.power}" width="90" >
+<t:formattedfield id="g_173" enabled="false" format="int" value=".{power}" />
 </t:gridcol>
-<t:gridcol id="g_168" align="center" text="Kadenz" width="60" >
-<t:field id="g_169" enabled="false" text=".{cadence}" />
+<t:gridcol id="g_174" align="center" text="#{rr.literals.cadence}" width="60" >
+<t:field id="g_175" enabled="false" text=".{cadence}" />
 </t:gridcol>
-<t:gridcol id="g_170" align="center" text="Zeit (Stufe)" width="75" >
-<t:field id="g_171" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{step_time}" userhint="mm:ss" />
+<t:gridcol id="g_176" align="center" text="#{rr.literals.time_step}" width="75" >
+<t:field id="g_177" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{step_time}" userhint="mm:ss" />
 </t:gridcol>
-<t:gridcol id="g_172" align="center" text="Zeit(Gesamt)" width="75" >
-<t:field id="g_173" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{time_total}" userhint="mm:ss" />
+<t:gridcol id="g_178" align="center" text="#{rr.literals.total_time}" width="75" >
+<t:field id="g_179" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{time_total}" userhint="mm:ss" />
 </t:gridcol>
-<t:gridcol id="g_174" align="center" text="Laktat" width="45" >
-<t:formattedfield id="g_175" enabled="#{d.TestDetailUI.enabled}" format="double" value=".{lactate}" />
+<t:gridcol id="g_180" align="center" text="#{rr.literals.lactate}" width="45" >
+<t:formattedfield id="g_181" bgpaint="mandatory()" enabled="#{d.TestDetailUI.enabled}" format="double" value=".{lactate}" />
 </t:gridcol>
-<t:gridcol id="g_176" align="center" text="HF" width="45" >
-<t:formattedfield id="g_177" enabled="#{d.TestDetailUI.enabled}" format="int" value=".{hr}" />
+<t:gridcol id="g_182" align="center" text="#{rr.literals.hr}" width="45" >
+<t:formattedfield id="g_183" bgpaint="mandatory()" enabled="#{d.TestDetailUI.enabled}" format="int" value=".{hr}" />
 </t:gridcol>
-<t:gridcol id="g_178" align="center" text="O2" width="45" >
-<t:formattedfield id="g_179" enabled="#{d.TestDetailUI.enabled}" format="int" value=".{o2_absorption}" />
+<t:gridcol id="g_184" align="center" text="O2" width="45" >
+<t:formattedfield id="g_185" enabled="#{d.TestDetailUI.enabled}" format="int" value=".{o2_absorption}" />
 </t:gridcol>
-<t:gridcol id="g_180" align="center" text="CO2" width="45" >
-<t:formattedfield id="g_181" enabled="#{d.TestDetailUI.enabled}" format="int" value=".{co2_emission}" />
+<t:gridcol id="g_186" align="center" text="CO2" width="45" >
+<t:formattedfield id="g_187" enabled="#{d.TestDetailUI.enabled}" format="int" value=".{co2_emission}" />
 </t:gridcol>
-<t:gridcol id="g_182" align="center" text="RQ" width="15" >
-<t:formattedfield id="g_183" enabled="#{d.TestDetailUI.enabled}" format="double" value=".{rq}" />
+<t:gridcol id="g_188" align="center" text="RQ" width="15" >
+<t:formattedfield id="g_189" enabled="#{d.TestDetailUI.enabled}" format="double" value=".{rq}" />
 </t:gridcol>
 </t:fixgrid>
 </t:row>
-<t:rowdistance id="g_184" />
-<t:row id="g_185" >
-<t:button id="g_186" actionListener="#{d.TestDetailUI.onAddItem}" enabled="#{d.TestDetailUI.enabled}" text="Hinzufügen" />
-<t:coldistance id="g_187" />
-<t:button id="g_188" actionListener="#{d.TestDetailUI.onRemoveItem}" enabled="#{d.TestDetailUI.enabled}" text="Entfernen" />
+<t:rowdistance id="g_190" />
+<t:row id="g_191" >
+<t:button id="g_192" actionListener="#{d.TestDetailUI.onAddItem}" enabled="#{d.TestDetailUI.enabled}" text="Hinzufügen" />
+<t:coldistance id="g_193" />
+<t:button id="g_194" actionListener="#{d.TestDetailUI.onRemoveItem}" enabled="#{d.TestDetailUI.enabled}" text="Entfernen" />
 </t:row>
 </t:pane>
 </t:row>

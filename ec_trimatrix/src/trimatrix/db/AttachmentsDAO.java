@@ -142,7 +142,7 @@ public class AttachmentsDAO extends HibernateDaoSupport implements IEntityDAO<At
     /* (non-Javadoc)
      * @see trimatrix.db.IDAO#attachDirty(java.lang.Object)
      */
-    public void attachDirty(Attachments instance) {
+    public void attachDirty(IEntityObject instance) {
         log.debug("attaching dirty Attachments instance");
         try {
             getHibernateTemplate().saveOrUpdate(instance);
@@ -156,7 +156,7 @@ public class AttachmentsDAO extends HibernateDaoSupport implements IEntityDAO<At
     /* (non-Javadoc)
      * @see trimatrix.db.IDAO#attachClean(java.lang.Object)
      */
-    public void attachClean(Attachments instance) {
+    public void attachClean(IEntityObject instance) {
         log.debug("attaching clean Attachments instance");
         try {
             getHibernateTemplate().lock(instance, LockMode.NONE);

@@ -117,7 +117,7 @@ public class UsersDAO extends HibernateDaoSupport implements IEntityDAO<Users> {
 		}
 	}
 
-	public void attachDirty(Users instance) {
+	public void attachDirty(IEntityObject instance) {
 		log.debug("attaching dirty Users instance");
 		try {
 			getHibernateTemplate().saveOrUpdate(instance);
@@ -128,7 +128,7 @@ public class UsersDAO extends HibernateDaoSupport implements IEntityDAO<Users> {
 		}
 	}
 
-	public void attachClean(Users instance) {
+	public void attachClean(IEntityObject instance) {
 		log.debug("attaching clean Users instance");
 		try {
 			getHibernateTemplate().lock(instance, LockMode.NONE);

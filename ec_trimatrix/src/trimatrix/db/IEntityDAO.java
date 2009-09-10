@@ -20,10 +20,10 @@ public interface IEntityDAO<E extends IEntityObject> {
 	public abstract List<E> findAll();
 
 	public abstract E merge(IEntityObject detachedInstance);
+	
+	public abstract void attachDirty(IEntityObject instance);
 
-	public abstract void attachDirty(E instance);
-
-	public abstract void attachClean(E instance);
+	public abstract void attachClean(IEntityObject instance);
 
 	public abstract void reload(IEntityObject instance);
 

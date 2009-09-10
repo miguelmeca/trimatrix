@@ -28,7 +28,7 @@
 <t:field id="g_12" bgpaint="image(100%-5,50%,/images/icons/magnifier.png,rightmiddle)" text="#{d.EntityListUI.gridList.textSearcher.text}" width="100" />
 <t:icon id="g_13" actionListener="#{d.EntityListUI.gridList.textSearcher.onNext}" image="/eclntjsfserver/images/control_play.png" />
 <t:coldistance id="g_14" width="100%" />
-<t:link id="g_15" actionListener="#{d.EntityListUI.gridList.onOpenGridFunctions}" text="Liste..." />
+<t:link id="g_15" actionListener="#{d.EntityListUI.gridList.onOpenGridFunctions}" text="#{rr.literals.export}" />
 </t:row>
 <t:rowdynamiccontent id="g_16" contentbinding="#{d.EntityListUI.dynRow}" />
 <t:rowdistance id="g_17" />

@@ -50,7 +50,8 @@ public abstract class AEntity implements IEntity{
 		// modification timestamp now handled by <timestamp> in hbm File
 		//entity.setModifiedAt(now); 
 		entityObject.setModifiedBy(dictionaryService.getMyUser().getId());
-		entitiesDAO.merge(entityObject);		
+		//entitiesDAO.merge(entityObject);	
+		entitiesDAO.attachDirty(entityObject);
 	}
 	
 	public boolean delete(String id) {
