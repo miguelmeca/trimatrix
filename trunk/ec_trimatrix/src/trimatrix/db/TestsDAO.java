@@ -126,7 +126,7 @@ public class TestsDAO extends HibernateDaoSupport implements IEntityDAO<Tests> {
 		}
 	}
 
-	public void attachDirty(Tests instance) {
+	public void attachDirty(IEntityObject instance) {
 		log.debug("attaching dirty Tests instance");
 		try {
 			getHibernateTemplate().saveOrUpdate(instance);
@@ -137,7 +137,7 @@ public class TestsDAO extends HibernateDaoSupport implements IEntityDAO<Tests> {
 		}
 	}
 
-	public void attachClean(Tests instance) {
+	public void attachClean(IEntityObject instance) {
 		log.debug("attaching clean Tests instance");
 		try {
 			getHibernateTemplate().lock(instance, LockMode.NONE);

@@ -136,7 +136,7 @@ public class DoctorsDAO extends HibernateDaoSupport implements IEntityDAO<Doctor
     /* (non-Javadoc)
 	 * @see trimatrix.db.IDoctorsDAO#attachDirty(trimatrix.db.Doctors)
 	 */
-    public void attachDirty(Doctors instance) {
+    public void attachDirty(IEntityObject instance) {
         log.debug("attaching dirty Doctors instance");
         try {
             getHibernateTemplate().saveOrUpdate(instance);
@@ -150,7 +150,7 @@ public class DoctorsDAO extends HibernateDaoSupport implements IEntityDAO<Doctor
     /* (non-Javadoc)
 	 * @see trimatrix.db.IDoctorsDAO#attachClean(trimatrix.db.Doctors)
 	 */
-    public void attachClean(Doctors instance) {
+    public void attachClean(IEntityObject instance) {
         log.debug("attaching clean Doctors instance");
         try {
             getHibernateTemplate().lock(instance, LockMode.NONE);
