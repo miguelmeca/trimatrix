@@ -182,10 +182,10 @@
 <t:formattedfield id="g_133" enabled="#{d.TestDetailUI.enabled}" format="int" value=".{hr}" />
 </t:gridcol>
 <t:gridcol id="g_134" align="center" text="O2" width="45" >
-<t:formattedfield id="g_135" enabled="#{d.TestDetailUI.enabled}" format="double" value=".{o2_absorption}" />
+<t:formattedfield id="g_135" enabled="#{d.TestDetailUI.enabled}" format="int" value=".{o2_absorption}" />
 </t:gridcol>
 <t:gridcol id="g_136" align="center" text="CO2" width="45" >
-<t:formattedfield id="g_137" enabled="#{d.TestDetailUI.enabled}" format="double" value=".{co2_emission}" />
+<t:formattedfield id="g_137" enabled="#{d.TestDetailUI.enabled}" format="int" value=".{co2_emission}" />
 </t:gridcol>
 <t:gridcol id="g_138" align="center" text="RQ" width="45" >
 <t:formattedfield id="g_139" enabled="#{d.TestDetailUI.enabled}" format="double" value=".{rq}" />
@@ -246,10 +246,10 @@
 <t:formattedfield id="g_177" enabled="#{d.TestDetailUI.enabled}" format="int" value=".{hr}" />
 </t:gridcol>
 <t:gridcol id="g_178" align="center" text="O2" width="45" >
-<t:formattedfield id="g_179" enabled="#{d.TestDetailUI.enabled}" format="double" value=".{o2_absorption}" />
+<t:formattedfield id="g_179" enabled="#{d.TestDetailUI.enabled}" format="int" value=".{o2_absorption}" />
 </t:gridcol>
 <t:gridcol id="g_180" align="center" text="CO2" width="45" >
-<t:formattedfield id="g_181" enabled="#{d.TestDetailUI.enabled}" format="double" value=".{co2_emission}" />
+<t:formattedfield id="g_181" enabled="#{d.TestDetailUI.enabled}" format="int" value=".{co2_emission}" />
 </t:gridcol>
 <t:gridcol id="g_182" align="center" text="RQ" width="15" >
 <t:formattedfield id="g_183" enabled="#{d.TestDetailUI.enabled}" format="double" value=".{rq}" />
