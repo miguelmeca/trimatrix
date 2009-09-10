@@ -19,7 +19,7 @@ public class TestsProtocol implements java.io.Serializable {
 	private String model;
 	private String modelLactate;
 	private String modelSpiro;
-	private Integer countSteps;
+	private Integer countSteps = 0;
 	private String lactate;
 	private String hr;
 	private String o2Absorption;
