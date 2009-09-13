@@ -192,13 +192,13 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 		try {	
 			entityDetailUI.prepareSave();
 			entityDetailUI.validate();
-			ENTITYLISTLOGIC.save(entity, entityObject);
+			entityObject = ENTITYLISTLOGIC.save(entity, entityObject);
 			entityDetailUI.postSave();
 			getWorkpage().setTitle(entityObject.toString());
 			Statusbar.outputSuccess("Entity saved");
 			refreshParent();
 			changeMode(Constants.Mode.SHOW);
-			entityDetailUI.init();
+			entityDetailUI.init(entityObject);
 		} catch (MandatoryCheckException mce) {
 			Statusbar.outputAlert("Not all mandatory fields filled", "Value for field " + mce.getField() + " missing!" );
 		} catch (EmailNotValidException env) {

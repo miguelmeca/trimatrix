@@ -42,7 +42,7 @@ public abstract class AEntity implements IEntity{
 		return entity;
 	}
 
-	public void save(IEntityObject entityObject) {
+	public IEntityObject save(IEntityObject entityObject) {
 		// set creation data
 		Timestamp now = new java.sql.Timestamp((new java.util.Date()).getTime());
 		if(entityObject.getCreatedAt() == null) entityObject.setCreatedAt(now);
@@ -50,8 +50,7 @@ public abstract class AEntity implements IEntity{
 		// modification timestamp now handled by <timestamp> in hbm File
 		//entity.setModifiedAt(now); 
 		entityObject.setModifiedBy(dictionaryService.getMyUser().getId());
-		//entitiesDAO.merge(entityObject);	
-		entitiesDAO.attachDirty(entityObject);
+		return entitiesDAO.merge(entityObject);
 	}
 	
 	public boolean delete(String id) {

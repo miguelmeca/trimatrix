@@ -110,7 +110,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     	if(entity.getTestsErgo()==null && isErgo()) {
 			// create ergo
 			TestsErgo ergo = new TestsErgo(entity.getId());
-			getDaoLayer().getTestsErgoDAO().merge(ergo);		
+			//getDaoLayer().getTestsErgoDAO().save(ergo);		
 			entity.setTestsErgo(ergo);
 			// delete treadmill
 			if(entity.getTestsTreadmill()!=null) {
@@ -128,7 +128,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     	if(entity.getTestsTreadmill()==null && isTreadmill()) {
 			// create treadmill
 			TestsTreadmill treadmill = new TestsTreadmill(entity.getId());
-			getDaoLayer().getTestsTreadmillDAO().merge(treadmill);		
+			//getDaoLayer().getTestsTreadmillDAO().save(treadmill);		
 			entity.setTestsTreadmill(treadmill);
 			// delete ergo
 			if(entity.getTestsErgo()!=null) {
@@ -146,7 +146,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     	if(entity.getTestsSwim()==null && isSwim()) {
 			// create swim
 			TestsSwim swim = new TestsSwim(entity.getId());
-			getDaoLayer().getTestsSwimDAO().merge(swim);		
+			//getDaoLayer().getTestsSwimDAO().save(swim);		
 			entity.setTestsSwim(swim);
 			// delete treadmill
 			if(entity.getTestsTreadmill()!=null) {
@@ -352,7 +352,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 	public void onProtocolCreate(ActionEvent event) {
 		// create protocol
 		TestsProtocol protocol = new TestsProtocol(entity.getId());
-		getDaoLayer().getTestsProtocolDAO().merge(protocol);		
+		//getDaoLayer().getTestsProtocolDAO().save(protocol);		
 		entity.setTestsProtocol(protocol);
     }	
 	
