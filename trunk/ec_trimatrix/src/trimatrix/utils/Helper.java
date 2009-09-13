@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,8 +15,6 @@ import javax.servlet.ServletContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eclnt.jsfserver.resources.ResourceManager;
-
-import com.sun.org.apache.xpath.internal.functions.WrongNumberArgsException;
 
 public class Helper {
 	public static String getLiteral(String property) {
@@ -119,6 +118,16 @@ public class Helper {
 		return String.format("%02d:%02d", minutes, seconds);
 	}
 	
+	/**
+	 * This method enables adding items to wildcard captured lists 
+	 * @param <E>	
+	 * @param list
+	 * @param item
+	 */
+	@SuppressWarnings("unchecked")
+	public static <E> void addHelper(List<E> list, Object item) {
+	    list.add((E)item);
+	}	
 
 	// TODO put logger in every relevant class
 	public static final Log logger = LogFactory.getLog("trimatrix");

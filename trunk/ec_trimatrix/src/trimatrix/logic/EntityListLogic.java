@@ -58,8 +58,8 @@ public class EntityListLogic {
 		return serviceLayer.getResolverService().get(entity, id);
 	}
 	
-	public void save(Constants.Entity entity, IEntityObject entityObject) {
-		serviceLayer.getResolverService().save(entity, entityObject);
+	public IEntityObject save(Constants.Entity entity, IEntityObject entityObject) {
+		return serviceLayer.getResolverService().save(entity, entityObject);
 	}
 	
 	public void reload(Constants.Entity entity, IEntityObject entityObject) {

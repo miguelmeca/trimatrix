@@ -161,20 +161,21 @@ public final class ResolverService {
 		return null;
 	}
 	
-	public void save(Constants.Entity entity, IEntityObject entityObject) {
+	public IEntityObject save(Constants.Entity entity, IEntityObject entityObject) {
 		switch (entity.getBase()) {
 		case USER:
-			userEntity.save(entityObject); break;
+			return userEntity.save(entityObject);
 		case PERSON:
-			personEntity.save(entityObject); break;
+			return personEntity.save(entityObject);
 		case DOCTOR:
-			doctorEntity.save(entityObject); break;
+			return doctorEntity.save(entityObject);
 		case ATTACHMENT:
-			attachmentEntity.save(entityObject); break;
+			return attachmentEntity.save(entityObject);
 		case TEST:
-			testEntity.save(entityObject); break;
+			return testEntity.save(entityObject);
 		}
 		logger.warn("SAVE : Entity " + entity.toString() + " not valid!");
+		return null;
 	}
 	
 	public void reload(Constants.Entity entity, IEntityObject entityObject) {

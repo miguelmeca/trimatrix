@@ -28,7 +28,7 @@ public interface IEntity {
 
 	public abstract IEntityObject get(String id);
 
-	public abstract void save(IEntityObject entityObject)
+	public abstract IEntityObject save(IEntityObject entityObject)
 			throws DataIntegrityViolationException;
 
 	public abstract void reload(IEntityObject entityObject);
