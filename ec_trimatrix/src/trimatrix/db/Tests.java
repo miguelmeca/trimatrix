@@ -174,7 +174,7 @@ public class Tests implements java.io.Serializable, IEntityObject {
 	public Timestamp getModifiedAt() {
 		return this.modifiedAt;
 	}
-
+	
 	public void setModifiedAt(Timestamp modifiedAt) {
 		this.modifiedAt = modifiedAt;
 	}
@@ -208,7 +208,7 @@ public class Tests implements java.io.Serializable, IEntityObject {
 
 	@OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
-    @LazyToOne(LazyToOneOption.FALSE)
+    @LazyToOne(LazyToOneOption.FALSE)    
 	public TestsErgo getTestsErgo() {
 		return testsErgo;
 	}

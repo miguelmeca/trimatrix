@@ -166,6 +166,10 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 			EmailNotValidException {
     	// mandatory check
 		checkMandatory();
+		// protocols mandatory fields
+		if(isProtocol()) {
+			checkProtocolGrid();
+		}
 		// fill values to entities properties
 		fillEntityProperties();		
 	}
@@ -626,5 +630,24 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
         	}
         	return;
     	}    	
+    }
+    
+    private void checkProtocolGrid() throws MandatoryCheckException {
+    	// treadmill
+    	if(isTreadmill()) {
+    		for(GridTreadmillItem item : m_gridTreadmill.getItems()) {
+    			if(item.getLactate()==null) throw new MandatoryCheckException("Lactate");
+    			if(item.getHr()==null) throw new MandatoryCheckException("Heartrate");
+    		}
+    		return;
+    	}
+    	// ergo
+    	if(isErgo()) {
+    		for(GridErgoItem item : m_gridErgo.getItems()) {
+    			if(item.getLactate()==null) throw new MandatoryCheckException("Lactate");
+    			if(item.getHr()==null) throw new MandatoryCheckException("Heartrate");
+    		}
+    		return;
+    	}
     }
 }
