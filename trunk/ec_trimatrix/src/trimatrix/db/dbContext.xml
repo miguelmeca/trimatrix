@@ -12,6 +12,9 @@
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="lobHandler" ref="defaultLobHandler"></property>
 		<property name="configLocation" value="classpath:hibernate.cfg.xml"></property>
+		<property name="entityInterceptor">
+    		<bean class="trimatrix.utils.MySqlTimestampFixInterceptor"/>
+  		</property>
 		<!-- Activate Revision
 		<property name="eventListeners">
 			<map>

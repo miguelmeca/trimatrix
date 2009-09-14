@@ -49,6 +49,8 @@ public abstract class AEntity implements IEntity{
 		if(entityObject.getCreatedBy() == null) entityObject.setCreatedBy(dictionaryService.getMyUser().getId());
 		// modification timestamp now handled by <timestamp> in hbm File
 		//entity.setModifiedAt(now); 
+		//IEntityObject entityObject2 = get(entityObject.getId());
+		//if(entityObject2!=null) entityObject.setModifiedAt(entityObject2.getModifiedAt());
 		entityObject.setModifiedBy(dictionaryService.getMyUser().getId());
 		return entitiesDAO.merge(entityObject);
 	}

@@ -196,7 +196,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 			entityDetailUI.postSave();
 			getWorkpage().setTitle(entityObject.toString());
 			Statusbar.outputSuccess("Entity saved");
-			refreshParent();
+			//refreshParent();
 			changeMode(Constants.Mode.SHOW);
 			entityDetailUI.init(entityObject);
 		} catch (MandatoryCheckException mce) {
