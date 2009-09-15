@@ -161,37 +161,37 @@
 </t:row>
 <t:row id="g_119" >
 <t:fixgrid id="g_120" avoidroundtrips="1" border="#808080" enabled="#{d.TestDetailUI.enabled}" multiselect="false" objectbinding="#{d.TestDetailUI.gridTreadmill}" sbvisibleamount="20" width="100%" >
-<t:gridcol id="g_121" columnresizingenabled="false" width="20" >
+<t:gridcol id="g_121" columnresizingenabled="false" sortenabled="false" width="20" >
 <t:gridrowselector id="g_122" />
 </t:gridcol>
-<t:gridcol id="g_123" align="center" text="#{rr.literals.step}" width="50" >
+<t:gridcol id="g_123" align="center" sortenabled="false" text="#{rr.literals.step}" width="50" >
 <t:formattedfield id="g_124" enabled="false" format="int" value=".{step}" />
 </t:gridcol>
-<t:gridcol id="g_125" align="center" text="#{rr.literals.speed}" width="90" >
+<t:gridcol id="g_125" align="center" sortenabled="false" text="#{rr.literals.speed}" width="90" >
 <t:formattedfield id="g_126" enabled="false" format="double" value=".{speed}" />
 </t:gridcol>
-<t:gridcol id="g_127" align="center" text="#{rr.literals.incline}" width="60" >
+<t:gridcol id="g_127" align="center" sortenabled="false" text="#{rr.literals.incline}" width="60" >
 <t:formattedfield id="g_128" enabled="false" format="int" value=".{incline}" />
 </t:gridcol>
-<t:gridcol id="g_129" align="center" text="#{rr.literals.time_step}" width="75" >
+<t:gridcol id="g_129" align="center" sortenabled="false" text="#{rr.literals.time_step}" width="75" >
 <t:field id="g_130" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{step_time}" userhint="mm:ss" />
 </t:gridcol>
-<t:gridcol id="g_131" align="center" text="#{rr.literals.total_time}" width="75" >
+<t:gridcol id="g_131" align="center" sortenabled="false" text="#{rr.literals.total_time}" width="75" >
 <t:field id="g_132" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{time_total}" userhint="mm:ss" />
 </t:gridcol>
-<t:gridcol id="g_133" align="center" text="#{rr.literals.lactate}" width="45" >
+<t:gridcol id="g_133" align="center" sortenabled="false" text="#{rr.literals.lactate}" width="45" >
 <t:formattedfield id="g_134" bgpaint="mandatory()" enabled="#{d.TestDetailUI.enabled}" format="double" value=".{lactate}" />
 </t:gridcol>
-<t:gridcol id="g_135" align="center" text="#{rr.literals.hr}" width="45" >
+<t:gridcol id="g_135" align="center" sortenabled="false" text="#{rr.literals.hr}" width="45" >
 <t:formattedfield id="g_136" bgpaint="mandatory()" enabled="#{d.TestDetailUI.enabled}" format="int" value=".{hr}" />
 </t:gridcol>
-<t:gridcol id="g_137" align="center" text="O2" width="45" >
+<t:gridcol id="g_137" align="center" sortenabled="false" text="O2" width="45" >
 <t:formattedfield id="g_138" enabled="#{d.TestDetailUI.enabled}" format="int" value=".{o2_absorption}" />
 </t:gridcol>
-<t:gridcol id="g_139" align="center" text="CO2" width="45" >
+<t:gridcol id="g_139" align="center" sortenabled="false" text="CO2" width="45" >
 <t:formattedfield id="g_140" enabled="#{d.TestDetailUI.enabled}" format="int" value=".{co2_emission}" />
 </t:gridcol>
-<t:gridcol id="g_141" align="center" text="RQ" width="45" >
+<t:gridcol id="g_141" align="center" sortenabled="false" text="RQ" width="45" >
 <t:formattedfield id="g_142" enabled="#{d.TestDetailUI.enabled}" format="double" value=".{rq}" />
 </t:gridcol>
 </t:fixgrid>
@@ -229,37 +229,37 @@
 </t:row>
 <t:row id="g_166" >
 <t:fixgrid id="g_167" avoidroundtrips="1" border="#808080" enabled="#{d.TestDetailUI.enabled}" multiselect="false" objectbinding="#{d.TestDetailUI.gridErgo}" sbvisibleamount="20" width="100%" >
-<t:gridcol id="g_168" columnresizingenabled="false" width="20" >
+<t:gridcol id="g_168" columnresizingenabled="false" sortenabled="false" width="20" >
 <t:gridrowselector id="g_169" />
 </t:gridcol>
-<t:gridcol id="g_170" align="center" text="#{rr.literals.step}" width="50" >
+<t:gridcol id="g_170" align="center" sortenabled="false" text="#{rr.literals.step}" width="50" >
 <t:formattedfield id="g_171" enabled="false" format="int" value=".{step}" />
 </t:gridcol>
-<t:gridcol id="g_172" align="center" text="#{rr.literals.power}" width="90" >
+<t:gridcol id="g_172" align="center" sortenabled="false" text="#{rr.literals.power}" width="90" >
 <t:formattedfield id="g_173" enabled="false" format="int" value=".{power}" />
 </t:gridcol>
-<t:gridcol id="g_174" align="center" text="#{rr.literals.cadence}" width="60" >
+<t:gridcol id="g_174" align="center" sortenabled="false" text="#{rr.literals.cadence}" width="60" >
 <t:field id="g_175" enabled="false" text=".{cadence}" />
 </t:gridcol>
-<t:gridcol id="g_176" align="center" text="#{rr.literals.time_step}" width="75" >
+<t:gridcol id="g_176" align="center" sortenabled="false" text="#{rr.literals.time_step}" width="75" >
 <t:field id="g_177" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{step_time}" userhint="mm:ss" />
 </t:gridcol>
-<t:gridcol id="g_178" align="center" text="#{rr.literals.total_time}" width="75" >
+<t:gridcol id="g_178" align="center" sortenabled="false" text="#{rr.literals.total_time}" width="75" >
 <t:field id="g_179" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{time_total}" userhint="mm:ss" />
 </t:gridcol>
-<t:gridcol id="g_180" align="center" text="#{rr.literals.lactate}" width="45" >
+<t:gridcol id="g_180" align="center" sortenabled="false" text="#{rr.literals.lactate}" width="45" >
 <t:formattedfield id="g_181" bgpaint="mandatory()" enabled="#{d.TestDetailUI.enabled}" format="double" value=".{lactate}" />
 </t:gridcol>
-<t:gridcol id="g_182" align="center" text="#{rr.literals.hr}" width="45" >
+<t:gridcol id="g_182" align="center" sortenabled="false" text="#{rr.literals.hr}" width="45" >
 <t:formattedfield id="g_183" bgpaint="mandatory()" enabled="#{d.TestDetailUI.enabled}" format="int" value=".{hr}" />
 </t:gridcol>
-<t:gridcol id="g_184" align="center" text="O2" width="45" >
+<t:gridcol id="g_184" align="center" sortenabled="false" text="O2" width="45" >
 <t:formattedfield id="g_185" enabled="#{d.TestDetailUI.enabled}" format="int" value=".{o2_absorption}" />
 </t:gridcol>
-<t:gridcol id="g_186" align="center" text="CO2" width="45" >
+<t:gridcol id="g_186" align="center" sortenabled="false" text="CO2" width="45" >
 <t:formattedfield id="g_187" enabled="#{d.TestDetailUI.enabled}" format="int" value=".{co2_emission}" />
 </t:gridcol>
-<t:gridcol id="g_188" align="center" text="RQ" width="15" >
+<t:gridcol id="g_188" align="center" sortenabled="false" text="RQ" width="15" >
 <t:formattedfield id="g_189" enabled="#{d.TestDetailUI.enabled}" format="double" value=".{rq}" />
 </t:gridcol>
 </t:fixgrid>
@@ -289,13 +289,13 @@
 </t:row>
 <t:row id="g_207" >
 <t:fixgrid id="g_208" avoidroundtrips="1" border="#808080" enabled="#{d.TestDetailUI.enabled}" multiselect="false" objectbinding="#{d.TestDetailUI.gridSwim}" sbvisibleamount="20" width="100%" >
-<t:gridcol id="g_209" columnresizingenabled="false" width="20" >
+<t:gridcol id="g_209" columnresizingenabled="false" sortenabled="false" width="20" >
 <t:gridrowselector id="g_210" />
 </t:gridcol>
-<t:gridcol id="g_211" width="20" >
+<t:gridcol id="g_211" sortenabled="false" width="20" >
 <t:button id="g_212" actionListener=".{onAddSubItem}" contentareafilled="false" horizontaltextposition="center" image="/images/icons/add.png" verticaltextposition="middle" />
 </t:gridcol>
-<t:gridcol id="g_213" text="#{rr.literals.step}" width="100" >
+<t:gridcol id="g_213" sortenabled="false" text="#{rr.literals.step}" width="100" >
 <t:treenode id="g_214" bgpaint="rectangle(0,0,100%,100%,#FFFFFF40,#FFFFFF10,vertical)" text=".{step}" />
 </t:gridcol>
 </t:fixgrid>

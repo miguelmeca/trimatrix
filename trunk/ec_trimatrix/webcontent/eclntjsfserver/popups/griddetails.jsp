@@ -72,9 +72,8 @@
 											width="100%">
 
 											<t:label id="g_21" actionListener=".{onDropRights}"
-												dragsend="rights:rights" 
-												dropreceive="rights;lefts" text=".{text}"
-												width="100%" />
+												dragsend="rights:rights" dropreceive="rights;lefts"
+												text=".{text}" width="100%" />
 										</t:gridcol>
 
 									</t:fixgrid>
@@ -106,9 +105,12 @@
 
 					<t:pane id="g_29" background="#00000010"
 						border="top:1;color:#c0c0c0"
-						padding="top:3;bottom:3;left:0;right:10" width="100%">
+						padding="top:3;bottom:3;left:10;right:10" width="100%">
 
 						<t:row id="g_30">
+
+							<t:link id="g_1000" text="#{eclnti18n.GRID_revert}"
+								actionListener="#{eclntdefscr.gridDetails.onRevertChanges}" />
 
 							<t:coldistance id="g_31" width="100%" />
 							<t:button id="g_32"

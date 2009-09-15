@@ -1,4 +1,7 @@
 <style>
+    <tag name="arraygrid" variant="default">
+        <set attribute="scrollanimationtype" value="fog(#000000,4)"/>
+    </tag>
     <tag name="calendarfield" variant="default">
         <set attribute="background" value="#FFFFFF"/>
     </tag>
@@ -46,7 +49,7 @@
         <set attribute="background" value="#FFFFFF"/>
     </tag>
     <tag name="fixgrid" variant="default">
-        <set attribute="emptycolor" value="#FAFAFA"/>
+        <set attribute="scrollanimationtype" value="fog(#000000,4)"/>
     </tag>
     <tag name="formattedfield" variant="default">
         <set attribute="background" value="#FFFFFF"/>
@@ -109,6 +112,7 @@
     <!--  WORKPAGE VARIANTS -->
     <tag name="rowworkplacefunctiontree" variant="default">
         <set attribute="foreground" value="#FFFFFF"/>
+        <set attribute="scrollanimationtype" value="fog(#FFFFFF,6)"/>
     </tag>
     <tag name="tabbedline" variant="WP_WORKPAGESELECTOR">
         <set attribute="bgpaintdefault" value="rectangle(0,0,100%,100%,#80808080,#80808020,horizontal)"/>
