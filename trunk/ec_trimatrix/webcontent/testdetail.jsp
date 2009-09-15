@@ -272,6 +272,42 @@
 </t:row>
 </t:pane>
 </t:row>
+<t:row id="g_195" comment="swim protocol" rendered="#{d.TestDetailUI.swim}" >
+<t:pane id="g_196" height="100%" rowdistance="2" width="100%" >
+<t:row id="g_197" >
+<t:label id="g_198" rowalignmenty="top" text="#{rr.literals.description}" width="100" />
+<t:textarea id="g_199" attributemacro="entityDetailMacro(TestDetailUI,protocol_description)" height="100" width="510" />
+</t:row>
+<t:row id="g_200" >
+<t:label id="g_201" text="#{rr.literals.model_lactate}" width="100" />
+<t:field id="g_202" attributemacro="entityDetailMacro(TestDetailUI,model_lactate)" width="200" />
+</t:row>
+<t:rowdistance id="g_203" />
+<t:row id="g_204" >
+<t:coldistance id="g_205" width="100%" />
+<t:link id="g_206" actionListener="#{d.TestDetailUI.gridSwim.onOpenGridFunctions}" text="#{rr.literals.export}" />
+</t:row>
+<t:row id="g_207" >
+<t:fixgrid id="g_208" avoidroundtrips="1" border="#808080" enabled="#{d.TestDetailUI.enabled}" multiselect="false" objectbinding="#{d.TestDetailUI.gridSwim}" sbvisibleamount="20" width="100%" >
+<t:gridcol id="g_209" columnresizingenabled="false" width="20" >
+<t:gridrowselector id="g_210" />
+</t:gridcol>
+<t:gridcol id="g_211" width="20" >
+<t:button id="g_212" actionListener=".{onAddSubItem}" contentareafilled="false" horizontaltextposition="center" image="/images/icons/add.png" verticaltextposition="middle" />
+</t:gridcol>
+<t:gridcol id="g_213" text="#{rr.literals.step}" width="100" >
+<t:treenode id="g_214" bgpaint="rectangle(0,0,100%,100%,#FFFFFF40,#FFFFFF10,vertical)" text=".{step}" />
+</t:gridcol>
+</t:fixgrid>
+</t:row>
+<t:rowdistance id="g_215" />
+<t:row id="g_216" >
+<t:button id="g_217" actionListener="#{d.TestDetailUI.onAddItem}" enabled="#{d.TestDetailUI.enabled}" text="Hinzufügen" />
+<t:coldistance id="g_218" />
+<t:button id="g_219" actionListener="#{d.TestDetailUI.onRemoveItem}" enabled="#{d.TestDetailUI.enabled}" text="Entfernen" />
+</t:row>
+</t:pane>
+</t:row>
 </t:tabbedpanetab>
 </t:tabbedpane>
 </t:row>

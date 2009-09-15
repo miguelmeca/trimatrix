@@ -369,6 +369,9 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     protected FIXGRIDListBinding<GridErgoItem> m_gridErgo = new FIXGRIDListBinding<GridErgoItem>(true);
     public FIXGRIDListBinding<GridErgoItem> getGridErgo() { return m_gridErgo; }
     
+    protected FIXGRIDListBinding<GridSwimItem> m_gridSwim = new FIXGRIDListBinding<GridSwimItem>(true);
+    public FIXGRIDListBinding<GridSwimItem> getGridSwim() { return m_gridSwim; }
+    
     public class AGridItem extends FIXGRIDItem implements java.io.Serializable {
     	Integer step;
     	String step_time;
@@ -496,26 +499,49 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 		}
     }
     
+    public class GridSwimItem extends FIXGRIDItem implements java.io.Serializable {
+    	String step;
+    	
+		public GridSwimItem(String step) {
+			this.step = step;
+		}
+		public String getStep() { return step; }
+		public void setStep(String step) { this.step = step; }
+		
+		public void onAddSubItem(ActionEvent ae) {
+			Statusbar.outputMessage("SubItem added: " + step);
+		}
+    	
+    }
+    
     public void onAddItem(ActionEvent ae) {
     	// treadmill
     	if(isTreadmill()) {
-    		int step = m_gridTreadmill.getRows().size()+1;
+    		int step = m_gridTreadmill.getItems().size()+1;
         	GridTreadmillItem item = new GridTreadmillItem(step);
         	m_gridTreadmill.getItems().add(item);
         	return;
     	}
     	// ergo
     	if(isErgo()) {
-    		int step = m_gridErgo.getRows().size()+1;
+    		int step = m_gridErgo.getItems().size()+1;
         	GridErgoItem item = new GridErgoItem(step);
         	m_gridErgo.getItems().add(item);
         	return;
+    	}
+    	// swim
+    	if(isSwim()) {
+    		Integer size = m_gridSwim.getItems().size();
+    		String step = size.toString();    		 		
+    		GridSwimItem item = new GridSwimItem(step);
+    		m_gridSwim.getItems().add(item);
+    		return;
     	}
     	
     }
     
     public void onRemoveItem(ActionEvent ae) {
-    	FIXGRIDListBinding<? extends AGridItem> grid = null;
+    	FIXGRIDListBinding<? extends FIXGRIDItem> grid = null;
     	// treadmill
     	if(isTreadmill()) {
     		grid = m_gridTreadmill;
@@ -526,13 +552,18 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     	}
     	if(grid==null) return;
     	
-    	AGridItem selected = grid.getSelectedItem();
+    	FIXGRIDItem selected = grid.getSelectedItem();
     	if(selected==null) return;
     	grid.getItems().remove(selected);
     	// recalculate step numbers and total time
     	int step = 1;
-    	for (AGridItem item : grid.getItems()) {
-    		item.setStep(step++);
+    	for (FIXGRIDItem item : grid.getItems()) {
+    		// check if swim protocol
+    		if(!isSwim()) {
+    			((AGridItem)item).setStep(step++);
+    		} else {
+    			
+    		}    		
     	}    	
     }   
     

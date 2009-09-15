@@ -55,7 +55,7 @@ public final class TestEntity extends AEntity {
     public static final String POOL = "pool";
     public static final String DATE2 = "date2";
     public static final String DISTANCE = "distance";  
-    public static final String SPLITS = "splits";
+    public static final String SPLITS = "splits";	
     
     // Constants Protocoll
     public static final String PROTOCOL_DESCRIPTION = "protocol_description";
