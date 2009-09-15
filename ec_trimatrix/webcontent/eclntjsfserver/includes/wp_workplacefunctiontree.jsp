@@ -22,6 +22,7 @@
                       rowheight="18" 
                       sbvisibleamount="40" 
                       suppressheadline="true" width="100%" 
+                      scrollanimationtype="SCROLLANIMATIONTYPE"
                       scrollbartype="SCROLLBARTYPE"
                       singleclickexecute="SINGLECLICKEXECUTE">
     <t:gridcol id="g_4" text="Function" width="100%" >

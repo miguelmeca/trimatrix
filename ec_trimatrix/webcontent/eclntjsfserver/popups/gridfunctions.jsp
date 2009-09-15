@@ -62,13 +62,13 @@
                                 <t:row id="g_1125">
                                     <t:coldistance id="g_1126" width="10" />
                                     <t:filedownloadlink id="g_1127" filename="${temp}/grid.pdf"
-                                        opensupported="true" text="#{eclnti18n.GRID_exportpdf}"
+                                        opensupported="true" openimmediately="true" text="#{eclnti18n.GRID_exportpdf}"
                                         url="#{eclntdefscr.gridDetails.exportURLPdfWholeGrid}" />
                                 </t:row>
                                 <t:row id="g_25">
                                     <t:coldistance id="g_26" width="10" />
                                     <t:filedownloadlink id="g_27" filename="${temp}/grid.csv"
-                                        opensupported="true" text="#{eclnti18n.GRID_exportcsv}"
+                                        opensupported="true" openimmediately="true" text="#{eclnti18n.GRID_exportcsv}"
                                         url="#{eclntdefscr.gridDetails.exportURLCsvWholeGrid}" />
                                 </t:row>
 								<t:row id="g_28">

@@ -1,4 +1,13 @@
 <style>
+    <tag name="arraygrid" variant="default">
+        <set attribute="background" value="#FFFFFF10"/>
+        <set attribute="border" value="0"/>
+        <set attribute="bordercolor" value="#F0F0F010"/>
+        <set attribute="borderheight" value="1"/>
+        <set attribute="borderwidth" value="1"/>
+        <set attribute="scrollbartype" value="light"/>
+        <set attribute="scrollanimationtype" value="fog(#FFFFFF,5)"/>
+    </tag>
     <tag name="button" variant="default">
         <set attribute="foreground" value="#FFFFFF"/>
         <set attribute="contentareafilled" value="false"/>
@@ -25,6 +34,9 @@
         <set attribute="background" value="#FFFFFFC0"/>
     </tag>
     <tag name="field" variant="default">
+        <set attribute="background" value="#FFFFFFC0"/>
+    </tag>
+    <tag name="filechooser" variant="default">
         <set attribute="background" value="#FFFFFFC0"/>
     </tag>
     <tag name="foldablepane" variant="default">
@@ -72,6 +84,7 @@
         <set attribute="borderheight" value="1"/>
         <set attribute="borderwidth" value="1"/>
         <set attribute="scrollbartype" value="light"/>
+        <set attribute="scrollanimationtype" value="fog(#FFFFFF,5)"/>
     </tag>
     <tag name="formattedfield" variant="default">
         <set attribute="background" value="#FFFFFF"/>
