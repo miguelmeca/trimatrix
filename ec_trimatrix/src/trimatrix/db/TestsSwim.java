@@ -1,10 +1,15 @@
 package trimatrix.db;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -27,9 +32,11 @@ public class TestsSwim  implements java.io.Serializable {
      private String baths;
      private String pool;
      private Integer distance;
-     private Integer splits;
-
-
+     private Integer splits;     
+     
+     // Collections
+     private Set<TestsSwimProtocol> steps = new HashSet<TestsSwimProtocol>();
+     
     // Constructors
 
     /** default constructor */
@@ -49,7 +56,7 @@ public class TestsSwim  implements java.io.Serializable {
         this.baths = baths;
         this.pool = pool;
         this.distance = distance;
-        this.splits = splits;
+        this.splits = splits;        
     }
 
    
@@ -124,5 +131,14 @@ public class TestsSwim  implements java.io.Serializable {
     
     public void setSplits(Integer splits) {
         this.splits = splits;
-    }    
+    }
+
+    @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, mappedBy = "id.id")
+	public Set<TestsSwimProtocol> getSteps() {
+		return steps;
+	}
+	
+	public void setSteps(Set<TestsSwimProtocol> steps) {
+		this.steps = steps;
+	}   
 }

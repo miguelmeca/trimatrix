@@ -39,10 +39,10 @@
 
 		<!-- Bind the getCurrentSession() method to the thread. -->
 		<property name="current_session_context_class">thread</property>
-		
+
 		<!--  -->
 		<property name="hbm2ddl.auto">validate</property>
-		
+
 
 		<!-- Activate Envers                
 			<property name="hibernate.ejb.event.post-insert">org.hibernate.ejb.event.EJB3PostInsertEventListener,org.hibernate.envers.event.AuditEventListener</property>
@@ -86,6 +86,7 @@
 		<mapping class="trimatrix.db.Attachments" />
 		<mapping class="trimatrix.db.ListVariants" />
 		<mapping class="trimatrix.db.PersonsAthlete" />
+		<mapping class="trimatrix.db.TestsSwimProtocol" />
 	</session-factory>
 
 </hibernate-configuration>

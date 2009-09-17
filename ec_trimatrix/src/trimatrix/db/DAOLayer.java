@@ -23,6 +23,7 @@ public class DAOLayer {
 	private ISimpleDAO<TestsTreadmill> testsTreadmillDAO;
 	private ISimpleDAO<TestsSwim> testsSwimDAO;
 	private ISimpleDAO<TestsProtocol> testsProtocolDAO;	
+	private ISimpleDAO<TestsSwimProtocol> testsSwimProtocolDAO;	
 	private IComplexDAO<ListVariants, ListVariantsId> listVariantsDAO;	
 	private ILabelsDAO labelsDAO;
 	
@@ -153,6 +154,13 @@ public class DAOLayer {
 	}
 	public void setTestsProtocolDAO(ISimpleDAO<TestsProtocol> testsProtocolDAO) {
 		this.testsProtocolDAO = testsProtocolDAO;
+	}	
+	public ISimpleDAO<TestsSwimProtocol> getTestsSwimProtocolDAO() {
+		return testsSwimProtocolDAO;
+	}
+	public void setTestsSwimProtocolDAO(
+			ISimpleDAO<TestsSwimProtocol> testsSwimProtocolDAO) {
+		this.testsSwimProtocolDAO = testsSwimProtocolDAO;
 	}
 	public IComplexDAO<ListVariants, ListVariantsId> getListVariantsDAO() {
 		return listVariantsDAO;
