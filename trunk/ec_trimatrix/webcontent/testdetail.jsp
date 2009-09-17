@@ -282,29 +282,34 @@
 <t:label id="g_201" text="#{rr.literals.model_lactate}" width="100" />
 <t:field id="g_202" attributemacro="entityDetailMacro(TestDetailUI,model_lactate)" width="200" />
 </t:row>
-<t:rowdistance id="g_203" />
+<t:rowdistance id="g_203" height="15" />
 <t:row id="g_204" >
-<t:coldistance id="g_205" width="100%" />
-<t:link id="g_206" actionListener="#{d.TestDetailUI.gridSwim.onOpenGridFunctions}" text="#{rr.literals.export}" />
+<t:label id="g_205" text="#{rr.literals.max_performance} Hallo" width="200" />
+<t:field id="g_206" attributemacro="entityDetailMacro(TestDetailUI,model_lactate)" width="200" />
 </t:row>
-<t:row id="g_207" >
-<t:fixgrid id="g_208" avoidroundtrips="1" border="#808080" enabled="#{d.TestDetailUI.enabled}" multiselect="false" objectbinding="#{d.TestDetailUI.gridSwim}" sbvisibleamount="20" width="100%" >
-<t:gridcol id="g_209" columnresizingenabled="false" sortenabled="false" width="20" >
-<t:gridrowselector id="g_210" />
-</t:gridcol>
-<t:gridcol id="g_211" sortenabled="false" width="20" >
-<t:button id="g_212" actionListener=".{onAddSubItem}" contentareafilled="false" horizontaltextposition="center" image="/images/icons/add.png" verticaltextposition="middle" />
-</t:gridcol>
-<t:gridcol id="g_213" sortenabled="false" text="#{rr.literals.step}" width="100" >
+<t:rowdistance id="g_207" />
+<t:row id="g_208" >
+<t:coldistance id="g_209" width="100%" />
+<t:link id="g_210" actionListener="#{d.TestDetailUI.gridSwim.onOpenGridFunctions}" text="#{rr.literals.export}" />
+</t:row>
+<t:row id="g_211" >
+<t:fixgrid id="g_212" avoidroundtrips="1" border="#808080" enabled="#{d.TestDetailUI.enabled}" multiselect="false" objectbinding="#{d.TestDetailUI.gridSwim}" sbvisibleamount="20" width="100%" >
+<t:gridcol id="g_213" align="center" sortenabled="false" text="#{rr.literals.step}" width="100" >
 <t:treenode id="g_214" bgpaint="rectangle(0,0,100%,100%,#FFFFFF40,#FFFFFF10,vertical)" text=".{step}" />
+</t:gridcol>
+<t:gridcol id="g_215" sortenabled="false" width="20" >
+<t:button id="g_216" actionListener=".{onAddSubItem}" contentareafilled="false" enabled=".{topNode}" horizontaltextposition="center" image=".{addIcon}" verticaltextposition="middle" />
+</t:gridcol>
+<t:gridcol id="g_217" align="center" sortenabled="false" text="#{rr.literals.lactate}" width="45" >
+<t:formattedfield id="g_218" bgpaint="mandatory()" enabled="#{d.TestDetailUI.enabled}" format="double" value=".{lactate}" />
 </t:gridcol>
 </t:fixgrid>
 </t:row>
-<t:rowdistance id="g_215" />
-<t:row id="g_216" >
-<t:button id="g_217" actionListener="#{d.TestDetailUI.onAddItem}" enabled="#{d.TestDetailUI.enabled}" text="Hinzufügen" />
-<t:coldistance id="g_218" />
-<t:button id="g_219" actionListener="#{d.TestDetailUI.onRemoveItem}" enabled="#{d.TestDetailUI.enabled}" text="Entfernen" />
+<t:rowdistance id="g_219" />
+<t:row id="g_220" >
+<t:button id="g_221" actionListener="#{d.TestDetailUI.onAddItem}" enabled="#{d.TestDetailUI.enabled}" text="Hinzufügen" />
+<t:coldistance id="g_222" />
+<t:button id="g_223" actionListener="#{d.TestDetailUI.onRemoveItem}" enabled="#{d.TestDetailUI.enabled}" text="Entfernen" />
 </t:row>
 </t:pane>
 </t:row>
