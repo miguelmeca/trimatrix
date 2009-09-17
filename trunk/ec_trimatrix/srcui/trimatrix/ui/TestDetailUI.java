@@ -229,7 +229,8 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 			protocol.setDescription((String)values.get(TestEntity.PROTOCOL_DESCRIPTION));
 			protocol.setModel((String)values.get(TestEntity.MODEL));
 			protocol.setModelLactate((String)values.get(TestEntity.MODEL_LACTATE));
-			protocol.setModelSpiro((String)values.get(TestEntity.MODEL_SPIRO));			
+			protocol.setModelSpiro((String)values.get(TestEntity.MODEL_SPIRO));		
+			protocol.setPerformanceMax((String)values.get(TestEntity.PERFORMANCE_MAX));		
 			fillProtocol();		
 		}		
 	}
@@ -287,7 +288,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 			values.put(TestEntity.BATHS, swim.getBaths());
 			values.put(TestEntity.POOL, swim.getPool());
 			values.put(TestEntity.DISTANCE, swim.getDistance());
-			values.put(TestEntity.SPLITS, swim.getSplits());
+			values.put(TestEntity.SPLITS, swim.getSplits());			
 		}		
 		// protocol
 		TestsProtocol protocol = entity.getTestsProtocol();
@@ -296,6 +297,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 			values.put(TestEntity.MODEL, protocol.getModel());
 			values.put(TestEntity.MODEL_LACTATE, protocol.getModelLactate());
 			values.put(TestEntity.MODEL_SPIRO, protocol.getModelSpiro());
+			values.put(TestEntity.PERFORMANCE_MAX, protocol.getPerformanceMax());
 			try {
 				buildProtocolGrid();
 			} catch (Exception ex) {

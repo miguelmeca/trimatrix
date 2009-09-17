@@ -90,6 +90,7 @@
                 <idref local="TestsTreadmillDAO" />
                 <idref local="TestsSwimDAO" />
                 <idref local="TestsProtocolDAO" />
+                <idref local="TestsSwimProtocolDAO" />
                 <idref local="TSalutationDAO" />
                 <idref local="TCategoriesDAO" />
                 <idref local="TTesttypesDAO" />
@@ -159,6 +160,9 @@
         </property>
         <property name="testsProtocolDAO">
             <ref bean="TestsProtocolDAO" />
+        </property> 
+        <property name="testsSwimProtocolDAO">
+            <ref bean="TestsSwimProtocolDAO" />
         </property> 
         <property name="relationDAOs">
         	<list>
@@ -332,6 +336,12 @@
 		</property>
 	</bean>
 	<bean id="TestsSwimDAO" class="trimatrix.db.TestsSwimDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TestsSwimProtocolDAO"
+		class="trimatrix.db.TestsSwimProtocolDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>

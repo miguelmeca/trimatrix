@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -38,6 +39,8 @@ import trimatrix.db.Tests;
 import trimatrix.db.TestsErgo;
 import trimatrix.db.TestsProtocol;
 import trimatrix.db.TestsSwim;
+import trimatrix.db.TestsSwimProtocol;
+import trimatrix.db.TestsSwimProtocolId;
 import trimatrix.db.TestsTreadmill;
 import trimatrix.db.Users;
 import trimatrix.services.SQLExecutorService;
@@ -293,10 +296,16 @@ public class DBConnectionTest {
 		test.setTestsTreadmill(treadmill);
 		// swim
 		TestsSwim swim = new TestsSwim(id);
-		test.setTestsSwim(swim);
+		TestsSwimProtocol swimProt = new TestsSwimProtocol(new TestsSwimProtocolId(id,1,1));
+		swimProt.setIntensity(100);
+		Set<TestsSwimProtocol> setSwimProt = new HashSet<TestsSwimProtocol>();
+		setSwimProt.add(swimProt);
+		swim.setSteps(setSwimProt);
+		test.setTestsSwim(swim);		
 		// protocoll
 		TestsProtocol protocol = new TestsProtocol(id);
 		protocol.setModel("Testmodell");
+		protocol.setPerformanceMax("02:22");
 		test.setTestsProtocol(protocol);
 		// test
 		test.setDescription("Das ist ein Test für einen Text!");
@@ -308,7 +317,17 @@ public class DBConnectionTest {
 		Assert.assertNotNull(test2.getTestsTreadmill());
 		Assert.assertNotNull(test2.getTestsSwim());
 		Assert.assertNotNull(test2.getTestsProtocol());
-		daoLayer.getTestsDAO().delete(test2);
+		Assert.assertEquals("02:22", test2.getTestsProtocol().getPerformanceMax());
+		Assert.assertEquals(1, test2.getTestsSwim().getSteps().size());
+		Assert.assertEquals(100, test2.getTestsSwim().getSteps().iterator().next().getIntensity());
+		daoLayer.getTestsDAO().delete(test2);	
+		
+		
+		
+		
+		
+		
+		
 	}
 	
 	@After

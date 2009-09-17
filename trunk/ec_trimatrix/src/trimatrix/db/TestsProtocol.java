@@ -25,6 +25,7 @@ public class TestsProtocol implements java.io.Serializable {
 	private String o2Absorption;
 	private String co2Emission;
 	private String rq;
+	private String performanceMax;
 
 	// Constructors
 
@@ -41,7 +42,7 @@ public class TestsProtocol implements java.io.Serializable {
 	public TestsProtocol(String id, String description, String model,
 			String modelLactate, String modelSpiro, Integer countSteps,
 			String lactate, String hr, String o2Absorption, String co2Emission,
-			String rq) {
+			String rq, String performanceMax) {
 		this.id = id;
 		this.description = description;
 		this.model = model;
@@ -53,6 +54,7 @@ public class TestsProtocol implements java.io.Serializable {
 		this.o2Absorption = o2Absorption;
 		this.co2Emission = co2Emission;
 		this.rq = rq;
+		this.performanceMax = performanceMax;
 	}
 
 	// Property accessors
@@ -155,5 +157,15 @@ public class TestsProtocol implements java.io.Serializable {
 	public void setRq(String rq) {
 		this.rq = rq;
 	}
+	
+	@Column(name="performance_max")
+
+	public String getPerformanceMax() {
+		return performanceMax;
+	}
+
+	public void setPerformanceMax(String performanceMax) {
+		this.performanceMax = performanceMax;
+	} 
 
 }

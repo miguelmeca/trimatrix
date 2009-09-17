@@ -55,13 +55,14 @@ public final class TestEntity extends AEntity {
     public static final String POOL = "pool";
     public static final String DATE2 = "date2";
     public static final String DISTANCE = "distance";  
-    public static final String SPLITS = "splits";	
+    public static final String SPLITS = "splits";	   
     
     // Constants Protocoll
     public static final String PROTOCOL_DESCRIPTION = "protocol_description";
     public static final String MODEL = "model";
     public static final String MODEL_LACTATE = "model_lactate";
     public static final String MODEL_SPIRO = "model_spiro";
+    public static final String PERFORMANCE_MAX = "performance_max";
     
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IUserEntity#getGridMetaData()
