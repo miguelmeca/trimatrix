@@ -175,6 +175,7 @@ public final class Constants {
 	// constants for images
 	public static final String SIDE_EXPAND = PATH_ICONS + "application_side_expand.png";
 	public static final String SIDE_CONTRACT = PATH_ICONS + "application_side_contract.png";
+	public static final String ADD = PATH_ICONS + "add.png";
 	public static final String DEFAULT_ICON = PATH_MIMEICONS + "default.gif";
 	// constants for sizes
 	public static final Integer MB_1 = new Integer(1024*1024);

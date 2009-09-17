@@ -16,6 +16,8 @@ import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
+import org.eclnt.jsfserver.elements.impl.FIXGRIDTreeBinding;
+import org.eclnt.jsfserver.elements.impl.FIXGRIDTreeItem;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
@@ -369,8 +371,8 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     protected FIXGRIDListBinding<GridErgoItem> m_gridErgo = new FIXGRIDListBinding<GridErgoItem>(true);
     public FIXGRIDListBinding<GridErgoItem> getGridErgo() { return m_gridErgo; }
     
-    protected FIXGRIDListBinding<GridSwimItem> m_gridSwim = new FIXGRIDListBinding<GridSwimItem>(true);
-    public FIXGRIDListBinding<GridSwimItem> getGridSwim() { return m_gridSwim; }
+    protected FIXGRIDTreeBinding<GridSwimItem> m_gridSwim = new FIXGRIDTreeBinding<GridSwimItem>(true);
+    public FIXGRIDTreeBinding<GridSwimItem> getGridSwim() { return m_gridSwim; }
     
     public class AGridItem extends FIXGRIDItem implements java.io.Serializable {
     	Integer step;
@@ -499,72 +501,100 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 		}
     }
     
-    public class GridSwimItem extends FIXGRIDItem implements java.io.Serializable {
-    	String step;
+    public class GridSwimItem extends FIXGRIDTreeItem implements java.io.Serializable {
+    	Integer step;
+    	Boolean topNode;    	
     	
-		public GridSwimItem(String step) {
+    	Double lactate;
+    	
+		public GridSwimItem(FIXGRIDTreeItem parent, Integer step) {
+			super(parent);			
+			if(parent.getLevelInt()<0) {
+				topNode=true;				
+			} else {
+				topNode=false;
+				setStatus(STATUS_ENDNODE);
+			}
 			this.step = step;
 		}
-		public String getStep() { return step; }
-		public void setStep(String step) { this.step = step; }
+		
+		public Integer getStep() { return step; }
+		public void setStep(Integer step) { this.step = step; }
 		
 		public void onAddSubItem(ActionEvent ae) {
-			Statusbar.outputMessage("SubItem added: " + step);
+			int step = this.getChildNodes().size() + 1;			
+			GridSwimItem item = new GridSwimItem(this,step);
 		}
-    	
+		
+		public boolean isTopNode() { return topNode; }
+		public String  getAddIcon() { 
+			if(topNode) { return Constants.ADD; } 
+			return Constants.EMPTY;
+		}
+		
+		public Double getLactate() {return lactate;}
+		public void setLactate(Double lactate) {this.lactate = lactate;}    	
     }
     
     public void onAddItem(ActionEvent ae) {
     	// treadmill
     	if(isTreadmill()) {
-    		int step = m_gridTreadmill.getItems().size()+1;
+    		int step = m_gridTreadmill.getRows().size()+1;
         	GridTreadmillItem item = new GridTreadmillItem(step);
         	m_gridTreadmill.getItems().add(item);
         	return;
     	}
     	// ergo
     	if(isErgo()) {
-    		int step = m_gridErgo.getItems().size()+1;
+    		int step = m_gridErgo.getRows().size()+1;
         	GridErgoItem item = new GridErgoItem(step);
         	m_gridErgo.getItems().add(item);
         	return;
     	}
     	// swim
     	if(isSwim()) {
-    		Integer size = m_gridSwim.getItems().size();
-    		String step = size.toString();    		 		
-    		GridSwimItem item = new GridSwimItem(step);
-    		m_gridSwim.getItems().add(item);
+    		int step = m_gridSwim.getRootNode().getChildNodes().size() + 1;
+    		GridSwimItem item = new GridSwimItem(m_gridSwim.getRootNode(), step);
+    		// add one subnode
+    		item.onAddSubItem(null);
     		return;
     	}
     	
     }
     
     public void onRemoveItem(ActionEvent ae) {
-    	FIXGRIDListBinding<? extends FIXGRIDItem> grid = null;
-    	// treadmill
-    	if(isTreadmill()) {
-    		grid = m_gridTreadmill;
+    	if(!isSwim()) {
+    		FIXGRIDListBinding<? extends FIXGRIDItem> grid = null;
+        	// treadmill
+        	if(isTreadmill()) {
+        		grid = m_gridTreadmill;
+        	}
+        	// ergo
+        	if(isErgo()) {
+        		grid = m_gridErgo;
+        	}
+        	if(grid==null) return;
+        	
+        	FIXGRIDItem selected = grid.getSelectedItem();
+        	if(selected==null) return;
+        	grid.getItems().remove(selected);
+        	// recalculate step numbers and total time
+        	int step = 1;
+        	for (FIXGRIDItem item : grid.getItems()) {
+        		// check if swim protocol
+        		if(!isSwim()) {
+        			((AGridItem)item).setStep(step++);
+        		} else {
+        			
+        		}    		
+        	}
+    	} else {
+    		// swim
+    		GridSwimItem selected = m_gridSwim.getSelectedItem();
+    		if(selected==null) return;
+     		selected.removeNode();
     	}
-    	// ergo
-    	if(isErgo()) {
-    		grid = m_gridErgo;
-    	}
-    	if(grid==null) return;
-    	
-    	FIXGRIDItem selected = grid.getSelectedItem();
-    	if(selected==null) return;
-    	grid.getItems().remove(selected);
-    	// recalculate step numbers and total time
-    	int step = 1;
-    	for (FIXGRIDItem item : grid.getItems()) {
-    		// check if swim protocol
-    		if(!isSwim()) {
-    			((AGridItem)item).setStep(step++);
-    		} else {
-    			
-    		}    		
-    	}    	
+    	    	
     }   
     
     private void fillProtocol() {
