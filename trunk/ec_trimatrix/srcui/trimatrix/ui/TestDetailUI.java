@@ -506,36 +506,45 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     public class GridSwimItem extends FIXGRIDTreeItem implements java.io.Serializable {
     	Integer step;
     	Boolean topNode;    	
+    	Boolean valid;
     	
     	Double lactate;
     	
 		public GridSwimItem(FIXGRIDTreeItem parent, Integer step) {
 			super(parent);			
 			if(parent.getLevelInt()<0) {
-				topNode=true;				
+				topNode=true;	
+				valid=false;
 			} else {
 				topNode=false;
 				setStatus(STATUS_ENDNODE);
+				valid=true;
 			}
 			this.step = step;
 		}
 		
 		public Integer getStep() { return step; }
 		public void setStep(Integer step) { this.step = step; }
-		
+					
+		public boolean isValid() { return valid; }
+		public void setValid(boolean valid) { this.valid = valid; }
+		public boolean isEnabled() { return m_enabled && valid && !topNode; }
+
 		public void onAddSubItem(ActionEvent ae) {
 			int step = this.getChildNodes().size() + 1;			
 			GridSwimItem item = new GridSwimItem(this,step);
 		}
 		
 		public boolean isTopNode() { return topNode; }
-		public String  getAddIcon() { 
-			if(topNode) { return Constants.ADD; } 
-			return Constants.EMPTY;
-		}
 		
 		public Double getLactate() {return lactate;}
 		public void setLactate(Double lactate) {this.lactate = lactate;}    	
+		
+		public String getBgpaint() {
+			if(topNode) return null;
+			if(!valid) return null;
+			return Constants.BGP_MANDATORY;
+		}
     }
     
     public void onAddItem(ActionEvent ae) {
