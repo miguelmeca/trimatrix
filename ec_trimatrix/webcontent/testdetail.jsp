@@ -284,8 +284,8 @@
 </t:row>
 <t:rowdistance id="g_203" height="15" />
 <t:row id="g_204" >
-<t:label id="g_205" text="#{rr.literals.max_performance} Hallo" width="200" />
-<t:field id="g_206" attributemacro="entityDetailMacro(TestDetailUI,model_lactate)" width="200" />
+<t:label id="g_205" text="#{rr.literals.max_performance} #{d.TestDetailUI.values.distance} m  " width="200" />
+<t:field id="g_206" attributemacro="entityDetailMacro(TestDetailUI,performance_max)" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" userhint="mm:ss" width="100" />
 </t:row>
 <t:rowdistance id="g_207" />
 <t:row id="g_208" >
@@ -293,23 +293,49 @@
 <t:link id="g_210" actionListener="#{d.TestDetailUI.gridSwim.onOpenGridFunctions}" text="#{rr.literals.export}" />
 </t:row>
 <t:row id="g_211" >
-<t:fixgrid id="g_212" avoidroundtrips="1" border="#808080" enabled="#{d.TestDetailUI.enabled}" multiselect="false" objectbinding="#{d.TestDetailUI.gridSwim}" sbvisibleamount="20" width="100%" >
+<t:fixgrid id="g_212" avoidroundtrips="0" border="#808080" enabled="#{d.TestDetailUI.enabled}" multiselect="false" objectbinding="#{d.TestDetailUI.gridSwim}" sbvisibleamount="20" width="100%" >
 <t:gridcol id="g_213" align="center" sortenabled="false" text="#{rr.literals.step}" width="100" >
 <t:treenode id="g_214" bgpaint="rectangle(0,0,100%,100%,#FFFFFF40,#FFFFFF10,vertical)" text=".{step}" />
 </t:gridcol>
 <t:gridcol id="g_215" sortenabled="false" width="20" >
-<t:button id="g_216" actionListener=".{onAddSubItem}" contentareafilled="false" enabled=".{topNode}" horizontaltextposition="center" image=".{addIcon}" verticaltextposition="middle" />
+<t:pane id="g_216" bgpaint="null!" >
+<t:row id="g_217" >
+<t:button id="g_218" actionListener=".{onAddSubItem}" contentareafilled="false" enabled="#{d.TestDetailUI.enabled}" horizontaltextposition="center" image="/images/icons/add.png" rendered=".{topNode}" verticaltextposition="middle" />
+</t:row>
+</t:pane>
 </t:gridcol>
-<t:gridcol id="g_217" align="center" sortenabled="false" text="#{rr.literals.lactate}" width="45" >
-<t:formattedfield id="g_218" bgpaint="mandatory()" enabled="#{d.TestDetailUI.enabled}" format="double" value=".{lactate}" />
+<t:gridcol id="g_219" sortenabled="false" width="20" >
+<t:pane id="g_220" bgpaint="null!" >
+<t:row id="g_221" >
+<t:checkbox id="g_222" enabled="#{d.TestDetailUI.enabled}" flush="true" rendered=".{topNode==false}" selected=".{valid}" />
+</t:row>
+</t:pane>
+</t:gridcol>
+<t:gridcol id="g_223" align="center" sortenabled="false" text="#{rr.literals.intensity}" width="60" >
+<t:formattedfield id="g_224" enabled=".{enabled}" format="int" maxlength="3" userhint="max. 100%" />
+</t:gridcol>
+<t:gridcol id="g_225" align="center" sortenabled="false" text="#{rr.literals.target_time}" width="60" >
+<t:field id="g_226" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" userhint="mm:ss" />
+</t:gridcol>
+<t:gridcol id="g_227" align="center" sortenabled="false" text="#{rr.literals.time}" width="60" >
+<t:field id="g_228" bgpaint=".{bgpaint}" enabled="#{TestDetailUI.enabled}" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" userhint="mm:ss" />
+</t:gridcol>
+<t:gridcol id="g_229" align="center" sortenabled="false" text="#{rr.literals.lactate}" width="100" >
+<t:formattedfield id="g_230" bgpaint=".{bgpaint}" enabled=".{enabled}" format="double" value=".{lactate}" />
+</t:gridcol>
+<t:gridcol id="g_231" align="center" sortenabled="false" text="#{rr.literals.hr}" width="100" >
+<t:formattedfield id="g_232" bgpaint=".{bgpaint}" enabled=".{enabled}" format="int" />
+</t:gridcol>
+<t:gridcol id="g_233" align="center" sortenabled="false" text="#{rr.literals.comment}" width="100" >
+<t:field id="g_234" enabled="#{d.TestDetailUI.enabled}" maxlength="1000" width="100" />
 </t:gridcol>
 </t:fixgrid>
 </t:row>
-<t:rowdistance id="g_219" />
-<t:row id="g_220" >
-<t:button id="g_221" actionListener="#{d.TestDetailUI.onAddItem}" enabled="#{d.TestDetailUI.enabled}" text="Hinzufügen" />
-<t:coldistance id="g_222" />
-<t:button id="g_223" actionListener="#{d.TestDetailUI.onRemoveItem}" enabled="#{d.TestDetailUI.enabled}" text="Entfernen" />
+<t:rowdistance id="g_235" />
+<t:row id="g_236" >
+<t:button id="g_237" actionListener="#{d.TestDetailUI.onAddItem}" enabled="#{d.TestDetailUI.enabled}" text="Hinzufügen" />
+<t:coldistance id="g_238" />
+<t:button id="g_239" actionListener="#{d.TestDetailUI.onRemoveItem}" enabled="#{d.TestDetailUI.enabled}" text="Entfernen" />
 </t:row>
 </t:pane>
 </t:row>
