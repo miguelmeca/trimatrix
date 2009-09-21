@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.event.ActionEvent;
 
@@ -365,8 +367,10 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     }	
 	
 	// ------------------------------------------------------------------------
-	// logic for treadmill protocol
+	// logic for protocols
 	// ------------------------------------------------------------------------	
+	public static final int maxSplits = 8;
+	
 	protected FIXGRIDListBinding<GridTreadmillItem> m_gridTreadmill = new FIXGRIDListBinding<GridTreadmillItem>(true);
     public FIXGRIDListBinding<GridTreadmillItem> getGridTreadmill() { return m_gridTreadmill; }
  
@@ -508,7 +512,13 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     	Boolean topNode;    	
     	Boolean valid;    	
     	Double lactate;  
-    	FIXGRIDListBinding<SplitItem> gridSplit = new FIXGRIDListBinding<SplitItem>(true);
+    	Integer hr;
+    	Integer intensity;
+    	String targetTime;
+    	String time;
+    	String comment;
+    	Split[] splits = new Split[maxSplits];
+    	//Map<String, Split> splits = new HashMap<String, Split>();
        
     	public GridSwimItem(FIXGRIDTreeItem parent, Integer step) {
 			super(parent);			
@@ -518,29 +528,49 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 			} else {
 				topNode=false;
 				setStatus(STATUS_ENDNODE);
-				valid=true;
-				// add splits
-				int splits = getSplits();
-				if (splits>0) {
-					int distance = entity.getTestsSwim().getDistance();
-					if (distance >0) {		
-						int part = distance / splits;
-						for (int i=1;i<=splits;i++) {
-							SplitItem item = new SplitItem(part * i);
-							gridSplit.getItems().add(item);
-						}
-					}					
-				}				
+				valid=true;				
+				// build splits
+				int splitCount= entity.getTestsSwim().getSplits();
+				for(int i=1;i<=splitCount;i++) {
+					Split split = new Split("00:00", 0);
+					splits[i-1] = split;
+				}							
 			}
 			this.step = step;
 		}
-		
-    	public Integer getRowHeight() { return isTopNode() ? 20 : ( getSplits() * 20); }
-    	public Integer getSplits () { return entity.getTestsSwim().getSplits(); }
     	
 		public Integer getStep() { return step; }
-		public void setStep(Integer step) { this.step = step; }
+		public void setStep(Integer step) { this.step = step; }		
 					
+		public Integer getIntensity() { return intensity; }
+		public void setIntensity(Integer intensity) { 
+			// limit intensity [0-100]
+			if(intensity<0) { this.intensity = 0; return; }
+			if(intensity>100) { this.intensity = 100; return; }
+			this.intensity = intensity;
+		}
+
+		public String getTargetTime() {
+			String maxPerformance = entity.getTestsProtocol().getPerformanceMax();
+			if(maxPerformance==null) return null;
+			return(Helper.percentageOfTime(maxPerformance, intensity));
+		}
+		
+		public String getTime() { return time; }
+		public void setTime(String time) { this.time = time; }
+
+		public Integer getHr() { return hr; }
+		public void setHr(Integer hr) { this.hr = hr; }		
+		
+//		public Map<String, Split> getSplits() {	return splits; }
+//		public void setSplits(Map<String, Split> splits) { this.splits = splits; }
+
+		public Split[] getSplits() { return splits;	}
+		public void setSplits(Split[] splits) {	this.splits = splits; }
+		
+		public String getComment() { return comment; }
+		public void setComment(String comment) { this.comment = comment; }
+
 		public boolean isValid() { return valid; }
 		public void setValid(boolean valid) { this.valid = valid; }
 		public boolean isEnabled() { return m_enabled && valid && !topNode; }
@@ -560,27 +590,36 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 			if(!valid) return null;
 			return Constants.BGP_MANDATORY;
 		}
+    }
+    
+    public class Split implements Serializable {
+     	String time;
+    	int strokes;
 		
-		public FIXGRIDListBinding<SplitItem> getGridSplit() { return gridSplit; }
-		
-		public class SplitItem extends FIXGRIDItem implements java.io.Serializable {
-			Integer distance;
-			String  time;
-			Integer strokes;
-			
-			public SplitItem(Integer distance) {
-				this.distance = distance;
-			}
-
-			public String getSplitDistance() { return distance.toString() + " m"; }
-
-			public String getTime() { return time; }
-			public void setTime(String time) { this.time = time; }
-
-			public Integer getStrokes() { return strokes;	}
-
-			public void setStrokes(Integer strokes) { this.strokes = strokes; }	
+		public Split(String time, int strokes) {
+			this.time = time;
+			this.strokes = strokes;
 		}
+		
+		public String getTime() {return time;}
+		public void setTime(String time) {this.time = time;}
+		
+		public int getStrokes() {return strokes;}
+		public void setStrokes(int strokes) {this.strokes = strokes;}	
+    }
+   
+    public String[] getSplitHeader() {
+    	String[] header = new String[maxSplits];
+    	int splitCount= entity.getTestsSwim().getSplits();
+		int distance = entity.getTestsSwim().getDistance();
+		if(splitCount>0) {
+			int part = distance / splitCount;
+			for(int i=1;i<=splitCount;i++) {
+				Integer key = part * i;
+				header[i-1] = key.toString();
+			}
+		}
+    	return header;
     }
     
     public void onAddItem(ActionEvent ae) {
