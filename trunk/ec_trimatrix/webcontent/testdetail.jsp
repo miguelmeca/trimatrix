@@ -293,7 +293,7 @@
 <t:link id="g_210" actionListener="#{d.TestDetailUI.gridSwim.onOpenGridFunctions}" text="#{rr.literals.export}" />
 </t:row>
 <t:row id="g_211" >
-<t:fixgrid id="g_212" avoidroundtrips="0" border="#808080" enabled="#{d.TestDetailUI.enabled}" multiselect="false" objectbinding="#{d.TestDetailUI.gridSwim}" sbvisibleamount="20" width="100%" >
+<t:fixgrid id="g_212" avoidroundtrips="0" border="#808080" enabled="#{d.TestDetailUI.enabled}" headlinerowheight="20" multiselect="false" objectbinding="#{d.TestDetailUI.gridSwim}" rowheight="100" sbvisibleamount="10" width="100%" >
 <t:gridcol id="g_213" align="center" sortenabled="false" text="#{rr.literals.step}" width="100" >
 <t:treenode id="g_214" bgpaint="rectangle(0,0,100%,100%,#FFFFFF40,#FFFFFF10,vertical)" text=".{step}" />
 </t:gridcol>
@@ -326,16 +326,33 @@
 <t:gridcol id="g_231" align="center" sortenabled="false" text="#{rr.literals.hr}" width="100" >
 <t:formattedfield id="g_232" bgpaint=".{bgpaint}" enabled=".{enabled}" format="int" />
 </t:gridcol>
-<t:gridcol id="g_233" align="center" sortenabled="false" text="#{rr.literals.comment}" width="100" >
-<t:field id="g_234" enabled="#{d.TestDetailUI.enabled}" maxlength="1000" width="100" />
+<t:gridcol id="g_233" align="center" text="Splits" width="155" >
+<t:pane id="g_234" border="#808080" >
+<t:row id="g_235" >
+<t:fixgrid id="g_236" avoidroundtrips="1" border="#808080" height="100%" objectbinding=".{gridSplit}" rendered=".{topNode==false}" sbvisibleamount="4" suppressheadline="true" width="100%" >
+<t:gridcol id="g_237" text="Länge" width="50" >
+<t:field id="g_238" align="center" enabled="false" text=".{splitDistance}" />
+</t:gridcol>
+<t:gridcol id="g_239" text="Zeit" width="50" >
+<t:field id="g_240" bgpaint="write(100%-5,50%,Zeit,9,#a0a0a0,rightmiddle)" enabled="#{TestDetailUI.enabled}" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{time}" userhint="mm:ss" />
+</t:gridcol>
+<t:gridcol id="g_241" text="Strokes" width="50" >
+<t:formattedfield id="g_242" bgpaint="write(100%-5,50%,Strokes,9,#a0a0a0,rightmiddle)" enabled="#{TestDetailUI.enabled}" format="int" value=".{strokes}" />
 </t:gridcol>
 </t:fixgrid>
 </t:row>
-<t:rowdistance id="g_235" />
-<t:row id="g_236" >
-<t:button id="g_237" actionListener="#{d.TestDetailUI.onAddItem}" enabled="#{d.TestDetailUI.enabled}" text="Hinzufügen" />
-<t:coldistance id="g_238" />
-<t:button id="g_239" actionListener="#{d.TestDetailUI.onRemoveItem}" enabled="#{d.TestDetailUI.enabled}" text="Entfernen" />
+</t:pane>
+</t:gridcol>
+<t:gridcol id="g_243" align="center" sortenabled="false" text="#{rr.literals.comment}" width="100" >
+<t:field id="g_244" enabled="#{d.TestDetailUI.enabled}" maxlength="1000" width="100" />
+</t:gridcol>
+</t:fixgrid>
+</t:row>
+<t:rowdistance id="g_245" />
+<t:row id="g_246" >
+<t:button id="g_247" actionListener="#{d.TestDetailUI.onAddItem}" enabled="#{d.TestDetailUI.enabled}" text="Hinzufügen" />
+<t:coldistance id="g_248" />
+<t:button id="g_249" actionListener="#{d.TestDetailUI.onRemoveItem}" enabled="#{d.TestDetailUI.enabled}" text="Entfernen" />
 </t:row>
 </t:pane>
 </t:row>
