@@ -119,6 +119,25 @@ public class Helper {
 	}
 	
 	/**
+	 * Calculate percentage of a given time
+	 * @param time
+	 * @param percentage
+	 * @return calculated time
+	 */
+	public static String percentageOfTime(String time, Integer percentage) {
+		if(percentage==0) return "00:00"; 
+		if(percentage==100) return time;
+		String[] arrTime = time.split(":");
+		// check format mm:ss
+		if(arrTime.length<2) return null;
+		int secTime = Integer.valueOf(arrTime[0]) * 60 + Integer.valueOf(arrTime[1]);
+		int secPercent = secTime / 100 * percentage;
+		int minutes = secPercent / 60;
+		int seconds = secPercent % 60;
+		return String.format("%02d:%02d", minutes, seconds);		
+	}
+	
+	/**
 	 * This method enables adding items to wildcard captured lists 
 	 * @param <E>	
 	 * @param list
