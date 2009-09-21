@@ -506,11 +506,11 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     public class GridSwimItem extends FIXGRIDTreeItem implements java.io.Serializable {
     	Integer step;
     	Boolean topNode;    	
-    	Boolean valid;
-    	
-    	Double lactate;
-    	
-		public GridSwimItem(FIXGRIDTreeItem parent, Integer step) {
+    	Boolean valid;    	
+    	Double lactate;  
+    	FIXGRIDListBinding<SplitItem> gridSplit = new FIXGRIDListBinding<SplitItem>(true);
+       
+    	public GridSwimItem(FIXGRIDTreeItem parent, Integer step) {
 			super(parent);			
 			if(parent.getLevelInt()<0) {
 				topNode=true;	
@@ -519,10 +519,25 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 				topNode=false;
 				setStatus(STATUS_ENDNODE);
 				valid=true;
+				// add splits
+				int splits = getSplits();
+				if (splits>0) {
+					int distance = entity.getTestsSwim().getDistance();
+					if (distance >0) {		
+						int part = distance / splits;
+						for (int i=1;i<=splits;i++) {
+							SplitItem item = new SplitItem(part * i);
+							gridSplit.getItems().add(item);
+						}
+					}					
+				}				
 			}
 			this.step = step;
 		}
 		
+    	public Integer getRowHeight() { return isTopNode() ? 20 : ( getSplits() * 20); }
+    	public Integer getSplits () { return entity.getTestsSwim().getSplits(); }
+    	
 		public Integer getStep() { return step; }
 		public void setStep(Integer step) { this.step = step; }
 					
@@ -544,6 +559,27 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 			if(topNode) return null;
 			if(!valid) return null;
 			return Constants.BGP_MANDATORY;
+		}
+		
+		public FIXGRIDListBinding<SplitItem> getGridSplit() { return gridSplit; }
+		
+		public class SplitItem extends FIXGRIDItem implements java.io.Serializable {
+			Integer distance;
+			String  time;
+			Integer strokes;
+			
+			public SplitItem(Integer distance) {
+				this.distance = distance;
+			}
+
+			public String getSplitDistance() { return distance.toString() + " m"; }
+
+			public String getTime() { return time; }
+			public void setTime(String time) { this.time = time; }
+
+			public Integer getStrokes() { return strokes;	}
+
+			public void setStrokes(Integer strokes) { this.strokes = strokes; }	
 		}
     }
     
