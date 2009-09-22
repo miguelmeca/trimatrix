@@ -8,10 +8,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONSerializer;
 import net.sf.json.JsonConfig;
 
-import org.aspectj.apache.bcel.generic.Type;
 import org.junit.Test;
-
-import trimatrix.utils.Constants;
 
 public class JSONArrayToListTest {
 

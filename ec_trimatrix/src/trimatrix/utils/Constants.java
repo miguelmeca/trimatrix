@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import net.sf.json.JsonConfig;
-
 import trimatrix.entities.IEntityData;
 
 public final class Constants {
