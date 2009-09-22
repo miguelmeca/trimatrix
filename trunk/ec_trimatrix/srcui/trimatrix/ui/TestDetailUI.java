@@ -4,9 +4,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.faces.event.ActionEvent;
 
@@ -16,6 +14,7 @@ import net.sf.json.JSONSerializer;
 
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
+import org.eclnt.jsfserver.elements.events.BaseActionEventFlush;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDTreeBinding;
@@ -33,6 +32,7 @@ import trimatrix.db.TestsTreadmill;
 import trimatrix.entities.TestEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
+import trimatrix.ui.LabelPopUpUI.GridItem;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
 
@@ -576,8 +576,31 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 		public boolean isEnabled() { return m_enabled && valid && !topNode; }
 
 		public void onAddSubItem(ActionEvent ae) {
-			int step = this.getChildNodes().size() + 1;			
-			GridSwimItem item = new GridSwimItem(this,step);
+			int step = getChildNodes().size() + 1;		
+			for(FIXGRIDTreeItem item : getChildNodes()) {
+				// just newly added item is active
+				((GridSwimItem)item).valid = false;
+				m_gridSwim.ensureItemToBeDisplayed((GridSwimItem)item);
+			}
+			new GridSwimItem(this,step);
+		}
+		
+		public void onMarkItem(ActionEvent ae) {
+			if(valid) {
+				// set all invalid
+				for(FIXGRIDTreeItem item : getParentNode().getChildNodes()) {					
+					((GridSwimItem)item).valid = false;
+					m_gridSwim.ensureItemToBeDisplayed((GridSwimItem)item);
+				}
+				// set actual item valid
+				valid = true;				
+			} else {
+				// mark last node
+				int last = getParentNode().getChildNodes().size()-1;
+				GridSwimItem item = (GridSwimItem)getParentNode().getChildNodes().get(last);
+				item.valid = true;
+				m_gridSwim.ensureItemToBeDisplayed(item);
+			}
 		}
 		
 		public boolean isTopNode() { return topNode; }
@@ -678,9 +701,14 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     		// swim
     		GridSwimItem selected = m_gridSwim.getSelectedItem();
     		if(selected==null) return;
+    		FIXGRIDTreeItem root = selected.getParentNode();
      		selected.removeNode();
-    	}
-    	    	
+     		// recalculate step numbers and total time
+     		int step = 1;
+    		for(FIXGRIDTreeItem item : root.getChildNodes()) {
+     			((GridSwimItem)item).setStep(step++);     			
+     		}     	    		
+    	}    	    	
     }   
     
     private void fillProtocol() {

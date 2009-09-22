@@ -307,7 +307,7 @@
 <t:gridcol id="g_219" sortenabled="false" width="20" >
 <t:pane id="g_220" bgpaint="null!" >
 <t:row id="g_221" >
-<t:checkbox id="g_222" enabled="#{d.TestDetailUI.enabled}" flush="true" rendered=".{topNode==false}" selected=".{valid}" />
+<t:checkbox id="g_222" actionListener=".{onMarkItem}" enabled="#{d.TestDetailUI.enabled}" flush="true" rendered=".{topNode==false}" selected=".{valid}" />
 </t:row>
 </t:pane>
 </t:gridcol>
