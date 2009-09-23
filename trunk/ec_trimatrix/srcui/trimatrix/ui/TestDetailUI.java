@@ -518,7 +518,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     	String time;
     	String comment;
     	Split[] splits = new Split[maxSplits];
-    	//Map<String, Split> splits = new HashMap<String, Split>();
+    	int validNode;
        
     	public GridSwimItem(FIXGRIDTreeItem parent, Integer step) {
 			super(parent);			
@@ -528,13 +528,15 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 			} else {
 				topNode=false;
 				setStatus(STATUS_ENDNODE);
-				valid=true;			
+				valid=true;					
 				// build splits
 				int splitCount= entity.getTestsSwim().getSplits();
 				for(int i=1;i<=splitCount;i++) {
 					Split split = new Split("00:00", 0);
 					splits[i-1] = split;
 				}							
+				// set valid node at top node
+				((GridSwimItem)getParentNode()).setValidNode(getParentNode().getChildNodes().size());
 			}
 			this.step = step;
 		}
@@ -567,16 +569,37 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 			}				
 		}
 		
-		public String getTime() { return time; }
+		public String getTime() { 
+			if(topNode) {
+				return ((GridSwimItem)this.getChildNodes().get(validNode)).getTime();
+			} 
+			return time;
+		}
 		public void setTime(String time) { this.time = time; }
 
-		public Integer getHr() { return hr; }
-		public void setHr(Integer hr) { this.hr = hr; }		
-		
-//		public Map<String, Split> getSplits() {	return splits; }
-//		public void setSplits(Map<String, Split> splits) { this.splits = splits; }
+		public Integer getHr() { 
+			if(topNode) {
+				return ((GridSwimItem)this.getChildNodes().get(validNode)).getHr();
+			} 
+			return hr; 
+		}
+		public void setHr(Integer hr) { this.hr = hr; }				
 
-		public Split[] getSplits() { return splits;	}
+		public Double getLactate() {
+			if(topNode) {
+				return ((GridSwimItem)this.getChildNodes().get(validNode)).getLactate();
+			} 
+			return lactate;
+		}
+		public void setLactate(Double lactate) {this.lactate = lactate;}   
+		
+		public Split[] getSplits() {
+			if(topNode) {
+				return ((GridSwimItem)this.getChildNodes().get(validNode)).getSplits();
+			} 
+			return splits;	
+		}
+		
 		public void setSplits(Split[] splits) {	this.splits = splits; }
 		
 		public String getComment() { return comment; }
@@ -584,6 +607,10 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 
 		public boolean isValid() { return valid; }
 		public void setValid(boolean valid) { this.valid = valid; }
+		
+		public int getValidNode() {	return validNode; }
+		public void setValidNode(int validNode) { this.validNode = validNode; }
+
 		public boolean isEnabled() { return m_enabled && valid && !topNode; }
 		public boolean isEnabledAndTopNode() { return m_enabled && topNode; }
 
@@ -597,6 +624,10 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 			new GridSwimItem(this,step);
 		}
 		
+		public void onChangeItem(ActionEvent ae) {
+			if(!topNode) m_gridSwim.ensureItemToBeDisplayed((GridSwimItem)getParentNode());
+		}
+		
 		public void onMarkItem(ActionEvent ae) {
 			if(valid) {
 				// set all invalid
@@ -606,20 +637,18 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 				}
 				// set actual item valid
 				valid = true;				
+				((GridSwimItem)getParentNode()).setValidNode(step-1);
 			} else {
 				// mark last node
 				int last = getParentNode().getChildNodes().size()-1;
 				GridSwimItem item = (GridSwimItem)getParentNode().getChildNodes().get(last);
-				item.valid = true;
+				item.valid = true;		
+				((GridSwimItem)getParentNode()).setValidNode(last);
 				m_gridSwim.ensureItemToBeDisplayed(item);
 			}
-		}
-		
+		}		
 		public boolean isTopNode() { return topNode; }
-		
-		public Double getLactate() {return lactate;}
-		public void setLactate(Double lactate) {this.lactate = lactate;}    	
-		
+		 			
 		public String getBgPaintTop() {
 			return topNode ? Constants.BGP_MANDATORY : null;
 		}
