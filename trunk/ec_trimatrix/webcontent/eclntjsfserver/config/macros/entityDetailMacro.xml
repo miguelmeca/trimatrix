@@ -1,6 +1,5 @@
 <!--
-Template XML file for showing the structure of a macro. Each
-macro is defined in an XML file on its own.
+Macro for entity details
  -->
 <macro>
     <applysto>

@@ -1,0 +1,19 @@
+<!--
+Macro for swim protocol splits head
+ -->
+<macro>
+    <applysto>
+        <tag name="t:gridcol"/>
+    </applysto>
+    <parameters>
+        <parameter name="index"/>
+    </parameters>
+    <attributes>
+    	<attribute name="comment" value="Split {index}"/>
+    	<attribute name="align" value="center"/>
+        <attribute name="text" value="#{d.TestDetailUI.splitHeader[{index}]} m"/>
+        <attribute name="width" value="100"/>
+        <attribute name="sortenabled" value="false"/>
+        <attribute name="rendered" value="#{d.TestDetailUI.splitHeader[{index}]!=null}"/>
+    </attributes>
+</macro>

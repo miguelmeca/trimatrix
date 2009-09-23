@@ -1,0 +1,22 @@
+<!--
+Macro for swim protocol splits item strokes
+ -->
+<macro>
+    <applysto>
+        <tag name="t:formattedfield"/>
+    </applysto>
+    <parameters>
+        <parameter name="index"/>
+    </parameters>
+    <attributes>
+    	<attribute name="comment" value="Stroke {index}"/>
+        <attribute name="bgpaint" value="write(100%-5,100%-5,Züge,9,#a0a0a0,rightmiddle)"/>
+        <attribute name="border" value="0"/>
+        <attribute name="enabled" value="#{TestDetailUI.enabled}"/>
+        <attribute name="format" value="int"/>
+        <attribute name="height" value="100%"/>
+        <attribute name="rendered" value=".{topNode==false}"/>
+        <attribute name="value" value=".{splits[{index}].strokes}"/>
+        <attribute name="width" value="50%"/>
+    </attributes>
+</macro>

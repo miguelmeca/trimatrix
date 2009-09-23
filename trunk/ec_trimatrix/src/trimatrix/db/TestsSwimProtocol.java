@@ -25,7 +25,7 @@ public class TestsSwimProtocol  implements java.io.Serializable {
      private Integer intensity;
      private String time;
      private String targetTime;
-     private Boolean failed;
+     private Boolean valid;
      private String lactate;
      private String hr;
      private String strokes;
@@ -49,7 +49,7 @@ public class TestsSwimProtocol  implements java.io.Serializable {
         this.intensity = intensity;
         this.time = time;
         this.targetTime = targetTime;
-        this.failed = failed;
+        this.valid = failed;
         this.lactate = lactate;
         this.hr = hr;
         this.strokes = strokes;
@@ -104,14 +104,14 @@ public class TestsSwimProtocol  implements java.io.Serializable {
         this.targetTime = targetTime;
     }
     
-    @Column(name="failed")
+    @Column(name="valid")
 
-    public Boolean getFailed() {
-        return this.failed;
+    public Boolean getValid() {
+        return this.valid;
     }
     
-    public void setFailed(Boolean failed) {
-        this.failed = failed;
+    public void setValid(Boolean valid) {
+        this.valid = valid;
     }
     
     @Column(name="lactate", columnDefinition="text")
