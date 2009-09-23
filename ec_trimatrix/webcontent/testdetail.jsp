@@ -318,75 +318,75 @@
 <t:field id="g_226" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{targetTime}" userhint="mm:ss" />
 </t:gridcol>
 <t:gridcol id="g_227" align="center" sortenabled="false" text="#{rr.literals.time}" width="60" >
-<t:field id="g_228" bgpaint=".{bgpaint}" enabled=".{enabled}" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{time}" userhint="mm:ss" />
+<t:field id="g_228" actionListener=".{onChangeItem}" bgpaint=".{bgpaint}" enabled=".{enabled}" flush="true" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{time}" userhint="mm:ss" />
 </t:gridcol>
 <t:gridcol id="g_229" align="center" sortenabled="false" text="#{rr.literals.lactate}" width="100" >
-<t:formattedfield id="g_230" bgpaint=".{bgpaint}" enabled=".{enabled}" format="double" value=".{lactate}" />
+<t:formattedfield id="g_230" bgpaint=".{bgpaint}" enabled=".{enabled}" flush="true" format="double" value=".{lactate}" />
 </t:gridcol>
 <t:gridcol id="g_231" align="center" sortenabled="false" text="#{rr.literals.hr}" width="100" >
-<t:formattedfield id="g_232" bgpaint=".{bgpaint}" enabled=".{enabled}" format="int" value=".{hr}" />
+<t:formattedfield id="g_232" bgpaint=".{bgpaint}" enabled=".{enabled}" flush="true" format="int" value=".{hr}" />
 </t:gridcol>
-<t:gridcol id="g_233" attributemacro="swimSplitsHeadMacro(0)" >
+<t:gridcol id="g_233" attributemacro="swimSplitsHeadMacro(0)" rendered="true" >
 <t:pane id="g_234" >
 <t:row id="g_235" >
-<t:field id="g_236" attributemacro="swimSplitsItemTimeMacro(0)" />
-<t:formattedfield id="g_237" attributemacro="swimSplitsItemStrokeMacro(0)" />
+<t:field id="g_236" attributemacro="swimSplitsItemTimeMacro(0)" rendered="true" />
+<t:formattedfield id="g_237" attributemacro="swimSplitsItemStrokeMacro(0)" rendered="true" />
 </t:row>
 </t:pane>
 </t:gridcol>
 <t:gridcol id="g_238" attributemacro="swimSplitsHeadMacro(1)" >
 <t:pane id="g_239" >
 <t:row id="g_240" >
-<t:field id="g_241" attributemacro="swimSplitsItemTimeMacro(0)" />
-<t:formattedfield id="g_242" attributemacro="swimSplitsItemStrokeMacro(0)" />
+<t:field id="g_241" attributemacro="swimSplitsItemTimeMacro(1)" />
+<t:formattedfield id="g_242" attributemacro="swimSplitsItemStrokeMacro(1)" />
 </t:row>
 </t:pane>
 </t:gridcol>
 <t:gridcol id="g_243" attributemacro="swimSplitsHeadMacro(2)" >
 <t:pane id="g_244" >
 <t:row id="g_245" >
-<t:field id="g_246" attributemacro="swimSplitsItemTimeMacro(0)" />
-<t:formattedfield id="g_247" attributemacro="swimSplitsItemStrokeMacro(0)" />
+<t:field id="g_246" attributemacro="swimSplitsItemTimeMacro(2)" />
+<t:formattedfield id="g_247" attributemacro="swimSplitsItemStrokeMacro(2)" />
 </t:row>
 </t:pane>
 </t:gridcol>
 <t:gridcol id="g_248" attributemacro="swimSplitsHeadMacro(3)" >
 <t:pane id="g_249" >
 <t:row id="g_250" >
-<t:field id="g_251" attributemacro="swimSplitsItemTimeMacro(0)" />
-<t:formattedfield id="g_252" attributemacro="swimSplitsItemStrokeMacro(0)" />
+<t:field id="g_251" attributemacro="swimSplitsItemTimeMacro(3)" />
+<t:formattedfield id="g_252" attributemacro="swimSplitsItemStrokeMacro(3)" />
 </t:row>
 </t:pane>
 </t:gridcol>
 <t:gridcol id="g_253" attributemacro="swimSplitsHeadMacro(4)" >
 <t:pane id="g_254" >
 <t:row id="g_255" >
-<t:field id="g_256" attributemacro="swimSplitsItemTimeMacro(0)" />
-<t:formattedfield id="g_257" attributemacro="swimSplitsItemStrokeMacro(0)" />
+<t:field id="g_256" attributemacro="swimSplitsItemTimeMacro(4)" />
+<t:formattedfield id="g_257" attributemacro="swimSplitsItemStrokeMacro(4)" />
 </t:row>
 </t:pane>
 </t:gridcol>
 <t:gridcol id="g_258" attributemacro="swimSplitsHeadMacro(5)" >
 <t:pane id="g_259" >
 <t:row id="g_260" >
-<t:field id="g_261" attributemacro="swimSplitsItemTimeMacro(0)" />
-<t:formattedfield id="g_262" attributemacro="swimSplitsItemStrokeMacro(0)" />
+<t:field id="g_261" attributemacro="swimSplitsItemTimeMacro(5)" />
+<t:formattedfield id="g_262" attributemacro="swimSplitsItemStrokeMacro(5)" />
 </t:row>
 </t:pane>
 </t:gridcol>
 <t:gridcol id="g_263" attributemacro="swimSplitsHeadMacro(6)" >
 <t:pane id="g_264" >
 <t:row id="g_265" >
-<t:field id="g_266" attributemacro="swimSplitsItemTimeMacro(0)" />
-<t:formattedfield id="g_267" attributemacro="swimSplitsItemStrokeMacro(0)" />
+<t:field id="g_266" attributemacro="swimSplitsItemTimeMacro(6)" />
+<t:formattedfield id="g_267" attributemacro="swimSplitsItemStrokeMacro(6)" />
 </t:row>
 </t:pane>
 </t:gridcol>
 <t:gridcol id="g_268" attributemacro="swimSplitsHeadMacro(7)" >
 <t:pane id="g_269" >
 <t:row id="g_270" >
-<t:field id="g_271" attributemacro="swimSplitsItemTimeMacro(0)" />
-<t:formattedfield id="g_272" attributemacro="swimSplitsItemStrokeMacro(0)" />
+<t:field id="g_271" attributemacro="swimSplitsItemTimeMacro(7)" />
+<t:formattedfield id="g_272" attributemacro="swimSplitsItemStrokeMacro(7)" />
 </t:row>
 </t:pane>
 </t:gridcol>
