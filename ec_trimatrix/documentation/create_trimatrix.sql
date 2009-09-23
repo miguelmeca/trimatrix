@@ -11,7 +11,7 @@ MySQL - 5.1.33-community : Database - trimatrix
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`trimatrix` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`trimatrix` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 USE `trimatrix`;
 
@@ -703,7 +703,7 @@ CREATE TABLE `tests_protocol` (
 
 /*Data for the table `tests_protocol` */
 
-insert  into `tests_protocol`(`id`,`description`,`model`,`model_lactate`,`model_spiro`,`count_steps`,`performance_max`,`lactate`,`hr`,`o2_absorption`,`co2_emission`,`rq`) values ('a545fd84-3cc2-4dab-a9be-708a47182fb6',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('aa109083-8cfb-11de-a422-4e7d893777af',NULL,NULL,NULL,NULL,3,NULL,'[1.1,2.2,2.4]','[110,140,150]','[null,112,100]','[null,112,100]','[0.5,0.77,0.9]'),('aef05bf9-fe42-403c-9d9c-2c1086128322',NULL,NULL,NULL,NULL,1,NULL,'[2]','[null]','[null]','[null]','[null]'),('b6fb25ae-e794-4976-a1f9-ca9f5868a7b2',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('3d17b3c3-4836-4384-b43a-47102f9ccc90',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('357a3ccd-71ac-4051-b928-2992ff1e3e12','Test',NULL,NULL,NULL,1,NULL,'[2]','[150]','[null]','[null]','[null]'),('5ed1f2ff-9c0c-458c-a166-bbfb4fe32ee9','TEst',NULL,NULL,NULL,1,NULL,'[1]','[null]','[null]','[null]','[null]'),('d08c254e-94dd-4e06-a295-9cd53732bf75','Test',NULL,NULL,NULL,2,NULL,'[4,5]','[130,125]','[null,null]','[null,null]','[null,null]'),('926b173b-4f5e-4103-93c8-a6f3b5ba16d4','Test','Daum',NULL,NULL,1,NULL,'[1]','[130]','[null]','[null]','[null]'),('44f52474-d5ef-4fe6-8589-c6bee6fa8955',NULL,'Testmodell',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL),('a316a28f-1bff-4fd3-96bf-9dba9ceb5f5c',NULL,'Testmodell',NULL,NULL,0,'02:22',NULL,NULL,NULL,NULL,NULL);
+insert  into `tests_protocol`(`id`,`description`,`model`,`model_lactate`,`model_spiro`,`count_steps`,`performance_max`,`lactate`,`hr`,`o2_absorption`,`co2_emission`,`rq`) values ('a545fd84-3cc2-4dab-a9be-708a47182fb6',NULL,NULL,NULL,NULL,NULL,'05:00',NULL,NULL,NULL,NULL,NULL),('aa109083-8cfb-11de-a422-4e7d893777af',NULL,NULL,NULL,NULL,3,NULL,'[1.1,2.2,2.4]','[110,140,150]','[null,112,100]','[null,112,100]','[0.5,0.77,0.9]'),('aef05bf9-fe42-403c-9d9c-2c1086128322',NULL,NULL,NULL,NULL,1,NULL,'[2]','[null]','[null]','[null]','[null]'),('b6fb25ae-e794-4976-a1f9-ca9f5868a7b2',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('3d17b3c3-4836-4384-b43a-47102f9ccc90',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('357a3ccd-71ac-4051-b928-2992ff1e3e12','Test',NULL,NULL,NULL,1,NULL,'[2]','[150]','[null]','[null]','[null]'),('5ed1f2ff-9c0c-458c-a166-bbfb4fe32ee9','TEst',NULL,NULL,NULL,1,NULL,'[1]','[null]','[null]','[null]','[null]'),('d08c254e-94dd-4e06-a295-9cd53732bf75','Test',NULL,NULL,NULL,2,NULL,'[4,5]','[130,125]','[null,null]','[null,null]','[null,null]'),('926b173b-4f5e-4103-93c8-a6f3b5ba16d4','Test','Daum',NULL,NULL,1,NULL,'[1]','[130]','[null]','[null]','[null]'),('44f52474-d5ef-4fe6-8589-c6bee6fa8955',NULL,'Testmodell',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL),('a316a28f-1bff-4fd3-96bf-9dba9ceb5f5c',NULL,'Testmodell',NULL,NULL,0,'02:22',NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `tests_swim` */
 
@@ -723,7 +723,7 @@ CREATE TABLE `tests_swim` (
 
 /*Data for the table `tests_swim` */
 
-insert  into `tests_swim`(`id`,`date2`,`assistant_name`,`baths`,`pool`,`distance`,`splits`) values ('a545fd84-3cc2-4dab-a9be-708a47182fb6','2009-08-01 00:00:00','Anton aus Tirol','Aubad, Fieberbrunn','25m, 26°',200,4),('44f52474-d5ef-4fe6-8589-c6bee6fa8955',NULL,NULL,NULL,NULL,NULL,NULL),('a316a28f-1bff-4fd3-96bf-9dba9ceb5f5c',NULL,NULL,NULL,NULL,NULL,NULL);
+insert  into `tests_swim`(`id`,`date2`,`assistant_name`,`baths`,`pool`,`distance`,`splits`) values ('a545fd84-3cc2-4dab-a9be-708a47182fb6','2009-08-01 00:00:00','Anton aus Tirol','Aubad, Fieberbrunn','25m, 26°',200,5),('44f52474-d5ef-4fe6-8589-c6bee6fa8955',NULL,NULL,NULL,NULL,NULL,NULL),('a316a28f-1bff-4fd3-96bf-9dba9ceb5f5c',NULL,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `tests_swim_protocol` */
 
@@ -736,7 +736,7 @@ CREATE TABLE `tests_swim_protocol` (
   `intensity` int(11) DEFAULT NULL,
   `time` varchar(5) DEFAULT NULL,
   `target_time` varchar(5) DEFAULT NULL,
-  `failed` tinyint(1) DEFAULT NULL,
+  `valid` tinyint(1) DEFAULT NULL,
   `lactate` text,
   `hr` text COMMENT 'Datensatz erstellt am',
   `strokes` text,
@@ -748,7 +748,7 @@ CREATE TABLE `tests_swim_protocol` (
 
 /*Data for the table `tests_swim_protocol` */
 
-insert  into `tests_swim_protocol`(`id`,`step`,`attempt`,`intensity`,`time`,`target_time`,`failed`,`lactate`,`hr`,`strokes`,`split_times`,`comment`) values ('a545fd84-3cc2-4dab-a9be-708a47182fb6',1,1,100,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('a545fd84-3cc2-4dab-a9be-708a47182fb6',1,2,90,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('44f52474-d5ef-4fe6-8589-c6bee6fa8955',1,1,100,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('a316a28f-1bff-4fd3-96bf-9dba9ceb5f5c',1,1,100,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+insert  into `tests_swim_protocol`(`id`,`step`,`attempt`,`intensity`,`time`,`target_time`,`valid`,`lactate`,`hr`,`strokes`,`split_times`,`comment`) values ('a545fd84-3cc2-4dab-a9be-708a47182fb6',1,1,100,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('a545fd84-3cc2-4dab-a9be-708a47182fb6',1,2,90,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('44f52474-d5ef-4fe6-8589-c6bee6fa8955',1,1,100,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('a316a28f-1bff-4fd3-96bf-9dba9ceb5f5c',1,1,100,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `tests_treadmill` */
 
@@ -841,10 +841,10 @@ DROP TABLE IF EXISTS `entities`;
 /*!50001 DROP TABLE IF EXISTS `entities` */;
 
 /*!50001 CREATE TABLE `entities` (
-  `id` varchar(36) NOT NULL DEFAULT '',
-  `entity` varchar(10) NOT NULL DEFAULT '',
+  `id` varchar(36) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `entity` varchar(10) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `deleted` tinyint(4) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 */;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 */;
 
 /*Table structure for table `relations` */
 
@@ -854,11 +854,11 @@ DROP TABLE IF EXISTS `relations`;
 /*!50001 DROP TABLE IF EXISTS `relations` */;
 
 /*!50001 CREATE TABLE `relations` (
-  `id` varchar(36) NOT NULL DEFAULT '',
-  `partner1` varchar(36) DEFAULT NULL,
-  `partner2` varchar(36) DEFAULT NULL,
-  `reltyp_key` varchar(10) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 */;
+  `id` varchar(36) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `partner1` varchar(36) CHARACTER SET utf8 DEFAULT NULL,
+  `partner2` varchar(36) CHARACTER SET utf8 DEFAULT NULL,
+  `reltyp_key` varchar(10) CHARACTER SET utf8 DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 */;
 
 /*View structure for view entities */
 

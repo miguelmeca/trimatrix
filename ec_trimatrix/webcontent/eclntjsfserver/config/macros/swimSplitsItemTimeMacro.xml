@@ -1,0 +1,25 @@
+<!--
+Macro for swim protocol splits item time
+ -->
+<macro>
+    <applysto>
+        <tag name="t:field"/>
+    </applysto>
+    <parameters>
+        <parameter name="index"/>
+    </parameters>
+    <attributes>
+    	<attribute name="comment" value="Time {index}"/>
+        <attribute name="bgpaint" value="write(100%-5,100%-5,Zeit,9,#a0a0a0,rightmiddle)"/>
+        <attribute name="border" value="0"/>
+        <attribute name="enabled" value="#{TestDetailUI.enabled}"/>
+        <attribute name="height" value="100%"/>
+        <attribute name="maxlength" value="5"/>
+        <attribute name="regex" value="\d\d:[0-5]\d"/>
+        <attribute name="regexmode" value="1"/> 
+        <attribute name="rendered" value=".{topNode==false}"/>
+        <attribute name="text" value=".{splits[{index}].time}"/>
+        <attribute name="userhint" value="mm:ss"/>
+        <attribute name="width" value="50%"/>
+    </attributes>
+</macro>

@@ -312,7 +312,7 @@
 </t:pane>
 </t:gridcol>
 <t:gridcol id="g_223" align="center" sortenabled="false" text="#{rr.literals.intensity}" width="60" >
-<t:formattedfield id="g_224" enabled=".{enabled}" flush="true" format="int" maxlength="3" userhint="max. 100%" value=".{intensity}" />
+<t:formattedfield id="g_224" bgpaint=".{bgPaintTop}" enabled=".{enabledAndTopNode}" flush="true" format="int" maxlength="3" userhint="max. 100%" value=".{intensity}" />
 </t:gridcol>
 <t:gridcol id="g_225" align="center" sortenabled="false" text="#{rr.literals.target_time}" width="60" >
 <t:field id="g_226" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{targetTime}" userhint="mm:ss" />
@@ -326,67 +326,67 @@
 <t:gridcol id="g_231" align="center" sortenabled="false" text="#{rr.literals.hr}" width="100" >
 <t:formattedfield id="g_232" bgpaint=".{bgpaint}" enabled=".{enabled}" format="int" value=".{hr}" />
 </t:gridcol>
-<t:gridcol id="g_233" align="center" rendered="#{d.TestDetailUI.splitHeader[0]!=null}" text="#{d.TestDetailUI.splitHeader[0]} m" width="100" >
+<t:gridcol id="g_233" attributemacro="swimSplitsHeadMacro(0)" >
 <t:pane id="g_234" >
 <t:row id="g_235" >
-<t:field id="g_236" bgpaint="write(100%-5,100%-5,Zeit,9,#a0a0a0,rightmiddle)" border="0" enabled="#{TestDetailUI.enabled}" height="100%" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" rendered=".{topNode==false}" text=".{splits[0].time}" userhint="mm:ss" width="50%" />
-<t:formattedfield id="g_237" bgpaint="write(100%-5,100%-5,Züge,9,#a0a0a0,rightmiddle)" border="0" enabled="#{TestDetailUI.enabled}" format="int" height="100%" rendered=".{topNode==false}" value=".{splits[0].strokes}" width="50%" />
+<t:field id="g_236" attributemacro="swimSplitsItemTimeMacro(0)" />
+<t:formattedfield id="g_237" attributemacro="swimSplitsItemStrokeMacro(0)" />
 </t:row>
 </t:pane>
 </t:gridcol>
-<t:gridcol id="g_238" align="center" rendered="#{d.TestDetailUI.splitHeader[1]!=null}" text="#{d.TestDetailUI.splitHeader[1]} m" width="100" >
+<t:gridcol id="g_238" attributemacro="swimSplitsHeadMacro(1)" >
 <t:pane id="g_239" >
 <t:row id="g_240" >
-<t:field id="g_241" bgpaint="write(100%-5,100%-5,Zeit,9,#a0a0a0,rightmiddle)" border="0" enabled="#{TestDetailUI.enabled}" height="100%" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" rendered=".{topNode==false}" text=".{splits[1].time}" userhint="mm:ss" width="50%" />
-<t:formattedfield id="g_242" bgpaint="write(100%-5,100%-5,Züge,9,#a0a0a0,rightmiddle)" border="0" enabled="#{TestDetailUI.enabled}" format="int" height="100%" rendered=".{topNode==false}" value=".{splits[1].strokes}" width="50%" />
+<t:field id="g_241" attributemacro="swimSplitsItemTimeMacro(0)" />
+<t:formattedfield id="g_242" attributemacro="swimSplitsItemStrokeMacro(0)" />
 </t:row>
 </t:pane>
 </t:gridcol>
-<t:gridcol id="g_243" align="center" rendered="#{d.TestDetailUI.splitHeader[2]!=null}" text="#{d.TestDetailUI.splitHeader[2]} m" width="100" >
+<t:gridcol id="g_243" attributemacro="swimSplitsHeadMacro(2)" >
 <t:pane id="g_244" >
 <t:row id="g_245" >
-<t:field id="g_246" bgpaint="write(100%-5,100%-5,Zeit,9,#a0a0a0,rightmiddle)" border="0" enabled="#{TestDetailUI.enabled}" height="100%" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" rendered=".{topNode==false}" text=".{splits[2].time}" userhint="mm:ss" width="50%" />
-<t:formattedfield id="g_247" bgpaint="write(100%-5,100%-5,Züge,9,#a0a0a0,rightmiddle)" border="0" enabled="#{TestDetailUI.enabled}" format="int" height="100%" rendered=".{topNode==false}" value=".{splits[2].strokes}" width="50%" />
+<t:field id="g_246" attributemacro="swimSplitsItemTimeMacro(0)" />
+<t:formattedfield id="g_247" attributemacro="swimSplitsItemStrokeMacro(0)" />
 </t:row>
 </t:pane>
 </t:gridcol>
-<t:gridcol id="g_248" align="center" rendered="#{d.TestDetailUI.splitHeader[3]!=null}" text="#{d.TestDetailUI.splitHeader[3]} m" width="100" >
+<t:gridcol id="g_248" attributemacro="swimSplitsHeadMacro(3)" >
 <t:pane id="g_249" >
 <t:row id="g_250" >
-<t:field id="g_251" bgpaint="write(100%-5,100%-5,Zeit,9,#a0a0a0,rightmiddle)" border="0" enabled="#{TestDetailUI.enabled}" height="100%" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" rendered=".{topNode==false}" text=".{splits[3].time}" userhint="mm:ss" width="50%" />
-<t:formattedfield id="g_252" bgpaint="write(100%-5,100%-5,Züge,9,#a0a0a0,rightmiddle)" border="0" enabled="#{TestDetailUI.enabled}" format="int" height="100%" rendered=".{topNode==false}" value=".{splits[3].strokes}" width="50%" />
+<t:field id="g_251" attributemacro="swimSplitsItemTimeMacro(0)" />
+<t:formattedfield id="g_252" attributemacro="swimSplitsItemStrokeMacro(0)" />
 </t:row>
 </t:pane>
 </t:gridcol>
-<t:gridcol id="g_253" align="center" rendered="#{d.TestDetailUI.splitHeader[4]!=null}" text="#{d.TestDetailUI.splitHeader[4]} m" width="100" >
+<t:gridcol id="g_253" attributemacro="swimSplitsHeadMacro(4)" >
 <t:pane id="g_254" >
 <t:row id="g_255" >
-<t:field id="g_256" bgpaint="write(100%-5,100%-5,Zeit,9,#a0a0a0,rightmiddle)" border="0" enabled="#{TestDetailUI.enabled}" height="100%" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" rendered=".{topNode==false}" text=".{splits[4].time}" userhint="mm:ss" width="50%" />
-<t:formattedfield id="g_257" bgpaint="write(100%-5,100%-5,Züge,9,#a0a0a0,rightmiddle)" border="0" enabled="#{TestDetailUI.enabled}" format="int" height="100%" rendered=".{topNode==false}" value=".{splits[4].strokes}" width="50%" />
+<t:field id="g_256" attributemacro="swimSplitsItemTimeMacro(0)" />
+<t:formattedfield id="g_257" attributemacro="swimSplitsItemStrokeMacro(0)" />
 </t:row>
 </t:pane>
 </t:gridcol>
-<t:gridcol id="g_258" align="center" rendered="#{d.TestDetailUI.splitHeader[5]!=null}" text="#{d.TestDetailUI.splitHeader[5]} m" width="100" >
+<t:gridcol id="g_258" attributemacro="swimSplitsHeadMacro(5)" >
 <t:pane id="g_259" >
 <t:row id="g_260" >
-<t:field id="g_261" bgpaint="write(100%-5,100%-5,Zeit,9,#a0a0a0,rightmiddle)" border="0" enabled="#{TestDetailUI.enabled}" height="100%" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" rendered=".{topNode==false}" text=".{splits[5].time}" userhint="mm:ss" width="50%" />
-<t:formattedfield id="g_262" bgpaint="write(100%-5,100%-5,Züge,9,#a0a0a0,rightmiddle)" border="0" enabled="#{TestDetailUI.enabled}" format="int" height="100%" rendered=".{topNode==false}" value=".{splits[5].strokes}" width="50%" />
+<t:field id="g_261" attributemacro="swimSplitsItemTimeMacro(0)" />
+<t:formattedfield id="g_262" attributemacro="swimSplitsItemStrokeMacro(0)" />
 </t:row>
 </t:pane>
 </t:gridcol>
-<t:gridcol id="g_263" align="center" rendered="#{d.TestDetailUI.splitHeader[6]!=null}" text="#{d.TestDetailUI.splitHeader[6]} m" width="100" >
+<t:gridcol id="g_263" attributemacro="swimSplitsHeadMacro(6)" >
 <t:pane id="g_264" >
 <t:row id="g_265" >
-<t:field id="g_266" bgpaint="write(100%-5,100%-5,Zeit,9,#a0a0a0,rightmiddle)" border="0" enabled="#{TestDetailUI.enabled}" height="100%" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" rendered=".{topNode==false}" text=".{splits[6].time}" userhint="mm:ss" width="50%" />
-<t:formattedfield id="g_267" bgpaint="write(100%-5,100%-5,Züge,9,#a0a0a0,rightmiddle)" border="0" enabled="#{TestDetailUI.enabled}" format="int" height="100%" rendered=".{topNode==false}" value=".{splits[6].strokes}" width="50%" />
+<t:field id="g_266" attributemacro="swimSplitsItemTimeMacro(0)" />
+<t:formattedfield id="g_267" attributemacro="swimSplitsItemStrokeMacro(0)" />
 </t:row>
 </t:pane>
 </t:gridcol>
-<t:gridcol id="g_268" align="center" rendered="#{d.TestDetailUI.splitHeader[7]!=null}" text="#{d.TestDetailUI.splitHeader[7]} m" width="100" >
+<t:gridcol id="g_268" attributemacro="swimSplitsHeadMacro(7)" >
 <t:pane id="g_269" >
 <t:row id="g_270" >
-<t:field id="g_271" bgpaint="write(100%-5,100%-5,Zeit,9,#a0a0a0,rightmiddle)" border="0" enabled="#{TestDetailUI.enabled}" height="100%" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" rendered=".{topNode==false}" text=".{splits[7].time}" userhint="mm:ss" width="50%" />
-<t:formattedfield id="g_272" bgpaint="write(100%-5,100%-5,Züge,9,#a0a0a0,rightmiddle)" border="0" enabled="#{TestDetailUI.enabled}" format="int" height="100%" rendered=".{topNode==false}" value=".{splits[7].strokes}" width="50%" />
+<t:field id="g_271" attributemacro="swimSplitsItemTimeMacro(0)" />
+<t:formattedfield id="g_272" attributemacro="swimSplitsItemStrokeMacro(0)" />
 </t:row>
 </t:pane>
 </t:gridcol>

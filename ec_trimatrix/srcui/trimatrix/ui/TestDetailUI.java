@@ -528,7 +528,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 			} else {
 				topNode=false;
 				setStatus(STATUS_ENDNODE);
-				valid=true;				
+				valid=true;			
 				// build splits
 				int splitCount= entity.getTestsSwim().getSplits();
 				for(int i=1;i<=splitCount;i++) {
@@ -542,18 +542,29 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 		public Integer getStep() { return step; }
 		public void setStep(Integer step) { this.step = step; }		
 					
-		public Integer getIntensity() { return intensity; }
+		public Integer getIntensity() { 
+			if(isTopNode()) {
+				return intensity;
+			} else {
+				return ((GridSwimItem)this.getParentNode()).intensity;
+			}			
+		}
 		public void setIntensity(Integer intensity) { 
-			// limit intensity [0-100]
+			// limit intensity [0-100]			
 			if(intensity<0) { this.intensity = 0; return; }
 			if(intensity>100) { this.intensity = 100; return; }
 			this.intensity = intensity;
+			closeAllNodes();
 		}
 
 		public String getTargetTime() {
-			String maxPerformance = entity.getTestsProtocol().getPerformanceMax();
-			if(maxPerformance==null) return null;
-			return(Helper.percentageOfTime(maxPerformance, intensity));
+			if(isTopNode()) {
+				String maxPerformance = entity.getTestsProtocol().getPerformanceMax();
+				if(maxPerformance==null) return null;
+				return(Helper.percentageOfTime(maxPerformance, intensity));
+			} else {
+				return ((GridSwimItem)this.getParentNode()).getTargetTime();
+			}				
 		}
 		
 		public String getTime() { return time; }
@@ -574,12 +585,13 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 		public boolean isValid() { return valid; }
 		public void setValid(boolean valid) { this.valid = valid; }
 		public boolean isEnabled() { return m_enabled && valid && !topNode; }
+		public boolean isEnabledAndTopNode() { return m_enabled && topNode; }
 
 		public void onAddSubItem(ActionEvent ae) {
 			int step = getChildNodes().size() + 1;		
 			for(FIXGRIDTreeItem item : getChildNodes()) {
 				// just newly added item is active
-				((GridSwimItem)item).valid = false;
+				((GridSwimItem)item).valid = false;				
 				m_gridSwim.ensureItemToBeDisplayed((GridSwimItem)item);
 			}
 			new GridSwimItem(this,step);
@@ -607,6 +619,10 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 		
 		public Double getLactate() {return lactate;}
 		public void setLactate(Double lactate) {this.lactate = lactate;}    	
+		
+		public String getBgPaintTop() {
+			return topNode ? Constants.BGP_MANDATORY : null;
+		}
 		
 		public String getBgpaint() {
 			if(topNode) return null;
@@ -754,6 +770,10 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     	protocol.setRq(strRqs);
     }
     
+    private void buildSwimProtocolGrid() {
+    	
+    }
+    
     @SuppressWarnings("unchecked")
 	private void buildProtocolGrid() throws Exception {
     	TestsProtocol protocol = entity.getTestsProtocol();
@@ -823,6 +843,21 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     			if(item.getHr()==null) throw new MandatoryCheckException("Heartrate");
     		}
     		return;
+    	}
+    	// swim
+    	if(isSwim()) {
+    		GridSwimItem item = null;
+    		for(FIXGRIDTreeItem topItem : m_gridSwim.getRootNode().getChildNodes()) {
+    			item = (GridSwimItem)topItem; 
+    			if(item.getIntensity()==null) throw new MandatoryCheckException("Intensity");
+    			for(FIXGRIDTreeItem node : topItem.getChildNodes()) {
+    				item = (GridSwimItem)node; 
+    				if (item.isValid()) {
+    					if(item.getTime()==null||item.getTime().length()==0) throw new MandatoryCheckException("Time");
+    					if(item.getLactate()==null) throw new MandatoryCheckException("Lactate");
+    				}
+    			}
+    		}
     	}
     }
 }
