@@ -27,8 +27,7 @@ public class TestsSwimProtocol  implements java.io.Serializable {
      private Boolean valid;
      private String lactate;
      private String hr;
-     private String strokes;
-     private String splitTimes;
+     private String splits;
      private String comment;
 
     // Constructors
@@ -43,15 +42,14 @@ public class TestsSwimProtocol  implements java.io.Serializable {
     }
     
     /** full constructor */
-    public TestsSwimProtocol(TestsSwimProtocolId id, Integer intensity, String time, Boolean failed, String lactate, String hr, String strokes, String splitTimes, String comment) {
+    public TestsSwimProtocol(TestsSwimProtocolId id, Integer intensity, String time, Boolean failed, String lactate, String hr, String splits, String comment) {
         this.id = id;
         this.intensity = intensity;
         this.time = time;
         this.valid = failed;
         this.lactate = lactate;
         this.hr = hr;
-        this.strokes = strokes;
-        this.splitTimes = splitTimes;
+        this.splits = splits;
         this.comment = comment;
     }
 
@@ -120,26 +118,16 @@ public class TestsSwimProtocol  implements java.io.Serializable {
     
     public void setHr(String hr) {
         this.hr = hr;
-    }
+    }    
     
-    @Column(name="strokes", columnDefinition="text")
+    @Column(name="splits", columnDefinition="text")
 
-    public String getStrokes() {
-        return this.strokes;
+    public String getSplits() {
+        return this.splits;
     }
     
-    public void setStrokes(String strokes) {
-        this.strokes = strokes;
-    }
-    
-    @Column(name="split_times", columnDefinition="text")
-
-    public String getSplitTimes() {
-        return this.splitTimes;
-    }
-    
-    public void setSplitTimes(String splitTimes) {
-        this.splitTimes = splitTimes;
+    public void setSplits(String splits) {
+        this.splits = splits;
     }
     
     @Column(name="comment", columnDefinition="text")
