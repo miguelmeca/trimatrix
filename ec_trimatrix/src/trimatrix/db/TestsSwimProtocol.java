@@ -24,7 +24,6 @@ public class TestsSwimProtocol  implements java.io.Serializable {
      private TestsSwimProtocolId id;
      private Integer intensity;
      private String time;
-     private String targetTime;
      private Boolean valid;
      private String lactate;
      private String hr;
@@ -44,11 +43,10 @@ public class TestsSwimProtocol  implements java.io.Serializable {
     }
     
     /** full constructor */
-    public TestsSwimProtocol(TestsSwimProtocolId id, Integer intensity, String time, String targetTime, Boolean failed, String lactate, String hr, String strokes, String splitTimes, String comment) {
+    public TestsSwimProtocol(TestsSwimProtocolId id, Integer intensity, String time, Boolean failed, String lactate, String hr, String strokes, String splitTimes, String comment) {
         this.id = id;
         this.intensity = intensity;
         this.time = time;
-        this.targetTime = targetTime;
         this.valid = failed;
         this.lactate = lactate;
         this.hr = hr;
@@ -92,17 +90,7 @@ public class TestsSwimProtocol  implements java.io.Serializable {
     
     public void setTime(String time) {
         this.time = time;
-    }
-    
-    @Column(name="target_time", length=5)
-
-    public String getTargetTime() {
-        return this.targetTime;
-    }
-    
-    public void setTargetTime(String targetTime) {
-        this.targetTime = targetTime;
-    }
+    } 
     
     @Column(name="valid")
 

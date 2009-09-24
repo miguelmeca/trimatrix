@@ -28,6 +28,8 @@ import trimatrix.db.Tests;
 import trimatrix.db.TestsErgo;
 import trimatrix.db.TestsProtocol;
 import trimatrix.db.TestsSwim;
+import trimatrix.db.TestsSwimProtocol;
+import trimatrix.db.TestsSwimProtocolId;
 import trimatrix.db.TestsTreadmill;
 import trimatrix.entities.TestEntity;
 import trimatrix.exceptions.EmailNotValidException;
@@ -233,7 +235,11 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 			protocol.setModelLactate((String)values.get(TestEntity.MODEL_LACTATE));
 			protocol.setModelSpiro((String)values.get(TestEntity.MODEL_SPIRO));		
 			protocol.setPerformanceMax((String)values.get(TestEntity.PERFORMANCE_MAX));		
-			fillProtocol();		
+			if(isSwim()) {
+				fillSwimProtocol();	
+			} else {
+				fillProtocol();	
+			}				
 		}		
 	}
 	
@@ -301,7 +307,11 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 			values.put(TestEntity.MODEL_SPIRO, protocol.getModelSpiro());
 			values.put(TestEntity.PERFORMANCE_MAX, protocol.getPerformanceMax());
 			try {
-				buildProtocolGrid();
+				if(isSwim()) {
+					buildSwimProtocolGrid();
+				} else {
+					buildProtocolGrid();
+				}				
 			} catch (Exception ex) {
 				Statusbar.outputAlert(ex.toString(), "Testprotokoll schreiben");
 			}
@@ -513,15 +523,15 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     	Boolean valid;    	
     	Double lactate;  
     	Integer hr;
-    	Integer intensity;
-    	String targetTime;
+    	Integer intensity; //just on top node
     	String time;
     	String comment;
     	Split[] splits = new Split[maxSplits];
     	int validNode;
        
     	public GridSwimItem(FIXGRIDTreeItem parent, Integer step) {
-			super(parent);			
+			super(parent);	
+			// is top node
 			if(parent.getLevelInt()<0) {
 				topNode=true;	
 				valid=false;
@@ -532,7 +542,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 				// build splits
 				int splitCount= entity.getTestsSwim().getSplits();
 				for(int i=1;i<=splitCount;i++) {
-					Split split = new Split("00:00", 0);
+					Split split = new Split();
 					splits[i-1] = split;
 				}							
 				// set valid node at top node
@@ -540,6 +550,26 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 			}
 			this.step = step;
 		}
+    	
+    	public GridSwimItem(FIXGRIDTreeItem parent, TestsSwimProtocol protocol) {
+    		super(parent);
+    		// is top node
+			if(parent.getLevelInt()<0) {
+				step=protocol.getId().getStep();
+				topNode=true;	
+				valid=false;
+				intensity=protocol.getIntensity();					
+			} else {
+				step=protocol.getId().getAttempt();
+				topNode=false;
+				setStatus(STATUS_ENDNODE);
+				valid=protocol.getValid();
+				time=protocol.getTime();
+				if(protocol.getLactate()!=null) lactate=Double.valueOf(protocol.getLactate());
+				if(protocol.getHr()!=null) hr=Integer.valueOf(protocol.getHr());
+				comment=protocol.getComment();				
+			}
+    	}
     	
 		public Integer getStep() { return step; }
 		public void setStep(Integer step) { this.step = step; }		
@@ -664,6 +694,8 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
      	String time;
     	int strokes;
 		
+    	public Split() { };
+    	
 		public Split(String time, int strokes) {
 			this.time = time;
 			this.strokes = strokes;
@@ -756,6 +788,26 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     	}    	    	
     }   
     
+    private void fillSwimProtocol() {
+    	TestsSwim swim = entity.getTestsSwim();   
+    	List<TestsSwimProtocol> protocols = new ArrayList<TestsSwimProtocol>();
+    	for(FIXGRIDTreeItem step : m_gridSwim.getRootNode().getChildNodes()) {    		
+    		for(FIXGRIDTreeItem attempt : step.getChildNodes()) {
+    			GridSwimItem item = (GridSwimItem)attempt;
+    			TestsSwimProtocolId id = new TestsSwimProtocolId(swim.getId(), ((GridSwimItem)step).getStep(), item.getStep());
+    			TestsSwimProtocol protocol = new TestsSwimProtocol(id);
+    			protocol.setValid(item.isValid());
+    			protocol.setIntensity(item.getIntensity());
+    			protocol.setTime(item.getTime());
+    			if(item.getLactate()!=null) protocol.setLactate(item.getLactate().toString());
+    			if(item.getHr()!=null)protocol.setHr(item.getHr().toString());
+    			protocol.setComment(item.getComment());
+    			protocols.add(protocol);
+    		}	
+    	}
+    	swim.setSteps(protocols);
+    }
+    
     private void fillProtocol() {
     	FIXGRIDListBinding<? extends AGridItem> grid = null;
     	// treadmill
@@ -800,7 +852,19 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     }
     
     private void buildSwimProtocolGrid() {
-    	
+    	int step = 0;
+    	GridSwimItem top = null; 
+    	m_gridSwim = new FIXGRIDTreeBinding<GridSwimItem>(true);
+    	for(TestsSwimProtocol protocol : entity.getTestsSwim().getSteps()) {
+    		// create top node for new step
+    		if(step!=protocol.getId().getStep()) {
+    			step = protocol.getId().getStep();
+    			// top node
+    			top = new GridSwimItem(m_gridSwim.getRootNode(), protocol);    			
+    		}
+    		// sub node
+			new GridSwimItem(top, protocol);
+    	}
     }
     
     @SuppressWarnings("unchecked")
