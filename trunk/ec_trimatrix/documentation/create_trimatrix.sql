@@ -11,7 +11,7 @@ MySQL - 5.1.33-community : Database - trimatrix
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`trimatrix` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`trimatrix` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
 USE `trimatrix`;
 
@@ -739,8 +739,7 @@ CREATE TABLE `tests_swim_protocol` (
   `valid` tinyint(1) DEFAULT NULL,
   `lactate` text,
   `hr` text COMMENT 'Datensatz erstellt am',
-  `strokes` text,
-  `split_times` text,
+  `splits` text,
   `comment` text,
   PRIMARY KEY (`step`,`attempt`,`id`),
   KEY `fk_tests_swim_protocol_tests` (`id`)
@@ -748,7 +747,7 @@ CREATE TABLE `tests_swim_protocol` (
 
 /*Data for the table `tests_swim_protocol` */
 
-insert  into `tests_swim_protocol`(`id`,`step`,`attempt`,`intensity`,`time`,`target_time`,`valid`,`lactate`,`hr`,`strokes`,`split_times`,`comment`) values ('a545fd84-3cc2-4dab-a9be-708a47182fb6',1,1,100,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('a545fd84-3cc2-4dab-a9be-708a47182fb6',1,2,90,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('44f52474-d5ef-4fe6-8589-c6bee6fa8955',1,1,100,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('a316a28f-1bff-4fd3-96bf-9dba9ceb5f5c',1,1,100,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+insert  into `tests_swim_protocol`(`id`,`step`,`attempt`,`intensity`,`time`,`target_time`,`valid`,`lactate`,`hr`,`splits`,`comment`) values ('a545fd84-3cc2-4dab-a9be-708a47182fb6',1,1,85,NULL,NULL,0,NULL,NULL,NULL,NULL),('a545fd84-3cc2-4dab-a9be-708a47182fb6',1,2,85,NULL,NULL,0,NULL,NULL,NULL,NULL),('44f52474-d5ef-4fe6-8589-c6bee6fa8955',1,1,100,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('a316a28f-1bff-4fd3-96bf-9dba9ceb5f5c',1,1,100,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('a545fd84-3cc2-4dab-a9be-708a47182fb6',1,3,85,'03:30',NULL,1,'1.0','100',NULL,NULL);
 
 /*Table structure for table `tests_treadmill` */
 
@@ -841,10 +840,10 @@ DROP TABLE IF EXISTS `entities`;
 /*!50001 DROP TABLE IF EXISTS `entities` */;
 
 /*!50001 CREATE TABLE `entities` (
-  `id` varchar(36) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  `entity` varchar(10) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `id` varchar(36) NOT NULL DEFAULT '',
+  `entity` varchar(10) NOT NULL DEFAULT '',
   `deleted` tinyint(4) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 */;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 */;
 
 /*Table structure for table `relations` */
 
@@ -854,11 +853,11 @@ DROP TABLE IF EXISTS `relations`;
 /*!50001 DROP TABLE IF EXISTS `relations` */;
 
 /*!50001 CREATE TABLE `relations` (
-  `id` varchar(36) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  `partner1` varchar(36) CHARACTER SET utf8 DEFAULT NULL,
-  `partner2` varchar(36) CHARACTER SET utf8 DEFAULT NULL,
-  `reltyp_key` varchar(10) CHARACTER SET utf8 DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 */;
+  `id` varchar(36) NOT NULL DEFAULT '',
+  `partner1` varchar(36) DEFAULT NULL,
+  `partner2` varchar(36) DEFAULT NULL,
+  `reltyp_key` varchar(10) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 */;
 
 /*View structure for view entities */
 

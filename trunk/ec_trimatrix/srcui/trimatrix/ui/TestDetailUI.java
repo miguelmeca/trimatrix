@@ -11,6 +11,7 @@ import javax.faces.event.ActionEvent;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONNull;
 import net.sf.json.JSONSerializer;
+import net.sf.json.JsonConfig;
 
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
@@ -567,6 +568,18 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 				time=protocol.getTime();
 				if(protocol.getLactate()!=null) lactate=Double.valueOf(protocol.getLactate());
 				if(protocol.getHr()!=null) hr=Integer.valueOf(protocol.getHr());
+				// Splits				
+				if(protocol.getSplits()!=null) {
+					JsonConfig config = new JsonConfig();
+					config.setArrayMode(JsonConfig.MODE_OBJECT_ARRAY);
+					JSONArray jsonArraySplits = (JSONArray)JSONSerializer.toJSON(protocol.getSplits());
+					Object[] objects = (Object[]) JSONSerializer.toJava(jsonArraySplits, config);
+					splits = new Split[objects.length];
+					int i = 0;
+					for(Object obj : objects) {
+						splits[i++] = (Split)obj;
+					}
+				}
 				comment=protocol.getComment();				
 			}
     	}
@@ -798,9 +811,10 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     			TestsSwimProtocol protocol = new TestsSwimProtocol(id);
     			protocol.setValid(item.isValid());
     			protocol.setIntensity(item.getIntensity());
-    			protocol.setTime(item.getTime());
+    			protocol.setTime(item.getTime());    			
     			if(item.getLactate()!=null) protocol.setLactate(item.getLactate().toString());
     			if(item.getHr()!=null)protocol.setHr(item.getHr().toString());
+    			protocol.setSplits(((JSONArray)JSONSerializer.toJSON(item.getSplits())).toString());
     			protocol.setComment(item.getComment());
     			protocols.add(protocol);
     		}	
@@ -851,7 +865,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     	protocol.setRq(strRqs);
     }
     
-    private void buildSwimProtocolGrid() {
+    private void buildSwimProtocolGrid() throws Exception {
     	int step = 0;
     	GridSwimItem top = null; 
     	m_gridSwim = new FIXGRIDTreeBinding<GridSwimItem>(true);

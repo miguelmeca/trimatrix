@@ -1,5 +1,6 @@
 package utils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,8 @@ import net.sf.json.JSONSerializer;
 import net.sf.json.JsonConfig;
 
 import org.junit.Test;
+
+import trimatrix.ui.TestDetailUI;
 
 public class JSONArrayToListTest {
 
@@ -30,6 +33,41 @@ public class JSONArrayToListTest {
 		input.add(new Double(4.59));	
 		JSONArray jsonArray2 = (JSONArray)JSONSerializer.toJSON(input);
 		Assert.assertEquals("[1.34,1.51,2,4.59]", jsonArray2.toString());	
-		Assert.assertEquals(2d, jsonArray2.get(2));			
+		Assert.assertEquals(2d, jsonArray2.get(2));	
+		
+		Split[] splits = new Split[3];
+		splits[0] = new Split("00:00", 5);
+		splits[1] = new Split("00:30", 6);
+		splits[2] = new Split("00:50", 7);
+		JSONArray jsonArraySplit = (JSONArray)JSONSerializer.toJSON(splits);
+		String strSplits = jsonArraySplit.toString();
+		System.out.println(strSplits);
+		JsonConfig configSplits = new JsonConfig();
+		configSplits.setArrayMode(JsonConfig.MODE_OBJECT_ARRAY);
+		//configSplits.setRootClass(Split.class);
+		Object[] splits2 = (Object[]) JSONSerializer.toJava(jsonArraySplit, configSplits);
+		System.out.println(splits2.length); 		
+		for(Object obj : splits) {
+			Split split = (Split)obj;
+			System.out.println((Integer)split.strokes + " - " + split.time);
+		}
+	}
+	
+	public class Split implements Serializable {
+	  	String time;
+	   	int strokes;
+		
+	   	public Split() { };
+	   	
+		public Split(String time, int strokes) {
+			this.time = time;
+			this.strokes = strokes;
+		}
+			
+		public String getTime() {return time;}
+		public void setTime(String time) {this.time = time;}
+			
+		public int getStrokes() {return strokes;}
+		public void setStrokes(int strokes) {this.strokes = strokes;}	
 	}
 }
