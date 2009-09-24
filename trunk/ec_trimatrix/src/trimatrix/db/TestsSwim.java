@@ -1,8 +1,8 @@
 package trimatrix.db;
 
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -35,7 +35,7 @@ public class TestsSwim  implements java.io.Serializable {
      private Integer splits;     
      
      // Collections
-     private Set<TestsSwimProtocol> steps = new HashSet<TestsSwimProtocol>();
+     private List<TestsSwimProtocol> steps = new ArrayList<TestsSwimProtocol>();
      
     // Constructors
 
@@ -49,14 +49,15 @@ public class TestsSwim  implements java.io.Serializable {
     }
     
     /** full constructor */
-    public TestsSwim(String id, Timestamp date2, String assistantName, String baths, String pool, Integer distance, Integer splits) {
+    public TestsSwim(String id, Timestamp date2, String assistantName, String baths, String pool, Integer distance, Integer splits, List<TestsSwimProtocol> steps) {
         this.id = id;
         this.date2 = date2;
         this.assistantName = assistantName;
         this.baths = baths;
         this.pool = pool;
         this.distance = distance;
-        this.splits = splits;        
+        this.splits = splits;      
+        this.steps = steps;
     }
 
    
@@ -134,11 +135,11 @@ public class TestsSwim  implements java.io.Serializable {
     }
 
     @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, mappedBy = "id.id")
-	public Set<TestsSwimProtocol> getSteps() {
+	public List<TestsSwimProtocol> getSteps() {
 		return steps;
 	}
 	
-	public void setSteps(Set<TestsSwimProtocol> steps) {
+	public void setSteps(List<TestsSwimProtocol> steps) {
 		this.steps = steps;
 	}   
 }

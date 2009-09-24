@@ -5,7 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -298,7 +298,7 @@ public class DBConnectionTest {
 		TestsSwim swim = new TestsSwim(id);
 		TestsSwimProtocol swimProt = new TestsSwimProtocol(new TestsSwimProtocolId(id,1,1));
 		swimProt.setIntensity(100);
-		Set<TestsSwimProtocol> setSwimProt = new HashSet<TestsSwimProtocol>();
+		List<TestsSwimProtocol> setSwimProt = new ArrayList<TestsSwimProtocol>();
 		setSwimProt.add(swimProt);
 		swim.setSteps(setSwimProt);
 		test.setTestsSwim(swim);		
