@@ -11,8 +11,6 @@ import net.sf.json.JsonConfig;
 
 import org.junit.Test;
 
-import trimatrix.ui.TestDetailUI;
-
 public class JSONArrayToListTest {
 
 	@Test
