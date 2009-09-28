@@ -1,5 +1,7 @@
 package trimatrix.db;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -26,6 +28,8 @@ public class TestsProtocol implements java.io.Serializable {
 	private String co2Emission;
 	private String rq;
 	private String performanceMax;
+	private Timestamp createdAt;
+	private String createdBy;
 
 	// Constructors
 
@@ -167,5 +171,23 @@ public class TestsProtocol implements java.io.Serializable {
 	public void setPerformanceMax(String performanceMax) {
 		this.performanceMax = performanceMax;
 	} 
+	
+	@Column(name = "created_at", length = 19)
+	public Timestamp getCreatedAt() {
+		return this.createdAt;
+	}
+
+	public void setCreatedAt(Timestamp createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	@Column(name = "created_by", length = 36)
+	public String getCreatedBy() {
+		return this.createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
 
 }

@@ -61,7 +61,6 @@
 		<mapping resource="trimatrix/db/PersonsHaveDoctors.hbm.xml" />
 		<mapping resource="trimatrix/db/PersonsHaveAttachments.hbm.xml" />
 		<mapping resource="trimatrix/db/EntitiesHaveLabels.hbm.xml" />
-		<mapping resource="trimatrix/db/Labels.hbm.xml" />
 		<mapping class="trimatrix.db.TestsTreadmill" />
 		<mapping class="trimatrix.db.TestsProtocol" />
 		<mapping class="trimatrix.db.TestsErgo" />
@@ -87,6 +86,8 @@
 		<mapping class="trimatrix.db.ListVariants" />
 		<mapping class="trimatrix.db.PersonsAthlete" />
 		<mapping class="trimatrix.db.TestsSwimProtocol" />
+		<mapping class="trimatrix.db.TestsAnalysis" />
+		<mapping class="trimatrix.db.Labels" />
 	</session-factory>
 
 </hibernate-configuration>

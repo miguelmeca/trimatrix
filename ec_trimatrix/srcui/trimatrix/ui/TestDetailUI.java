@@ -15,7 +15,6 @@ import net.sf.json.JsonConfig;
 
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
-import org.eclnt.jsfserver.elements.events.BaseActionEventFlush;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDTreeBinding;
@@ -26,6 +25,7 @@ import org.eclnt.workplace.IWorkpageDispatcher;
 import trimatrix.db.Doctors;
 import trimatrix.db.Persons;
 import trimatrix.db.Tests;
+import trimatrix.db.TestsAnalysis;
 import trimatrix.db.TestsErgo;
 import trimatrix.db.TestsProtocol;
 import trimatrix.db.TestsSwim;
@@ -35,7 +35,8 @@ import trimatrix.db.TestsTreadmill;
 import trimatrix.entities.TestEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
-import trimatrix.ui.LabelPopUpUI.GridItem;
+import trimatrix.ui.tests.AGridItem;
+import trimatrix.ui.tests.Split;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
 
@@ -326,6 +327,10 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 		}		
 	}
 	
+	public void onChangeData(ActionEvent ae) {
+		if(((Integer)values.get(TestEntity.SPLITS))>maxSplits) values.put(TestEntity.SPLITS, maxSplits);
+	}
+	
 	private void setAthleteDescription(Tests test) {
 		Persons athlete = test.getAthlete();
 		String athleteDescription = Constants.EMPTY;
@@ -370,11 +375,25 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 		return false;
 	}
 	
+	public boolean isAnalysis() {
+		if(entity.getTestsAnalysis()!=null) return true;
+		return false;
+	}
+	
 	public void onProtocolCreate(ActionEvent event) {
 		// create protocol
 		TestsProtocol protocol = new TestsProtocol(entity.getId());
-		//getDaoLayer().getTestsProtocolDAO().save(protocol);		
+		protocol.setCreatedAt(new java.sql.Timestamp((new java.util.Date()).getTime()));
+		protocol.setCreatedBy(getServiceLayer().getDictionaryService().getMyUser().getId());
 		entity.setTestsProtocol(protocol);
+    }	
+	
+	public void onAnalysisCreate(ActionEvent event) {
+		// create protocol
+		TestsAnalysis analysis = new TestsAnalysis(entity.getId());
+		analysis.setCreatedAt(new java.sql.Timestamp((new java.util.Date()).getTime()));
+		analysis.setCreatedBy(getServiceLayer().getDictionaryService().getMyUser().getId());
+		entity.setTestsAnalysis(analysis);
     }	
 	
 	// ------------------------------------------------------------------------
@@ -390,60 +409,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     
     protected FIXGRIDTreeBinding<GridSwimItem> m_gridSwim = new FIXGRIDTreeBinding<GridSwimItem>(true);
     public FIXGRIDTreeBinding<GridSwimItem> getGridSwim() { return m_gridSwim; }
-    
-    public class AGridItem extends FIXGRIDItem implements java.io.Serializable {
-    	Integer step;
-    	String step_time;
-    	String time_total;
-    	Double lactate;
-    	Integer hr;
-    	Integer o2_absorption;
-    	Integer co2_emission;
-    	Double rq;
-    	
-    	public AGridItem(Integer step) {
-    		this.step = step;
-    	}
-    	
-		public Integer getStep() {return step;}
-		public void setStep(Integer step) { this.step = step; }
-		
-		public Double getSpeed() {
-			TestsTreadmill treadmill = entity.getTestsTreadmill();
-			if(!treadmill.getSpeedVariable()) return treadmill.getSpeedInit();
-			return treadmill.getSpeedInit() + treadmill.getSpeedStep() * (step-1);
-		}
-		
-		public Integer getIncline() {
-			TestsTreadmill treadmill = entity.getTestsTreadmill();
-			if(!treadmill.getInclineVariable()) return treadmill.getInclineInit();
-			return treadmill.getInclineInit() + treadmill.getInclineStep() * (step-1);
-		}		
-		
-		public String getStep_time() {
-			return step_time;
-		}
-		
-		public String getTime_total() {
-			return time_total;			
-		}
-		
-		public Double getLactate() {return lactate;}
-		public void setLactate(Double lactate) {this.lactate = lactate;}
-		
-		public Integer getHr() {return hr;}
-		public void setHr(Integer hr) {this.hr = hr;}
-		
-		public Integer getO2_absorption() {return o2_absorption;}		
-		public void setO2_absorption(Integer o2_absorption) {this.o2_absorption = o2_absorption;}
-		
-		public Integer getCo2_emission() {return co2_emission;}
-		public void setCo2_emission(Integer co2_emission) {this.co2_emission = co2_emission;}
-		
-		public Double getRq() {return rq;}
-		public void setRq(Double rq) {this.rq = rq;}
-    }
-    
+        
     public class GridTreadmillItem extends AGridItem {
     	Double speed;
     	Integer incline;
@@ -452,14 +418,12 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     		super(step);
     	}	
 		
-		@Override
 		public Double getSpeed() {
 			TestsTreadmill treadmill = entity.getTestsTreadmill();
 			if(!treadmill.getSpeedVariable()) return treadmill.getSpeedInit();
 			return treadmill.getSpeedInit() + treadmill.getSpeedStep() * (step-1);
 		}
 		
-		@Override
 		public Integer getIncline() {
 			TestsTreadmill treadmill = entity.getTestsTreadmill();
 			if(!treadmill.getInclineVariable()) return treadmill.getInclineInit();
@@ -568,18 +532,10 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 				time=protocol.getTime();
 				if(protocol.getLactate()!=null) lactate=Double.valueOf(protocol.getLactate());
 				if(protocol.getHr()!=null) hr=Integer.valueOf(protocol.getHr());
-				// Splits				
-				if(protocol.getSplits()!=null) {
-					JsonConfig config = new JsonConfig();
-					config.setArrayMode(JsonConfig.MODE_OBJECT_ARRAY);
-					JSONArray jsonArraySplits = (JSONArray)JSONSerializer.toJSON(protocol.getSplits());
-					Object[] objects = (Object[]) JSONSerializer.toJava(jsonArraySplits, config);
-					splits = new Split[objects.length];
-					int i = 0;
-					for(Object obj : objects) {
-						splits[i++] = (Split)obj;
-					}
-				}
+				// splits, if null, create array with split count elements
+				Integer count = entity.getTestsSwim().getSplits();
+				String strSplits = protocol.getSplits();
+				splits = Split.buildArray(strSplits, count);
 				comment=protocol.getComment();				
 			}
     	}
@@ -702,24 +658,6 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 			return Constants.BGP_MANDATORY;
 		}
     }
-    
-    public class Split implements Serializable {
-     	String time;
-    	int strokes;
-		
-    	public Split() { };
-    	
-		public Split(String time, int strokes) {
-			this.time = time;
-			this.strokes = strokes;
-		}
-		
-		public String getTime() {return time;}
-		public void setTime(String time) {this.time = time;}
-		
-		public int getStrokes() {return strokes;}
-		public void setStrokes(int strokes) {this.strokes = strokes;}	
-    }
    
     public String[] getSplitHeader() {
     	String[] header = new String[maxSplits];
@@ -814,7 +752,8 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     			protocol.setTime(item.getTime());    			
     			if(item.getLactate()!=null) protocol.setLactate(item.getLactate().toString());
     			if(item.getHr()!=null)protocol.setHr(item.getHr().toString());
-    			protocol.setSplits(((JSONArray)JSONSerializer.toJSON(item.getSplits())).toString());
+    			Integer count = entity.getTestsSwim().getSplits();
+    			protocol.setSplits(Split.buildString(item.getSplits(), count));
     			protocol.setComment(item.getComment());
     			protocols.add(protocol);
     		}	
@@ -843,11 +782,11 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     	List<Double> rqs = new ArrayList<Double>();
     	// build lists
     	for (AGridItem item : grid.getItems()) {
-    		lactates.add(item.lactate);
-    		hrs.add(item.hr);
-    		o2_absorptions.add(item.o2_absorption);
-    		co2_emissions.add(item.co2_emission);
-    		rqs.add(item.rq);
+    		lactates.add(item.getLactate());
+    		hrs.add(item.getHr());
+    		o2_absorptions.add(item.getO2_absorption());
+    		co2_emissions.add(item.getCo2_emission());
+    		rqs.add(item.getRq());
     	}
     	// transform lists to JSON format    	
     	String strLactates = ((JSONArray)JSONSerializer.toJSON(lactates)).toString();
@@ -881,7 +820,6 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     	}
     }
     
-    @SuppressWarnings("unchecked")
 	private void buildProtocolGrid() throws Exception {
     	TestsProtocol protocol = entity.getTestsProtocol();
     	// handle JSON 	

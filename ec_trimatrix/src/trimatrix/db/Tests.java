@@ -51,6 +51,7 @@ public class Tests implements java.io.Serializable, IEntityObject {
 	private TestsTreadmill testsTreadmill;
 	private TestsSwim testsSwim;
 	private TestsProtocol testsProtocol;
+	private TestsAnalysis testsAnalysis;
 
 	private Persons athlete;
 	private Doctors doctor;
@@ -246,6 +247,21 @@ public class Tests implements java.io.Serializable, IEntityObject {
 		return testsProtocol;
 	}
 	
+	public void setTestsProtocol(TestsProtocol testsProtocol) {
+		this.testsProtocol = testsProtocol;
+	}
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    @LazyToOne(LazyToOneOption.FALSE)
+	public TestsAnalysis getTestsAnalysis() {
+		return testsAnalysis;
+	}
+	
+	public void setTestsAnalysis(TestsAnalysis testsAnalysis) {
+		this.testsAnalysis = testsAnalysis;
+	}
+	
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
 	@JoinColumn(name="person_id")
 	public Persons getAthlete() {
@@ -274,10 +290,6 @@ public class Tests implements java.io.Serializable, IEntityObject {
 
 	public void setCoach(Persons coach) {
 		this.coach = coach;
-	}
-
-	public void setTestsProtocol(TestsProtocol testsProtocol) {
-		this.testsProtocol = testsProtocol;
 	}
 
 	@Override
