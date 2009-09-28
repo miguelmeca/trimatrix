@@ -11,7 +11,7 @@ MySQL - 5.1.33-community : Database - trimatrix
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`trimatrix` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`trimatrix` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 USE `trimatrix`;
 
@@ -90,7 +90,7 @@ CREATE TABLE `entities_have_labels` (
 
 /*Data for the table `entities_have_labels` */
 
-insert  into `entities_have_labels`(`entity`,`label`,`person_id`) values ('0c05017b-0f9f-4bc3-baeb-c1f8eb734120','55620350-6d49-11de-a69b-604b59d93787','0b0b7658-2ddb-11de-86ae-00301bb60f17'),('123456','2d9dccf8-c3f9-4438-b57f-28def741a3ff','0b0b7658-2ddb-11de-86ae-00301bb60f17'),('123456','3a2bcfc4-4f91-4624-a25e-d2bbe9a14946','0b0b7658-2ddb-11de-86ae-00301bb60f17'),('123456','4d1d19f5-88f3-45c4-87ea-165849c6a270','0b0b7658-2ddb-11de-86ae-00301bb60f17'),('123456','55620350-6d49-11de-a69b-604b59d93789','0b0b7658-2ddb-11de-86ae-00301bb60f17'),('a545fd84-3cc2-4dab-a9be-708a47182fb6','55620350-6d49-11de-a69b-604b59d93787','0b0b7658-2ddb-11de-86ae-00301bb60f17'),('aa109083-8cfb-11de-a422-4e7d893777af','4d1d19f5-88f3-45c4-87ea-165849c6a270','0b0b7658-2ddb-11de-86ae-00301bb60f17'),('b8a954e4-4bca-11de-ab35-74df036e1e4f','3418c962-818c-43ee-ad7a-5964fdd2eb6c','10f52302-2ddb-11de-86ae-00301bb60f17'),('b8a954e4-4bca-11de-ab35-74df036e1e4f','55620350-6d49-11de-a69b-604b59d93789','0b0b7658-2ddb-11de-86ae-00301bb60f17');
+insert  into `entities_have_labels`(`entity`,`label`,`person_id`) values ('0c05017b-0f9f-4bc3-baeb-c1f8eb734120','55620350-6d49-11de-a69b-604b59d93787','0b0b7658-2ddb-11de-86ae-00301bb60f17'),('123456','2d9dccf8-c3f9-4438-b57f-28def741a3ff','0b0b7658-2ddb-11de-86ae-00301bb60f17'),('123456','3a2bcfc4-4f91-4624-a25e-d2bbe9a14946','0b0b7658-2ddb-11de-86ae-00301bb60f17'),('123456','4d1d19f5-88f3-45c4-87ea-165849c6a270','0b0b7658-2ddb-11de-86ae-00301bb60f17'),('123456','55620350-6d49-11de-a69b-604b59d93789','0b0b7658-2ddb-11de-86ae-00301bb60f17'),('a545fd84-3cc2-4dab-a9be-708a47182fb6','1bdd9e84-3933-49b9-a5dc-414a8a3b2efe','0b0b7658-2ddb-11de-86ae-00301bb60f17'),('aa109083-8cfb-11de-a422-4e7d893777af','4d1d19f5-88f3-45c4-87ea-165849c6a270','0b0b7658-2ddb-11de-86ae-00301bb60f17'),('b8a954e4-4bca-11de-ab35-74df036e1e4f','3418c962-818c-43ee-ad7a-5964fdd2eb6c','10f52302-2ddb-11de-86ae-00301bb60f17'),('b8a954e4-4bca-11de-ab35-74df036e1e4f','55620350-6d49-11de-a69b-604b59d93789','0b0b7658-2ddb-11de-86ae-00301bb60f17');
 
 /*Table structure for table `k_authorizations` */
 
@@ -260,7 +260,7 @@ CREATE TABLE `labels` (
 
 /*Data for the table `labels` */
 
-insert  into `labels`(`id`,`person_id`,`description`,`color`) values ('55620350-6d49-11de-a69b-604b59d93787','0b0b7658-2ddb-11de-86ae-00301bb60f17','Bestellung','#FF0000'),('55620350-6d49-11de-a69b-604b59d93789','0b0b7658-2ddb-11de-86ae-00301bb60f17','Bestellanforderung','#ccccff'),('4d1d19f5-88f3-45c4-87ea-165849c6a270','0b0b7658-2ddb-11de-86ae-00301bb60f17','Hello','#FFFFFF'),('ae1e5063-ebfa-47c4-8187-42a87153474b','0b0b7658-2ddb-11de-86ae-00301bb60f17','Test','#ff6666'),('d1fc6adf-f749-4861-9d3a-a79cfa4220d0','0b0b7658-2ddb-11de-86ae-00301bb60f17','testt','#FFFFFF'),('2d9dccf8-c3f9-4438-b57f-28def741a3ff','0b0b7658-2ddb-11de-86ae-00301bb60f17','werwerwer','#FFFFFF'),('60dcb2e0-f5c6-4111-a067-9f58e5f3ad61','0b0b7658-2ddb-11de-86ae-00301bb60f17','Hello World','#FFFFFF'),('c4af50f6-2b2a-4d47-ad32-2a6f3a602d06','0b0b7658-2ddb-11de-86ae-00301bb60f17','Test54','#FFFFFF'),('123456','0b0b7658-2ddb-11de-86ae-00301bb60f17','Reich','#00FF00'),('3a2bcfc4-4f91-4624-a25e-d2bbe9a14946','0b0b7658-2ddb-11de-86ae-00301bb60f17','MarkusReich','#ff6666'),('3418c962-818c-43ee-ad7a-5964fdd2eb6c','10f52302-2ddb-11de-86ae-00301bb60f17','World','#FFFFFF');
+insert  into `labels`(`id`,`person_id`,`description`,`color`) values ('55620350-6d49-11de-a69b-604b59d93787','0b0b7658-2ddb-11de-86ae-00301bb60f17','Bestellung','#FF0000'),('55620350-6d49-11de-a69b-604b59d93789','0b0b7658-2ddb-11de-86ae-00301bb60f17','Bestellanforderung','#ccccff'),('4d1d19f5-88f3-45c4-87ea-165849c6a270','0b0b7658-2ddb-11de-86ae-00301bb60f17','Hello','#FFFFFF'),('ae1e5063-ebfa-47c4-8187-42a87153474b','0b0b7658-2ddb-11de-86ae-00301bb60f17','Test','#ff6666'),('d1fc6adf-f749-4861-9d3a-a79cfa4220d0','0b0b7658-2ddb-11de-86ae-00301bb60f17','testt','#FFFFFF'),('2d9dccf8-c3f9-4438-b57f-28def741a3ff','0b0b7658-2ddb-11de-86ae-00301bb60f17','werwerwer','#FFFFFF'),('60dcb2e0-f5c6-4111-a067-9f58e5f3ad61','0b0b7658-2ddb-11de-86ae-00301bb60f17','Hello World','#FFFFFF'),('c4af50f6-2b2a-4d47-ad32-2a6f3a602d06','0b0b7658-2ddb-11de-86ae-00301bb60f17','Test54','#FFFFFF'),('123456','0b0b7658-2ddb-11de-86ae-00301bb60f17','Reich','#00FF00'),('3a2bcfc4-4f91-4624-a25e-d2bbe9a14946','0b0b7658-2ddb-11de-86ae-00301bb60f17','MarkusReich','#ff6666'),('3418c962-818c-43ee-ad7a-5964fdd2eb6c','10f52302-2ddb-11de-86ae-00301bb60f17','World','#FFFFFF'),('1bdd9e84-3933-49b9-a5dc-414a8a3b2efe','0b0b7658-2ddb-11de-86ae-00301bb60f17','Spezial','#ff66ff');
 
 /*Table structure for table `list_variants` */
 
@@ -661,6 +661,22 @@ CREATE TABLE `tests` (
 
 insert  into `tests`(`id`,`person_id`,`doctor_id`,`coach_id`,`type`,`date`,`description`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('aa109083-8cfb-11de-a422-4e7d893777af','10f52302-2ddb-11de-86ae-00301bb60f17','d0782a5c-495d-11de-921e-1178275b5596','0b0b7658-2ddb-11de-86ae-00301bb60f17','treadmill','2009-08-19 00:00:00','Das ist mein erster Test','1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-08-20 23:28:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('a545fd84-3cc2-4dab-a9be-708a47182fb6','0b0b7658-2ddb-11de-86ae-00301bb60f17','d0782a5c-495d-11de-921e-1178275b5596','0b0b7658-2ddb-11de-86ae-00301bb60f17','swim','2009-08-30 00:00:00','Das ist mein erster Test','2009-08-25 23:20:42','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-08-26 21:47:30','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('aef05bf9-fe42-403c-9d9c-2c1086128322','10f52302-2ddb-11de-86ae-00301bb60f17','d0782a5c-495d-11de-921e-1178275b5596','0b0b7658-2ddb-11de-86ae-00301bb60f17','ergo','2009-08-19 00:00:00','Das ist mein 2ter erster Test','1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-09-09 23:00:38','e96bcbd2-676d-102c-ace2-9cc3fca64c87',1,0),('87bfde4a-7571-40dd-91aa-f23811ae3629','10f52302-2ddb-11de-86ae-00301bb60f17','d0782a5c-495d-11de-921e-1178275b5596','0b0b7658-2ddb-11de-86ae-00301bb60f17','treadmill','2009-08-19 00:00:00','Das ist mein erster Test','1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-08-26 23:27:05','e96bcbd2-676d-102c-ace2-9cc3fca64c87',1,0),('b6fb25ae-e794-4976-a1f9-ca9f5868a7b2','0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL,'0b0b7658-2ddb-11de-86ae-00301bb60f17','ergo','2009-09-09 00:00:00','Test','2009-09-09 23:01:08','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-09-09 23:26:02','e96bcbd2-676d-102c-ace2-9cc3fca64c87',1,0),('3d17b3c3-4836-4384-b43a-47102f9ccc90','0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL,'0b0b7658-2ddb-11de-86ae-00301bb60f17','treadmill','2009-09-09 00:00:00','Test','2009-09-09 23:25:14','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-09-09 23:25:46','e96bcbd2-676d-102c-ace2-9cc3fca64c87',1,0),('357a3ccd-71ac-4051-b928-2992ff1e3e12','0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL,'0b0b7658-2ddb-11de-86ae-00301bb60f17','ergo','2009-09-09 00:00:00','Test','2009-09-09 23:26:38','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-09-09 23:26:38','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('fe3eaf06-be97-423d-9f7e-bc6c3791a514','0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL,'0b0b7658-2ddb-11de-86ae-00301bb60f17','treadmill','2009-09-10 00:00:00',NULL,'2009-09-10 18:47:40','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-09-10 18:48:12','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('5ed1f2ff-9c0c-458c-a166-bbfb4fe32ee9','10f52302-2ddb-11de-86ae-00301bb60f17',NULL,'0b0b7658-2ddb-11de-86ae-00301bb60f17','treadmill','2009-09-10 00:00:00','Test 2','2009-09-10 18:57:07','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-09-10 18:58:01','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('d08c254e-94dd-4e06-a295-9cd53732bf75','0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL,'0b0b7658-2ddb-11de-86ae-00301bb60f17','treadmill','2009-09-14 00:00:00','Test für Laufband','2009-09-14 18:17:20','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-09-14 18:17:20','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('be265991-0d94-475c-8277-19b39548c1ca','0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL,'0b0b7658-2ddb-11de-86ae-00301bb60f17','treadmill','2009-09-14 00:00:00','TEst','2009-09-14 18:22:32','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-09-14 18:22:32','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('2d272c32-daf0-4291-bad3-f318ec5ad1d4','7522bc7f-42cf-415c-a050-da12518a4cd3',NULL,'0b0b7658-2ddb-11de-86ae-00301bb60f17','treadmill','2009-09-14 00:00:00',NULL,'2009-09-14 19:07:24','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-09-14 19:07:24','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('2a0b9011-39ab-4b53-b40f-01ba61d0c901','0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL,'0b0b7658-2ddb-11de-86ae-00301bb60f17','ergo','2009-09-15 00:00:00','Test 32','2009-09-14 19:15:49','e96bcbd2-676d-102c-ace2-9cc3fca64c87',NULL,'e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('b27903be-07cd-497d-a0a6-3b9c070490cd','0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL,'0b0b7658-2ddb-11de-86ae-00301bb60f17','treadmill','2009-09-15 00:00:00','rrr','2009-09-14 19:17:40','e96bcbd2-676d-102c-ace2-9cc3fca64c87',NULL,'e96bcbd2-676d-102c-ace2-9cc3fca64c87',1,0),('bbad8966-f0d5-4328-a2a0-6d9666fac55a','0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL,'0b0b7658-2ddb-11de-86ae-00301bb60f17','treadmill','2009-09-14 00:00:00','TEst 3','2009-09-14 19:18:52','e96bcbd2-676d-102c-ace2-9cc3fca64c87',NULL,'e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('5f08eaaf-853f-4ca3-a480-1aa1a42feebe','0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL,'0b0b7658-2ddb-11de-86ae-00301bb60f17','treadmill','2009-09-14 00:00:00','Test','2009-09-14 19:22:56','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-09-14 19:23:04','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('ba14e072-5add-44c1-b259-33e9050b7533','7522bc7f-42cf-415c-a050-da12518a4cd3',NULL,'0b0b7658-2ddb-11de-86ae-00301bb60f17','treadmill','2009-09-14 00:00:00','Test','2009-09-14 19:34:14','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-09-14 19:34:14','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('a803dab6-549d-4534-bf21-e2b759f977f0','10f52302-2ddb-11de-86ae-00301bb60f17',NULL,'0b0b7658-2ddb-11de-86ae-00301bb60f17','ergo','2009-09-14 00:00:00','Test','2009-09-14 19:41:46','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-09-14 19:41:46','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('619cdc85-f7d5-4dfc-b024-c63249b5cc1b','0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL,'0b0b7658-2ddb-11de-86ae-00301bb60f17','treadmill','2009-09-14 00:00:00',NULL,'2009-09-14 19:53:09','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-09-14 20:07:38','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('88b20324-4bf8-4e15-a131-d8afdc5b87ad','0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL,'0b0b7658-2ddb-11de-86ae-00301bb60f17','treadmill','2009-09-01 00:00:00','Test','2009-09-14 20:12:15','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-09-14 20:12:15','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('48752da0-f890-4c12-aa53-1f43dc83614e','10f52302-2ddb-11de-86ae-00301bb60f17',NULL,'0b0b7658-2ddb-11de-86ae-00301bb60f17','treadmill','2009-09-14 00:00:00','Test 12','2009-09-14 20:17:16','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-09-14 20:21:26','e96bcbd2-676d-102c-ace2-9cc3fca64c87',1,0),('a8993d94-d290-4465-b11f-528715055361','0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL,'0b0b7658-2ddb-11de-86ae-00301bb60f17','treadmill','2009-09-03 00:00:00','zrzrzr','2009-09-14 20:21:13','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-09-14 20:21:13','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('5409d5ab-d961-4f5f-a3f4-ca89ea2be630','0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL,'0b0b7658-2ddb-11de-86ae-00301bb60f17','treadmill','2009-09-09 00:00:00','erzerz','2009-09-14 20:21:38','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-09-14 20:21:38','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('63928b84-af5b-4a78-8fb8-c44ab8363f48','10f52302-2ddb-11de-86ae-00301bb60f17',NULL,'0b0b7658-2ddb-11de-86ae-00301bb60f17','treadmill','2009-09-14 00:00:00','Tet','2009-09-14 20:23:08','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-09-14 20:23:08','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('d73ba7b5-5874-44d6-9fb3-ef122c6a51b4','10f52302-2ddb-11de-86ae-00301bb60f17',NULL,'0b0b7658-2ddb-11de-86ae-00301bb60f17','ergo','2009-09-14 00:00:00','Test','2009-09-14 20:46:08','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-09-14 20:46:08','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('926b173b-4f5e-4103-93c8-a6f3b5ba16d4','0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL,'0b0b7658-2ddb-11de-86ae-00301bb60f17','treadmill','2009-09-14 00:00:00','TEstw','2009-09-14 20:52:13','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-09-14 20:54:01','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('44f52474-d5ef-4fe6-8589-c6bee6fa8955',NULL,NULL,NULL,'TREADMILL',NULL,'Das ist ein Test für einen Text!',NULL,NULL,'2009-09-17 23:34:56',NULL,NULL,NULL),('a316a28f-1bff-4fd3-96bf-9dba9ceb5f5c',NULL,NULL,NULL,'TREADMILL',NULL,'Das ist ein Test für einen Text!',NULL,NULL,'2009-09-17 23:36:23',NULL,NULL,NULL);
 
+/*Table structure for table `tests_analysis` */
+
+DROP TABLE IF EXISTS `tests_analysis`;
+
+CREATE TABLE `tests_analysis` (
+  `id` varchar(36) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `created_by` varchar(36) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_tests_analysis_tests` (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Analysis of testprotocol';
+
+/*Data for the table `tests_analysis` */
+
+insert  into `tests_analysis`(`id`,`created_at`,`created_by`) values ('a545fd84-3cc2-4dab-a9be-708a47182fb6','2009-09-28 13:48:09','e96bcbd2-676d-102c-ace2-9cc3fca64c87');
+
 /*Table structure for table `tests_ergo` */
 
 DROP TABLE IF EXISTS `tests_ergo`;
@@ -697,13 +713,15 @@ CREATE TABLE `tests_protocol` (
   `o2_absorption` text,
   `co2_emission` text,
   `rq` text,
+  `created_at` datetime DEFAULT NULL,
+  `created_by` varchar(36) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_tests_treadmill_tests` (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Testprotocol for specific test';
 
 /*Data for the table `tests_protocol` */
 
-insert  into `tests_protocol`(`id`,`description`,`model`,`model_lactate`,`model_spiro`,`count_steps`,`performance_max`,`lactate`,`hr`,`o2_absorption`,`co2_emission`,`rq`) values ('a545fd84-3cc2-4dab-a9be-708a47182fb6',NULL,NULL,NULL,NULL,NULL,'05:00',NULL,NULL,NULL,NULL,NULL),('aa109083-8cfb-11de-a422-4e7d893777af',NULL,NULL,NULL,NULL,3,NULL,'[1.1,2.2,2.4]','[110,140,150]','[null,112,100]','[null,112,100]','[0.5,0.77,0.9]'),('aef05bf9-fe42-403c-9d9c-2c1086128322',NULL,NULL,NULL,NULL,1,NULL,'[2]','[null]','[null]','[null]','[null]'),('b6fb25ae-e794-4976-a1f9-ca9f5868a7b2',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('3d17b3c3-4836-4384-b43a-47102f9ccc90',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('357a3ccd-71ac-4051-b928-2992ff1e3e12','Test',NULL,NULL,NULL,1,NULL,'[2]','[150]','[null]','[null]','[null]'),('5ed1f2ff-9c0c-458c-a166-bbfb4fe32ee9','TEst',NULL,NULL,NULL,1,NULL,'[1]','[null]','[null]','[null]','[null]'),('d08c254e-94dd-4e06-a295-9cd53732bf75','Test',NULL,NULL,NULL,2,NULL,'[4,5]','[130,125]','[null,null]','[null,null]','[null,null]'),('926b173b-4f5e-4103-93c8-a6f3b5ba16d4','Test','Daum',NULL,NULL,1,NULL,'[1]','[130]','[null]','[null]','[null]'),('44f52474-d5ef-4fe6-8589-c6bee6fa8955',NULL,'Testmodell',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL),('a316a28f-1bff-4fd3-96bf-9dba9ceb5f5c',NULL,'Testmodell',NULL,NULL,0,'02:22',NULL,NULL,NULL,NULL,NULL);
+insert  into `tests_protocol`(`id`,`description`,`model`,`model_lactate`,`model_spiro`,`count_steps`,`performance_max`,`lactate`,`hr`,`o2_absorption`,`co2_emission`,`rq`,`created_at`,`created_by`) values ('a545fd84-3cc2-4dab-a9be-708a47182fb6',NULL,NULL,NULL,NULL,NULL,'05:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL),('aa109083-8cfb-11de-a422-4e7d893777af',NULL,NULL,NULL,NULL,3,NULL,'[1.1,2.2,2.4]','[110,140,150]','[null,112,100]','[null,112,100]','[0.5,0.77,0.9]',NULL,NULL),('aef05bf9-fe42-403c-9d9c-2c1086128322',NULL,NULL,NULL,NULL,1,NULL,'[2]','[null]','[null]','[null]','[null]',NULL,NULL),('b6fb25ae-e794-4976-a1f9-ca9f5868a7b2',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('3d17b3c3-4836-4384-b43a-47102f9ccc90',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('357a3ccd-71ac-4051-b928-2992ff1e3e12','Test',NULL,NULL,NULL,1,NULL,'[2]','[150]','[null]','[null]','[null]',NULL,NULL),('5ed1f2ff-9c0c-458c-a166-bbfb4fe32ee9','TEst',NULL,NULL,NULL,1,NULL,'[1]','[null]','[null]','[null]','[null]',NULL,NULL),('d08c254e-94dd-4e06-a295-9cd53732bf75','Test',NULL,NULL,NULL,2,NULL,'[4,5]','[130,125]','[null,null]','[null,null]','[null,null]',NULL,NULL),('926b173b-4f5e-4103-93c8-a6f3b5ba16d4','Test','Daum',NULL,NULL,1,NULL,'[1]','[130]','[null]','[null]','[null]',NULL,NULL),('44f52474-d5ef-4fe6-8589-c6bee6fa8955',NULL,'Testmodell',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('a316a28f-1bff-4fd3-96bf-9dba9ceb5f5c',NULL,'Testmodell',NULL,NULL,0,'02:22',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `tests_swim` */
 
@@ -723,7 +741,7 @@ CREATE TABLE `tests_swim` (
 
 /*Data for the table `tests_swim` */
 
-insert  into `tests_swim`(`id`,`date2`,`assistant_name`,`baths`,`pool`,`distance`,`splits`) values ('a545fd84-3cc2-4dab-a9be-708a47182fb6','2009-08-01 00:00:00','Anton aus Tirol','Aubad, Fieberbrunn','25m, 26°',200,5),('44f52474-d5ef-4fe6-8589-c6bee6fa8955',NULL,NULL,NULL,NULL,NULL,NULL),('a316a28f-1bff-4fd3-96bf-9dba9ceb5f5c',NULL,NULL,NULL,NULL,NULL,NULL);
+insert  into `tests_swim`(`id`,`date2`,`assistant_name`,`baths`,`pool`,`distance`,`splits`) values ('a545fd84-3cc2-4dab-a9be-708a47182fb6','2009-08-01 00:00:00','Anton aus Tirol','Aubad, Fieberbrunn','25m, 26°',200,4),('44f52474-d5ef-4fe6-8589-c6bee6fa8955',NULL,NULL,NULL,NULL,NULL,NULL),('a316a28f-1bff-4fd3-96bf-9dba9ceb5f5c',NULL,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `tests_swim_protocol` */
 
@@ -747,7 +765,7 @@ CREATE TABLE `tests_swim_protocol` (
 
 /*Data for the table `tests_swim_protocol` */
 
-insert  into `tests_swim_protocol`(`id`,`step`,`attempt`,`intensity`,`time`,`target_time`,`valid`,`lactate`,`hr`,`splits`,`comment`) values ('a545fd84-3cc2-4dab-a9be-708a47182fb6',1,1,85,NULL,NULL,0,NULL,NULL,NULL,NULL),('a545fd84-3cc2-4dab-a9be-708a47182fb6',1,2,85,NULL,NULL,0,NULL,NULL,NULL,NULL),('44f52474-d5ef-4fe6-8589-c6bee6fa8955',1,1,100,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('a316a28f-1bff-4fd3-96bf-9dba9ceb5f5c',1,1,100,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('a545fd84-3cc2-4dab-a9be-708a47182fb6',1,3,85,'03:30',NULL,1,'1.0','100',NULL,NULL);
+insert  into `tests_swim_protocol`(`id`,`step`,`attempt`,`intensity`,`time`,`target_time`,`valid`,`lactate`,`hr`,`splits`,`comment`) values ('a545fd84-3cc2-4dab-a9be-708a47182fb6',1,1,90,NULL,NULL,0,NULL,NULL,'[{00:00;0},{00:00;0},{00:00;0},{00:00;0}]',NULL),('a545fd84-3cc2-4dab-a9be-708a47182fb6',1,2,90,'03:30',NULL,0,'100.0','1','[{00:00;0},{00:00;0},{00:00;0},{00:00;0}]',NULL),('44f52474-d5ef-4fe6-8589-c6bee6fa8955',1,1,100,NULL,NULL,NULL,NULL,NULL,'',NULL),('a316a28f-1bff-4fd3-96bf-9dba9ceb5f5c',1,1,100,NULL,NULL,NULL,NULL,NULL,'',NULL),('a545fd84-3cc2-4dab-a9be-708a47182fb6',1,3,90,'03:30',NULL,0,'3.0','110','[{00:15;100},{00:30;150},{00:00;0},{00:00;0}]',NULL),('a545fd84-3cc2-4dab-a9be-708a47182fb6',1,4,90,'04:20',NULL,1,'4.0',NULL,'[{00:00;0},{00:00;0},{00:00;0},{00:00;0}]',NULL);
 
 /*Table structure for table `tests_treadmill` */
 
@@ -840,10 +858,10 @@ DROP TABLE IF EXISTS `entities`;
 /*!50001 DROP TABLE IF EXISTS `entities` */;
 
 /*!50001 CREATE TABLE `entities` (
-  `id` varchar(36) NOT NULL DEFAULT '',
-  `entity` varchar(10) NOT NULL DEFAULT '',
+  `id` varchar(36) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `entity` varchar(10) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `deleted` tinyint(4) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 */;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 */;
 
 /*Table structure for table `relations` */
 
@@ -853,11 +871,11 @@ DROP TABLE IF EXISTS `relations`;
 /*!50001 DROP TABLE IF EXISTS `relations` */;
 
 /*!50001 CREATE TABLE `relations` (
-  `id` varchar(36) NOT NULL DEFAULT '',
-  `partner1` varchar(36) DEFAULT NULL,
-  `partner2` varchar(36) DEFAULT NULL,
-  `reltyp_key` varchar(10) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 */;
+  `id` varchar(36) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `partner1` varchar(36) CHARACTER SET utf8 DEFAULT NULL,
+  `partner2` varchar(36) CHARACTER SET utf8 DEFAULT NULL,
+  `reltyp_key` varchar(10) CHARACTER SET utf8 DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 */;
 
 /*View structure for view entities */
 

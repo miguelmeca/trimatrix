@@ -11,7 +11,6 @@ import javax.faces.event.ActionEvent;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONNull;
 import net.sf.json.JSONSerializer;
-import net.sf.json.JsonConfig;
 
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
