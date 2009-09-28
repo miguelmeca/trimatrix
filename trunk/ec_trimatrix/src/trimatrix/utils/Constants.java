@@ -145,6 +145,7 @@ public final class Constants {
 	
 	public static final String NULL = "null";
 	public static final String EMPTY = "";
+	public static final String WHITESPACE = " ";
 	public static final String TRUE = "true";	
 	public static final String FALSE = "false";
 	public static final String CENTER = "center";
