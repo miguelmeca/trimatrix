@@ -10,7 +10,7 @@ Macro for swim protocol splits item strokes
     </parameters>
     <attributes>
     	<attribute name="comment" value="Stroke ${index}"/>
-        <attribute name="bgpaint" value="write(100%-5,100%-5,Züge,9,#a0a0a0,rightmiddle)"/>
+        <attribute name="bgpaint" value="write(100%-5,100%-5,#{rr.literals.strokes},9,#a0a0a0,rightmiddle)"/>
         <attribute name="border" value="0"/>
         <attribute name="enabled" value=".{enabled}"/>
         <attribute name="format" value="int"/>

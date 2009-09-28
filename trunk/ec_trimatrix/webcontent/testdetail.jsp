@@ -15,7 +15,7 @@
 <t:rowdynamiccontent id="g_2" contentbinding="#{d.TestDetailUI.labelRow}" />
 <t:row id="g_3" >
 <t:tabbedpane id="g_4" height="100%" width="100%" >
-<t:tabbedpanetab id="g_5" padding="5" rowdistance="2" text="#{rr.literals.test}" >
+<t:tabbedpanetab id="g_5" comment="Detail" padding="5" rowdistance="2" text="#{rr.literals.test}" >
 <t:row id="g_6" >
 <t:pane id="g_7" >
 <t:row id="g_8" >
@@ -126,7 +126,7 @@
 <t:rowdistance id="g_93" />
 <t:row id="g_94" >
 <t:label id="g_95" text="#{rr.literals.test_splits}" width="150" />
-<t:formattedfield id="g_96" attributemacro="entityDetailMacro(TestDetailUI,splits)" format="int" width="50" />
+<t:formattedfield id="g_96" actionListener="#{d.TestDetailUI.onChangeData}" attributemacro="entityDetailMacro(TestDetailUI,splits)" flush="true" format="int" userhint="max. 8" width="50" />
 </t:row>
 </t:pane>
 </t:row>
@@ -135,7 +135,7 @@
 <t:button id="g_99" actionListener="#{d.TestDetailUI.onProtocolCreate}" enabled="#{d.TestDetailUI.enabled}" text="#{rr.literals.create_testprotocol}" />
 </t:row>
 </t:tabbedpanetab>
-<t:tabbedpanetab id="g_100" padding="5" rendered="#{d.TestDetailUI.protocol}" rowdistance="2" text="#{rr.literals.test_protocol}" >
+<t:tabbedpanetab id="g_100" comment="Protocol" padding="5" rendered="#{d.TestDetailUI.protocol}" rowdistance="2" text="#{rr.literals.test_protocol}" >
 <t:row id="g_101" comment="treadmill protocol" rendered="#{d.TestDetailUI.treadmill}" >
 <t:pane id="g_102" rowdistance="2" >
 <t:row id="g_103" >
@@ -324,7 +324,7 @@
 <t:formattedfield id="g_230" bgpaint=".{bgpaint}" enabled=".{enabled}" flush="true" format="double" value=".{lactate}" />
 </t:gridcol>
 <t:gridcol id="g_231" align="center" sortenabled="false" text="#{rr.literals.hr}" width="100" >
-<t:formattedfield id="g_232" bgpaint=".{bgpaint}" enabled=".{enabled}" flush="true" format="int" value=".{hr}" />
+<t:formattedfield id="g_232" enabled=".{enabled}" flush="true" format="int" value=".{hr}" />
 </t:gridcol>
 <t:gridcol id="g_233" attributemacro="swimSplitsHeadMacro(0)" rendered="true" >
 <t:pane id="g_234" >
@@ -400,6 +400,24 @@
 <t:button id="g_277" actionListener="#{d.TestDetailUI.onAddItem}" enabled="#{d.TestDetailUI.enabled}" text="Hinzufügen" />
 <t:coldistance id="g_278" />
 <t:button id="g_279" actionListener="#{d.TestDetailUI.onRemoveItem}" enabled="#{d.TestDetailUI.enabled}" text="Entfernen" />
+</t:row>
+</t:pane>
+</t:row>
+<t:rowdistance id="g_280" height="15" />
+<t:row id="g_281" rendered="#{d.TestDetailUI.analysis==false}" >
+<t:button id="g_282" actionListener="#{d.TestDetailUI.onAnalysisCreate}" enabled="#{d.TestDetailUI.enabled}" text="#{rr.literals.create_testanalysis}" />
+</t:row>
+</t:tabbedpanetab>
+<t:tabbedpanetab id="g_283" comment="Analysis" padding="5" rendered="#{d.TestDetailUI.analysis}" rowdistance="2" text="#{rr.literals.analysis}" >
+<t:row id="g_284" >
+<t:pane id="g_285" width="100%" >
+<t:row id="g_286" >
+<t:label id="g_287" text="Größe" />
+<t:coldistance id="g_288" />
+<t:slider id="g_289" paintlabels="false" width="100" />
+</t:row>
+<t:row id="g_290" >
+<t:heximage id="g_291" align="center" border="#808080" height="400" rowalignmenty="center" valign="center" width="600" />
 </t:row>
 </t:pane>
 </t:row>

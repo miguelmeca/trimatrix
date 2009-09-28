@@ -15,7 +15,9 @@ import org.eclnt.jsfserver.elements.impl.ROWDYNAMICCONTENTBinding;
 import org.eclnt.jsfserver.elements.util.DefaultModelessPopupListener;
 import org.eclnt.jsfserver.managedbean.IDispatcher;
 import org.eclnt.workplace.IWorkpage;
+import org.eclnt.workplace.IWorkpageContainer;
 import org.eclnt.workplace.IWorkpageDispatcher;
+import org.eclnt.workplace.Workpage;
 import org.eclnt.workplace.WorkpageDispatchedBean;
 
 import trimatrix.db.DAOLayer;
@@ -124,6 +126,21 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
     	getLogic().getLabelLogic().deleteLabelRelation(entityID, label_id);
     	setLabelRowDynamic();        	
     }
+    
+    public void onLabelClick(ActionEvent event) {
+    	// return if entity id is not set
+		String entityID = getWorkpage().getId();
+		if(entityID==null||entityID.length()==0) return;
+    	BUTTONComponent button =(BUTTONComponent)event.getSource();
+    	String label_id = button.getAttributeValueAsString(Constants.CLIENTNAME);
+    	String label_description = button.getAttributeValueAsString(Constants.TEXT);
+    	// Standard click navigate to search result
+		IWorkpageDispatcher wpd = getOwningDispatcher();
+		IWorkpageContainer wpc = getWorkpageContainer();
+		IWorkpage wp = new Workpage( wpd, Constants.Page.LABELSEARCHRESULT.getUrl(), label_id, label_description, null, true);			
+		wp.setParam(Constants.P_LABEL, label_id);	
+		wpc.addWorkpage(wp);
+    }
 	
 	protected void setLabelRowDynamic() { 
 		// return if labeling functionality is not set
@@ -139,7 +156,7 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 			Color background = Color.decode(label.getColor());
 			String fontColor = Helper.getBlackOrWhite(background);		
 
-			xml.append("<t:button bgpaint='roundedrectangle(0,0,100%,100%,10,10," + label.getColor() + ");rectangle(10,0,100%,100%," + label.getColor() + ")' stylevariant='WP_ISOLATEDWORKPAGE' foreground ='" + fontColor + "' font='weight:bold' text='"+ label.getDescription()  +"' />");
+			xml.append("<t:button actionListener='" + expressionBase + "onLabelClick}' clientname='" + label.getId() + "' bgpaint='roundedrectangle(0,0,100%,100%,10,10," + label.getColor() + ");rectangle(10,0,100%,100%," + label.getColor() + ")' stylevariant='WP_ISOLATEDWORKPAGE' foreground ='" + fontColor + "' font='weight:bold' text='"+ label.getDescription()  +"' />");
 			xml.append("<t:coldistance width='1' />");
 			xml.append("<t:button actionListener='" + expressionBase + "onLabelDelete}' clientname='" + label.getId() + "' bgpaint='rectangle(0,0,100%-10,100%," + label.getColor() + ");roundedrectangle(0,0,100%,100%,10,10," + label.getColor() + ")' foreground ='" + fontColor + "' font='weight:bold' stylevariant='WP_ISOLATEDWORKPAGE' text='X' />");
 			xml.append("<t:coldistance />");

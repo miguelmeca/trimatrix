@@ -10,7 +10,7 @@ Macro for swim protocol splits item time
     </parameters>
     <attributes>
     	<attribute name="comment" value="Time {$index}"/>
-        <attribute name="bgpaint" value="write(100%-5,100%-5,Zeit,9,#a0a0a0,rightmiddle)"/>
+        <attribute name="bgpaint" value="write(100%-5,100%-5,#{rr.literals.time},9,#a0a0a0,rightmiddle)"/>
         <attribute name="border" value="0"/>
         <attribute name="enabled" value=".{enabled}"/>
         <attribute name="height" value="100%"/>
