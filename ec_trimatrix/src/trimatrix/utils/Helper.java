@@ -103,7 +103,7 @@ public class Helper {
 	 * @return Locale
 	 */
 	public static Locale getLocale() {
-		return new Locale(HttpSessionAccess.getCurrentRequest().getHeader("eclnt-language"));
+		return new Locale(HttpSessionAccess.getCurrentRequest().getHeader(Constants.ECLNT_LANGUAGE));
 	}
 	
 	/**
@@ -111,7 +111,7 @@ public class Helper {
 	 * @return NumberFormat
 	 */
 	public static NumberFormat getNumberFormat() {
-		return NumberFormat.getCurrencyInstance(getLocale());
+		return NumberFormat.getInstance(getLocale());
 	}
 	
 	/**
