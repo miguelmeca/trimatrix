@@ -410,7 +410,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     protected FIXGRIDListBinding<GridErgoItem> m_gridErgo = new FIXGRIDListBinding<GridErgoItem>(true);
     public FIXGRIDListBinding<GridErgoItem> getGridErgo() { return m_gridErgo; }
     
-    protected FIXGRIDTreeBinding<GridSwimItem> m_gridSwim = new FIXGRIDTreeBinding<GridSwimItem>(false);
+    protected FIXGRIDTreeBinding<GridSwimItem> m_gridSwim = new FIXGRIDTreeBinding<GridSwimItem>(true);
     public FIXGRIDTreeBinding<GridSwimItem> getGridSwim() { return m_gridSwim; }
         
     public class GridTreadmillItem extends AGridItem {
@@ -914,5 +914,13 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     			}
     		}
     	}
+    }
+    
+    // ------------------------------------------------------------------------
+	// logic for analysis
+	// ------------------------------------------------------------------------	
+
+    public void onAnalyze(ActionEvent event) {
+    	
     }
 }

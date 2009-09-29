@@ -199,4 +199,7 @@ public final class Constants {
 	
 	// Resources
 	public static final String LITERALS = "literals"; 
+	
+	// HTTP paremeters
+	public static final String ECLNT_LANGUAGE = "eclnt-language";
 }
