@@ -321,10 +321,10 @@
 <t:field id="g_228" actionListener=".{onChangeItem}" bgpaint=".{bgpaint}" enabled=".{enabled}" flush="true" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{time}" userhint="mm:ss" />
 </t:gridcol>
 <t:gridcol id="g_229" align="center" sortenabled="false" text="#{rr.literals.lactate}" width="100" >
-<t:formattedfield id="g_230" bgpaint=".{bgpaint}" enabled=".{enabled}" flush="true" format="double" value=".{lactate}" />
+<t:field id="g_230" actionListener=".{onChangeItem}" bgpaint=".{bgpaint}" enabled=".{enabled}" flush="true" text=".{lactate}" userhint="lactate@minutes ..." />
 </t:gridcol>
 <t:gridcol id="g_231" align="center" sortenabled="false" text="#{rr.literals.hr}" width="100" >
-<t:formattedfield id="g_232" enabled=".{enabled}" flush="true" format="int" value=".{hr}" />
+<t:formattedfield id="g_232" actionListener=".{onChangeItem}" enabled=".{enabled}" flush="true" format="int" value=".{hr}" />
 </t:gridcol>
 <t:gridcol id="g_233" attributemacro="swimSplitsHeadMacro(0)" rendered="true" >
 <t:pane id="g_234" >
