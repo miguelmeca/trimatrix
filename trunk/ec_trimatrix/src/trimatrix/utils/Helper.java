@@ -5,7 +5,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,6 +17,7 @@ import javax.servlet.ServletContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eclnt.jsfserver.resources.ResourceManager;
+import org.eclnt.jsfserver.util.HttpSessionAccess;
 
 public class Helper {
 	public static String getLiteral(String property) {
@@ -24,7 +27,7 @@ public class Helper {
 	public static boolean isFileInWebRoot(String filename) {
 		FacesContext context = FacesContext.getCurrentInstance();
 		ServletContext sc = (ServletContext) context.getExternalContext().getContext();
-		String path = sc.getRealPath(filename);	
+		String path = sc.getRealPath(filename);			
 		File file = new File(path);
 		return file.exists();	
 	}
@@ -93,6 +96,22 @@ public class Helper {
 		return (String) FacesContext.getCurrentInstance().getApplication()
 				.createValueBinding(expression).getValue(
 						FacesContext.getCurrentInstance());
+	}
+	
+	/**
+	 * Get actual locale from the http request
+	 * @return Locale
+	 */
+	public static Locale getLocale() {
+		return new Locale(HttpSessionAccess.getCurrentRequest().getHeader("eclnt-language"));
+	}
+	
+	/**
+	 * Get NumberFormat object for formatting locale specific data e.g. date, double
+	 * @return NumberFormat
+	 */
+	public static NumberFormat getNumberFormat() {
+		return NumberFormat.getCurrencyInstance(getLocale());
 	}
 	
 	/**

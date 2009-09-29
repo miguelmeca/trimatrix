@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONNull;
@@ -19,6 +21,7 @@ import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDTreeBinding;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDTreeItem;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
+import org.eclnt.jsfserver.util.HttpSessionAccess;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.db.Doctors;
@@ -35,6 +38,7 @@ import trimatrix.entities.TestEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
 import trimatrix.ui.tests.AGridItem;
+import trimatrix.ui.tests.LactateSamples;
 import trimatrix.ui.tests.Split;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
@@ -406,7 +410,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     protected FIXGRIDListBinding<GridErgoItem> m_gridErgo = new FIXGRIDListBinding<GridErgoItem>(true);
     public FIXGRIDListBinding<GridErgoItem> getGridErgo() { return m_gridErgo; }
     
-    protected FIXGRIDTreeBinding<GridSwimItem> m_gridSwim = new FIXGRIDTreeBinding<GridSwimItem>(true);
+    protected FIXGRIDTreeBinding<GridSwimItem> m_gridSwim = new FIXGRIDTreeBinding<GridSwimItem>(false);
     public FIXGRIDTreeBinding<GridSwimItem> getGridSwim() { return m_gridSwim; }
         
     public class GridTreadmillItem extends AGridItem {
@@ -485,7 +489,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     	Integer step;
     	Boolean topNode;    	
     	Boolean valid;    	
-    	Double lactate;  
+    	LactateSamples lactateSamples;
     	Integer hr;
     	Integer intensity; //just on top node
     	String time;
@@ -502,13 +506,16 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 			} else {
 				topNode=false;
 				setStatus(STATUS_ENDNODE);
-				valid=true;					
+				valid=true;	
+				// set valid node to top node
+				((GridSwimItem)getParentNode()).setValidNode(step-1);
 				// build splits
 				int splitCount= entity.getTestsSwim().getSplits();
 				for(int i=1;i<=splitCount;i++) {
 					Split split = new Split();
 					splits[i-1] = split;
-				}							
+				}				
+				lactateSamples = new LactateSamples();
 				// set valid node at top node
 				((GridSwimItem)getParentNode()).setValidNode(getParentNode().getChildNodes().size());
 			}
@@ -528,8 +535,10 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 				topNode=false;
 				setStatus(STATUS_ENDNODE);
 				valid=protocol.getValid();
+				// set valid node to top node
+				if(valid) ((GridSwimItem)getParentNode()).setValidNode(step-1);
 				time=protocol.getTime();
-				if(protocol.getLactate()!=null) lactate=Double.valueOf(protocol.getLactate());
+				lactateSamples=new LactateSamples(protocol.getLactate());
 				if(protocol.getHr()!=null) hr=Integer.valueOf(protocol.getHr());
 				// splits, if null, create array with split count elements
 				Integer count = entity.getTestsSwim().getSplits();
@@ -583,13 +592,15 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 		}
 		public void setHr(Integer hr) { this.hr = hr; }				
 
-		public Double getLactate() {
+		public String getLactate() {
 			if(topNode) {
-				return ((GridSwimItem)this.getChildNodes().get(validNode)).getLactate();
+				return ((GridSwimItem)this.getChildNodes().get(validNode)).lactateSamples.getSingleValue();
 			} 
-			return lactate;
+			return lactateSamples.toString();
 		}
-		public void setLactate(Double lactate) {this.lactate = lactate;}   
+		public void setLactate(String lactate) {
+			this.lactateSamples.setLactateSamples(lactate);
+		}   
 		
 		public Split[] getSplits() {
 			if(topNode) {
@@ -623,7 +634,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
 		}
 		
 		public void onChangeItem(ActionEvent ae) {
-			if(!topNode) m_gridSwim.ensureItemToBeDisplayed((GridSwimItem)getParentNode());
+			//if(!topNode) m_gridSwim.ensureItemToBeDisplayed((GridSwimItem)getParentNode());
 		}
 		
 		public void onMarkItem(ActionEvent ae) {
