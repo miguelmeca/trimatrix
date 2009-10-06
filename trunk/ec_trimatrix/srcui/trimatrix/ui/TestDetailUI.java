@@ -6,9 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONNull;
@@ -21,7 +19,6 @@ import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDTreeBinding;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDTreeItem;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
-import org.eclnt.jsfserver.util.HttpSessionAccess;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.db.Doctors;

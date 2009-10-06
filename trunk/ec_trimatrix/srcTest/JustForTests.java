@@ -1,10 +1,5 @@
-import jamlab.Polyfit;
-
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
-
-import org.dbunit.dataset.datatype.NumberDataType;
 
 
 public class JustForTests {

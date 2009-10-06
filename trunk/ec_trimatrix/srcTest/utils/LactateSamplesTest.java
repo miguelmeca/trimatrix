@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
 
 import junit.framework.Assert;
 
-import org.eclnt.jsfserver.util.HttpSessionAccess;
 import org.junit.Test;
 
 import trimatrix.utils.Constants;

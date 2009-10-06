@@ -32,8 +32,8 @@ import trimatrix.structures.SAttachment;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
 import trimatrix.utils.MailSender;
-import trimatrix.utils.RegressionFunctions;
-import trimatrix.utils.RegressionFunctions.RegressionResult;
+import trimatrix.utils.maths.RegressionFunctions;
+import trimatrix.utils.maths.RegressionFunctions.RegressionResult;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.Element;
@@ -248,7 +248,7 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
 			xyArrReg[i] = regression.getY(xyArrReg[i-1])-offset;
 		}		
 		
-		double corr = RegressionFunctions.getPearsonCorrelation(xyArr, xyArrReg);
+		double corr = regression.getPearsonCorrelation(xyArr, xyArrReg);
 		m_correlation = String.valueOf(corr);
 		
 		m_formula = result.getFormel();
