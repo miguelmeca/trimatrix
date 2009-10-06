@@ -5,8 +5,8 @@ import org.junit.Test;
 
 import trimatrix.exceptions.ArrayNotEvenException;
 import trimatrix.exceptions.OutOfBoundsException;
-import trimatrix.utils.RegressionFunctions;
-import trimatrix.utils.RegressionFunctions.RegressionResult;
+import trimatrix.utils.maths.RegressionFunctions;
+import trimatrix.utils.maths.RegressionFunctions.RegressionResult;
 
 public class RegressionTest {
 	@Test
@@ -32,7 +32,7 @@ public class RegressionTest {
 			xyArr2[i] = regression.getY(xyArr2[i-1])-offset;
 			System.out.println("xyArr: " + xyArr[i-1] + " - " + xyArr[i] + "     xyArr2: " + xyArr2[i-1] + " - " + xyArr2[i]);
 		}		
-		double corr = RegressionFunctions.getPearsonCorrelation(xyArr, xyArr2);
+		double corr = regression.getPearsonCorrelation(xyArr, xyArr2);
 		System.out.println(regression.getX(2.139));
 		System.out.println("Korrelationsfaktor : " + corr);		
 	}

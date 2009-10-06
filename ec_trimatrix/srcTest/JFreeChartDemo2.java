@@ -19,8 +19,8 @@ import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 import org.jfree.ui.TextAnchor;
 
-import trimatrix.utils.RegressionFunctions;
-import trimatrix.utils.RegressionFunctions.RegressionResult;
+import trimatrix.utils.maths.RegressionFunctions;
+import trimatrix.utils.maths.RegressionFunctions.RegressionResult;
 
 public class JFreeChartDemo2 extends ApplicationFrame {
 

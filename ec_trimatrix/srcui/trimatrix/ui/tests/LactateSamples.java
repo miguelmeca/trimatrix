@@ -1,13 +1,11 @@
 package trimatrix.ui.tests;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.eclnt.jsfserver.util.HttpSessionAccess;
 
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
