@@ -36,31 +36,6 @@ public class RegressionFunctions extends AFunctions {
 	}
 
 	/**
-	 * Calculate function value for x value
-	 * 
-	 * @param x
-	 * @return y
-	 */
-	public double getY(double x) {
-		if (result == null)
-			return 0;
-		return roundSignificant(result.approxFunction.execute(result.a,
-				result.b, x), SP);
-	}
-	
-	/**
-	 * Inverse calculate function for y value
-	 * @param y
-	 * @return
-	 */
-	public double getX(double y) {
-		if (result == null)
-			return 0;
-		return roundSignificant(result.approxFunction.executeInv(result.a,
-				result.b, y), SP);
-	}
-
-	/**
 	 * Function for JFreeChart implementation
 	 * 
 	 * @return Function
@@ -68,7 +43,7 @@ public class RegressionFunctions extends AFunctions {
 	public Function2D getRegressionFunction2D() {
 		return new Function2D() {
 			public double getValue(double arg0) {
-				return getY(arg0);
+				return result.getY(arg0);
 			};
 		};
 	}
@@ -387,13 +362,32 @@ public class RegressionFunctions extends AFunctions {
 		return y;
 	}
 
-	public static class RegressionResult {
+	public static class RegressionResult implements IResult {
 		double a;
 		double b;
 		double rr;
 		String titel;
 		String formel;
 		IApproxFunction approxFunction;
+		
+		/**
+		 * Calculate function value for x value
+		 * 
+		 * @param x
+		 * @return y
+		 */
+		public double getY(double x) {
+			return roundSignificant(approxFunction.execute(a, b, x), SP);
+		}
+		
+		/**
+		 * Inverse calculate function for y value
+		 * @param y
+		 * @return
+		 */
+		public double getX(double y) {
+			return roundSignificant(approxFunction.executeInv(a,b, y), SP);
+		}
 		
 		public String getFormel() { return formel; }
 	}

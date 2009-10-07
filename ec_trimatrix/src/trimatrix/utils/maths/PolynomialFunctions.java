@@ -1,7 +1,5 @@
 package trimatrix.utils.maths;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import jamlab.Polyfit;
 import jamlab.Polyval;
 
@@ -10,41 +8,41 @@ public class PolynomialFunctions extends AFunctions{
 	
 	private PolynomialResult result;
 
-	public PolynomialFunctions(double[] xyArr, int degree, double offset) {
-			result = calculatePolynomial(xyArr, degree, offset);			
+	public PolynomialFunctions(double[] xyArr, int degree) {
+			result = calculatePolynomial(xyArr, degree);			
 	}
 	
 	public PolynomialResult getResult() {
 		return result;
 	}
 
-	static PolynomialResult calculatePolynomial(double[] xyArr,final int degree, final double offset) {
+	static PolynomialResult calculatePolynomial(double[] xyArr,final int degree) {
 		if (xyArr == null || xyArr.length < 2 || xyArr.length % 2 != 0)
 			return null;
 
 		double[] x = new double[xyArr.length/2];
         double[] y = new double[xyArr.length/2];
 
-		for (int i = 0; i < xyArr.length; i += 2) {
-			if (xyArr[i + 1] <= 0)
-				return null;
-			x[i] = xyArr[i];
-			y[i + 1] = xyArr[i + 1];
+		for (int i = 0; i < xyArr.length/2 ; i++) {
+			x[i] = xyArr[2*i];
+			y[i] = xyArr[2*i+1];
 		}			
 		PolynomialResult result = new PolynomialResult(degree);
         try {
         	result.polyfit = new Polyfit(x, y, degree);
-        	result.titel = "Poly_" + degree;
-//    		result.formel = "y = " + Universal.roundSignificant(result.a, SP) + " * ( 1 - e ^ (-"
-//    				+ Universal.roundSignificant(result.b, SP) + " * x) )";
-//    		result.approxFunction = new IApproxFunction() {
-//    			public double execute(double a, double b, double x) {
-//    				return a * (1 - Math.exp(-b * x));
-//    			}
-//    			public double executeInv(double a, double b, double y) {
-//    				throw new NotImplementedException();
-//    			}
-//    		};
+        	result.polyfitInv = new Polyfit(y, x, degree);
+        	result.titel = "Poly_" + degree;        	
+        	
+        	double[] coefficients = result.polyfit.getPolynomialCoefficients();
+        	for(int i = 0;i<coefficients.length;i++) {
+       			if(i<coefficients.length-2) {
+       				result.formel.append(" " + roundSignificant(coefficients[i], SP) + " * x ^ " + (coefficients.length-i-1) + " +");
+       			} else if(i<coefficients.length-1) {
+           				result.formel.append(" " + roundSignificant(coefficients[i], SP) + " * x +");
+       			} else {
+       				result.formel.append(" " + roundSignificant(coefficients[i], SP));
+       			}
+           	}
         } catch (Exception ex) {
             // TODO Log error
         	return null;
@@ -52,18 +50,31 @@ public class PolynomialFunctions extends AFunctions{
 		return result;
 	}
 	
-	public static class PolynomialResult {
+	public static class PolynomialResult implements IResult{
 		double[] factors;
 		int degree;
 		String titel;
-		String formel;
+		StringBuilder formel = new StringBuilder("y =");
 		Polyfit polyfit;
+		Polyfit polyfitInv;
 		
 		public PolynomialResult(int degree) {
 			this.degree = degree;
 			factors = new double[degree];
 		}
+		
+		public double getY(double x) {
+			double[] arrX = {x};
+			Polyval polyval = new Polyval(arrX, polyfit);
+			return polyval.getYout()[0];
+		}
+		
+		public double getX(double y) {
+			double[] arrY = {y};
+			Polyval polyval = new Polyval(arrY, polyfitInv);
+			return polyval.getYout()[0];
+		}
 
-		public String getFormel() { return formel; }
+		public String getFormel() { return formel.toString(); }
 	}
 }

@@ -62,4 +62,11 @@ public abstract class AFunctions {
         double cov_x_y = sum_coproduct / xyArr1.length;
         return cov_x_y / (pop_sd_x*pop_sd_y);
     }	
+	
+	public interface IResult {
+		public double getY(double x);
+		public double getX(double y);
+		public String getFormel();
+	}
+	
 }

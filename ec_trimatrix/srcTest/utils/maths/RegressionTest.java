@@ -1,4 +1,4 @@
-package utils;
+package utils.maths;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,7 +14,7 @@ public class RegressionTest {
 		double[] xyArr = {1,1.9d,  2,3.3d, 3,5.7d, 9,155d};
 		RegressionFunctions regression = new RegressionFunctions(RegressionFunctions.EXP_REGRESSION, xyArr, 0.0);
 		for(int x = 0;x<21;x++) {
-			double y = regression.getY(x);
+			double y = regression.getResult().getY(x);
 			System.out.println(x + " : " + y);
 		}
 	}
@@ -29,11 +29,11 @@ public class RegressionTest {
 		double[] xyArr2 = xyArr.clone();
 		
 		for(int i=1;i<xyArr2.length;i+=2){
-			xyArr2[i] = regression.getY(xyArr2[i-1])-offset;
+			xyArr2[i] = regression.getResult().getY(xyArr2[i-1])-offset;
 			System.out.println("xyArr: " + xyArr[i-1] + " - " + xyArr[i] + "     xyArr2: " + xyArr2[i-1] + " - " + xyArr2[i]);
 		}		
 		double corr = regression.getPearsonCorrelation(xyArr, xyArr2);
-		System.out.println(regression.getX(2.139));
+		System.out.println(regression.getResult().getX(2.139));
 		System.out.println("Korrelationsfaktor : " + corr);		
 	}
 	

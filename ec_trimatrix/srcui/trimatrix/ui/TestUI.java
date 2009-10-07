@@ -136,7 +136,7 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
         		return;
         	}
         	if(speed==null) return;
-        	m_lactat = String.valueOf(regression.getY(speed)); 
+        	m_lactat = String.valueOf(regression.getResult().getY(speed)); 
         	try {
 				m_hr = String.valueOf(RegressionFunctions.getYFromMultiLinearFunction(xyArr_2, speed));
 			} catch (Exception ex) {
@@ -154,7 +154,7 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
         		return;
         	}
         	if(lactat==null) return;
-        	double speed = regression.getX(lactat);
+        	double speed = regression.getResult().getX(lactat);
         	m_speed = String.valueOf(speed); 
         	try {
 				m_hr = String.valueOf(RegressionFunctions.getYFromMultiLinearFunction(xyArr_2, speed));
@@ -245,7 +245,7 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
 		double[] xyArrReg = xyArr.clone();
 		
 		for(int i=1;i<xyArrReg.length;i+=2){
-			xyArrReg[i] = regression.getY(xyArrReg[i-1])-offset;
+			xyArrReg[i] = regression.getResult().getY(xyArrReg[i-1])-offset;
 		}		
 		
 		double corr = regression.getPearsonCorrelation(xyArr, xyArrReg);
