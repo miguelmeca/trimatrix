@@ -1,5 +1,7 @@
 package trimatrix.utils.maths;
 
+import org.jfree.data.function.Function2D;
+
 public abstract class AFunctions {
 	protected static final int SP = 4;
 	
@@ -66,6 +68,8 @@ public abstract class AFunctions {
 	public interface IResult {
 		public double getY(double x);
 		public double getX(double y);
+		public double[] getXYValues();
+		public Function2D getFunction2D();
 		public String getFormel();
 	}
 	

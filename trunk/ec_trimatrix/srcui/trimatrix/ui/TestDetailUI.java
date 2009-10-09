@@ -20,6 +20,12 @@ import org.eclnt.jsfserver.elements.impl.FIXGRIDTreeBinding;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDTreeItem;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.general.DatasetUtilities;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 import trimatrix.db.Doctors;
 import trimatrix.db.Persons;
@@ -39,6 +45,7 @@ import trimatrix.ui.tests.LactateSamples;
 import trimatrix.ui.tests.Split;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
+import trimatrix.utils.maths.AFunctions.IResult;
 
 @CCGenClass (expressionBase="#{d.TestDetailUI}")
 
@@ -920,4 +927,27 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable
     public void onAnalyze(ActionEvent event) {
     	
     }
+    
+    // TODO put into logic layer
+    private byte[] getDiagram(IResult result) {
+    	byte[] diagram = null;
+    	
+    	XYSeries series1 = new XYSeries("Messpunkte");
+//		for(int i=1;i<xyArr_1.length;i+=2){
+//			series1.add(xyArr[i-1], xyArr[i] + offset);
+//		}
+    	
+    	XYSeries series2 = DatasetUtilities.sampleFunction2DToSeries(result.getFunction2D(), 8, 22, 140, "Laktat");
+		XYSeriesCollection dataset = new XYSeriesCollection();
+		dataset.addSeries(series1);
+		dataset.addSeries(series2);
+
+		final JFreeChart chart = ChartFactory.createXYLineChart(
+				"Laktat", "Geschwindigkeit[km/h]", "Laktat[mmol/l]",
+				dataset, PlotOrientation.VERTICAL, true, true, false);
+    	
+    	
+    	return diagram;
+    }
+    
 }

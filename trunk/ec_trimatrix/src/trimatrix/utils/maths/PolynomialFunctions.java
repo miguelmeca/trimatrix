@@ -1,5 +1,7 @@
 package trimatrix.utils.maths;
 
+import org.jfree.data.function.Function2D;
+
 import jamlab.Polyfit;
 import jamlab.Polyval;
 
@@ -31,7 +33,8 @@ public class PolynomialFunctions extends AFunctions{
         try {
         	result.polyfit = new Polyfit(x, y, degree);
         	result.polyfitInv = new Polyfit(y, x, degree);
-        	result.titel = "Poly_" + degree;        	
+        	result.titel = "Poly_" + degree;   
+        	result.xyValues = xyArr;
         	
         	double[] coefficients = result.polyfit.getPolynomialCoefficients();
         	for(int i = 0;i<coefficients.length;i++) {
@@ -52,6 +55,7 @@ public class PolynomialFunctions extends AFunctions{
 	
 	public static class PolynomialResult implements IResult{
 		double[] factors;
+		double[] xyValues;
 		int degree;
 		String titel;
 		StringBuilder formel = new StringBuilder("y =");
@@ -73,6 +77,22 @@ public class PolynomialFunctions extends AFunctions{
 			double[] arrY = {y};
 			Polyval polyval = new Polyval(arrY, polyfitInv);
 			return polyval.getYout()[0];
+		}		
+		
+		public double[] getXYValues() {
+			return xyValues;
+		}
+		
+		/**
+		 * Returns Function2D for JFreeChart
+		 * @return
+		 */
+		public Function2D getFunction2D() {
+			return new Function2D() {
+				public double getValue(double arg0) {
+					return getY(arg0);
+				};
+			};
 		}
 
 		public String getFormel() { return formel.toString(); }

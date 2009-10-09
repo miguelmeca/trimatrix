@@ -55,8 +55,7 @@ public class JFreeChartDemo2 extends ApplicationFrame {
 				RegressionFunctions.EXP_REGRESSION, xyArr, offset);
 		RegressionResult result = regression.getResult();
 		System.out.println(result.getFormel());
-		XYSeries series2 = DatasetUtilities.sampleFunction2DToSeries(regression
-				.getRegressionFunction2D(), 120, 200, 80, "Laktat");
+		XYSeries series2 = DatasetUtilities.sampleFunction2DToSeries(result.getFunction2D(), 120, 200, 80, "Laktat");
 		XYSeriesCollection dataset = new XYSeriesCollection();
 		dataset.addSeries(series1);
 		dataset.addSeries(series2);

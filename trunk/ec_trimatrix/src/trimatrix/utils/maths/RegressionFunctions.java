@@ -35,19 +35,6 @@ public class RegressionFunctions extends AFunctions {
 		return result;
 	}
 
-	/**
-	 * Function for JFreeChart implementation
-	 * 
-	 * @return Function
-	 */
-	public Function2D getRegressionFunction2D() {
-		return new Function2D() {
-			public double getValue(double arg0) {
-				return result.getY(arg0);
-			};
-		};
-	}
-
 	// Lineare Regression
 	// y = a + b * x
 	static RegressionResult calculateLinearRegression(double[] xyArr) {
@@ -70,6 +57,7 @@ public class RegressionFunctions extends AFunctions {
 		}
 
 		RegressionResult abr = new RegressionResult();
+		abr.xyValues = xyArr;
 		double xm = xs / n;
 		double ym = ys / n;
 		double xv = xqs / n - (xm * xm);
@@ -109,9 +97,10 @@ public class RegressionFunctions extends AFunctions {
 			xyArrConv[i + 1] = Math.log(xyArr[i + 1]);
 		}
 
-		RegressionResult abr = calculateLinearRegression(xyArrConv);
+		RegressionResult abr = calculateLinearRegression(xyArrConv);		
 		if (abr == null)
 			return null;
+		abr.xyValues = xyArr;
 		abr.a = Math.exp(abr.a);
 		abr.titel = "Pow";
 		abr.formel = "y = " + roundSignificant(abr.a, SP) + " * x ^ "
@@ -143,9 +132,10 @@ public class RegressionFunctions extends AFunctions {
 			xyArrConv[i + 1] = xyArr[i + 1];
 		}
 
-		RegressionResult abr = calculateLinearRegression(xyArrConv);
+		RegressionResult abr = calculateLinearRegression(xyArrConv);		
 		if (abr == null)
 			return null;
+		abr.xyValues = xyArr;
 		abr.titel = "Log";
 		abr.formel = "y = " + roundSignificant(abr.a, SP) + " + "
 				+ roundSignificant(abr.b, SP) + " * ln(x)";
@@ -177,9 +167,10 @@ public class RegressionFunctions extends AFunctions {
 			xyArrConv[i + 1] = Math.log(xyArr[i + 1]);
 		}
 
-		RegressionResult abr = calculateLinearRegression(xyArrConv);
+		RegressionResult abr = calculateLinearRegression(xyArrConv);		
 		if (abr == null)
 			return null;
+		abr.xyValues = xyArr;
 		abr.a = Math.exp(abr.a);
 		abr.titel = "Exp";
 		abr.formel = "y = " + offset + " + " + roundSignificant(abr.a, SP) + " * e ^ ("
@@ -212,9 +203,10 @@ public class RegressionFunctions extends AFunctions {
 			xyArrConv[i + 1] = Math.log(xyArr[i + 1]);
 		}
 
-		RegressionResult abr = calculateLinearRegression(xyArrConv);
+		RegressionResult abr = calculateLinearRegression(xyArrConv);		
 		if (abr == null)
 			return null;
+		abr.xyValues = xyArr;
 		abr.a = Math.exp(abr.a);
 		abr.titel = "Exp";
 		abr.formel = "y = " + roundSignificant(abr.a, SP) + " * e ^ ("
@@ -244,9 +236,10 @@ public class RegressionFunctions extends AFunctions {
 			xyArrTest[i + 1] = limit - xyArr[i + 1];
 		}
 
-		RegressionResult abr = calculateExponentialRegression(xyArrTest);
+		RegressionResult abr = calculateExponentialRegression(xyArrTest);		
 		if (abr == null)
 			return null;
+		abr.xyValues = xyArr;
 		abr.a = limit;
 		return abr;
 	}
@@ -276,11 +269,10 @@ public class RegressionFunctions extends AFunctions {
 					}
 				});
 
-		RegressionResult abr = calculateOneMinusExponentialRegression(xyArr,
-				lim);
-
+		RegressionResult abr = calculateOneMinusExponentialRegression(xyArr, lim);
 		if (abr == null)
 			return null;
+		abr.xyValues = xyArr;
 		abr.titel = "1_E";
 		abr.formel = "y = " + roundSignificant(abr.a, SP) + " * ( 1 - e ^ (-"
 				+ roundSignificant(abr.b, SP) + " * x) )";
@@ -366,6 +358,7 @@ public class RegressionFunctions extends AFunctions {
 		double a;
 		double b;
 		double rr;
+		double[] xyValues;
 		String titel;
 		String formel;
 		IApproxFunction approxFunction;
@@ -389,7 +382,25 @@ public class RegressionFunctions extends AFunctions {
 			return roundSignificant(approxFunction.executeInv(a,b, y), SP);
 		}
 		
+		public double[] getXYValues() {
+			return xyValues;
+		}
+		
+		/**
+		 * Returns Function2D for JFreeChart
+		 * @return
+		 */
+		public Function2D getFunction2D() {
+			return new Function2D() {
+				public double getValue(double arg0) {
+					return getY(arg0);
+				};
+			};
+		}
+		
 		public String getFormel() { return formel; }
+		
+		
 	}
 
 	interface IFunctionFromX {
