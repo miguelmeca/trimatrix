@@ -252,8 +252,7 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
 		m_correlation = String.valueOf(corr);
 		
 		m_formula = result.getFormel();
-		XYSeries series2 = DatasetUtilities.sampleFunction2DToSeries(regression
-				.getRegressionFunction2D(), 8, 22, 140, "Laktat");
+		XYSeries series2 = DatasetUtilities.sampleFunction2DToSeries(result.getFunction2D(), 8, 22, 140, "Laktat");
 		XYSeriesCollection dataset = new XYSeriesCollection();
 		dataset.addSeries(series1);
 		dataset.addSeries(series2);
