@@ -1,5 +1,6 @@
 package trimatrix.utils;
 
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -199,6 +200,9 @@ public final class Constants {
 	
 	// Resources
 	public static final String LITERALS = "literals"; 
+	
+	// Fonts
+	public static final Font FONT_SS_PLAIN_9 = new Font("SansSerif", Font.PLAIN, 9);
 	
 	// HTTP paremeters
 	public static final String ECLNT_LANGUAGE = "eclnt-language";

@@ -414,10 +414,16 @@
 <t:row id="g_286" >
 <t:label id="g_287" text="Größe" />
 <t:coldistance id="g_288" />
-<t:slider id="g_289" paintlabels="false" width="100" />
+<t:formattedfield id="g_289" format="int" userhint="Breite" value="#{d.TestDetailUI.width}" width="50" />
+<t:coldistance id="g_290" />
+<t:label id="g_291" text="X" />
+<t:coldistance id="g_292" />
+<t:formattedfield id="g_293" format="int" userhint="Höhe" value="#{d.TestDetailUI.height}" width="50" />
+<t:coldistance id="g_294" />
+<t:button id="g_295" actionListener="#{d.TestDetailUI.onRefresh}" text="Aktualisieren" />
 </t:row>
-<t:row id="g_290" >
-<t:heximage id="g_291" align="center" border="#808080" height="400" rowalignmenty="center" valign="center" width="600" />
+<t:row id="g_296" >
+<t:heximage id="g_297" align="center" border="#808080" height="#{d.TestDetailUI.height}" hexdata="#{d.TestDetailUI.diagram}" rowalignmenty="center" valign="center" width="#{d.TestDetailUI.width}" />
 </t:row>
 </t:pane>
 </t:row>

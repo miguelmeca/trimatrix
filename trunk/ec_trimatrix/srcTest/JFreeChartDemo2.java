@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.io.ByteArrayOutputStream;
 
 import org.eclnt.util.valuemgmt.ValueManager;
@@ -79,7 +80,9 @@ public class JFreeChartDemo2 extends ApplicationFrame {
 		// add some annotations...
 		XYTextAnnotation annotation = null;
 		Font font = new Font("SansSerif", Font.PLAIN, 9);
-		annotation = new XYTextAnnotation("Laktatkurve", 190, 20);
+		String curveTitle = "Laktatkurve";			
+		System.out.println(getFontMetrics(font).stringWidth(curveTitle));
+		annotation = new XYTextAnnotation(curveTitle, series2.getMaxX() - 10, 20);
 		annotation.setFont(font);
 		annotation.setTextAnchor(TextAnchor.HALF_ASCENT_LEFT);
 		plot.addAnnotation(annotation);
