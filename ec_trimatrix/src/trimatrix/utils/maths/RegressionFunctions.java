@@ -164,7 +164,7 @@ public class RegressionFunctions extends AFunctions {
 			if (xyArr[i + 1] <= 0)
 				return null;
 			xyArrConv[i] = xyArr[i];
-			xyArrConv[i + 1] = Math.log(xyArr[i + 1]);
+			xyArrConv[i + 1] = Math.log(xyArr[i + 1]-offset);
 		}
 
 		RegressionResult abr = calculateLinearRegression(xyArrConv);		
@@ -400,7 +400,14 @@ public class RegressionFunctions extends AFunctions {
 		
 		public String getFormel() { return formel; }
 		
-		
+		public double getCorrelation() {
+			double[] xyArr = new double[xyValues.length];
+			for(int i = 0;i<xyArr.length/2;i++) {
+				xyArr[i*2] = xyValues[i*2];
+				xyArr[i*2+1] = getY(xyValues[i*2]);
+			}
+			return getPearsonCorrelation(xyArr, xyValues);
+		}
 	}
 
 	interface IFunctionFromX {

@@ -83,6 +83,15 @@ public class PolynomialFunctions extends AFunctions{
 			return xyValues;
 		}
 		
+		public double getCorrelation() {
+			double[] xyArr = new double[xyValues.length];
+			for(int i = 0;i<xyArr.length/2;i++) {
+				xyArr[i*2] = xyValues[i*2];
+				xyArr[i*2+1] = getY(xyValues[i*2]);
+			}
+			return getPearsonCorrelation(xyArr, xyValues);
+		}
+		
 		/**
 		 * Returns Function2D for JFreeChart
 		 * @return
@@ -95,6 +104,6 @@ public class PolynomialFunctions extends AFunctions{
 			};
 		}
 
-		public String getFormel() { return formel.toString(); }
+		public String getFormel() { return formel.toString(); }		
 	}
 }

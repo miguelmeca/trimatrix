@@ -420,10 +420,28 @@
 <t:coldistance id="g_292" />
 <t:formattedfield id="g_293" format="int" userhint="Höhe" value="#{d.TestDetailUI.height}" width="50" />
 <t:coldistance id="g_294" />
-<t:button id="g_295" actionListener="#{d.TestDetailUI.onRefresh}" text="Aktualisieren" />
+<t:button id="g_295" actionListener="#{d.TestDetailUI.onRefresh}" text="#{rr.literals.list_refresh}" />
 </t:row>
-<t:row id="g_296" >
-<t:heximage id="g_297" align="center" border="#808080" height="#{d.TestDetailUI.height}" hexdata="#{d.TestDetailUI.diagram}" rowalignmenty="center" valign="center" width="#{d.TestDetailUI.width}" />
+<t:rowdistance id="g_296" />
+<t:row id="g_297" >
+<t:heximage id="g_298" align="center" border="#808080" height="#{d.TestDetailUI.height}" hexdata="#{d.TestDetailUI.diagram}" rowalignmenty="center" valign="center" width="#{d.TestDetailUI.width}" />
+</t:row>
+<t:rowdistance id="g_299" />
+<t:row id="g_300" >
+<t:label id="g_301" text="#{rr.literals.formula}" width="100" />
+<t:field id="g_302" enabled="false" text="#{d.TestDetailUI.formel}" width="300" />
+</t:row>
+<t:rowdistance id="g_303" />
+<t:row id="g_304" >
+<t:label id="g_305" text="#{rr.literals.correlation}" width="100" />
+<t:field id="g_306" enabled="false" text="#{d.TestDetailUI.correlation}" width="200" />
+</t:row>
+<t:rowdistance id="g_307" />
+<t:row id="g_308" >
+<t:label id="g_309" text="#{rr.literals.offset}" width="100" />
+<t:formattedfield id="g_310" actionListener="#{d.TestDetailUI.onOffsetChange}" flush="true" format="double" value="#{d.TestDetailUI.offset}" width="100" />
+<t:coldistance id="g_311" />
+<t:button id="g_312" actionListener="#{d.TestDetailUI.onOptimize}" text="#{rr.literals.optimize}" />
 </t:row>
 </t:pane>
 </t:row>
