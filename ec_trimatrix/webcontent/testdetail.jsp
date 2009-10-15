@@ -439,9 +439,19 @@
 <t:rowdistance id="g_307" />
 <t:row id="g_308" >
 <t:label id="g_309" text="#{rr.literals.offset}" width="100" />
-<t:formattedfield id="g_310" actionListener="#{d.TestDetailUI.onOffsetChange}" flush="true" format="double" value="#{d.TestDetailUI.offset}" width="100" />
+<t:formattedfield id="g_310" actionListener="#{d.TestDetailUI.resetResult}" flush="true" format="double" value="#{d.TestDetailUI.offset}" width="100" />
 <t:coldistance id="g_311" />
 <t:button id="g_312" actionListener="#{d.TestDetailUI.onOptimize}" text="#{rr.literals.optimize}" />
+</t:row>
+<t:rowdistance id="g_313" />
+<t:row id="g_314" >
+<t:label id="g_315" text="#{rr.literals.function}" width="100" />
+<t:combobox id="g_316" actionListener="#{d.TestDetailUI.resetResult}" flush="true" validvaluesbinding="#{d.TestDetailUI.functionsVvb}" value="#{d.TestDetailUI.function}" width="200" />
+</t:row>
+<t:rowdistance id="g_317" />
+<t:row id="g_318" >
+<t:label id="g_319" text="#{rr.literals.degree}" width="100" />
+<t:formattedfield id="g_320" actionListener="#{d.TestDetailUI.resetResult}" flush="true" format="int" value="#{d.TestDetailUI.degree}" width="100" />
 </t:row>
 </t:pane>
 </t:row>

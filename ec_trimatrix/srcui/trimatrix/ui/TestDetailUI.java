@@ -26,16 +26,12 @@ import org.eclnt.workplace.IWorkpageDispatcher;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.annotations.XYTextAnnotation;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.general.DatasetUtilities;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-import org.jfree.ui.TextAnchor;
-
-import com.sun.org.apache.xpath.internal.functions.Function;
 
 import trimatrix.db.Doctors;
 import trimatrix.db.Persons;
@@ -55,13 +51,12 @@ import trimatrix.ui.tests.LactateSamples;
 import trimatrix.ui.tests.Split;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
+import trimatrix.utils.maths.PolynomialFunctions;
 import trimatrix.utils.maths.RegressionFunctions;
 import trimatrix.utils.maths.AFunctions.IResult;
-import trimatrix.utils.maths.RegressionFunctions.RegressionResult;
 
 @CCGenClass(expressionBase = "#{d.TestDetailUI}")
-public class TestDetailUI extends AEntityDetailUI implements Serializable {    
-
+public class TestDetailUI extends AEntityDetailUI implements Serializable {
 	public void onDoctorSearch(ActionEvent event) {
 		IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(Constants.Entity.DOCTOR);
 		entitySelectionUI
@@ -1092,7 +1087,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 
 	// ------------------------------------------------------------------------
 	// logic for analysis
-	// ------------------------------------------------------------------------	
+	// ------------------------------------------------------------------------
 	final String LACTATE = "Laktat";
 	final String HR = "Puls";
 	final String SPEED = "Geschwindigkeit";
@@ -1109,47 +1104,92 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 	private String unitX = null;
 	private String descriptionY = null;
 	private String unitY = null;
-	
+
 	protected int m_height = 300;
-    public int getHeight() { return m_height; }
-    public void setHeight(int value) { m_height = value; }
 
-    protected int m_width = 400;
-    public int getWidth() { return m_width; }
-    public void setWidth(int value) { m_width = value; }
-    
-    protected double m_offset = 0;
-    public double getOffset() { return m_offset; }
-    public void setOffset(double value) { m_offset = value; }
-
-	public void onRefresh(ActionEvent event) {		
-		if(result==null) result = analyze();					
-		// exp. function		
-		m_diagram = buildDiagram(result, m_width, m_height, descriptionX, unitX, descriptionY, unitY);
+	public int getHeight() {
+		return m_height;
 	}
 
-	public void onOptimize(ActionEvent event) {		
+	public void setHeight(int value) {
+		m_height = value;
+	}
+
+	protected int m_width = 400;
+
+	public int getWidth() {
+		return m_width;
+	}
+
+	public void setWidth(int value) {
+		m_width = value;
+	}
+
+	protected double m_offset = 0;
+
+	public double getOffset() {
+		return m_offset;
+	}
+
+	public void setOffset(double value) {
+		m_offset = value;
+	}
+	
+	protected String m_function;
+    public String getFunction() { return m_function; }
+    public void setFunction(String value) { m_function = value; }
+    
+    protected int m_degree;
+    public int getDegree() { return m_degree; }
+    public void setDegree(int value) { m_degree = value; }
+
+//	protected ValidValuesBinding m_functionsVvb = getServiceLayer()
+//			.getValueListBindingService().getVVBinding(
+//					Constants.ValueList.FUNCTIONS);
+		
+    protected ValidValuesBinding m_functionsVvb = null;
+    
+	public ValidValuesBinding getFunctionsVvb() {		
+		if(m_functionsVvb == null) {
+			m_functionsVvb = new ValidValuesBinding();
+			m_functionsVvb.addValidValue("exp", "Exponential");
+			m_functionsVvb.addValidValue("poly2", "Polynomial");
+		}
+		return m_functionsVvb;
+	}
+
+	public void onRefresh(ActionEvent event) {
+		if (result == null)
+			result = analyze();
+		// exp. function
+		m_diagram = buildDiagram(result, m_width, m_height, descriptionX,
+				unitX, descriptionY, unitY);
+	}
+
+	public void onOptimize(ActionEvent event) {
 		m_offset = 10;
 	}
-	
-	public void onOffsetChange(ActionEvent event) {
+
+	public void resetResult(ActionEvent event) {
 		// force recalculating of chart
 		result = null;
 	}
-	
+
 	public String getDiagram() {
 		if (m_diagram == null || m_diagram.length == 0)
 			return null;
 		return ValueManager.encodeHexString(m_diagram);
 	}
-	
+
 	public String getFormel() {
-		if(result==null) return null;
+		if (result == null)
+			return null;
 		return result.getFormel();
 	}
-	
+
 	public String getCorrelation() {
-		if(result==null) return null;
+		if (result == null)
+			return null;
 		return String.valueOf(result.getCorrelation());
 	}
 
@@ -1161,19 +1201,21 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			unitX = UNIT_KMH;
 			descriptionY = LACTATE;
 			unitY = UNIT_MMOL;
-			
+
 			TestsTreadmill treadmill = entity.getTestsTreadmill();
-			TestsProtocol  treadmillProt = entity.getTestsProtocol();
+			TestsProtocol treadmillProt = entity.getTestsProtocol();
 			int steps = treadmillProt.getCountSteps();
 			JSONArray lactates = null;
 			String lactate = treadmillProt.getLactate();
-			if (lactate != null) lactates = (JSONArray) JSONSerializer.toJSON(lactate);
-			xyArr = new double[steps*2];
-			for(int i=0;i<steps;i++) {
+			if (lactate != null)
+				lactates = (JSONArray) JSONSerializer.toJSON(lactate);
+			xyArr = new double[steps * 2];
+			for (int i = 0; i < steps; i++) {
 				// x value
-				xyArr[2*i] = treadmill.getSpeedInit() + treadmill.getSpeedStep() * i;
+				xyArr[2 * i] = treadmill.getSpeedInit()
+						+ treadmill.getSpeedStep() * i;
 				// y value
-				xyArr[2*i+1] = lactates.getDouble(i);
+				xyArr[2 * i + 1] = lactates.getDouble(i);
 			}
 		}
 		// ergo
@@ -1182,19 +1224,20 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			unitX = UNIT_WATT;
 			descriptionY = LACTATE;
 			unitY = UNIT_MMOL;
-			
+
 			TestsErgo ergo = entity.getTestsErgo();
-			TestsProtocol  ergoProt = entity.getTestsProtocol();
+			TestsProtocol ergoProt = entity.getTestsProtocol();
 			int steps = ergoProt.getCountSteps();
 			JSONArray lactates = null;
 			String lactate = ergoProt.getLactate();
-			if (lactate != null) lactates = (JSONArray) JSONSerializer.toJSON(lactate);
-			xyArr = new double[steps*2];
-			for(int i=0;i<steps;i++) {
+			if (lactate != null)
+				lactates = (JSONArray) JSONSerializer.toJSON(lactate);
+			xyArr = new double[steps * 2];
+			for (int i = 0; i < steps; i++) {
 				// x value
-				xyArr[2*i] = ergo.getPowerInit() + ergo.getPowerStep() * i;
+				xyArr[2 * i] = ergo.getPowerInit() + ergo.getPowerStep() * i;
 				// y value
-				xyArr[2*i+1] = lactates.getDouble(i);
+				xyArr[2 * i + 1] = lactates.getDouble(i);
 			}
 		}
 		// swim
@@ -1203,15 +1246,22 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			unitX = UNIT_MMSS;
 			descriptionY = LACTATE;
 			unitY = UNIT_MMOL;
-			
+
 			// a bit complex
+		}
+		
+		if(m_function.equals("exp")) {
+			RegressionFunctions function = new RegressionFunctions(
+					RegressionFunctions.EXP_REGRESSION, xyArr, m_offset);
+			return function.getResult();
+		} else {
+			PolynomialFunctions function = new PolynomialFunctions(xyArr, m_degree);
+			return function.getResult();
 		}		
-		RegressionFunctions function = new RegressionFunctions(RegressionFunctions.EXP_REGRESSION, xyArr, m_offset);
-		return function.getResult();
 	}
 
 	// TODO put into logic layer
-	
+
 	private byte[] buildDiagram(IResult resultLactate, int width, int height,
 			String descriptionX, String unitX, String descriptionY, String unitY) {
 		// constants
@@ -1258,11 +1308,11 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		plot.setRenderer(renderer);
 
 		// add some annotations
-//		XYTextAnnotation annotation = new XYTextAnnotation(descriptionY,
-//				seriesCurve.getMaxX() - 10, high);
-//		annotation.setFont(Constants.FONT_SS_PLAIN_9);
-//		annotation.setTextAnchor(TextAnchor.HALF_ASCENT_LEFT);
-//		plot.addAnnotation(annotation);
+		// XYTextAnnotation annotation = new XYTextAnnotation(descriptionY,
+		// seriesCurve.getMaxX() - 10, high);
+		// annotation.setFont(Constants.FONT_SS_PLAIN_9);
+		// annotation.setTextAnchor(TextAnchor.HALF_ASCENT_LEFT);
+		// plot.addAnnotation(annotation);
 
 		// Convert to png/binary for UI
 		try {

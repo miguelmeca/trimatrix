@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 
 import trimatrix.entities.IEntityData;
 
-public final class Constants {
+public final class Constants {	
 	// all used jsp pages
 	public static enum Page {
 		WORKPLACE("/workplace.jsp","Workplace"),
@@ -125,7 +125,7 @@ public final class Constants {
 	}
 	// all value lists
 	public static enum ValueList {
-		LANGUAGE, CURRENCY, LOGONLANGUAGE, SALUTATION, RELTYPS, COUNTRY, CATEGORY, TESTTYPE
+		LANGUAGE, CURRENCY, LOGONLANGUAGE, SALUTATION, RELTYPS, COUNTRY, CATEGORY, TESTTYPE, FUNCTIONS
 	}	
 	// all functionnodes
 	public static enum FunctionNode {
