@@ -35,6 +35,8 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.TextAnchor;
 
+import com.sun.org.apache.xpath.internal.functions.Function;
+
 import trimatrix.db.Doctors;
 import trimatrix.db.Persons;
 import trimatrix.db.Tests;
@@ -1115,6 +1117,10 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
     protected int m_width = 400;
     public int getWidth() { return m_width; }
     public void setWidth(int value) { m_width = value; }
+    
+    protected double m_offset = 0;
+    public double getOffset() { return m_offset; }
+    public void setOffset(double value) { m_offset = value; }
 
 	public void onRefresh(ActionEvent event) {		
 		if(result==null) result = analyze();					
@@ -1122,15 +1128,33 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		m_diagram = buildDiagram(result, m_width, m_height, descriptionX, unitX, descriptionY, unitY);
 	}
 
+	public void onOptimize(ActionEvent event) {		
+		m_offset = 10;
+	}
+	
+	public void onOffsetChange(ActionEvent event) {
+		// force recalculating of chart
+		result = null;
+	}
+	
 	public String getDiagram() {
 		if (m_diagram == null || m_diagram.length == 0)
 			return null;
 		return ValueManager.encodeHexString(m_diagram);
 	}
+	
+	public String getFormel() {
+		if(result==null) return null;
+		return result.getFormel();
+	}
+	
+	public String getCorrelation() {
+		if(result==null) return null;
+		return String.valueOf(result.getCorrelation());
+	}
 
 	private IResult analyze() {
 		double[] xyArr = null;
-		double offset = 0;
 		// treadmill
 		if (isTreadmill()) {
 			descriptionX = SPEED;
@@ -1182,7 +1206,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			
 			// a bit complex
 		}		
-		RegressionFunctions function = new RegressionFunctions(RegressionFunctions.EXP_REGRESSION, xyArr, offset);
+		RegressionFunctions function = new RegressionFunctions(RegressionFunctions.EXP_REGRESSION, xyArr, m_offset);
 		return function.getResult();
 	}
 

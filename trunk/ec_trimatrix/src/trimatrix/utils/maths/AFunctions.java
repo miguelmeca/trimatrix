@@ -69,8 +69,8 @@ public abstract class AFunctions {
 		public double getY(double x);
 		public double getX(double y);
 		public double[] getXYValues();
+		public double getCorrelation();
 		public Function2D getFunction2D();
-		public String getFormel();
-	}
-	
+		public String getFormel();		
+	}	
 }
