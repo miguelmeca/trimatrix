@@ -206,4 +206,11 @@ public final class Constants {
 	
 	// HTTP paremeters
 	public static final String ECLNT_LANGUAGE = "eclnt-language";
+	
+	// VVB
+	public static final String EXP = "exp";
+	public static final String POLY = "poly";
+	
+	public static final String EXPONENTIAL = "Exponential";
+	public static final String POLYNOMIAL = "Polynomial";	
 }

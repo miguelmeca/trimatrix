@@ -424,34 +424,42 @@
 </t:row>
 <t:rowdistance id="g_296" />
 <t:row id="g_297" >
-<t:heximage id="g_298" align="center" border="#808080" height="#{d.TestDetailUI.height}" hexdata="#{d.TestDetailUI.diagram}" rowalignmenty="center" valign="center" width="#{d.TestDetailUI.width}" />
+<t:label id="g_298" text="#{rr.literals.formula}" width="100" />
+<t:field id="g_299" enabled="false" text="#{d.TestDetailUI.formel}" width="400" />
 </t:row>
-<t:rowdistance id="g_299" />
-<t:row id="g_300" >
-<t:label id="g_301" text="#{rr.literals.formula}" width="100" />
-<t:field id="g_302" enabled="false" text="#{d.TestDetailUI.formel}" width="300" />
+<t:rowdistance id="g_300" />
+<t:row id="g_301" >
+<t:label id="g_302" text="#{rr.literals.correlation}" width="100" />
+<t:field id="g_303" enabled="false" text="#{d.TestDetailUI.correlation}" width="200" />
 </t:row>
-<t:rowdistance id="g_303" />
-<t:row id="g_304" >
-<t:label id="g_305" text="#{rr.literals.correlation}" width="100" />
-<t:field id="g_306" enabled="false" text="#{d.TestDetailUI.correlation}" width="200" />
+<t:rowdistance id="g_304" />
+<t:row id="g_305" >
+<t:heximage id="g_306" align="center" border="#808080" height="#{d.TestDetailUI.height}" hexdata="#{d.TestDetailUI.diagram}" rowalignmenty="center" valign="center" width="#{d.TestDetailUI.width}" />
 </t:row>
 <t:rowdistance id="g_307" />
-<t:row id="g_308" >
-<t:label id="g_309" text="#{rr.literals.offset}" width="100" />
-<t:formattedfield id="g_310" actionListener="#{d.TestDetailUI.resetResult}" flush="true" format="double" value="#{d.TestDetailUI.offset}" width="100" />
-<t:coldistance id="g_311" />
-<t:button id="g_312" actionListener="#{d.TestDetailUI.onOptimize}" text="#{rr.literals.optimize}" />
+<t:rowdistance id="g_308" />
+<t:row id="g_309" >
+<t:label id="g_310" text="#{rr.literals.function}" width="100" />
+<t:combobox id="g_311" actionListener="#{d.TestDetailUI.resetResult}" flush="true" validvaluesbinding="#{d.TestDetailUI.functionsVvb}" value="#{d.TestDetailUI.function}" width="200" />
 </t:row>
-<t:rowdistance id="g_313" />
-<t:row id="g_314" >
-<t:label id="g_315" text="#{rr.literals.function}" width="100" />
-<t:combobox id="g_316" actionListener="#{d.TestDetailUI.resetResult}" flush="true" validvaluesbinding="#{d.TestDetailUI.functionsVvb}" value="#{d.TestDetailUI.function}" width="200" />
+<t:rowdistance id="g_312" />
+<t:row id="g_313" >
+<t:label id="g_314" text="#{rr.literals.offset}" width="100" />
+<t:formattedfield id="g_315" actionListener="#{d.TestDetailUI.resetResult}" flush="true" format="double" value="#{d.TestDetailUI.offset}" width="50" />
 </t:row>
-<t:rowdistance id="g_317" />
-<t:row id="g_318" >
-<t:label id="g_319" text="#{rr.literals.degree}" width="100" />
-<t:formattedfield id="g_320" actionListener="#{d.TestDetailUI.resetResult}" flush="true" format="int" value="#{d.TestDetailUI.degree}" width="100" />
+<t:row id="g_316" >
+<t:label id="g_317" text="#{rr.literals.degree}" width="100" />
+<t:spinner id="g_318" actionListener="#{d.TestDetailUI.resetResult}" flush="true" maxvalue="6" minvalue="0" value="#{d.TestDetailUI.degree}" width="50" />
+</t:row>
+<t:rowdistance id="g_319" />
+<t:row id="g_320" >
+<t:label id="g_321" text="x" width="100" />
+<t:formattedfield id="g_322" actionListener="#{d.TestDetailUI.onChangeXY}" clientname="x" flush="true" format="double" value="#{d.TestDetailUI.valueX}" width="50" />
+</t:row>
+<t:rowdistance id="g_323" />
+<t:row id="g_324" >
+<t:label id="g_325" text="y" width="100" />
+<t:formattedfield id="g_326" actionListener="#{d.TestDetailUI.onChangeXY}" clientname="y" flush="true" format="double" value="#{d.TestDetailUI.valueY}" width="50" />
 </t:row>
 </t:pane>
 </t:row>

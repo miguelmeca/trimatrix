@@ -9,7 +9,7 @@ import trimatrix.utils.maths.PolynomialFunctions.PolynomialResult;
 
 public class PolynomialTest {
 	@Test
-	public void testPolynomialFunction() {
+	public void testPolynomialFunction() throws Exception {
 		double[] xyArr = {1,15.8d,  2,24.6d, 3,38.4d, 4,57.2d, 10,275d};
 		PolynomialFunctions polyFunction = new PolynomialFunctions(xyArr, 2);
 		PolynomialResult result = polyFunction.getResult();
