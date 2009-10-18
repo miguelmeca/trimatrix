@@ -7,6 +7,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.event.ActionEvent;
 
@@ -16,6 +17,8 @@ import net.sf.json.JSONSerializer;
 
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
+import org.eclnt.jsfserver.elements.BaseActionEvent;
+import org.eclnt.jsfserver.elements.events.BaseActionEventFlush;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDTreeBinding;
@@ -1135,39 +1138,47 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		m_offset = value;
 	}
 	
-	protected String m_function;
-    public String getFunction() { return m_function; }
+	protected String m_function = getServiceLayer().getValueListBindingService().FUNCTIONS.getValidValues().next().getValue(); // init with first value    
+	public String getFunction() { return m_function; }
     public void setFunction(String value) { m_function = value; }
     
     protected int m_degree;
     public int getDegree() { return m_degree; }
-    public void setDegree(int value) { m_degree = value; }
+    public void setDegree(int value) { m_degree = value; }    
 
-//	protected ValidValuesBinding m_functionsVvb = getServiceLayer()
-//			.getValueListBindingService().getVVBinding(
-//					Constants.ValueList.FUNCTIONS);
-		
-    protected ValidValuesBinding m_functionsVvb = null;
-    
+    protected double m_valueY;
+    public double getValueY() { return m_valueY; }
+    public void setValueY(double value) { m_valueY = value; }
+
+    protected double m_valueX;
+    public double getValueX() { return m_valueX; }
+    public void setValueX(double value) { m_valueX = value; }
+
 	public ValidValuesBinding getFunctionsVvb() {		
-		if(m_functionsVvb == null) {
-			m_functionsVvb = new ValidValuesBinding();
-			m_functionsVvb.addValidValue("exp", "Exponential");
-			m_functionsVvb.addValidValue("poly2", "Polynomial");
-		}
-		return m_functionsVvb;
+		return getServiceLayer().getValueListBindingService().FUNCTIONS;
 	}
 
 	public void onRefresh(ActionEvent event) {
 		if (result == null)
 			result = analyze();
-		// exp. function
+		// build the chart based on the computed result
+		if(result==null) return;
 		m_diagram = buildDiagram(result, m_width, m_height, descriptionX,
 				unitX, descriptionY, unitY);
 	}
 
-	public void onOptimize(ActionEvent event) {
-		m_offset = 10;
+	public void onChangeXY(ActionEvent event) {
+		//cast
+		BaseActionEventFlush baef = (BaseActionEventFlush)event;
+		String clientname = (String)event.getComponent().getAttributes().get(Constants.CLIENTNAME);
+		// x value changed
+		if("x".equals(clientname)) {
+			m_valueY = result.getY(m_valueX);
+		}
+		// y value changed
+		if("y".equals(clientname)) {
+			m_valueX = result.getX(m_valueY);
+		}		
 	}
 
 	public void resetResult(ActionEvent event) {
@@ -1250,14 +1261,22 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			// a bit complex
 		}
 		
-		if(m_function.equals("exp")) {
+		if(Constants.EXP.equals(m_function)) {
 			RegressionFunctions function = new RegressionFunctions(
 					RegressionFunctions.EXP_REGRESSION, xyArr, m_offset);
 			return function.getResult();
-		} else {
-			PolynomialFunctions function = new PolynomialFunctions(xyArr, m_degree);
-			return function.getResult();
+		} 
+		if(Constants.POLY.equals(m_function)) {
+			try {
+				PolynomialFunctions function = new PolynomialFunctions(xyArr, m_degree);
+				return function.getResult();
+			} catch (Exception ex) {
+				Statusbar.outputError("Problem computing result for polnomial function", ex.toString());
+				return null;
+			}			
 		}		
+		Statusbar.outputError("Type of function does not exist!");
+		return null;
 	}
 
 	// TODO put into logic layer

@@ -9,6 +9,14 @@ import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
 
 public class ValueListBindingService {
+	// constant vvbs
+	public static ValidValuesBinding FUNCTIONS = new ValidValuesBinding() {
+		{
+			addValidValue(Constants.EXP, Constants.EXPONENTIAL);
+			addValidValue(Constants.POLY, Constants.POLYNOMIAL);
+		}
+	};
+	
 	private SQLExecutorService sqlExecutorService;
 	private Dictionary dictionaryService;
 	
