@@ -7,7 +7,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.faces.event.ActionEvent;
 
@@ -17,12 +16,13 @@ import net.sf.json.JSONSerializer;
 
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
-import org.eclnt.jsfserver.elements.BaseActionEvent;
+import org.eclnt.jsfserver.elements.BaseComponent;
 import org.eclnt.jsfserver.elements.events.BaseActionEventFlush;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDTreeBinding;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDTreeItem;
+import org.eclnt.jsfserver.elements.impl.TABBEDPANETABComponent;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.util.valuemgmt.ValueManager;
 import org.eclnt.workplace.IWorkpageDispatcher;
@@ -1153,6 +1153,11 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
     protected double m_valueX;
     public double getValueX() { return m_valueX; }
     public void setValueX(double value) { m_valueX = value; }
+    
+    public int getMaxWidth() { 
+    	Statusbar.outputMessage("Actual width: " + Helper.getWidth());
+    	return Helper.getWidth(); 
+    }
 
 	public ValidValuesBinding getFunctionsVvb() {		
 		return getServiceLayer().getValueListBindingService().FUNCTIONS;

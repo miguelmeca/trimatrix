@@ -107,6 +107,14 @@ public class Helper {
 	}
 	
 	/**
+	 * Get actual width of app screen from http request
+	 * @return width
+	 */
+	public static int getWidth() {
+		return Integer.valueOf(HttpSessionAccess.getCurrentRequest().getHeader(Constants.ECLNT_WIDTH));
+	}
+	
+	/**
 	 * Get NumberFormat object for formatting locale specific data e.g. date, double
 	 * @return NumberFormat
 	 */
