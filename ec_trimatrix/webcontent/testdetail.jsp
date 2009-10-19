@@ -461,6 +461,10 @@
 <t:label id="g_325" text="y" width="100" />
 <t:formattedfield id="g_326" actionListener="#{d.TestDetailUI.onChangeXY}" clientname="y" flush="true" format="double" value="#{d.TestDetailUI.valueY}" width="50" />
 </t:row>
+<t:rowdistance id="g_327" />
+<t:row id="g_328" >
+<t:field id="g_329" text="#{d.TestDetailUI.maxWidth}" width="100" />
+</t:row>
 </t:pane>
 </t:row>
 </t:tabbedpanetab>
