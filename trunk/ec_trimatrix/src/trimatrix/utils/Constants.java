@@ -20,6 +20,7 @@ public final class Constants {
 		DOCTORDETAIL("/doctordetail.jsp","Ärzte"),
 		TESTDETAIL("/testdetail.jsp","Tests"),
 		ATTACHMENTDETAIL("/attachmentdetail.jsp","Anhänge"),
+		ZONESDETAIL("/zonesdetail.jsp", "Trainingsbereiche"),
 		USERSELECTION("/userselection.jsp", "Benutzersuche"),
 		PERSONSELECTION("/personselection.jsp", "Personensuche"),
 		DOCTORSELECTION("/doctorselection.jsp", "Ärztesuche"),
@@ -133,7 +134,7 @@ public final class Constants {
 		ATHLETES_OWN, COACHES_OWN, DOCTORS_OWN, ATTACHMENTS_OWN, TESTS_OWN,	PERSON_OWN,	
 		USERS_ALL, PERSONS_ALL, DOCTORS_ALL, ATTACHMENTS_ALL, TESTS_ALL,
 		RELATIONS, RELATION_COACH, RELATION_DOCTOR, RELATION_ATTACHMENT,
-		TESTS_COACH
+		TESTS_COACH, ZONES
 	}
 	// all used profiles for persons
 	public static enum Profiles {
