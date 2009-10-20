@@ -5,11 +5,13 @@ import java.io.Serializable;
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
+import trimatrix.utils.Constants;
 
 @CCGenClass (expressionBase="#{d.ZonesDetailUI}")
 
@@ -19,9 +21,9 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
 		super(dispatcher);
 		buildGrid();
 	}
-    
-    public void onAddZone(ActionEvent event) {
-    	m_gridZones.getItems().add(new GridZonesItem());
+
+	public void onAddZone(ActionEvent event) {
+    	m_gridZones.getItems().add(new GridZonesItem());	
     }
 
 	protected FIXGRIDListBinding<GridZonesItem> m_gridZones = new FIXGRIDListBinding<GridZonesItem>();
@@ -58,13 +60,28 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
         public String getToken() { return m_token; }
         public void setToken(String value) { m_token = value; }
 
-        protected String m_color;
+        protected String m_color = "#FFFFFF";
         public String getColor() { return m_color; }
-        public void setColor(String value) { m_color = value; }
+        public void setColor(String value) { 
+        	m_color = value;
+        	//m_color2 = value;
+        }
+        
+        protected String m_color2;
+        public String getColor2() { return m_color2; }
+        public void setColor2(String value) { m_color2 = value; }
+        
+        public void onShowColor(ActionEvent event) {
+        	Statusbar.outputMessage("Color: " + m_color);
+        }
+        
+        public void onChangeColor(ActionEvent event) {
+        	m_color2 = m_color;
+        }
     }
     
     private void buildGrid() {
-    	m_gridZones.getItems().clear();
+    	
     }
 
 }
