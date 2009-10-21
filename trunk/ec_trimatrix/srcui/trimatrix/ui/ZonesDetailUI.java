@@ -76,7 +76,7 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
         }
         
         public void onChangeColor(ActionEvent event) {
-        	m_color2 = m_color;
+        	m_color2 = m_color + "FF" ;
         }
     }
     
