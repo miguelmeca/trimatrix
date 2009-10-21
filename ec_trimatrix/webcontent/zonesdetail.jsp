@@ -16,7 +16,7 @@
 <t:label id="g_3" text="Trainingsbereiche" />
 </t:row>
 <t:row id="g_4" >
-<t:fixgrid id="g_5" avoidroundtrips="0" objectbinding="#{d.ZonesDetailUI.gridZones}" sbvisibleamount="25" width="100%" >
+<t:fixgrid id="g_5" avoidroundtrips="0" objectbinding="#{d.ZonesDetailUI.gridZones}" sbvisibleamount="10" width="100%" >
 <t:gridcol id="g_6" align="center" searchenabled="false" sortenabled="false" text="Farbe" width="100" >
 <t:colorfield id="g_7" actionListener=".{onChangeColor}" background=".{color2}" flush="true" value=".{color}" />
 </t:gridcol>
@@ -39,6 +39,13 @@
 </t:row>
 <t:row id="g_18" >
 <t:button id="g_19" actionListener="#{d.ZonesDetailUI.onAddZone}" text="Neue Zone" />
+</t:row>
+<t:row id="g_20" >
+<t:paintarea id="g_21" height="200" magnifyfactor="100" width="200" >
+<t:paintarealineitem id="g_22" arrowto="3" />
+<t:paintareapaneitem id="g_23" background="#000000" bgpaint="write(50%,50%,Some text,20,#00FF00,centermiddle)" border="#808080" bounds="50;0;100;50" />
+<t:paintareaitem id="g_24" bounds="10;10;10;50" />
+</t:paintarea>
 </t:row>
 </t:rowbodypane>
 <t:pageaddons id="g_pa"/>
