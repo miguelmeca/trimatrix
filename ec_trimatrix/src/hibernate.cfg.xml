@@ -88,6 +88,8 @@
 		<mapping class="trimatrix.db.TestsSwimProtocol" />
 		<mapping class="trimatrix.db.TestsAnalysis" />
 		<mapping class="trimatrix.db.Labels" />
+		<mapping class="trimatrix.db.Zones" />
+		<mapping class="trimatrix.db.ZonesDefinition" />
 	</session-factory>
 
 </hibernate-configuration>

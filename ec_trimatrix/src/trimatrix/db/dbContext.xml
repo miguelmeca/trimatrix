@@ -97,6 +97,8 @@
                 <idref local="TTesttypesDAO" />
                 <idref local="ListVariantsDAO" />
                 <idref local="LabelsDAO" />
+                <idref local="ZonesDAO" />
+                <idref local="ZonesDefinitionDAO" />
                 <idref local="EntitiesHaveLabelsDAO" />
             </list>
         </property>
@@ -168,6 +170,12 @@
         <property name="testsSwimProtocolDAO">
             <ref bean="TestsSwimProtocolDAO" />
         </property> 
+        <property name="zonesDAO">
+            <ref bean="ZonesDAO" />
+        </property>  
+        <property name="zonesDefinitionDAO">
+            <ref bean="ZonesDefinitionDAO" />
+        </property>   
         <property name="relationDAOs">
         	<list>
         		<ref bean="PersonsHaveRelationsDAO" />
@@ -351,6 +359,17 @@
 		</property>
 	</bean>
 	<bean id="TestsAnalysisDAO" class="trimatrix.db.TestsAnalysisDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="ZonesDefinitionDAO"
+		class="trimatrix.db.ZonesDefinitionDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="ZonesDAO" class="trimatrix.db.ZonesDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>

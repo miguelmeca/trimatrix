@@ -43,6 +43,7 @@ import trimatrix.db.TestsSwimProtocol;
 import trimatrix.db.TestsSwimProtocolId;
 import trimatrix.db.TestsTreadmill;
 import trimatrix.db.Users;
+import trimatrix.db.ZonesDefinition;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SFunctionTree;
 import trimatrix.utils.Constants;
@@ -321,13 +322,24 @@ public class DBConnectionTest {
 		Assert.assertEquals(1, test2.getTestsSwim().getSteps().size());
 		Assert.assertEquals(100, test2.getTestsSwim().getSteps().iterator().next().getIntensity());
 		daoLayer.getTestsDAO().delete(test2);	
-		
-		
-		
-		
-		
-		
-		
+	}
+	
+	@Test
+	public void testZones() {
+		String id = UUID.randomUUID().toString();
+		ZonesDefinition definition = new ZonesDefinition();
+		definition.setId(id);
+		definition.setCoachId("123456ABCDEFG");
+		definition.setLactateLow(10d);
+		definition.setLactateHigh(12.1d);
+		definition.setDescription("Test");
+		daoLayer.getZonesDefinitionDAO().save(definition);
+		ZonesDefinition definition2 = daoLayer.getZonesDefinitionDAO().findById(id);
+		Assert.assertEquals("123456ABCDEFG", definition2.getCoachId());
+		Assert.assertEquals(10d, definition2.getLactateLow());
+		Assert.assertEquals(12.1d, definition2.getLactateHigh());
+		Assert.assertEquals("Test", definition2.getDescription());
+		daoLayer.getZonesDefinitionDAO().delete(definition2);
 	}
 	
 	@After
