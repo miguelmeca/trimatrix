@@ -13,39 +13,48 @@
 <f:subview id="zonesdetailg_sv">
 <t:rowbodypane id="g_1" >
 <t:row id="g_2" >
-<t:label id="g_3" text="Trainingsbereiche" />
+<t:button id="g_3" actionListener="#{d.ZonesDetailUI.onAddZone}" text="#{rr.literals.zone_add}" />
+<t:coldistance id="g_4" />
+<t:button id="g_5" actionListener="#{d.ZonesDetailUI.onDeleteZone}" text="#{rr.literals.zone_delete}" />
+<t:coldistance id="g_6" />
+<t:button id="g_7" actionListener="#{d.ZonesDetailUI.onSave}" text="#{rr.literals.save}" />
 </t:row>
-<t:row id="g_4" >
-<t:fixgrid id="g_5" avoidroundtrips="0" objectbinding="#{d.ZonesDetailUI.gridZones}" sbvisibleamount="10" width="100%" >
-<t:gridcol id="g_6" align="center" searchenabled="false" sortenabled="false" text="Farbe" width="100" >
-<t:colorfield id="g_7" actionListener=".{onChangeColor}" background=".{color2}" flush="true" value=".{color}" />
+<t:rowdistance id="g_8" height="10" />
+<t:rowline id="g_9" />
+<t:rowdistance id="g_10" height="10" />
+<t:row id="g_11" >
+<t:fixgrid id="g_12" avoidroundtrips="true" cellselection="true" objectbinding="#{d.ZonesDetailUI.gridZones}" sbvisibleamount="10" width="100%" >
+<t:gridcol id="g_13" columnresizingenabled="false" sortenabled="false" width="20" >
+<t:gridrowselector id="g_14" />
 </t:gridcol>
-<t:gridcol id="g_8" align="center" searchenabled="false" sortenabled="false" text="Kürzel" width="100" >
-<t:field id="g_9" text=".{token}" width="100" />
+<t:gridcol id="g_15" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.color}" width="100" >
+<t:colorfield id="g_16" actionListener=".{onChangeColor}" background=".{color2}" flush="true" value=".{color}" />
 </t:gridcol>
-<t:gridcol id="g_10" align="center" searchenabled="false" sortenabled="false" text="Beschreibung" width="100" >
-<t:field id="g_11" text=".{description}" width="100" />
+<t:gridcol id="g_17" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.shortcut}" width="100" >
+<t:field id="g_18" maxlength="20" text=".{token}" width="100" />
 </t:gridcol>
-<t:gridcol id="g_12" align="center" searchenabled="false" sortenabled="false" text="von Laktat" width="100" >
-<t:formattedfield id="g_13" format="double" value=".{lactateLow}" />
+<t:gridcol id="g_19" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.description}" width="200" >
+<t:field id="g_20" maxlength="50" text=".{description}" width="100" />
 </t:gridcol>
-<t:gridcol id="g_14" align="center" searchenabled="false" sortenabled="false" text="bis Laktat" width="100" >
-<t:formattedfield id="g_15" format="double" value=".{lactateHigh}" />
+<t:gridcol id="g_21" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.lactate_low}" width="80" >
+<t:formattedfield id="g_22" format="double" value=".{lactateLow}" />
 </t:gridcol>
-<t:gridcol id="g_16" text="Button" width="100" >
-<t:button id="g_17" actionListener=".{onShowColor}" text="Color" />
+<t:gridcol id="g_23" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.lactate_high}" width="80" >
+<t:formattedfield id="g_24" format="double" value=".{lactateHigh}" />
+</t:gridcol>
+<t:gridcol id="g_25" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.hr_prct_low}" width="60" >
+<t:formattedfield id="g_26" format="int" value=".{lactateLow}" />
+</t:gridcol>
+<t:gridcol id="g_27" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.hr_prct_high}" width="60" >
+<t:formattedfield id="g_28" format="int" value=".{lactateHigh}" />
 </t:gridcol>
 </t:fixgrid>
 </t:row>
-<t:row id="g_18" >
-<t:button id="g_19" actionListener="#{d.ZonesDetailUI.onAddZone}" text="Neue Zone" />
-</t:row>
-<t:row id="g_20" >
-<t:paintarea id="g_21" height="200" magnifyfactor="100" width="200" >
-<t:paintarealineitem id="g_22" arrowto="3" />
-<t:paintareapaneitem id="g_23" background="#000000" bgpaint="write(50%,50%,Some text,20,#00FF00,centermiddle)" border="#808080" bounds="50;0;100;50" />
-<t:paintareaitem id="g_24" bounds="10;10;10;50" />
-</t:paintarea>
+<t:rowdistance id="g_29" />
+<t:row id="g_30" >
+<t:button id="g_31" actionListener="#{d.ZonesDetailUI.onShiftUp}" text="#{rr.literals.shift_up}" />
+<t:coldistance id="g_32" />
+<t:button id="g_33" actionListener="#{d.ZonesDetailUI.onShiftDown}" text="#{rr.literals.shift_down}" />
 </t:row>
 </t:rowbodypane>
 <t:pageaddons id="g_pa"/>

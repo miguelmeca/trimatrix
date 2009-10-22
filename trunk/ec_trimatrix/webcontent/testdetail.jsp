@@ -160,7 +160,7 @@
 <t:link id="g_118" actionListener="#{d.TestDetailUI.gridTreadmill.onOpenGridFunctions}" text="#{rr.literals.export}" />
 </t:row>
 <t:row id="g_119" >
-<t:fixgrid id="g_120" avoidroundtrips="1" border="#808080" enabled="#{d.TestDetailUI.enabled}" multiselect="false" objectbinding="#{d.TestDetailUI.gridTreadmill}" sbvisibleamount="20" width="100%" >
+<t:fixgrid id="g_120" avoidroundtrips="1" bordercolor="#C0C0C0" borderheight="1" borderwidth="1" enabled="#{d.TestDetailUI.enabled}" multiselect="false" objectbinding="#{d.TestDetailUI.gridTreadmill}" sbvisibleamount="20" width="100%" >
 <t:gridcol id="g_121" columnresizingenabled="false" sortenabled="false" width="20" >
 <t:gridrowselector id="g_122" />
 </t:gridcol>

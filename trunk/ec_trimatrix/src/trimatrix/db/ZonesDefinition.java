@@ -3,6 +3,7 @@ package trimatrix.db;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -21,9 +22,10 @@ public class ZonesDefinition  implements java.io.Serializable {
 
      private String id;
      private String coachId;
-     private Integer order;
+     private Integer sequence;
      private String shortcut;
      private String description;
+     private String color;
      private Double lactateLow;
      private Double lactateHigh;
      private Integer hrLow;
@@ -43,12 +45,13 @@ public class ZonesDefinition  implements java.io.Serializable {
     }
     
     /** full constructor */
-    public ZonesDefinition(String id, String coachId, Integer order, String shortcut, String description, Double lactateLow, Double lactateHigh, Integer hrLow, Integer hrHigh) {
+    public ZonesDefinition(String id, String coachId, Integer sequence, String shortcut, String description, String color, Double lactateLow, Double lactateHigh, Integer hrLow, Integer hrHigh) {
         this.id = id;
         this.coachId = coachId;
-        this.order = order;
+        this.sequence = sequence;
         this.shortcut = shortcut;
         this.description = description;
+        this.color = color;
         this.lactateLow = lactateLow;
         this.lactateHigh = lactateHigh;
         this.hrLow = hrLow;
@@ -70,7 +73,6 @@ public class ZonesDefinition  implements java.io.Serializable {
     }
     
     @Column(name="coach_id", nullable=false, length=36)
-
     public String getCoachId() {
         return this.coachId;
     }
@@ -79,14 +81,14 @@ public class ZonesDefinition  implements java.io.Serializable {
         this.coachId = coachId;
     }
     
-    @Column(name="order")
+    @Column(name="sequence")
 
-    public Integer getOrder() {
-        return this.order;
+    public Integer getSequence() {
+        return this.sequence;
     }
     
-    public void setOrder(Integer order) {
-        this.order = order;
+    public void setSequence(Integer sequence) {
+        this.sequence = sequence;
     }
     
     @Column(name="shortcut", length=20)
@@ -107,6 +109,16 @@ public class ZonesDefinition  implements java.io.Serializable {
     
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    @Column(name="color", length=10)
+
+    public String getColor() {
+        return this.color;
+    }
+    
+    public void setColor(String color) {
+        this.color = color;
     }
     
     @Column(name="lactate_low", columnDefinition="decimal")
