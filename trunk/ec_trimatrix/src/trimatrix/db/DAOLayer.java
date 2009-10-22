@@ -27,6 +27,8 @@ public class DAOLayer {
 	private ISimpleDAO<TestsSwimProtocol> testsSwimProtocolDAO;	
 	private IComplexDAO<ListVariants, ListVariantsId> listVariantsDAO;	
 	private ILabelsDAO labelsDAO;
+	private ISimpleDAO<Zones> zonesDAO;
+	private ISimpleDAO<ZonesDefinition> zonesDefinitionDAO;
 	
 	private IEntitiesHaveLabelsDAO entitiesHaveLabelsDAO;
 	private List<IRelationDAO<IRelationObject>> relationDAOs;		
@@ -183,8 +185,20 @@ public class DAOLayer {
 	
 	public void setLabelsDAO(ILabelsDAO labelsDAO) {
 		this.labelsDAO = labelsDAO;
-	}
+	}	
 	
+	public ISimpleDAO<Zones> getZonesDAO() {
+		return zonesDAO;
+	}
+	public void setZonesDAO(ISimpleDAO<Zones> zonesDAO) {
+		this.zonesDAO = zonesDAO;
+	}
+	public ISimpleDAO<ZonesDefinition> getZonesDefinitionDAO() {
+		return zonesDefinitionDAO;
+	}
+	public void setZonesDefinitionDAO(ISimpleDAO<ZonesDefinition> zonesDefinitionDAO) {
+		this.zonesDefinitionDAO = zonesDefinitionDAO;
+	}
 	public IEntitiesHaveLabelsDAO getEntitiesHaveLabelsDAO() {
 		return entitiesHaveLabelsDAO;
 	}
