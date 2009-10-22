@@ -1,17 +1,23 @@
 package trimatrix.db;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.IndexColumn;
 import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
+import org.hibernate.annotations.OrderBy;
 import org.hibernate.validator.Email;
 
 import trimatrix.entities.IEntityObject;
@@ -54,6 +60,8 @@ public class Persons implements java.io.Serializable, IEntityObject {
 	// Collections
 	
 	private PersonsAthlete personsAthlete;
+	// TODO create a separate profile for coach and add definitions there
+	private List<ZonesDefinition> zonesDefinition;
 
 	// Constructors
 
@@ -324,6 +332,18 @@ public class Persons implements java.io.Serializable, IEntityObject {
     @LazyToOne(LazyToOneOption.FALSE)
 	public PersonsAthlete getProfileAthlete() {
 		return personsAthlete;
+	}
+	
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    @JoinColumn(name="coach_id")
+    @IndexColumn(name="sequence") 
+    @OrderBy(clause="sequence")
+	public List<ZonesDefinition> getZonesDefinition() {
+		return zonesDefinition;
+	}
+
+	public void setZonesDefinition(List<ZonesDefinition> zonesDefinition) {
+		this.zonesDefinition = zonesDefinition;
 	}
 
 	public void setProfileAthlete(PersonsAthlete personsAthlete) {

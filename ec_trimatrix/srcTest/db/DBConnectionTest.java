@@ -43,6 +43,7 @@ import trimatrix.db.TestsSwimProtocol;
 import trimatrix.db.TestsSwimProtocolId;
 import trimatrix.db.TestsTreadmill;
 import trimatrix.db.Users;
+import trimatrix.db.Zones;
 import trimatrix.db.ZonesDefinition;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SFunctionTree;
@@ -326,20 +327,32 @@ public class DBConnectionTest {
 	
 	@Test
 	public void testZones() {
+		// Zones Definition
 		String id = UUID.randomUUID().toString();
 		ZonesDefinition definition = new ZonesDefinition();
 		definition.setId(id);
 		definition.setCoachId("123456ABCDEFG");
+		definition.setSequence(1);
 		definition.setLactateLow(10d);
 		definition.setLactateHigh(12.1d);
 		definition.setDescription("Test");
 		daoLayer.getZonesDefinitionDAO().save(definition);
 		ZonesDefinition definition2 = daoLayer.getZonesDefinitionDAO().findById(id);
 		Assert.assertEquals("123456ABCDEFG", definition2.getCoachId());
+		Assert.assertEquals(1, definition2.getSequence());
 		Assert.assertEquals(10d, definition2.getLactateLow());
 		Assert.assertEquals(12.1d, definition2.getLactateHigh());
 		Assert.assertEquals("Test", definition2.getDescription());
 		daoLayer.getZonesDefinitionDAO().delete(definition2);
+		// Zones
+		id = UUID.randomUUID().toString();
+		Zones zones = new Zones();
+		zones.setId(id);	
+		zones.setAthleteId("123456ABCDEFG");
+		daoLayer.getZonesDAO().save(zones);
+		Zones zones2 = daoLayer.getZonesDAO().findById(id);
+		Assert.assertEquals("123456ABCDEFG", zones2.getAthleteId());
+		daoLayer.getZonesDAO().delete(zones2);
 	}
 	
 	@After
