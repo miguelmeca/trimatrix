@@ -31,6 +31,22 @@ public class FunctionTreeLogic {
 		}
 	}
 	
+	public void setAuthority(FunctionNode node, boolean create, boolean  edit, boolean delete) {
+		node.setParam(Constants.CREATE, Constants.FALSE);
+		if(create) {
+			node.setParam(Constants.CREATE, Constants.TRUE);
+		}
+		node.setParam(Constants.CHANGE, Constants.FALSE);
+		if(edit) {
+			node.setParam(Constants.CHANGE, Constants.TRUE);
+		}
+		node.setParam(Constants.DELETE, Constants.FALSE);
+		if(delete) {
+			node.setParam(Constants.DELETE, Constants.TRUE);
+		}
+	}
+	
+	
 	public void setEntityLayer(EntityLayer entityLayer) {
 		this.entityLayer = entityLayer;
 	}	

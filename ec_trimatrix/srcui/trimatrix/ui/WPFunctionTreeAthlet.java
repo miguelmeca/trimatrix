@@ -40,7 +40,7 @@ public class WPFunctionTreeAthlet extends WorkplaceFunctionTree {
 			
 			boolean topNode = false;
 			// topnode?
-			if(functionTree.page == null && functionTree.page.length() == 0) {
+			if(functionTree.page == null || functionTree.page.length() == 0) {
 				topNode = true;
 			}
 			// get parent node

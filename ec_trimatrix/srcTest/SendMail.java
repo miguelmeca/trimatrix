@@ -88,12 +88,12 @@ public class SendMail {
 		// Part two is attachment
 		messageBodyPart = new MimeBodyPart();
 
-		PdfWriter writer = null;
+		//PdfWriter writer = null;
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		//DataSource source = new FileDataSource("Test.pdf");
 		Document document = new Document();
 		try {			
-			writer = PdfWriter.getInstance(document, baos);
+			//writer = PdfWriter.getInstance(document, baos);
 			document.open();
 			document.add(new Paragraph("Hello World"));
 			document.close();

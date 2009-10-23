@@ -154,7 +154,7 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 			
 			boolean topNode = false;
 			// topnode?
-			if(functionTree.page == null && functionTree.page.length() == 0) {
+			if(functionTree.page == null || functionTree.page.length() == 0) {
 				topNode = true;
 			}
 			// get parent node
@@ -225,6 +225,15 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 						test_node.setParam(Constants.P_ENTITY, Constants.Entity.TEST.name());
 						// authorization as parent
 						FUNCTIONTREELOGIC.setAuthority(functionTree, test_node);
+						// add zones per athlete
+						FunctionNode zones_node = new FunctionNode(athlete_node, Constants.Page.ZONESDETAIL.getUrl());	
+						zones_node.setId(athlete.getId());
+						zones_node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
+						zones_node.setOpenMultipleInstances(true);						
+						zones_node.setText(Helper.getLiteral("exercise_zones"));	
+						zones_node.setParam(Constants.P_PERSON, athlete.getId());
+						// authorization => coach is allowed to manually change values
+						FUNCTIONTREELOGIC.setAuthority(zones_node, false, true, false);						
 					}								
 				}
 			} else {

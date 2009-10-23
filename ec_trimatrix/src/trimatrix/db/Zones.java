@@ -1,8 +1,12 @@
 package trimatrix.db;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -16,12 +20,14 @@ public class Zones implements java.io.Serializable {
 
 	private String id;
 	private String athleteId;
+	private String zonesDefinitionId;
 	private Double speedLow;
 	private Double speedHigh;
 	private Double powerLow;
 	private Double powerHigh;
 	private Boolean auto;
 	private String testId;
+	private ZonesDefinition zonesDefinition;
 
 	// Constructors
 
@@ -36,11 +42,12 @@ public class Zones implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Zones(String id, String athleteId, Double speedLow,
+	public Zones(String id, String athleteId, String zonesDefinitionId, Double speedLow,
 			Double speedHigh, Double powerLow, Double powerHigh, Boolean auto,
 			String testId) {
 		this.id = id;
 		this.athleteId = athleteId;
+		this.zonesDefinitionId = zonesDefinitionId;
 		this.speedLow = speedLow;
 		this.speedHigh = speedHigh;
 		this.powerLow = powerLow;
@@ -67,6 +74,15 @@ public class Zones implements java.io.Serializable {
 
 	public void setAthleteId(String athleteId) {
 		this.athleteId = athleteId;
+	}
+
+	@Column(name = "zones_definition_id", nullable = false, length = 36)
+	public String getZonesDefinitionId() {
+		return zonesDefinitionId;
+	}
+
+	public void setZonesDefinitionId(String zonesDefinitionId) {
+		this.zonesDefinitionId = zonesDefinitionId;
 	}
 
 	@Column(name = "speed_low", columnDefinition="decimal")
@@ -123,4 +139,13 @@ public class Zones implements java.io.Serializable {
 		this.testId = testId;
 	}
 
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+    @JoinColumn(name="id")
+	public ZonesDefinition getZonesDefinition() {
+		return zonesDefinition;
+	}
+
+	public void setZonesDefinition(ZonesDefinition zonesDefinition) {
+		this.zonesDefinition = zonesDefinition;
+	}
 }

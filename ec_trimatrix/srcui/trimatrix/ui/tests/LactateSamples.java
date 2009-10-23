@@ -89,7 +89,7 @@ public class LactateSamples {
 		return result.toString();
 	}
 
-	private class Lactate {
+	public class Lactate {
 		Integer minutes = 0;
 		Double lactate = 0d;
 
@@ -120,7 +120,7 @@ public class LactateSamples {
 		}		
 	}
 	
-	private class LactateList extends ArrayList<Lactate> {
+	public class LactateList extends ArrayList<Lactate> {
 		Double maxLactate;
 		Double minLactate;
 		@Override

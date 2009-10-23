@@ -54,7 +54,7 @@ public class AcroFormServlet extends HttpServlet {
 		// get DAO layer from context
 		ServletContext context = getServletContext();
 		WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(context);
-		DAOLayer daoLayer = DAOLayer.getFromApplicationContext(ctx);
+		//DAOLayer daoLayer = DAOLayer.getFromApplicationContext(ctx);
 		
 		response.setContentType("text/html");
 		//response.setContentType("application/pdf");
