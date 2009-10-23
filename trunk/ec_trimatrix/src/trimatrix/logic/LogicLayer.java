@@ -8,6 +8,7 @@ public final class LogicLayer {
 	private FunctionTreeLogic functionTreeLogic;
 	private RelationListLogic relationListLogic;
 	private LabelLogic labelLogic;
+	private ZonesLogic zonesLogic;
 	
 	public LogonLogic getLogonLogic() {
 		return logonLogic;
@@ -37,7 +38,13 @@ public final class LogicLayer {
 		return labelLogic;
 	}
 	public void setLabelLogic(LabelLogic labelLogic) {
-		this.labelLogic = labelLogic;
+		this.labelLogic = labelLogic;		
+	}	
+	public ZonesLogic getZonesLogic() {
+		return zonesLogic;
+	}
+	public void setZonesLogic(ZonesLogic zonesLogic) {
+		this.zonesLogic = zonesLogic;
 	}
 	public static LogicLayer getFromApplicationContext(ApplicationContext ctx) {
 		return (LogicLayer) ctx.getBean("logicLayer");

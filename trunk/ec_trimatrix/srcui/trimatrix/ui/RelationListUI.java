@@ -29,11 +29,12 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 	private ARRAYGRIDListBinding<MyARRAYGRIDItem> grid = new ARRAYGRIDListBinding<MyARRAYGRIDItem>();
 	public ARRAYGRIDListBinding<MyARRAYGRIDItem> getGrid() { return grid; }
 	
-	private static Constants.Relation relation;
+	private Constants.Relation relation;
 	private static final int COLCOUNT = 3;
 	private static final String REMOVE = "remove";
 	private static final String ADD = "add";
 	
+	// TODO put literals to constants
 	private static final String[] titles = {"Partner 1", "Beziehung", "Partner 2"};
 	private static final String[] widths = {"100","100","100"};
 	private static final String[] aligns = {"center", "center", "center"};

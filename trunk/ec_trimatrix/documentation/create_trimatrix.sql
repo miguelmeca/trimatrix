@@ -11,7 +11,7 @@ MySQL - 5.1.33-community : Database - trimatrix
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`trimatrix` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`trimatrix` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 USE `trimatrix`;
 
@@ -164,7 +164,7 @@ CREATE TABLE `k_functionnodes` (
 
 /*Data for the table `k_functionnodes` */
 
-insert  into `k_functionnodes`(`key`,`page`,`entity`,`edit`,`create`,`delete`) values ('masterdata',' ',' ',0,0,0),('users_all','ENTITYLIST','USER',1,1,1),('persons_all','ENTITYLIST','PERSON',1,1,1),('person_own','ENTITYDETAIL','PERSON',1,0,0),('coaches_own','ENTITYLIST','MYCOACHES',0,0,0),('athletes_own','ENTITYLIST','MYATHLETES',0,0,1),('relations','','',0,0,0),('relation_coach','RELATIONLIST','COACH',1,1,1),('relation_doctor','RELATIONLIST','DOCTOR',1,1,1),('doctors_all','ENTITYLIST','DOCTOR',1,1,1),('doctors_own','ENTITYLIST','MYDOCTORS',0,0,0),('attachments_all','ENTITYLIST','ATTACHMENT',1,1,1),('attachments_own','ENTITYLIST','MYATTACHMENTS',1,1,1),('relation_attachment','RELATIONLIST','ATTACHMENT',1,1,1),('tests_all','ENTITYLIST','TEST',1,1,1),('tests_own','ENTITYLIST','MYTESTS',0,0,0),('tests_coach','ENTITYLIST','COACHTESTS',1,1,1),('zones_coach','ZONESDETAIL',' ',1,1,1);
+insert  into `k_functionnodes`(`key`,`page`,`entity`,`edit`,`create`,`delete`) values ('masterdata',' ',' ',0,0,0),('users_all','ENTITYLIST','USER',1,1,1),('persons_all','ENTITYLIST','PERSON',1,1,1),('person_own','ENTITYDETAIL','PERSON',1,0,0),('coaches_own','ENTITYLIST','MYCOACHES',0,0,0),('athletes_own','ENTITYLIST','MYATHLETES',0,0,1),('relations','','',0,0,0),('relation_coach','RELATIONLIST','COACH',1,1,1),('relation_doctor','RELATIONLIST','DOCTOR',1,1,1),('doctors_all','ENTITYLIST','DOCTOR',1,1,1),('doctors_own','ENTITYLIST','MYDOCTORS',0,0,0),('attachments_all','ENTITYLIST','ATTACHMENT',1,1,1),('attachments_own','ENTITYLIST','MYATTACHMENTS',1,1,1),('relation_attachment','RELATIONLIST','ATTACHMENT',1,1,1),('tests_all','ENTITYLIST','TEST',1,1,1),('tests_own','ENTITYLIST','MYTESTS',0,0,0),('tests_coach','ENTITYLIST','COACHTESTS',1,1,1),('zones_coach','ZONESDEFINITION',' ',1,1,1),('zones_athlete','ZONESDETAIL',' ',0,0,0);
 
 /*Table structure for table `k_languages` */
 
@@ -420,7 +420,7 @@ CREATE TABLE `roles_have_functionnodes` (
 
 /*Data for the table `roles_have_functionnodes` */
 
-insert  into `roles_have_functionnodes`(`role_key`,`functionnode_key`,`node`,`parent`,`order`) values ('admin','masterdata',1,0,1),('admin','users_all',2,1,1),('admin','persons_all',3,1,2),('athlete','person_own',1,0,1),('athlete','coaches_own',2,0,2),('coach','person_own',1,0,1),('coach','athletes_own',2,0,2),('admin','relations',4,0,2),('admin','relation_coach',5,4,1),('admin','doctors_all',6,1,3),('admin','relation_doctor',7,4,2),('athlete','doctors_own',3,0,3),('coach','doctors_own',3,0,3),('admin','attachments_all',7,1,4),('athlete','attachments_own',4,0,4),('coach','attachments_own',4,0,4),('admin','relation_attachment',8,4,3),('admin','tests_all',9,1,5),('athlete','tests_own',5,0,5),('coach','tests_coach',5,0,5),('coach','zones_coach',6,0,6);
+insert  into `roles_have_functionnodes`(`role_key`,`functionnode_key`,`node`,`parent`,`order`) values ('admin','masterdata',1,0,1),('admin','users_all',2,1,1),('admin','persons_all',3,1,2),('athlete','person_own',1,0,1),('athlete','coaches_own',2,0,2),('coach','person_own',1,0,1),('coach','athletes_own',2,0,2),('admin','relations',4,0,2),('admin','relation_coach',5,4,1),('admin','doctors_all',6,1,3),('admin','relation_doctor',7,4,2),('athlete','doctors_own',3,0,3),('coach','doctors_own',3,0,3),('admin','attachments_all',7,1,4),('athlete','attachments_own',4,0,4),('coach','attachments_own',4,0,4),('admin','relation_attachment',8,4,3),('admin','tests_all',9,1,5),('athlete','tests_own',5,0,5),('coach','tests_coach',5,0,5),('coach','zones_coach',6,0,6),('athlete','zones_athlete',6,0,6);
 
 /*Table structure for table `t_authorizations` */
 
@@ -508,7 +508,7 @@ CREATE TABLE `t_functionnodes` (
 
 /*Data for the table `t_functionnodes` */
 
-insert  into `t_functionnodes`(`key`,`language_key`,`description`,`description_long`) values ('persons_all','de','Personen','Personen'),('persons_all','en','Persons','Persons'),('users_all','de','Benutzer','Benutzer'),('users_all','en','Users','Users'),('masterdata','de','Stammdaten','Stammdaten'),('masterdata','en','Masterdata','Masterdata'),('person_own','de','Eigene Person','Eigene Person'),('person_own','en','My person','My person'),('coaches_own','de','Meine Trainer','Meine Trainer'),('coaches_own','en','My Coaches','My Coaches'),('athletes_own','de','Meine Athleten','Meine Athleten'),('athletes_own','en','My Athletes','My Athletes'),('relations','de','Beziehungen','Beziehungen'),('relations','en','Relationships','Relationships'),('relation_coach','de','Trainer','Trainer'),('relation_coach','en','Coaches','Coaches'),('relation_doctor','de','Ärzte','Ärzte'),('relation_doctor','en','Doctors','Doctors'),('doctors_all','de','Ärzte','Ärzte'),('doctors_all','en','Doctors','Doctors'),('doctors_own','de','Meine Ärzte','Meine Ärzte'),('doctors_own','en','My Doctors','My Doctors'),('attachments_all','de','Anhänge','Anhänge'),('attachments_all','en','Attachments','Attachments'),('attachments_own','de','Meine Anhänge','Meine Anhänge'),('attachments_own','en','My Attachments','My Attachments'),('relation_attachment','de','Anhänge','Anhänge'),('relation_attachment','en','Attachments','Attachments'),('tests_all','de','Tests','Tests'),('tests_own','de','Meine Tests','Meine Tests'),('tests_coach','de','Meine Tests','Meine Tests'),('zones_coach','de','Trainingsbereiche','Trainingsbereiche'),('zones_coach','en','Excercise Zones','Exercise Zones');
+insert  into `t_functionnodes`(`key`,`language_key`,`description`,`description_long`) values ('persons_all','de','Personen','Personen'),('persons_all','en','Persons','Persons'),('users_all','de','Benutzer','Benutzer'),('users_all','en','Users','Users'),('masterdata','de','Stammdaten','Stammdaten'),('masterdata','en','Masterdata','Masterdata'),('person_own','de','Eigene Person','Eigene Person'),('person_own','en','My person','My person'),('coaches_own','de','Meine Trainer','Meine Trainer'),('coaches_own','en','My Coaches','My Coaches'),('athletes_own','de','Meine Athleten','Meine Athleten'),('athletes_own','en','My Athletes','My Athletes'),('relations','de','Beziehungen','Beziehungen'),('relations','en','Relationships','Relationships'),('relation_coach','de','Trainer','Trainer'),('relation_coach','en','Coaches','Coaches'),('relation_doctor','de','Ärzte','Ärzte'),('relation_doctor','en','Doctors','Doctors'),('doctors_all','de','Ärzte','Ärzte'),('doctors_all','en','Doctors','Doctors'),('doctors_own','de','Meine Ärzte','Meine Ärzte'),('doctors_own','en','My Doctors','My Doctors'),('attachments_all','de','Anhänge','Anhänge'),('attachments_all','en','Attachments','Attachments'),('attachments_own','de','Meine Anhänge','Meine Anhänge'),('attachments_own','en','My Attachments','My Attachments'),('relation_attachment','de','Anhänge','Anhänge'),('relation_attachment','en','Attachments','Attachments'),('tests_all','de','Tests','Tests'),('tests_own','de','Meine Tests','Meine Tests'),('tests_coach','de','Meine Tests','Meine Tests'),('zones_coach','de','Trainingsbereiche','Trainingsbereiche'),('zones_coach','en','Excercise Zones','Exercise Zones'),('zones_athlete','de','Trainingsbereiche','Trainingsbereiche'),('zones_athlete','en','My Zones','My Zones');
 
 /*Table structure for table `t_languages` */
 
@@ -857,6 +857,7 @@ DROP TABLE IF EXISTS `zones`;
 CREATE TABLE `zones` (
   `id` varchar(36) NOT NULL,
   `athlete_id` varchar(36) NOT NULL,
+  `zones_definition_id` varchar(36) NOT NULL,
   `speed_low` decimal(10,2) DEFAULT NULL,
   `speed_high` decimal(10,2) DEFAULT NULL,
   `power_low` decimal(10,2) DEFAULT NULL,
@@ -865,8 +866,9 @@ CREATE TABLE `zones` (
   `test_id` varchar(36) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_zones_persons` (`athlete_id`),
-  KEY `fk_zones_tests` (`test_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Exercise zones for athletes';
+  KEY `fk_zones_tests` (`test_id`),
+  KEY `fk_zones_zones_definition` (`zones_definition_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Exercise zones for athletes';
 
 /*Data for the table `zones` */
 
@@ -891,7 +893,7 @@ CREATE TABLE `zones_definition` (
 
 /*Data for the table `zones_definition` */
 
-insert  into `zones_definition`(`id`,`coach_id`,`sequence`,`shortcut`,`description`,`color`,`lactate_low`,`lactate_high`,`hr_low`,`hr_high`) values ('b4e8aeb1-5b6b-4271-b708-68d73978bb8g','0b0b7658-2ddb-11de-86ae-00301bb60f17',1,NULL,'Test 03',NULL,NULL,NULL,NULL,NULL),('b4e8aeb1-5b6b-4271-b708-68d73978bb8h','0b0b7658-2ddb-11de-86ae-00301bb60f17',0,NULL,'01',NULL,NULL,NULL,NULL,NULL),('b4e8aeb1-5b6b-4271-b708-68d73978bb8c','0b0b7658-2ddb-11de-86ae-00301bb60f17',2,NULL,'Test 02',NULL,NULL,NULL,NULL,NULL),('7411abed-eab9-45fc-9dbc-f98915bd2e37','0b0b7658-2ddb-11de-86ae-00301bb60f17',4,NULL,'Test 04',NULL,NULL,NULL,NULL,NULL),('ac6c6401-d59f-48aa-8fb7-1a8529297f7b','0b0b7658-2ddb-11de-86ae-00301bb60f17',3,NULL,'Test 05',NULL,NULL,NULL,NULL,NULL);
+insert  into `zones_definition`(`id`,`coach_id`,`sequence`,`shortcut`,`description`,`color`,`lactate_low`,`lactate_high`,`hr_low`,`hr_high`) values ('b4e8aeb1-5b6b-4271-b708-68d73978bb8g','0b0b7658-2ddb-11de-86ae-00301bb60f17',1,NULL,'Test 03','#FFFFFF','11.00','11.00',NULL,NULL),('b4e8aeb1-5b6b-4271-b708-68d73978bb8h','0b0b7658-2ddb-11de-86ae-00301bb60f17',0,'Test','01','#ff0099','1.10','1.30',80,90),('b4e8aeb1-5b6b-4271-b708-68d73978bb8c','0b0b7658-2ddb-11de-86ae-00301bb60f17',3,NULL,'Test 02','#FFFFFF',NULL,NULL,NULL,NULL),('b9747e6a-bb92-45c5-a88c-7256aa76912e','0b0b7658-2ddb-11de-86ae-00301bb60f17',4,NULL,'TEst 99','#3300ff',NULL,NULL,NULL,NULL),('ac6c6401-d59f-48aa-8fb7-1a8529297f7b','0b0b7658-2ddb-11de-86ae-00301bb60f17',2,NULL,'Test 05','#ffcc00',NULL,NULL,NULL,NULL);
 
 /*Table structure for table `entities` */
 
@@ -901,10 +903,10 @@ DROP TABLE IF EXISTS `entities`;
 /*!50001 DROP TABLE IF EXISTS `entities` */;
 
 /*!50001 CREATE TABLE `entities` (
-  `id` varchar(36) NOT NULL DEFAULT '',
-  `entity` varchar(10) NOT NULL DEFAULT '',
+  `id` varchar(36) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `entity` varchar(10) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `deleted` tinyint(4) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 */;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 */;
 
 /*Table structure for table `relations` */
 
@@ -914,11 +916,11 @@ DROP TABLE IF EXISTS `relations`;
 /*!50001 DROP TABLE IF EXISTS `relations` */;
 
 /*!50001 CREATE TABLE `relations` (
-  `id` varchar(36) NOT NULL DEFAULT '',
-  `partner1` varchar(36) DEFAULT NULL,
-  `partner2` varchar(36) DEFAULT NULL,
-  `reltyp_key` varchar(10) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 */;
+  `id` varchar(36) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `partner1` varchar(36) CHARACTER SET utf8 DEFAULT NULL,
+  `partner2` varchar(36) CHARACTER SET utf8 DEFAULT NULL,
+  `reltyp_key` varchar(10) CHARACTER SET utf8 DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 */;
 
 /*View structure for view entities */
 

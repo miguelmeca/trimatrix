@@ -21,6 +21,7 @@ public final class Constants {
 		TESTDETAIL("/testdetail.jsp","Tests"),
 		ATTACHMENTDETAIL("/attachmentdetail.jsp","Anhänge"),
 		ZONESDETAIL("/zonesdetail.jsp", "Trainingsbereiche"),
+		ZONESDEFINITION("/zonesdefinition.jsp", "Trainingsbereiche"),
 		USERSELECTION("/userselection.jsp", "Benutzersuche"),
 		PERSONSELECTION("/personselection.jsp", "Personensuche"),
 		DOCTORSELECTION("/doctorselection.jsp", "Ärztesuche"),

@@ -25,6 +25,7 @@ public class RegressionTest {
 		double[] xyArr = { 8, 1.64-offset, 10, 1.69-offset, 12, 2.04-offset, 14, 2.5-offset, 16, 3.29-offset, 18, 6.02-offset, 20, 11.76-offset, 22, 14.80-offset };
 		RegressionFunctions regression = new RegressionFunctions(RegressionFunctions.EXP_REGRESSION, xyArr, offset);
 		RegressionResult result = regression.getResult();
+		Assert.assertNotNull(result);
 				
 		double[] xyArr2 = xyArr.clone();
 		

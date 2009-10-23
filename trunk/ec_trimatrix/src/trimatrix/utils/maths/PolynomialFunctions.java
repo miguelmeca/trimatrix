@@ -108,5 +108,17 @@ public class PolynomialFunctions extends AFunctions {
 		public String getFormel() {
 			return formel.toString();
 		}
+
+		public double[] getFactors() {
+			return factors;
+		}
+
+		public String getTitel() {
+			return titel;
+		}
+
+		public int getDegree() {
+			return degree;
+		}		
 	}
 }

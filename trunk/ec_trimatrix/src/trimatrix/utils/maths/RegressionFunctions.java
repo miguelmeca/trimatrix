@@ -332,7 +332,7 @@ public class RegressionFunctions extends AFunctions {
 	public static double getYFromMultiLinearFunction(double[] xyArr, double x) throws OutOfBoundsException, ArrayNotEvenException {
 		double y = 0;
 		int length = xyArr.length;
-		if (xyArr == null || length < 2 || length % 2 != 0)
+		if (length < 2 || length % 2 != 0)
 			throw new ArrayNotEvenException();
 		if (x < xyArr[0] || x > xyArr[length-2])
 			throw new OutOfBoundsException(xyArr[0], xyArr[length-2], x);
@@ -399,6 +399,8 @@ public class RegressionFunctions extends AFunctions {
 		}
 		
 		public String getFormel() { return formel; }
+		
+		public String getTitell() { return titel; }
 		
 		public double getCorrelation() {
 			double[] xyArr = new double[xyValues.length];

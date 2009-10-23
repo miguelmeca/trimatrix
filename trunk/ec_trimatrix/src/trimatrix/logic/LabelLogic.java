@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.Vector;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.hibernate.exception.ConstraintViolationException;
 
@@ -12,9 +14,9 @@ import trimatrix.db.EntitiesHaveLabels;
 import trimatrix.db.EntitiesHaveLabelsId;
 import trimatrix.db.Labels;
 import trimatrix.services.ServiceLayer;
-import trimatrix.utils.Helper;
 
 public class LabelLogic {
+	public static final Log logger = LogFactory.getLog(LabelLogic.class);
 	private DAOLayer daoLayer;
 	private ServiceLayer serviceLayer;
 	
@@ -36,7 +38,7 @@ public class LabelLogic {
 			Statusbar.outputMessage("Label already assigned!");
 			return false;
 		} catch(Exception ex) {
-			Helper.logger.error("Error saving relation entity " + entity_id + " and label " + label_id );
+			logger.error("Error saving relation entity " + entity_id + " and label " + label_id );
 			return false;
 		}				
 	}
@@ -51,7 +53,7 @@ public class LabelLogic {
 			daoLayer.getEntitiesHaveLabelsDAO().delete(relation);
 			return true;
 		} catch(Exception ex) {
-			Helper.logger.error("Error saving relation entity " + entity_id + " and label " + label_id );
+			logger.error("Error saving relation entity " + entity_id + " and label " + label_id );
 			return false;
 		}				
 	}	
@@ -65,7 +67,7 @@ public class LabelLogic {
 			daoLayer.getLabelsDAO().merge(label);
 			return true;
 		} catch (Exception ex) {
-			Helper.logger.error(ex.toString());
+			logger.error(ex.toString());
 			return false;
 		}		
 	}

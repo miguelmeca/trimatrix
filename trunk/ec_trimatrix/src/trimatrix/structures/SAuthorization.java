@@ -1,8 +1,10 @@
 package trimatrix.structures;
 
+import java.io.Serializable;
+
 import trimatrix.utils.Constants;
 
-public class SAuthorization {
+public class SAuthorization implements Serializable {
 	public static final SAuthorization NONE = new SAuthorization(false, false, false);
 	public boolean create;
 	public boolean change;

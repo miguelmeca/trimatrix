@@ -159,8 +159,8 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 								// delete label		
 								if(label!=null) {
 									getDaoLayer().getLabelsDAO().delete(label);
-								}
-								Statusbar.outputMessage("Delete Label " + label.getDescription());
+									Statusbar.outputMessage("Delete Label " + label.getDescription());
+								}								
 							}
 					});	
 			}

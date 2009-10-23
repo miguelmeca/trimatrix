@@ -10,6 +10,8 @@ import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.elements.impl.ROWDYNAMICCONTENTBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
+import com.lowagie.text.pdf.hyphenation.TernaryTree.Iterator;
+
 import trimatrix.db.Labels;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
@@ -40,7 +42,7 @@ public class LabelSearchResultUI extends MyWorkpageDispatchedBean implements Ser
 			Statusbar.outputWarning("Label not assigned to an entity!");
 		}
 		// build dynamic lists per entity type
-		entityLists = new HashMap<String, EntityListUI>();
+		entityLists = new HashMap<String, EntityListUI>();		
 		for (Constants.Entity entity : entityMap.keySet()) {
 			entityLists.put(entity.name(), new EntityListUI(getOwningDispatcher(), entity, entityMap.get(entity)));
 		}

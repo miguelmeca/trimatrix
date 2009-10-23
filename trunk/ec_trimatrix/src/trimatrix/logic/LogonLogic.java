@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 
 import trimatrix.db.DAOLayer;
@@ -12,9 +14,10 @@ import trimatrix.db.KRoles;
 import trimatrix.db.Users;
 import trimatrix.services.ServiceLayer;
 import trimatrix.utils.Constants;
-import trimatrix.utils.Helper;
 
 public class LogonLogic {
+	public static final Log logger = LogFactory.getLog(LogonLogic.class);
+	
 	private ServiceLayer serviceLayer;
 	private DAOLayer daoLayer;
 
@@ -47,7 +50,7 @@ public class LogonLogic {
 		}
 		serviceLayer.getDictionaryService().setMyRoles(myRoles);
 		
-		Helper.logger.info("User " + username + " logged on!");
+		logger.info("User " + username + " logged on!");
 		return true;
 	}
 	

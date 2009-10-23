@@ -1174,7 +1174,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 
 	public void onChangeXY(ActionEvent event) {
 		//cast
-		BaseActionEventFlush baef = (BaseActionEventFlush)event;
+		//BaseActionEventFlush baef = (BaseActionEventFlush)event;
 		String clientname = (String)event.getComponent().getAttributes().get(Constants.CLIENTNAME);
 		// x value changed
 		if("x".equals(clientname)) {
