@@ -32,6 +32,7 @@ import trimatrix.structures.SAttachment;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
 import trimatrix.utils.MailSender;
+import trimatrix.utils.maths.Helper;
 import trimatrix.utils.maths.RegressionFunctions;
 import trimatrix.utils.maths.RegressionFunctions.RegressionResult;
 
@@ -138,7 +139,7 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
         	if(speed==null) return;
         	m_lactat = String.valueOf(regression.getResult().getY(speed)); 
         	try {
-				m_hr = String.valueOf(RegressionFunctions.getYFromMultiLinearFunction(xyArr_2, speed));
+				m_hr = String.valueOf(Helper.getYFromMultiLinearFunction(xyArr_2, speed));
 			} catch (Exception ex) {
 				Statusbar.outputError("Error at calculating heart rate", ex.toString());
         		return;
@@ -157,7 +158,7 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
         	double speed = regression.getResult().getX(lactat);
         	m_speed = String.valueOf(speed); 
         	try {
-				m_hr = String.valueOf(RegressionFunctions.getYFromMultiLinearFunction(xyArr_2, speed));
+				m_hr = String.valueOf(Helper.getYFromMultiLinearFunction(xyArr_2, speed));
 			} catch (Exception ex) {
 				Statusbar.outputError("Error at calculating heart rate", ex.toString());
         		return;

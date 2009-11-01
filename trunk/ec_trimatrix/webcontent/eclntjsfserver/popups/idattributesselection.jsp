@@ -13,18 +13,8 @@
 <f:subview id="eclntjsfserver_popups_idvalueselectiong_2">
 <t:row id="g_1" >
 <t:pane id="g_2" border="#808080" height="100%" padding="1" stylevariant="IDVALUESELECTION" width="100%" >
-<t:rowbodypane id="g_3" padding="0" stylevariant="IDVALUESELECTION" >
+<t:rowbodypane id="g_3" padding="0" stylevariant="IDVALUESELECTION" background="#e0e0e0">
 <t:row id="g_4" componentbinding="#{eclntdefscr.popupIdAttributesSelection.row}">
-<!-- 
-<t:fixgrid id="g_5" avoidroundtrips="true" border="top:0;left:0;right:0;bottom:0" height="100%" objectbinding="#{eclntdefscr.popupIdTextSelection.lines}" requestfocus="creation" rowheight="16" sbvisibleamount="20" stylevariant="IDVALUESELECTION" width="100%" >
-<t:gridcol id="e_140" text="Id" width="100" >
-<t:label id="e_141" stylevariant="IDVALUESELECTION" text=".{id}" />
-</t:gridcol>
-<t:gridcol id="g_6" text="Text" width="100%" >
-<t:label id="g_7" stylevariant="IDVALUESELECTION" text=".{text}" />
-</t:gridcol>
-</t:fixgrid>
--->
 </t:row>
 </t:rowbodypane>
 <t:rowheader id="g_8" rendered="#{eclntdefscr.popupIdAttributesSelection.withHeader}" stylevariant="IDVALUESELECTION" >

@@ -123,6 +123,7 @@ public class DoctorEntity extends AEntity {
 		public String telephone;
 		public String mobile;
 		public String fax;
+		public Boolean standard;
 		
 		/* (non-Javadoc)
 		 * @see trimatrix.entities.IEntityData#getId()
@@ -184,5 +185,9 @@ public class DoctorEntity extends AEntity {
 		public String getFax() {
 			return fax;
 		}		
+		
+		public Boolean getStandard() {
+			return standard;
+		}
 	}	
 }

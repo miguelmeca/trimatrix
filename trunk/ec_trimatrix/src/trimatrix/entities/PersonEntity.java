@@ -188,6 +188,7 @@ public final class PersonEntity extends AEntity {
 		public String mobile;
 		public String fax;
 		public Timestamp birthdate;
+		public Boolean standard;
 		
 		/* (non-Javadoc)
 		 * @see trimatrix.entities.IEntityData#getId()
@@ -265,5 +266,9 @@ public final class PersonEntity extends AEntity {
 		public Timestamp getBirthdate() {
 			return birthdate;
 		}		
+		
+		public Boolean getStandard() {
+			return standard;
+		}
 	}
 }

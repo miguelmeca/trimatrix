@@ -140,7 +140,7 @@ public class Zones implements java.io.Serializable {
 	}
 
 	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-    @JoinColumn(name="id")
+    @JoinColumn(name="id", insertable=false, updatable=false)
 	public ZonesDefinition getZonesDefinition() {
 		return zonesDefinition;
 	}

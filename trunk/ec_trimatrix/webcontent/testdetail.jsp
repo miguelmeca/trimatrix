@@ -463,7 +463,12 @@
 </t:row>
 <t:rowdistance id="g_327" />
 <t:row id="g_328" >
-<t:field id="g_329" text="#{d.TestDetailUI.maxWidth}" width="100" />
+<t:label id="g_329" text="hr" width="100" />
+<t:formattedfield id="g_330" enabled="false" format="int" value="#{d.TestDetailUI.hr}" width="50" />
+</t:row>
+<t:rowdistance id="g_331" />
+<t:row id="g_332" >
+<t:field id="g_333" text="#{d.TestDetailUI.maxWidth}" width="100" />
 </t:row>
 </t:pane>
 </t:row>

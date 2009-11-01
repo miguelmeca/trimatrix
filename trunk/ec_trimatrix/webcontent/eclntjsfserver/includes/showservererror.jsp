@@ -11,6 +11,9 @@
 <f:view>
 <h:form>
 <f:subview id="eclntjsfserver_includes_showservererrorg_19">
+<t:beanprocessing id="g_100">
+    <t:beanmethodinvoker jsfphase="renderBegin" actionListener="#{eclntdefscr.showServerError.onHideAllPopups}"  />
+</t:beanprocessing>
 <t:rowtitlebar id="g_2" bgpaint="rectangle(0,0,100%,100%,#680000,#FF0000,vertical)" text="Server Side Error occurred" />
 <t:rowbodypane id="g_3" bgpaint="rectangle(0,0,100%,100%,#D0D0D0,#FFFFFF,vertical)" >
   <t:row id="g_4" >

@@ -63,6 +63,9 @@
     <tag name="modelesspopup" variant="default">
         <set attribute="bgpaint" value="rectangle(0,0,100%,100%,#F0F0F0,#D0D0D0,vertical)"/>
     </tag>
+    <tag name="password" variant="default">
+        <set attribute="background" value="#FFFFFF"/>
+    </tag>
     <tag name="rowbodypane" variant="default">
         <set attribute="background" value="#FFFFFFA0"/>
         <set attribute="padding" value="20"/>

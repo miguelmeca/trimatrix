@@ -28,7 +28,7 @@
 <t:gridrowselector id="g_14" />
 </t:gridcol>
 <t:gridcol id="g_15" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.color}" width="100" >
-<t:colorfield id="g_16" actionListener=".{onChangeColor}" background=".{color}" enabled="#{d.ZonesDefinitionUI.changeAllowed}" flush="true" value=".{zonesDefinition.color}" />
+<t:colorfield id="g_16" background=".{zonesDefinition.color}" enabled="#{d.ZonesDefinitionUI.changeAllowed}" flush="true" foreground=".{zonesDefinition.color}" value=".{zonesDefinition.color}" />
 </t:gridcol>
 <t:gridcol id="g_17" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.shortcut}" width="100" >
 <t:field id="g_18" enabled="#{d.ZonesDefinitionUI.changeAllowed}" maxlength="20" text=".{zonesDefinition.shortcut}" width="100" />
