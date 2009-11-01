@@ -7,8 +7,8 @@ public interface ISimpleDAO<E> {
 	public abstract void save(E transientInstance);
 
 	public abstract void delete(E persistentInstance);
-
-	public abstract E findById(java.lang.String id);
+	
+	public abstract E findById(String id);
 
 	public abstract List<E> findByExample(E instance);
 

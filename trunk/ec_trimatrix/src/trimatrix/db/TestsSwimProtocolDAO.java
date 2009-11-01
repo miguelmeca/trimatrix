@@ -17,7 +17,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
   * @author MyEclipse Persistence Tools 
  */
 
-public class TestsSwimProtocolDAO extends HibernateDaoSupport implements ISimpleDAO<TestsSwimProtocol> {
+public class TestsSwimProtocolDAO extends HibernateDaoSupport implements IComplexDAO<TestsSwimProtocol, TestsSwimProtocolId> {
     private static final Log log = LogFactory.getLog(TestsSwimProtocolDAO.class);
 
 
@@ -47,7 +47,7 @@ public class TestsSwimProtocolDAO extends HibernateDaoSupport implements ISimple
         }
     }
     
-    public TestsSwimProtocol findById( trimatrix.db.TestsSwimProtocolId id) {
+    public TestsSwimProtocol findById( TestsSwimProtocolId id) {
         log.debug("getting TestsSwimProtocol instance with id: " + id);
         try {
             TestsSwimProtocol instance = (TestsSwimProtocol) getHibernateTemplate()
@@ -63,7 +63,8 @@ public class TestsSwimProtocolDAO extends HibernateDaoSupport implements ISimple
 		throw new UnsupportedOperationException();
 	}    
     
-    public List<TestsSwimProtocol> findByExample(TestsSwimProtocol instance) {
+    @SuppressWarnings("unchecked")
+	public List<TestsSwimProtocol> findByExample(TestsSwimProtocol instance) {
         log.debug("finding TestsSwimProtocol instance by example");
         try {
             List<TestsSwimProtocol> results = (List<TestsSwimProtocol>) getHibernateTemplate().findByExample(instance); 
@@ -75,6 +76,7 @@ public class TestsSwimProtocolDAO extends HibernateDaoSupport implements ISimple
         }
     }    
     
+    @SuppressWarnings("unchecked")
     public List findByProperty(String propertyName, Object value) {
       log.debug("finding TestsSwimProtocol instance with property: " + propertyName
             + ", value: " + value);
@@ -88,7 +90,7 @@ public class TestsSwimProtocolDAO extends HibernateDaoSupport implements ISimple
       }
 	}
 
-
+    @SuppressWarnings("unchecked")
 	public List findAll() {
 		log.debug("finding all TestsSwimProtocol instances");
 		try {
@@ -136,7 +138,7 @@ public class TestsSwimProtocolDAO extends HibernateDaoSupport implements ISimple
     }
 
 	@SuppressWarnings("unchecked")
-	public static ISimpleDAO<TestsSwimProtocol> getFromApplicationContext(ApplicationContext ctx) {
-    	return (ISimpleDAO<TestsSwimProtocol>) ctx.getBean("TestsSwimProtocolDAO");
+	public static IComplexDAO<TestsSwimProtocol, TestsSwimProtocolId> getFromApplicationContext(ApplicationContext ctx) {
+    	return (IComplexDAO<TestsSwimProtocol, TestsSwimProtocolId>) ctx.getBean("TestsSwimProtocolDAO");
 	}	
 }
