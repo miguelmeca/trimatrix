@@ -21,6 +21,7 @@ import trimatrix.logic.EntityListLogic;
 import trimatrix.structures.SAuthorization;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.structures.SListVariant;
+import trimatrix.structures.SGridMetaData.Component;
 import trimatrix.ui.utils.MyWorkpage;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
@@ -69,7 +70,11 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 		// get entity id
 		personId = getWorkpage().getParam(Constants.P_PERSON);
 		// set up grid output		
-		gridMetaData = ENTITYLISTLOGIC.getGridMetaData(entity);				
+		gridMetaData = ENTITYLISTLOGIC.getGridMetaData(entity);		
+		// if base is a relation, add standard column		
+		if(entity.hasStandard()) {
+			gridMetaData.add(0, new SGridMetaData("#{rr.literals.standard}", Constants.STANDARD, SGridMetaData.Component.CHECKBOX));       
+		}
 		buildData();
 	}
 	

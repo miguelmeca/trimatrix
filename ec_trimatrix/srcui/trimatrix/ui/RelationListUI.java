@@ -30,16 +30,17 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 	public ARRAYGRIDListBinding<MyARRAYGRIDItem> getGrid() { return grid; }
 	
 	private Constants.Relation relation;
-	private static final int COLCOUNT = 3;
+	private static final int COLCOUNT = 4;
 	private static final String REMOVE = "remove";
 	private static final String ADD = "add";
+	private static final String STANDARD = "standard";
 	
 	// TODO put literals to constants
-	private static final String[] titles = {"Partner 1", "Beziehung", "Partner 2"};
-	private static final String[] widths = {"100","100","100"};
-	private static final String[] aligns = {"center", "center", "center"};
-	private static final String[] formats = {"string", "string", "string"};
-	private static final String[] backgrounds = {"#FFFFFF", "#FFFFFF", "#FFFFFF"};
+	private static final String[] titles = {"Partner 1", "Beziehung", "Partner 2", "Standard"};
+	private static final String[] widths = {"100","100","100","50"};
+	private static final String[] aligns = {"center", "center", "center", "center"};
+	private static final String[] formats = {"string", "string", "string", "boolean"};
+	private static final String[] backgrounds = {"#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"};
 	
 	private SAuthorization authorization;
 	public boolean getCreateAllowed() { return authorization.create; }
@@ -82,6 +83,7 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 			values[0] = relation.getPartner1().toString();
 			values[1] = relation.getDescription();
 			values[2] = relation.getPartner2().toString();
+			values[3] = relation.getStandard().toString();
 			item.setValues(values);				
 			item.setBackgrounds(backgrounds);
 			grid.getItems().add(item);
@@ -120,7 +122,21 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 	public void onRemove(ActionEvent event) {
 		final MyARRAYGRIDItem item = (MyARRAYGRIDItem)grid.getSelectedItem();		
 		deleteRelation(item);		
-	}	
+	}
+	
+	public void onStandard(ActionEvent event) {
+		MyARRAYGRIDItem item = (MyARRAYGRIDItem)grid.getSelectedItem();
+		setStandard(item);
+	}
+	
+	private void setStandard(MyARRAYGRIDItem item) {
+		if(RELATIONLISTLOGIC.setStandard(relation, item.getId())) {
+			onRefresh(null);	
+		} else {
+			Statusbar.outputWarning("For this relation set standard is not supported!");
+		}
+		
+	}
 	
 	private void deleteRelation(final MyARRAYGRIDItem item) {
 		YESNOPopup popup = YESNOPopup.createInstance(
@@ -167,6 +183,11 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 			if(ADD.equalsIgnoreCase(event.getCommand())) {
 				onAdd(null);
 				return;				
+			}
+			// handle standard
+			if(STANDARD.equals(event.getCommand())) {
+				setStandard(this);
+				return;
 			}
 		}
 

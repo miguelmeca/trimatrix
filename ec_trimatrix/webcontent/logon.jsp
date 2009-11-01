@@ -15,7 +15,7 @@
 <t:rowdistance id="g_2" height="50%" />
 <t:row id="g_3" >
 <t:coldistance id="g_4" width="50%" />
-<t:pane id="g_5" background="#FFFFFF" bgpaint="roundedborder(0,0,100%,100%,10,10,#C0C0C0,2)" >
+<t:pane id="g_5" background="#CCCCCC" border="#808080" >
 <t:rowdistance id="g_6" height="10" />
 <t:row id="g_7" >
 <t:coldistance id="g_8" width="10" />

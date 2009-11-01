@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import trimatrix.exceptions.ArrayNotEvenException;
 import trimatrix.exceptions.OutOfBoundsException;
+import trimatrix.utils.maths.Helper;
 import trimatrix.utils.maths.RegressionFunctions;
 import trimatrix.utils.maths.RegressionFunctions.RegressionResult;
 
@@ -43,11 +44,11 @@ public class RegressionTest {
 		double[] xyArr = {8,120,10,130,12,150};
 		double y;
 		try {
-			y = RegressionFunctions.getYFromMultiLinearFunction(xyArr, 11);
+			y = Helper.getYFromMultiLinearFunction(xyArr, 11);
 			Assert.assertEquals(140.0, y);
-			y = RegressionFunctions.getYFromMultiLinearFunction(xyArr, 8);
+			y = Helper.getYFromMultiLinearFunction(xyArr, 8);
 			Assert.assertEquals(120.0, y);
-			y = RegressionFunctions.getYFromMultiLinearFunction(xyArr, 8.5);
+			y = Helper.getYFromMultiLinearFunction(xyArr, 8.5);
 			Assert.assertEquals(122.5, y);
 		} catch (OutOfBoundsException e) {
 			e.printStackTrace();

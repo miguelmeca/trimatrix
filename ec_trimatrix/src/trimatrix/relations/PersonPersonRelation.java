@@ -65,7 +65,7 @@ public class PersonPersonRelation extends ARelation {
 	public List<IRelationData> getData(Relation relation) {
 		return sqlExecutorService.getPersonPersonRelation(relation);
 	}
-
+	
 	public static class Data implements IRelationData {
 		public String  id;
 		public Persons partner1;

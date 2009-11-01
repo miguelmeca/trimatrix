@@ -393,6 +393,7 @@ public class SQLExecutorService {
 			datum.telephone = (String)line[i++];
 			datum.mobile = (String)line[i++];
 			datum.fax = (String)line[i++];
+			datum.standard = (Boolean)line[i++];
 			data.add(datum);
 		}
 		session.close();
@@ -482,6 +483,7 @@ public class SQLExecutorService {
 			datum.telephone = (String)line[i++];
 			datum.mobile = (String)line[i++];
 			datum.fax = (String)line[i++];
+			datum.standard = (Boolean)line[i++];
 			data.add(datum);
 		}
 		session.close();

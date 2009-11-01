@@ -29,7 +29,7 @@ import trimatrix.utils.Helper;
 @CCGenClass (expressionBase="#{d.WorkplaceUI}")
 
 public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializable
-{  
+{    
 	private static final String DIVIDERLOCATIONMAX = "150";
 	private static final String DIVIDERLOCATIONMIN = "0";
     //protected String m_toggleShowHideImage;
@@ -52,7 +52,11 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
     protected boolean m_renderAdmin = true;
     public boolean getRenderAdmin() { return m_renderAdmin; }
     public void setRenderAdmin(boolean value) { m_renderAdmin = value; }
-       
+    
+    protected boolean m_renderScouter = false;
+    public boolean getRenderScouter() { return m_renderScouter; }
+    public void setRenderScouter(boolean value) { m_renderScouter = value; }
+         
 	protected int m_selectedRole = 0;
     public int getSelectedRole() { return m_selectedRole; }
     public void setSelectedRole(int value) { m_selectedRole = value; }
@@ -82,6 +86,7 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 		setRenderAdmin(false);
 		setRenderCoach(false);
 		setRenderAthlete(false);
+		setRenderScouter(false);
 		List<String> roles = getServiceLayer().getDictionaryService().getMyRoles();
 		if(roles==null) return;
 		// Athlete
@@ -93,6 +98,11 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 		if(roles.contains(Constants.Role.COACH.getName())) {
 			setRenderCoach(true);
 			m_selectedRole = Constants.Role.COACH.getId();
+		}
+		// Scouter
+		if(roles.contains(Constants.Role.SCOUTER.getName())) {
+			setRenderScouter(true);
+			m_selectedRole = Constants.Role.SCOUTER.getId();
 		}
 		// Admin
 		if(roles.contains(Constants.Role.ADMIN.getName())) {

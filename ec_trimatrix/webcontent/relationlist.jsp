@@ -17,21 +17,25 @@
 <t:button id="g_4" actionListener="#{d.RelationListUI.onAdd}" enabled="#{d.RelationListUI.createAllowed}" text="#{rr.literals.list_add}" />
 <t:coldistance id="g_5" />
 <t:button id="g_6" actionListener="#{d.RelationListUI.onRemove}" enabled="#{d.RelationListUI.deleteAllowed}" text="#{rr.literals.list_remove}" />
+<t:coldistance id="g_7" />
+<t:button id="g_8" actionListener="#{d.RelationListUI.onStandard}" enabled="#{d.RelationListUI.changeAllowed}" text="#{rr.literals.list_set_standard}" />
 </t:row>
-<t:rowinclude id="g_7" />
+<t:rowinclude id="g_9" />
 </t:pane>
 </t:row>
-<t:rowdistance id="g_8" />
-<t:row id="g_9" >
-<t:arraygrid id="g_10" avoidroundtrips="true" columnresizingenabled="true" drawoddevenrows="true" height="100%" multiselect="false" objectbinding="#{d.RelationListUI.grid}" rowpopupmenu="ROW" sbvisibleamount="30" width="100%" />
+<t:rowdistance id="g_10" />
+<t:row id="g_11" >
+<t:arraygrid id="g_12" avoidroundtrips="true" columnresizingenabled="true" drawoddevenrows="true" height="100%" multiselect="false" objectbinding="#{d.RelationListUI.grid}" rowpopupmenu="ROW" sbvisibleamount="30" width="100%" />
 </t:row>
-<t:rowdistance id="g_11" />
-<t:row id="g_12" >
-<t:button id="g_13" actionListener="#{d.RelationListUI.onRefresh}" text="#{rr.literals.list_refresh}" />
+<t:rowdistance id="g_13" />
+<t:row id="g_14" >
+<t:button id="g_15" actionListener="#{d.RelationListUI.onRefresh}" text="#{rr.literals.list_refresh}" />
 </t:row>
 <t:popupmenu id="ROW" >
-<t:menuitem id="g_14" command="add" enabled="#{d.RelationListUI.createAllowed}" text="#{rr.literals.list_add}" />
-<t:menuitem id="g_15" command="remove" enabled="#{d.RelationListUI.deleteAllowed}" text="#{rr.literals.list_remove}" />
+<t:menuitem id="g_16" command="add" enabled="#{d.RelationListUI.createAllowed}" text="#{rr.literals.list_add}" />
+<t:menuitem id="g_17" command="remove" enabled="#{d.RelationListUI.deleteAllowed}" text="#{rr.literals.list_remove}" />
+<t:menuseparator id="g_18" />
+<t:menuitem id="g_19" command="standard" enabled="#{d.RelationListUI.changeAllowed}" text="#{rr.literals.list_set_standard}" />
 </t:popupmenu>
 <t:pageaddons id="g_pa"/>
 </f:subview>

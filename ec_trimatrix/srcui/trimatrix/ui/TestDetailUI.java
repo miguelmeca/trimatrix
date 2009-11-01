@@ -16,19 +16,18 @@ import net.sf.json.JSONSerializer;
 
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
-import org.eclnt.jsfserver.elements.BaseComponent;
-import org.eclnt.jsfserver.elements.events.BaseActionEventFlush;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDTreeBinding;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDTreeItem;
-import org.eclnt.jsfserver.elements.impl.TABBEDPANETABComponent;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.util.valuemgmt.ValueManager;
 import org.eclnt.workplace.IWorkpageDispatcher;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
@@ -1103,6 +1102,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 
 	private byte[] m_diagram;
 	private IResult result;
+	private double[] hrs;
 	private String descriptionX = null;
 	private String unitX = null;
 	private String descriptionY = null;
@@ -1154,6 +1154,10 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
     public double getValueX() { return m_valueX; }
     public void setValueX(double value) { m_valueX = value; }
     
+    protected Integer m_hr;
+    public Integer getHr() { return m_hr; }
+    public void setHr(Integer value) { m_hr = value; }
+    
     public int getMaxWidth() { 
     	Statusbar.outputMessage("Actual width: " + Helper.getWidth());
     	return Helper.getWidth(); 
@@ -1168,7 +1172,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			result = analyze();
 		// build the chart based on the computed result
 		if(result==null) return;
-		m_diagram = buildDiagram(result, m_width, m_height, descriptionX,
+		m_diagram = buildDiagram(result, hrs, m_width, m_height, descriptionX,
 				unitX, descriptionY, unitY);
 	}
 
@@ -1176,14 +1180,19 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		//cast
 		//BaseActionEventFlush baef = (BaseActionEventFlush)event;
 		String clientname = (String)event.getComponent().getAttributes().get(Constants.CLIENTNAME);
-		// x value changed
-		if("x".equals(clientname)) {
-			m_valueY = result.getY(m_valueX);
+		try {
+			// x value changed
+			if("x".equals(clientname)) {
+				m_valueY = result.getY(m_valueX);
+			}
+			// y value changed
+			if("y".equals(clientname)) {
+				m_valueX = result.getX(m_valueY);
+			}
+			if(hrs!=null) m_hr = (int)Math.round(trimatrix.utils.maths.Helper.getYFromMultiLinearFunction(hrs, m_valueX));
+		} catch (Exception ex) {
+			Statusbar.outputError("Problem to get calculate heartrate value!" , ex.toString());
 		}
-		// y value changed
-		if("y".equals(clientname)) {
-			m_valueX = result.getX(m_valueY);
-		}		
 	}
 
 	public void resetResult(ActionEvent event) {
@@ -1211,6 +1220,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 
 	private IResult analyze() {
 		double[] xyArr = null;
+		this.hrs = null;
 		// treadmill
 		if (isTreadmill()) {
 			descriptionX = SPEED;
@@ -1221,17 +1231,29 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			TestsTreadmill treadmill = entity.getTestsTreadmill();
 			TestsProtocol treadmillProt = entity.getTestsProtocol();
 			int steps = treadmillProt.getCountSteps();
+			// lactates
 			JSONArray lactates = null;
 			String lactate = treadmillProt.getLactate();
 			if (lactate != null)
 				lactates = (JSONArray) JSONSerializer.toJSON(lactate);
 			xyArr = new double[steps * 2];
+			// heartrate
+			JSONArray hrs = null;
+			String hr = treadmillProt.getHr();
+			if(hr != null) {
+				hrs = (JSONArray) JSONSerializer.toJSON(hr);
+			}
+			this.hrs = new double[steps*2];
+			
 			for (int i = 0; i < steps; i++) {
 				// x value
 				xyArr[2 * i] = treadmill.getSpeedInit()
 						+ treadmill.getSpeedStep() * i;
 				// y value
 				xyArr[2 * i + 1] = lactates.getDouble(i);
+				// hr value
+				this.hrs[2 * i] = xyArr[2 * i];
+				this.hrs[2 * i + 1] = hrs.getInt(i);
 			}
 		}
 		// ergo
@@ -1249,12 +1271,23 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			if (lactate != null)
 				lactates = (JSONArray) JSONSerializer.toJSON(lactate);
 			xyArr = new double[steps * 2];
+			// heartrate
+			JSONArray hrs = null;
+			String hr = ergoProt.getHr();
+			if(hr != null) {
+				hrs = (JSONArray) JSONSerializer.toJSON(hr);
+			}
+			this.hrs = new double[steps*2];
+			
 			for (int i = 0; i < steps; i++) {
 				// x value
 				xyArr[2 * i] = ergo.getPowerInit() + ergo.getPowerStep() * i;
 				// y value
 				xyArr[2 * i + 1] = lactates.getDouble(i);
-			}
+				// hr value
+				this.hrs[2 * i] = xyArr[2 * i];
+				this.hrs[2 * i + 1] = hrs.getInt(i);
+			}			
 		}
 		// swim
 		if (isSwim()) {
@@ -1286,7 +1319,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 
 	// TODO put into logic layer
 
-	private byte[] buildDiagram(IResult resultLactate, int width, int height,
+	private byte[] buildDiagram(IResult resultLactate, double[] hrs, int width, int height,
 			String descriptionX, String unitX, String descriptionY, String unitY) {
 		// constants
 		final String MEASUREPOINTS = "Messpunkte";
@@ -1330,6 +1363,23 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		renderer.setSeriesLinesVisible(0, false);
 		renderer.setSeriesShapesVisible(1, false);
 		plot.setRenderer(renderer);
+		
+		// add hr values
+		if(hrs!=null) {
+			XYSeries seriesHR = new XYSeries("Herzfrequenz");
+			for(int i=1;i<hrs.length;i+=2){
+				seriesHR.add(hrs[i-1], hrs[i]);
+			}
+			XYSeriesCollection datasetHR = new XYSeriesCollection();
+			datasetHR.addSeries(seriesHR);
+	        ValueAxis axis2 = new NumberAxis("Herzfrequenz");	        
+	        plot.setRangeAxis(1, axis2);
+	        plot.setDataset(1, datasetHR);
+	        plot.mapDatasetToRangeAxis(1, 1);
+			XYLineAndShapeRenderer renderer2 = new XYLineAndShapeRenderer(true, true);
+			renderer2.setSeriesPaint(0, Color.black);
+	        plot.setRenderer(1, renderer2);
+		}
 
 		// add some annotations
 		// XYTextAnnotation annotation = new XYTextAnnotation(descriptionY,

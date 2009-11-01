@@ -44,24 +44,26 @@ public final class Constants {
 	// all used entities
 	public static enum Entity {
 		// order is relevant, first all entities which are base entities
-		USER(null, Page.USERDETAIL, Page.USERSELECTION), 
-		PERSON(null, Page.PERSONDETAIL, Page.PERSONSELECTION), 
-		DOCTOR(null, Page.DOCTORDETAIL, Page.DOCTORSELECTION),
-		TEST(null, Page.TESTDETAIL, Page.TESTSELECTION),
-		ATTACHMENT(null, Page.ATTACHMENTDETAIL, Page.ATTACHMENTSELECTION),
-		MYCOACHES(PERSON, Page.PERSONDETAIL, Page.PERSONSELECTION), 
-		MYATHLETES(PERSON, Page.PERSONDETAIL, Page.PERSONSELECTION),
-		MYDOCTORS(DOCTOR, Page.DOCTORDETAIL, Page.DOCTORSELECTION),
-		MYTESTS(TEST, Page.TESTDETAIL, Page.TESTSELECTION),
-		COACHTESTS(TEST, Page.TESTDETAIL, Page.TESTSELECTION),
-		MYATTACHMENTS(ATTACHMENT, Page.ATTACHMENTDETAIL, Page.ATTACHMENTSELECTION);
+		USER(null, Page.USERDETAIL, Page.USERSELECTION, false), 
+		PERSON(null, Page.PERSONDETAIL, Page.PERSONSELECTION, false), 
+		DOCTOR(null, Page.DOCTORDETAIL, Page.DOCTORSELECTION, false),
+		TEST(null, Page.TESTDETAIL, Page.TESTSELECTION, false),
+		ATTACHMENT(null, Page.ATTACHMENTDETAIL, Page.ATTACHMENTSELECTION, false),
+		MYCOACHES(PERSON, Page.PERSONDETAIL, Page.PERSONSELECTION, true), 
+		MYATHLETES(PERSON, Page.PERSONDETAIL, Page.PERSONSELECTION, false),
+		MYDOCTORS(DOCTOR, Page.DOCTORDETAIL, Page.DOCTORSELECTION, true),
+		MYTESTS(TEST, Page.TESTDETAIL, Page.TESTSELECTION, false),
+		COACHTESTS(TEST, Page.TESTDETAIL, Page.TESTSELECTION, false),
+		MYATTACHMENTS(ATTACHMENT, Page.ATTACHMENTDETAIL, Page.ATTACHMENTSELECTION, false);
 		private final Entity baseEntity;
 		private final Page detailPage;
 		private final Page selectionPage;
-		Entity(Entity baseEntity, Page detailPage, Page selectionPage) {
+		private final boolean hasStandard;
+		Entity(Entity baseEntity, Page detailPage, Page selectionPage, boolean hasStandard) {
 			this.baseEntity = baseEntity;
 			this.detailPage = detailPage;
 			this.selectionPage = selectionPage;
+			this.hasStandard = hasStandard;
 		}
 		public Entity getBase() { 
 			if(baseEntity==null) return this; 
@@ -72,6 +74,9 @@ public final class Constants {
 		}
 		public Page getSelectionPage() {
 			return selectionPage;
+		}
+		public boolean hasStandard() {
+			return hasStandard;
 		}
 	}
 	// all relationtypes
@@ -115,7 +120,7 @@ public final class Constants {
 	}
 	// all roles
 	public static enum Role {
-		ADMIN(0,"admin"), COACH(1,"coach"), ATHLETE(2,"athlete");
+		ADMIN(0,"admin"), COACH(1,"coach"), ATHLETE(2,"athlete"), SCOUTER(3,"scouter");
 		private int id;
 		private String name;
 		Role(int id, String name) {
@@ -132,10 +137,11 @@ public final class Constants {
 	// all functionnodes
 	public static enum FunctionNode {
 		MASTERDATA,
-		ATHLETES_OWN, COACHES_OWN, DOCTORS_OWN, ATTACHMENTS_OWN, TESTS_OWN,	PERSON_OWN,	
+		ATHLETES_OWN, COACHES_OWN, DOCTORS_OWN, ATTACHMENTS_OWN, TESTS_OWN,	PERSON_OWN,	COMPETITIONS_OWN,
 		USERS_ALL, PERSONS_ALL, DOCTORS_ALL, ATTACHMENTS_ALL, TESTS_ALL,
 		RELATIONS, RELATION_COACH, RELATION_DOCTOR, RELATION_ATTACHMENT,
-		TESTS_COACH, ZONES_COACH
+		TESTS_COACH, ZONES_COACH,
+		ZONES_ATHLETE
 	}
 	// all used profiles for persons
 	public static enum Profiles {
@@ -161,6 +167,8 @@ public final class Constants {
 	public static final String CREATE = "create";
 	public static final String CHANGE = "change";
 	public static final String DELETE = "delete";
+	public static final String ISRELATION = "isrelation";
+	public static final String STANDARD = "standard";
 		
 	public static final String BGP_MANDATORY = "mandatory()";
 	// constants for file extension

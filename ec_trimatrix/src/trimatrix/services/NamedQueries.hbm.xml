@@ -203,7 +203,8 @@ WHERE attachments.test = :p_test
   persons.homepage,
   persons.telephone,
   persons.mobile,
-  persons.fax
+  persons.fax,
+  persons_have_relations.standard
 FROM persons
   LEFT OUTER JOIN t_sex
     ON t_sex.key = persons.sex_key
@@ -240,6 +241,7 @@ WHERE persons.test = :p_test
   <return-scalar column="telephone" type="java.lang.String"/>
   <return-scalar column="mobile" type="java.lang.String"/>
   <return-scalar column="fax" type="java.lang.String"/>
+  <return-scalar column="standard" type="java.lang.Boolean"/>
 </sql-query>  
 
 <sql-query cacheable="true" name="DoctorRelationEntityList" read-only="true">
@@ -256,7 +258,8 @@ SELECT
   doctors.homepage,
   doctors.telephone,
   doctors.mobile,
-  doctors.fax
+  doctors.fax,
+  persons_have_doctors.standard
 FROM doctors
   LEFT OUTER JOIN t_countries
     ON t_countries.key = doctors.country_key
@@ -280,6 +283,7 @@ WHERE doctors.test = :p_test
   <return-scalar column="telephone" type="java.lang.String"/>
   <return-scalar column="mobile" type="java.lang.String"/>
   <return-scalar column="fax" type="java.lang.String"/>
+  <return-scalar column="standard" type="java.lang.Boolean"/>
 </sql-query>  
 
 <sql-query cacheable="true" name="AttachmentRelationEntityList" read-only="true">

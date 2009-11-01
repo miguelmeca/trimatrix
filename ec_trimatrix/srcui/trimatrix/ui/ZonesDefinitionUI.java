@@ -58,28 +58,11 @@ public class ZonesDefinitionUI extends MyWorkpageDispatchedBean implements Seria
     	
     	public GridZonesItem(ZonesDefinition zonesDefinition) {
     		this.zonesDefinition = zonesDefinition;
-    		// workaround, because it's not possible to use a components value, as property simultaneously
-    		if(zonesDefinition.getColor()==null) {
-    			m_color = Constants.WHITE + "FF";
-    		} else {
-    			m_color = zonesDefinition.getColor() + "FF" ;
-    		}        	
     	}   	
 
     	protected ZonesDefinition zonesDefinition;
     	public ZonesDefinition getZonesDefinition() { return zonesDefinition; }
       
-        protected String m_color;
-        public String getColor() { 
-        	// when null the value transfer from UI to bean doesn't work
-        	if(m_color==null) return Constants.WHITE;
-        	return m_color; 
-        }
-
-        public void onChangeColor(ActionEvent event) {
-        	// workaround, because it's not possible to use a components value, as property simultaneously
-        	m_color = zonesDefinition.getColor() + "FF" ;
-        }
     }
     
     private void buildGrid() {    	

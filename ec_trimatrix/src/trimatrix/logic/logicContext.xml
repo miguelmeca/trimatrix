@@ -36,6 +36,9 @@
     <bean id="relationListLogic" class="trimatrix.logic.RelationListLogic"
         abstract="false" lazy-init="default" autowire="default"
         dependency-check="default">   
+        <property name="daoLayer">
+            <ref bean="daoLayer" />
+        </property>
         <property name="serviceLayer">
             <ref bean="serviceLayer" />            
         </property> 

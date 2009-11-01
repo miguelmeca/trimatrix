@@ -24,6 +24,6 @@ public interface IRelation {
 	public abstract void reload(IRelationObject relationObject);
 
 	public abstract List<IRelationData> getData(Constants.Relation relation);
-
+	
 	public abstract List<IRelationData> getData();
 }
