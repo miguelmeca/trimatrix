@@ -6,7 +6,9 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.faces.event.ActionEvent;
 
@@ -137,6 +139,8 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 	}
 
 	public void init() {
+		// set back deleted swim protocols list
+		deletedSwimProtocols.clear();
 		// set fields
 		fillMaps();
 		// set state
@@ -200,6 +204,20 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 				entity.setTestsErgo(null);
 			}
 			return;
+		}
+		
+		// delete swim protocolls
+		// TODO move to logic e.g. TestLogic
+		if(!deletedSwimProtocols.isEmpty()) {
+			for(TestsSwimProtocolId id: deletedSwimProtocols) {
+				try {
+					TestsSwimProtocol protocol = getDaoLayer().getTestsSwimProtocolDAO().findById(id);
+					if(protocol!=null) getDaoLayer().getTestsSwimProtocolDAO().delete(protocol);					
+				} catch (Exception ex) {
+					// TODO in TestLogic to logger
+				}
+			}
+			deletedSwimProtocols.clear();			
 		}
 	}
 
@@ -478,6 +496,9 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 	public FIXGRIDTreeBinding<GridSwimItem> getGridSwim() {
 		return m_gridSwim;
 	}
+	
+	// contains protocoll ids to delete
+	private Set<TestsSwimProtocolId> deletedSwimProtocols = new HashSet<TestsSwimProtocolId>();
 
 	public class GridTreadmillItem extends AGridItem {
 		Double speed;
@@ -561,6 +582,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 	public class GridSwimItem extends FIXGRIDTreeItem implements
 			java.io.Serializable {
 		Integer step;
+		Integer attempt;
 		Boolean topNode;
 		Boolean valid;
 		LactateSamples lactateSamples;
@@ -855,8 +877,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 				return;
 
 			FIXGRIDItem selected = grid.getSelectedItem();
-			if (selected == null)
-				return;
+			if (selected == null) return;
 			grid.getItems().remove(selected);
 			// recalculate step numbers and total time
 			int step = 1;
@@ -871,9 +892,24 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		} else {
 			// swim
 			GridSwimItem selected = m_gridSwim.getSelectedItem();
-			if (selected == null)
-				return;
+			if (selected == null) return;
 			FIXGRIDTreeItem root = selected.getParentNode();
+			if(root == null) return;
+			// is top node?
+			if (root.getLevelInt() < 0) {
+				// delete from db
+				for (FIXGRIDTreeItem attempt : selected.getChildNodes()) {
+					GridSwimItem item = (GridSwimItem) attempt;
+					TestsSwimProtocolId id = new TestsSwimProtocolId(entity.getTestsSwim().getId(),
+							((GridSwimItem) selected).getStep(), item.getStep());
+					deletedSwimProtocols.add(id);
+				}
+			} else {
+				// delete from db
+				TestsSwimProtocolId id = new TestsSwimProtocolId(entity.getTestsSwim().getId(),
+						((GridSwimItem) root).getStep(), selected.getStep());
+				deletedSwimProtocols.add(id);
+			}
 			selected.removeNode();
 			// recalculate step numbers and total time
 			int step = 1;
