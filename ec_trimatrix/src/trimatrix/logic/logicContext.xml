@@ -66,6 +66,17 @@
         </property>   
     </bean>
     
+    <bean id="testLogic" class="trimatrix.logic.TestLogic"
+        abstract="false" lazy-init="default" autowire="default"
+        dependency-check="default">
+        <property name="serviceLayer">
+            <ref bean="serviceLayer" />            
+        </property>   
+        <property name="daoLayer">
+            <ref bean="daoLayer" />            
+        </property>   
+    </bean>
+    
     <bean id="logicLayer" class="trimatrix.logic.LogicLayer"
         abstract="false" lazy-init="default" autowire="default"
         dependency-check="default">
@@ -86,6 +97,9 @@
         </property> 
         <property name="zonesLogic">
             <ref bean="zonesLogic" />
+        </property> 
+        <property name="testLogic">
+            <ref bean="testLogic" />
         </property> 
     </bean>    
 </beans>

@@ -275,200 +275,209 @@
 <t:row id="g_195" comment="swim protocol" rendered="#{d.TestDetailUI.swim}" >
 <t:pane id="g_196" height="100%" rowdistance="2" width="100%" >
 <t:row id="g_197" >
-<t:label id="g_198" rowalignmenty="top" text="#{rr.literals.description}" width="100" />
+<t:label id="g_198" rowalignmenty="top" text="#{rr.literals.description}" width="120" />
 <t:textarea id="g_199" attributemacro="entityDetailMacro(TestDetailUI,protocol_description)" height="100" width="510" />
 </t:row>
 <t:row id="g_200" >
-<t:label id="g_201" text="#{rr.literals.model_lactate}" width="100" />
+<t:label id="g_201" text="#{rr.literals.model_lactate}" width="120" />
 <t:field id="g_202" attributemacro="entityDetailMacro(TestDetailUI,model_lactate)" width="200" />
 </t:row>
 <t:rowdistance id="g_203" height="15" />
 <t:row id="g_204" >
-<t:label id="g_205" text="#{rr.literals.max_performance} #{d.TestDetailUI.values.distance} m  " width="200" />
-<t:field id="g_206" attributemacro="entityDetailMacro(TestDetailUI,performance_max)" flush="true" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" userhint="mm:ss" width="100" />
+<t:label id="g_205" text="#{rr.literals.max_performance} #{d.TestDetailUI.values.distance} m  " width="120" />
+<t:field id="g_206" attributemacro="entityDetailMacro(TestDetailUI,performance_max)" flush="true" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" tooltip="mm:ss" userhint="mm:ss" width="50" />
+<t:coldistance id="g_207" />
+<t:label id="g_208" text="#{rr.literals.speed}" width="90" />
+<t:formattedfield id="g_209" enabled="false" format="double" tooltip="m/s" userhint="m/s" value="#{d.TestDetailUI.maxSpeed}" width="50" />
 </t:row>
-<t:rowdistance id="g_207" />
-<t:row id="g_208" >
-<t:coldistance id="g_209" width="100%" />
-<t:link id="g_210" actionListener="#{d.TestDetailUI.gridSwim.onOpenGridFunctions}" text="#{rr.literals.export}" />
-</t:row>
+<t:rowdistance id="g_210" />
 <t:row id="g_211" >
-<t:fixgrid id="g_212" avoidroundtrips="1" border="#808080" enabled="#{d.TestDetailUI.enabled}" multiselect="false" objectbinding="#{d.TestDetailUI.gridSwim}" sbvisibleamount="20" width="100%" >
-<t:gridcol id="g_213" align="center" sortenabled="false" text="#{rr.literals.step}" width="100" >
-<t:treenode id="g_214" bgpaint="rectangle(0,0,100%,100%,#FFFFFF40,#FFFFFF10,vertical)" text=".{step}" />
+<t:coldistance id="g_212" width="100%" />
+<t:link id="g_213" actionListener="#{d.TestDetailUI.gridSwim.onOpenGridFunctions}" text="#{rr.literals.export}" />
+</t:row>
+<t:row id="g_214" >
+<t:fixgrid id="g_215" avoidroundtrips="1" border="#808080" enabled="#{d.TestDetailUI.enabled}" multiselect="false" objectbinding="#{d.TestDetailUI.gridSwim}" sbvisibleamount="20" width="100%" >
+<t:gridcol id="g_216" align="center" sortenabled="false" text="#{rr.literals.step}" width="100" >
+<t:treenode id="g_217" bgpaint="rectangle(0,0,100%,100%,#FFFFFF40,#FFFFFF10,vertical)" text=".{step}" />
 </t:gridcol>
-<t:gridcol id="g_215" sortenabled="false" width="20" >
-<t:pane id="g_216" bgpaint="null!" >
-<t:row id="g_217" >
-<t:button id="g_218" actionListener=".{onAddSubItem}" contentareafilled="false" enabled="#{d.TestDetailUI.enabled}" horizontaltextposition="center" image="/images/icons/add.png" rendered=".{topNode}" verticaltextposition="middle" />
+<t:gridcol id="g_218" sortenabled="false" width="20" >
+<t:pane id="g_219" bgpaint="null!" >
+<t:row id="g_220" >
+<t:button id="g_221" actionListener=".{onAddSubItem}" contentareafilled="false" enabled="#{d.TestDetailUI.enabled}" horizontaltextposition="center" image="/images/icons/add.png" rendered=".{topNode}" verticaltextposition="middle" />
 </t:row>
 </t:pane>
 </t:gridcol>
-<t:gridcol id="g_219" sortenabled="false" width="20" >
-<t:pane id="g_220" bgpaint="null!" >
-<t:row id="g_221" >
-<t:checkbox id="g_222" actionListener=".{onMarkItem}" enabled="#{d.TestDetailUI.enabled}" flush="true" rendered=".{topNode==false}" selected=".{valid}" />
+<t:gridcol id="g_222" sortenabled="false" width="20" >
+<t:pane id="g_223" bgpaint="null!" >
+<t:row id="g_224" >
+<t:checkbox id="g_225" actionListener=".{onMarkItem}" enabled="#{d.TestDetailUI.enabled}" flush="true" rendered=".{topNode==false}" selected=".{valid}" />
 </t:row>
 </t:pane>
 </t:gridcol>
-<t:gridcol id="g_223" align="center" sortenabled="false" text="#{rr.literals.intensity}" width="60" >
-<t:formattedfield id="g_224" bgpaint=".{bgPaintTop}" enabled=".{enabledAndTopNode}" flush="true" format="int" maxlength="3" userhint="max. 100%" value=".{intensity}" />
+<t:gridcol id="g_226" align="center" sortenabled="false" text="#{rr.literals.intensity}" width="60" >
+<t:formattedfield id="g_227" bgpaint=".{bgPaintTop}" enabled=".{enabledAndTopNode}" flush="true" format="int" maxlength="3" userhint="max. 100%" value=".{intensity}" />
 </t:gridcol>
-<t:gridcol id="g_225" align="center" sortenabled="false" text="#{rr.literals.target_time}" width="60" >
-<t:field id="g_226" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{targetTime}" userhint="mm:ss" />
+<t:gridcol id="g_228" align="center" sortenabled="false" text="#{rr.literals.target_time}" width="60" >
+<t:field id="g_229" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{targetTime}" userhint="mm:ss" />
 </t:gridcol>
-<t:gridcol id="g_227" align="center" sortenabled="false" text="#{rr.literals.time}" width="60" >
-<t:field id="g_228" actionListener=".{onChangeItem}" bgpaint=".{bgpaint}" enabled=".{enabled}" flush="true" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{time}" userhint="mm:ss" />
+<t:gridcol id="g_230" align="center" sortenabled="false" text="m/s" width="50" >
+<t:formattedfield id="g_231" enabled="false" format="double" value=".{targetSpeed}" />
 </t:gridcol>
-<t:gridcol id="g_229" align="center" sortenabled="false" text="#{rr.literals.lactate}" width="100" >
-<t:field id="g_230" actionListener=".{onChangeItem}" bgpaint=".{bgpaint}" enabled=".{enabled}" flush="true" text=".{lactate}" userhint="lactate@minutes ..." />
+<t:gridcol id="g_232" align="center" sortenabled="false" text="#{rr.literals.time}" width="60" >
+<t:field id="g_233" actionListener=".{onChangeItem}" bgpaint=".{bgpaint}" enabled=".{enabled}" flush="true" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{time}" userhint="mm:ss" />
 </t:gridcol>
-<t:gridcol id="g_231" align="center" sortenabled="false" text="#{rr.literals.hr}" width="100" >
-<t:formattedfield id="g_232" actionListener=".{onChangeItem}" enabled=".{enabled}" flush="true" format="int" value=".{hr}" />
+<t:gridcol id="g_234" align="center" sortenabled="false" text="m/s" width="50" >
+<t:formattedfield id="g_235" enabled="false" format="double" value=".{speed}" />
 </t:gridcol>
-<t:gridcol id="g_233" attributemacro="swimSplitsHeadMacro(0)" rendered="true" >
-<t:pane id="g_234" >
-<t:row id="g_235" >
-<t:field id="g_236" attributemacro="swimSplitsItemTimeMacro(0)" rendered="true" />
-<t:formattedfield id="g_237" attributemacro="swimSplitsItemStrokeMacro(0)" rendered="true" />
+<t:gridcol id="g_236" align="center" sortenabled="false" text="#{rr.literals.lactate}" width="50" >
+<t:field id="g_237" actionListener=".{onChangeItem}" bgpaint=".{bgpaint}" enabled=".{enabled}" flush="true" text=".{lactate}" userhint="lactate@minutes ..." />
+</t:gridcol>
+<t:gridcol id="g_238" align="center" sortenabled="false" text="#{rr.literals.hr}" width="50" >
+<t:formattedfield id="g_239" actionListener=".{onChangeItem}" enabled=".{enabled}" flush="true" format="int" value=".{hr}" />
+</t:gridcol>
+<t:gridcol id="g_240" attributemacro="swimSplitsHeadMacro(0)" rendered="true" >
+<t:pane id="g_241" >
+<t:row id="g_242" >
+<t:field id="g_243" attributemacro="swimSplitsItemTimeMacro(0)" rendered="true" />
+<t:formattedfield id="g_244" attributemacro="swimSplitsItemStrokeMacro(0)" rendered="true" />
 </t:row>
 </t:pane>
 </t:gridcol>
-<t:gridcol id="g_238" attributemacro="swimSplitsHeadMacro(1)" >
-<t:pane id="g_239" >
-<t:row id="g_240" >
-<t:field id="g_241" attributemacro="swimSplitsItemTimeMacro(1)" />
-<t:formattedfield id="g_242" attributemacro="swimSplitsItemStrokeMacro(1)" />
+<t:gridcol id="g_245" attributemacro="swimSplitsHeadMacro(1)" >
+<t:pane id="g_246" >
+<t:row id="g_247" >
+<t:field id="g_248" attributemacro="swimSplitsItemTimeMacro(1)" />
+<t:formattedfield id="g_249" attributemacro="swimSplitsItemStrokeMacro(1)" />
 </t:row>
 </t:pane>
 </t:gridcol>
-<t:gridcol id="g_243" attributemacro="swimSplitsHeadMacro(2)" >
-<t:pane id="g_244" >
-<t:row id="g_245" >
-<t:field id="g_246" attributemacro="swimSplitsItemTimeMacro(2)" />
-<t:formattedfield id="g_247" attributemacro="swimSplitsItemStrokeMacro(2)" />
+<t:gridcol id="g_250" attributemacro="swimSplitsHeadMacro(2)" >
+<t:pane id="g_251" >
+<t:row id="g_252" >
+<t:field id="g_253" attributemacro="swimSplitsItemTimeMacro(2)" />
+<t:formattedfield id="g_254" attributemacro="swimSplitsItemStrokeMacro(2)" />
 </t:row>
 </t:pane>
 </t:gridcol>
-<t:gridcol id="g_248" attributemacro="swimSplitsHeadMacro(3)" >
-<t:pane id="g_249" >
-<t:row id="g_250" >
-<t:field id="g_251" attributemacro="swimSplitsItemTimeMacro(3)" />
-<t:formattedfield id="g_252" attributemacro="swimSplitsItemStrokeMacro(3)" />
+<t:gridcol id="g_255" attributemacro="swimSplitsHeadMacro(3)" >
+<t:pane id="g_256" >
+<t:row id="g_257" >
+<t:field id="g_258" attributemacro="swimSplitsItemTimeMacro(3)" />
+<t:formattedfield id="g_259" attributemacro="swimSplitsItemStrokeMacro(3)" />
 </t:row>
 </t:pane>
 </t:gridcol>
-<t:gridcol id="g_253" attributemacro="swimSplitsHeadMacro(4)" >
-<t:pane id="g_254" >
-<t:row id="g_255" >
-<t:field id="g_256" attributemacro="swimSplitsItemTimeMacro(4)" />
-<t:formattedfield id="g_257" attributemacro="swimSplitsItemStrokeMacro(4)" />
+<t:gridcol id="g_260" attributemacro="swimSplitsHeadMacro(4)" >
+<t:pane id="g_261" >
+<t:row id="g_262" >
+<t:field id="g_263" attributemacro="swimSplitsItemTimeMacro(4)" />
+<t:formattedfield id="g_264" attributemacro="swimSplitsItemStrokeMacro(4)" />
 </t:row>
 </t:pane>
 </t:gridcol>
-<t:gridcol id="g_258" attributemacro="swimSplitsHeadMacro(5)" >
-<t:pane id="g_259" >
-<t:row id="g_260" >
-<t:field id="g_261" attributemacro="swimSplitsItemTimeMacro(5)" />
-<t:formattedfield id="g_262" attributemacro="swimSplitsItemStrokeMacro(5)" />
+<t:gridcol id="g_265" attributemacro="swimSplitsHeadMacro(5)" >
+<t:pane id="g_266" >
+<t:row id="g_267" >
+<t:field id="g_268" attributemacro="swimSplitsItemTimeMacro(5)" />
+<t:formattedfield id="g_269" attributemacro="swimSplitsItemStrokeMacro(5)" />
 </t:row>
 </t:pane>
 </t:gridcol>
-<t:gridcol id="g_263" attributemacro="swimSplitsHeadMacro(6)" >
-<t:pane id="g_264" >
-<t:row id="g_265" >
-<t:field id="g_266" attributemacro="swimSplitsItemTimeMacro(6)" />
-<t:formattedfield id="g_267" attributemacro="swimSplitsItemStrokeMacro(6)" />
+<t:gridcol id="g_270" attributemacro="swimSplitsHeadMacro(6)" >
+<t:pane id="g_271" >
+<t:row id="g_272" >
+<t:field id="g_273" attributemacro="swimSplitsItemTimeMacro(6)" />
+<t:formattedfield id="g_274" attributemacro="swimSplitsItemStrokeMacro(6)" />
 </t:row>
 </t:pane>
 </t:gridcol>
-<t:gridcol id="g_268" attributemacro="swimSplitsHeadMacro(7)" >
-<t:pane id="g_269" >
-<t:row id="g_270" >
-<t:field id="g_271" attributemacro="swimSplitsItemTimeMacro(7)" />
-<t:formattedfield id="g_272" attributemacro="swimSplitsItemStrokeMacro(7)" />
+<t:gridcol id="g_275" attributemacro="swimSplitsHeadMacro(7)" >
+<t:pane id="g_276" >
+<t:row id="g_277" >
+<t:field id="g_278" attributemacro="swimSplitsItemTimeMacro(7)" />
+<t:formattedfield id="g_279" attributemacro="swimSplitsItemStrokeMacro(7)" />
 </t:row>
 </t:pane>
 </t:gridcol>
-<t:gridcol id="g_273" align="center" sortenabled="false" text="#{rr.literals.comment}" width="200" >
-<t:field id="g_274" enabled=".{enabled}" maxlength="1000" text=".{comment}" width="100" />
+<t:gridcol id="g_280" align="center" sortenabled="false" text="#{rr.literals.comment}" width="200" >
+<t:field id="g_281" enabled=".{enabled}" maxlength="1000" text=".{comment}" width="100" />
 </t:gridcol>
 </t:fixgrid>
 </t:row>
-<t:rowdistance id="g_275" />
-<t:row id="g_276" >
-<t:button id="g_277" actionListener="#{d.TestDetailUI.onAddItem}" enabled="#{d.TestDetailUI.enabled}" text="Hinzufügen" />
-<t:coldistance id="g_278" />
-<t:button id="g_279" actionListener="#{d.TestDetailUI.onRemoveItem}" enabled="#{d.TestDetailUI.enabled}" text="Entfernen" />
+<t:rowdistance id="g_282" />
+<t:row id="g_283" >
+<t:button id="g_284" actionListener="#{d.TestDetailUI.onAddItem}" enabled="#{d.TestDetailUI.enabled}" text="Hinzufügen" />
+<t:coldistance id="g_285" />
+<t:button id="g_286" actionListener="#{d.TestDetailUI.onRemoveItem}" enabled="#{d.TestDetailUI.enabled}" text="Entfernen" />
 </t:row>
 </t:pane>
 </t:row>
-<t:rowdistance id="g_280" height="15" />
-<t:row id="g_281" rendered="#{d.TestDetailUI.analysis==false}" >
-<t:button id="g_282" actionListener="#{d.TestDetailUI.onAnalysisCreate}" enabled="#{d.TestDetailUI.enabled}" text="#{rr.literals.create_testanalysis}" />
+<t:rowdistance id="g_287" height="15" />
+<t:row id="g_288" rendered="#{d.TestDetailUI.analysis==false}" >
+<t:button id="g_289" actionListener="#{d.TestDetailUI.onAnalysisCreate}" enabled="#{d.TestDetailUI.enabled}" text="#{rr.literals.create_testanalysis}" />
 </t:row>
 </t:tabbedpanetab>
-<t:tabbedpanetab id="g_283" comment="Analysis" padding="5" rendered="#{d.TestDetailUI.analysis}" rowdistance="2" text="#{rr.literals.analysis}" >
-<t:row id="g_284" >
-<t:pane id="g_285" width="100%" >
-<t:row id="g_286" >
-<t:label id="g_287" text="Größe" />
-<t:coldistance id="g_288" />
-<t:formattedfield id="g_289" format="int" userhint="Breite" value="#{d.TestDetailUI.width}" width="50" />
-<t:coldistance id="g_290" />
-<t:label id="g_291" text="X" />
-<t:coldistance id="g_292" />
-<t:formattedfield id="g_293" format="int" userhint="Höhe" value="#{d.TestDetailUI.height}" width="50" />
-<t:coldistance id="g_294" />
-<t:button id="g_295" actionListener="#{d.TestDetailUI.onRefresh}" text="#{rr.literals.list_refresh}" />
+<t:tabbedpanetab id="g_290" comment="Analysis" padding="5" rendered="#{d.TestDetailUI.analysis}" rowdistance="2" text="#{rr.literals.analysis}" >
+<t:row id="g_291" >
+<t:pane id="g_292" width="100%" >
+<t:row id="g_293" >
+<t:label id="g_294" text="Größe" />
+<t:coldistance id="g_295" />
+<t:formattedfield id="g_296" format="int" userhint="Breite" value="#{d.TestDetailUI.width}" width="50" />
+<t:coldistance id="g_297" />
+<t:label id="g_298" text="X" />
+<t:coldistance id="g_299" />
+<t:formattedfield id="g_300" format="int" userhint="Höhe" value="#{d.TestDetailUI.height}" width="50" />
+<t:coldistance id="g_301" />
+<t:button id="g_302" actionListener="#{d.TestDetailUI.onRefresh}" text="#{rr.literals.list_refresh}" />
 </t:row>
-<t:rowdistance id="g_296" />
-<t:row id="g_297" >
-<t:label id="g_298" text="#{rr.literals.formula}" width="100" />
-<t:field id="g_299" enabled="false" text="#{d.TestDetailUI.formel}" width="400" />
-</t:row>
-<t:rowdistance id="g_300" />
-<t:row id="g_301" >
-<t:label id="g_302" text="#{rr.literals.correlation}" width="100" />
-<t:field id="g_303" enabled="false" text="#{d.TestDetailUI.correlation}" width="200" />
-</t:row>
-<t:rowdistance id="g_304" />
-<t:row id="g_305" >
-<t:heximage id="g_306" align="center" border="#808080" height="#{d.TestDetailUI.height}" hexdata="#{d.TestDetailUI.diagram}" rowalignmenty="center" valign="center" width="#{d.TestDetailUI.width}" />
+<t:rowdistance id="g_303" />
+<t:row id="g_304" >
+<t:label id="g_305" text="#{rr.literals.formula}" width="100" />
+<t:field id="g_306" enabled="false" text="#{d.TestDetailUI.formel}" width="400" />
 </t:row>
 <t:rowdistance id="g_307" />
-<t:rowdistance id="g_308" />
-<t:row id="g_309" >
-<t:label id="g_310" text="#{rr.literals.function}" width="100" />
-<t:combobox id="g_311" actionListener="#{d.TestDetailUI.resetResult}" flush="true" validvaluesbinding="#{d.TestDetailUI.functionsVvb}" value="#{d.TestDetailUI.function}" width="200" />
+<t:row id="g_308" >
+<t:label id="g_309" text="#{rr.literals.correlation}" width="100" />
+<t:field id="g_310" enabled="false" text="#{d.TestDetailUI.correlation}" width="200" />
 </t:row>
-<t:rowdistance id="g_312" />
-<t:row id="g_313" >
-<t:label id="g_314" text="#{rr.literals.offset}" width="100" />
-<t:formattedfield id="g_315" actionListener="#{d.TestDetailUI.resetResult}" flush="true" format="double" value="#{d.TestDetailUI.offset}" width="50" />
+<t:rowdistance id="g_311" />
+<t:row id="g_312" >
+<t:heximage id="g_313" align="center" border="#808080" height="#{d.TestDetailUI.height}" hexdata="#{d.TestDetailUI.diagram}" rowalignmenty="center" valign="center" width="#{d.TestDetailUI.width}" />
 </t:row>
+<t:rowdistance id="g_314" />
+<t:rowdistance id="g_315" />
 <t:row id="g_316" >
-<t:label id="g_317" text="#{rr.literals.degree}" width="100" />
-<t:spinner id="g_318" actionListener="#{d.TestDetailUI.resetResult}" flush="true" maxvalue="6" minvalue="0" value="#{d.TestDetailUI.degree}" width="50" />
+<t:label id="g_317" text="#{rr.literals.function}" width="100" />
+<t:combobox id="g_318" actionListener="#{d.TestDetailUI.resetResult}" flush="true" validvaluesbinding="#{d.TestDetailUI.functionsVvb}" value="#{d.TestDetailUI.function}" width="200" />
 </t:row>
 <t:rowdistance id="g_319" />
 <t:row id="g_320" >
-<t:label id="g_321" text="x" width="100" />
-<t:formattedfield id="g_322" actionListener="#{d.TestDetailUI.onChangeXY}" clientname="x" flush="true" format="double" value="#{d.TestDetailUI.valueX}" width="50" />
+<t:label id="g_321" text="#{rr.literals.offset}" width="100" />
+<t:formattedfield id="g_322" actionListener="#{d.TestDetailUI.resetResult}" flush="true" format="double" value="#{d.TestDetailUI.offset}" width="50" />
 </t:row>
-<t:rowdistance id="g_323" />
-<t:row id="g_324" >
-<t:label id="g_325" text="y" width="100" />
-<t:formattedfield id="g_326" actionListener="#{d.TestDetailUI.onChangeXY}" clientname="y" flush="true" format="double" value="#{d.TestDetailUI.valueY}" width="50" />
+<t:row id="g_323" >
+<t:label id="g_324" text="#{rr.literals.degree}" width="100" />
+<t:spinner id="g_325" actionListener="#{d.TestDetailUI.resetResult}" flush="true" maxvalue="6" minvalue="0" value="#{d.TestDetailUI.degree}" width="50" />
 </t:row>
-<t:rowdistance id="g_327" />
-<t:row id="g_328" >
-<t:label id="g_329" text="hr" width="100" />
-<t:formattedfield id="g_330" enabled="false" format="int" value="#{d.TestDetailUI.hr}" width="50" />
+<t:rowdistance id="g_326" />
+<t:row id="g_327" >
+<t:label id="g_328" text="x" width="100" />
+<t:formattedfield id="g_329" actionListener="#{d.TestDetailUI.onChangeXY}" clientname="x" flush="true" format="double" value="#{d.TestDetailUI.valueX}" width="50" />
 </t:row>
-<t:rowdistance id="g_331" />
-<t:row id="g_332" >
-<t:field id="g_333" text="#{d.TestDetailUI.maxWidth}" width="100" />
+<t:rowdistance id="g_330" />
+<t:row id="g_331" >
+<t:label id="g_332" text="y" width="100" />
+<t:formattedfield id="g_333" actionListener="#{d.TestDetailUI.onChangeXY}" clientname="y" flush="true" format="double" value="#{d.TestDetailUI.valueY}" width="50" />
+</t:row>
+<t:rowdistance id="g_334" />
+<t:row id="g_335" >
+<t:label id="g_336" text="hr" width="100" />
+<t:formattedfield id="g_337" enabled="false" format="int" value="#{d.TestDetailUI.hr}" width="50" />
+</t:row>
+<t:rowdistance id="g_338" />
+<t:row id="g_339" >
+<t:field id="g_340" text="#{d.TestDetailUI.maxWidth}" width="100" />
 </t:row>
 </t:pane>
 </t:row>

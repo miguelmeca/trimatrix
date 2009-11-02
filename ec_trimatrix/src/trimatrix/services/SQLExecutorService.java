@@ -707,6 +707,13 @@ public class SQLExecutorService {
 		return getEntitiesByLabelList(labelId, false); 
 	}
 
+	public int deleteAllSwimProtocols(String id) {
+		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		Session session = sessionFactory.openSession();		
+		Query query = session.createQuery("delete TestsSwimProtocol where id.id = :p_id");
+		query.setString("p_id", id);
+		return query.executeUpdate (); 		
+	}
 
 	public void setTransactionManager(HibernateTransactionManager transactionManager) {
 		this.transactionManager = transactionManager;

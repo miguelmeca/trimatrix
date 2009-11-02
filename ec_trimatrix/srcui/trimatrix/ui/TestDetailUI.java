@@ -60,7 +60,14 @@ import trimatrix.utils.maths.RegressionFunctions;
 import trimatrix.utils.maths.AFunctions.IResult;
 
 @CCGenClass(expressionBase = "#{d.TestDetailUI}")
-public class TestDetailUI extends AEntityDetailUI implements Serializable {
+public class TestDetailUI extends AEntityDetailUI implements Serializable {   
+
+	protected final String[] MANDATORY_FIELDS_SWIM = new String[] {TestEntity.DISTANCE, TestEntity.SPLITS};
+	protected final String[] MANDATORY_FIELDS_TREADMILL = new String[] {TestEntity.SPEED_INIT, TestEntity.INCLINE_INIT};
+	protected final String[] MANDATORY_FIELDS_ERGO = new String[] {TestEntity.CADENCE_LOW, TestEntity.CADENCE_HIGH, TestEntity.POWER_INIT, TestEntity.POWER_STEP};
+	
+	private boolean isDirtySwimProtocol = false;
+	
 	public void onDoctorSearch(ActionEvent event) {
 		IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(Constants.Entity.DOCTOR);
 		entitySelectionUI
@@ -139,8 +146,8 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 	}
 
 	public void init() {
-		// set back deleted swim protocols list
-		deletedSwimProtocols.clear();
+		// set back dirty flag for swim protocols
+		isDirtySwimProtocol = false;
 		// set fields
 		fillMaps();
 		// set state
@@ -208,23 +215,17 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		
 		// delete swim protocolls
 		// TODO move to logic e.g. TestLogic
-		if(!deletedSwimProtocols.isEmpty()) {
-			for(TestsSwimProtocolId id: deletedSwimProtocols) {
-				try {
-					TestsSwimProtocol protocol = getDaoLayer().getTestsSwimProtocolDAO().findById(id);
-					if(protocol!=null) getDaoLayer().getTestsSwimProtocolDAO().delete(protocol);					
-				} catch (Exception ex) {
-					// TODO in TestLogic to logger
-				}
-			}
-			deletedSwimProtocols.clear();			
+		if(isDirtySwimProtocol) {
+			getLogic().getTestLogic().deleteAllSwimProtocolls(entity.getId());
+			isDirtySwimProtocol = false;		
 		}
 	}
 
-	public void validate() throws MandatoryCheckException,
-			EmailNotValidException {
+	public void validate() throws MandatoryCheckException, EmailNotValidException {
 		// mandatory check
 		checkMandatory();
+		// details mandatory fields
+		checkDetailGrid();
 		// protocols mandatory fields
 		if (isProtocol()) {
 			checkProtocolGrid();
@@ -389,10 +390,23 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		for (String field : MANDATORY_FIELDS) {
 			bgpaint.put(field, Constants.BGP_MANDATORY);
 		}
+		// mandatory fields for ergo test
+		for (String field : MANDATORY_FIELDS_ERGO) {
+			bgpaint.put(field, Constants.BGP_MANDATORY);
+		}
+		// mandatory fields for treadmill test
+		for (String field : MANDATORY_FIELDS_TREADMILL) {
+			bgpaint.put(field, Constants.BGP_MANDATORY);
+		}		
+		// mandatory fields for swim test
+		for (String field : MANDATORY_FIELDS_SWIM) {
+			bgpaint.put(field, Constants.BGP_MANDATORY);
+		}
 	}
 
 	public void onChangeData(ActionEvent ae) {
-		if (((Integer) values.get(TestEntity.SPLITS)) > maxSplits)
+		Integer splits = (Integer) values.get(TestEntity.SPLITS);		
+		if (splits != null && splits > maxSplits)
 			values.put(TestEntity.SPLITS, maxSplits);
 	}
 
@@ -475,6 +489,13 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 	// logic for protocols
 	// ------------------------------------------------------------------------
 	public static final int maxSplits = 8;
+	
+    public double getMaxSpeed() { 
+    	String maxPerformance = (String) values.get(TestEntity.PERFORMANCE_MAX);
+    	Integer distance = (Integer) values.get(TestEntity.DISTANCE);
+		if(maxPerformance == null || distance == null)	return 0d;
+		return Helper.calculateMeterPerSecond(distance, maxPerformance);
+    }
 
 	protected FIXGRIDListBinding<GridTreadmillItem> m_gridTreadmill = new FIXGRIDListBinding<GridTreadmillItem>(
 			true);
@@ -495,14 +516,11 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 
 	public FIXGRIDTreeBinding<GridSwimItem> getGridSwim() {
 		return m_gridSwim;
-	}
+	}	
 	
-	// contains protocoll ids to delete
-	private Set<TestsSwimProtocolId> deletedSwimProtocols = new HashSet<TestsSwimProtocolId>();
-
 	public class GridTreadmillItem extends AGridItem {
-		Double speed;
-		Integer incline;
+		private Double speed;
+		private Integer incline;
 
 		public GridTreadmillItem(Integer step) {
 			super(step);
@@ -543,8 +561,8 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 	}
 
 	public class GridErgoItem extends AGridItem {
-		Integer power;
-		String cadence;
+		private Integer power;
+		private String cadence;
 
 		public GridErgoItem(Integer step) {
 			super(step);
@@ -581,17 +599,17 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 
 	public class GridSwimItem extends FIXGRIDTreeItem implements
 			java.io.Serializable {
-		Integer step;
-		Integer attempt;
-		Boolean topNode;
-		Boolean valid;
-		LactateSamples lactateSamples;
-		Integer hr;
-		Integer intensity; // just on top node
-		String time;
-		String comment;
-		Split[] splits = new Split[maxSplits];
-		int validNode;
+		private Integer step;
+		private Integer attempt;
+		private Boolean topNode;
+		private Boolean valid;
+		private LactateSamples lactateSamples;
+		private Integer hr;
+		private Integer intensity; // just on top node
+		private String time;
+		private String comment;
+		private Split[] splits = new Split[maxSplits];
+		private int validNode;
 
 		public GridSwimItem(FIXGRIDTreeItem parent, Integer step) {
 			super(parent);
@@ -653,7 +671,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 
 		public void setStep(Integer step) {
 			this.step = step;
-		}
+		}	
 
 		public Integer getIntensity() {
 			if (isTopNode()) {
@@ -674,19 +692,33 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 				return;
 			}
 			this.intensity = intensity;
+			// workaround to refresh nodes below
 			closeAllNodes();
+			expandNode();
+			
 		}
 
 		public String getTargetTime() {
 			if (isTopNode()) {
-				String maxPerformance = entity.getTestsProtocol()
-						.getPerformanceMax();
+				String maxPerformance = (String) values.get(TestEntity.PERFORMANCE_MAX);
 				if (maxPerformance == null)
 					return null;
-				return (Helper.percentageOfTime(maxPerformance, intensity));
+				return (Helper.percentageOfTime(maxPerformance, 200 - intensity));
 			} else {
 				return ((GridSwimItem) this.getParentNode()).getTargetTime();
 			}
+		}
+		
+		public Double getSpeed() {
+			Integer distance = (Integer) values.get(TestEntity.DISTANCE);
+			if(distance==null) return 0d;
+			return Helper.calculateMeterPerSecond(distance, getTime());			
+		}
+		
+		public Double getTargetSpeed() {
+			Integer distance = (Integer) values.get(TestEntity.DISTANCE);
+			if(distance==null) return 0d;
+			return Helper.calculateMeterPerSecond(distance, getTargetTime());			
 		}
 
 		public String getTime() {
@@ -894,28 +926,15 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			GridSwimItem selected = m_gridSwim.getSelectedItem();
 			if (selected == null) return;
 			FIXGRIDTreeItem root = selected.getParentNode();
-			if(root == null) return;
-			// is top node?
-			if (root.getLevelInt() < 0) {
-				// delete from db
-				for (FIXGRIDTreeItem attempt : selected.getChildNodes()) {
-					GridSwimItem item = (GridSwimItem) attempt;
-					TestsSwimProtocolId id = new TestsSwimProtocolId(entity.getTestsSwim().getId(),
-							((GridSwimItem) selected).getStep(), item.getStep());
-					deletedSwimProtocols.add(id);
-				}
-			} else {
-				// delete from db
-				TestsSwimProtocolId id = new TestsSwimProtocolId(entity.getTestsSwim().getId(),
-						((GridSwimItem) root).getStep(), selected.getStep());
-				deletedSwimProtocols.add(id);
-			}
+			if(root == null) return;			
 			selected.removeNode();
 			// recalculate step numbers and total time
 			int step = 1;
 			for (FIXGRIDTreeItem item : root.getChildNodes()) {
 				((GridSwimItem) item).setStep(step++);
 			}
+			// set dirty flag
+			isDirtySwimProtocol = true;
 		}
 	}
 
@@ -1120,6 +1139,24 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 					}
 				}
 			}
+		}
+	}
+	
+	private void checkDetailGrid() throws MandatoryCheckException {
+		// treadmill
+		if (isTreadmill()) {
+			checkMandatory(MANDATORY_FIELDS_TREADMILL);
+			return;
+		}
+		// ergo
+		if (isErgo()) {
+			checkMandatory(MANDATORY_FIELDS_ERGO);
+			return;
+		}
+		// swim
+		if (isSwim()) {
+			checkMandatory(MANDATORY_FIELDS_SWIM);
+			return;
 		}
 	}
 

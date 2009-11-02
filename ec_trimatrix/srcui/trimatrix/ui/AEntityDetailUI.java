@@ -44,6 +44,19 @@ public abstract class AEntityDetailUI extends MyWorkpageDispatchedBean implement
 		}
 	}
 	
+	protected void checkMandatory(String[] fields) throws MandatoryCheckException {
+		for (String name : fields) {
+			Object value = values.get(name);	
+			if (value == null) { throw new MandatoryCheckException(name);	}
+			if (value instanceof String) {				
+				String strValue = (String)value;
+				if(strValue.trim().length()==0) {
+					throw new MandatoryCheckException(name);		
+				}	
+			}
+		}
+	}
+	
 	protected void setState() {
 		mode = entityDetailUI.getMode();
         // enabled?
