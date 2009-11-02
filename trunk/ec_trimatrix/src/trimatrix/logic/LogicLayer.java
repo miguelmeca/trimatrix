@@ -9,6 +9,7 @@ public final class LogicLayer {
 	private RelationListLogic relationListLogic;
 	private LabelLogic labelLogic;
 	private ZonesLogic zonesLogic;
+	private TestLogic testLogic;
 	
 	public LogonLogic getLogonLogic() {
 		return logonLogic;
@@ -45,7 +46,14 @@ public final class LogicLayer {
 	}
 	public void setZonesLogic(ZonesLogic zonesLogic) {
 		this.zonesLogic = zonesLogic;
+	}	
+	public TestLogic getTestLogic() {
+		return testLogic;
 	}
+	public void setTestLogic(TestLogic testLogic) {
+		this.testLogic = testLogic;
+	}
+	
 	public static LogicLayer getFromApplicationContext(ApplicationContext ctx) {
 		return (LogicLayer) ctx.getBean("logicLayer");
 	}

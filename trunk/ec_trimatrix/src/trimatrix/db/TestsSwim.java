@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OrderBy;
+
 
 /**
  * TestsSwim entity. @author MyEclipse Persistence Tools
@@ -135,6 +137,7 @@ public class TestsSwim  implements java.io.Serializable {
     }
 
     @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, mappedBy = "id.id")
+    @OrderBy(clause="step, attempt")
 	public List<TestsSwimProtocol> getSteps() {
 		return steps;
 	}
