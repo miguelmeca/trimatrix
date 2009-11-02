@@ -6,9 +6,8 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import javax.faces.event.ActionEvent;
 
@@ -50,9 +49,8 @@ import trimatrix.db.TestsTreadmill;
 import trimatrix.entities.TestEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
-import trimatrix.ui.tests.AGridItem;
-import trimatrix.ui.tests.LactateSamples;
-import trimatrix.ui.tests.Split;
+import trimatrix.logic.TestLogic.LactateSamples;
+import trimatrix.logic.TestLogic.Split;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
 import trimatrix.utils.maths.PolynomialFunctions;
@@ -518,6 +516,45 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		return m_gridSwim;
 	}	
 	
+	public class AGridItem extends FIXGRIDItem implements java.io.Serializable {
+		protected Integer step;
+		protected String step_time = "00:00";
+		protected String time_total = "00:00";
+		protected Double lactate;
+		protected Integer hr;
+		protected Integer o2_absorption;
+		protected Integer co2_emission;
+		protected Double rq;
+		
+		public AGridItem(Integer step) {
+			this.step = step;
+		}
+		
+		public Integer getStep() {return step;}
+		public void setStep(Integer step) { this.step = step; }	
+		
+		public String getStep_time() { return step_time; }
+		public void setStep_time(String step_time) { this.step_time = step_time; }
+
+		public String getTime_total() {	return time_total; }
+		public void setTime_total(String time_total) { this.time_total = time_total; }
+
+		public Double getLactate() {return lactate;}
+		public void setLactate(Double lactate) {this.lactate = lactate;}
+		
+		public Integer getHr() {return hr;}
+		public void setHr(Integer hr) {this.hr = hr;}
+		
+		public Integer getO2_absorption() {return o2_absorption;}		
+		public void setO2_absorption(Integer o2_absorption) {this.o2_absorption = o2_absorption;}
+		
+		public Integer getCo2_emission() {return co2_emission;}
+		public void setCo2_emission(Integer co2_emission) {this.co2_emission = co2_emission;}
+		
+		public Double getRq() {return rq;}
+		public void setRq(Double rq) {this.rq = rq;}
+	}
+	
 	public class GridTreadmillItem extends AGridItem {
 		private Double speed;
 		private Integer incline;
@@ -626,10 +663,10 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 				// build splits
 				int splitCount = entity.getTestsSwim().getSplits();
 				for (int i = 1; i <= splitCount; i++) {
-					Split split = new Split();
+					Split split = getLogic().getTestLogic().createSplit();
 					splits[i - 1] = split;
 				}
-				lactateSamples = new LactateSamples();
+				lactateSamples = getLogic().getTestLogic().createLactateSamples();
 				// set valid node at top node
 				((GridSwimItem) getParentNode()).setValidNode(getParentNode()
 						.getChildNodes().size());
@@ -654,13 +691,13 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 				if (valid)
 					((GridSwimItem) getParentNode()).setValidNode(step - 1);
 				time = protocol.getTime();
-				lactateSamples = new LactateSamples(protocol.getLactate());
+				lactateSamples = getLogic().getTestLogic().createLactateSamples(protocol.getLactate());
 				if (protocol.getHr() != null)
 					hr = Integer.valueOf(protocol.getHr());
 				// splits, if null, create array with split count elements
 				Integer count = entity.getTestsSwim().getSplits();
 				String strSplits = protocol.getSplits();
-				splits = Split.buildArray(strSplits, count);
+				splits = getLogic().getTestLogic().buildArray(strSplits, count);
 				comment = protocol.getComment();
 			}
 		}
@@ -940,7 +977,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 
 	private void fillSwimProtocol() {
 		TestsSwim swim = entity.getTestsSwim();
-		List<TestsSwimProtocol> protocols = new ArrayList<TestsSwimProtocol>();
+		List<TestsSwimProtocol> protocols = new ArrayList<TestsSwimProtocol>();		
 		for (FIXGRIDTreeItem step : m_gridSwim.getRootNode().getChildNodes()) {
 			for (FIXGRIDTreeItem attempt : step.getChildNodes()) {
 				GridSwimItem item = (GridSwimItem) attempt;
@@ -955,11 +992,13 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 				if (item.getHr() != null)
 					protocol.setHr(item.getHr().toString());
 				Integer count = entity.getTestsSwim().getSplits();
-				protocol.setSplits(Split.buildString(item.getSplits(), count));
+				protocol.setSplits(getLogic().getTestLogic().buildString(item.getSplits(), count));
 				protocol.setComment(item.getComment());
 				protocols.add(protocol);
 			}
 		}
+		// set steps for analyze method
+		entity.getTestsProtocol().setCountSteps(m_gridSwim.getRootNode().getChildNodes().size());
 		swim.setSteps(protocols);
 	}
 
@@ -1166,12 +1205,14 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 	final String LACTATE = "Laktat";
 	final String HR = "Puls";
 	final String SPEED = "Geschwindigkeit";
+	final String TIME = "Zeit";
 	final String POWER = "Watt";
 	final String UNIT_HR = "bpm";
 	final String UNIT_WATT = "W";
 	final String UNIT_MMOL = "mmol/l";
 	final String UNIT_KMH = "km/h";
 	final String UNIT_MMSS = "mm:ss";
+	final String UNIT_MS = "m/s";
 
 	private byte[] m_diagram;
 	private IResult result;
@@ -1180,6 +1221,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 	private String unitX = null;
 	private String descriptionY = null;
 	private String unitY = null;
+	private boolean highToLow = false;
 
 	protected int m_height = 300;
 
@@ -1246,7 +1288,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		// build the chart based on the computed result
 		if(result==null) return;
 		m_diagram = buildDiagram(result, hrs, m_width, m_height, descriptionX,
-				unitX, descriptionY, unitY);
+				unitX, descriptionY, unitY, highToLow);
 	}
 
 	public void onChangeXY(ActionEvent event) {
@@ -1363,13 +1405,33 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			}			
 		}
 		// swim
-		if (isSwim()) {
-			descriptionX = SPEED;
+		if (isSwim()) {			
+			//descriptionX = SPEED;
+			//unitX = UNIT_MS;
+			descriptionX = TIME;
 			unitX = UNIT_MMSS;
+			
 			descriptionY = LACTATE;
 			unitY = UNIT_MMOL;
+			
+			highToLow = true;
 
-			// a bit complex
+			TestsSwim swim = entity.getTestsSwim();			
+			List<TestsSwimProtocol> protocols = swim.getSteps();
+			int steps = entity.getTestsProtocol().getCountSteps();
+			xyArr = new double[steps * 2];
+			int i = 0;
+			for(TestsSwimProtocol protocol : protocols) {
+				if(protocol.getValid()) {					
+					// x value
+					//xyArr[2 * i] = Helper.calculateMeterPerSecond(swim.getDistance(), protocol.getTime());
+					xyArr[2 * i] = Helper.calculateSeconds(protocol.getTime());
+					// y value
+					xyArr[2 * i + 1] = getLogic().getTestLogic().createLactateSamples(protocol.getLactate()).getSingleDoubleValue();
+					i++;
+				}				
+			}
+			
 		}
 		
 		if(Constants.EXP.equals(m_function)) {
@@ -1393,7 +1455,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 	// TODO put into logic layer
 
 	private byte[] buildDiagram(IResult resultLactate, double[] hrs, int width, int height,
-			String descriptionX, String unitX, String descriptionY, String unitY) {
+			String descriptionX, String unitX, String descriptionY, String unitY, boolean highToLow) {
 		// constants
 		final String MEASUREPOINTS = "Messpunkte";
 		final int GRANULARITY = 10;
@@ -1402,7 +1464,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 
 		// measuring points
 		double[] measurePoints = resultLactate.getXYValues();
-		XYSeries seriesPoints = new XYSeries(MEASUREPOINTS);
+		XYSeries seriesPoints = new XYSeries(MEASUREPOINTS, false);
 		for (int i = 1; i < measurePoints.length; i += 2) {
 			seriesPoints.add(measurePoints[i - 1], measurePoints[i]);
 		}
@@ -1410,15 +1472,25 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		int low = (int) (Math.floor(seriesPoints.getMinX()));
 		int high = (int) (Math.ceil(seriesPoints.getMaxX()));
 		int grain = (high - low) * GRANULARITY;
-
+		
 		// curve
 		XYSeries seriesCurve = DatasetUtilities.sampleFunction2DToSeries(
 				resultLactate.getFunction2D(), low, high, grain, descriptionY);
+		
+		// change low and high
+		if(highToLow) {
+			XYSeries seriesCurveInverted = new XYSeries(descriptionY, false);
+			for (int i = seriesCurve.getItems().size(); i > 0;i--) {
+			  seriesCurveInverted.add(seriesCurve.getDataItem(i-1));		  
+			}
+			seriesCurve = seriesCurveInverted;
+		}
+		
 
 		// build data set for chart
 		XYSeriesCollection dataset = new XYSeriesCollection();
 		dataset.addSeries(seriesPoints);
-		dataset.addSeries(seriesCurve);
+		dataset.addSeries(seriesCurve);	
 
 		// build chart
 		final JFreeChart chart = ChartFactory.createXYLineChart(null,

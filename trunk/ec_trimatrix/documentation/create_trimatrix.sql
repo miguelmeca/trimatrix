@@ -675,6 +675,8 @@ CREATE TABLE `tests_analysis` (
 
 /*Data for the table `tests_analysis` */
 
+insert  into `tests_analysis`(`id`,`created_at`,`created_by`) values ('52ec1e3f-ec3e-4676-960e-f8a547b734aa','2009-11-02 20:49:08','e96bcbd2-676d-102c-ace2-9cc3fca64c87'),('cfbc410c-cdd8-4f76-9d5a-65ccd301b738','2009-11-02 21:51:17','e96bcbd2-676d-102c-ace2-9cc3fca64c87');
+
 /*Table structure for table `tests_ergo` */
 
 DROP TABLE IF EXISTS `tests_ergo`;
@@ -719,7 +721,7 @@ CREATE TABLE `tests_protocol` (
 
 /*Data for the table `tests_protocol` */
 
-insert  into `tests_protocol`(`id`,`description`,`model`,`model_lactate`,`model_spiro`,`count_steps`,`performance_max`,`lactate`,`hr`,`o2_absorption`,`co2_emission`,`rq`,`created_at`,`created_by`) values ('cfbc410c-cdd8-4f76-9d5a-65ccd301b738','Alles Roger','Daum','A1','A2',2,NULL,'[1.1,2]','[123,150]','[null,null]','[null,null]','[null,null]','2009-11-01 18:44:43','e96bcbd2-676d-102c-ace2-9cc3fca64c87'),('52ec1e3f-ec3e-4676-960e-f8a547b734aa','Test',NULL,'A1',NULL,0,'08:30',NULL,NULL,NULL,NULL,NULL,'2009-11-01 19:06:51','e96bcbd2-676d-102c-ace2-9cc3fca64c87');
+insert  into `tests_protocol`(`id`,`description`,`model`,`model_lactate`,`model_spiro`,`count_steps`,`performance_max`,`lactate`,`hr`,`o2_absorption`,`co2_emission`,`rq`,`created_at`,`created_by`) values ('cfbc410c-cdd8-4f76-9d5a-65ccd301b738','Alles Roger','Daum','A1','A2',4,NULL,'[1.1,2,2.5,3]','[123,150,180,200]','[null,null,null,null]','[null,null,null,null]','[null,null,null,null]','2009-11-01 18:44:43','e96bcbd2-676d-102c-ace2-9cc3fca64c87'),('52ec1e3f-ec3e-4676-960e-f8a547b734aa','Test',NULL,'A1',NULL,4,'03:30',NULL,NULL,NULL,NULL,NULL,'2009-11-01 19:06:51','e96bcbd2-676d-102c-ace2-9cc3fca64c87');
 
 /*Table structure for table `tests_swim` */
 
@@ -751,7 +753,6 @@ CREATE TABLE `tests_swim_protocol` (
   `attempt` int(11) NOT NULL,
   `intensity` int(11) DEFAULT NULL,
   `time` varchar(5) DEFAULT NULL,
-  `target_time` varchar(5) DEFAULT NULL,
   `valid` tinyint(1) DEFAULT NULL,
   `lactate` text,
   `hr` text COMMENT 'Datensatz erstellt am',
@@ -763,7 +764,7 @@ CREATE TABLE `tests_swim_protocol` (
 
 /*Data for the table `tests_swim_protocol` */
 
-insert  into `tests_swim_protocol`(`id`,`step`,`attempt`,`intensity`,`time`,`target_time`,`valid`,`lactate`,`hr`,`splits`,`comment`) values ('52ec1e3f-ec3e-4676-960e-f8a547b734aa',1,3,90,'06:00',NULL,1,'4','90','[{00:00;0},{00:00;0},{00:00;0},{00:00;0}]',NULL),('52ec1e3f-ec3e-4676-960e-f8a547b734aa',1,1,90,'06:50',NULL,0,'3','120','[{00:00;0},{00:00;0},{00:00;0},{00:00;0}]',NULL),('52ec1e3f-ec3e-4676-960e-f8a547b734aa',1,2,90,'05:00',NULL,0,'2','100','[{00:00;0},{00:00;0},{00:00;0},{00:00;0}]',NULL),('52ec1e3f-ec3e-4676-960e-f8a547b734aa',2,1,80,'05:00',NULL,1,'0','100','[{00:00;0},{00:00;0},{00:00;0},{00:00;0}]',NULL);
+insert  into `tests_swim_protocol`(`id`,`step`,`attempt`,`intensity`,`time`,`valid`,`lactate`,`hr`,`splits`,`comment`) values ('52ec1e3f-ec3e-4676-960e-f8a547b734aa',1,3,60,'06:00',0,'4','90','[{00:00;0},{00:00;0},{00:00;0},{00:00;0}]',NULL),('52ec1e3f-ec3e-4676-960e-f8a547b734aa',1,1,60,'05:00',1,'1@2 1,1@5','90','[{00:00;0},{00:00;0},{00:00;0},{00:00;0}]',NULL),('52ec1e3f-ec3e-4676-960e-f8a547b734aa',1,2,60,'05:00',0,'2','100','[{00:00;0},{00:00;0},{00:00;0},{00:00;0}]',NULL),('52ec1e3f-ec3e-4676-960e-f8a547b734aa',2,1,70,'04:35',1,'2@5','100','[{00:00;0},{00:00;0},{00:00;0},{00:00;0}]',NULL),('52ec1e3f-ec3e-4676-960e-f8a547b734aa',3,1,80,'04:10',1,'2,8',NULL,'[{00:00;0},{00:00;0},{00:00;0},{00:00;0}]',NULL),('52ec1e3f-ec3e-4676-960e-f8a547b734aa',4,1,90,'03:50',1,'4,5',NULL,'[{00:00;0},{00:00;0},{00:00;0},{00:00;0}]',NULL);
 
 /*Table structure for table `tests_treadmill` */
 

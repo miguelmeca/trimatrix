@@ -154,11 +154,8 @@ public class Helper {
 	public static String percentageOfTime(String time, Integer percentage) {
 		if(percentage==0) return "00:00"; 
 		if(percentage==100) return time;
-		String[] arrTime = time.split(":");
-		// check format mm:ss
-		if(arrTime.length<2) return null;
-		int secTime = Integer.valueOf(arrTime[0]) * 60 + Integer.valueOf(arrTime[1]);
-		double secPercent = (secTime / 100) * percentage;
+		int secTime = calculateSeconds(time);
+		double secPercent = (secTime / 100d) * percentage;
 		int minutes = (int)(secPercent / 60);
 		int seconds = (int)(secPercent % 60);
 		return String.format("%02d:%02d", minutes, seconds);		
@@ -171,12 +168,21 @@ public class Helper {
 	 * @return Speed m/s
 	 */
 	public static Double calculateMeterPerSecond(Integer distance, String time) {
+		Double secTime = (double)calculateSeconds(time);
+		if(secTime==null || secTime == 0) return null;
+		return distance / secTime;		
+	}
+	
+	/**
+	 * Calculate seconds of time
+	 * @param time Time in format mm:ss
+	 * @return	seconds
+	 */
+	public static Integer calculateSeconds(String time) {
 		String[] arrTime = time.split(":");
 		// check format mm:ss
 		if(arrTime.length<2) return null;
-		Double secTime = Double.valueOf(arrTime[0]) * 60 + Integer.valueOf(arrTime[1]);
-		if(secTime==null || secTime == 0) return null;
-		return distance / secTime;		
+		return Integer.valueOf(arrTime[0]) * 60 + Integer.valueOf(arrTime[1]);
 	}
 	
 	/**

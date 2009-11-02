@@ -19,4 +19,13 @@ public class HelperTest {
 		end = Helper.calculateDuration(start, duration);
 		Assert.assertEquals("99:15", end);
 	}
+	
+	@Test
+	public void testCalucaltePercentage() {
+		Assert.assertEquals("02:00", Helper.percentageOfTime("01:00", 200));
+		Assert.assertEquals("01:00", Helper.percentageOfTime("01:00", 100));
+		Assert.assertEquals("00:45", Helper.percentageOfTime("01:00", 75));
+		Assert.assertEquals("00:30", Helper.percentageOfTime("01:00", 50));
+		Assert.assertEquals("00:00", Helper.percentageOfTime("01:00", 0));
+	}
 }
