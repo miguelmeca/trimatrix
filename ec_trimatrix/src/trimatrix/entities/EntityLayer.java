@@ -7,6 +7,8 @@ public class EntityLayer {
 	private UserEntity userEntity;	
 	private DoctorEntity doctorEntity;
 	private AttachmentEntity attachmentEntity;
+	private TestEntity testEntity;
+	private CompetitionEntity competitionEntity;
 	
 	public PersonEntity getPersonEntity() {
 		return personEntity;
@@ -38,6 +40,22 @@ public class EntityLayer {
 
 	public void setAttachmentEntity(AttachmentEntity attachmentEntity) {
 		this.attachmentEntity = attachmentEntity;
+	}	
+
+	public TestEntity getTestEntity() {
+		return testEntity;
+	}
+
+	public void setTestEntity(TestEntity testEntity) {
+		this.testEntity = testEntity;
+	}
+
+	public CompetitionEntity getCompetitionEntity() {
+		return competitionEntity;
+	}
+
+	public void setCompetitionEntity(CompetitionEntity competitionEntity) {
+		this.competitionEntity = competitionEntity;
 	}
 
 	public static EntityLayer getFromApplicationContext(ApplicationContext ctx) {

@@ -19,6 +19,7 @@ public final class Constants {
 		PERSONDETAIL("/persondetail.jsp","Personen"),
 		DOCTORDETAIL("/doctordetail.jsp","Ärzte"),
 		TESTDETAIL("/testdetail.jsp","Tests"),
+		COMPETITIONDETAIL("/competitiondetail.jsp","Wettkämpfe"),
 		ATTACHMENTDETAIL("/attachmentdetail.jsp","Anhänge"),
 		ZONESDETAIL("/zonesdetail.jsp", "Trainingsbereiche"),
 		ZONESDEFINITION("/zonesdefinition.jsp", "Trainingsbereiche"),
@@ -26,6 +27,7 @@ public final class Constants {
 		PERSONSELECTION("/personselection.jsp", "Personensuche"),
 		DOCTORSELECTION("/doctorselection.jsp", "Ärztesuche"),
 		TESTSELECTION("/testselection.jsp", "Testssuche"),
+		COMPETITIONSELECTION("/competitionselection.jsp", "Wettkampfsuche"),
 		ATTACHMENTSELECTION("/attachmentselection.jsp", "Anhangssuche"),
 		RELATIONLIST("/relationlist.jsp", "Beziehungen"),
 		CREATERELATION("/createrelation.jsp", "Beziehungsanlage"),
@@ -48,11 +50,13 @@ public final class Constants {
 		PERSON(null, Page.PERSONDETAIL, Page.PERSONSELECTION, false), 
 		DOCTOR(null, Page.DOCTORDETAIL, Page.DOCTORSELECTION, false),
 		TEST(null, Page.TESTDETAIL, Page.TESTSELECTION, false),
+		COMPETITION(null, Page.COMPETITIONDETAIL, Page.COMPETITIONSELECTION, false),
 		ATTACHMENT(null, Page.ATTACHMENTDETAIL, Page.ATTACHMENTSELECTION, false),
 		MYCOACHES(PERSON, Page.PERSONDETAIL, Page.PERSONSELECTION, true), 
 		MYATHLETES(PERSON, Page.PERSONDETAIL, Page.PERSONSELECTION, false),
 		MYDOCTORS(DOCTOR, Page.DOCTORDETAIL, Page.DOCTORSELECTION, true),
 		MYTESTS(TEST, Page.TESTDETAIL, Page.TESTSELECTION, false),
+		MYCOMPETITIONS(COMPETITION, Page.COMPETITIONDETAIL, Page.COMPETITIONSELECTION, false),
 		COACHTESTS(TEST, Page.TESTDETAIL, Page.TESTSELECTION, false),
 		MYATTACHMENTS(ATTACHMENT, Page.ATTACHMENTDETAIL, Page.ATTACHMENTSELECTION, false);
 		private final Entity baseEntity;
@@ -85,9 +89,13 @@ public final class Constants {
 		PERSONPERSON(Entity.PERSON, Entity.PERSON),
 		PERSONDOCTOR(Entity.PERSON, Entity.DOCTOR),
 		PERSONATTACHMENT(Entity.PERSON, Entity.ATTACHMENT),
+		PERSONCOMPETITION(Entity.PERSON, Entity.COMPETITION),
 		COACH("coach", PERSONPERSON),
+		SCOUT("scout", PERSONPERSON),
 		DOCTOR("doctor", PERSONDOCTOR),
-		ATTACHMENT("attachment", PERSONATTACHMENT);
+		ATTACHMENT("attachment", PERSONATTACHMENT),
+		COMP_ATHLET("comp_ath", PERSONCOMPETITION),
+		COMP_SCOUT("comp_scout", PERSONCOMPETITION);
 		private final String type;
 		private final Relation baseRelation;
 		private final Constants.Entity partner1;

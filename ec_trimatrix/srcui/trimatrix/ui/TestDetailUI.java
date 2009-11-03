@@ -6,7 +6,6 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.faces.event.ActionEvent;
@@ -33,6 +32,8 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.general.DatasetUtilities;
+import org.jfree.data.time.Minute;
+import org.jfree.data.time.Second;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -1476,16 +1477,6 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		// curve
 		XYSeries seriesCurve = DatasetUtilities.sampleFunction2DToSeries(
 				resultLactate.getFunction2D(), low, high, grain, descriptionY);
-		
-		// change low and high
-		if(highToLow) {
-			XYSeries seriesCurveInverted = new XYSeries(descriptionY, false);
-			for (int i = seriesCurve.getItems().size(); i > 0;i--) {
-			  seriesCurveInverted.add(seriesCurve.getDataItem(i-1));		  
-			}
-			seriesCurve = seriesCurveInverted;
-		}
-		
 
 		// build data set for chart
 		XYSeriesCollection dataset = new XYSeriesCollection();
@@ -1503,12 +1494,16 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		plot.setBackgroundPaint(Color.lightGray);
 		plot.setDomainGridlinePaint(Color.white);
 		plot.setRangeGridlinePaint(Color.white);
+		// change low and high
+		if(highToLow) {
+			plot.getDomainAxis().setInverted(true);
+		}
 
 		final XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
 		renderer.setSeriesLinesVisible(0, false);
 		renderer.setSeriesShapesVisible(1, false);
 		plot.setRenderer(renderer);
-		
+			
 		// add hr values
 		if(hrs!=null) {
 			XYSeries seriesHR = new XYSeries("Herzfrequenz");

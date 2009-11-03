@@ -6,6 +6,7 @@ public class RelationLayer {
 	private PersonPersonRelation personPersonRelation;
 	private PersonDoctorRelation personDoctorRelation;
 	private PersonAttachmentRelation personAttachmentRelation;
+	private PersonCompetitionRelation personCompetitionRelation;
 	
 	public PersonPersonRelation getPersonPersonRelation() {
 		return personPersonRelation;
@@ -32,6 +33,15 @@ public class RelationLayer {
 		this.personAttachmentRelation = personAttachmentRelation;
 	}
 	
+	public PersonCompetitionRelation getPersonCompetitionRelation() {
+		return personCompetitionRelation;
+	}
+
+	public void setPersonCompetitionRelation(
+			PersonCompetitionRelation personCompetitionRelation) {
+		this.personCompetitionRelation = personCompetitionRelation;
+	}
+
 	public static RelationLayer getFromApplicationContext(ApplicationContext ctx) {
 		return (RelationLayer) ctx.getBean("relationLayer");
 	}

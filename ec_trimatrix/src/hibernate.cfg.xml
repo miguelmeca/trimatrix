@@ -90,6 +90,8 @@
 		<mapping class="trimatrix.db.Labels" />
 		<mapping class="trimatrix.db.Zones" />
 		<mapping class="trimatrix.db.ZonesDefinition" />
+		<mapping class="trimatrix.db.Competitions" />
+		<mapping class="trimatrix.db.PersonsHaveCompetitions" />
 	</session-factory>
 
 </hibernate-configuration>
