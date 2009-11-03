@@ -11,12 +11,10 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import trimatrix.db.PersonsAthlete;
 import trimatrix.db.Tests;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
-import trimatrix.utils.Helper;
 
 public final class TestEntity extends AEntity {
 	// Enums
@@ -147,26 +145,11 @@ public final class TestEntity extends AEntity {
 					status.setRollbackOnly();
 					return false;
 				}				
-				Helper.logger.info("DoctorEntity : Deletion of doctor successful => " + id );
+				logger.info("TestEntity : Deletion of test successful => " + id );
 				return true;
 			}			
 		});		
 		return result;		
-	}
-	
-	public boolean deleteProfile(String id, Constants.Profiles profile) {
-		switch (profile) {
-		case ATHLETE:
-			PersonsAthlete athlete = daoLayer.getPersonAthleteDAO().findById(id);
-			if(athlete==null) {
-				Helper.logger.warn("PersonAthlete : Profil athlete not found => " + id );		
-				return false;
-			} 
-			daoLayer.getPersonAthleteDAO().delete(athlete);		
-			Helper.logger.info("PersonAthlete : Deletion of profil athlete successful => " + id );
-			break;
-		}		
-		return true;
 	}
 	
 	/* (non-Javadoc)

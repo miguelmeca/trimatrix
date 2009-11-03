@@ -139,7 +139,6 @@ public class CompetitionsDAO extends HibernateDaoSupport implements IEntityDAO<C
 		}
 	}	
 
-	@Override
 	public void reload(IEntityObject instance) {
 		String id = instance.getId();
 		log.debug("reloading Competition instance with id: " + id);

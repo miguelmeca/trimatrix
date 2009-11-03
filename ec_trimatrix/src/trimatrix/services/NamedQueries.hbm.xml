@@ -480,6 +480,20 @@ WHERE t_testtypes.language_key = :p_lang_key
   <return-scalar column="description" type="java.lang.String"/>
   <return-scalar column="description_long" type="java.lang.String"/>
 </sql-query> 
+
+ <sql-query cacheable="true" name="CompTypeValueList" read-only="true">
+SELECT
+  k_comptypes.key,
+  t_comptypes.description,
+  t_comptypes.description_long
+FROM k_comptypes
+  JOIN t_comptypes
+    ON k_comptypes.key = t_comptypes.key
+WHERE t_comptypes.language_key = :p_lang_key
+  <return-scalar column="key" type="java.lang.String"/>
+  <return-scalar column="description" type="java.lang.String"/>
+  <return-scalar column="description_long" type="java.lang.String"/>
+</sql-query> 
  
  <sql-query cacheable="true" name="RelTypsValueList"
    read-only="true">SELECT k_reltyps.key, t_reltyps.description_long, t_reltyps.relation_description 

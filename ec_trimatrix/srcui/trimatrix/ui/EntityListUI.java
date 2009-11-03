@@ -21,7 +21,6 @@ import trimatrix.logic.EntityListLogic;
 import trimatrix.structures.SAuthorization;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.structures.SListVariant;
-import trimatrix.structures.SGridMetaData.Component;
 import trimatrix.ui.utils.MyWorkpage;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;

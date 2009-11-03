@@ -17,12 +17,10 @@ import trimatrix.logic.RelationListLogic;
 import trimatrix.relations.IRelationObject;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
-import trimatrix.utils.Helper;
 
 @CCGenClass (expressionBase="#{d.CreateRelationUI}")
 
-public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serializable
-{
+public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serializable {
 	private final RelationListLogic RELATIONLISTLOGIC = getLogic().getRelationListLogic();
 		
 	private IEntityObject partner1;
@@ -61,10 +59,10 @@ public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serial
     		Statusbar.outputSuccess("Relation saved");
     		callback.ok();
     	} catch (DataIntegrityViolationException dive) {
-    		Helper.logger.error("Relation could not be saved (Data Integrity) : " + dive.getRootCause().toString());
+    		logger.error("Relation could not be saved (Data Integrity) : " + dive.getRootCause().toString());
     		popup = OKPopup.createInstance("Error","Relation could not be saved (Data Integrity)");    		
     	} catch (Exception ex){			
-			Helper.logger.error("Relation could not be saved : " + ex.toString());
+			logger.error("Relation could not be saved : " + ex.toString());
     		popup = OKPopup.createInstance("Error","Relation could not be saved");    	
 		} 	
     	if (popup!=null) {
@@ -88,7 +86,7 @@ public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serial
    			}});    	
        	String width = HttpSessionAccess.getCurrentRequest().getHeader("eclnt-width");
        	String height = HttpSessionAccess.getCurrentRequest().getHeader("eclnt-height");
-       	Helper.logger.warn("Width: " + width + " - Height: " + height);
+       	logger.warn("Width: " + width + " - Height: " + height);
        	m_popup = getWorkpage().createModalPopupInWorkpageContext();      
        	m_popup.setLeftTopReferenceCentered();
        	m_popup.open(selectionPage.getUrl(), selectionPage.getDescription(), 800, 600, this);
@@ -108,7 +106,7 @@ public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serial
    			}});    	
        	String width = HttpSessionAccess.getCurrentRequest().getHeader("eclnt-width");
        	String height = HttpSessionAccess.getCurrentRequest().getHeader("eclnt-height");
-       	Helper.logger.warn("Width: " + width + " - Height: " + height);
+       	logger.warn("Width: " + width + " - Height: " + height);
        	m_popup = getWorkpage().createModalPopupInWorkpageContext();    
        	m_popup.setLeftTopReferenceCentered();
        	m_popup.open(selectionPage.getUrl(), selectionPage.getDescription(), 800, 600, this);

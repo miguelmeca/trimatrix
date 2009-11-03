@@ -2,8 +2,6 @@ package utils;
 
 import java.util.UUID;
 
-import junit.framework.Assert;
-
 import org.apache.commons.beanutils.BeanUtils;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;

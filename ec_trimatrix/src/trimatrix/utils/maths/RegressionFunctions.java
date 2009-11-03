@@ -3,9 +3,6 @@ package trimatrix.utils.maths;
 import org.apache.commons.lang.NotImplementedException;
 import org.jfree.data.function.Function2D;
 
-import trimatrix.exceptions.ArrayNotEvenException;
-import trimatrix.exceptions.OutOfBoundsException;
-
 /**
  * @author reich
  * 

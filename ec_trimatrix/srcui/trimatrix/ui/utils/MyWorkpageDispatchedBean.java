@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.faces.event.ActionEvent;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.ModalPopup;
 import org.eclnt.jsfserver.defaultscreens.ModelessPopup;
@@ -43,6 +45,7 @@ import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
 
 public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements IModalPopupListener{	
+	public static final Log logger = LogFactory.getLog(MyWorkpageDispatchedBean.class);
 	
 	public MyWorkpageDispatchedBean(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
@@ -250,7 +253,7 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 		if (entity == Constants.Entity.DOCTOR) return (EntitySelectionUI)getOwningDispatcher().getDispatchedBean(DoctorSelectionUI.class);
 		if (entity == Constants.Entity.ATTACHMENT) return (EntitySelectionUI)getOwningDispatcher().getDispatchedBean(AttachmentSelectionUI.class);
 		
-		Helper.logger.warn("For entity " + entity.name() + " no SelectionUI available!");
+		logger.warn("For entity " + entity.name() + " no SelectionUI available!");
 		return null;
 	}
 	

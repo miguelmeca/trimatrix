@@ -7,8 +7,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
-import org.junit.Ignore;
-
 import trimatrix.relations.IRelationObject;
 
 /**

@@ -60,7 +60,7 @@ public class AttachmentEntity extends AEntity {
 					status.setRollbackOnly();
 					return false;
 				}				
-				Helper.logger.info("AttachmentEntity : Deletion of attachment successful => " + id );
+				logger.info("AttachmentEntity : Deletion of attachment successful => " + id );
 				return true;
 			}			
 		});		

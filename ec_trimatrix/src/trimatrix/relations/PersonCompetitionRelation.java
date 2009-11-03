@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import trimatrix.db.Attachments;
 import trimatrix.db.Competitions;
 import trimatrix.db.Persons;
-import trimatrix.db.PersonsHaveAttachments;
 import trimatrix.db.PersonsHaveCompetitions;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants.Relation;

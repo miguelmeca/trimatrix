@@ -183,7 +183,7 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 					}					
 				});
 				if(!labelChangePopUp.setLabel(label_id)) {
-					Helper.logger.error("Label " + label_id + " not correct!");
+					logger.error("Label " + label_id + " not correct!");
 					return;
 				}			
 				m_popup = getWorkpage().createModalPopupInWorkpageContext();  			

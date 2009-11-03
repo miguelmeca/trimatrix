@@ -143,7 +143,6 @@ public class PersonsHaveCompetitionsDAO extends HibernateDaoSupport implements I
 	}	
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public int deleteByPartners(String partnerId) {
 		int count = 0;
     	log.debug("finding PersonsHaveCompetitions instance with partner1 or partner2 : "+ partnerId);
@@ -162,7 +161,6 @@ public class PersonsHaveCompetitionsDAO extends HibernateDaoSupport implements I
           return count;
 	}
 
-	@Override
 	public void reload(IRelationObject relation) {
 		String id = relation.getId();
 		log.debug("reloading PersonsHaveCompetitions instance with id: " + id);

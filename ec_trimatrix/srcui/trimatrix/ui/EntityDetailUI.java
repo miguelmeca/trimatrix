@@ -21,7 +21,6 @@ import trimatrix.structures.SAuthorization;
 import trimatrix.ui.utils.MyWorkpage;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
-import trimatrix.utils.Helper;
 
 @SuppressWarnings("serial")
 @CCGenClass(expressionBase = "#{d.EntityDetailUI}")
@@ -153,9 +152,9 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 		if(parentBean instanceof EntityListUI) {
 			EntityListUI entityListUI = (EntityListUI)parentBean;
 			entityListUI.onRefresh(null);
-			Helper.logger.info("Bean EntityDetailUI : parent bean refreshed!");
+			logger.info("Bean EntityDetailUI : parent bean refreshed!");
 		} else {
-			Helper.logger.info("Bean EntityDetailUI : no parent bean to refresh!");
+			logger.info("Bean EntityDetailUI : no parent bean to refresh!");
 		}
 	}
 	

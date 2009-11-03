@@ -1,9 +1,9 @@
 package trimatrix.utils.maths;
 
-import org.jfree.data.function.Function2D;
-
 import jamlab.Polyfit;
 import jamlab.Polyval;
+
+import org.jfree.data.function.Function2D;
 
 public class PolynomialFunctions extends AFunctions {
 

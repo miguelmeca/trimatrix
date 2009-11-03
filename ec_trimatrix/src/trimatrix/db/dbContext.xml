@@ -189,6 +189,7 @@
         		<ref bean="PersonsHaveRelationsDAO" />
         		<ref bean="PersonsHaveDoctorsDAO" /> 
         		<ref bean="PersonsHaveAttachmentsDAO" />   
+        		<ref bean="PersonsHaveCompetitionsDAO" />   
         	</list>
         </property> 
     </bean>

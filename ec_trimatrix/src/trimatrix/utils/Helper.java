@@ -14,8 +14,6 @@ import java.util.regex.Pattern;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.eclnt.jsfserver.resources.ResourceManager;
 import org.eclnt.jsfserver.util.HttpSessionAccess;
 
@@ -196,8 +194,7 @@ public class Helper {
 	    list.add((E)item);
 	}	
 
-	// TODO put logger in every relevant class
-	public static final Log logger = LogFactory.getLog("trimatrix");
+	//public static final Log logger = LogFactory.getLog("trimatrix");
 	//CLog.L logger
 	//public static Logger logger = Logger.getLogger("trimatrix");
 }
