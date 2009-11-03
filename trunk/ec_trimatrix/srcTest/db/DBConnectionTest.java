@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -26,6 +27,7 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
+import trimatrix.db.Competitions;
 import trimatrix.db.DAOLayer;
 import trimatrix.db.EntitiesHaveLabels;
 import trimatrix.db.EntitiesHaveLabelsId;
@@ -342,17 +344,36 @@ public class DBConnectionTest {
 		Assert.assertEquals(1, definition2.getSequence());
 		Assert.assertEquals(10d, definition2.getLactateLow());
 		Assert.assertEquals(12.1d, definition2.getLactateHigh());
-		Assert.assertEquals("Test", definition2.getDescription());
-		daoLayer.getZonesDefinitionDAO().delete(definition2);
+		Assert.assertEquals("Test", definition2.getDescription());		
 		// Zones
-		id = UUID.randomUUID().toString();
+		String id2 = UUID.randomUUID().toString();
 		Zones zones = new Zones();
-		zones.setId(id);	
+		zones.setId(id2);	
 		zones.setAthleteId("123456ABCDEFG");
+		zones.setZonesDefinitionId(id);
 		daoLayer.getZonesDAO().save(zones);
-		Zones zones2 = daoLayer.getZonesDAO().findById(id);
+		Zones zones2 = daoLayer.getZonesDAO().findById(id2);
 		Assert.assertEquals("123456ABCDEFG", zones2.getAthleteId());
-		daoLayer.getZonesDAO().delete(zones2);
+		// delete
+		daoLayer.getZonesDAO().delete(zones);
+		daoLayer.getZonesDefinitionDAO().delete(definition2);		
+	}
+	
+	@Test
+	public void testCompetitions() {
+		// Competitions
+		String id = UUID.randomUUID().toString();
+		Date date = new Date();
+		Competitions comp = new Competitions(id);
+		comp.setDescription("Test Wettkampf");
+		comp.setDate(date); 
+		comp.setSwimsuit(true);
+		daoLayer.getCompetitionsDAO().save(comp);
+		Competitions comp2 = daoLayer.getCompetitionsDAO().findById(id);
+		Assert.assertEquals(comp.getDescription(), comp2.getDescription());
+		Assert.assertNotNull(comp2.getDate());
+		Assert.assertTrue(comp2.getSwimsuit());
+		daoLayer.getCompetitionsDAO().delete(comp);
 	}
 	
 	@After

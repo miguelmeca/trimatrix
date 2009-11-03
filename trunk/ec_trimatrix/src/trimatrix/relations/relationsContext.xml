@@ -45,6 +45,20 @@
         </property>
     </bean>  
     
+    <bean id="personCompetitionRelation" class="trimatrix.relations.PersonCompetitionRelation"
+        abstract="false" lazy-init="default" autowire="default"
+        dependency-check="default">
+        <property name="sqlExecutorService">
+            <ref bean="sqlExecutorService" />
+        </property>
+        <property name="dictionaryService">
+            <ref bean="dictionaryService" />
+        </property>
+        <property name="relationsDAO">
+            <ref bean="PersonsHaveCompetitionsDAO" />
+        </property>
+    </bean>  
+    
     <bean id="relationLayer" class="trimatrix.relations.RelationLayer"
         abstract="false" lazy-init="default" autowire="default"
         dependency-check="default">
@@ -56,6 +70,9 @@
         </property>
         <property name="personAttachmentRelation">
             <ref bean="personAttachmentRelation" />
+        </property>
+        <property name="personCompetitionRelation">
+            <ref bean="personCompetitionRelation" />
         </property>
     </bean>
 </beans>

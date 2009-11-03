@@ -82,9 +82,11 @@
                 <idref local="DoctorsDAO" />
                 <idref local="AttachmentsDAO" />
                 <idref local="TestsDAO" />
+                <idref local="CompetitionsDAO" />
                 <idref local="PersonsHaveRelationsDAO" />
                 <idref local="PersonsHaveDoctorsDAO" />
                 <idref local="PersonsHaveAttachmentsDAO" />
+                <idref local="PersonsHaveCompetitionsDAO" />
                 <idref local="PersonsAthleteDAO" />
                 <idref local="TestsErgoDAO" />
                 <idref local="TestsTreadmillDAO" />
@@ -122,6 +124,9 @@
         <property name="testsDAO">
             <ref bean="TestsDAO" />
         </property> 
+        <property name="competitionsDAO">
+            <ref bean="CompetitionsDAO" />
+        </property> 
         <property name="personsHaveRelationsDAO">
             <ref bean="PersonsHaveRelationsDAO" />    
         </property> 
@@ -131,6 +136,9 @@
         <property name="personsHaveAttachmentsDAO">
             <ref bean="PersonsHaveAttachmentsDAO" />    
         </property> 
+        <property name="personsHaveCompetitionsDAO">
+            <ref bean="PersonsHaveCompetitionsDAO" />    
+        </property>
         <property name="tsalutationDAO">
             <ref bean="TSalutationDAO" />
         </property>  
@@ -370,6 +378,17 @@
 		</property>
 	</bean>
 	<bean id="ZonesDAO" class="trimatrix.db.ZonesDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="CompetitionsDAO" class="trimatrix.db.CompetitionsDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="PersonsHaveCompetitionsDAO"
+		class="trimatrix.db.PersonsHaveCompetitionsDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>

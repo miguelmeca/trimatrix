@@ -160,7 +160,7 @@ public class TestsDAO extends HibernateDaoSupport implements IEntityDAO<Tests> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static ISimpleDAO<Tests> getFromApplicationContext(ApplicationContext ctx) {
-		return (ISimpleDAO<Tests>) ctx.getBean("TestsDAO");
+	public static IEntityDAO<Tests> getFromApplicationContext(ApplicationContext ctx) {
+		return (IEntityDAO<Tests>) ctx.getBean("TestsDAO");
 	}	
 }

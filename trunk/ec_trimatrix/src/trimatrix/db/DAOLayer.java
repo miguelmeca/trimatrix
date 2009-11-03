@@ -12,9 +12,11 @@ public class DAOLayer {
 	private IEntityDAO<Doctors> doctorsDAO;
 	private IEntityDAO<Attachments> attachmentsDAO;
 	private IEntityDAO<Tests> testsDAO;
+	private IEntityDAO<Competitions> competitionsDAO;
 	private IRelationDAO<PersonsHaveRelations> personsHaveRelationsDAO;
 	private IRelationDAO<PersonsHaveDoctors> personsHaveDoctorsDAO;
 	private IRelationDAO<PersonsHaveAttachments> personsHaveAttachmentsDAO;	
+	private IRelationDAO<PersonsHaveCompetitions> personsHaveCompetitionsDAO;	
 	private ITextDAO<TSalutation, TSalutationId> tsalutationDAO;
 	private ITextDAO<TCategories, TCategoriesId> tcategoriesDAO;
 	private ITextDAO<TTesttypes, TTesttypesId> ttesttypesDAO;
@@ -99,11 +101,24 @@ public class DAOLayer {
 		this.personsHaveAttachmentsDAO = personsHaveAttachmentsDAO;
 	}
 
+	public IRelationDAO<PersonsHaveCompetitions> getPersonsHaveCompetitionsDAO() {
+		return personsHaveCompetitionsDAO;
+	}
+	public void setPersonsHaveCompetitionsDAO(
+			IRelationDAO<PersonsHaveCompetitions> personsHaveCompetitionsDAO) {
+		this.personsHaveCompetitionsDAO = personsHaveCompetitionsDAO;
+	}
 	public IEntityDAO<Tests> getTestsDAO() {
 		return testsDAO;
 	}
 	public void setTestsDAO(IEntityDAO<Tests> testsDAO) {
 		this.testsDAO = testsDAO;
+	}	
+	public IEntityDAO<Competitions> getCompetitionsDAO() {
+		return competitionsDAO;
+	}
+	public void setCompetitionsDAO(IEntityDAO<Competitions> competitionsDAO) {
+		this.competitionsDAO = competitionsDAO;
 	}
 	public ITextDAO<TSalutation, TSalutationId> getTsalutationDAO() {
 		return tsalutationDAO;
