@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.faces.event.ActionEvent;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoCancelListener;
@@ -30,6 +32,7 @@ import trimatrix.utils.Helper;
 
 @SuppressWarnings("serial")
 public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
+	public static final Log logger = LogFactory.getLog(WPFunctionTreeCoach.class);
 	private static final Constants.Role role = Constants.Role.COACH;	
 	
 	/**
@@ -126,7 +129,7 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
                 	}  					
                 	
                 } else {
-                	Helper.logger.warn(dragInfo[1] + " is not defined as source for drag and drop!");
+                	logger.warn(dragInfo[1] + " is not defined as source for drag and drop!");
                 	return;
                 } 
             }
@@ -168,7 +171,7 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 				try {
 					page = Constants.Page.valueOf(functionTree.page);						
 				} catch (Exception ex) {
-					Helper.logger.warn(ex.toString());
+					logger.warn(ex.toString());
 					continue;
 				}	
 				node = new FunctionNode(parentNode, page.getUrl());

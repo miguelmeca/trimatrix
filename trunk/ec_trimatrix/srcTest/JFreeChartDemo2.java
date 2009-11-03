@@ -1,6 +1,5 @@
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.io.ByteArrayOutputStream;
 
 import org.eclnt.util.valuemgmt.ValueManager;

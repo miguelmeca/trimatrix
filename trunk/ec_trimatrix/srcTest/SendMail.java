@@ -19,7 +19,6 @@ import trimatrix.utils.Constants;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.Paragraph;
-import com.lowagie.text.pdf.PdfWriter;
 import com.sun.istack.internal.ByteArrayDataSource;
 
 public class SendMail {

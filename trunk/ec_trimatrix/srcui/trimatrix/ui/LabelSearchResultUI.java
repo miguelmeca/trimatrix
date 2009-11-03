@@ -10,8 +10,6 @@ import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.elements.impl.ROWDYNAMICCONTENTBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
-import com.lowagie.text.pdf.hyphenation.TernaryTree.Iterator;
-
 import trimatrix.db.Labels;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;

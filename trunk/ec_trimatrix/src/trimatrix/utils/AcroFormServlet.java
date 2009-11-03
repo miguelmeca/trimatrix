@@ -16,8 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import trimatrix.db.DAOLayer;
-
 public class AcroFormServlet extends HttpServlet {
 	/**
 	 * Constructor of the object.

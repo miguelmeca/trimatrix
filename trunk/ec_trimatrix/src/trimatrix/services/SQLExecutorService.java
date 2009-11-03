@@ -59,6 +59,7 @@ public class SQLExecutorService {
 	private static final String COUNTRYVALUELISTQUERY = "CountryValueList";
 	private static final String CATEGORYVALUELISTQUERY = "CategoryValueList";
 	private static final String TESTTYPEVALUELISTQUERY = "TestTypeValueList";
+	private static final String COMPTYPEVALUELISTQUERY = "CompTypeValueList";
 	private static final String ENTITIESBYLABELLISTQUERY = "EntitiesByLabelList";
 	
 	private HibernateTransactionManager transactionManager;
@@ -649,6 +650,9 @@ public class SQLExecutorService {
 			break;
 		case TESTTYPE:
 			namedQuery = TESTTYPEVALUELISTQUERY;
+			break;	
+		case COMPTYPE:
+			namedQuery = COMPTYPEVALUELISTQUERY;
 			break;	
 		default:
 			logger.warn("Valuelist not found: " + valueList.name());

@@ -1,11 +1,16 @@
 package trimatrix.relations;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import trimatrix.db.IRelationDAO;
+import trimatrix.entities.AEntity;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.utils.Dictionary;
-import trimatrix.utils.Helper;
 
 public abstract class ARelation implements IRelation {
+	public static final Log logger = LogFactory.getLog(AEntity.class);
+	
 	protected SQLExecutorService sqlExecutorService;
 	protected Dictionary dictionaryService;
 	protected IRelationDAO<? extends IRelationObject> relationsDAO;
@@ -19,7 +24,7 @@ public abstract class ARelation implements IRelation {
 			IRelationObject relation = get(id);
 			relationsDAO.delete(relation);
 		} catch (Exception ex) {
-			Helper.logger.warn(ex.toString());
+			logger.warn(ex.toString());
 			return false;
 		}
 		return true;			

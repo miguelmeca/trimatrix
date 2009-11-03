@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDTreeItem;
 import org.eclnt.jsfserver.managedbean.IDispatcher;
 import org.eclnt.workplace.WorkplaceFunctionTree;
@@ -13,10 +15,10 @@ import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SFunctionTree;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Context;
-import trimatrix.utils.Helper;
 
 @SuppressWarnings("serial")
 public class WPFunctionTreeAthlet extends WorkplaceFunctionTree {
+	public static final Log logger = LogFactory.getLog(WPFunctionTreeAthlet.class);
 	private static final Constants.Role role = Constants.Role.ATHLETE;
 	
 	public WPFunctionTreeAthlet(IDispatcher owner) {
@@ -54,7 +56,7 @@ public class WPFunctionTreeAthlet extends WorkplaceFunctionTree {
 				try {
 					page = Constants.Page.valueOf(functionTree.page);						
 				} catch (Exception ex) {
-					Helper.logger.warn(ex.toString());
+					logger.warn(ex.toString());
 					continue;
 				}	
 				node = new FunctionNode(parentNode, page.getUrl());

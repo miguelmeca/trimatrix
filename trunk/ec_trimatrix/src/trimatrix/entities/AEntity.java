@@ -4,15 +4,18 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.orm.hibernate3.HibernateTransactionManager;
 
 import trimatrix.db.DAOLayer;
 import trimatrix.db.IEntityDAO;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.utils.Dictionary;
-import trimatrix.utils.Helper;
 
 public abstract class AEntity implements IEntity{	
+	public static final Log logger = LogFactory.getLog(AEntity.class);
+	
 	// Variables
 	protected SQLExecutorService sqlExecutorService;
 	protected Dictionary dictionaryService;
@@ -32,11 +35,11 @@ public abstract class AEntity implements IEntity{
 		IEntityObject entity = entitiesDAO.findById(id);
 		if(entity==null) return null;
 		if(entity.getDeleted()) {
-			Helper.logger.warn(this.getClass().getSimpleName() + " marked as deleted");
+			logger.warn(this.getClass().getSimpleName() + " marked as deleted");
 			return null;
 		}
 		if(entity.getTest()) {
-			Helper.logger.warn(this.getClass().getSimpleName() + " marked for test");
+			logger.warn(this.getClass().getSimpleName() + " marked for test");
 			return null;
 		}
 		return entity;
