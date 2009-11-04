@@ -16,6 +16,11 @@ public class FunctionTreeLogic {
 		return entityLayer.getPersonEntity().getData(Constants.Entity.MYATHLETES);
 	}
 	
+	public List<IEntityData> getMyScoutedAthletes() {
+		// TODO
+		return entityLayer.getCompetitionEntity().getData(Constants.Entity.MYATHLETES);
+	}
+	
 	public void setAuthority(SFunctionTree functionTree, FunctionNode node) {
 		node.setParam(Constants.CREATE, Constants.FALSE);
 		if(functionTree.create) {

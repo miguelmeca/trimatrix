@@ -24,9 +24,11 @@ public final class ResolverService {
 	private IEntity doctorEntity;
 	private IEntity attachmentEntity;
 	private IEntity testEntity;
+	private IEntity competitionEntity;
 	private IRelation personPersonRelation;
 	private IRelation personDoctorRelation;
 	private IRelation personAttachmentRelation;
+	private IRelation personCompetitionRelation;
 
 	// Entities	
 	public List<SGridMetaData> getGridMetaData(Constants.Entity entity) {
@@ -41,6 +43,8 @@ public final class ResolverService {
 			return attachmentEntity.getGridMetaData();
 		case TEST:
 			return testEntity.getGridMetaData();
+		case COMPETITION:
+			return competitionEntity.getGridMetaData();
 		}
 		logger.warn("GETMETADATA : Entity " + entity.toString() + " not valid!");
 		return new ArrayList<SGridMetaData>();
@@ -58,6 +62,8 @@ public final class ResolverService {
 			return attachmentEntity.getData(entity);
 		case TEST:
 			return testEntity.getData(entity);
+		case COMPETITION:
+			return competitionEntity.getData(entity);
 		}
 		logger.warn("GETDATA : Entity " + entity.toString() + " not valid!");
 		return new ArrayList<IEntityData>();
@@ -75,6 +81,8 @@ public final class ResolverService {
 			return attachmentEntity.getData(entity, personId);
 		case TEST:
 			return testEntity.getData(entity, personId);
+		case COMPETITION:
+			return competitionEntity.getData(entity, personId);
 		}
 		logger.warn("GETDATA : Entity " + entity.toString() + " not valid!");
 		return new ArrayList<IEntityData>();
@@ -92,6 +100,8 @@ public final class ResolverService {
 			return attachmentEntity.getData(ids);
 		case TEST:
 			return testEntity.getData(ids);
+		case COMPETITION:
+			return competitionEntity.getData(ids);
 		}
 		logger.warn("GETDATA : Entity " + entity.toString() + " not valid!");
 		return new ArrayList<IEntityData>();
@@ -109,6 +119,8 @@ public final class ResolverService {
 			return attachmentEntity.delete(id);
 		case TEST:
 			return testEntity.delete(id);
+		case COMPETITION:
+			return competitionEntity.delete(id);
 		}
 		logger.warn("DELETE : Entity " + entity.toString() + " not valid!");
 		return false;
@@ -122,6 +134,8 @@ public final class ResolverService {
 			return personDoctorRelation.delete(personId, id);
 		case ATTACHMENT:
 			return personAttachmentRelation.delete(personId, id);
+		case COMPETITION:
+			return personCompetitionRelation.delete(personId, id);
 		}
 		logger.warn("DELETE : Entity " + entity.toString() + " not valid!");
 		return false;
@@ -139,6 +153,8 @@ public final class ResolverService {
 			return attachmentEntity.create();
 		case TEST:
 			return testEntity.create();
+		case COMPETITION:
+			return competitionEntity.create();	
 		}
 		logger.warn("CREATE : Entity " + entity.toString() + " not valid!");
 		return null;
@@ -156,6 +172,8 @@ public final class ResolverService {
 			return attachmentEntity.get(id);
 		case TEST:
 			return testEntity.get(id);
+		case COMPETITION:
+			return competitionEntity.get(id);
 		}
 		logger.warn("GET : Entity " + entity.toString() + " not valid!");
 		return null;
@@ -173,6 +191,8 @@ public final class ResolverService {
 			return attachmentEntity.save(entityObject);
 		case TEST:
 			return testEntity.save(entityObject);
+		case COMPETITION:
+			return competitionEntity.save(entityObject);
 		}
 		logger.warn("SAVE : Entity " + entity.toString() + " not valid!");
 		return null;
@@ -190,6 +210,8 @@ public final class ResolverService {
 			attachmentEntity.reload(entityObject); break;
 		case TEST:
 			testEntity.reload(entityObject); break;
+		case COMPETITION:
+			competitionEntity.reload(entityObject); break;
 		}
 		logger.warn("RELOAD : Entity " + entity.toString() + " not valid!");				
 	}
@@ -206,6 +228,8 @@ public final class ResolverService {
 			return attachmentEntity.copy(entityObject); 
 		case TEST:
 			return testEntity.copy(entityObject); 
+		case COMPETITION:
+			return competitionEntity.copy(entityObject); 
 		}
 		logger.warn("COPY : Entity " + entity.toString() + " not valid!");	
 		return null;
@@ -223,6 +247,8 @@ public final class ResolverService {
 			return attachmentEntity.isCopyable(entityObject); 
 		case TEST:
 			return testEntity.isCopyable(entityObject); 
+		case COMPETITION:
+			return competitionEntity.isCopyable(entityObject); 
 		}
 		logger.warn("ISCOPYABLE : Entity " + entity.toString() + " not valid!");	
 		return false;
@@ -236,6 +262,8 @@ public final class ResolverService {
 			return personDoctorRelation.getGridMetaData();
 		} else if (relation.getBase()==Constants.Relation.PERSONATTACHMENT) {
 			return personAttachmentRelation.getGridMetaData();
+		} else if (relation.getBase()==Constants.Relation.PERSONCOMPETITION) {
+			return personCompetitionRelation.getGridMetaData();
 		}
 		logger.warn("GETMETADATA : Relation " + relation.toString() + " not valid!");
 		return new ArrayList<SGridMetaData>();
@@ -248,6 +276,8 @@ public final class ResolverService {
 			return personDoctorRelation.getData(relation);
 		} else if (relation.getBase()==Constants.Relation.PERSONATTACHMENT) {
 			return personAttachmentRelation.getData(relation);
+		} else if (relation.getBase()==Constants.Relation.PERSONCOMPETITION) {
+			return personCompetitionRelation.getData(relation);
 		}
 		logger.warn("GETDATA : Relation " + relation.toString() + " not valid!");
 		return new ArrayList<IRelationData>();
@@ -260,6 +290,8 @@ public final class ResolverService {
 			return personDoctorRelation.delete(id);
 		} else if (relation.getBase()==Constants.Relation.PERSONATTACHMENT) {
 			return personAttachmentRelation.delete(id);
+		} else if (relation.getBase()==Constants.Relation.PERSONCOMPETITION) {
+			return personCompetitionRelation.delete(id);
 		}
 		logger.warn("DELETE : Relation " + relation.toString() + " not valid!");
 		return false;
@@ -272,6 +304,8 @@ public final class ResolverService {
 			return personDoctorRelation.create();
 		} else if (relation.getBase()==Constants.Relation.PERSONATTACHMENT) {
 			return personAttachmentRelation.create();
+		} else if (relation.getBase()==Constants.Relation.PERSONCOMPETITION) {
+			return personCompetitionRelation.create();
 		}
 		logger.warn("DELETE : Relation " + relation.toString() + " not valid!");
 		return null;
@@ -284,6 +318,8 @@ public final class ResolverService {
 			return personDoctorRelation.get(id);
 		} else if (relation.getBase()==Constants.Relation.PERSONATTACHMENT) {
 			return personAttachmentRelation.get(id);
+		} else if (relation.getBase()==Constants.Relation.PERSONCOMPETITION) {
+			return personCompetitionRelation.get(id);
 		}
 		logger.warn("GET : Relation " + relation.toString() + " not valid!");
 		return null;
@@ -296,7 +332,9 @@ public final class ResolverService {
 			personDoctorRelation.save(relationObject);
 		} else if (relation.getBase()==Constants.Relation.PERSONATTACHMENT) {
 			personAttachmentRelation.save(relationObject);
-		} else {
+		} else if (relation.getBase()==Constants.Relation.PERSONCOMPETITION) {
+			personCompetitionRelation.save(relationObject);
+		}else {
 			logger.warn("SAVE : Relation " + relation.toString() + " not valid!");
 		}		
 	}
@@ -308,7 +346,9 @@ public final class ResolverService {
 			personDoctorRelation.reload(relationObject);
 		} else if (relation.getBase()==Constants.Relation.PERSONATTACHMENT) {
 			personAttachmentRelation.reload(relationObject);
-		} else {
+		} else if (relation.getBase()==Constants.Relation.PERSONCOMPETITION) {
+			personCompetitionRelation.reload(relationObject);
+		}else {
 			logger.warn("RELOAD : Relation " + relation.toString() + " not valid!");
 		}		
 	}
@@ -333,6 +373,10 @@ public final class ResolverService {
 	public void setTestEntity(IEntity testEntity) {
 		this.testEntity = testEntity;
 	}
+
+	public void setCompetitionEntity(IEntity competitionEntity) {
+		this.competitionEntity = competitionEntity;
+	}
 	
 	public void setPersonPersonRelation(IRelation personPersonRelation) {
 		this.personPersonRelation = personPersonRelation;
@@ -344,6 +388,10 @@ public final class ResolverService {
 
 	public void setPersonAttachmentRelation(IRelation personAttachmentRelation) {
 		this.personAttachmentRelation = personAttachmentRelation;
+	}
+	
+	public void setPersonCompetitionRelation(IRelation personCompetitionRelation) {
+		this.personCompetitionRelation = personCompetitionRelation;
 	}
 
 	public static ResolverService getFromApplicationContext(ApplicationContext ctx) {

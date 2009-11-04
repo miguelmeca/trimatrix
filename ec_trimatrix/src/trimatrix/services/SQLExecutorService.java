@@ -17,6 +17,7 @@ import org.springframework.orm.hibernate3.HibernateTransactionManager;
 
 import trimatrix.db.DAOLayer;
 import trimatrix.entities.AttachmentEntity;
+import trimatrix.entities.CompetitionEntity;
 import trimatrix.entities.DoctorEntity;
 import trimatrix.entities.IEntityData;
 import trimatrix.entities.PersonEntity;
@@ -45,6 +46,7 @@ public class SQLExecutorService {
 	private static final String DOCTORENTITYLISTQUERY = "DoctorEntityList";
 	private static final String ATTACHMENTENTITYLISTQUERY = "AttachmentEntityList";
 	private static final String TESTENTITYLISTQUERY = "TestEntityList";
+	private static final String COMPETITIONENTITYLISTQUERY = "CompetitionEntityList";
 	private static final String FUNCTIONTREEQUERY = "FunctionTree";
 	private static final String LANGUAGEVALUELISTQUERY = "LanguageValueList";
 	private static final String SALUTATIONVALUELISTQUERY = "SalutationValueList";
@@ -52,6 +54,7 @@ public class SQLExecutorService {
 	private static final String PERSONRELATIONENTITYQUERY = "PersonRelationEntityList";
 	private static final String DOCTORRELATIONENTITYQUERY = "DoctorRelationEntityList";
 	private static final String ATTACHMENTRELATIONENTITYQUERY = "AttachmentRelationEntityList";
+	private static final String COMPETITIONRELATIONENTITYQUERY = "CompetitionRelationEntityList";
 	private static final String PERSONPERSONQUERY = "PersonPersonRelationList";
 	private static final String PERSONDOCTORQUERY = "PersonDoctorRelationList";
 	private static final String PERSONATTACHMENTQUERY = "PersonAttachmentRelationList";
@@ -347,6 +350,96 @@ public class SQLExecutorService {
 	}
 	
 	/**
+	 * Retrieve competition entities
+	 * @param lang_key
+	 * @param deleted
+	 * @param test
+	 * @return competition entities
+	 */
+	@SuppressWarnings("unchecked")
+	public List<IEntityData> getCompetitionEntities(String lang_key, String parameterName, String parameterValue, boolean deleted, boolean test) {
+		List<IEntityData> data = new ArrayList<IEntityData>();
+		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		Query query = session.getNamedQuery(COMPETITIONENTITYLISTQUERY);
+		query.setString("p_lang_key", lang_key);
+		query.setBoolean("p_deleted", deleted);
+		query.setBoolean("p_test", test);
+		// handle parameter
+		query.setBoolean("p_id_on", false);
+		query.setString("p_id", null);
+		if (ID.equals(parameterName)) {
+			query.setBoolean("p_id_on", true);
+			query.setString("p_id", parameterValue);
+		}
+		List<Object[]> result = query.list();
+		for(Object[] line : result) {
+			CompetitionEntity.Data datum = new CompetitionEntity.Data();
+			int i = 0;
+			datum.id = (String)line[i++];	
+			datum.date = (Timestamp)line[i++];
+			datum.description = (String)line[i++];
+			datum.type = (String)line[i++];
+			datum.address = (String)line[i++];
+			datum.country = (String)line[i++];
+			datum.swimsuit = (Boolean)line[i++];
+			data.add(datum);
+		}
+		session.close();
+		return data;
+	}
+	
+
+	/**
+	 * Retrieve competitions in a certain relationship
+	 * @param person_id
+	 * @param relation
+	 * @param lang_key
+	 * @param deleted
+	 * @param test
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<IEntityData> getCompetitionRelationEntities(String person_id, Constants.Relation relation, String lang_key, boolean deleted, boolean test) {
+		List<IEntityData> data = new ArrayList<IEntityData>();
+		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		Query query = session.getNamedQuery(COMPETITIONRELATIONENTITYQUERY);
+		query.setString("p_lang_key", lang_key);
+		query.setBoolean("p_deleted", deleted);
+		query.setBoolean("p_test", test);
+		query.setString("p_reltyp", relation.type());
+		query.setString("p_person", person_id);
+		List<Object[]> result = query.list();
+		for(Object[] line : result) {
+			CompetitionEntity.Data datum = new CompetitionEntity.Data();
+			int i = 0;
+			datum.id = (String)line[i++];	
+			datum.date = (Timestamp)line[i++];
+			datum.description = (String)line[i++];
+			datum.type = (String)line[i++];
+			datum.address = (String)line[i++];
+			datum.country = (String)line[i++];
+			datum.swimsuit = (Boolean)line[i++];
+			data.add(datum);
+		}
+		session.close();
+		return data;
+	}
+	
+	public List<IEntityData> getCompetitionRelationEntities(String person_id, Constants.Relation relation) {
+		return getCompetitionRelationEntities(person_id, relation, dictionaryService.getLanguage(), false, false);
+	}
+	
+	public List<IEntityData> getCompetitionEntities() {
+		return getCompetitionEntities(dictionaryService.getLanguage(), null, null, false, false);
+	}
+	
+	public List<IEntityData> getCompetitionEntities(String parameterName, String parameterValue) {
+		return getCompetitionEntities(dictionaryService.getLanguage(), parameterName, parameterValue, false, false);
+	}
+	
+	/**
 	 * Retrieve persons in a certain relationship
 	 * @param person_id
 	 * @param relation
@@ -497,9 +590,8 @@ public class SQLExecutorService {
 	
 	/**
 	 * Retrieve attachments in a certain relationship
-	 * @param partner_id
+	 * @param person_id
 	 * @param relation
-	 * @param inverse
 	 * @param lang_key
 	 * @param deleted
 	 * @param test

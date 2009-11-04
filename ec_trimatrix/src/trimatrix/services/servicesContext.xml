@@ -48,6 +48,9 @@
         <property name="testEntity">
             <ref bean="testEntity" />
         </property>
+        <property name="competitionEntity">
+            <ref bean="competitionEntity" />
+        </property>
         <property name="personPersonRelation">
             <ref bean="personPersonRelation" />
         </property>
@@ -56,6 +59,9 @@
         </property>
         <property name="personAttachmentRelation">
             <ref bean="personAttachmentRelation" />
+        </property>
+        <property name="personCompetitionRelation">
+            <ref bean="personCompetitionRelation" />
         </property>
     </bean>
     

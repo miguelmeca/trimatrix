@@ -11,7 +11,7 @@ MySQL - 5.1.33-community : Database - trimatrix
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`trimatrix` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`trimatrix` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 USE `trimatrix`;
 
@@ -65,6 +65,8 @@ CREATE TABLE `competitions` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 /*Data for the table `competitions` */
+
+insert  into `competitions`(`id`,`date`,`description`,`type`,`address`,`country_key`,`swimsuit`,`created_at`,`created_by`,`modified_at`,`modified_by`,`test`,`deleted`) values ('x96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-11-01','Test','tria','Moosbach','at',0,'1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87','1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
 
 /*Table structure for table `doctors` */
 
@@ -227,7 +229,7 @@ CREATE TABLE `k_reltyps` (
 
 /*Data for the table `k_reltyps` */
 
-insert  into `k_reltyps`(`key`) values ('attachment'),('coach'),('comp_ath'),('comp_scout'),('doctor'),('scout');
+insert  into `k_reltyps`(`key`) values ('attachment'),('coach'),('comp'),('doctor'),('scout');
 
 /*Table structure for table `k_roles` */
 
@@ -414,6 +416,8 @@ CREATE TABLE `persons_have_competitions` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 /*Data for the table `persons_have_competitions` */
+
+insert  into `persons_have_competitions`(`id`,`person`,`competition`,`reltyp_key`,`standard`) values ('zb0b7658-2ddb-11de-86ae-003z1bb60f17','0b0b7658-2ddb-11de-86ae-00301bb60f17','x96bcbd2-676d-102c-ace2-9cc3fca64c87','comp',0);
 
 /*Table structure for table `persons_have_doctors` */
 
@@ -617,7 +621,7 @@ CREATE TABLE `t_reltyps` (
 
 /*Data for the table `t_reltyps` */
 
-insert  into `t_reltyps`(`key`,`language_key`,`description`,`description_long`,`relation_description`,`relation_description_inverse`) values ('coach','de','Trainer','Trainer','hat den Trainer','ist Trainer von'),('coach','en','Coach','Coach','has the coach','is the coach of'),('doctor','de','Arzt','Arzt','hat den Arzt','ist Arzt von'),('doctor','en','Doctor','Doctor','has the doctor','is the doctor of'),('attachment','de','Anhang','Anhang','hat den Anhang','der Anhang gehört'),('attachment','en','Attachment','Attachment','has the attachment','the att. belongs to'),('scout','de','Scouter','Scouter','hat den Scouter','ist Scouter von'),('scout','en','Scouter','Scouter','has the scouter','is the scouter of'),('comp_ath','de','Wettkampf Athlet','Wettkampf Athlet','hat den Wettkampf','nahm am Wettkampf teil'),('comp_ath','en','Competition Athlete','Competition Athlete','has the competition','runs the competiton'),('comp_scout','de','Wettkampf Scouter','Wettkampf Scouter','hat den Wettkampf','definiert Wettkampf'),('comp_scout','en','Competition Scouter','Competition Scouter','has the competition','defines competition');
+insert  into `t_reltyps`(`key`,`language_key`,`description`,`description_long`,`relation_description`,`relation_description_inverse`) values ('coach','de','Trainer','Trainer','hat den Trainer','ist Trainer von'),('coach','en','Coach','Coach','has the coach','is the coach of'),('doctor','de','Arzt','Arzt','hat den Arzt','ist Arzt von'),('doctor','en','Doctor','Doctor','has the doctor','is the doctor of'),('attachment','de','Anhang','Anhang','hat den Anhang','der Anhang gehört'),('attachment','en','Attachment','Attachment','has the attachment','the att. belongs to'),('scout','de','Scouter','Scouter','hat den Scouter','ist Scouter von'),('scout','en','Scouter','Scouter','has the scouter','is the scouter of'),('comp','de','Wettkampf','Wettkampf','hat den Wettkampf','definiert Wettkampf'),('comp','en','Competition','Competition','has the competition','defines competition');
 
 /*Table structure for table `t_roles` */
 
@@ -972,10 +976,10 @@ DROP TABLE IF EXISTS `entities`;
 /*!50001 DROP TABLE IF EXISTS `entities` */;
 
 /*!50001 CREATE TABLE `entities` (
-  `id` varchar(36) NOT NULL DEFAULT '',
-  `entity` varchar(10) NOT NULL DEFAULT '',
+  `id` varchar(36) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `entity` varchar(10) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `deleted` tinyint(4) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 */;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 */;
 
 /*Table structure for table `relations` */
 
@@ -985,11 +989,11 @@ DROP TABLE IF EXISTS `relations`;
 /*!50001 DROP TABLE IF EXISTS `relations` */;
 
 /*!50001 CREATE TABLE `relations` (
-  `id` varchar(36) NOT NULL DEFAULT '',
-  `partner1` varchar(36) DEFAULT NULL,
-  `partner2` varchar(36) DEFAULT NULL,
-  `reltyp_key` varchar(10) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 */;
+  `id` varchar(36) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `partner1` varchar(36) CHARACTER SET utf8 DEFAULT NULL,
+  `partner2` varchar(36) CHARACTER SET utf8 DEFAULT NULL,
+  `reltyp_key` varchar(10) CHARACTER SET utf8 DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 */;
 
 /*View structure for view entities */
 
