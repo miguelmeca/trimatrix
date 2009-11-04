@@ -20,6 +20,7 @@ public final class Constants {
 		DOCTORDETAIL("/doctordetail.jsp","Ärzte"),
 		TESTDETAIL("/testdetail.jsp","Tests"),
 		COMPETITIONDETAIL("/competitiondetail.jsp","Wettkämpfe"),
+		RESULTDETAIL("/resultdetail.jsp","Ergebnisse"),
 		ATTACHMENTDETAIL("/attachmentdetail.jsp","Anhänge"),
 		ZONESDETAIL("/zonesdetail.jsp", "Trainingsbereiche"),
 		ZONESDEFINITION("/zonesdefinition.jsp", "Trainingsbereiche"),
@@ -94,8 +95,7 @@ public final class Constants {
 		SCOUT("scout", PERSONPERSON),
 		DOCTOR("doctor", PERSONDOCTOR),
 		ATTACHMENT("attachment", PERSONATTACHMENT),
-		COMP_ATHLET("comp_ath", PERSONCOMPETITION),
-		COMP_SCOUT("comp_scout", PERSONCOMPETITION);
+		COMPETITION("comp", PERSONCOMPETITION);
 		private final String type;
 		private final Relation baseRelation;
 		private final Constants.Entity partner1;
@@ -233,4 +233,7 @@ public final class Constants {
 	
 	public static final String EXPONENTIAL = "Exponential";
 	public static final String POLYNOMIAL = "Polynomial";	
+	
+	// Global Workplace parameters
+	public static final int MAXWORKPAGES = 5;
 }

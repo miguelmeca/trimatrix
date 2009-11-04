@@ -84,4 +84,5 @@ public abstract class AEntityDetailUI extends MyWorkpageDispatchedBean implement
 	public void prepareSave() {};
 	
 	public void postSave() {};
+	
 }

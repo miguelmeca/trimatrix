@@ -44,12 +44,12 @@ import trimatrix.ui.WorkplaceUI;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
 
-public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements IModalPopupListener{	
+public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements IModalPopupListener {	
 	public static final Log logger = LogFactory.getLog(MyWorkpageDispatchedBean.class);
 	
 	public MyWorkpageDispatchedBean(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
-		labelingEnabled = false;		
+		labelingEnabled = false;	
 	}		
 	
 	public MyWorkpageDispatchedBean(IWorkpageDispatcher dispatcher, boolean labelingEnabled) {

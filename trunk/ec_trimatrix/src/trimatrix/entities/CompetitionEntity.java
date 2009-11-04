@@ -11,8 +11,10 @@ import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import trimatrix.db.Competitions;
+import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Constants.Relation;
 
 public final class CompetitionEntity extends AEntity {
 	
@@ -50,11 +52,9 @@ public final class CompetitionEntity extends AEntity {
 	 */
 	public List<IEntityData> getData(Constants.Entity entity) {
 		if (entity == Constants.Entity.COMPETITION) {
-			//TODO return sqlExecutorService.getCompetitionEntities();
-			return null;
+			return sqlExecutorService.getCompetitionEntities();
         } else if (entity == Constants.Entity.MYCOMPETITIONS) {
-        	// TODO return sqlExecutorService.getTestEntities(PERSON, dictionaryService.getMyPerson().getId());
-        	return null;
+        	return sqlExecutorService.getCompetitionRelationEntities(dictionaryService.getMyPerson().getId(), Relation.COMPETITION);
         } else {
         	return Constants.EMPTYENTITYLIST;
         }		
@@ -64,20 +64,14 @@ public final class CompetitionEntity extends AEntity {
 	 * @see trimatrix.entities.IEntity#getData(trimatrix.utils.Constants.Entity, java.lang.String)
 	 */
 	public List<IEntityData> getData(Constants.Entity entity, String personId) {		
-		if (entity == Constants.Entity.COMPETITION) {
-			// TODO return sqlExecutorService.getCompetitionEntities(PERSON, personId);
-			return null;
-		} else {
-        	return Constants.EMPTYENTITYLIST;
-        }		
+		return null;		
 	}
 	
 	@Override
 	public IEntityData getData(String id) {
-		// TODO List<IEntityData> result = sqlExecutorService.getCompetitionEntities(SQLExecutorService.ID, id);
-		//if (result.size()==0) return null;
-		//return result.get(0);
-		return null;
+		List<IEntityData> result = sqlExecutorService.getCompetitionEntities(SQLExecutorService.ID, id);
+		if (result.size()==0) return null;
+		return result.get(0);
 	}
 	
 	/* (non-Javadoc)
@@ -130,6 +124,7 @@ public final class CompetitionEntity extends AEntity {
 		public String id;
 		public Timestamp date;
 		public String description;
+		public String type;
 		public String address;
 		public String country;
 		public boolean swimsuit;		
@@ -153,6 +148,10 @@ public final class CompetitionEntity extends AEntity {
 
 		public String getDescription() {
 			return description;
+		}
+		
+		public String getType() {
+			return type;
 		}
 
 		public String getAddress() {

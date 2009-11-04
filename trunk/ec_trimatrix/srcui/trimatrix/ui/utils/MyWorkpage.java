@@ -6,7 +6,7 @@ import org.eclnt.workplace.Workpage;
 import trimatrix.entities.IEntityObject;
 import trimatrix.structures.SAuthorization;
 
-public class MyWorkpage extends Workpage{
+public class MyWorkpage extends Workpage{	
 
 	private Object parentBean;
 	private IEntityObject entityObject;
@@ -54,4 +54,9 @@ public class MyWorkpage extends Workpage{
 	public boolean close() {
 		return super.close();
 	}	
+	
+	@Override
+	public void closeForced() {		
+		super.closeForced();
+	}
 }

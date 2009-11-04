@@ -188,7 +188,7 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 					// reset status
 					node.setStatus(FIXGRIDTreeItem.STATUS_OPENED);
 					// add athletes
-					List<IEntityData> athletes = FUNCTIONTREELOGIC.getMyAthletes();
+					List<IEntityData> athletes = FUNCTIONTREELOGIC.getMyScoutedAthletes();
 					for (IEntityData athlete : athletes) {
 						FunctionNode athlete_node = new DropableFunctionNode(node, Constants.Page.ENTITYDETAIL.getUrl(),Constants.P_ENTITY, athlete.getId());	
 						athlete_node.setId(athlete.getId());
@@ -197,46 +197,16 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 						athlete_node.setText(athlete.toString());							
 						athlete_node.setParam(Constants.P_ENTITY, Constants.Entity.PERSON.name());
 						// authorization as parent
-						FUNCTIONTREELOGIC.setAuthority(functionTree, athlete_node);
-						// add doctors per athlete
-						FunctionNode doctor_node = new FunctionNode(athlete_node, Constants.Page.ENTITYLIST.getUrl());	
-						doctor_node.setId(athlete.getId());
-						doctor_node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
-						doctor_node.setOpenMultipleInstances(true);
-						doctor_node.setText("Doctors");	
-						doctor_node.setParam(Constants.P_PERSON, athlete.getId());
-						doctor_node.setParam(Constants.P_ENTITY, Constants.Entity.DOCTOR.name());
-						// authorization as parent
-						FUNCTIONTREELOGIC.setAuthority(functionTree, doctor_node);
-						// add attachments per athlete
-						FunctionNode attachment_node = new FunctionNode(athlete_node, Constants.Page.ENTITYLIST.getUrl());	
-						attachment_node.setId(athlete.getId());
-						attachment_node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
-						attachment_node.setOpenMultipleInstances(true);
-						attachment_node.setText("Attachments");	
-						attachment_node.setParam(Constants.P_PERSON, athlete.getId());
-						attachment_node.setParam(Constants.P_ENTITY, Constants.Entity.ATTACHMENT.name());
-						// authorization as parent
-						FUNCTIONTREELOGIC.setAuthority(functionTree, attachment_node);
-						// add tests per athlete
-						FunctionNode test_node = new FunctionNode(athlete_node, Constants.Page.ENTITYLIST.getUrl());	
-						test_node.setId(athlete.getId());
-						test_node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
-						test_node.setOpenMultipleInstances(true);
-						test_node.setText("Tests");	
-						test_node.setParam(Constants.P_PERSON, athlete.getId());
-						test_node.setParam(Constants.P_ENTITY, Constants.Entity.TEST.name());
-						// authorization as parent
-						FUNCTIONTREELOGIC.setAuthority(functionTree, test_node);
-						// add zones per athlete
-						FunctionNode zones_node = new FunctionNode(athlete_node, Constants.Page.ZONESDETAIL.getUrl());	
-						zones_node.setId(athlete.getId());
-						zones_node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
-						zones_node.setOpenMultipleInstances(true);						
-						zones_node.setText(Helper.getLiteral("exercise_zones"));	
-						zones_node.setParam(Constants.P_PERSON, athlete.getId());
+						FUNCTIONTREELOGIC.setAuthority(functionTree, athlete_node);						
+						// add results per athlete
+						FunctionNode results_node = new FunctionNode(athlete_node, Constants.Page.RESULTDETAIL.getUrl());	
+						results_node.setId(athlete.getId());
+						results_node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
+						results_node.setOpenMultipleInstances(true);						
+						results_node.setText(Helper.getLiteral("results"));	
+						results_node.setParam(Constants.P_PERSON, athlete.getId());
 						// authorization => coach is allowed to manually change values
-						FUNCTIONTREELOGIC.setAuthority(zones_node, false, true, false);						
+						FUNCTIONTREELOGIC.setAuthority(results_node, false, true, false);						
 					}								
 				}
 			} else {
