@@ -1,7 +1,6 @@
 package trimatrix.db;
 
 import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
@@ -10,27 +9,26 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
  * A data access object (DAO) providing persistence and search support for
- * UsersHaveAuthorizations entities. Transaction control of the save(), update()
- * and delete() operations can directly support Spring container-managed
+ * ResultsTria entities. Transaction control of the save(), update() and
+ * delete() operations can directly support Spring container-managed
  * transactions or they can be augmented to handle user-managed Spring
  * transactions. Each of these methods provides additional information for how
  * to configure it for the desired type of transaction control.
  * 
- * @see trimatrix.db.UsersHaveAuthorizations
+ * @see trimatrix.db.ResultsTria
  * @author MyEclipse Persistence Tools
  */
 
-public class UsersHaveAuthorizationsDAO extends HibernateDaoSupport {
-	private static final Log log = LogFactory
-			.getLog(UsersHaveAuthorizationsDAO.class);
+@SuppressWarnings("unchecked")
+public class ResultsTriaDAO extends HibernateDaoSupport implements ISimpleDAO<ResultsTria>{
+	private static final Log log = LogFactory.getLog(ResultsTriaDAO.class);
 
-	@Override
 	protected void initDao() {
 		// do nothing
 	}
 
-	public void save(UsersHaveAuthorizations transientInstance) {
-		log.debug("saving UsersHaveAuthorizations instance");
+	public void save(ResultsTria transientInstance) {
+		log.debug("saving ResultsTria instance");
 		try {
 			getHibernateTemplate().save(transientInstance);
 			log.debug("save successful");
@@ -40,8 +38,8 @@ public class UsersHaveAuthorizationsDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public void delete(UsersHaveAuthorizations persistentInstance) {
-		log.debug("deleting UsersHaveAuthorizations instance");
+	public void delete(ResultsTria persistentInstance) {
+		log.debug("deleting ResultsTria instance");
 		try {
 			getHibernateTemplate().delete(persistentInstance);
 			log.debug("delete successful");
@@ -51,12 +49,11 @@ public class UsersHaveAuthorizationsDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public UsersHaveAuthorizations findById(
-			trimatrix.db.UsersHaveAuthorizationsId id) {
-		log.debug("getting UsersHaveAuthorizations instance with id: " + id);
+	public ResultsTria findById(java.lang.String id) {
+		log.debug("getting ResultsTria instance with id: " + id);
 		try {
-			UsersHaveAuthorizations instance = (UsersHaveAuthorizations) getHibernateTemplate()
-					.get("trimatrix.db.UsersHaveAuthorizations", id);
+			ResultsTria instance = (ResultsTria) getHibernateTemplate().get(
+					"trimatrix.db.ResultsTria", id);
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);
@@ -64,10 +61,11 @@ public class UsersHaveAuthorizationsDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public List findByExample(UsersHaveAuthorizations instance) {
-		log.debug("finding UsersHaveAuthorizations instance by example");
+	public List<ResultsTria> findByExample(ResultsTria instance) {
+		log.debug("finding ResultsTria instance by example");
 		try {
-			List results = getHibernateTemplate().findByExample(instance);
+			List<ResultsTria> results = (List<ResultsTria>) getHibernateTemplate()
+					.findByExample(instance);
 			log.debug("find by example successful, result size: "
 					+ results.size());
 			return results;
@@ -77,11 +75,11 @@ public class UsersHaveAuthorizationsDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public List findByProperty(String propertyName, Object value) {
-		log.debug("finding UsersHaveAuthorizations instance with property: "
-				+ propertyName + ", value: " + value);
+	public List<ResultsTria> findByProperty(String propertyName, Object value) {
+		log.debug("finding ResultsTria instance with property: " + propertyName
+				+ ", value: " + value);
 		try {
-			String queryString = "from UsersHaveAuthorizations as model where model."
+			String queryString = "from ResultsTria as model where model."
 					+ propertyName + "= ?";
 			return getHibernateTemplate().find(queryString, value);
 		} catch (RuntimeException re) {
@@ -90,10 +88,10 @@ public class UsersHaveAuthorizationsDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public List findAll() {
-		log.debug("finding all UsersHaveAuthorizations instances");
+	public List<ResultsTria> findAll() {
+		log.debug("finding all ResultsTria instances");
 		try {
-			String queryString = "from UsersHaveAuthorizations";
+			String queryString = "from ResultsTria";
 			return getHibernateTemplate().find(queryString);
 		} catch (RuntimeException re) {
 			log.error("find all failed", re);
@@ -101,12 +99,11 @@ public class UsersHaveAuthorizationsDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public UsersHaveAuthorizations merge(
-			UsersHaveAuthorizations detachedInstance) {
-		log.debug("merging UsersHaveAuthorizations instance");
+	public ResultsTria merge(ResultsTria detachedInstance) {
+		log.debug("merging ResultsTria instance");
 		try {
-			UsersHaveAuthorizations result = (UsersHaveAuthorizations) getHibernateTemplate()
-					.merge(detachedInstance);
+			ResultsTria result = (ResultsTria) getHibernateTemplate().merge(
+					detachedInstance);
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -115,8 +112,8 @@ public class UsersHaveAuthorizationsDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public void attachDirty(UsersHaveAuthorizations instance) {
-		log.debug("attaching dirty UsersHaveAuthorizations instance");
+	public void attachDirty(ResultsTria instance) {
+		log.debug("attaching dirty ResultsTria instance");
 		try {
 			getHibernateTemplate().saveOrUpdate(instance);
 			log.debug("attach successful");
@@ -126,8 +123,8 @@ public class UsersHaveAuthorizationsDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public void attachClean(UsersHaveAuthorizations instance) {
-		log.debug("attaching clean UsersHaveAuthorizations instance");
+	public void attachClean(ResultsTria instance) {
+		log.debug("attaching clean ResultsTria instance");
 		try {
 			getHibernateTemplate().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
@@ -137,9 +134,8 @@ public class UsersHaveAuthorizationsDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public static UsersHaveAuthorizationsDAO getFromApplicationContext(
+	public static ISimpleDAO<ResultsTria> getFromApplicationContext(
 			ApplicationContext ctx) {
-		return (UsersHaveAuthorizationsDAO) ctx
-				.getBean("UsersHaveAuthorizationsDAO");
+		return (ISimpleDAO<ResultsTria>) ctx.getBean("ResultsTriaDAO");
 	}
 }

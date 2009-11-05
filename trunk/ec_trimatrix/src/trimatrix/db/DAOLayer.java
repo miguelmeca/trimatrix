@@ -13,6 +13,9 @@ public class DAOLayer {
 	private IEntityDAO<Attachments> attachmentsDAO;
 	private IEntityDAO<Tests> testsDAO;
 	private IEntityDAO<Competitions> competitionsDAO;
+	private IComplexDAO<CompetitionsScouts, CompetitionsScoutsId> competitionsScoutsDAO;
+	private IEntityDAO<Results> resultsDAO;
+	private ISimpleDAO<ResultsTria> resultsTriaDAO;
 	private IRelationDAO<PersonsHaveRelations> personsHaveRelationsDAO;
 	private IRelationDAO<PersonsHaveDoctors> personsHaveDoctorsDAO;
 	private IRelationDAO<PersonsHaveAttachments> personsHaveAttachmentsDAO;	
@@ -116,9 +119,28 @@ public class DAOLayer {
 	}	
 	public IEntityDAO<Competitions> getCompetitionsDAO() {
 		return competitionsDAO;
+	}	
+	public IComplexDAO<CompetitionsScouts, CompetitionsScoutsId> getCompetitionsScoutsDAO() {
+		return competitionsScoutsDAO;
+	}
+	public void setCompetitionsScoutsDAO(
+			IComplexDAO<CompetitionsScouts, CompetitionsScoutsId> competitionsScoutsDAO) {
+		this.competitionsScoutsDAO = competitionsScoutsDAO;
 	}
 	public void setCompetitionsDAO(IEntityDAO<Competitions> competitionsDAO) {
 		this.competitionsDAO = competitionsDAO;
+	}	
+	public IEntityDAO<Results> getResultsDAO() {
+		return resultsDAO;
+	}
+	public void setResultsDAO(IEntityDAO<Results> resultsDAO) {
+		this.resultsDAO = resultsDAO;
+	}
+	public ISimpleDAO<ResultsTria> getResultsTriaDAO() {
+		return resultsTriaDAO;
+	}
+	public void setResultsTriaDAO(ISimpleDAO<ResultsTria> resultsTriaDAO) {
+		this.resultsTriaDAO = resultsTriaDAO;
 	}
 	public ITextDAO<TSalutation, TSalutationId> getTsalutationDAO() {
 		return tsalutationDAO;

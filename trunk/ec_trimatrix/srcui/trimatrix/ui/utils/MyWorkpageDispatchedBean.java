@@ -28,6 +28,7 @@ import trimatrix.logic.LogicLayer;
 import trimatrix.relations.RelationLayer;
 import trimatrix.services.ServiceLayer;
 import trimatrix.ui.AttachmentSelectionUI;
+import trimatrix.ui.CompetitionSelectionUI;
 import trimatrix.ui.CreateRelationUI;
 import trimatrix.ui.Dispatcher;
 import trimatrix.ui.DoctorSelectionUI;
@@ -252,6 +253,7 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 		if (entity == Constants.Entity.PERSON) return (EntitySelectionUI)getOwningDispatcher().getDispatchedBean(PersonSelectionUI.class);
 		if (entity == Constants.Entity.DOCTOR) return (EntitySelectionUI)getOwningDispatcher().getDispatchedBean(DoctorSelectionUI.class);
 		if (entity == Constants.Entity.ATTACHMENT) return (EntitySelectionUI)getOwningDispatcher().getDispatchedBean(AttachmentSelectionUI.class);
+		if (entity == Constants.Entity.COMPETITION) return (EntitySelectionUI)getOwningDispatcher().getDispatchedBean(CompetitionSelectionUI.class);
 		
 		logger.warn("For entity " + entity.name() + " no SelectionUI available!");
 		return null;

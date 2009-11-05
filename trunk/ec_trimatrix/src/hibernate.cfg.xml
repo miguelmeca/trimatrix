@@ -54,13 +54,10 @@
 		-->
 
 		<mapping resource="trimatrix/db/UsersHaveRoles.hbm.xml" />
-		<mapping
-			resource="trimatrix/db/UsersHaveAuthorizations.hbm.xml" />
 		<mapping resource="trimatrix/services/NamedQueries.hbm.xml" />
 		<mapping resource="trimatrix/db/PersonsHaveRelations.hbm.xml" />
 		<mapping resource="trimatrix/db/PersonsHaveDoctors.hbm.xml" />
 		<mapping resource="trimatrix/db/PersonsHaveAttachments.hbm.xml" />
-		<mapping resource="trimatrix/db/EntitiesHaveLabels.hbm.xml" />
 		<mapping class="trimatrix.db.TestsTreadmill" />
 		<mapping class="trimatrix.db.TestsProtocol" />
 		<mapping class="trimatrix.db.TestsErgo" />
@@ -92,6 +89,10 @@
 		<mapping class="trimatrix.db.ZonesDefinition" />
 		<mapping class="trimatrix.db.Competitions" />
 		<mapping class="trimatrix.db.PersonsHaveCompetitions" />
+		<mapping class="trimatrix.db.CompetitionsScouts" />
+		<mapping class="trimatrix.db.EntitiesHaveLabels" />
+		<mapping class="trimatrix.db.Results" />
+		<mapping class="trimatrix.db.ResultsTria" />
 	</session-factory>
 
 </hibernate-configuration>

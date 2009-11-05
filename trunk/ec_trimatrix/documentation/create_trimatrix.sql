@@ -54,7 +54,6 @@ CREATE TABLE `competitions` (
   `type` varchar(10) DEFAULT NULL,
   `address` varchar(100) DEFAULT NULL,
   `country_key` varchar(2) DEFAULT NULL,
-  `swimsuit` tinyint(1) DEFAULT NULL,
   `created_at` datetime DEFAULT '1900-01-01 00:00:00' COMMENT 'Datensatz erstellt am',
   `created_by` varchar(36) DEFAULT NULL COMMENT 'Datensatz erstellt von',
   `modified_at` datetime DEFAULT '1900-01-01 00:00:00' COMMENT 'Datensatz geändert am',
@@ -66,7 +65,24 @@ CREATE TABLE `competitions` (
 
 /*Data for the table `competitions` */
 
-insert  into `competitions`(`id`,`date`,`description`,`type`,`address`,`country_key`,`swimsuit`,`created_at`,`created_by`,`modified_at`,`modified_by`,`test`,`deleted`) values ('x96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-11-01','Test','tria','Moosbach','at',0,'1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87','1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
+insert  into `competitions`(`id`,`date`,`description`,`type`,`address`,`country_key`,`created_at`,`created_by`,`modified_at`,`modified_by`,`test`,`deleted`) values ('x96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-11-01','Test','tria','Moosbach','at','1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87','1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
+
+/*Table structure for table `competitions_scouts` */
+
+DROP TABLE IF EXISTS `competitions_scouts`;
+
+CREATE TABLE `competitions_scouts` (
+  `competition_id` varchar(36) NOT NULL,
+  `scout_id` varchar(36) NOT NULL,
+  `factors` text COMMENT 'multiple factors, normally one per category. format [{category:factor},{...},...]',
+  PRIMARY KEY (`competition_id`,`scout_id`),
+  KEY `fk_competition_specification_competition` (`competition_id`),
+  KEY `fk_competition_specification_persons` (`scout_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+/*Data for the table `competitions_scouts` */
+
+insert  into `competitions_scouts`(`competition_id`,`scout_id`,`factors`) values ('x96bcbd2-676d-102c-ace2-9cc3fca64c87','0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL);
 
 /*Table structure for table `doctors` */
 
@@ -115,7 +131,7 @@ CREATE TABLE `entities_have_labels` (
 
 /*Data for the table `entities_have_labels` */
 
-insert  into `entities_have_labels`(`entity`,`label`,`person_id`) values ('0c05017b-0f9f-4bc3-baeb-c1f8eb734120','55620350-6d49-11de-a69b-604b59d93787','0b0b7658-2ddb-11de-86ae-00301bb60f17'),('123456','2d9dccf8-c3f9-4438-b57f-28def741a3ff','0b0b7658-2ddb-11de-86ae-00301bb60f17'),('123456','3a2bcfc4-4f91-4624-a25e-d2bbe9a14946','0b0b7658-2ddb-11de-86ae-00301bb60f17'),('123456','4d1d19f5-88f3-45c4-87ea-165849c6a270','0b0b7658-2ddb-11de-86ae-00301bb60f17'),('123456','55620350-6d49-11de-a69b-604b59d93789','0b0b7658-2ddb-11de-86ae-00301bb60f17'),('a545fd84-3cc2-4dab-a9be-708a47182fb6','1bdd9e84-3933-49b9-a5dc-414a8a3b2efe','0b0b7658-2ddb-11de-86ae-00301bb60f17'),('aa109083-8cfb-11de-a422-4e7d893777af','4d1d19f5-88f3-45c4-87ea-165849c6a270','0b0b7658-2ddb-11de-86ae-00301bb60f17'),('b8a954e4-4bca-11de-ab35-74df036e1e4f','3418c962-818c-43ee-ad7a-5964fdd2eb6c','10f52302-2ddb-11de-86ae-00301bb60f17'),('b8a954e4-4bca-11de-ab35-74df036e1e4f','55620350-6d49-11de-a69b-604b59d93789','0b0b7658-2ddb-11de-86ae-00301bb60f17');
+insert  into `entities_have_labels`(`entity`,`label`,`person_id`) values ('0c05017b-0f9f-4bc3-baeb-c1f8eb734120','55620350-6d49-11de-a69b-604b59d93787','0b0b7658-2ddb-11de-86ae-00301bb60f17'),('52ec1e3f-ec3e-4676-960e-f8a547b734aa','e22d73e4-83c3-4a21-8f5d-9d76cefb6761','0b0b7658-2ddb-11de-86ae-00301bb60f17'),('b8a954e4-4bca-11de-ab35-74df036e1e4f','3418c962-818c-43ee-ad7a-5964fdd2eb6c','10f52302-2ddb-11de-86ae-00301bb60f17');
 
 /*Table structure for table `k_authorizations` */
 
@@ -298,7 +314,7 @@ CREATE TABLE `labels` (
 
 /*Data for the table `labels` */
 
-insert  into `labels`(`id`,`person_id`,`description`,`color`) values ('55620350-6d49-11de-a69b-604b59d93787','0b0b7658-2ddb-11de-86ae-00301bb60f17','Bestellung','#FF0000'),('55620350-6d49-11de-a69b-604b59d93789','0b0b7658-2ddb-11de-86ae-00301bb60f17','Bestellanforderung','#ccccff'),('4d1d19f5-88f3-45c4-87ea-165849c6a270','0b0b7658-2ddb-11de-86ae-00301bb60f17','Hello','#FFFFFF'),('ae1e5063-ebfa-47c4-8187-42a87153474b','0b0b7658-2ddb-11de-86ae-00301bb60f17','Test','#ff6666'),('d1fc6adf-f749-4861-9d3a-a79cfa4220d0','0b0b7658-2ddb-11de-86ae-00301bb60f17','testt','#FFFFFF'),('2d9dccf8-c3f9-4438-b57f-28def741a3ff','0b0b7658-2ddb-11de-86ae-00301bb60f17','werwerwer','#FFFFFF'),('60dcb2e0-f5c6-4111-a067-9f58e5f3ad61','0b0b7658-2ddb-11de-86ae-00301bb60f17','Hello World','#FFFFFF'),('c4af50f6-2b2a-4d47-ad32-2a6f3a602d06','0b0b7658-2ddb-11de-86ae-00301bb60f17','Test54','#FFFFFF'),('123456','0b0b7658-2ddb-11de-86ae-00301bb60f17','Reich','#00FF00'),('3a2bcfc4-4f91-4624-a25e-d2bbe9a14946','0b0b7658-2ddb-11de-86ae-00301bb60f17','MarkusReich','#ff6666'),('3418c962-818c-43ee-ad7a-5964fdd2eb6c','10f52302-2ddb-11de-86ae-00301bb60f17','World','#FFFFFF'),('1bdd9e84-3933-49b9-a5dc-414a8a3b2efe','0b0b7658-2ddb-11de-86ae-00301bb60f17','Spezial','#ff66ff');
+insert  into `labels`(`id`,`person_id`,`description`,`color`) values ('55620350-6d49-11de-a69b-604b59d93787','0b0b7658-2ddb-11de-86ae-00301bb60f17','Bestellung','#FF0000'),('e22d73e4-83c3-4a21-8f5d-9d76cefb6761','0b0b7658-2ddb-11de-86ae-00301bb60f17','Super Test','#cc99ff'),('3418c962-818c-43ee-ad7a-5964fdd2eb6c','10f52302-2ddb-11de-86ae-00301bb60f17','World','#FFFFFF');
 
 /*Table structure for table `list_variants` */
 
@@ -417,8 +433,6 @@ CREATE TABLE `persons_have_competitions` (
 
 /*Data for the table `persons_have_competitions` */
 
-insert  into `persons_have_competitions`(`id`,`person`,`competition`,`reltyp_key`,`standard`) values ('zb0b7658-2ddb-11de-86ae-003z1bb60f17','0b0b7658-2ddb-11de-86ae-00301bb60f17','x96bcbd2-676d-102c-ace2-9cc3fca64c87','comp',0);
-
 /*Table structure for table `persons_have_doctors` */
 
 DROP TABLE IF EXISTS `persons_have_doctors`;
@@ -460,6 +474,53 @@ CREATE TABLE `persons_have_relations` (
 /*Data for the table `persons_have_relations` */
 
 insert  into `persons_have_relations`(`id`,`partner1`,`partner2`,`reltyp_key`,`standard`) values ('e3572a08-8c2d-102c-a1cd-29e813a50118','10f52302-2ddb-11de-86ae-00301bb60f17','0b0b7658-2ddb-11de-86ae-00301bb60f17','coach',0),('57f2f725-e3ee-496a-9d83-cd1f861b7dcb','0b0b7658-2ddb-11de-86ae-00301bb60f17','7522bc7f-42cf-415c-a050-da12518a4cd3','coach',0),('541a619b-f363-45e7-9999-51cdfb3ee784','0b0b7658-2ddb-11de-86ae-00301bb60f17','10f52302-2ddb-11de-86ae-00301bb60f17','coach',0);
+
+/*Table structure for table `results` */
+
+DROP TABLE IF EXISTS `results`;
+
+CREATE TABLE `results` (
+  `id` varchar(36) NOT NULL,
+  `competition_id` varchar(36) NOT NULL,
+  `scout_id` varchar(36) NOT NULL,
+  `athlete_id` varchar(36) NOT NULL,
+  `final_position` varchar(5) DEFAULT NULL,
+  `time` varchar(8) DEFAULT NULL,
+  `comment` text,
+  `created_at` datetime DEFAULT '1900-01-01 00:00:00',
+  `created_by` varchar(36) DEFAULT NULL,
+  `modified_at` datetime DEFAULT '1900-01-01 00:00:00',
+  `modified_by` varchar(36) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT '0',
+  `test` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `fk_results_competition` (`competition_id`),
+  KEY `fk_results_scout` (`scout_id`),
+  KEY `fk_results_athlet` (`athlete_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Result of a competition by an athlete';
+
+/*Data for the table `results` */
+
+/*Table structure for table `results_tria` */
+
+DROP TABLE IF EXISTS `results_tria`;
+
+CREATE TABLE `results_tria` (
+  `id` varchar(36) NOT NULL,
+  `category` varchar(10) DEFAULT NULL,
+  `swim_split` varchar(8) DEFAULT NULL,
+  `run_split` varchar(8) DEFAULT NULL,
+  `swim_position` varchar(5) DEFAULT NULL,
+  `run_position` varchar(5) DEFAULT NULL,
+  `best_swim_split` varchar(8) DEFAULT NULL,
+  `best_run_split` varchar(8) DEFAULT NULL,
+  `swim_deficit` varchar(8) DEFAULT NULL,
+  `run_deficit` varchar(8) DEFAULT NULL,
+  `swimsuit` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Triathlon specific result data';
+
+/*Data for the table `results_tria` */
 
 /*Table structure for table `roles_have_functionnodes` */
 

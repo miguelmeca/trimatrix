@@ -83,6 +83,9 @@
                 <idref local="AttachmentsDAO" />
                 <idref local="TestsDAO" />
                 <idref local="CompetitionsDAO" />
+                <idref local="CompetitionsScoutsDAO" />
+                <idref local="ResultsDAO" />
+                <idref local="ResultsTriaDAO" />
                 <idref local="PersonsHaveRelationsDAO" />
                 <idref local="PersonsHaveDoctorsDAO" />
                 <idref local="PersonsHaveAttachmentsDAO" />
@@ -126,6 +129,15 @@
         </property> 
         <property name="competitionsDAO">
             <ref bean="CompetitionsDAO" />
+        </property> 
+        <property name="competitionsScoutsDAO">
+            <ref bean="CompetitionsScoutsDAO" />
+        </property> 
+        <property name="resultsDAO">
+            <ref bean="ResultsDAO" />
+        </property> 
+        <property name="resultsTriaDAO">
+            <ref bean="ResultsTriaDAO" />
         </property> 
         <property name="personsHaveRelationsDAO">
             <ref bean="PersonsHaveRelationsDAO" />    
@@ -258,12 +270,6 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="UsersHaveAuthorizationsDAO"
-		class="trimatrix.db.UsersHaveAuthorizationsDAO">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean>
 	<bean id="RolesHaveFunctionnodesDAO"
 		class="trimatrix.db.RolesHaveFunctionnodesDAO">
 		<property name="sessionFactory">
@@ -390,6 +396,22 @@
 	</bean>
 	<bean id="PersonsHaveCompetitionsDAO"
 		class="trimatrix.db.PersonsHaveCompetitionsDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="CompetitionsScoutsDAO"
+		class="trimatrix.db.CompetitionsScoutsDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="ResultsDAO" class="trimatrix.db.ResultsDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="ResultsTriaDAO" class="trimatrix.db.ResultsTriaDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>

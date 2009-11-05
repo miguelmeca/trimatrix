@@ -55,6 +55,7 @@ public class SQLExecutorService {
 	private static final String DOCTORRELATIONENTITYQUERY = "DoctorRelationEntityList";
 	private static final String ATTACHMENTRELATIONENTITYQUERY = "AttachmentRelationEntityList";
 	private static final String COMPETITIONRELATIONENTITYQUERY = "CompetitionRelationEntityList";
+	private static final String COMPETITIONSCOUTRELATIONENTITYQUERY = "CompetitionScoutRelationEntityList";
 	private static final String PERSONPERSONQUERY = "PersonPersonRelationList";
 	private static final String PERSONDOCTORQUERY = "PersonDoctorRelationList";
 	private static final String PERSONATTACHMENTQUERY = "PersonAttachmentRelationList";
@@ -382,7 +383,6 @@ public class SQLExecutorService {
 			datum.type = (String)line[i++];
 			datum.address = (String)line[i++];
 			datum.country = (String)line[i++];
-			datum.swimsuit = (Boolean)line[i++];
 			data.add(datum);
 		}
 		session.close();
@@ -404,12 +404,22 @@ public class SQLExecutorService {
 		List<IEntityData> data = new ArrayList<IEntityData>();
 		SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
-		Query query = session.getNamedQuery(COMPETITIONRELATIONENTITYQUERY);
-		query.setString("p_lang_key", lang_key);
-		query.setBoolean("p_deleted", deleted);
-		query.setBoolean("p_test", test);
-		query.setString("p_reltyp", relation.type());
-		query.setString("p_person", person_id);
+		Query query = null;
+		if(relation == Constants.Relation.COMPETITIONSCOUT) {
+			// special handling for scouts relation
+			query = session.getNamedQuery(COMPETITIONSCOUTRELATIONENTITYQUERY);
+			query.setString("p_lang_key", lang_key);
+			query.setBoolean("p_deleted", deleted);
+			query.setBoolean("p_test", test);
+			query.setString("p_scout", person_id);
+		} else {
+			query = session.getNamedQuery(COMPETITIONRELATIONENTITYQUERY);
+			query.setString("p_lang_key", lang_key);
+			query.setBoolean("p_deleted", deleted);
+			query.setBoolean("p_test", test);
+			query.setString("p_reltyp", relation.type());
+			query.setString("p_person", person_id);
+		}				
 		List<Object[]> result = query.list();
 		for(Object[] line : result) {
 			CompetitionEntity.Data datum = new CompetitionEntity.Data();
@@ -420,7 +430,6 @@ public class SQLExecutorService {
 			datum.type = (String)line[i++];
 			datum.address = (String)line[i++];
 			datum.country = (String)line[i++];
-			datum.swimsuit = (Boolean)line[i++];
 			data.add(datum);
 		}
 		session.close();
