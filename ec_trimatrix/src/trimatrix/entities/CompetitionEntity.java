@@ -24,7 +24,6 @@ public final class CompetitionEntity extends AEntity {
     public static final String TYPE = "type";
     public static final String ADDRESS = "address";
     public static final String COUNTRY = "country";
-    public static final String SWIMSUIT = "swimsuit";
     
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IUserEntity#getGridMetaData()
@@ -35,8 +34,7 @@ public final class CompetitionEntity extends AEntity {
         gridMetaData.add(new SGridMetaData("Beschreibung", DESCRIPTION, SGridMetaData.Component.FIELD));        
         gridMetaData.add(new SGridMetaData("Typ", TYPE, SGridMetaData.Component.FIELD));        
         gridMetaData.add(new SGridMetaData("Adresse", ADDRESS, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("Land", COUNTRY, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("Neopren", SWIMSUIT, SGridMetaData.Component.FIELD));      
+        gridMetaData.add(new SGridMetaData("Land", COUNTRY, SGridMetaData.Component.FIELD));  
         return gridMetaData;
     }
 	
@@ -55,7 +53,9 @@ public final class CompetitionEntity extends AEntity {
 			return sqlExecutorService.getCompetitionEntities();
         } else if (entity == Constants.Entity.MYCOMPETITIONS) {
         	return sqlExecutorService.getCompetitionRelationEntities(dictionaryService.getMyPerson().getId(), Relation.COMPETITION);
-        } else {
+        } else if (entity == Constants.Entity.SCOUTCOMPETITIONS) {
+        	return sqlExecutorService.getCompetitionRelationEntities(dictionaryService.getMyPerson().getId(), Relation.COMPETITIONSCOUT);
+        }else {
         	return Constants.EMPTYENTITYLIST;
         }		
 	}
@@ -127,7 +127,6 @@ public final class CompetitionEntity extends AEntity {
 		public String type;
 		public String address;
 		public String country;
-		public boolean swimsuit;		
 		
 		/* (non-Javadoc)
 		 * @see trimatrix.entities.IEntityData#getId()
@@ -161,9 +160,6 @@ public final class CompetitionEntity extends AEntity {
 		public String getCountry() {
 			return country;
 		}
-
-		public boolean getSwimsuit() {
-			return swimsuit;
-		}		
+	
 	}
 }

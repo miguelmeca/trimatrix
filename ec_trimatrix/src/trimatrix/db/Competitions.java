@@ -27,7 +27,6 @@ public class Competitions implements java.io.Serializable, IEntityObject{
 	private String type;
 	private String address;
 	private String countryKey;
-	private Boolean swimsuit;
 	private Timestamp createdAt;
 	private String createdBy;
 	private Timestamp modifiedAt;
@@ -48,16 +47,14 @@ public class Competitions implements java.io.Serializable, IEntityObject{
 
 	/** full constructor */
 	public Competitions(String id, Date date, String description, String type,
-			String address, String countryKey, Boolean swimsuit,
-			Timestamp createdAt, String createdBy, Timestamp modifiedAt,
-			String modifiedBy, Boolean test, Boolean deleted) {
+			String address, String countryKey, Timestamp createdAt, String createdBy, 
+			Timestamp modifiedAt, String modifiedBy, Boolean test, Boolean deleted) {
 		this.id = id;
 		this.date = date;
 		this.description = description;
 		this.type = type;
 		this.address = address;
 		this.countryKey = countryKey;
-		this.swimsuit = swimsuit;
 		this.createdAt = createdAt;
 		this.createdBy = createdBy;
 		this.modifiedAt = modifiedAt;
@@ -121,15 +118,6 @@ public class Competitions implements java.io.Serializable, IEntityObject{
 
 	public void setCountryKey(String countryKey) {
 		this.countryKey = countryKey;
-	}
-
-	@Column(name = "swimsuit")
-	public Boolean getSwimsuit() {
-		return this.swimsuit;
-	}
-
-	public void setSwimsuit(Boolean swimsuit) {
-		this.swimsuit = swimsuit;
 	}
 
 	@Column(name = "created_at", length = 19)

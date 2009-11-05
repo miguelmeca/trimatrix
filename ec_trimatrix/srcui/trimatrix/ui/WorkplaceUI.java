@@ -17,10 +17,10 @@ import org.eclnt.jsfserver.elements.impl.ROWDYNAMICCONTENTBinding;
 import org.eclnt.workplace.IWorkpage;
 import org.eclnt.workplace.IWorkpageContainer;
 import org.eclnt.workplace.IWorkpageDispatcher;
-import org.eclnt.workplace.Workpage;
 
 import trimatrix.db.EntitiesHaveLabels;
 import trimatrix.db.Labels;
+import trimatrix.ui.utils.MyWorkpage;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
@@ -195,7 +195,7 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 			// Standard click navigate to search result
 			IWorkpageDispatcher wpd = getOwningDispatcher();
 			IWorkpageContainer wpc = getWorkpageContainer();
-			IWorkpage wp = new Workpage( wpd, Constants.Page.LABELSEARCHRESULT.getUrl(), label_id, label.getDescription(), null, true);			
+			IWorkpage wp = new MyWorkpage(wpd, Constants.Page.LABELSEARCHRESULT.getUrl(), label_id, label.getDescription(), null, true);			
 			wp.setParam(Constants.P_LABEL, label_id);	
 			wpc.addWorkpage(wp);
 		}

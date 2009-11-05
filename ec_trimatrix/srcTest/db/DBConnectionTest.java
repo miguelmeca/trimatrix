@@ -28,6 +28,8 @@ import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import trimatrix.db.Competitions;
+import trimatrix.db.CompetitionsScouts;
+import trimatrix.db.CompetitionsScoutsId;
 import trimatrix.db.DAOLayer;
 import trimatrix.db.EntitiesHaveLabels;
 import trimatrix.db.EntitiesHaveLabelsId;
@@ -35,6 +37,7 @@ import trimatrix.db.IEntityDAO;
 import trimatrix.db.KRoles;
 import trimatrix.db.Persons;
 import trimatrix.db.PersonsAthlete;
+import trimatrix.db.PersonsHaveCompetitions;
 import trimatrix.db.PersonsHaveRelations;
 import trimatrix.db.RolesHaveFunctionnodes;
 import trimatrix.db.Tests;
@@ -47,6 +50,7 @@ import trimatrix.db.TestsTreadmill;
 import trimatrix.db.Users;
 import trimatrix.db.Zones;
 import trimatrix.db.ZonesDefinition;
+import trimatrix.relations.PersonCompetitionRelation;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SFunctionTree;
 import trimatrix.utils.Constants;
@@ -367,13 +371,31 @@ public class DBConnectionTest {
 		Competitions comp = new Competitions(id);
 		comp.setDescription("Test Wettkampf");
 		comp.setDate(date); 
-		comp.setSwimsuit(true);
 		daoLayer.getCompetitionsDAO().save(comp);
 		Competitions comp2 = daoLayer.getCompetitionsDAO().findById(id);
 		Assert.assertEquals(comp.getDescription(), comp2.getDescription());
 		Assert.assertNotNull(comp2.getDate());
-		Assert.assertTrue(comp2.getSwimsuit());
-		daoLayer.getCompetitionsDAO().delete(comp);
+		// Competitions Scout
+		CompetitionsScoutsId csId = new CompetitionsScoutsId(id,"ABCDEFGH");
+		CompetitionsScouts compScout = new CompetitionsScouts(csId);
+		compScout.setFactors("Faktoren");
+		daoLayer.getCompetitionsScoutsDAO().save(compScout);
+		CompetitionsScouts compScout2 = daoLayer.getCompetitionsScoutsDAO().findById(csId);
+		Assert.assertEquals("Faktoren", compScout2.getFactors());
+		// Competitions Relation
+		String phcId = UUID.randomUUID().toString();
+		PersonsHaveCompetitions phc = new PersonsHaveCompetitions(phcId);
+		phc.setPartner1("ABC");
+		phc.setPartner2(id);
+		phc.setReltypKey(Constants.Relation.COMPETITION.type());
+		phc.setStandard(true);
+		daoLayer.getPersonsHaveCompetitionsDAO().save(phc);
+		PersonsHaveCompetitions phc2 = daoLayer.getPersonsHaveCompetitionsDAO().findById(phcId);
+		Assert.assertEquals("ABC", phc2.getPartner1());
+		Assert.assertTrue(phc2.getStandard());
+		daoLayer.getPersonsHaveCompetitionsDAO().delete(phc2);
+		daoLayer.getCompetitionsScoutsDAO().delete(compScout2);
+		daoLayer.getCompetitionsDAO().delete(comp2);
 	}
 	
 	@After

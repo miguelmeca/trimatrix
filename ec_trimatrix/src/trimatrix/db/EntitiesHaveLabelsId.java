@@ -1,8 +1,12 @@
 package trimatrix.db;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
 /**
  * EntitiesHaveLabelsId entity. @author MyEclipse Persistence Tools
  */
+@Embeddable
 public class EntitiesHaveLabelsId implements java.io.Serializable {
 
 	// Fields
@@ -18,8 +22,7 @@ public class EntitiesHaveLabelsId implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public EntitiesHaveLabelsId(String entity, String label,
-			String personId) {
+	public EntitiesHaveLabelsId(String entity, String label, String personId) {
 		this.entity = entity;
 		this.label = label;
 		this.personId = personId;
@@ -27,6 +30,7 @@ public class EntitiesHaveLabelsId implements java.io.Serializable {
 
 	// Property accessors
 
+	@Column(name = "entity", nullable = false, length = 36)
 	public String getEntity() {
 		return this.entity;
 	}
@@ -35,6 +39,7 @@ public class EntitiesHaveLabelsId implements java.io.Serializable {
 		this.entity = entity;
 	}
 
+	@Column(name = "label", nullable = false, length = 36)
 	public String getLabel() {
 		return this.label;
 	}
@@ -43,6 +48,7 @@ public class EntitiesHaveLabelsId implements java.io.Serializable {
 		this.label = label;
 	}
 
+	@Column(name = "person_id", nullable = false, length = 36)
 	public String getPersonId() {
 		return this.personId;
 	}
@@ -51,7 +57,6 @@ public class EntitiesHaveLabelsId implements java.io.Serializable {
 		this.personId = personId;
 	}
 
-	@Override
 	public boolean equals(Object other) {
 		if ((this == other))
 			return true;
@@ -75,7 +80,6 @@ public class EntitiesHaveLabelsId implements java.io.Serializable {
 						.getPersonId().equals(castOther.getPersonId())));
 	}
 
-	@Override
 	public int hashCode() {
 		int result = 17;
 
