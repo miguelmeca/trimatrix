@@ -19,7 +19,9 @@ import trimatrix.db.PersonsAthlete;
 import trimatrix.entities.PersonEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
+import trimatrix.relations.IRelationObject;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Constants.Entity;
 
 @SuppressWarnings("serial")
 @CCGenClass (expressionBase="#{d.PersonDetailUI}")
@@ -80,8 +82,13 @@ public class PersonDetailUI extends AEntityDetailUI implements Serializable
         
 	@Override
 	public void prepareSave() {		
+		// In case of a coach relation the athlete should also be created with athlete profile
+		if(getEntityDetailUI().getEntity()==Entity.MYATHLETES) {
+			athlete = true;
+		}
 		// case  => profil not set yet => create
 		if(entity.getProfileAthlete()==null && athlete) {
+			// TODO put into logic layer			
 			PersonsAthlete athlete = new PersonsAthlete(entity.getId());
 			getDaoLayer().getPersonAthleteDAO().save(athlete);		
 			entity.setProfileAthlete(athlete);	
@@ -89,11 +96,40 @@ public class PersonDetailUI extends AEntityDetailUI implements Serializable
 		} 
 		// case 2 => profil already set => delete
 		if(entity.getProfileAthlete()!=null && !athlete) {
+			// TODO put into logic layer	
 			PersonsAthlete athlete = entity.getProfileAthlete();
 			getDaoLayer().getPersonAthleteDAO().delete(athlete); 
 			entity.setProfileAthlete(null);
 			return;
 		} 
+	}
+	
+	@Override
+	public void postSave() {
+		/** 
+		* Special handling for athletes created by a scout or coach.
+		* In those cases the relation should be created additionally.
+		**/
+		if(mode==Constants.Mode.NEW || mode==Constants.Mode.COPY) {
+			String relationType = null;
+			switch (getEntityDetailUI().getEntity()) {
+			case MYATHLETES:
+				relationType = Constants.Relation.COACH.type();
+				break;
+			case MYSCOUTEDATHLETES:
+				relationType = Constants.Relation.SCOUT.type();
+				break;
+			default:
+				return; // entity not relevant => abort			
+			}
+			// entity relevant
+			// TODO put into logic layer
+			IRelationObject relationObject = getLogic().getRelationListLogic().create(Constants.Relation.PERSONPERSON);
+			relationObject.setPartner1(entity.getId());	// Athlete
+			relationObject.setPartner2(getServiceLayer().getDictionaryService().getMyPerson().getId());
+			relationObject.setReltypKey(relationType);
+			getLogic().getRelationListLogic().save(Constants.Relation.PERSONPERSON, relationObject);
+		}
 	}
 
 	public void validate() throws MandatoryCheckException, EmailNotValidException {		

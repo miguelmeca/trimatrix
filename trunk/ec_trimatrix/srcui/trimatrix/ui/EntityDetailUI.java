@@ -29,6 +29,11 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 
 	private final EntityListLogic ENTITYLISTLOGIC = getLogic().getEntityListLogic();
 	private Constants.Entity entity;
+	public Constants.Entity getEntity() { return entity; }	
+	
+	protected String m_entityDetailPage;
+	public String getEntityDetailPage() {return m_entityDetailPage;}
+	
 	private IEntityDetailUI entityDetailUI;
 	
 	private IEntityObject entityObject;
@@ -284,11 +289,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 		}
 	}
 
-	protected String m_entityDetailPage;
-
-	public String getEntityDetailPage() {
-		return m_entityDetailPage;
-	}
+	
 
 	public void setEntityDetailPage(String value) {
 		m_entityDetailPage = value;
