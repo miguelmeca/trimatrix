@@ -155,6 +155,17 @@ public final class PersonEntity extends AEntity {
 		return true;
 	}
 	
+	public boolean createProfile(String id, Constants.Profiles profile) {
+		switch (profile) {
+		case ATHLETE:
+			PersonsAthlete athlete = new PersonsAthlete(id);
+			daoLayer.getPersonAthleteDAO().save(athlete);		
+			logger.info("PersonAthlete : Creation of profil athlete successful => " + id );
+			break;
+		}		
+		return true;
+	}
+	
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#create()
 	 */
