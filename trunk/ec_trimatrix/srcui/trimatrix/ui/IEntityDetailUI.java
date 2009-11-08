@@ -25,4 +25,6 @@ public interface IEntityDetailUI {
 	public void prepareSave();
 	
 	public void postSave();	
+	
+	public void postDelete(boolean isDeleted);	
 }

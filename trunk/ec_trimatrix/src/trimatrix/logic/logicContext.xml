@@ -31,6 +31,15 @@
         <property name="entityLayer">
             <ref bean="entityLayer" />
         </property>    
+        <property name="daoLayer">
+            <ref bean="daoLayer" />
+        </property>
+        <property name="serviceLayer">
+            <ref bean="serviceLayer" />            
+        </property> 
+        <property name="relationLayer">
+            <ref bean="relationLayer" />            
+        </property> 
     </bean>
     
     <bean id="relationListLogic" class="trimatrix.logic.RelationListLogic"

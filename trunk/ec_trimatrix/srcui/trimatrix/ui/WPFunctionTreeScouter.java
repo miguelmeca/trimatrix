@@ -14,10 +14,15 @@ import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoCancelListener;
 import org.eclnt.jsfserver.elements.events.BaseActionEventDrop;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDTreeItem;
 import org.eclnt.jsfserver.managedbean.IDispatcher;
+import org.eclnt.workplace.IWorkpage;
+import org.eclnt.workplace.IWorkpageContainer;
+import org.eclnt.workplace.IWorkpageDispatcher;
 import org.eclnt.workplace.WorkpageContainer;
 import org.eclnt.workplace.WorkplaceFunctionTree;
 import org.springframework.dao.DataIntegrityViolationException;
 
+import trimatrix.db.CompetitionsScouts;
+import trimatrix.db.CompetitionsScoutsId;
 import trimatrix.db.PersonsHaveAttachments;
 import trimatrix.db.PersonsHaveDoctors;
 import trimatrix.entities.IEntityData;
@@ -26,6 +31,7 @@ import trimatrix.relations.PersonAttachmentRelation;
 import trimatrix.relations.PersonDoctorRelation;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SFunctionTree;
+import trimatrix.ui.utils.MyWorkpage;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Context;
 import trimatrix.utils.Helper;
@@ -34,8 +40,9 @@ import trimatrix.utils.Helper;
 public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 	public static final Log logger = LogFactory.getLog(WPFunctionTreeScouter.class);
 	private static final Constants.Role role = Constants.Role.SCOUTER;	
+	private FunctionTreeLogic FUNCTIONTREELOGIC = null;
 	
-	/**
+	/*
 	 * @author reich
 	 * Extend FunctionNode to get a node with drag & drop functionality
 	 */
@@ -55,6 +62,9 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
         @Override
         public void processTREENDOEAction(ActionEvent event) {
             super.processTREENDOEAction(event);
+            if(FUNCTIONTREELOGIC==null){
+    			FUNCTIONTREELOGIC = ((Dispatcher)getOwningDispatcher()).logicLayer.getFunctionTreeLogic();
+    		}
             if (event instanceof BaseActionEventDrop) {
                 BaseActionEventDrop baed = (BaseActionEventDrop)event;                
                 String[] dragInfo = baed.getDragInfo().split(":");
@@ -66,16 +76,20 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
                 	final EntityListUI dispatchedBean = (EntityListUI) wc.getCurrentWorkpage().getDispatcher().getDispatchedBean(EntityListUI.class);
                 	if (dispatchedBean==null) return;                	
                 	// get entity
-                	Constants.Entity entity = dispatchedBean.getEntity();
+                	final Constants.Entity entity = dispatchedBean.getEntity();
                 	if (entity==null) return;
                 	// get selected item
                 	final IEntityData datum = dispatchedBean.m_gridList.getSelectedItem().datum;    
                 	if (datum==null) return;
                 	
-                	if (entity.getBase()==Constants.Entity.ATTACHMENT) {
+                	if (entity.getBase()==Constants.Entity.COMPETITION) {
+                    	/*
+                    	 * Create CompetitionScout entity and open the page
+                    	 * so the Scouter could add certain relevant data
+                    	 */
                 		YESNOPopup ynp = YESNOPopup.createInstance(
                 				"Create relation", 
-                				"Do you really want to create a relation between " + getText() + " and " + datum.toString() + "?", 
+                				"Do you really want to put the competition " + datum.toString() + " to your competitions?", 
                 				new IYesNoCancelListener(){
 
                 					public void reactOnCancel() {}
@@ -83,51 +97,20 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
                 					public void reactOnNo() {}
 
                 					public void reactOnYes() {				
-                						PersonAttachmentRelation relation = dispatchedBean.getOwningDispatcher().getRelationLayer().getPersonAttachmentRelation();
-                						PersonsHaveAttachments pha = relation.create();
-                						pha.setPerson(entityId);
-                						pha.setAttachment(datum.getId());
-                						pha.setReltypKey(Constants.Relation.ATTACHMENT.type());
-                						try {
-                							relation.save(pha);
-                						} catch (DataIntegrityViolationException dive) {
-                							Statusbar.outputError("Relation could not be saved (Data Integrity)", dive.getRootCause().toString());
-                						} catch (Exception ex){			
-                							Statusbar.outputError("Relation could not be saved", ex.toString());			
-                						} 
+                						if(!FUNCTIONTREELOGIC.createCompetitionScout(datum.getId())) return;
+                						// open entity
+                                		IWorkpageDispatcher wpd = (IWorkpageDispatcher)getOwningDispatcher();
+                            			IWorkpageContainer wpc = getWorkpageContainer();
+                            			IWorkpage wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.getUrl(),
+                            					datum.getId(), datum.toString(), null, true, null, null, null);			
+                            			wp.setParam(Constants.P_ENTITY, entity.name());
+                            			wp.setParam(Constants.P_MODE, Constants.Mode.SINGLECHANGE.name());			
+                            			wpc.addWorkpage(wp);
                 					}						
                 				}
                 		);
-                		ynp.getModalPopup().setLeftTopReferenceCentered();
-                	} else if (entity.getBase()==Constants.Entity.DOCTOR) {
-                		YESNOPopup ynp = YESNOPopup.createInstance(
-                				"Create relation", 
-                				"Do you really want to create a relation between " + getText() + " and " + datum.toString() + "?", 
-                				new IYesNoCancelListener(){
-
-                					public void reactOnCancel() {}
-
-                					public void reactOnNo() {}
-
-                					public void reactOnYes() {				
-                						PersonDoctorRelation relation = dispatchedBean.getOwningDispatcher().getRelationLayer().getPersonDoctorRelation();
-                						PersonsHaveDoctors phd = relation.create();
-                						phd.setPerson(entityId);
-                						phd.setDoctor(datum.getId());
-                						phd.setReltypKey(Constants.Relation.DOCTOR.type());
-                						try {
-                							relation.save(phd);
-                						} catch (DataIntegrityViolationException dive) {
-                							Statusbar.outputError("Relation could not be saved (Data Integrity)", dive.getRootCause().toString());
-                						} catch (Exception ex){			
-                							Statusbar.outputError("Relation could not be saved", ex.toString());			
-                						}                						
-                					}						
-                				}
-                		);
-                		ynp.getModalPopup().setLeftTopReferenceCentered();
-                	}  					
-                	
+                		ynp.getModalPopup().setLeftTopReferenceCentered();    
+                	}	
                 } else {
                 	logger.warn(dragInfo[1] + " is not defined as source for drag and drop!");
                 	return;
@@ -140,9 +123,15 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 		super(owner);
 	}	
 	
+	public void reload() {
+		loadFunctionTree();
+	}
+	
 	@Override
-	protected void loadFunctionTree() {
-		FunctionTreeLogic FUNCTIONTREELOGIC = ((Dispatcher)getOwningDispatcher()).logicLayer.getFunctionTreeLogic();
+	protected void loadFunctionTree() {	
+		if(FUNCTIONTREELOGIC==null){
+			FUNCTIONTREELOGIC = ((Dispatcher)getOwningDispatcher()).logicLayer.getFunctionTreeLogic();
+		}
 		// reset functiontree
 		getFtree().getRootNode().removeAllChildNodes(true);
 		
@@ -174,7 +163,7 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 					logger.warn(ex.toString());
 					continue;
 				}	
-				node = new FunctionNode(parentNode, page.getUrl());
+				node = new DropableFunctionNode(parentNode, page.getUrl(), Constants.P_ENTITY, functionTree.entity);
 				node.setId(Constants.EMPTY);
 				node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
 				node.setOpenMultipleInstances(true);
@@ -184,7 +173,7 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 				// authorization
 				FUNCTIONTREELOGIC.setAuthority(functionTree, node);
 				// special handling for some nodes
-				if (functionTree.key == Constants.FunctionNode.ATHLETES_OWN) {
+				if (functionTree.key == Constants.FunctionNode.SCOUTED_OWN) {
 					// reset status
 					node.setStatus(FIXGRIDTreeItem.STATUS_OPENED);
 					// add athletes
@@ -195,7 +184,7 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 						athlete_node.setStatus(FIXGRIDTreeItem.STATUS_OPENED);
 						athlete_node.setOpenMultipleInstances(true);
 						athlete_node.setText(athlete.toString());							
-						athlete_node.setParam(Constants.P_ENTITY, Constants.Entity.PERSON.name());
+						athlete_node.setParam(Constants.P_ENTITY, Constants.Entity.MYSCOUTEDATHLETES.name());
 						// authorization as parent
 						FUNCTIONTREELOGIC.setAuthority(functionTree, athlete_node);						
 						// add results per athlete

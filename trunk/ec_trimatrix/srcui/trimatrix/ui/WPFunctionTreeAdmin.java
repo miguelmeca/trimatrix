@@ -21,15 +21,22 @@ import trimatrix.utils.Context;
 public class WPFunctionTreeAdmin extends WorkplaceFunctionTree {
 	public static final Log logger = LogFactory.getLog(WPFunctionTreeAdmin.class);
 	private static final Constants.Role role = Constants.Role.ADMIN;
+	private FunctionTreeLogic FUNCTIONTREELOGIC = null;
 	
 	public WPFunctionTreeAdmin(IDispatcher owner) {
 		super(owner);
 	}	
 	
+	public void reload() {
+		loadFunctionTree();
+	}
+	
 	// TODO adapt logic
 	@Override
 	protected void loadFunctionTree() {
-		FunctionTreeLogic FUNCTIONTREELOGIC = ((Dispatcher)getOwningDispatcher()).logicLayer.getFunctionTreeLogic();
+		if(FUNCTIONTREELOGIC==null){
+			FUNCTIONTREELOGIC = ((Dispatcher)getOwningDispatcher()).logicLayer.getFunctionTreeLogic();
+		}
 		// reset functiontree
 		getFtree().getRootNode().removeAllChildNodes(true);
 		

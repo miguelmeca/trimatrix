@@ -12,6 +12,7 @@ import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.ModalPopup;
 import org.eclnt.jsfserver.defaultscreens.ModelessPopup;
 import org.eclnt.jsfserver.defaultscreens.ModalPopup.IModalPopupListener;
+import org.eclnt.jsfserver.elements.ThreadData;
 import org.eclnt.jsfserver.elements.impl.BUTTONComponent;
 import org.eclnt.jsfserver.elements.impl.ROWDYNAMICCONTENTBinding;
 import org.eclnt.jsfserver.elements.util.DefaultModelessPopupListener;
@@ -41,6 +42,10 @@ import trimatrix.ui.LabelPopUpUI;
 import trimatrix.ui.PersonSelectionUI;
 import trimatrix.ui.UserDetailUI;
 import trimatrix.ui.UserSelectionUI;
+import trimatrix.ui.WPFunctionTreeAdmin;
+import trimatrix.ui.WPFunctionTreeAthlet;
+import trimatrix.ui.WPFunctionTreeCoach;
+import trimatrix.ui.WPFunctionTreeScouter;
 import trimatrix.ui.WorkplaceUI;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
@@ -273,5 +278,23 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 	
 	public WorkplaceUI getWorkplaceUI() {
 		return (WorkplaceUI)getOwningDispatcher().getDispatchedBean(WorkplaceUI.class);
+	}
+	
+	public void reloadFunctionTree(Constants.Role role) {
+		switch(role) {
+		case ADMIN:
+			((WPFunctionTreeAdmin)getOwningDispatcher().getTopOwner().getDispatchedBean(WPFunctionTreeAdmin.class)).reload();
+			break;
+		case ATHLETE:
+			((WPFunctionTreeAthlet)getOwningDispatcher().getTopOwner().getDispatchedBean(WPFunctionTreeAthlet.class)).reload();
+			break;
+		case COACH:
+			((WPFunctionTreeCoach)getOwningDispatcher().getTopOwner().getDispatchedBean(WPFunctionTreeCoach.class)).reload();
+			break;
+		case SCOUTER:
+			((WPFunctionTreeScouter)getOwningDispatcher().getTopOwner().getDispatchedBean(WPFunctionTreeScouter.class)).reload();
+			break;
+		}
+		ThreadData.getInstance().registerChangeUpdatingAllAreas();
 	}
 }

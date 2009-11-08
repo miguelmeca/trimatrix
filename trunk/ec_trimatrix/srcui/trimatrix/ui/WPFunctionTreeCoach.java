@@ -34,6 +34,7 @@ import trimatrix.utils.Helper;
 public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 	public static final Log logger = LogFactory.getLog(WPFunctionTreeCoach.class);
 	private static final Constants.Role role = Constants.Role.COACH;	
+	private FunctionTreeLogic FUNCTIONTREELOGIC = null;
 	
 	/**
 	 * @author reich
@@ -55,6 +56,9 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
         @Override
         public void processTREENDOEAction(ActionEvent event) {
             super.processTREENDOEAction(event);
+            if(FUNCTIONTREELOGIC==null){
+    			FUNCTIONTREELOGIC = ((Dispatcher)getOwningDispatcher()).logicLayer.getFunctionTreeLogic();
+    		}
             if (event instanceof BaseActionEventDrop) {
                 BaseActionEventDrop baed = (BaseActionEventDrop)event;                
                 String[] dragInfo = baed.getDragInfo().split(":");
@@ -83,18 +87,7 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
                 					public void reactOnNo() {}
 
                 					public void reactOnYes() {				
-                						PersonAttachmentRelation relation = dispatchedBean.getOwningDispatcher().getRelationLayer().getPersonAttachmentRelation();
-                						PersonsHaveAttachments pha = relation.create();
-                						pha.setPerson(entityId);
-                						pha.setAttachment(datum.getId());
-                						pha.setReltypKey(Constants.Relation.ATTACHMENT.type());
-                						try {
-                							relation.save(pha);
-                						} catch (DataIntegrityViolationException dive) {
-                							Statusbar.outputError("Relation could not be saved (Data Integrity)", dive.getRootCause().toString());
-                						} catch (Exception ex){			
-                							Statusbar.outputError("Relation could not be saved", ex.toString());			
-                						} 
+                						FUNCTIONTREELOGIC.createPersonAttachmentRelation(entityId, datum.getId());
                 					}						
                 				}
                 		);
@@ -110,18 +103,7 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
                 					public void reactOnNo() {}
 
                 					public void reactOnYes() {				
-                						PersonDoctorRelation relation = dispatchedBean.getOwningDispatcher().getRelationLayer().getPersonDoctorRelation();
-                						PersonsHaveDoctors phd = relation.create();
-                						phd.setPerson(entityId);
-                						phd.setDoctor(datum.getId());
-                						phd.setReltypKey(Constants.Relation.DOCTOR.type());
-                						try {
-                							relation.save(phd);
-                						} catch (DataIntegrityViolationException dive) {
-                							Statusbar.outputError("Relation could not be saved (Data Integrity)", dive.getRootCause().toString());
-                						} catch (Exception ex){			
-                							Statusbar.outputError("Relation could not be saved", ex.toString());			
-                						}                						
+                						FUNCTIONTREELOGIC.createPersonDoctorRelation(entityId, datum.getId());                						
                 					}						
                 				}
                 		);
@@ -140,9 +122,15 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 		super(owner);
 	}	
 	
+	public void reload() {
+		loadFunctionTree();
+	}
+	
 	@Override
 	protected void loadFunctionTree() {
-		FunctionTreeLogic FUNCTIONTREELOGIC = ((Dispatcher)getOwningDispatcher()).logicLayer.getFunctionTreeLogic();
+		if(FUNCTIONTREELOGIC==null){
+			FUNCTIONTREELOGIC = ((Dispatcher)getOwningDispatcher()).logicLayer.getFunctionTreeLogic();
+		}
 		// reset functiontree
 		getFtree().getRootNode().removeAllChildNodes(true);
 		
@@ -195,7 +183,7 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 						athlete_node.setStatus(FIXGRIDTreeItem.STATUS_OPENED);
 						athlete_node.setOpenMultipleInstances(true);
 						athlete_node.setText(athlete.toString());							
-						athlete_node.setParam(Constants.P_ENTITY, Constants.Entity.PERSON.name());
+						athlete_node.setParam(Constants.P_ENTITY, Constants.Entity.MYATHLETES.name());
 						// authorization as parent
 						FUNCTIONTREELOGIC.setAuthority(functionTree, athlete_node);
 						// add doctors per athlete
