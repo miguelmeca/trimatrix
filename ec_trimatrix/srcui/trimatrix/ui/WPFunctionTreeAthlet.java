@@ -20,14 +20,21 @@ import trimatrix.utils.Context;
 public class WPFunctionTreeAthlet extends WorkplaceFunctionTree {
 	public static final Log logger = LogFactory.getLog(WPFunctionTreeAthlet.class);
 	private static final Constants.Role role = Constants.Role.ATHLETE;
+	private FunctionTreeLogic FUNCTIONTREELOGIC = null;
 	
 	public WPFunctionTreeAthlet(IDispatcher owner) {
 		super(owner);
 	}	
 	
+	public void reload() {
+		loadFunctionTree();
+	}
+	
 	@Override
 	protected void loadFunctionTree() {
-		FunctionTreeLogic FUNCTIONTREELOGIC = ((Dispatcher)getOwningDispatcher()).logicLayer.getFunctionTreeLogic();
+		if(FUNCTIONTREELOGIC==null){
+			FUNCTIONTREELOGIC = ((Dispatcher)getOwningDispatcher()).logicLayer.getFunctionTreeLogic();
+		}
 		// reset functiontree
 		getFtree().getRootNode().removeAllChildNodes(true);
 		

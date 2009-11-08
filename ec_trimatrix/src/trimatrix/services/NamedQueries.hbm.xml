@@ -479,7 +479,7 @@ FROM competitions
   LEFT OUTER JOIN t_countries
     ON t_countries.key = competitions.country_key
       AND t_countries.language_key = :p_lang_key
-  JOIN competitions_scout
+  JOIN competitions_scouts
     ON (competition_id = competitions.id
       AND scout_id = :p_scout)
 WHERE competitions.test = :p_test

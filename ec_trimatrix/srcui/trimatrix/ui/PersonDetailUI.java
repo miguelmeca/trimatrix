@@ -3,6 +3,7 @@ package trimatrix.ui;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 import javax.faces.event.ActionEvent;
 
@@ -16,12 +17,15 @@ import org.hibernate.validator.InvalidValue;
 
 import trimatrix.db.Persons;
 import trimatrix.db.PersonsAthlete;
+import trimatrix.db.PersonsHaveRelations;
 import trimatrix.entities.PersonEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
 import trimatrix.relations.IRelationObject;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Constants.Entity;
+import trimatrix.utils.Constants.Relation;
+import trimatrix.utils.Constants.Role;
 
 @SuppressWarnings("serial")
 @CCGenClass (expressionBase="#{d.PersonDetailUI}")
@@ -112,7 +116,8 @@ public class PersonDetailUI extends AEntityDetailUI implements Serializable
 		**/
 		if(mode==Constants.Mode.NEW || mode==Constants.Mode.COPY) {
 			String relationType = null;
-			switch (getEntityDetailUI().getEntity()) {
+			Entity entity = getEntityDetailUI().getEntity();
+			switch (entity) {
 			case MYATHLETES:
 				relationType = Constants.Relation.COACH.type();
 				break;
@@ -125,11 +130,45 @@ public class PersonDetailUI extends AEntityDetailUI implements Serializable
 			// entity relevant
 			// TODO put into logic layer
 			IRelationObject relationObject = getLogic().getRelationListLogic().create(Constants.Relation.PERSONPERSON);
-			relationObject.setPartner1(entity.getId());	// Athlete
+			relationObject.setPartner1(this.entity.getId());	// Athlete
 			relationObject.setPartner2(getServiceLayer().getDictionaryService().getMyPerson().getId());
 			relationObject.setReltypKey(relationType);
 			getLogic().getRelationListLogic().save(Constants.Relation.PERSONPERSON, relationObject);
+			// update relevant function tree
+			if(entity==Constants.Entity.MYATHLETES) reloadFunctionTree(Role.COACH);
+			if(entity==Constants.Entity.MYSCOUTEDATHLETES) reloadFunctionTree(Role.SCOUTER);
 		}
+	}
+	
+	@Override
+	public void postDelete(boolean isDeleted) {
+		// if person is deleted, the relation is already deleted
+		if(!isDeleted) {
+			String relationType = null;
+			Entity entity = getEntityDetailUI().getEntity();
+			switch (getEntityDetailUI().getEntity()) {
+			case MYATHLETES:
+				relationType = Constants.Relation.COACH.type();
+				break;
+			case MYSCOUTEDATHLETES:
+				relationType = Constants.Relation.SCOUT.type();
+				break;
+			default:
+				return; // entity not relevant => abort			
+			}
+			// TODO put into logic layer
+			PersonsHaveRelations phr = new PersonsHaveRelations();
+			phr.setPartner1(this.entity.getId());
+			phr.setPartner2(getServiceLayer().getDictionaryService().getMyPerson().getId());
+			phr.setReltypKey(relationType);
+			List<PersonsHaveRelations> relations = getDaoLayer().getPersonsHaveRelationsDAO().findByExample(phr);
+			if(relations!=null && relations.size()>0) {
+				getLogic().getRelationListLogic().delete(Relation.COACH, relations.get(0).getId());
+			}	
+			// update relevant function tree
+			if(entity==Constants.Entity.MYATHLETES) reloadFunctionTree(Role.COACH);
+			if(entity==Constants.Entity.MYSCOUTEDATHLETES) reloadFunctionTree(Role.SCOUTER);
+		}		
 	}
 
 	public void validate() throws MandatoryCheckException, EmailNotValidException {		

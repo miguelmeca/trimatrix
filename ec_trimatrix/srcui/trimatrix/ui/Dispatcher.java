@@ -1,7 +1,6 @@
 package trimatrix.ui;
 
 import org.eclnt.workplace.IWorkpageContainer;
-import org.eclnt.workplace.Workpage;
 import org.eclnt.workplace.WorkpageDispatcher;
 
 import trimatrix.db.DAOLayer;

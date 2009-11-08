@@ -177,15 +177,18 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 
 					public void reactOnNo() {}
 
-					public void reactOnYes() {						
-						if(ENTITYLISTLOGIC.delete(entity, id)) {							
+					public void reactOnYes() {	
+						boolean isDeleted = ENTITYLISTLOGIC.delete(entity, id);
+						if(isDeleted) {	
+							entityDetailUI.postDelete(true);
 							Statusbar.outputSuccess("Entity deleted");
 							refreshParent();
 							getWorkpageContainer().closeWorkpage(getWorkpage());
 						} else {
+							entityDetailUI.postDelete(false);
 							Statusbar.outputError("Entity could not be deleted!");
-						}								
-					}						
+						}						
+					}											
 				}
 		);	
 		popup.getModalPopup().setLeftTopReferenceCentered();
@@ -222,7 +225,8 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 	public void onCancel(ActionEvent event) {
 		// when called in save mode, close page
 		if (mode == Constants.Mode.NEW ||
-			mode == Constants.Mode.COPY	) {
+			mode == Constants.Mode.COPY	|| 
+			mode == Constants.Mode.SINGLECHANGE) {
 			getWorkpageContainer().closeWorkpage(getWorkpage());
 		} else {
 			ENTITYLISTLOGIC.reload(entity, entityObject);   
@@ -261,7 +265,8 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 	
 	private void changeMode(Constants.Mode mode) {
 		this.mode = mode;
-		if (mode == Constants.Mode.CHANGE) {
+		if (mode == Constants.Mode.CHANGE ||
+			mode == Constants.Mode.SINGLECHANGE) {
 			renderNewButton = false;
 			renderDeleteButton = false;
 			renderEditButton = false;
