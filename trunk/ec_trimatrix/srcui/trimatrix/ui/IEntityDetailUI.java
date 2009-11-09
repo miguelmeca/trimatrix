@@ -27,4 +27,6 @@ public interface IEntityDetailUI {
 	public void postSave();	
 	
 	public void postDelete(boolean isDeleted);	
+	
+	public boolean checkEdit();
 }

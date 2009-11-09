@@ -21,6 +21,7 @@ import trimatrix.entities.CompetitionEntity;
 import trimatrix.entities.DoctorEntity;
 import trimatrix.entities.IEntityData;
 import trimatrix.entities.PersonEntity;
+import trimatrix.entities.ResultEntity;
 import trimatrix.entities.TestEntity;
 import trimatrix.entities.UserEntity;
 import trimatrix.relations.IRelationData;
@@ -56,6 +57,7 @@ public class SQLExecutorService {
 	private static final String ATTACHMENTRELATIONENTITYQUERY = "AttachmentRelationEntityList";
 	private static final String COMPETITIONRELATIONENTITYQUERY = "CompetitionRelationEntityList";
 	private static final String COMPETITIONSCOUTRELATIONENTITYQUERY = "CompetitionScoutRelationEntityList";
+	private static final String RESULTENTITYLISTQUERY = "ResultEntityList";
 	private static final String PERSONPERSONQUERY = "PersonPersonRelationList";
 	private static final String PERSONDOCTORQUERY = "PersonDoctorRelationList";
 	private static final String PERSONATTACHMENTQUERY = "PersonAttachmentRelationList";
@@ -446,6 +448,66 @@ public class SQLExecutorService {
 	
 	public List<IEntityData> getCompetitionEntities(String parameterName, String parameterValue) {
 		return getCompetitionEntities(dictionaryService.getLanguage(), parameterName, parameterValue, false, false);
+	}
+	
+
+	/**
+	 * Retrieve result entities
+	 * @param lang_key	language
+	 * @param id	competition
+	 * @param scoutId	scout
+	 * @param athleteId	athlete	
+	 * @param deleted	deleted
+	 * @param test	test	
+	 * @return	result entities
+	 */
+	@SuppressWarnings("unchecked")
+	public List<IEntityData> getResultEntities(String lang_key, String id, String scoutId, String athleteId, boolean deleted, boolean test) {
+		List<IEntityData> data = new ArrayList<IEntityData>();
+		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		Query query = session.getNamedQuery(RESULTENTITYLISTQUERY);
+		//query.setString("p_lang_key", lang_key);
+		query.setBoolean("p_deleted", deleted);
+		query.setBoolean("p_test", test);
+		// handle parameter
+		if(id==null) {
+			query.setBoolean("p_id_on", false);
+		} else {
+			query.setString("p_id", id);
+		}
+		if(scoutId==null) {
+			query.setBoolean("p_scout_on", false);
+		} else {
+			query.setString("p_scout", id);
+		}
+		if(athleteId==null) {
+			query.setBoolean("p_athlete_on", false);
+		} else {
+			query.setString("p_athlete", id);
+		}
+		List<Object[]> result = query.list();
+		for(Object[] line : result) {
+			ResultEntity.Data datum = new ResultEntity.Data();
+			int i = 0;
+			datum.id = (String)line[i++];	
+			datum.comment = (String)line[i++];	
+			data.add(datum);
+		}
+		session.close();
+		return data;
+	}
+	
+	/**
+	 * Get all results
+	 * @return
+	 */
+	public List<IEntityData> getResultEntities() {
+		return getResultEntities(dictionaryService.getLanguage(), null, null, null, false, false);
+	}
+	
+	public List<IEntityData> getResultEntities(String scoutId, String athleteId) {
+		return getResultEntities(dictionaryService.getLanguage(), null, scoutId, athleteId, false, false);
 	}
 	
 	/**

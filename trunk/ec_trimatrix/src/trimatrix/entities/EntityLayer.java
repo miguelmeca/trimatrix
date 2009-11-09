@@ -9,6 +9,7 @@ public class EntityLayer {
 	private AttachmentEntity attachmentEntity;
 	private TestEntity testEntity;
 	private CompetitionEntity competitionEntity;
+	private ResultEntity resultEntity;
 	
 	public PersonEntity getPersonEntity() {
 		return personEntity;
@@ -56,6 +57,14 @@ public class EntityLayer {
 
 	public void setCompetitionEntity(CompetitionEntity competitionEntity) {
 		this.competitionEntity = competitionEntity;
+	}
+
+	public ResultEntity getResultEntity() {
+		return resultEntity;
+	}
+
+	public void setResultEntity(ResultEntity resultEntity) {
+		this.resultEntity = resultEntity;
 	}
 
 	public static EntityLayer getFromApplicationContext(ApplicationContext ctx) {

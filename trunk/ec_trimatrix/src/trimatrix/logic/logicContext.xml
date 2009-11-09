@@ -84,7 +84,7 @@
         <property name="daoLayer">
             <ref bean="daoLayer" />            
         </property>   
-    </bean>
+    </bean> 
     
     <bean id="logicLayer" class="trimatrix.logic.LogicLayer"
         abstract="false" lazy-init="default" autowire="default"

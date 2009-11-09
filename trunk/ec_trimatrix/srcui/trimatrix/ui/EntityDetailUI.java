@@ -218,6 +218,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 	}
 	
 	public void onEdit(ActionEvent event) {
+		if(!entityDetailUI.checkEdit()) return;
 		changeMode(Constants.Mode.CHANGE);
 		entityDetailUI.init();
 	}

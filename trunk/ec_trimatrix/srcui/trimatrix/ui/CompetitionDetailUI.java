@@ -1,46 +1,40 @@
 package trimatrix.ui;
 
-import java.io.ByteArrayInputStream;
 import java.io.Serializable;
-import java.util.Collection;
-
-import javax.faces.event.ActionEvent;
+import java.util.Date;
 
 import org.eclnt.editor.annotations.CCGenClass;
-import org.eclnt.jsfserver.bufferedcontent.BufferedContentMgr;
-import org.eclnt.jsfserver.defaultscreens.Statusbar;
-import org.eclnt.jsfserver.elements.events.BaseActionEventUpload;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
-import org.eclnt.util.valuemgmt.ValueManager;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
-import trimatrix.db.Attachments;
-import trimatrix.entities.AttachmentEntity;
+import trimatrix.db.Competitions;
+import trimatrix.db.CompetitionsScouts;
+import trimatrix.entities.CompetitionEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
-import trimatrix.ui.utils.MyBufferedContentForAttachment;
 import trimatrix.utils.Constants;
-import eu.medsea.mimeutil.MimeType;
-import eu.medsea.mimeutil.MimeUtil;
+import trimatrix.utils.Constants.Entity;
 
 @SuppressWarnings("serial")
 @CCGenClass (expressionBase="#{d.CompetitionDetailUI}")
 
-public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
-{
+public class CompetitionDetailUI extends AEntityDetailUI implements Serializable {
 	protected ValidValuesBinding countriesVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.COUNTRY);
     public ValidValuesBinding getCountriesVvb() { return countriesVvb; }
     
     protected ValidValuesBinding m_compTypesVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.COMPTYPE);
     public ValidValuesBinding getCompTypesVvb() {return m_compTypesVvb;}
     
-    protected String downloadURL;
-    public String getDownloadURL() { return downloadURL; }
+    public boolean isMyCompetition() {
+    	if(entityDetailUI.getEntity()==Entity.SCOUTCOMPETITIONS) return true;
+    	return false;
+    }
     
-	private Attachments entity;	
+	private Competitions entity;	
+	private CompetitionsScouts entityCS;
     
 	public CompetitionDetailUI(IWorkpageDispatcher dispatcher) {
-		super(dispatcher, new String[] {AttachmentEntity.DESCRIPTION, AttachmentEntity.CATEGORY, AttachmentEntity.FILENAME}, true);
+		super(dispatcher, new String[] {CompetitionEntity.DESCRIPTION, CompetitionEntity.TYPE, CompetitionEntity.DATE}, true);
 		// get wrapping entity detail UI bean
 		entityDetailUI = getEntityDetailUI();		
 		entityDetailUI.setEntityDetailUI(this);		
@@ -52,11 +46,9 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 
     public void init(Object entityObject) {
     	// set entity object
-    	entity = (Attachments)entityObject;    
-    	// buffered content
-    	MyBufferedContentForAttachment bc = new MyBufferedContentForAttachment(entity);
-    	BufferedContentMgr.add(bc);
-    	downloadURL = bc.getURL();
+    	entity = (Competitions)entityObject;  
+    	// set entity Competition Scout object
+    	entityCS = ENTITYLISTLOGIC.getCompetitionScouts(entity.getId());
     	// set enabled state and set fields
     	init();
     }
@@ -76,20 +68,21 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 	}
 	
 	private void fillEntityProperties() {
-		entity.setCategoryKey((String)values.get(AttachmentEntity.CATEGORY));		
-		entity.setDescription((String)values.get(AttachmentEntity.DESCRIPTION));
+		entity.setDescription((String)values.get(CompetitionEntity.DESCRIPTION));
+		entity.setType((String)values.get(CompetitionEntity.TYPE));
+		entity.setDate((Date)values.get(CompetitionEntity.DATE));
+		entity.setAddress((String)values.get(CompetitionEntity.ADDRESS));
+		entity.setCountryKey((String)values.get(CompetitionEntity.COUNTRY));
 	}
 	
 	private void fillMaps() {
 		// add values of fields
 		values.clear();
-		values.put(AttachmentEntity.CATEGORY, entity.getCategoryKey());
-		values.put(AttachmentEntity.DESCRIPTION, entity.getDescription());
-		values.put(AttachmentEntity.OWNER, entity.getOwner().toString());
-		values.put(AttachmentEntity.MIMETYPE, entity.getMimeType());
-		values.put(AttachmentEntity.FILENAME, entity.getFileName());
-		values.put(AttachmentEntity.FILESIZE, entity.getFileSize());
-		
+		values.put(CompetitionEntity.DESCRIPTION, entity.getDescription());		
+		values.put(CompetitionEntity.TYPE, entity.getType());
+		values.put(CompetitionEntity.DATE, entity.getDate());
+		values.put(CompetitionEntity.ADDRESS, entity.getAddress());
+		values.put(CompetitionEntity.COUNTRY, entity.getCountryKey());		
 		// add bgpaint of fields
 		bgpaint.clear();
 		// mandatory fields
@@ -98,41 +91,11 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		}		
 	}
 	
-	public String getFileContent() {
-		try {
-			return ValueManager.encodeHexString(entity.getFileContent());
-		} catch (Exception ex) {
-			return Constants.EMPTY;
-		}		
+	/* 
+	 * You just can edit your own competitions 
+	 */
+	@Override
+	public boolean getEnabled() {
+		return super.getEnabled() && ENTITYLISTLOGIC.isUserEqualUserLoggedOn(entity.getCreatedBy());
 	}
-	
-	public void onUploadFile(ActionEvent event) {
-		 if (event instanceof BaseActionEventUpload) {
-			 BaseActionEventUpload bae = (BaseActionEventUpload)event;
-			 // check size
-			 Integer size = bae.getHexBytes().length;
-			 if (size>Constants.MB_1) {
-				 Statusbar.outputError("Filesize " + size + " is more than max. size " + Constants.MB_1 + " bytes!");
-				 return;
-			 }
-			 // filename without directory structure
-			 String filename = bae.getClientFileName();
-			 entity.setFileName(filename.substring(filename.lastIndexOf(Constants.FILESEPARATOR) + 1));
-			 entity.setFileSize(size);			 
-			 // Mime type detection
-			 ByteArrayInputStream byteInputStream = new ByteArrayInputStream(bae.getHexBytes());
-			 Collection<?> mimeTypes = MimeUtil.getMimeTypes(byteInputStream);			
-			 if(mimeTypes.size()>0) {
-				 entity.setMimeType(((MimeType)mimeTypes.toArray()[0]).toString());
-			 } else {
-				 entity.setMimeType(Constants.UNKNOWN_MIME_TYPE);
-			 }
-			 // Content
-			 entity.setFileContent(bae.getHexBytes());
-			 // update relevant values
-			 values.put(AttachmentEntity.MIMETYPE, entity.getMimeType());
-			 values.put(AttachmentEntity.FILENAME, entity.getFileName());
-			 values.put(AttachmentEntity.FILESIZE, entity.getFileSize());
-		 }		 
-	 }	
 }

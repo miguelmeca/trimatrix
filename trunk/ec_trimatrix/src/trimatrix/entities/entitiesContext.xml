@@ -117,6 +117,26 @@
         </property>
     </bean>
     
+    <bean id="resultEntity" class="trimatrix.entities.ResultEntity"
+        abstract="false" lazy-init="default" autowire="default"
+        dependency-check="default">
+        <property name="sqlExecutorService">
+            <ref bean="sqlExecutorService" />
+        </property>
+        <property name="dictionaryService">
+            <ref bean="dictionaryService" />
+        </property>
+        <property name="transactionManager">
+            <ref bean="transactionManager" />
+        </property>
+        <property name="entitiesDAO">
+            <ref bean="CompetitionsDAO" />
+        </property>
+        <property name="daoLayer">
+            <ref bean="daoLayer" />
+        </property>
+    </bean>
+    
     <bean id="entityLayer" class="trimatrix.entities.EntityLayer"
         abstract="false" lazy-init="default" autowire="default"
         dependency-check="default">
@@ -137,6 +157,9 @@
         </property>
         <property name="competitionEntity">
             <ref bean="competitionEntity" />
+        </property>
+        <property name="resultEntity">
+            <ref bean="resultEntity" />
         </property>
     </bean>
 </beans>

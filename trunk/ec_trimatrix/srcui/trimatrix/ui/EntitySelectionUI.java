@@ -12,12 +12,14 @@ import org.eclnt.workplace.IWorkpageDispatcher;
 import trimatrix.entities.IEntityData;
 import trimatrix.logic.EntityListLogic;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
+import trimatrix.utils.Constants.Entity;
 
 public abstract class EntitySelectionUI extends MyWorkpageDispatchedBean implements Serializable, IEntitySelectionUI
 {
 	protected final EntityListLogic ENTITYLISTLOGIC = getLogic().getEntityListLogic();
     protected List<IEntityData> gridData;	
-	
+	protected Entity entity;
+    
 	public EntitySelectionUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
 	}	
@@ -73,5 +75,12 @@ public abstract class EntitySelectionUI extends MyWorkpageDispatchedBean impleme
 	 */
     public void prepareCallback(ISelectionCallback callback) {
     	this.callback = callback;
+    } 
+    
+    /* (non-Javadoc)
+     * @see trimatrix.ui.IEntitySelectionUI#setEntity(trimatrix.utils.Constants.Entity)
+     */
+    public void setEntity(Entity entity) {
+    	this.entity = entity;
     }
 }
