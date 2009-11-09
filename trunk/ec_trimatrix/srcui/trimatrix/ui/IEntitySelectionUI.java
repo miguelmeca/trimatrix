@@ -13,8 +13,8 @@ public interface IEntitySelectionUI {
 
 	public abstract void onSelect(GridListItem<? extends IEntityData> item);
 
-	public abstract void prepareCallback(ISelectionCallback callback);
+	public abstract void prepareCallback(ISelectionCallback callback);	
 	
-	public abstract void setEntity(Constants.Entity entity);
+	public abstract void buildData(Constants.Entity entity);
 
 }

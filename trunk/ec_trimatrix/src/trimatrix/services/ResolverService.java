@@ -25,6 +25,7 @@ public final class ResolverService {
 	private IEntity attachmentEntity;
 	private IEntity testEntity;
 	private IEntity competitionEntity;
+	private IEntity resultEntity;
 	private IRelation personPersonRelation;
 	private IRelation personDoctorRelation;
 	private IRelation personAttachmentRelation;
@@ -45,6 +46,8 @@ public final class ResolverService {
 			return testEntity.getGridMetaData();
 		case COMPETITION:
 			return competitionEntity.getGridMetaData();
+		case RESULT:
+			return resultEntity.getGridMetaData();
 		}
 		logger.warn("GETMETADATA : Entity " + entity.toString() + " not valid!");
 		return new ArrayList<SGridMetaData>();
@@ -64,6 +67,8 @@ public final class ResolverService {
 			return testEntity.getData(entity);
 		case COMPETITION:
 			return competitionEntity.getData(entity);
+		case RESULT:
+			return resultEntity.getData(entity);
 		}
 		logger.warn("GETDATA : Entity " + entity.toString() + " not valid!");
 		return new ArrayList<IEntityData>();
@@ -83,6 +88,8 @@ public final class ResolverService {
 			return testEntity.getData(entity, personId);
 		case COMPETITION:
 			return competitionEntity.getData(entity, personId);
+		case RESULT:
+			return resultEntity.getData(entity, personId);
 		}
 		logger.warn("GETDATA : Entity " + entity.toString() + " not valid!");
 		return new ArrayList<IEntityData>();
@@ -102,6 +109,8 @@ public final class ResolverService {
 			return testEntity.getData(ids);
 		case COMPETITION:
 			return competitionEntity.getData(ids);
+		case RESULT:
+			return resultEntity.getData(ids);
 		}
 		logger.warn("GETDATA : Entity " + entity.toString() + " not valid!");
 		return new ArrayList<IEntityData>();
@@ -121,6 +130,8 @@ public final class ResolverService {
 			return testEntity.delete(id);
 		case COMPETITION:
 			return competitionEntity.delete(id);
+		case RESULT:
+			return resultEntity.delete(id);
 		}
 		logger.warn("DELETE : Entity " + entity.toString() + " not valid!");
 		return false;
@@ -155,6 +166,8 @@ public final class ResolverService {
 			return testEntity.create();
 		case COMPETITION:
 			return competitionEntity.create();	
+		case RESULT:
+			return resultEntity.create();
 		}
 		logger.warn("CREATE : Entity " + entity.toString() + " not valid!");
 		return null;
@@ -174,6 +187,8 @@ public final class ResolverService {
 			return testEntity.get(id);
 		case COMPETITION:
 			return competitionEntity.get(id);
+		case RESULT:
+			return resultEntity.get(id);
 		}
 		logger.warn("GET : Entity " + entity.toString() + " not valid!");
 		return null;
@@ -193,6 +208,8 @@ public final class ResolverService {
 			return testEntity.save(entityObject);
 		case COMPETITION:
 			return competitionEntity.save(entityObject);
+		case RESULT:
+			return resultEntity.save(entityObject);
 		}
 		logger.warn("SAVE : Entity " + entity.toString() + " not valid!");
 		return null;
@@ -212,6 +229,8 @@ public final class ResolverService {
 			testEntity.reload(entityObject); break;
 		case COMPETITION:
 			competitionEntity.reload(entityObject); break;
+		case RESULT:
+			resultEntity.reload(entityObject); break;
 		}
 		logger.warn("RELOAD : Entity " + entity.toString() + " not valid!");				
 	}
@@ -230,6 +249,8 @@ public final class ResolverService {
 			return testEntity.copy(entityObject); 
 		case COMPETITION:
 			return competitionEntity.copy(entityObject); 
+		case RESULT:
+			return resultEntity.copy(entityObject); 
 		}
 		logger.warn("COPY : Entity " + entity.toString() + " not valid!");	
 		return null;
@@ -249,6 +270,8 @@ public final class ResolverService {
 			return testEntity.isCopyable(entityObject); 
 		case COMPETITION:
 			return competitionEntity.isCopyable(entityObject); 
+		case RESULT:
+			return resultEntity.isCopyable(entityObject); 
 		}
 		logger.warn("ISCOPYABLE : Entity " + entity.toString() + " not valid!");	
 		return false;
@@ -378,6 +401,10 @@ public final class ResolverService {
 		this.competitionEntity = competitionEntity;
 	}
 	
+	public void setResultEntity(IEntity resultEntity) {
+		this.resultEntity = resultEntity;
+	}
+
 	public void setPersonPersonRelation(IRelation personPersonRelation) {
 		this.personPersonRelation = personPersonRelation;
 	}

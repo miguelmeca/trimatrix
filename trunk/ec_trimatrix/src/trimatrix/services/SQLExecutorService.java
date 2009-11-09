@@ -462,7 +462,7 @@ public class SQLExecutorService {
 	 * @return	result entities
 	 */
 	@SuppressWarnings("unchecked")
-	public List<IEntityData> getResultEntities(String lang_key, String id, String scoutId, String athleteId, boolean deleted, boolean test) {
+	public List<IEntityData> getResultEntities(String lang_key, String id, String competitionId, String scoutId, String athleteId, boolean deleted, boolean test) {
 		List<IEntityData> data = new ArrayList<IEntityData>();
 		SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
@@ -471,26 +471,40 @@ public class SQLExecutorService {
 		query.setBoolean("p_deleted", deleted);
 		query.setBoolean("p_test", test);
 		// handle parameter
+		query.setString("p_id", id);
 		if(id==null) {
 			query.setBoolean("p_id_on", false);
 		} else {
-			query.setString("p_id", id);
+			query.setBoolean("p_id_on", true);			
 		}
+		query.setString("p_competition", competitionId);
+		if(competitionId==null) {
+			query.setBoolean("p_competition_on", false);
+		} else {
+			query.setBoolean("p_competition_on", true);			
+		}
+		query.setString("p_scout", scoutId);
 		if(scoutId==null) {
 			query.setBoolean("p_scout_on", false);
 		} else {
-			query.setString("p_scout", id);
+			query.setBoolean("p_scout_on", true);			
 		}
+		query.setString("p_athlete", athleteId);
 		if(athleteId==null) {
 			query.setBoolean("p_athlete_on", false);
 		} else {
-			query.setString("p_athlete", id);
+			query.setBoolean("p_athlete_on", true);			
 		}
 		List<Object[]> result = query.list();
 		for(Object[] line : result) {
 			ResultEntity.Data datum = new ResultEntity.Data();
 			int i = 0;
 			datum.id = (String)line[i++];	
+			datum.competition = (String)line[i++];	
+			datum.scout = (String)line[i++];	
+			datum.athlete = (String)line[i++];	
+			datum.final_position = (String)line[i++];	
+			datum.time = (String)line[i++];
 			datum.comment = (String)line[i++];	
 			data.add(datum);
 		}
@@ -503,11 +517,11 @@ public class SQLExecutorService {
 	 * @return
 	 */
 	public List<IEntityData> getResultEntities() {
-		return getResultEntities(dictionaryService.getLanguage(), null, null, null, false, false);
+		return getResultEntities(dictionaryService.getLanguage(), null, null, null, null, false, false);
 	}
 	
-	public List<IEntityData> getResultEntities(String scoutId, String athleteId) {
-		return getResultEntities(dictionaryService.getLanguage(), null, scoutId, athleteId, false, false);
+	public List<IEntityData> getResultEntities(String id, String competitionId, String scoutId, String athleteId) {
+		return getResultEntities(dictionaryService.getLanguage(), id, competitionId, scoutId, athleteId, false, false);
 	}
 	
 	/**

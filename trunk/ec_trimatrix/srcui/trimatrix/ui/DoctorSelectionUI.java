@@ -23,8 +23,7 @@ public class DoctorSelectionUI extends EntitySelectionUI implements Serializable
    	
 	public DoctorSelectionUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
-		if(entity==null) setEntity(Entity.DOCTOR);			
-		buildData(entity);
+		buildData(Entity.DOCTOR);
 	}    
 
 	protected FIXGRIDListBinding<GridListItem<DoctorEntity.Data>> m_gridList = new FIXGRIDListBinding<GridListItem<DoctorEntity.Data>>();
@@ -35,9 +34,9 @@ public class DoctorSelectionUI extends EntitySelectionUI implements Serializable
     	super.onSelect(m_gridList.getSelectedItem());
     }
     
-    private void buildData(Constants.Entity entityName) {
+    public void buildData(Entity entity) {
 		// load entities from database
-		gridData = ENTITYLISTLOGIC.getData(entityName);	
+		gridData = ENTITYLISTLOGIC.getData(entity);	
 		// rebuild grid list
 		m_gridList.getItems().clear();
 		for (IEntityData datum : gridData) {	

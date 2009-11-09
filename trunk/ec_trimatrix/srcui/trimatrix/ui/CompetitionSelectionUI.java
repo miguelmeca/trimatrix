@@ -10,7 +10,6 @@ import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.entities.CompetitionEntity;
 import trimatrix.entities.IEntityData;
-import trimatrix.utils.Constants;
 import trimatrix.utils.Constants.Entity;
 
 @CCGenClass (expressionBase="#{d.CompetitionSelectionUI}")
@@ -19,8 +18,7 @@ public class CompetitionSelectionUI extends EntitySelectionUI implements Seriali
 {   	
 	public CompetitionSelectionUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
-		if(entity==null) setEntity(Entity.COMPETITION);			
-		buildData(entity);
+		buildData(Entity.COMPETITION);
 	}    
 
 	protected FIXGRIDListBinding<GridListItem<CompetitionEntity.Data>> m_gridList = new FIXGRIDListBinding<GridListItem<CompetitionEntity.Data>>();
@@ -31,9 +29,9 @@ public class CompetitionSelectionUI extends EntitySelectionUI implements Seriali
     	super.onSelect(m_gridList.getSelectedItem());
     }
     
-    private void buildData(Constants.Entity entityName) {
+    public void buildData(Entity entity) {
 		// load entities from database
-		gridData = ENTITYLISTLOGIC.getData(entityName);	
+		gridData = ENTITYLISTLOGIC.getData(entity);	
 		// rebuild grid list
 		m_gridList.getItems().clear();
 		for (IEntityData datum : gridData) {	

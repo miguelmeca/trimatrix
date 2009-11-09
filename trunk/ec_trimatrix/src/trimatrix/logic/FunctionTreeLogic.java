@@ -6,8 +6,6 @@ import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.workplace.WorkplaceFunctionTree.FunctionNode;
 import org.springframework.dao.DataIntegrityViolationException;
 
-import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
-
 import trimatrix.db.CompetitionsScouts;
 import trimatrix.db.CompetitionsScoutsId;
 import trimatrix.db.DAOLayer;

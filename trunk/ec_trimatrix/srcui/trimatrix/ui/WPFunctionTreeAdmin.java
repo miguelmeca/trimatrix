@@ -8,7 +8,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDTreeItem;
 import org.eclnt.jsfserver.managedbean.IDispatcher;
-import org.eclnt.workplace.WorkpageStartInfo;
 import org.eclnt.workplace.WorkplaceFunctionTree;
 
 import trimatrix.logic.FunctionTreeLogic;

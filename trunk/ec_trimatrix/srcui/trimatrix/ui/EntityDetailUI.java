@@ -28,7 +28,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 		Serializable {
 
 	private final EntityListLogic ENTITYLISTLOGIC = getLogic().getEntityListLogic();
-	private Constants.Entity entity;
+	protected Constants.Entity entity;
 	public Constants.Entity getEntity() { return entity; }	
 	
 	protected String m_entityDetailPage;

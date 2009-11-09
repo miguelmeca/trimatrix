@@ -85,7 +85,7 @@ public final class PersonEntity extends AEntity {
         } else if (entity == Constants.Entity.MYCOACHES) {
         	return sqlExecutorService.getPersonRelationEntities(dictionaryService.getMyPerson().getId(), Constants.Relation.COACH, true);
         } else if (entity == Constants.Entity.MYSCOUTEDATHLETES) {
-        	return sqlExecutorService.getPersonRelationEntities(dictionaryService.getMyPerson().getId(), Constants.Relation.SCOUT, true);
+        	return sqlExecutorService.getPersonRelationEntities(dictionaryService.getMyPerson().getId(), Constants.Relation.SCOUT, false);
         } else {
         	return Constants.EMPTYENTITYLIST;
         }		

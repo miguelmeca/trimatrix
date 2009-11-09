@@ -130,7 +130,7 @@
             <ref bean="transactionManager" />
         </property>
         <property name="entitiesDAO">
-            <ref bean="CompetitionsDAO" />
+            <ref bean="ResultsDAO" />
         </property>
         <property name="daoLayer">
             <ref bean="daoLayer" />
