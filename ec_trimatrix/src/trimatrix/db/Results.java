@@ -2,9 +2,13 @@ package trimatrix.db;
 
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import trimatrix.entities.IEntityObject;
@@ -32,6 +36,10 @@ public class Results implements java.io.Serializable, IEntityObject{
 	private Boolean deleted;
 	private Boolean test;
 
+	// Collections
+	private Persons athlete;
+	private Persons scout;
+	
 	// Constructors
 
 	/** default constructor */
@@ -185,5 +193,32 @@ public class Results implements java.io.Serializable, IEntityObject{
 
 	public void setTest(Boolean test) {
 		this.test = test;
+	}
+	
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+	@JoinColumn(name="athlete_id")
+	public Persons getAthlete() {
+		return athlete;
+	}
+
+	public void setAthlete(Persons athlete) {
+		this.athlete = athlete;
+	}
+	
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+	@JoinColumn(name="scout_id")
+	public Persons getScout() {
+		return scout;
+	}
+
+	public void setScout(Persons scout) {
+		this.scout = scout;
+	}
+	
+	
+	@Override
+	public String toString() {
+		// same as DB entity implementation
+		return comment;
 	}
 }

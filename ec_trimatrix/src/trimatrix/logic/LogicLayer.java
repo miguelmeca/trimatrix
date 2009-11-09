@@ -52,8 +52,8 @@ public final class LogicLayer {
 	}
 	public void setTestLogic(TestLogic testLogic) {
 		this.testLogic = testLogic;
-	}
-	
+	}	
+
 	public static LogicLayer getFromApplicationContext(ApplicationContext ctx) {
 		return (LogicLayer) ctx.getBean("logicLayer");
 	}

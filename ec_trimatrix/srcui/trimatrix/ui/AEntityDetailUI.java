@@ -87,4 +87,6 @@ public abstract class AEntityDetailUI extends MyWorkpageDispatchedBean implement
 	
 	public void postDelete(boolean isDeleted) {};
 	
+	public boolean checkEdit() {return true;}
+	
 }

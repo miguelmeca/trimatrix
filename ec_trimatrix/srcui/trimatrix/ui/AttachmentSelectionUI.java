@@ -12,6 +12,7 @@ import org.eclnt.workplace.IWorkpageDispatcher;
 import trimatrix.entities.AttachmentEntity;
 import trimatrix.entities.IEntityData;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Constants.Entity;
 
 @CCGenClass (expressionBase="#{d.AttachmentSelectionUI}")
 
@@ -22,7 +23,8 @@ public class AttachmentSelectionUI extends EntitySelectionUI implements Serializ
    	
 	public AttachmentSelectionUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
-		buildData(Constants.Entity.ATTACHMENT);
+		if(entity==null) setEntity(Entity.ATTACHMENT);			
+		buildData(entity);
 	}    
 
 	protected FIXGRIDListBinding<GridListItem<AttachmentEntity.Data>> m_gridList = new FIXGRIDListBinding<GridListItem<AttachmentEntity.Data>>();

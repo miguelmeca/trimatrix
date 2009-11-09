@@ -12,6 +12,7 @@ import org.eclnt.workplace.IWorkpageDispatcher;
 import trimatrix.entities.IEntityData;
 import trimatrix.entities.PersonEntity;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Constants.Entity;
 
 @CCGenClass (expressionBase="#{d.PersonSelectionUI}")
 
@@ -22,7 +23,8 @@ public class PersonSelectionUI extends EntitySelectionUI implements Serializable
    	
 	public PersonSelectionUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
-		buildData(Constants.Entity.PERSON);
+		if(entity==null) setEntity(Entity.PERSON);			
+		buildData(entity);
 	}    
 
 	protected FIXGRIDListBinding<GridListItem<PersonEntity.Data>> m_gridList = new FIXGRIDListBinding<GridListItem<PersonEntity.Data>>();

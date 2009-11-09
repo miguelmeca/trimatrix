@@ -2,6 +2,11 @@ package trimatrix.logic;
 
 import java.util.List;
 
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
+import org.springframework.dao.DataIntegrityViolationException;
+
+import trimatrix.db.CompetitionsScouts;
+import trimatrix.db.CompetitionsScoutsId;
 import trimatrix.db.DAOLayer;
 import trimatrix.db.IComplexDAO;
 import trimatrix.db.ListVariants;
@@ -14,7 +19,6 @@ import trimatrix.structures.SListVariant;
 import trimatrix.utils.Constants;
 
 public class EntityListLogic {	
-	// TODO direct access Layers through UI
 	private ServiceLayer serviceLayer;
 	private DAOLayer daoLayer;
 		
@@ -89,7 +93,25 @@ public class EntityListLogic {
 		if (lv==null) return null;
 		return new SListVariant(lv.getColumnsSequence(), lv.getColumnsWidth());
 	}
-
+	
+	public boolean isPersonEqualPersonLoggedOn(String personId) {
+		return personId.equals(serviceLayer.getDictionaryService().getMyPerson().getId());
+	}
+	
+	public boolean isUserEqualUserLoggedOn(String userId) {
+		return userId.equals(serviceLayer.getDictionaryService().getMyUser().getId());
+	}
+	
+	// ----------------------------------------------------------------------
+	// Competition entity
+	// ----------------------------------------------------------------------
+	public CompetitionsScouts getCompetitionScouts(String competitionId) {
+		CompetitionsScoutsId csId = new CompetitionsScoutsId();
+		csId.setCompetitionId(competitionId);
+		csId.setScoutId(serviceLayer.getDictionaryService().getMyPerson().getId());
+		return daoLayer.getCompetitionsScoutsDAO().findById(csId);
+	}
+	
 	public void setServiceLayer(ServiceLayer serviceLayer) {
 		this.serviceLayer = serviceLayer;
 	}

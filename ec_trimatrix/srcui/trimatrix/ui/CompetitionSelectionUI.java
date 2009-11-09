@@ -11,6 +11,7 @@ import org.eclnt.workplace.IWorkpageDispatcher;
 import trimatrix.entities.CompetitionEntity;
 import trimatrix.entities.IEntityData;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Constants.Entity;
 
 @CCGenClass (expressionBase="#{d.CompetitionSelectionUI}")
 
@@ -18,7 +19,8 @@ public class CompetitionSelectionUI extends EntitySelectionUI implements Seriali
 {   	
 	public CompetitionSelectionUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
-		buildData(Constants.Entity.COMPETITION);
+		if(entity==null) setEntity(Entity.COMPETITION);			
+		buildData(entity);
 	}    
 
 	protected FIXGRIDListBinding<GridListItem<CompetitionEntity.Data>> m_gridList = new FIXGRIDListBinding<GridListItem<CompetitionEntity.Data>>();

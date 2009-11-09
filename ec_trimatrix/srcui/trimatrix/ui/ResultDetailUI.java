@@ -1,43 +1,28 @@
 package trimatrix.ui;
 
-import java.io.ByteArrayInputStream;
 import java.io.Serializable;
-import java.util.Collection;
 
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
-import org.eclnt.jsfserver.bufferedcontent.BufferedContentMgr;
-import org.eclnt.jsfserver.defaultscreens.Statusbar;
-import org.eclnt.jsfserver.elements.events.BaseActionEventUpload;
-import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
-import org.eclnt.util.valuemgmt.ValueManager;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
-import trimatrix.db.Attachments;
+import trimatrix.db.Persons;
+import trimatrix.db.Results;
 import trimatrix.entities.AttachmentEntity;
+import trimatrix.entities.ResultEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
-import trimatrix.ui.utils.MyBufferedContentForAttachment;
 import trimatrix.utils.Constants;
-import eu.medsea.mimeutil.MimeType;
-import eu.medsea.mimeutil.MimeUtil;
+import trimatrix.utils.Constants.Entity;
 
 @SuppressWarnings("serial")
 @CCGenClass (expressionBase="#{d.ResultDetailUI}")
 
 public class ResultDetailUI extends AEntityDetailUI implements Serializable
 {
-	protected ValidValuesBinding countriesVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.COUNTRY);
-    public ValidValuesBinding getCountriesVvb() { return countriesVvb; }
     
-    protected ValidValuesBinding m_compTypesVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.COMPTYPE);
-    public ValidValuesBinding getCompTypesVvb() {return m_compTypesVvb;}
-    
-    protected String downloadURL;
-    public String getDownloadURL() { return downloadURL; }
-    
-	private Attachments entity;	
+	private Results entity;	
     
 	public ResultDetailUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher, new String[] {AttachmentEntity.DESCRIPTION, AttachmentEntity.CATEGORY, AttachmentEntity.FILENAME}, true);
@@ -52,11 +37,7 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable
 
     public void init(Object entityObject) {
     	// set entity object
-    	entity = (Attachments)entityObject;    
-    	// buffered content
-    	MyBufferedContentForAttachment bc = new MyBufferedContentForAttachment(entity);
-    	BufferedContentMgr.add(bc);
-    	downloadURL = bc.getURL();
+    	entity = (Results)entityObject;    
     	// set enabled state and set fields
     	init();
     }
@@ -76,19 +57,14 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable
 	}
 	
 	private void fillEntityProperties() {
-		entity.setCategoryKey((String)values.get(AttachmentEntity.CATEGORY));		
-		entity.setDescription((String)values.get(AttachmentEntity.DESCRIPTION));
+		entity.setComment((String)values.get(ResultEntity.COMMENT));
 	}
 	
 	private void fillMaps() {
 		// add values of fields
 		values.clear();
-		values.put(AttachmentEntity.CATEGORY, entity.getCategoryKey());
-		values.put(AttachmentEntity.DESCRIPTION, entity.getDescription());
-		values.put(AttachmentEntity.OWNER, entity.getOwner().toString());
-		values.put(AttachmentEntity.MIMETYPE, entity.getMimeType());
-		values.put(AttachmentEntity.FILENAME, entity.getFileName());
-		values.put(AttachmentEntity.FILESIZE, entity.getFileSize());
+		values.put(ResultEntity.COMMENT, entity.getComment());
+;
 		
 		// add bgpaint of fields
 		bgpaint.clear();
@@ -98,41 +74,38 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable
 		}		
 	}
 	
-	public String getFileContent() {
-		try {
-			return ValueManager.encodeHexString(entity.getFileContent());
-		} catch (Exception ex) {
-			return Constants.EMPTY;
-		}		
-	}
+	/**
+	 * Call athlete selection pop up
+	 * @param event
+	 */
+	public void onAthleteSearch(ActionEvent event) {
+		IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(Constants.Entity.PERSON);
+		entitySelectionUI.setEntity(Entity.MYSCOUTEDATHLETES);
+       	entitySelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){
+			public void cancel() {
+				m_popup.close();				
+			}
+			public void idSelected(String id) {
+				Persons person = (Persons)ENTITYLISTLOGIC.get(Constants.Entity.PERSON, id);
+				entity.setAthlete(person);
+				setAthleteDescription(entity);	
+				m_popup.close();
+			}});    	
+    	m_popup = getWorkpage().createModalPopupInWorkpageContext();  
+    	m_popup.setLeftTopReferenceCentered();
+    	m_popup.open(Constants.Page.PERSONSELECTION.getUrl(), "Athletensuche", 800, 600, this);    	
+    }
 	
-	public void onUploadFile(ActionEvent event) {
-		 if (event instanceof BaseActionEventUpload) {
-			 BaseActionEventUpload bae = (BaseActionEventUpload)event;
-			 // check size
-			 Integer size = bae.getHexBytes().length;
-			 if (size>Constants.MB_1) {
-				 Statusbar.outputError("Filesize " + size + " is more than max. size " + Constants.MB_1 + " bytes!");
-				 return;
-			 }
-			 // filename without directory structure
-			 String filename = bae.getClientFileName();
-			 entity.setFileName(filename.substring(filename.lastIndexOf(Constants.FILESEPARATOR) + 1));
-			 entity.setFileSize(size);			 
-			 // Mime type detection
-			 ByteArrayInputStream byteInputStream = new ByteArrayInputStream(bae.getHexBytes());
-			 Collection<?> mimeTypes = MimeUtil.getMimeTypes(byteInputStream);			
-			 if(mimeTypes.size()>0) {
-				 entity.setMimeType(((MimeType)mimeTypes.toArray()[0]).toString());
-			 } else {
-				 entity.setMimeType(Constants.UNKNOWN_MIME_TYPE);
-			 }
-			 // Content
-			 entity.setFileContent(bae.getHexBytes());
-			 // update relevant values
-			 values.put(AttachmentEntity.MIMETYPE, entity.getMimeType());
-			 values.put(AttachmentEntity.FILENAME, entity.getFileName());
-			 values.put(AttachmentEntity.FILESIZE, entity.getFileSize());
-		 }		 
-	 }	
+	/**
+	 * Get description for selected athlete
+	 * @param athlete
+	 */
+	private void setAthleteDescription(Results result) {
+		Persons athlete = result.getAthlete();
+		String athleteDescription = Constants.EMPTY;
+		if (athlete!=null) {
+			athleteDescription = athlete.toString();
+		}
+		values.put(ResultEntity.ATHLETE, athleteDescription);
+	}
 }

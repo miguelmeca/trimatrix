@@ -182,7 +182,7 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable
 				setPersonDescription(entity);	
 				m_popup.close();
 			}});    	
-    	m_popup = getWorkpage().createModalPopupInWorkpageContext();    
+    	m_popup = getWorkpage().createModalPopupInWorkpageContext();  
     	m_popup.setLeftTopReferenceCentered();
     	m_popup.open(Constants.Page.PERSONSELECTION.getUrl(), "Personensuche", 800, 600, this);    	
     }

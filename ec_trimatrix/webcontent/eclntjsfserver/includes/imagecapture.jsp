@@ -40,8 +40,9 @@
             </t:row>
             <t:rowdistance id="g_24" height="100%" />
             <t:row id="g_25" rendered="$enabled$">
-              <t:pane id="g_26" componentbinding="#{v_imagecapture.commandPane}" />
+              <t:pane id="g_26" rowdistance="$rowdistancecommandpane$" componentbinding="#{v_imagecapture.commandPane}" />
             </t:row>
+            <t:rowdistance id="g_100" height="$rowdistancecommandpane$" />
           </t:pane>
         </t:row>
       </t:pane>

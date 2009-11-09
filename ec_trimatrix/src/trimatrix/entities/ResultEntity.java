@@ -10,31 +10,27 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import trimatrix.db.Competitions;
+import trimatrix.db.Results;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Constants.Relation;
 
-public final class CompetitionEntity extends AEntity {
+public final class ResultEntity extends AEntity {
 	
 	// Constants	 
-	public static final String DATE = "date";
-    public static final String DESCRIPTION = "description";
-    public static final String TYPE = "type";
-    public static final String ADDRESS = "address";
-    public static final String COUNTRY = "country";
+    public static final String COMMENT = "comment";
+    public static final String ATHLETE = "athlete";
+    public static final String SCOUT = "scout";
     
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IUserEntity#getGridMetaData()
 	 */
 	public List<SGridMetaData> getGridMetaData() {
         List<SGridMetaData> gridMetaData = new ArrayList<SGridMetaData>();
-        gridMetaData.add(new SGridMetaData("Datum", DATE, SGridMetaData.Component.CALENDARFIELD));
-        gridMetaData.add(new SGridMetaData("Beschreibung", DESCRIPTION, SGridMetaData.Component.FIELD));        
-        gridMetaData.add(new SGridMetaData("Typ", TYPE, SGridMetaData.Component.FIELD));        
-        gridMetaData.add(new SGridMetaData("Adresse", ADDRESS, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("Land", COUNTRY, SGridMetaData.Component.FIELD));  
+        gridMetaData.add(new SGridMetaData("Scouter", SCOUT, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData("Athlet", ATHLETE, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData("Kommentar",COMMENT, SGridMetaData.Component.FIELD));      
         return gridMetaData;
     }
 	
@@ -49,13 +45,9 @@ public final class CompetitionEntity extends AEntity {
 	 * @see trimatrix.entities.IEntity#getData(trimatrix.utils.Constants.Entity)
 	 */
 	public List<IEntityData> getData(Constants.Entity entity) {
-		if (entity == Constants.Entity.COMPETITION) {
-			return sqlExecutorService.getCompetitionEntities();
-        } else if (entity == Constants.Entity.MYCOMPETITIONS) {
-        	return sqlExecutorService.getCompetitionRelationEntities(dictionaryService.getMyPerson().getId(), Relation.COMPETITION);
-        } else if (entity == Constants.Entity.SCOUTCOMPETITIONS) {
-        	return sqlExecutorService.getCompetitionRelationEntities(dictionaryService.getMyPerson().getId(), Relation.COMPETITIONSCOUT);
-        }else {
+		if (entity == Constants.Entity.RESULT) {
+			return sqlExecutorService.getResultEntities();
+        } else {
         	return Constants.EMPTYENTITYLIST;
         }		
 	}
@@ -64,12 +56,16 @@ public final class CompetitionEntity extends AEntity {
 	 * @see trimatrix.entities.IEntity#getData(trimatrix.utils.Constants.Entity, java.lang.String)
 	 */
 	public List<IEntityData> getData(Constants.Entity entity, String personId) {		
-		return null;		
+		if (entity == Constants.Entity.MYRESULTS) {
+        	return sqlExecutorService.getResultEntities(dictionaryService.getMyPerson().getId(), personId);
+        } else {
+        	return Constants.EMPTYENTITYLIST;
+        }		
 	}
 	
 	@Override
 	public IEntityData getData(String id) {
-		List<IEntityData> result = sqlExecutorService.getCompetitionEntities(SQLExecutorService.ID, id);
+		List<IEntityData> result = sqlExecutorService.getResultEntities(SQLExecutorService.ID, id);
 		if (result.size()==0) return null;
 		return result.get(0);
 	}
@@ -84,7 +80,7 @@ public final class CompetitionEntity extends AEntity {
 		Boolean result = (Boolean)transactionTemplate.execute(new TransactionCallback() {
 			public Object doInTransaction(TransactionStatus status) {
 				try {
-					Competitions entity = (Competitions)entitiesDAO.findById(id);
+					Results entity = (Results)entitiesDAO.findById(id);
 					if(entity==null) return false;
 					// check if user admin or creator
 					if (dictionaryService.getMyRoles().contains(Constants.Role.ADMIN.getName())||entity.getCreatedBy().equals(dictionaryService.getMyUser().getId())) {
@@ -100,7 +96,7 @@ public final class CompetitionEntity extends AEntity {
 					status.setRollbackOnly();
 					return false;
 				}				
-				logger.info("CompetitonEntity : Deletion of competition successful => " + id );
+				logger.info("ResultEntity : Deletion of result successful => " + id );
 				return true;
 			}			
 		});		
@@ -110,9 +106,9 @@ public final class CompetitionEntity extends AEntity {
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#create()
 	 */
-	public Competitions create() {		
+	public Results create() {		
 		String id = UUID.randomUUID().toString();
-		Competitions entity = new Competitions();
+		Results entity = new Results();
 		entity.setId(id);
 		// default values
 		entity.setDeleted(false);
@@ -122,11 +118,9 @@ public final class CompetitionEntity extends AEntity {
 
 	public static class Data implements IEntityData {
 		public String id;
-		public Timestamp date;
-		public String description;
-		public String type;
-		public String address;
-		public String country;
+		public String scout;
+		public String athlete;
+		public String comment;
 		
 		/* (non-Javadoc)
 		 * @see trimatrix.entities.IEntityData#getId()
@@ -138,28 +132,19 @@ public final class CompetitionEntity extends AEntity {
 		@Override
 		public String toString() {
 			// same as DB entity implementation
-			return description;
+			return comment;
 		}
 
-		public Timestamp getDate() {
-			return date;
+		public String getScout() {
+			return scout;
 		}
 
-		public String getDescription() {
-			return description;
-		}
-		
-		public String getType() {
-			return type;
+		public String getAthlete() {
+			return athlete;
 		}
 
-		public String getAddress() {
-			return address;
-		}
-
-		public String getCountry() {
-			return country;
-		}
-	
+		public String getComment() {
+			return comment;
+		}	
 	}
 }
