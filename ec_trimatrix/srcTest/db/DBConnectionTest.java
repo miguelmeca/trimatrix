@@ -50,7 +50,6 @@ import trimatrix.db.TestsTreadmill;
 import trimatrix.db.Users;
 import trimatrix.db.Zones;
 import trimatrix.db.ZonesDefinition;
-import trimatrix.relations.PersonCompetitionRelation;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SFunctionTree;
 import trimatrix.utils.Constants;

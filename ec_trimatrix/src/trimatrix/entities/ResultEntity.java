@@ -1,6 +1,5 @@
 package trimatrix.entities;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -11,26 +10,30 @@ import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import trimatrix.db.Results;
-import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
-import trimatrix.utils.Constants.Relation;
 
 public final class ResultEntity extends AEntity {
 	
 	// Constants	 
     public static final String COMMENT = "comment";
+    public static final String COMPETITION = "competition";
     public static final String ATHLETE = "athlete";
     public static final String SCOUT = "scout";
+    public static final String FINALPOSITION = "final_position";
+    public static final String TIME = "time";
     
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IUserEntity#getGridMetaData()
 	 */
 	public List<SGridMetaData> getGridMetaData() {
         List<SGridMetaData> gridMetaData = new ArrayList<SGridMetaData>();
+        gridMetaData.add(new SGridMetaData("Wettkampf",COMPETITION, SGridMetaData.Component.FIELD));    
         gridMetaData.add(new SGridMetaData("Scouter", SCOUT, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("Athlet", ATHLETE, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("Kommentar",COMMENT, SGridMetaData.Component.FIELD));      
+        gridMetaData.add(new SGridMetaData("Rang",FINALPOSITION, SGridMetaData.Component.FIELD));    
+        gridMetaData.add(new SGridMetaData("Zeit",TIME, SGridMetaData.Component.FIELD));    
         return gridMetaData;
     }
 	
@@ -38,7 +41,7 @@ public final class ResultEntity extends AEntity {
 	 * @see trimatrix.entities.IEntity#getData()
 	 */
 	public List<IEntityData> getData() {
-		return sqlExecutorService.getTestEntities();
+		return sqlExecutorService.getResultEntities();
 	}
 		
 	/* (non-Javadoc)
@@ -57,7 +60,9 @@ public final class ResultEntity extends AEntity {
 	 */
 	public List<IEntityData> getData(Constants.Entity entity, String personId) {		
 		if (entity == Constants.Entity.MYRESULTS) {
-        	return sqlExecutorService.getResultEntities(dictionaryService.getMyPerson().getId(), personId);
+        	return sqlExecutorService.getResultEntities(null, null, dictionaryService.getMyPerson().getId(), personId);
+        } else if(entity == Constants.Entity.SCOUTRESULTS) {
+        	return sqlExecutorService.getResultEntities(null, null, dictionaryService.getMyPerson().getId(), null);
         } else {
         	return Constants.EMPTYENTITYLIST;
         }		
@@ -65,7 +70,7 @@ public final class ResultEntity extends AEntity {
 	
 	@Override
 	public IEntityData getData(String id) {
-		List<IEntityData> result = sqlExecutorService.getResultEntities(SQLExecutorService.ID, id);
+		List<IEntityData> result = sqlExecutorService.getResultEntities(id, null, null, null);
 		if (result.size()==0) return null;
 		return result.get(0);
 	}
@@ -118,8 +123,11 @@ public final class ResultEntity extends AEntity {
 
 	public static class Data implements IEntityData {
 		public String id;
+		public String competition;
 		public String scout;
 		public String athlete;
+		public String final_position;
+		public String time;
 		public String comment;
 		
 		/* (non-Javadoc)
@@ -135,6 +143,10 @@ public final class ResultEntity extends AEntity {
 			return comment;
 		}
 
+		public String getCompetition() {
+			return competition;
+		}
+
 		public String getScout() {
 			return scout;
 		}
@@ -143,8 +155,16 @@ public final class ResultEntity extends AEntity {
 			return athlete;
 		}
 
+		public String getFinal_position() {
+			return final_position;
+		}
+
+		public String getTime() {
+			return time;
+		}
+
 		public String getComment() {
 			return comment;
-		}	
+		}			
 	}
 }

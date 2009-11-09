@@ -23,8 +23,7 @@ public class AttachmentSelectionUI extends EntitySelectionUI implements Serializ
    	
 	public AttachmentSelectionUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
-		if(entity==null) setEntity(Entity.ATTACHMENT);			
-		buildData(entity);
+		buildData(Entity.ATTACHMENT);
 	}    
 
 	protected FIXGRIDListBinding<GridListItem<AttachmentEntity.Data>> m_gridList = new FIXGRIDListBinding<GridListItem<AttachmentEntity.Data>>();
@@ -35,9 +34,9 @@ public class AttachmentSelectionUI extends EntitySelectionUI implements Serializ
     	super.onSelect(m_gridList.getSelectedItem());
     }
     
-    private void buildData(Constants.Entity entityName) {
+    public void buildData(Entity entity) {
 		// load entities from database
-		gridData = ENTITYLISTLOGIC.getData(entityName);	
+		gridData = ENTITYLISTLOGIC.getData(entity);	
 		// rebuild grid list
 		m_gridList.getItems().clear();
 		for (IEntityData datum : gridData) {	

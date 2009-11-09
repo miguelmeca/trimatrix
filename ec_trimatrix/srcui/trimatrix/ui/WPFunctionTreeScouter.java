@@ -8,7 +8,6 @@ import javax.faces.event.ActionEvent;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoCancelListener;
 import org.eclnt.jsfserver.elements.events.BaseActionEventDrop;
@@ -19,16 +18,9 @@ import org.eclnt.workplace.IWorkpageContainer;
 import org.eclnt.workplace.IWorkpageDispatcher;
 import org.eclnt.workplace.WorkpageContainer;
 import org.eclnt.workplace.WorkplaceFunctionTree;
-import org.springframework.dao.DataIntegrityViolationException;
 
-import trimatrix.db.CompetitionsScouts;
-import trimatrix.db.CompetitionsScoutsId;
-import trimatrix.db.PersonsHaveAttachments;
-import trimatrix.db.PersonsHaveDoctors;
 import trimatrix.entities.IEntityData;
 import trimatrix.logic.FunctionTreeLogic;
-import trimatrix.relations.PersonAttachmentRelation;
-import trimatrix.relations.PersonDoctorRelation;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SFunctionTree;
 import trimatrix.ui.utils.MyWorkpage;
@@ -188,14 +180,15 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 						// authorization as parent
 						FUNCTIONTREELOGIC.setAuthority(functionTree, athlete_node);						
 						// add results per athlete
-						FunctionNode results_node = new FunctionNode(athlete_node, Constants.Page.RESULTDETAIL.getUrl());	
+						FunctionNode results_node = new FunctionNode(athlete_node, Constants.Page.ENTITYLIST.getUrl());	
 						results_node.setId(athlete.getId());
 						results_node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
 						results_node.setOpenMultipleInstances(true);						
 						results_node.setText(Helper.getLiteral("results"));	
 						results_node.setParam(Constants.P_PERSON, athlete.getId());
+						results_node.setParam(Constants.P_ENTITY, Constants.Entity.MYRESULTS.name());
 						// authorization => coach is allowed to manually change values
-						FUNCTIONTREELOGIC.setAuthority(results_node, false, true, false);						
+						FUNCTIONTREELOGIC.setAuthority(functionTree, results_node);					
 					}								
 				}
 			} else {

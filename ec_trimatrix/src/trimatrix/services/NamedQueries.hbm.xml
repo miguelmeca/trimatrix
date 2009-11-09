@@ -495,26 +495,32 @@ WHERE competitions.test = :p_test
 <sql-query cacheable="true" name="ResultEntityList" read-only="true">
  SELECT
   results.id,
+  competitions.description competition,
   TRIM(CONCAT(scouts.name_first,' ', scouts.name_last)) scout,
   TRIM(CONCAT(athletes.name_first,' ', athletes.name_last)) athlete,
   results.final_position,
   results.time,
   results.comment
 FROM results
+  LEFT OUTER JOIN competitions
+    ON competitions.id = results.competition_id
   LEFT OUTER JOIN persons scouts
     ON scouts.id = results.scout_id
   LEFT OUTER JOIN persons athletes
     ON athletes.id = results.athlete_id
 WHERE results.test = :p_test
     AND results.deleted = :p_deleted
-    AND (results.competition_id = :p_id
+    AND (results.id = :p_id
           OR 0 = :p_id_on)
+    AND (results.competition_id = :p_competition
+          OR 0 = :p_competition_on)
     AND (results.scout_id = :p_scout
           OR 0 = :p_scout_on)
     AND (results.athlete_id = :p_athlete
           OR 0 = :p_athlete_on)
 ORDER BY results.created_at DESC
   <return-scalar column="id" type="java.lang.String"/>
+  <return-scalar column="competition" type="java.lang.String"/>
   <return-scalar column="scout" type="java.lang.String"/>
   <return-scalar column="athlete" type="java.lang.String"/>
   <return-scalar column="final_position" type="java.lang.String"/>

@@ -2,9 +2,6 @@ package trimatrix.logic;
 
 import java.util.List;
 
-import org.eclnt.jsfserver.defaultscreens.Statusbar;
-import org.springframework.dao.DataIntegrityViolationException;
-
 import trimatrix.db.CompetitionsScouts;
 import trimatrix.db.CompetitionsScoutsId;
 import trimatrix.db.DAOLayer;

@@ -37,6 +37,7 @@ public class Results implements java.io.Serializable, IEntityObject{
 	private Boolean test;
 
 	// Collections
+	private Competitions competition;
 	private Persons athlete;
 	private Persons scout;
 	
@@ -87,7 +88,7 @@ public class Results implements java.io.Serializable, IEntityObject{
 		this.id = id;
 	}
 
-	@Column(name = "competition_id", nullable = false, length = 36)
+	@Column(name = "competition_id", nullable = false, length = 36, updatable = false, insertable = false)
 	public String getCompetitionId() {
 		return this.competitionId;
 	}
@@ -96,7 +97,7 @@ public class Results implements java.io.Serializable, IEntityObject{
 		this.competitionId = competitionId;
 	}
 
-	@Column(name = "scout_id", nullable = false, length = 36)
+	@Column(name = "scout_id", nullable = false, length = 36, updatable = false, insertable = false)
 	public String getScoutId() {
 		return this.scoutId;
 	}
@@ -105,7 +106,7 @@ public class Results implements java.io.Serializable, IEntityObject{
 		this.scoutId = scoutId;
 	}
 
-	@Column(name = "athlete_id", nullable = false, length = 36)
+	@Column(name = "athlete_id", nullable = false, length = 36, updatable = false, insertable = false)
 	public String getAthleteId() {
 		return this.athleteId;
 	}
@@ -195,6 +196,16 @@ public class Results implements java.io.Serializable, IEntityObject{
 		this.test = test;
 	}
 	
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+	@JoinColumn(name="competition_id")	
+	public Competitions getCompetition() {
+		return competition;
+	}
+
+	public void setCompetition(Competitions competition) {
+		this.competition = competition;
+	}
+
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
 	@JoinColumn(name="athlete_id")
 	public Persons getAthlete() {

@@ -8,7 +8,6 @@ import javax.faces.event.ActionEvent;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoCancelListener;
 import org.eclnt.jsfserver.elements.events.BaseActionEventDrop;
@@ -16,14 +15,9 @@ import org.eclnt.jsfserver.elements.impl.FIXGRIDTreeItem;
 import org.eclnt.jsfserver.managedbean.IDispatcher;
 import org.eclnt.workplace.WorkpageContainer;
 import org.eclnt.workplace.WorkplaceFunctionTree;
-import org.springframework.dao.DataIntegrityViolationException;
 
-import trimatrix.db.PersonsHaveAttachments;
-import trimatrix.db.PersonsHaveDoctors;
 import trimatrix.entities.IEntityData;
 import trimatrix.logic.FunctionTreeLogic;
-import trimatrix.relations.PersonAttachmentRelation;
-import trimatrix.relations.PersonDoctorRelation;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SFunctionTree;
 import trimatrix.utils.Constants;

@@ -23,8 +23,7 @@ public class PersonSelectionUI extends EntitySelectionUI implements Serializable
    	
 	public PersonSelectionUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
-		if(entity==null) setEntity(Entity.PERSON);			
-		buildData(entity);
+		buildData(Entity.PERSON);
 	}    
 
 	protected FIXGRIDListBinding<GridListItem<PersonEntity.Data>> m_gridList = new FIXGRIDListBinding<GridListItem<PersonEntity.Data>>();
@@ -35,14 +34,15 @@ public class PersonSelectionUI extends EntitySelectionUI implements Serializable
     	super.onSelect(m_gridList.getSelectedItem());
     }
     
-    private void buildData(Constants.Entity entityName) {
+    
+    public void buildData(Entity entity) {
 		// load entities from database
-		gridData = ENTITYLISTLOGIC.getData(entityName);	
+		gridData = ENTITYLISTLOGIC.getData(entity);	
 		// rebuild grid list
 		m_gridList.getItems().clear();
 		for (IEntityData datum : gridData) {	
 			PersonEntity.Data data = (PersonEntity.Data)datum;
 			m_gridList.getItems().add(new GridListItem<PersonEntity.Data>(data));
 		}
-	}     
+	}   
 }
