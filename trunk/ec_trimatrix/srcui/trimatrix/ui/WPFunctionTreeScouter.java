@@ -73,8 +73,9 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
                 	// get selected item
                 	final IEntityData datum = dispatchedBean.m_gridList.getSelectedItem().datum;    
                 	if (datum==null) return;
-                	
-                	if (entity.getBase()==Constants.Entity.COMPETITION) {
+                	// TODO
+                	if (entityId.equals(Constants.P_ENTITY)) return;
+                	if (entity==Constants.Entity.COMPETITION) {
                     	/*
                     	 * Create CompetitionScout entity and open the page
                     	 * so the Scouter could add certain relevant data
@@ -171,7 +172,7 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 					// add athletes
 					List<IEntityData> athletes = FUNCTIONTREELOGIC.getMyScoutedAthletes();
 					for (IEntityData athlete : athletes) {
-						FunctionNode athlete_node = new DropableFunctionNode(node, Constants.Page.ENTITYDETAIL.getUrl(),Constants.P_ENTITY, athlete.getId());	
+						FunctionNode athlete_node = new DropableFunctionNode(node, Constants.Page.ENTITYDETAIL.getUrl(),Constants.P_PERSON, athlete.getId());	
 						athlete_node.setId(athlete.getId());
 						athlete_node.setStatus(FIXGRIDTreeItem.STATUS_OPENED);
 						athlete_node.setOpenMultipleInstances(true);

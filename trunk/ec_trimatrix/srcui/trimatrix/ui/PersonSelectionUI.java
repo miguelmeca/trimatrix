@@ -23,7 +23,6 @@ public class PersonSelectionUI extends EntitySelectionUI implements Serializable
    	
 	public PersonSelectionUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
-		buildData(Entity.PERSON);
 	}    
 
 	protected FIXGRIDListBinding<GridListItem<PersonEntity.Data>> m_gridList = new FIXGRIDListBinding<GridListItem<PersonEntity.Data>>();

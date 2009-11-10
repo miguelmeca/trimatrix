@@ -15,6 +15,7 @@ import trimatrix.db.PersonsAthlete;
 import trimatrix.db.Users;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Constants.Role;
 
 public final class PersonEntity extends AEntity {
 	// Constants	 
@@ -86,6 +87,10 @@ public final class PersonEntity extends AEntity {
         	return sqlExecutorService.getPersonRelationEntities(dictionaryService.getMyPerson().getId(), Constants.Relation.COACH, true);
         } else if (entity == Constants.Entity.MYSCOUTEDATHLETES) {
         	return sqlExecutorService.getPersonRelationEntities(dictionaryService.getMyPerson().getId(), Constants.Relation.SCOUT, false);
+        } else if (entity == Constants.Entity.SCOUTS) {
+        	return sqlExecutorService.getPersonByRoleEntities(Role.SCOUTER);
+        } else if (entity == Constants.Entity.ATHLETES) {
+        	return sqlExecutorService.getAthleteEntities();
         } else {
         	return Constants.EMPTYENTITYLIST;
         }		

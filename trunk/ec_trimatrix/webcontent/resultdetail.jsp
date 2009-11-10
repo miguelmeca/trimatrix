@@ -18,27 +18,29 @@
 <t:coldistance id="g_5" />
 <t:button id="g_6" actionListener="#{d.ResultDetailUI.onCompetitionSearch}" enabled="#{d.ResultDetailUI.enabled}" height="20" text="#{rr.literals.edit}" width="60" />
 </t:row>
-<t:row id="g_7" comment="Scouter" rendered="false" >
+<t:row id="g_7" comment="Scouter" rendered="#{d.ResultDetailUI.adminView}" >
 <t:label id="g_8" height="20" text="#{rr.literals.role_scouter}" width="100" />
 <t:link id="g_9" actionListener="#{d.ResultDetailUI.onScoutClicked}" align="left" attributemacro="entityDetailMacro(ResultDetailUI,scout)" enabled="true" focusable="true" foreground="#000000" height="20" width="200" />
+<t:coldistance id="g_10" />
+<t:button id="g_11" actionListener="#{d.ResultDetailUI.onScoutSearch}" enabled="#{d.ResultDetailUI.enabled}" height="20" text="#{rr.literals.edit}" width="60" />
 </t:row>
-<t:row id="g_10" comment="Athlete" >
-<t:label id="g_11" height="20" text="#{rr.literals.athlete}" width="100" />
-<t:link id="g_12" actionListener="#{d.ResultDetailUI.onAthleteClicked}" align="left" attributemacro="entityDetailMacro(ResultDetailUI,athlete)" enabled="true" focusable="true" foreground="#000000" height="20" width="200" />
-<t:coldistance id="g_13" />
-<t:button id="g_14" actionListener="#{d.ResultDetailUI.onAthleteSearch}" enabled="#{d.ResultDetailUI.enabled}" height="20" text="#{rr.literals.edit}" width="60" />
+<t:row id="g_12" comment="Athlete" >
+<t:label id="g_13" height="20" text="#{rr.literals.athlete}" width="100" />
+<t:link id="g_14" actionListener="#{d.ResultDetailUI.onAthleteClicked}" align="left" attributemacro="entityDetailMacro(ResultDetailUI,athlete)" enabled="true" focusable="true" foreground="#000000" height="20" width="200" />
+<t:coldistance id="g_15" />
+<t:button id="g_16" actionListener="#{d.ResultDetailUI.onAthleteSearch}" enabled="#{d.ResultDetailUI.enabled}" height="20" text="#{rr.literals.edit}" width="60" />
 </t:row>
-<t:row id="g_15" >
-<t:label id="g_16" text="#{rr.literals.ranking}" width="100" />
-<t:field id="g_17" attributemacro="entityDetailMacro(ResultDetailUI,final_position)" width="100" />
+<t:row id="g_17" >
+<t:label id="g_18" text="#{rr.literals.ranking}" width="100" />
+<t:field id="g_19" attributemacro="entityDetailMacro(ResultDetailUI,final_position)" width="100" />
 </t:row>
-<t:row id="g_18" >
-<t:label id="g_19" text="#{rr.literals.time}" width="100" />
-<t:field id="g_20" attributemacro="entityDetailMacro(ResultDetailUI,time)" maxlength="8" userhint="hh:mm:ss" width="100" />
+<t:row id="g_20" >
+<t:label id="g_21" text="#{rr.literals.time}" width="100" />
+<t:field id="g_22" attributemacro="entityDetailMacro(ResultDetailUI,time)" maxlength="8" userhint="hh:mm:ss" width="100" />
 </t:row>
-<t:row id="g_21" >
-<t:label id="g_22" rowalignmenty="top" text="#{rr.literals.comment}" width="100" />
-<t:textarea id="g_23" attributemacro="entityDetailMacro(ResultDetailUI,comment)" height="55" width="350" />
+<t:row id="g_23" >
+<t:label id="g_24" rowalignmenty="top" text="#{rr.literals.comment}" width="100" />
+<t:textarea id="g_25" attributemacro="entityDetailMacro(ResultDetailUI,comment)" height="55" width="350" />
 </t:row>
 </t:rowbodypane>
 <t:pageaddons id="g_pa"/>

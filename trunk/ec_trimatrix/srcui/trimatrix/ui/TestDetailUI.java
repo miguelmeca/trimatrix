@@ -52,6 +52,7 @@ import trimatrix.logic.TestLogic.LactateSamples;
 import trimatrix.logic.TestLogic.Split;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
+import trimatrix.utils.Constants.Entity;
 import trimatrix.utils.maths.PolynomialFunctions;
 import trimatrix.utils.maths.RegressionFunctions;
 import trimatrix.utils.maths.AFunctions.IResult;
@@ -67,6 +68,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 	
 	public void onDoctorSearch(ActionEvent event) {
 		IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(Constants.Entity.DOCTOR);
+		entitySelectionUI.buildData(Entity.DOCTOR);
 		entitySelectionUI
 				.prepareCallback(new EntitySelectionUI.ISelectionCallback() {
 					public void cancel() {
@@ -89,6 +91,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 
 	public void onAthleteSearch(ActionEvent event) {
 		IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(Constants.Entity.PERSON);
+		entitySelectionUI.buildData(Entity.PERSON);
 		entitySelectionUI
 				.prepareCallback(new EntitySelectionUI.ISelectionCallback() {
 					public void cancel() {
