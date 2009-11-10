@@ -78,11 +78,11 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 	}
 	
 	// Constructor for LabelSearchResult
-	public EntityListUI(IWorkpageDispatcher dispatcher, Constants.Entity entity, List<String> ids) {
+	public EntityListUI(IWorkpageDispatcher dispatcher, Constants.Entity entity, List<String> ids, SAuthorization authorization) {
 		super(dispatcher);
-		// show no buttons
-		renderButtons = false;
-		authorization = new SAuthorization(Constants.FALSE, Constants.FALSE, Constants.FALSE);	
+		// render no buttons
+		renderButtons = false;		
+		this.authorization = authorization;	
 		this.entity = entity;
 		personId = null;
 		gridMetaData = ENTITYLISTLOGIC.getGridMetaData(entity);
@@ -264,9 +264,16 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 
 		@Override
 		public void onRowExecute() {
+			// Switch to or create entities page
 			IWorkpageDispatcher wpd = getOwningDispatcher();
 			IWorkpageContainer wpc = getWorkpageContainer();
-			IWorkpage wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.getUrl(),
+			IWorkpage wp = wpc.getWorkpageForId(datum.getId());
+			if(wp != null) {
+				wpc.switchToWorkpage(wp);
+				return;
+			} 
+			// Page doesn't exist, create it
+			wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.getUrl(),
 					datum.getId(), datum.toString(), null, true, entityList, authorization, null);			
 			wp.setParam(Constants.P_ENTITY, entity.name());
 			wp.setParam(Constants.P_MODE, Constants.Mode.SHOW.name());			

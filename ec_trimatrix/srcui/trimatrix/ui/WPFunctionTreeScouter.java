@@ -8,6 +8,7 @@ import javax.faces.event.ActionEvent;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoCancelListener;
 import org.eclnt.jsfserver.elements.events.BaseActionEventDrop;
@@ -19,6 +20,7 @@ import org.eclnt.workplace.IWorkpageDispatcher;
 import org.eclnt.workplace.WorkpageContainer;
 import org.eclnt.workplace.WorkplaceFunctionTree;
 
+import trimatrix.db.Results;
 import trimatrix.entities.IEntityData;
 import trimatrix.logic.FunctionTreeLogic;
 import trimatrix.services.SQLExecutorService;
@@ -27,29 +29,40 @@ import trimatrix.ui.utils.MyWorkpage;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Context;
 import trimatrix.utils.Helper;
+import trimatrix.utils.Constants.Entity;
 
 @SuppressWarnings("serial")
 public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 	public static final Log logger = LogFactory.getLog(WPFunctionTreeScouter.class);
 	private static final Constants.Role role = Constants.Role.SCOUTER;	
 	private FunctionTreeLogic FUNCTIONTREELOGIC = null;
+	private String pageId = null;
 	
 	/*
 	 * @author reich
 	 * Extend FunctionNode to get a node with drag & drop functionality
 	 */
 	public class DropableFunctionNode extends FunctionNode {
-		private String entityId;
+		private String entityName = null;
+		private String entityId = null;
 		
-        public DropableFunctionNode(FIXGRIDTreeItem parent, String page, String dropReceive, String entityId) {
+        public DropableFunctionNode(FIXGRIDTreeItem parent, String page, String dropReceive, String entityValue) {
             super(parent, page);
             setDropReceive(dropReceive);
-            this.entityId = entityId;
+            if(entityValue!=null) {
+            	String[] entityValueArray = entityValue.split(":");
+            	entityName = entityValueArray[0];
+            	if(entityValueArray.length>1) entityId = entityValueArray[1];
+            }
         }
-        public DropableFunctionNode(FIXGRIDTreeItem page, String dropReceive, String entityId) {
+        public DropableFunctionNode(FIXGRIDTreeItem page, String dropReceive, String entityValue) {
             super(page);
             setDropReceive(dropReceive);
-            this.entityId = entityId;
+            if(entityValue!=null) {
+            	String[] entityValueArray = entityValue.split(":");
+            	entityName = entityValueArray[0];
+            	if(entityValueArray.length>1) entityId = entityValueArray[1];
+            }
         }
         @Override
         public void processTREENDOEAction(ActionEvent event) {
@@ -73,10 +86,10 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
                 	// get selected item
                 	final IEntityData datum = dispatchedBean.m_gridList.getSelectedItem().datum;    
                 	if (datum==null) return;
-                	// TODO
-                	if (entityId.equals(Constants.P_ENTITY)) return;
-                	if (entity==Constants.Entity.COMPETITION) {
-                    	/*
+                	// Put general competition into scouted competitions
+                	if (Entity.SCOUTCOMPETITIONS.name().equalsIgnoreCase(entityName) &&
+                		entity==Constants.Entity.COMPETITION ) {
+                		/*
                     	 * Create CompetitionScout entity and open the page
                     	 * so the Scouter could add certain relevant data
                     	 */
@@ -102,12 +115,29 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
                 					}						
                 				}
                 		);
-                		ynp.getModalPopup().setLeftTopReferenceCentered();    
-                	}	
+                		ynp.getModalPopup().setLeftTopReferenceCentered();
+                	} else if(Entity.MYSCOUTEDATHLETES.name().equalsIgnoreCase(entityName) &&
+                		  entity==Constants.Entity.SCOUTCOMPETITIONS && entityId != null) {
+                		Results result = null;
+                		try {
+                			result = FUNCTIONTREELOGIC.createResultRelation(entityId, datum.getId());
+                		} catch (Exception ex) {
+                			Statusbar.outputError("Result could not be created!", ex.toString());
+                		}                		
+                		if(result==null) return;
+                		// open entity
+                		IWorkpageDispatcher wpd = (IWorkpageDispatcher)getOwningDispatcher();
+            			IWorkpageContainer wpc = getWorkpageContainer();
+            			IWorkpage wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.getUrl(),
+            					result.getId(), result.toString(), null, true, null, null, null);			
+            			wp.setParam(Constants.P_ENTITY,Entity.RESULT.name());
+            			wp.setParam(Constants.P_MODE, Constants.Mode.SINGLECHANGE.name());			
+            			wpc.addWorkpage(wp);
+                	} 
                 } else {
-                	logger.warn(dragInfo[1] + " is not defined as source for drag and drop!");
-                	return;
-                } 
+            		logger.warn(dragInfo[1] + " is not defined as source for drag and drop!");
+            		return;
+            	}
             }
         }
     }
@@ -157,9 +187,9 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 					continue;
 				}	
 				node = new DropableFunctionNode(parentNode, page.getUrl(), Constants.P_ENTITY, functionTree.entity);
-				node.setId(Constants.EMPTY);
+				node.setId(functionTree.entity);
 				node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
-				node.setOpenMultipleInstances(true);
+				node.setOpenMultipleInstances(false);
 				if(functionTree.entity != null && functionTree.entity.length() > 0) {
 					node.setParam(Constants.P_ENTITY, functionTree.entity);
 				}
@@ -172,19 +202,20 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 					// add athletes
 					List<IEntityData> athletes = FUNCTIONTREELOGIC.getMyScoutedAthletes();
 					for (IEntityData athlete : athletes) {
-						FunctionNode athlete_node = new DropableFunctionNode(node, Constants.Page.ENTITYDETAIL.getUrl(),Constants.P_PERSON, athlete.getId());	
+						FunctionNode athlete_node = new DropableFunctionNode(node, Constants.Page.ENTITYDETAIL.getUrl(),Constants.P_ENTITY, functionTree.entity + ":" + athlete.getId());	
 						athlete_node.setId(athlete.getId());
 						athlete_node.setStatus(FIXGRIDTreeItem.STATUS_OPENED);
-						athlete_node.setOpenMultipleInstances(true);
+						athlete_node.setOpenMultipleInstances(false);
 						athlete_node.setText(athlete.toString());							
 						athlete_node.setParam(Constants.P_ENTITY, Constants.Entity.MYSCOUTEDATHLETES.name());
 						// authorization as parent
 						FUNCTIONTREELOGIC.setAuthority(functionTree, athlete_node);						
 						// add results per athlete
 						FunctionNode results_node = new FunctionNode(athlete_node, Constants.Page.ENTITYLIST.getUrl());	
-						results_node.setId(athlete.getId());
+						pageId = Constants.Entity.MYRESULTS.name() + ":" + athlete.getId();
+						results_node.setId(pageId);
 						results_node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
-						results_node.setOpenMultipleInstances(true);						
+						results_node.setOpenMultipleInstances(false);						
 						results_node.setText(Helper.getLiteral("results"));	
 						results_node.setParam(Constants.P_PERSON, athlete.getId());
 						results_node.setParam(Constants.P_ENTITY, Constants.Entity.MYRESULTS.name());

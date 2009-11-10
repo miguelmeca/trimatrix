@@ -67,9 +67,9 @@ public class WPFunctionTreeAthlet extends WorkplaceFunctionTree {
 					continue;
 				}	
 				node = new FunctionNode(parentNode, page.getUrl());
-				node.setId(Constants.EMPTY);
+				node.setId(functionTree.entity);
 				node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
-				node.setOpenMultipleInstances(true);
+				node.setOpenMultipleInstances(false);
 				if(functionTree.entity != null && functionTree.entity.length() > 0) {
 					node.setParam(Constants.P_ENTITY, functionTree.entity);
 				}

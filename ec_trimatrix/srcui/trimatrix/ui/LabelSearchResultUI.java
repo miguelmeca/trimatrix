@@ -11,6 +11,7 @@ import org.eclnt.jsfserver.elements.impl.ROWDYNAMICCONTENTBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.db.Labels;
+import trimatrix.structures.SAuthorization;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
 
@@ -42,7 +43,10 @@ public class LabelSearchResultUI extends MyWorkpageDispatchedBean implements Ser
 		// build dynamic lists per entity type
 		entityLists = new HashMap<String, EntityListUI>();		
 		for (Constants.Entity entity : entityMap.keySet()) {
-			entityLists.put(entity.name(), new EntityListUI(getOwningDispatcher(), entity, entityMap.get(entity)));
+			// set authorization for entities detail
+			SAuthorization authorization = new SAuthorization(Constants.TRUE, Constants.TRUE, Constants.TRUE);
+			EntityListUI entityListUI = new EntityListUI(getOwningDispatcher(), entity, entityMap.get(entity), authorization);
+			entityLists.put(entity.name(), entityListUI);
 		}
 		// build dynamic result
 		setResultRowDynamic();

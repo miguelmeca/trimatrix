@@ -146,7 +146,13 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
     	// Standard click navigate to search result
 		IWorkpageDispatcher wpd = getOwningDispatcher();
 		IWorkpageContainer wpc = getWorkpageContainer();
-		IWorkpage wp = new Workpage( wpd, Constants.Page.LABELSEARCHRESULT.getUrl(), label_id, label_description, null, true);			
+		IWorkpage wp = wpc.getWorkpageForId(label_id);
+		if(wp != null) {
+			wpc.switchToWorkpage(wp);
+			return;
+		} 
+		// Page doesn't exist, create it
+		wp = new Workpage( wpd, Constants.Page.LABELSEARCHRESULT.getUrl(), label_id, label_description, null, true);			
 		wp.setParam(Constants.P_LABEL, label_id);	
 		wpc.addWorkpage(wp);
     }
