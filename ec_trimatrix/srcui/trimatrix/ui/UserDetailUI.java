@@ -24,6 +24,7 @@ import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
 import trimatrix.utils.Constants;
 import trimatrix.utils.MailSender;
+import trimatrix.utils.Constants.Entity;
 
 @SuppressWarnings("serial")
 @CCGenClass (expressionBase="#{d.UserDetailUI}")
@@ -172,6 +173,7 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable
 	 */
 	public void onPersonSearch(ActionEvent event) {
 		IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(Constants.Entity.PERSON);
+		entitySelectionUI.buildData(Entity.PERSON);
        	entitySelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){
 			public void cancel() {
 				m_popup.close();				

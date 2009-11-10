@@ -22,7 +22,10 @@ import trimatrix.utils.Constants.Entity;
 
 public class ResultDetailUI extends AEntityDetailUI implements Serializable
 {
-    
+    public boolean isAdminView() {
+    	return entityDetailUI.getEntity()==Entity.RESULT;
+    }
+	
 	private Results entity;	
     
 	public ResultDetailUI(IWorkpageDispatcher dispatcher) {
@@ -44,10 +47,14 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable
     }
     
     public void init() {
-    	// set fields
-    	fillMaps();   
     	// set state
     	setState();
+    	// set scout
+    	if(!isAdminView()) {
+    		entity.setScout(getServiceLayer().getDictionaryService().getMyPerson());
+    	} 
+    	// set fields
+    	fillMaps();    	
     }    
 
 	public void validate() throws MandatoryCheckException, EmailNotValidException {		
@@ -87,7 +94,12 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable
 	 */
 	public void onCompetitionSearch(ActionEvent event) {
 		IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(Constants.Entity.COMPETITION);
-		entitySelectionUI.buildData(Entity.SCOUTCOMPETITIONS);
+		// restrict if not in admin view	
+		if(isAdminView()) {
+			entitySelectionUI.buildData(Entity.COMPETITION);
+		} else {
+			entitySelectionUI.buildData(Entity.SCOUTCOMPETITIONS);
+		}
        	entitySelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){
 			public void cancel() {
 				m_popup.close();				
@@ -115,8 +127,42 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable
 		}
 		values.put(ResultEntity.COMPETITION, competitionDescription);
 	}
+		
+	/**
+	 * Call scout selection pop up
+	 * Only in admin view available
+	 * @param event
+	 */
+	public void onScoutSearch(ActionEvent event) {
+		IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(Constants.Entity.PERSON);
+		entitySelectionUI.buildData(Entity.SCOUTS);
+       	entitySelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){
+			public void cancel() {
+				m_popup.close();				
+			}
+			public void idSelected(String id) {
+				Persons person = (Persons)ENTITYLISTLOGIC.get(Constants.Entity.PERSON, id);
+				entity.setScout(person);
+				setScoutDescription(entity);	
+				m_popup.close();
+			}});    	
+    	m_popup = getWorkpage().createModalPopupInWorkpageContext();  
+    	m_popup.setLeftTopReferenceCentered();
+    	m_popup.open(Constants.Page.PERSONSELECTION.getUrl(), "Scoutsuche", 800, 600, this);    	
+    }
 	
-	
+	/**
+	 * Get description for selected scout
+	 * @param scout
+	 */
+	private void setScoutDescription(Results result) {
+		Persons scout = result.getScout();
+		String scoutDescription = Constants.EMPTY;
+		if (scout!=null) {
+			scoutDescription = scout.toString();
+		}
+		values.put(ResultEntity.SCOUT, scoutDescription);
+	}
 	
 	/**
 	 * Call athlete selection pop up
@@ -124,7 +170,12 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable
 	 */
 	public void onAthleteSearch(ActionEvent event) {
 		IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(Constants.Entity.PERSON);
-		entitySelectionUI.buildData(Entity.MYSCOUTEDATHLETES);
+		// restrict if not in admin view
+		if(isAdminView()) {
+			entitySelectionUI.buildData(Entity.ATHLETES);
+		} else {
+			entitySelectionUI.buildData(Entity.MYSCOUTEDATHLETES);
+		}
        	entitySelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){
 			public void cancel() {
 				m_popup.close();				
@@ -151,20 +202,7 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable
 			athleteDescription = athlete.toString();
 		}
 		values.put(ResultEntity.ATHLETE, athleteDescription);
-	}
-	
-	/**
-	 * Get description for selected scout
-	 * @param athlete
-	 */
-	private void setScoutDescription(Results result) {
-		Persons scout = result.getScout();
-		String scoutDescription = Constants.EMPTY;
-		if (scout!=null) {
-			scoutDescription = scout.toString();
-		}
-		values.put(ResultEntity.SCOUT, scoutDescription);
-	}
+	}	
 	
 	public void onCompetitionClicked(ActionEvent event) {
 		Statusbar.outputMessage("Competition clicked");

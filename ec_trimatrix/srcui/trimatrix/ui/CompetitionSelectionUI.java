@@ -18,7 +18,6 @@ public class CompetitionSelectionUI extends EntitySelectionUI implements Seriali
 {   	
 	public CompetitionSelectionUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
-		buildData(Entity.COMPETITION);
 	}    
 
 	protected FIXGRIDListBinding<GridListItem<CompetitionEntity.Data>> m_gridList = new FIXGRIDListBinding<GridListItem<CompetitionEntity.Data>>();

@@ -32,6 +32,7 @@ import trimatrix.structures.SFunctionTree;
 import trimatrix.structures.SValueList;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
+import trimatrix.utils.Constants.Role;
 
 /**
  * @author Meex
@@ -44,7 +45,9 @@ public class SQLExecutorService {
 	
 	private static final String USERENTITYLISTQUERY = "UserEntityList";
 	private static final String PERSONENTITYLISTQUERY = "PersonEntityList";
+	private static final String PERSONBYROLEENTITYLISTQUERY = "PersonByRoleEntityList";
 	private static final String DOCTORENTITYLISTQUERY = "DoctorEntityList";
+	private static final String ATHLETESENTITYLISTQUERY = "AthletesEntityList";
 	private static final String ATTACHMENTENTITYLISTQUERY = "AttachmentEntityList";
 	private static final String TESTENTITYLISTQUERY = "TestEntityList";
 	private static final String COMPETITIONENTITYLISTQUERY = "CompetitionEntityList";
@@ -57,7 +60,7 @@ public class SQLExecutorService {
 	private static final String ATTACHMENTRELATIONENTITYQUERY = "AttachmentRelationEntityList";
 	private static final String COMPETITIONRELATIONENTITYQUERY = "CompetitionRelationEntityList";
 	private static final String COMPETITIONSCOUTRELATIONENTITYQUERY = "CompetitionScoutRelationEntityList";
-	private static final String RESULTENTITYLISTQUERY = "ResultEntityList";
+	private static final String RESULTENTITYLISTQUERY = "ResultEntityList";	
 	private static final String PERSONPERSONQUERY = "PersonPersonRelationList";
 	private static final String PERSONDOCTORQUERY = "PersonDoctorRelationList";
 	private static final String PERSONATTACHMENTQUERY = "PersonAttachmentRelationList";
@@ -158,14 +161,15 @@ public class SQLExecutorService {
 	 * @param lang_key
 	 * @param deleted
 	 * @param test
+	 * @param queryName
 	 * @return person entities
 	 */
 	@SuppressWarnings("unchecked")
-	public List<IEntityData> getPersonEntities(String lang_key, boolean deleted, boolean test) {
+	public List<IEntityData> getPersonEntities(String lang_key, boolean deleted, boolean test, String queryName) {
 		List<IEntityData> data = new ArrayList<IEntityData>();
 		SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
-		Query query = session.getNamedQuery(PERSONENTITYLISTQUERY);
+		Query query = session.getNamedQuery(queryName);
 		query.setString("p_lang_key", lang_key);
 		query.setBoolean("p_deleted", deleted);
 		query.setBoolean("p_test", test);
@@ -197,7 +201,61 @@ public class SQLExecutorService {
 	}
 	
 	public List<IEntityData> getPersonEntities() {
-		return getPersonEntities(dictionaryService.getLanguage(), false, false);
+		return getPersonEntities(dictionaryService.getLanguage(), false, false, PERSONENTITYLISTQUERY);
+	}
+	
+	public List<IEntityData> getAthleteEntities() {
+		return getPersonEntities(dictionaryService.getLanguage(), false, false, ATHLETESENTITYLISTQUERY);
+	}
+	
+
+	/**
+	 * Retrieve person entities by role
+	 * @param lang_key	language
+	 * @param role		role
+	 * @param deleted	deleted	
+	 * @param test		test	
+	 * @return			person entities
+	 */
+	@SuppressWarnings("unchecked")
+	public List<IEntityData> getPersonByRoleEntities(String lang_key, Role role, boolean deleted, boolean test) {
+		List<IEntityData> data = new ArrayList<IEntityData>();
+		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		Query query = session.getNamedQuery(PERSONBYROLEENTITYLISTQUERY);
+		query.setString("p_lang_key", lang_key);
+		query.setBoolean("p_deleted", deleted);
+		query.setBoolean("p_test", test);
+		query.setString("p_role_key", role.name());
+		List<Object[]> result = query.list();
+		for(Object[] line : result) {
+			PersonEntity.Data datum = new PersonEntity.Data();
+			int i = 0;
+			datum.id = (String)line[i++];
+			datum.salutation = (String)line[i++];
+			datum.name_first = (String)line[i++];
+			datum.name_last = (String)line[i++];
+			datum.email = (String)line[i++];
+			datum.sex = (String)line[i++];
+			datum.birthdate = (Timestamp)line[i++];
+			datum.street = (String)line[i++];
+			datum.housenumber = (String)line[i++];
+			datum.postcode = (String)line[i++];
+			datum.city = (String)line[i++];
+			datum.state = (String)line[i++];
+			datum.country = (String)line[i++];
+			datum.homepage = (String)line[i++];
+			datum.telephone = (String)line[i++];
+			datum.mobile = (String)line[i++];
+			datum.fax = (String)line[i++];
+			data.add(datum);
+		}
+		session.close();
+		return data;
+	}
+	
+	public List<IEntityData> getPersonByRoleEntities(Role role) {
+		return getPersonByRoleEntities(dictionaryService.getLanguage(), role, false, false);
 	}
 	
 	/**

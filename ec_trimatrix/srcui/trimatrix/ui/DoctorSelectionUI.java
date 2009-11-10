@@ -23,7 +23,6 @@ public class DoctorSelectionUI extends EntitySelectionUI implements Serializable
    	
 	public DoctorSelectionUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
-		buildData(Entity.DOCTOR);
 	}    
 
 	protected FIXGRIDListBinding<GridListItem<DoctorEntity.Data>> m_gridList = new FIXGRIDListBinding<GridListItem<DoctorEntity.Data>>();

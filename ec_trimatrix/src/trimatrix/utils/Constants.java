@@ -48,7 +48,7 @@ public final class Constants {
 	public static enum Entity {
 		// order is relevant, first all entities which are base entities
 		USER(null, Page.USERDETAIL, Page.USERSELECTION, false), 
-		PERSON(null, Page.PERSONDETAIL, Page.PERSONSELECTION, false), 
+		PERSON(null, Page.PERSONDETAIL, Page.PERSONSELECTION, false),
 		DOCTOR(null, Page.DOCTORDETAIL, Page.DOCTORSELECTION, false),
 		TEST(null, Page.TESTDETAIL, Page.TESTSELECTION, false),
 		COMPETITION(null, Page.COMPETITIONDETAIL, Page.COMPETITIONSELECTION, false),
@@ -57,6 +57,8 @@ public final class Constants {
 		MYCOACHES(PERSON, Page.PERSONDETAIL, Page.PERSONSELECTION, true), 
 		MYATHLETES(PERSON, Page.PERSONDETAIL, Page.PERSONSELECTION, false),
 		MYSCOUTEDATHLETES(PERSON, Page.PERSONDETAIL, Page.PERSONSELECTION, false),
+		SCOUTS(PERSON, Page.PERSONDETAIL, Page.PERSONSELECTION, false),
+		ATHLETES(PERSON, Page.PERSONDETAIL, Page.PERSONSELECTION, false),
 		MYDOCTORS(DOCTOR, Page.DOCTORDETAIL, Page.DOCTORSELECTION, true),
 		MYTESTS(TEST, Page.TESTDETAIL, Page.TESTSELECTION, false),
 		COACHTESTS(TEST, Page.TESTDETAIL, Page.TESTSELECTION, false),
@@ -155,7 +157,7 @@ public final class Constants {
 		USERS_ALL, PERSONS_ALL, DOCTORS_ALL, ATTACHMENTS_ALL, TESTS_ALL, COMPETITIONS_ALL, RESULTS_ALL,
 		RELATIONS, RELATION_COACH, RELATION_DOCTOR, RELATION_ATTACHMENT, RELATION_SCOUT,
 		TESTS_COACH, ZONES_COACH,
-		ZONES_ATHLETE, RESULT_SCOUT
+		ZONES_ATHLETE, RESULTS_SCOUT
 	}	
 	// all used profiles for persons
 	public static enum Profiles {
@@ -177,6 +179,8 @@ public final class Constants {
 	public static final String P_PERSON = "person";
 	public static final String P_LABEL= "label";
 	public static final String P_MODE = "mode";
+	public static final String P_SCOUTCOMPETITION = "scoutcompetition";
+	public static final String P_ATHLETE = "athlete";
 	
 	public static final String CREATE = "create";
 	public static final String CHANGE = "change";

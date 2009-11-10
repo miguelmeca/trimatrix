@@ -76,6 +76,7 @@ public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serial
     	final Constants.Entity entity = relation.getPartner1();
     	Constants.Page selectionPage = entity.getSelectionPage();    	
     	IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(entity);
+    	entitySelectionUI.buildData(entity);
        	entitySelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){
    			public void cancel() {
    				m_popup.close();				
@@ -96,6 +97,7 @@ public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serial
     	final Constants.Entity entity = relation.getPartner2();
     	Constants.Page selectionPage = entity.getSelectionPage();    	
     	IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(entity);
+    	entitySelectionUI.buildData(entity);
        	entitySelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){
    			public void cancel() {
    				m_popup.close();				

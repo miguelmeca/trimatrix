@@ -50,6 +50,8 @@ public final class ResultEntity extends AEntity {
 	public List<IEntityData> getData(Constants.Entity entity) {
 		if (entity == Constants.Entity.RESULT) {
 			return sqlExecutorService.getResultEntities();
+        } else if(entity == Constants.Entity.SCOUTRESULTS) {
+        	return sqlExecutorService.getResultEntities(null, null, dictionaryService.getMyPerson().getId(), null);
         } else {
         	return Constants.EMPTYENTITYLIST;
         }		
@@ -61,9 +63,7 @@ public final class ResultEntity extends AEntity {
 	public List<IEntityData> getData(Constants.Entity entity, String personId) {		
 		if (entity == Constants.Entity.MYRESULTS) {
         	return sqlExecutorService.getResultEntities(null, null, dictionaryService.getMyPerson().getId(), personId);
-        } else if(entity == Constants.Entity.SCOUTRESULTS) {
-        	return sqlExecutorService.getResultEntities(null, null, dictionaryService.getMyPerson().getId(), null);
-        } else {
+        }  else {
         	return Constants.EMPTYENTITYLIST;
         }		
 	}
