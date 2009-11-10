@@ -6,11 +6,14 @@ import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.workplace.WorkplaceFunctionTree.FunctionNode;
 import org.springframework.dao.DataIntegrityViolationException;
 
+import trimatrix.db.Competitions;
 import trimatrix.db.CompetitionsScouts;
 import trimatrix.db.CompetitionsScoutsId;
 import trimatrix.db.DAOLayer;
+import trimatrix.db.Persons;
 import trimatrix.db.PersonsHaveAttachments;
 import trimatrix.db.PersonsHaveDoctors;
+import trimatrix.db.Results;
 import trimatrix.entities.EntityLayer;
 import trimatrix.entities.IEntityData;
 import trimatrix.relations.PersonAttachmentRelation;
@@ -115,6 +118,14 @@ public class FunctionTreeLogic {
 			return false;
 		}
 		return true;
+	}
+	
+	public Results createResultRelation(String athleteId, String competitionId) throws Exception{
+		Results result = entityLayer.getResultEntity().create();
+		result.setCompetition((Competitions)entityLayer.getCompetitionEntity().get(competitionId));
+		result.setScout(serviceLayer.getDictionaryService().getMyPerson());
+		result.setAthlete((Persons)entityLayer.getPersonEntity().get(athleteId));
+		return (Results)entityLayer.getResultEntity().save(result);
 	}
 	
 	public void setServiceLayer(ServiceLayer serviceLayer) {

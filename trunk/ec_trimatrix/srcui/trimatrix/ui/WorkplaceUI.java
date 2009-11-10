@@ -195,7 +195,13 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 			// Standard click navigate to search result
 			IWorkpageDispatcher wpd = getOwningDispatcher();
 			IWorkpageContainer wpc = getWorkpageContainer();
-			IWorkpage wp = new MyWorkpage(wpd, Constants.Page.LABELSEARCHRESULT.getUrl(), label_id, label.getDescription(), null, true);			
+			IWorkpage wp = wpc.getWorkpageForId(label_id);
+			if(wp != null) {
+				wpc.switchToWorkpage(wp);
+				return;
+			} 
+			// Page doesn't exist, create it			
+			wp = new MyWorkpage(wpd, Constants.Page.LABELSEARCHRESULT.getUrl(), label_id, label.getDescription(), null, true);			
 			wp.setParam(Constants.P_LABEL, label_id);	
 			wpc.addWorkpage(wp);
 		}
