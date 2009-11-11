@@ -2,6 +2,7 @@ package trimatrix.ui;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
@@ -9,11 +10,13 @@ import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.db.Competitions;
 import trimatrix.db.CompetitionsScouts;
+import trimatrix.db.Results;
 import trimatrix.entities.CompetitionEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Constants.Entity;
+import trimatrix.utils.Constants.Mode;
 
 @SuppressWarnings("serial")
 @CCGenClass (expressionBase="#{d.CompetitionDetailUI}")
@@ -28,6 +31,17 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
     public boolean isMyCompetition() {
     	if(entityDetailUI.getEntity()==Entity.SCOUTCOMPETITIONS) return true;
     	return false;
+    }
+    
+    public boolean isTypeEnabled() {
+    	Results result = new Results();
+    	result.setCompetitionId(entity.getId());
+    	List<Results> results = getDaoLayer().getResultsDAO().findByExample(result);
+    	if((results==null||results.size()==0)&&getEnabled()) {
+    		return true;    		
+    	} else {
+    		return false;
+    	}
     }
     
 	private Competitions entity;	
@@ -98,4 +112,13 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 	public boolean getEnabled() {
 		return super.getEnabled() && ENTITYLISTLOGIC.isUserEqualUserLoggedOn(entity.getCreatedBy());
 	}
+
+	@Override
+	public void prepareSave() {		
+		if(entityDetailUI.entity==Entity.SCOUTCOMPETITIONS) {
+			if(mode==Mode.NEW || mode==Mode.COPY) getLogic().getFunctionTreeLogic().createCompetitionScout(entity.getId());
+		}
+	}
+	
+	
 }

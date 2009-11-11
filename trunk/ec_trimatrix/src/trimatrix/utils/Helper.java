@@ -121,26 +121,27 @@ public class Helper {
 	}
 	
 	/**
-	 * Calculate duration in Format mm:ss
-	 * @param start	startpoint in mm:ss format
-	 * @param duration duration in mm:ss format
-	 * @return endpoint in mm:ss format
+	 * Calculate duration in Format mm:ss or hh:mm:ss
+	 * @param start	startpoint in mm:ss or hh:mm:ss format
+	 * @param duration duration in mm:ss or hh:mm:ss format
+	 * @return endpoint in mm:ss or hh:mm:ss format
 	 */
-	public static String calculateDuration(String start, String duration) {		
+	public static String calculateDuration(String start, String duration, boolean subtract, boolean hhmmss) {		
 		if(start==null && duration!=null) return duration;
 		if(start!=null && duration==null) return start;
-		String[] arrStart = start.split(":");
-		String[] arrDuration = duration.split(":");
-		// check format mm:ss
-		if(arrStart.length<2 || arrDuration.length<2) return null;
-		int secStart    = Integer.valueOf(arrStart[0]) * 60 + Integer.valueOf(arrStart[1]);
-		int secDuration = Integer.valueOf(arrDuration[0]) * 60 + Integer.valueOf(arrDuration[1]);
-		int secTotal = secStart + secDuration;
-		int minutes = secTotal / 60;
-		int seconds = secTotal % 60;
-		// max. 99 minutes
-		if(minutes>99) minutes = 99;
-		return String.format("%02d:%02d", minutes, seconds);
+		// convert to seconds
+		Integer secStart = calculateSeconds(start);
+		if(secStart==null) return null;
+		Integer secDuration = calculateSeconds(duration);
+		if(secDuration==null) return null;
+		Integer secTotal = null;
+		if(subtract) {
+			if(secDuration>secStart) return null;
+			secTotal = secStart - secDuration;
+		} else {
+			secTotal = secStart + secDuration;
+		}
+		return calculateTime(secTotal, hhmmss);
 	}
 	
 	/**
@@ -150,13 +151,23 @@ public class Helper {
 	 * @return calculated time
 	 */
 	public static String percentageOfTime(String time, Integer percentage) {
-		if(percentage==0) return "00:00"; 
+		boolean hhmmss; 
+		switch (time.length()) {
+		case 5: //mm:ss
+			if(percentage==0) return "00:00"; 
+			hhmmss = false;
+			break;
+		case 8: //hh:mm:ss
+			if(percentage==0) return "00:00:00"; 
+			hhmmss = true;
+			break;
+		default:
+			return null;
+		}		
 		if(percentage==100) return time;
 		int secTime = calculateSeconds(time);
-		double secPercent = (secTime / 100d) * percentage;
-		int minutes = (int)(secPercent / 60);
-		int seconds = (int)(secPercent % 60);
-		return String.format("%02d:%02d", minutes, seconds);		
+		double seconds = (secTime / 100d) * percentage;
+		return calculateTime((int)seconds, hhmmss);			
 	}
 	
 	/**
@@ -173,14 +184,47 @@ public class Helper {
 	
 	/**
 	 * Calculate seconds of time
-	 * @param time Time in format mm:ss
+	 * @param time Time in format mm:ss or hh:mm:ss
 	 * @return	seconds
 	 */
 	public static Integer calculateSeconds(String time) {
 		String[] arrTime = time.split(":");
-		// check format mm:ss
-		if(arrTime.length<2) return null;
-		return Integer.valueOf(arrTime[0]) * 60 + Integer.valueOf(arrTime[1]);
+		// mm:ss		
+		if(arrTime.length==2) return Integer.valueOf(arrTime[0]) * 60 + Integer.valueOf(arrTime[1]);
+		// mm:hh:ss
+		if(arrTime.length==3) return Integer.valueOf(arrTime[0]) * 3600 + Integer.valueOf(arrTime[1]) * 60 + Integer.valueOf(arrTime[2]);
+		// wrong
+		return null;
+	} 
+	
+	/**
+	 * Calculate time of sconds
+	 * @param seconds sconds
+	 * @param hhmmss use long format hh:mm:ss
+	 * @return	time
+	 */
+	public static String calculateTime(Integer seconds, boolean hhmmss) {
+		if(seconds==null||seconds==0) {
+			if(hhmmss) {
+				return "00:00:00";
+			} else {
+				return "00:00";
+			}					
+		}
+		Integer hour   = seconds / 3600; seconds = seconds % 3600;
+		Integer minute = seconds / 60;
+		Integer second = seconds % 60;
+		if(hhmmss) {
+			if(hour>99) hour = 99; // hour max. 99
+			return String.format("%02d:%02d:%02d", hour, minute, second);
+		} else {
+			minute += hour * 60;
+			if(minute>99) minute = 99; // minute max. 99
+			return String.format("%02d:%02d", minute, second);
+		}		
+		
+		
+		
 	}
 	
 	/**

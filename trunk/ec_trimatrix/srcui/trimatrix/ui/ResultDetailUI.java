@@ -3,9 +3,11 @@ package trimatrix.ui;
 import java.io.Serializable;
 
 import javax.faces.event.ActionEvent;
+import javax.xml.stream.events.EntityReference;
 
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
+import org.eclnt.jsfserver.elements.events.BaseActionEventFlush;
 import org.eclnt.workplace.IWorkpage;
 import org.eclnt.workplace.IWorkpageContainer;
 import org.eclnt.workplace.IWorkpageDispatcher;
@@ -19,13 +21,14 @@ import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
 import trimatrix.ui.utils.MyWorkpage;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.Entity;
 
 @SuppressWarnings("serial")
 @CCGenClass (expressionBase="#{d.ResultDetailUI}")
 
 public class ResultDetailUI extends AEntityDetailUI implements Serializable {
-	protected final String[] MANDATORY_FIELDS_TRIA = new String[] {ResultEntity.CATEGORY_TRIA};
+	protected final String[] MANDATORY_FIELDS_TRIA = new String[] {ResultEntity.CATEGORY_TRIA, ResultEntity.SWIM_SPLIT, ResultEntity.RUN_SPLIT};
 	
     public boolean isAdminView() {
     	return entityDetailUI.getEntity()==Entity.RESULT;
@@ -71,6 +74,10 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 	public void validate() throws MandatoryCheckException, EmailNotValidException {		
 		// mandatory check
 		checkMandatory();
+		// ergo
+		if (isTria()) {
+			checkMandatory(MANDATORY_FIELDS_TRIA);
+		}
 		// fill values to entities properties
 		fillEntityProperties();
 	}
@@ -249,28 +256,37 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 	}	
 	
 	public void onCompetitionClicked(ActionEvent event) {
-		Statusbar.outputMessage("Competition clicked");
+		loadEntityDetailPage(Entity.COMPETITION, entity.getCompetition().getId(), entity.getCompetition().toString());
 	}
 	
 	public void onAthleteClicked(ActionEvent event) {
-		Statusbar.outputMessage("Athlete clicked");
+		loadEntityDetailPage(Entity.PERSON, entity.getAthlete().getId(), entity.getAthlete().toString());
 	}
 	
 	public void onScoutClicked(ActionEvent event) {
-		// Switch to or create entities page
-		IWorkpageDispatcher wpd = getOwningDispatcher();
-		IWorkpageContainer wpc = getWorkpageContainer();
-		IWorkpage wp = wpc.getWorkpageForId(entity.getScout().getId());
-		if(wp != null) {
-			wpc.switchToWorkpage(wp);
+		loadEntityDetailPage(Entity.PERSON, entity.getScout().getId(), entity.getScout().toString());
+	}
+	
+	public void onSplitsChange(ActionEvent event) {
+		String clientname = (String)event.getComponent().getAttributes().get(Constants.CLIENTNAME);
+		String splitTime = null;
+		String field = null;
+		if(ResultEntity.SWIM_DEFICIT.equalsIgnoreCase(clientname)) {
+			field = ResultEntity.BEST_SWIM_SPLIT;
+			splitTime = Helper.calculateDuration((String)values.get(ResultEntity.SWIM_SPLIT), (String)values.get(ResultEntity.SWIM_DEFICIT), true, true);
+		} else if(ResultEntity.RUN_DEFICIT.equalsIgnoreCase(clientname)) {
+			field = ResultEntity.BEST_RUN_SPLIT;
+			splitTime = Helper.calculateDuration((String)values.get(ResultEntity.RUN_SPLIT), (String)values.get(ResultEntity.RUN_DEFICIT), true, true);
+		} else  if(ResultEntity.BEST_SWIM_SPLIT.equalsIgnoreCase(clientname)) {
+			field = ResultEntity.SWIM_DEFICIT;
+			splitTime = Helper.calculateDuration((String)values.get(ResultEntity.SWIM_SPLIT), (String)values.get(ResultEntity.BEST_SWIM_SPLIT), true, false);
+		} else  if(ResultEntity.BEST_RUN_SPLIT.equalsIgnoreCase(clientname)) {
+			field = ResultEntity.RUN_DEFICIT;
+			splitTime = Helper.calculateDuration((String)values.get(ResultEntity.RUN_SPLIT), (String)values.get(ResultEntity.BEST_RUN_SPLIT), true, false);
+		} else {
 			return;
-		} 
-		// Page doesn't exist, create it
-		wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.getUrl(),
-				entity.getScout().getId(), entity.getScout().toString(), null, true);			
-		wp.setParam(Constants.P_ENTITY, Entity.PERSON.name());
-		wp.setParam(Constants.P_MODE, Constants.Mode.SHOW.name());			
-		wpc.addWorkpage(wp);
+		}
+		values.put(field, splitTime);
 	}
 
 	@Override

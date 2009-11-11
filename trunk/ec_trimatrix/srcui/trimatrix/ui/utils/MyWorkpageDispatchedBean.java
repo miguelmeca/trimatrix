@@ -49,6 +49,7 @@ import trimatrix.ui.WPFunctionTreeScouter;
 import trimatrix.ui.WorkplaceUI;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
+import trimatrix.utils.Constants.Entity;
 
 public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements IModalPopupListener {	
 	public static final Log logger = LogFactory.getLog(MyWorkpageDispatchedBean.class);
@@ -302,5 +303,22 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 			break;
 		}
 		ThreadData.getInstance().registerChangeUpdatingAllAreas();
+	}
+	
+	protected void loadEntityDetailPage(Entity entity, String id, String title) {
+		// Switch to or create entities page
+		IWorkpageDispatcher wpd = getOwningDispatcher();
+		IWorkpageContainer wpc = getWorkpageContainer();
+		IWorkpage wp = wpc.getWorkpageForId(id);
+		if(wp != null) {
+			wpc.switchToWorkpage(wp);
+			return;
+		} 
+		// Page doesn't exist, create it
+		wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.getUrl(),
+				id, title, null, true);			
+		wp.setParam(Constants.P_ENTITY, entity.name());
+		wp.setParam(Constants.P_MODE, Constants.Mode.SHOW.name());			
+		wpc.addWorkpage(wp);
 	}
 }

@@ -19,7 +19,7 @@
 </t:row>
 <t:row id="g_6" >
 <t:label id="g_7" text="#{rr.literals.type}" width="100" />
-<t:combobox id="g_8" attributemacro="entityDetailMacro(CompetitionDetailUI,type)" validvaluesbinding="#{d.CompetitionDetailUI.compTypesVvb}" width="200" />
+<t:combobox id="g_8" attributemacro="entityDetailMacro(CompetitionDetailUI,type)" enabled="#{d.CompetitionDetailUI.typeEnabled}" validvaluesbinding="#{d.CompetitionDetailUI.compTypesVvb}" width="200" />
 </t:row>
 <t:row id="g_9" >
 <t:label id="g_10" text="#{rr.literals.date}" width="100" />
@@ -27,7 +27,7 @@
 </t:row>
 <t:row id="g_12" >
 <t:label id="g_13" rowalignmenty="top" text="#{rr.literals.address}" width="100" />
-<t:textarea id="g_14" attributemacro="entityDetailMacro(CompetitionDetailUI,address)" height="55" maxlength="100" width="300" />
+<t:textarea id="g_14" attributemacro="entityDetailMacro(CompetitionDetailUI,address)" height="55" width="300" />
 </t:row>
 <t:row id="g_15" >
 <t:label id="g_16" text="#{rr.literals.country}" width="100" />

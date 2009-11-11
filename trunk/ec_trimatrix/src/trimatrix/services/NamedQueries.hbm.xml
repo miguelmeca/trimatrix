@@ -241,7 +241,8 @@ SELECT
   competitions.description,
   t_comptypes.description type,
   competitions.address,
-  t_countries.description country
+  t_countries.description country,
+  IF(results.id IS NULL, 0, 1) results
 FROM competitions
   LEFT OUTER JOIN t_comptypes
     ON t_comptypes.key = competitions.type
@@ -249,6 +250,9 @@ FROM competitions
   LEFT OUTER JOIN t_countries
     ON t_countries.key = competitions.country_key
       AND t_countries.language_key = :p_lang_key
+  LEFT OUTER JOIN results
+    ON results.competition_id = competitions.id
+      AND results.deleted = 0
 WHERE competitions.test = :p_test
     AND competitions.deleted = :p_deleted
     AND (competitions.id = :p_id
@@ -260,6 +264,7 @@ ORDER by competitions.created_at DESC
   <return-scalar column="type" type="java.lang.String"/>
   <return-scalar column="address" type="java.lang.String"/>
   <return-scalar column="country" type="java.lang.String"/>
+  <return-scalar column="results" type="java.lang.Boolean"/>
 </sql-query>
 
 <sql-query cacheable="true" name="DoctorEntityList" read-only="true">
@@ -553,7 +558,8 @@ SELECT
   competitions.description,
   t_comptypes.description type,
   competitions.address,
-  t_countries.description country
+  t_countries.description country,
+  IF(results.id IS NULL, 0, 1) results
 FROM competitions
   LEFT OUTER JOIN t_comptypes
     ON t_comptypes.key = competitions.type
@@ -561,10 +567,13 @@ FROM competitions
   LEFT OUTER JOIN t_countries
     ON t_countries.key = competitions.country_key
       AND t_countries.language_key = :p_lang_key
+  LEFT OUTER JOIN results
+    ON results.competition_id = competitions.id    
+      AND results.deleted = 0
   JOIN persons_have_competitions
-    ON (competition = competitions.id
-        AND reltyp_key = :p_reltyp
-        AND person = :p_person)
+    ON (persons_have_competitions.competition = competitions.id
+        AND persons_have_competitions.reltyp_key = :p_reltyp
+        AND persons_have_competitions.person = :p_person)
 WHERE competitions.test = :p_test
     AND competitions.deleted = :p_deleted
   <return-scalar column="id" type="java.lang.String"/>
@@ -573,6 +582,7 @@ WHERE competitions.test = :p_test
   <return-scalar column="type" type="java.lang.String"/>
   <return-scalar column="address" type="java.lang.String"/>
   <return-scalar column="country" type="java.lang.String"/>
+  <return-scalar column="results" type="java.lang.Boolean"/>
 </sql-query> 
 
 <sql-query cacheable="true" name="CompetitionScoutRelationEntityList" read-only="true">
@@ -582,7 +592,8 @@ SELECT
   competitions.description,
   t_comptypes.description type,
   competitions.address,
-  t_countries.description country
+  t_countries.description country,
+  IF(results.id IS NULL, 0, 1) results
 FROM competitions
   LEFT OUTER JOIN t_comptypes
     ON t_comptypes.key = competitions.type
@@ -590,9 +601,12 @@ FROM competitions
   LEFT OUTER JOIN t_countries
     ON t_countries.key = competitions.country_key
       AND t_countries.language_key = :p_lang_key
+  LEFT OUTER JOIN results
+    ON results.competition_id = competitions.id
+      AND results.deleted = 0
   JOIN competitions_scouts
-    ON (competition_id = competitions.id
-      AND scout_id = :p_scout)
+    ON (competitions_scouts.competition_id = competitions.id
+      AND competitions_scouts.scout_id = :p_scout)
 WHERE competitions.test = :p_test
     AND competitions.deleted = :p_deleted
   <return-scalar column="id" type="java.lang.String"/>
@@ -601,6 +615,7 @@ WHERE competitions.test = :p_test
   <return-scalar column="type" type="java.lang.String"/>
   <return-scalar column="address" type="java.lang.String"/>
   <return-scalar column="country" type="java.lang.String"/>
+  <return-scalar column="results" type="java.lang.Boolean"/>
 </sql-query> 
  
 <sql-query cacheable="true" name="ResultEntityList" read-only="true">

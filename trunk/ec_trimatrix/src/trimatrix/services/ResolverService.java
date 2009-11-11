@@ -146,7 +146,9 @@ public final class ResolverService {
 		case ATTACHMENT:
 			return personAttachmentRelation.delete(personId, id);
 		case COMPETITION:
-			return personCompetitionRelation.delete(personId, id);
+			return personCompetitionRelation.delete(personId, id);		
+		case RESULT:
+			return resultEntity.delete(id);
 		}
 		logger.warn("DELETE : Entity " + entity.toString() + " not valid!");
 		return false;

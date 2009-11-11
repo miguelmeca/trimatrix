@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import trimatrix.entities.IEntityObject;
 
@@ -173,7 +174,7 @@ public class Competitions implements java.io.Serializable, IEntityObject{
 	public void setDeleted(Boolean deleted) {
 		this.deleted = deleted;
 	}
-
+	
 	@Override
 	public String toString() {
 		// same as DB entity implementation
