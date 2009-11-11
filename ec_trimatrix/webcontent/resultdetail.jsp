@@ -12,35 +12,80 @@
 <h:form>
 <f:subview id="resultdetailg_sv">
 <t:rowbodypane id="g_1" rowdistance="5" >
-<t:row id="g_2" comment="Competition" >
-<t:label id="g_3" height="20" text="#{rr.literals.competition}" width="100" />
-<t:link id="g_4" actionListener="#{d.ResultDetailUI.onCompetitionClicked}" align="left" attributemacro="entityDetailMacro(ResultDetailUI,competition)" enabled="true" focusable="true" foreground="#000000" height="20" width="200" />
-<t:coldistance id="g_5" />
-<t:button id="g_6" actionListener="#{d.ResultDetailUI.onCompetitionSearch}" enabled="#{d.ResultDetailUI.enabled}" height="20" text="#{rr.literals.edit}" width="60" />
+<t:rowdynamiccontent id="g_2" contentbinding="#{d.ResultDetailUI.labelRow}" />
+<t:row id="g_3" comment="general" >
+<t:pane id="g_4" rowdistance="5" >
+<t:row id="g_5" comment="Competition" >
+<t:label id="g_6" height="20" text="#{rr.literals.competition}" width="120" />
+<t:link id="g_7" actionListener="#{d.ResultDetailUI.onCompetitionClicked}" align="left" attributemacro="entityDetailMacro(ResultDetailUI,competition)" enabled="true" focusable="true" foreground="#000000" height="20" width="200" />
+<t:coldistance id="g_8" />
+<t:button id="g_9" actionListener="#{d.ResultDetailUI.onCompetitionSearch}" enabled="#{d.ResultDetailUI.enabled}" height="20" text="#{rr.literals.edit}" width="60" />
 </t:row>
-<t:row id="g_7" comment="Scouter" rendered="#{d.ResultDetailUI.adminView}" >
-<t:label id="g_8" height="20" text="#{rr.literals.role_scouter}" width="100" />
-<t:link id="g_9" actionListener="#{d.ResultDetailUI.onScoutClicked}" align="left" attributemacro="entityDetailMacro(ResultDetailUI,scout)" enabled="true" focusable="true" foreground="#000000" height="20" width="200" />
-<t:coldistance id="g_10" />
-<t:button id="g_11" actionListener="#{d.ResultDetailUI.onScoutSearch}" enabled="#{d.ResultDetailUI.enabled}" height="20" text="#{rr.literals.edit}" width="60" />
+<t:row id="g_10" comment="Scouter" rendered="#{d.ResultDetailUI.adminView}" >
+<t:label id="g_11" height="20" text="#{rr.literals.role_scouter}" width="120" />
+<t:link id="g_12" actionListener="#{d.ResultDetailUI.onScoutClicked}" align="left" attributemacro="entityDetailMacro(ResultDetailUI,scout)" enabled="true" focusable="true" foreground="#000000" height="20" width="200" />
+<t:coldistance id="g_13" />
+<t:button id="g_14" actionListener="#{d.ResultDetailUI.onScoutSearch}" enabled="#{d.ResultDetailUI.enabled}" height="20" text="#{rr.literals.edit}" width="60" />
 </t:row>
-<t:row id="g_12" comment="Athlete" >
-<t:label id="g_13" height="20" text="#{rr.literals.athlete}" width="100" />
-<t:link id="g_14" actionListener="#{d.ResultDetailUI.onAthleteClicked}" align="left" attributemacro="entityDetailMacro(ResultDetailUI,athlete)" enabled="true" focusable="true" foreground="#000000" height="20" width="200" />
-<t:coldistance id="g_15" />
-<t:button id="g_16" actionListener="#{d.ResultDetailUI.onAthleteSearch}" enabled="#{d.ResultDetailUI.enabled}" height="20" text="#{rr.literals.edit}" width="60" />
-</t:row>
-<t:row id="g_17" >
-<t:label id="g_18" text="#{rr.literals.ranking}" width="100" />
-<t:field id="g_19" attributemacro="entityDetailMacro(ResultDetailUI,final_position)" width="100" />
+<t:row id="g_15" comment="Athlete" >
+<t:label id="g_16" height="20" text="#{rr.literals.athlete}" width="120" />
+<t:link id="g_17" actionListener="#{d.ResultDetailUI.onAthleteClicked}" align="left" attributemacro="entityDetailMacro(ResultDetailUI,athlete)" enabled="true" focusable="true" foreground="#000000" height="20" width="200" />
+<t:coldistance id="g_18" />
+<t:button id="g_19" actionListener="#{d.ResultDetailUI.onAthleteSearch}" enabled="#{d.ResultDetailUI.enabled}" height="20" text="#{rr.literals.edit}" width="60" />
 </t:row>
 <t:row id="g_20" >
-<t:label id="g_21" text="#{rr.literals.time}" width="100" />
-<t:field id="g_22" attributemacro="entityDetailMacro(ResultDetailUI,time)" maxlength="8" userhint="hh:mm:ss" width="100" />
+<t:label id="g_21" text="#{rr.literals.ranking}" width="120" />
+<t:field id="g_22" attributemacro="entityDetailMacro(ResultDetailUI,final_position)" maxlength="5" regex="(DSQ|DNF|\d.*)" regexmode="1" userhint="DNF, DSQ, 1 ... 999" width="100" />
 </t:row>
 <t:row id="g_23" >
-<t:label id="g_24" rowalignmenty="top" text="#{rr.literals.comment}" width="100" />
-<t:textarea id="g_25" attributemacro="entityDetailMacro(ResultDetailUI,comment)" height="55" width="350" />
+<t:label id="g_24" text="#{rr.literals.time}" width="120" />
+<t:field id="g_25" attributemacro="entityDetailMacro(ResultDetailUI,time)" maxlength="8" regex="\d\d:[0-5]\d:[0-5]\d" regexmode="1" userhint="hh:mm:ss" width="100" />
+</t:row>
+<t:row id="g_26" >
+<t:label id="g_27" rowalignmenty="top" text="#{rr.literals.comment}" width="120" />
+<t:textarea id="g_28" attributemacro="entityDetailMacro(ResultDetailUI,comment)" height="55" width="350" />
+</t:row>
+</t:pane>
+</t:row>
+<t:row id="g_29" comment="tria" rendered="#{d.ResultDetailUI.tria}" >
+<t:pane id="g_30" rowdistance="5" width="100%" >
+<t:row id="g_31" >
+<t:label id="g_32" text="#{rr.literals.category}" width="120" />
+<t:field id="g_33" attributemacro="entityDetailMacro(ResultDetailUI,category_tria)" maxlength="10" width="100" />
+</t:row>
+<t:row id="g_34" >
+<t:label id="g_35" text="#{rr.literals.swimsuit}" width="120" />
+<t:checkbox id="g_36" enabled="#{d.ResultDetailUI.enabled}" selected="#{d.ResultDetailUI.values.swimsuit}" width="100" />
+</t:row>
+<t:row id="g_37" >
+<t:label id="g_38" text="#{rr.literals.swim_split}" width="120" />
+<t:field id="g_39" attributemacro="entityDetailMacro(ResultDetailUI,swim_split)" maxlength="8" regex="\d\d:[0-5]\d:[0-5]\d" regexmode="1" userhint="hh:mm:ss" width="100" />
+<t:coldistance id="g_40" />
+<t:label id="g_41" text="#{rr.literals.run_split}" width="100" />
+<t:field id="g_42" attributemacro="entityDetailMacro(ResultDetailUI,run_split)" maxlength="8" regex="\d\d:[0-5]\d:[0-5]\d" regexmode="1" width="100" />
+</t:row>
+<t:row id="g_43" >
+<t:label id="g_44" text="#{rr.literals.ranking_swim}" width="120" />
+<t:field id="g_45" attributemacro="entityDetailMacro(ResultDetailUI,swim_pos)" maxlength="5" regex="(DSQ|DNF|\d.*)" regexmode="1" userhint="DNF, DSQ, 1 ... 999" width="100" />
+<t:coldistance id="g_46" />
+<t:label id="g_47" text="#{rr.literals.ranking_run}" width="100" />
+<t:field id="g_48" attributemacro="entityDetailMacro(ResultDetailUI,run_pos)" maxlength="5" regex="(DSQ|DNF|\d.*)" regexmode="1" userhint="DNF, DSQ, 1 ... 999" width="100" />
+</t:row>
+<t:row id="g_49" >
+<t:label id="g_50" text="#{rr.literals.deficit_swim}" width="120" />
+<t:field id="g_51" attributemacro="entityDetailMacro(ResultDetailUI,swim_def)" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" userhint="mm:ss" width="100" />
+<t:coldistance id="g_52" />
+<t:label id="g_53" text="#{rr.literals.deficit_run}" width="100" />
+<t:field id="g_54" attributemacro="entityDetailMacro(ResultDetailUI,run_def)" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" userhint="mm:ss" width="100" />
+</t:row>
+<t:row id="g_55" >
+<t:label id="g_56" text="#{rr.literals.best_swim_split}" width="120" />
+<t:field id="g_57" attributemacro="entityDetailMacro(ResultDetailUI,best_swim_split)" width="100" />
+<t:coldistance id="g_58" />
+<t:label id="g_59" text="#{rr.literals.best_run_split}" width="100" />
+<t:field id="g_60" attributemacro="entityDetailMacro(ResultDetailUI,best_run_split)" width="100" />
+</t:row>
+</t:pane>
 </t:row>
 </t:rowbodypane>
 <t:pageaddons id="g_pa"/>

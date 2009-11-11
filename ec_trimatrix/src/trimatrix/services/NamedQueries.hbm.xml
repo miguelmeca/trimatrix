@@ -201,10 +201,13 @@ SELECT
   t_testtypes.description type,
   tests.date,
   tests.description,
-  IF(tests_protocol.id IS NULL, 0, 1) protocol
+  IF(tests_protocol.id IS NULL, 0, 1) protocol,
+  IF(tests_analysis.id IS NULL, 0, 1) analyzed
 FROM tests
   LEFT OUTER JOIN tests_protocol
     ON tests_protocol.id = tests.id
+  LEFT OUTER JOIN tests_analysis
+    ON tests_analysis.id = tests.id  
   LEFT OUTER JOIN persons
     ON persons.id = tests.person_id  
   LEFT OUTER JOIN persons coaches
@@ -228,6 +231,7 @@ ORDER by tests.created_at DESC
   <return-scalar column="date" type="java.sql.Timestamp"/>
   <return-scalar column="description" type="java.lang.String"/>
   <return-scalar column="protocol" type="java.lang.Boolean"/>
+  <return-scalar column="analyzed" type="java.lang.Boolean"/>
 </sql-query> 
 
 <sql-query cacheable="true" name="CompetitionEntityList" read-only="true">

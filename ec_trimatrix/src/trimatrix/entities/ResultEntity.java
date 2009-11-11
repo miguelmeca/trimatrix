@@ -23,6 +23,18 @@ public final class ResultEntity extends AEntity {
     public static final String FINALPOSITION = "final_position";
     public static final String TIME = "time";
     
+    // Constants Triathlon
+    public static final String CATEGORY_TRIA = "category_tria";
+    public static final String SWIM_SPLIT = "swim_split";
+    public static final String RUN_SPLIT = "run_split";
+    public static final String SWIM_POSITION = "swim_pos";
+    public static final String RUN_POSITION = "run_pos";
+    public static final String BEST_SWIM_SPLIT = "best_swim_split";
+    public static final String BEST_RUN_SPLIT = "best_run_split";
+    public static final String SWIM_DEFICIT = "swim_def";
+    public static final String RUN_DEFICIT = "run_def";
+    public static final String SWIMSUIT = "swimsuit";
+    
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IUserEntity#getGridMetaData()
 	 */

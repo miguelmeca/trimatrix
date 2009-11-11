@@ -30,6 +30,7 @@ public final class TestEntity extends AEntity {
     public static final String DESCRIPTION = "description";
     public static final String DATE = "date";
     public static final String PROTOCOL = "protocol";
+    public static final String ANALYZED = "analyzed";
     
     // Constants Ergo
     public static final String POWER_INIT = "power_init";
@@ -74,6 +75,7 @@ public final class TestEntity extends AEntity {
         gridMetaData.add(new SGridMetaData("Trainer", COACH, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("Beschreibung", DESCRIPTION, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("#{rr.literals.protocol}", PROTOCOL, SGridMetaData.Component.CHECKBOX));       
+        gridMetaData.add(new SGridMetaData("#{rr.literals.analyzed}", ANALYZED, SGridMetaData.Component.CHECKBOX)); 
         return gridMetaData;
     }
 	
@@ -207,6 +209,7 @@ public final class TestEntity extends AEntity {
 		public String coach;
 		public String description;
 		public boolean protocol;
+		public boolean analyzed;
 		public Timestamp date;
 		
 		/* (non-Javadoc)
@@ -244,6 +247,10 @@ public final class TestEntity extends AEntity {
 
 		public boolean getProtocol() {
 			return protocol;
+		}
+		
+		public boolean getAnalyzed() {
+			return analyzed;
 		}
 
 		public Timestamp getDate() {
