@@ -9,7 +9,12 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
 
 import trimatrix.entities.IEntityObject;
 
@@ -40,6 +45,7 @@ public class Results implements java.io.Serializable, IEntityObject{
 	private Competitions competition;
 	private Persons athlete;
 	private Persons scout;
+	private ResultsTria resultsTria;
 	
 	// Constructors
 
@@ -226,7 +232,17 @@ public class Results implements java.io.Serializable, IEntityObject{
 		this.scout = scout;
 	}
 	
-	
+	@OneToOne(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    @LazyToOne(LazyToOneOption.FALSE)  
+	public ResultsTria getResultsTria() {
+		return resultsTria;
+	}
+
+	public void setResultsTria(ResultsTria resultsTria) {
+		this.resultsTria = resultsTria;
+	}
+
 	@Override
 	public String toString() {
 		// same as DB entity implementation

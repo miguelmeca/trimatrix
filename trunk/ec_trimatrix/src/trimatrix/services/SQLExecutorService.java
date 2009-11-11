@@ -396,6 +396,7 @@ public class SQLExecutorService {
 			datum.date = (Timestamp)line[i++];
 			datum.description = (String)line[i++];
 			datum.protocol = (Boolean)line[i++];	
+			datum.analyzed = (Boolean)line[i++];	
 			data.add(datum);
 		}
 		session.close();

@@ -91,7 +91,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 
 	public void onAthleteSearch(ActionEvent event) {
 		IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(Constants.Entity.PERSON);
-		entitySelectionUI.buildData(Entity.PERSON);
+		entitySelectionUI.buildData(Entity.MYATHLETES);
 		entitySelectionUI
 				.prepareCallback(new EntitySelectionUI.ISelectionCallback() {
 					public void cancel() {

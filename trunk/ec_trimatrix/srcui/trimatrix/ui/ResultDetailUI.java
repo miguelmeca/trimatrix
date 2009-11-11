@@ -6,26 +6,37 @@ import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
+import org.eclnt.workplace.IWorkpage;
+import org.eclnt.workplace.IWorkpageContainer;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.db.Competitions;
 import trimatrix.db.Persons;
 import trimatrix.db.Results;
+import trimatrix.db.ResultsTria;
 import trimatrix.entities.ResultEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
+import trimatrix.ui.utils.MyWorkpage;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Constants.Entity;
 
 @SuppressWarnings("serial")
 @CCGenClass (expressionBase="#{d.ResultDetailUI}")
 
-public class ResultDetailUI extends AEntityDetailUI implements Serializable
-{
+public class ResultDetailUI extends AEntityDetailUI implements Serializable {
+	protected final String[] MANDATORY_FIELDS_TRIA = new String[] {ResultEntity.CATEGORY_TRIA};
+	
     public boolean isAdminView() {
     	return entityDetailUI.getEntity()==Entity.RESULT;
     }
 	
+    public boolean isTria() {
+    	if (entity.getCompetition().getType() == null || !entity.getCompetition().getType().equals("tria"))
+			return false;
+		return true;
+	}
+    
 	private Results entity;	
     
 	public ResultDetailUI(IWorkpageDispatcher dispatcher) {
@@ -68,6 +79,20 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable
 		entity.setFinalPosition((String)values.get(ResultEntity.FINALPOSITION));
 		entity.setTime((String)values.get(ResultEntity.TIME));
 		entity.setComment((String)values.get(ResultEntity.COMMENT));
+		// tria
+		if(isTria()) {
+			ResultsTria tria = entity.getResultsTria();
+			tria.setCategory((String)values.get(ResultEntity.CATEGORY_TRIA));
+			tria.setSwimSplit((String)values.get(ResultEntity.SWIM_SPLIT));
+			tria.setRunSplit((String)values.get(ResultEntity.RUN_SPLIT));
+			tria.setSwimPosition((String)values.get(ResultEntity.SWIM_POSITION));
+			tria.setRunPosition((String)values.get(ResultEntity.RUN_POSITION));
+			tria.setBestSwimSplit((String)values.get(ResultEntity.BEST_SWIM_SPLIT));
+			tria.setBestRunSplit((String)values.get(ResultEntity.BEST_RUN_SPLIT));
+			tria.setSwimDeficit((String)values.get(ResultEntity.SWIM_DEFICIT));
+			tria.setRunDeficit((String)values.get(ResultEntity.RUN_DEFICIT));
+			tria.setSwimsuit((Boolean)values.get(ResultEntity.SWIMSUIT));
+		}
 	}
 	
 	private void fillMaps() {
@@ -79,6 +104,21 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable
 		setCompetitionDescription(entity);
 		setScoutDescription(entity);
 		setAthleteDescription(entity);
+		// tria
+		ResultsTria tria = entity.getResultsTria();
+		if(tria!=null) {
+			values.put(ResultEntity.CATEGORY_TRIA, tria.getCategory());
+			values.put(ResultEntity.SWIM_SPLIT, tria.getSwimSplit());
+			values.put(ResultEntity.RUN_SPLIT, tria.getRunSplit());
+			values.put(ResultEntity.SWIM_POSITION, tria.getSwimPosition());
+			values.put(ResultEntity.RUN_POSITION, tria.getRunPosition());
+			values.put(ResultEntity.BEST_SWIM_SPLIT, tria.getBestSwimSplit());
+			values.put(ResultEntity.BEST_RUN_SPLIT, tria.getBestRunSplit());
+			values.put(ResultEntity.SWIM_DEFICIT, tria.getSwimDeficit());
+			values.put(ResultEntity.RUN_DEFICIT, tria.getRunDeficit());			
+			values.put(ResultEntity.SWIMSUIT, tria.getSwimsuit());
+		}
+		
 		
 		// add bgpaint of fields
 		bgpaint.clear();
@@ -86,6 +126,10 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable
 		for(String field : MANDATORY_FIELDS){
 			bgpaint.put(field,Constants.BGP_MANDATORY);
 		}		
+		// mandatory fields for tria result
+		for (String field : MANDATORY_FIELDS_TRIA) {
+			bgpaint.put(field, Constants.BGP_MANDATORY);
+		}
 	}
 	
 	/**
@@ -213,6 +257,34 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable
 	}
 	
 	public void onScoutClicked(ActionEvent event) {
-		Statusbar.outputMessage("Scout clicked");
+		// Switch to or create entities page
+		IWorkpageDispatcher wpd = getOwningDispatcher();
+		IWorkpageContainer wpc = getWorkpageContainer();
+		IWorkpage wp = wpc.getWorkpageForId(entity.getScout().getId());
+		if(wp != null) {
+			wpc.switchToWorkpage(wp);
+			return;
+		} 
+		// Page doesn't exist, create it
+		wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.getUrl(),
+				entity.getScout().getId(), entity.getScout().toString(), null, true);			
+		wp.setParam(Constants.P_ENTITY, Entity.PERSON.name());
+		wp.setParam(Constants.P_MODE, Constants.Mode.SHOW.name());			
+		wpc.addWorkpage(wp);
 	}
+
+	@Override
+	public void prepareSave() {
+		// ergo
+		if (entity.getResultsTria() == null && isTria()) {
+			// create tria
+			ResultsTria tria = new ResultsTria(entity.getId());
+			entity.setResultsTria(tria);
+			// delete others
+			return;
+		}
+		// others
+	}
+	
+	
 }
