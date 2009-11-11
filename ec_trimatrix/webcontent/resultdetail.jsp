@@ -73,17 +73,17 @@
 </t:row>
 <t:row id="g_49" >
 <t:label id="g_50" text="#{rr.literals.deficit_swim}" width="120" />
-<t:field id="g_51" attributemacro="entityDetailMacro(ResultDetailUI,swim_def)" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" userhint="mm:ss" width="100" />
+<t:field id="g_51" actionListener="#{d.ResultDetailUI.onSplitsChange}" attributemacro="entityDetailMacro(ResultDetailUI,swim_def)" clientname="swim_def" flush="true" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" userhint="mm:ss" width="100" />
 <t:coldistance id="g_52" />
 <t:label id="g_53" text="#{rr.literals.deficit_run}" width="100" />
-<t:field id="g_54" attributemacro="entityDetailMacro(ResultDetailUI,run_def)" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" userhint="mm:ss" width="100" />
+<t:field id="g_54" actionListener="#{d.ResultDetailUI.onSplitsChange}" attributemacro="entityDetailMacro(ResultDetailUI,run_def)" clientname="run_def" flush="true" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" userhint="mm:ss" width="100" />
 </t:row>
 <t:row id="g_55" >
 <t:label id="g_56" text="#{rr.literals.best_swim_split}" width="120" />
-<t:field id="g_57" attributemacro="entityDetailMacro(ResultDetailUI,best_swim_split)" width="100" />
+<t:field id="g_57" actionListener="#{d.ResultDetailUI.onSplitsChange}" attributemacro="entityDetailMacro(ResultDetailUI,best_swim_split)" clientname="best_swim_split" flush="true" width="100" />
 <t:coldistance id="g_58" />
 <t:label id="g_59" text="#{rr.literals.best_run_split}" width="100" />
-<t:field id="g_60" attributemacro="entityDetailMacro(ResultDetailUI,best_run_split)" width="100" />
+<t:field id="g_60" actionListener="#{d.ResultDetailUI.onSplitsChange}" attributemacro="entityDetailMacro(ResultDetailUI,best_run_split)" clientname="best_run_split" flush="true" width="100" />
 </t:row>
 </t:pane>
 </t:row>

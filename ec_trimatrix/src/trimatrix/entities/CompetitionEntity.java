@@ -13,6 +13,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 import trimatrix.db.Competitions;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;
+import trimatrix.ui.ResultDetailUI;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Constants.Relation;
 
@@ -24,6 +25,7 @@ public final class CompetitionEntity extends AEntity {
     public static final String TYPE = "type";
     public static final String ADDRESS = "address";
     public static final String COUNTRY = "country";
+    public static final String RESULTS = "results";
     
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IUserEntity#getGridMetaData()
@@ -35,6 +37,7 @@ public final class CompetitionEntity extends AEntity {
         gridMetaData.add(new SGridMetaData("Typ", TYPE, SGridMetaData.Component.FIELD));        
         gridMetaData.add(new SGridMetaData("Adresse", ADDRESS, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("Land", COUNTRY, SGridMetaData.Component.FIELD));  
+        gridMetaData.add(new SGridMetaData("Ergebnisse", RESULTS, SGridMetaData.Component.CHECKBOX));  
         return gridMetaData;
     }
 	
@@ -127,6 +130,7 @@ public final class CompetitionEntity extends AEntity {
 		public String type;
 		public String address;
 		public String country;
+		public boolean results;
 		
 		/* (non-Javadoc)
 		 * @see trimatrix.entities.IEntityData#getId()
@@ -160,6 +164,9 @@ public final class CompetitionEntity extends AEntity {
 		public String getCountry() {
 			return country;
 		}
-	
+
+		public boolean getResults() {
+			return results;
+		}	
 	}
 }

@@ -594,8 +594,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			}
 			// get previous step
 			AGridItem preItem = m_gridTreadmill.getItems().get(step - 2);
-			return Helper.calculateDuration(preItem.getTime_total(),
-					getStep_time());
+			return Helper.calculateDuration(preItem.getTime_total(), getStep_time(), false, false);
 		}
 	}
 
@@ -631,8 +630,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			}
 			// get previous step
 			AGridItem preItem = m_gridErgo.getItems().get(step - 2);
-			return Helper.calculateDuration(preItem.getTime_total(),
-					getStep_time());
+			return Helper.calculateDuration(preItem.getTime_total(),getStep_time(), false, false);
 		}
 	}
 
