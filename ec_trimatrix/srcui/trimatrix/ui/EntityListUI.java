@@ -288,7 +288,6 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 
 	}
 
-	@Override
 	public void processEvent(WorkpageProcessingEvent event) {
 		// refresh list
 		if (event instanceof WorkpageRefreshEvent) {

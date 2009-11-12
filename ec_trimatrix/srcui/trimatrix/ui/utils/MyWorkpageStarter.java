@@ -1,5 +1,6 @@
 package trimatrix.ui.utils;
 
+import org.eclnt.jsfserver.elements.impl.SESSIONCLOSERComponent;
 import org.eclnt.workplace.IWorkpage;
 import org.eclnt.workplace.IWorkpageContainer;
 import org.eclnt.workplace.IWorkpageDispatcher;
@@ -15,7 +16,6 @@ import org.eclnt.workplace.WorkpageStartInfo;
  */
 public class MyWorkpageStarter implements IWorkpageStarter {
 
-	@Override
 	public IWorkpage startWorkpage(IWorkpageDispatcher workpageDispatcher,
 			IWorkpageContainer workpageContainer, WorkpageStartInfo startInfo) {
 		if (startInfo.getOpenMultipleInstances() == false) {

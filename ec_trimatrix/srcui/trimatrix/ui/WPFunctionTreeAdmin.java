@@ -15,6 +15,7 @@ import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SFunctionTree;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Context;
+import trimatrix.utils.Constants.Page;
 
 @SuppressWarnings("serial")
 public class WPFunctionTreeAdmin extends WorkplaceFunctionTree {
@@ -33,6 +34,7 @@ public class WPFunctionTreeAdmin extends WorkplaceFunctionTree {
 	// TODO adapt logic
 	@Override
 	protected void loadFunctionTree() {
+		FunctionNode node = null;
 		if(FUNCTIONTREELOGIC==null){
 			FUNCTIONTREELOGIC = ((Dispatcher)getOwningDispatcher()).logicLayer.getFunctionTreeLogic();
 		}
@@ -42,9 +44,15 @@ public class WPFunctionTreeAdmin extends WorkplaceFunctionTree {
 		Map<Integer, FunctionNode> functionNodeMap = new HashMap<Integer, FunctionNode>();
 		SQLExecutorService sqlExecutorService = SQLExecutorService.getFromApplicationContext(Context.getInstance());
 		List<SFunctionTree> functionTreeList = sqlExecutorService.getFunctionTree(role);
+		// admin panel
+		node = new FunctionNode(getFtree().getRootNode(), Page.ADMINPANEL.getUrl());
+		node.setId(Page.ADMINPANEL.name());
+		node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
+		node.setOpenMultipleInstances(false);
+		node.setText(Page.ADMINPANEL.getDescription());
 		
 		for (SFunctionTree functionTree : functionTreeList) {
-			FunctionNode node = null;
+			node = null;
 			Constants.Page page = null;
 			// topnode?
 			if(functionTree.parent==0) {
