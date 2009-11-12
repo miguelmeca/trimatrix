@@ -11,6 +11,7 @@ public final class Constants {
 	// all used jsp pages
 	public static enum Page {
 		WORKPLACE("/workplace.jsp","Workplace"),
+		ADMINPANEL("/adminpanel.jsp","Amin Konsole"),
 		LOGON("/logon.jsp", "Logon"),
 		PASSWORD("/password.jsp","Passwort ändern"),
 		ENTITYLIST("/entitylist.jsp","Entitäten"),

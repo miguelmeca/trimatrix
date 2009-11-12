@@ -757,7 +757,7 @@ WHERE t_comptypes.language_key = :p_lang_key
   and   t.key = k.key
   and   rhf.role_key = :p_role_key
   and   t.language_key = :p_lang_key
-  order by rhf.node<return-scalar
+  order by rhf.parent, rhf.order<return-scalar
    column="node" type="java.lang.Integer"/>
   <return-scalar column="parent" type="java.lang.Integer"/>
   <return-scalar column="order" type="java.lang.Integer"/>

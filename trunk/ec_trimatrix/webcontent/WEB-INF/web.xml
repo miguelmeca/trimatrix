@@ -49,6 +49,11 @@
     <listener-class>org.eclnt.jsfserver.util.HttpSessionListenerDelegator</listener-class>
   </listener>
   
+  <listener>
+    <listener-class>trimatrix.utils.MySessionListener</listener-class>
+  </listener>
+  
+  
 <!-- Hibernate Session seems to start twice 
   <listener>
    <listener-class>trimatrix.utils.HibernateListener</listener-class>
