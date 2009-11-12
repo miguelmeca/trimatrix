@@ -20,6 +20,7 @@ import trimatrix.logic.EntityListLogic;
 import trimatrix.structures.SAuthorization;
 import trimatrix.ui.utils.MyWorkpage;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
+import trimatrix.ui.utils.WorkpageRefreshEvent;
 import trimatrix.utils.Constants;
 
 @SuppressWarnings("serial")
@@ -74,7 +75,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 	public boolean getRenderCopyButton() { return renderCopyButton && copyable; }
 
 	public EntityDetailUI(IWorkpageDispatcher dispatcher) {
-		super(dispatcher);		
+		super(dispatcher);			
 		// get entity
         String strEntity = getWorkpage().getParam(Constants.P_ENTITY);
         try {
@@ -184,6 +185,8 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 							Statusbar.outputSuccess("Entity deleted");
 							refreshParent();
 							getWorkpageContainer().closeWorkpage(getWorkpage());
+							// refresh beans
+					        getWorkpage().throwWorkpageProcessingEvent(new WorkpageRefreshEvent(entity));
 						} else {
 							entityDetailUI.postDelete(false);
 							Statusbar.outputError("Entity could not be deleted!");
@@ -206,6 +209,9 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 			//refreshParent();
 			changeMode(Constants.Mode.SHOW);
 			entityDetailUI.init(entityObject);
+			// refresh beans
+	        getWorkpage().throwWorkpageProcessingEvent(new WorkpageRefreshEvent(entity));
+
 		} catch (MandatoryCheckException mce) {
 			Statusbar.outputAlert("Not all mandatory fields filled", "Value for field " + mce.getField() + " missing!" );
 		} catch (EmailNotValidException env) {

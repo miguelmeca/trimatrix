@@ -30,6 +30,17 @@
         </property>         
     </bean>
     
+    <bean id="authorizationService" class="trimatrix.services.AuthorizationService"
+        abstract="false" lazy-init="default" autowire="default"
+        dependency-check="default">
+        <property name="dictionaryService">
+            <ref bean="dictionaryService" />            
+        </property>  
+        <property name="daoLayer">
+            <ref bean="daoLayer" />            
+        </property>         
+    </bean>
+    
     <bean id="resolverService" class="trimatrix.services.ResolverService"
         abstract="false" lazy-init="default" autowire="default"
         dependency-check="default">
@@ -93,6 +104,9 @@
         </property> 
         <property name="resolverService">
             <ref bean="resolverService" />
+        </property> 
+        <property name="authorizationService">
+            <ref bean="authorizationService" />
         </property> 
     </bean>
     

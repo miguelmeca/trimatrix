@@ -9,6 +9,7 @@ public class ServiceLayer {
 	private Dictionary dictionaryService;
 	private ResolverService resolverService;
 	private SQLExecutorService sqlExecutorService;
+	private AuthorizationService authorizationService;
 
 	public ValueListBindingService getValueListBindingService() {
 		return valueListBindingService;
@@ -41,6 +42,14 @@ public class ServiceLayer {
 
 	public void setSqlExecutorService(SQLExecutorService sqlExecutorService) {
 		this.sqlExecutorService = sqlExecutorService;
+	}	
+
+	public AuthorizationService getAuthorizationService() {
+		return authorizationService;
+	}
+
+	public void setAuthorizationService(AuthorizationService authorizationService) {
+		this.authorizationService = authorizationService;
 	}
 
 	public static ServiceLayer getFromApplicationContext(ApplicationContext ctx) {

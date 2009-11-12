@@ -2,11 +2,13 @@ package trimatrix.ui;
 
 import org.eclnt.workplace.IWorkpageContainer;
 import org.eclnt.workplace.WorkpageDispatcher;
+import org.eclnt.workplace.WorkpageStarterFactory;
 
 import trimatrix.db.DAOLayer;
 import trimatrix.logic.LogicLayer;
 import trimatrix.relations.RelationLayer;
 import trimatrix.services.ServiceLayer;
+import trimatrix.ui.utils.MyWorkpageStarter;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Context;
 
@@ -26,7 +28,8 @@ public class Dispatcher extends WorkpageDispatcher
         super();
         // Limit nr. of max opened pages
         getWorkpageContainer().setMaxNumberOfWorkpages(Constants.MAXWORKPAGES);
-        	
+        // Set own Starter e.g. for WPFunctionTrees
+        WorkpageStarterFactory.setWorkpageStarter(new MyWorkpageStarter());   
     }
 	
 	/**

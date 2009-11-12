@@ -15,6 +15,8 @@ import org.eclnt.jsfserver.elements.impl.ROWDYNAMICCONTENTBinding;
 import org.eclnt.workplace.IWorkpage;
 import org.eclnt.workplace.IWorkpageContainer;
 import org.eclnt.workplace.IWorkpageDispatcher;
+import org.eclnt.workplace.IWorkpageProcessingEventListener;
+import org.eclnt.workplace.WorkpageProcessingEvent;
 
 import trimatrix.entities.IEntityData;
 import trimatrix.logic.EntityListLogic;
@@ -23,12 +25,14 @@ import trimatrix.structures.SGridMetaData;
 import trimatrix.structures.SListVariant;
 import trimatrix.ui.utils.MyWorkpage;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
+import trimatrix.ui.utils.WorkpageRefreshEvent;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Constants.Entity;
 
 @SuppressWarnings("serial")
 @CCGenClass(expressionBase = "#{d.EntityListUI}")
 public class EntityListUI extends MyWorkpageDispatchedBean implements
-		Serializable {
+		Serializable, IWorkpageProcessingEventListener {
 
 	public final EntityListUI entityList = this;
 	private final EntityListLogic ENTITYLISTLOGIC = getLogic().getEntityListLogic();
@@ -47,6 +51,8 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 	// Constructor
 	public EntityListUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
+		// register listener for events
+		getWorkpage().addWorkpageProcessingEventListener(this);
 		// get parameters from functiontree
 		// get authorization
 		String create = getWorkpage().getParam(Constants.CREATE);
@@ -282,4 +288,12 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 
 	}
 
+	@Override
+	public void processEvent(WorkpageProcessingEvent event) {
+		// refresh list
+		if (event instanceof WorkpageRefreshEvent) {
+			Entity entity = ((WorkpageRefreshEvent)event).getEntity();
+			if(this.entity.getBase()==entity.getBase()) onRefresh(null);
+		}		
+	}
 }

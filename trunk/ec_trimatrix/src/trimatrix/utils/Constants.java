@@ -146,6 +146,20 @@ public final class Constants {
 		public int getId() { return id; }
 		public String getName() { return name; }
 	}
+	// all authorisation objectes
+	public static enum AuthObject {
+		PERSON(Entity.PERSON, "Personen");
+		AuthObject(Entity entity, String name) {
+			this.entity = entity;
+			this.name = name;
+		}
+		private String name;
+		private Entity entity;
+		public Entity getEntity() { return entity; }
+		public String getName() { return name; }
+	}
+	
+	
 	// all value lists
 	public static enum ValueList {
 		LANGUAGE, CURRENCY, LOGONLANGUAGE, SALUTATION, RELTYPS, COUNTRY, CATEGORY, TESTTYPE, COMPTYPE, FUNCTIONS

@@ -6,6 +6,7 @@ import trimatrix.utils.Constants;
 
 public class SAuthorization implements Serializable {
 	public static final SAuthorization NONE = new SAuthorization(false, false, false);
+	public static final SAuthorization ALL = new SAuthorization(true, true, true);
 	public boolean create;
 	public boolean change;
 	public boolean delete;
