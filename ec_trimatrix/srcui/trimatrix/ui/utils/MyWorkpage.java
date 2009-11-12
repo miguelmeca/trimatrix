@@ -1,10 +1,15 @@
 package trimatrix.ui.utils;
 
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.workplace.IWorkpageDispatcher;
 import org.eclnt.workplace.Workpage;
 
 import trimatrix.entities.IEntityObject;
 import trimatrix.structures.SAuthorization;
+import trimatrix.ui.Dispatcher;
+import trimatrix.ui.EntityDetailUI;
+import trimatrix.utils.Constants.Mode;
+import trimatrix.utils.Constants.Page;
 
 public class MyWorkpage extends Workpage{	
 
@@ -51,12 +56,20 @@ public class MyWorkpage extends Workpage{
 	}
 
 	@Override
-	public boolean close() {
+	public boolean close() {		
+		if(Page.ENTITYDETAIL.getUrl().equalsIgnoreCase(getJspPage())) {
+			EntityDetailUI entityDetailUI = (EntityDetailUI) getDispatcher().getDispatchedBean(EntityDetailUI.class);
+			if(entityDetailUI!=null && entityDetailUI.getMode()!=Mode.SHOW) {
+				Statusbar.outputAlert("Please save data before closing the workpage!");
+				return false;
+			}
+		}
 		return super.close();
+		
 	}	
 	
 	@Override
-	public void closeForced() {		
-		super.closeForced();
+	public void closeForced() {				
+		super.closeForced();		
 	}
 }
