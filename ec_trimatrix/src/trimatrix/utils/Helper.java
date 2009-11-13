@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.eclnt.jsfserver.resources.ResourceManager;
 import org.eclnt.jsfserver.util.HttpSessionAccess;
@@ -110,6 +111,14 @@ public class Helper {
 	 */
 	public static int getWidth() {
 		return Integer.valueOf(HttpSessionAccess.getCurrentRequest().getHeader(Constants.ECLNT_WIDTH));
+	}
+	
+	public static String getClientIP() {
+		return HttpSessionAccess.getCurrentRequest().getHeader(Constants.ECLNT_IP);
+	}
+	
+	public static HttpSession getSession() {
+		return HttpSessionAccess.getCurrentRequest().getSession();
 	}
 	
 	/**

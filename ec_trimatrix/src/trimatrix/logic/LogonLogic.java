@@ -14,7 +14,6 @@ import trimatrix.db.KRoles;
 import trimatrix.db.Users;
 import trimatrix.services.ServiceLayer;
 import trimatrix.utils.Constants;
-import trimatrix.utils.Helper;
 import trimatrix.utils.UserTracker;
 
 public class LogonLogic {
@@ -52,8 +51,7 @@ public class LogonLogic {
 		}
 		serviceLayer.getDictionaryService().setMyRoles(myRoles);
 		
-		logger.info("User " + username + " logged on!");
-		UserTracker.increment();
+		UserTracker.addUser(username);
 		return true;
 	}
 	
