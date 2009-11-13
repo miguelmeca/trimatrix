@@ -13,7 +13,6 @@ import org.springframework.transaction.support.TransactionTemplate;
 import trimatrix.db.Competitions;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;
-import trimatrix.ui.ResultDetailUI;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Constants.Relation;
 

@@ -3,13 +3,8 @@ package trimatrix.ui;
 import java.io.Serializable;
 
 import javax.faces.event.ActionEvent;
-import javax.xml.stream.events.EntityReference;
 
 import org.eclnt.editor.annotations.CCGenClass;
-import org.eclnt.jsfserver.defaultscreens.Statusbar;
-import org.eclnt.jsfserver.elements.events.BaseActionEventFlush;
-import org.eclnt.workplace.IWorkpage;
-import org.eclnt.workplace.IWorkpageContainer;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.db.Competitions;
@@ -19,7 +14,6 @@ import trimatrix.db.ResultsTria;
 import trimatrix.entities.ResultEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
-import trimatrix.ui.utils.MyWorkpage;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.Entity;

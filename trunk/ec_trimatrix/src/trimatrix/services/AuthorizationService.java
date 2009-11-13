@@ -1,5 +1,7 @@
 package trimatrix.services;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationContext;
 
 import trimatrix.db.DAOLayer;
@@ -9,6 +11,7 @@ import trimatrix.utils.Constants.AuthObject;
 import trimatrix.utils.Constants.Role;
 
 public class AuthorizationService {
+	public static final Log logger = LogFactory.getLog(AuthorizationService.class);
 	private Dictionary dictionaryService;
 	private DAOLayer daoLayer;
 	

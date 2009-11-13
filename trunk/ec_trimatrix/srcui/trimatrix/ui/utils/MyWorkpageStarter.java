@@ -1,6 +1,5 @@
 package trimatrix.ui.utils;
 
-import org.eclnt.jsfserver.elements.impl.SESSIONCLOSERComponent;
 import org.eclnt.workplace.IWorkpage;
 import org.eclnt.workplace.IWorkpageContainer;
 import org.eclnt.workplace.IWorkpageDispatcher;

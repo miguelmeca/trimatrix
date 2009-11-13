@@ -6,7 +6,6 @@ import org.eclnt.workplace.Workpage;
 
 import trimatrix.entities.IEntityObject;
 import trimatrix.structures.SAuthorization;
-import trimatrix.ui.Dispatcher;
 import trimatrix.ui.EntityDetailUI;
 import trimatrix.utils.Constants.Mode;
 import trimatrix.utils.Constants.Page;
