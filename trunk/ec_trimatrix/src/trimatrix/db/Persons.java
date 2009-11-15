@@ -337,7 +337,6 @@ public class Persons implements java.io.Serializable, IEntityObject {
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
     @JoinColumn(name="coach_id")
     @IndexColumn(name="sequence") 
-    @OrderBy(clause="sequence")
 	public List<ZonesDefinition> getZonesDefinition() {
 		return zonesDefinition;
 	}

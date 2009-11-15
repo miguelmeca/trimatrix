@@ -11,7 +11,7 @@ MySQL - 5.1.33-community : Database - trimatrix
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`trimatrix` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`trimatrix` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
 USE `trimatrix`;
 
@@ -65,7 +65,7 @@ CREATE TABLE `competitions` (
 
 /*Data for the table `competitions` */
 
-insert  into `competitions`(`id`,`date`,`description`,`type`,`address`,`country_key`,`created_at`,`created_by`,`modified_at`,`modified_by`,`test`,`deleted`) values ('x96bcbd2-676d-102c-ace2-9cc3fca64c87','2010-08-31','Podersdorf','tria','Moosbach 28\n6392 St. Jakob','at','1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87','1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
+insert  into `competitions`(`id`,`date`,`description`,`type`,`address`,`country_key`,`created_at`,`created_by`,`modified_at`,`modified_by`,`test`,`deleted`) values ('x96bcbd2-676d-102c-ace2-9cc3fca64c87','2010-08-31','Podersdorf','tria','Moosbach 28\n6392 St. Jakob','at','1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87','1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('63df5d72-3d22-411f-affa-3c974318e790','2009-11-12','Ironman Kärnten','tria','Klagenfurt','at','2009-11-11 22:29:53','e96bcbd2-676d-102c-ace2-9cc3fca64c87',NULL,'e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('528e52ef-15ad-469c-bde6-6bd593c74984','2009-11-11','Test','tria','Test','de','2009-11-11 22:45:16','e96bcbd2-676d-102c-ace2-9cc3fca64c87',NULL,'e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('0d1edae8-a48a-4aa2-a9db-fdebd1acc15e','2009-11-13','Test 2','tria',NULL,NULL,'2009-11-11 22:51:25','e96bcbd2-676d-102c-ace2-9cc3fca64c87',NULL,'e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('ba76369e-5c2b-4814-a1ca-6229a2a2fa1a','2009-11-21','Test 3','tria',NULL,NULL,'2009-11-11 22:51:46','e96bcbd2-676d-102c-ace2-9cc3fca64c87',NULL,'e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
 
 /*Table structure for table `competitions_scouts` */
 
@@ -82,7 +82,7 @@ CREATE TABLE `competitions_scouts` (
 
 /*Data for the table `competitions_scouts` */
 
-insert  into `competitions_scouts`(`competition_id`,`scout_id`,`factors`) values ('x96bcbd2-676d-102c-ace2-9cc3fca64c87','0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL);
+insert  into `competitions_scouts`(`competition_id`,`scout_id`,`factors`) values ('x96bcbd2-676d-102c-ace2-9cc3fca64c87','0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL),('63df5d72-3d22-411f-affa-3c974318e790','0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL),('ba76369e-5c2b-4814-a1ca-6229a2a2fa1a','0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL),('0d1edae8-a48a-4aa2-a9db-fdebd1acc15e','0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL);
 
 /*Table structure for table `doctors` */
 
@@ -218,7 +218,7 @@ CREATE TABLE `k_functionnodes` (
 
 /*Data for the table `k_functionnodes` */
 
-insert  into `k_functionnodes`(`key`,`page`,`entity`,`edit`,`create`,`delete`) values ('masterdata',' ',' ',0,0,0),('users_all','ENTITYLIST','USER',1,1,1),('persons_all','ENTITYLIST','PERSON',1,1,1),('person_own','ENTITYDETAIL','PERSON',1,0,0),('coaches_own','ENTITYLIST','MYCOACHES',0,0,0),('athletes_own','ENTITYLIST','MYATHLETES',1,1,1),('relations','','',0,0,0),('relation_coach','RELATIONLIST','COACH',1,1,1),('relation_doctor','RELATIONLIST','DOCTOR',1,1,1),('doctors_all','ENTITYLIST','DOCTOR',1,1,1),('doctors_own','ENTITYLIST','MYDOCTORS',0,0,0),('attachments_all','ENTITYLIST','ATTACHMENT',1,1,1),('attachments_own','ENTITYLIST','MYATTACHMENTS',1,1,1),('relation_attachment','RELATIONLIST','ATTACHMENT',1,1,1),('tests_all','ENTITYLIST','TEST',1,1,1),('tests_own','ENTITYLIST','MYTESTS',0,0,0),('tests_coach','ENTITYLIST','COACHTESTS',1,1,1),('zones_coach','ZONESDEFINITION',' ',1,1,1),('zones_athlete','ZONESDETAIL',' ',0,0,0),('competitions_all','ENTITYLIST','COMPETITION',0,0,0),('competitions_own','ENTITYLIST','SCOUTCOMPETITIONS',1,1,1),('scouted_own','ENTITYLIST','MYSCOUTEDATHLETES',1,1,1),('results_scout','ENTITYLIST','SCOUTRESULTS',1,1,1),('relation_scout','RELATIONLIST','SCOUT',1,1,1),('results_all','ENTITYLIST','RESULT',1,1,1);
+insert  into `k_functionnodes`(`key`,`page`,`entity`,`edit`,`create`,`delete`) values ('masterdata',' ',' ',0,0,0),('users_all','ENTITYLIST','USER',1,1,1),('persons_all','ENTITYLIST','PERSON',1,1,1),('person_own','ENTITYDETAIL','PERSON',1,0,0),('coaches_own','ENTITYLIST','MYCOACHES',0,0,0),('athletes_own','ENTITYLIST','MYATHLETES',1,1,1),('relations','','',0,0,0),('relation_coach','RELATIONLIST','COACH',1,1,1),('relation_doctor','RELATIONLIST','DOCTOR',1,1,1),('doctors_all','ENTITYLIST','DOCTOR',1,1,1),('doctors_own','ENTITYLIST','MYDOCTORS',0,0,0),('attachments_all','ENTITYLIST','ATTACHMENT',1,1,1),('attachments_own','ENTITYLIST','MYATTACHMENTS',1,1,1),('relation_attachment','RELATIONLIST','ATTACHMENT',1,1,1),('tests_all','ENTITYLIST','TEST',1,1,1),('tests_own','ENTITYLIST','MYTESTS',0,0,0),('tests_coach','ENTITYLIST','COACHTESTS',1,1,1),('zones_coach','ZONESDEFINITION',' ',1,1,1),('zones_athlete','ZONESDETAIL',' ',0,0,0),('competitions_all','ENTITYLIST','COMPETITION',1,1,1),('competitions_own','ENTITYLIST','SCOUTCOMPETITIONS',1,1,1),('scouted_own','ENTITYLIST','MYSCOUTEDATHLETES',1,1,1),('results_scout','ENTITYLIST','SCOUTRESULTS',1,1,1),('relation_scout','RELATIONLIST','SCOUT',1,1,1),('results_all','ENTITYLIST','RESULT',1,1,1);
 
 /*Table structure for table `k_languages` */
 
@@ -332,7 +332,7 @@ CREATE TABLE `list_variants` (
 
 /*Data for the table `list_variants` */
 
-insert  into `list_variants`(`list`,`entity`,`user_id`,`columns_sequence`,`columns_width`) values ('entitylist','ATTACHMENT','e96bcbd2-676d-102c-ace2-9cc3fca64c87','0;2;1;3;4;5;6','25;232;100;100;100;100;100'),('entitylist','SCOUTCOMPETITIONS','e96bcbd2-676d-102c-ace2-9cc3fca64c87',NULL,'100;100;100;242;100'),('entitylist','COMPETITION','e96bcbd2-676d-102c-ace2-9cc3fca64c87','0;1;2;4;3','100;100;100;291;100');
+insert  into `list_variants`(`list`,`entity`,`user_id`,`columns_sequence`,`columns_width`) values ('entitylist','ATTACHMENT','e96bcbd2-676d-102c-ace2-9cc3fca64c87','0;2;1;3;4;5;6','25;232;100;100;100;100;100'),('entitylist','SCOUTCOMPETITIONS','e96bcbd2-676d-102c-ace2-9cc3fca64c87',NULL,'100;100;100;242;100'),('entitylist','COMPETITION','e96bcbd2-676d-102c-ace2-9cc3fca64c87','0;1;2;4;3;5','100;100;100;291;100');
 
 /*Table structure for table `persons` */
 
@@ -392,7 +392,7 @@ CREATE TABLE `persons_athlete` (
 
 /*Data for the table `persons_athlete` */
 
-insert  into `persons_athlete`(`id`,`height`,`height_unit`,`weight`,`weight_unit`,`max_hr`,`resting_hr`,`vo2_max`) values ('0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL,NULL,NULL,NULL,NULL,46,NULL),('10f52302-2ddb-11de-86ae-00301bb60f17',NULL,NULL,NULL,NULL,NULL,NULL,NULL),('7522bc7f-42cf-415c-a050-da12518a4cd3',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+insert  into `persons_athlete`(`id`,`height`,`height_unit`,`weight`,`weight_unit`,`max_hr`,`resting_hr`,`vo2_max`) values ('0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL,NULL,NULL,NULL,NULL,46,NULL),('10f52302-2ddb-11de-86ae-00301bb60f17',NULL,NULL,NULL,NULL,200,NULL,NULL),('7522bc7f-42cf-415c-a050-da12518a4cd3',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `persons_have_attachments` */
 
@@ -502,7 +502,7 @@ CREATE TABLE `results` (
 
 /*Data for the table `results` */
 
-insert  into `results`(`id`,`competition_id`,`scout_id`,`athlete_id`,`final_position`,`time`,`comment`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('42473dc1-e4f2-4408-910f-10b4e64a04c1','x96bcbd2-676d-102c-ace2-9cc3fca64c87','0b0b7658-2ddb-11de-86ae-00301bb60f17','10f52302-2ddb-11de-86ae-00301bb60f17','DSQ','01:01:25','TEst','2009-11-10 12:18:48','e96bcbd2-676d-102c-ace2-9cc3fca64c87',NULL,'e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
+insert  into `results`(`id`,`competition_id`,`scout_id`,`athlete_id`,`final_position`,`time`,`comment`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('42473dc1-e4f2-4408-910f-10b4e64a04c1','x96bcbd2-676d-102c-ace2-9cc3fca64c87','0b0b7658-2ddb-11de-86ae-00301bb60f17','10f52302-2ddb-11de-86ae-00301bb60f17','DSQ','01:01:25','TEst','2009-11-10 12:18:48','e96bcbd2-676d-102c-ace2-9cc3fca64c87',NULL,'e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('7fbe2262-8b66-465b-8070-8a59bb3c2d50','63df5d72-3d22-411f-affa-3c974318e790','0b0b7658-2ddb-11de-86ae-00301bb60f17','10f52302-2ddb-11de-86ae-00301bb60f17',NULL,NULL,NULL,'2009-11-11 22:33:23','e96bcbd2-676d-102c-ace2-9cc3fca64c87',NULL,'e96bcbd2-676d-102c-ace2-9cc3fca64c87',1,0),('89c8328f-7a18-4b35-9c5f-8275ccf4f5f4','0d1edae8-a48a-4aa2-a9db-fdebd1acc15e','0b0b7658-2ddb-11de-86ae-00301bb60f17','10f52302-2ddb-11de-86ae-00301bb60f17',NULL,NULL,NULL,'2009-11-11 23:00:54','e96bcbd2-676d-102c-ace2-9cc3fca64c87',NULL,'e96bcbd2-676d-102c-ace2-9cc3fca64c87',1,0),('e0729fb3-ba68-46ca-badc-21a24187953c','ba76369e-5c2b-4814-a1ca-6229a2a2fa1a','0b0b7658-2ddb-11de-86ae-00301bb60f17','10f52302-2ddb-11de-86ae-00301bb60f17','5','01:01:30','Fünfter Platz','2009-11-15 22:45:25','e96bcbd2-676d-102c-ace2-9cc3fca64c87',NULL,'e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
 
 /*Table structure for table `results_tria` */
 
@@ -525,7 +525,7 @@ CREATE TABLE `results_tria` (
 
 /*Data for the table `results_tria` */
 
-insert  into `results_tria`(`id`,`category`,`swim_split`,`run_split`,`swim_position`,`run_position`,`best_swim_split`,`best_run_split`,`swim_deficit`,`run_deficit`,`swimsuit`) values ('42473dc1-e4f2-4408-910f-10b4e64a04c1','M20','00:35:00','00:31:25','20','2','00:25:05','00:31:20','15:23','15:12',0);
+insert  into `results_tria`(`id`,`category`,`swim_split`,`run_split`,`swim_position`,`run_position`,`best_swim_split`,`best_run_split`,`swim_deficit`,`run_deficit`,`swimsuit`) values ('42473dc1-e4f2-4408-910f-10b4e64a04c1','M20','00:35:00','00:32:00','20','3','00:19:40','00:00:59','15:20','31:01',1),('7fbe2262-8b66-465b-8070-8a59bb3c2d50','W20','00:30:00','00:30:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL),('89c8328f-7a18-4b35-9c5f-8275ccf4f5f4','W40','01:00:00','00:45:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL),('e0729fb3-ba68-46ca-badc-21a24187953c','W20','00:30:00','00:29:00',NULL,NULL,NULL,NULL,NULL,NULL,1);
 
 /*Table structure for table `roles_have_functionnodes` */
 
@@ -650,7 +650,7 @@ CREATE TABLE `t_functionnodes` (
 
 /*Data for the table `t_functionnodes` */
 
-insert  into `t_functionnodes`(`key`,`language_key`,`description`,`description_long`) values ('persons_all','de','Personen','Personen'),('persons_all','en','Persons','Persons'),('users_all','de','Benutzer','Benutzer'),('users_all','en','Users','Users'),('masterdata','de','Stammdaten','Stammdaten'),('masterdata','en','Masterdata','Masterdata'),('person_own','de','Eigene Person','Eigene Person'),('person_own','en','My person','My person'),('coaches_own','de','Meine Trainer','Meine Trainer'),('coaches_own','en','My Coaches','My Coaches'),('athletes_own','de','Meine Athleten','Meine Athleten'),('athletes_own','en','My Athletes','My Athletes'),('relations','de','Beziehungen','Beziehungen'),('relations','en','Relationships','Relationships'),('relation_coach','de','Trainer','Trainer'),('relation_coach','en','Coaches','Coaches'),('relation_doctor','de','Ärzte','Ärzte'),('relation_doctor','en','Doctors','Doctors'),('doctors_all','de','Ärzte','Ärzte'),('doctors_all','en','Doctors','Doctors'),('doctors_own','de','Meine Ärzte','Meine Ärzte'),('doctors_own','en','My Doctors','My Doctors'),('attachments_all','de','Anhänge','Anhänge'),('attachments_all','en','Attachments','Attachments'),('attachments_own','de','Meine Anhänge','Meine Anhänge'),('attachments_own','en','My Attachments','My Attachments'),('relation_attachment','de','Anhänge','Anhänge'),('relation_attachment','en','Attachments','Attachments'),('tests_all','de','Tests','Tests'),('tests_own','de','Meine Tests','Meine Tests'),('tests_coach','de','Meine Tests','Meine Tests'),('zones_coach','de','Trainingsbereiche','Trainingsbereiche'),('zones_coach','en','Excercise Zones','Exercise Zones'),('zones_athlete','de','Trainingsbereiche','Trainingsbereiche'),('zones_athlete','en','My Zones','My Zones'),('competitions_all','de','Wettkämpfe','Wettkämpfe'),('competitions_all','en','Competitions','Competitions'),('competitions_own','de','Meine Wettkämpfe','Meine Wettkämpfe'),('competitions_own','en','My Competitions','My Competitions'),('scouted_own','de','Meine Athleten','Meine Athleten'),('scouted_own','en','My Athletes','My Athletes'),('results_scout','de','Ergebnisse','Ergebnisse'),('results_scout','en','Results','Results'),('relation_scout','de','Scouter','Scouter'),('relation_scout','en','Scout','Scout'),('results_all','de','Ergebnisse','Ergebnisse'),('results_all','en','Results','Results');
+insert  into `t_functionnodes`(`key`,`language_key`,`description`,`description_long`) values ('persons_all','de','Personen','Personen'),('persons_all','en','Persons','Persons'),('users_all','de','Benutzer','Benutzer'),('users_all','en','Users','Users'),('masterdata','de','Stammdaten','Stammdaten'),('masterdata','en','Masterdata','Masterdata'),('person_own','de','Eigene Person','Eigene Person'),('person_own','en','My person','My person'),('coaches_own','de','Meine Trainer','Meine Trainer'),('coaches_own','en','My Coaches','My Coaches'),('athletes_own','de','Meine Athleten','Meine Athleten'),('athletes_own','en','My Athletes','My Athletes'),('relations','de','Beziehungen','Beziehungen'),('relations','en','Relationships','Relationships'),('relation_coach','de','Trainer','Trainer'),('relation_coach','en','Coaches','Coaches'),('relation_doctor','de','Ärzte','Ärzte'),('relation_doctor','en','Doctors','Doctors'),('doctors_all','de','Ärzte','Ärzte'),('doctors_all','en','Doctors','Doctors'),('doctors_own','de','Meine Ärzte','Meine Ärzte'),('doctors_own','en','My Doctors','My Doctors'),('attachments_all','de','Anhänge','Anhänge'),('attachments_all','en','Attachments','Attachments'),('attachments_own','de','Meine Anhänge','Meine Anhänge'),('attachments_own','en','My Attachments','My Attachments'),('relation_attachment','de','Anhänge','Anhänge'),('relation_attachment','en','Attachments','Attachments'),('tests_all','de','Tests','Tests'),('tests_own','de','Meine Tests','Meine Tests'),('tests_coach','de','Meine Tests','Meine Tests'),('zones_coach','de','Trainingsbereiche','Trainingsbereiche'),('zones_coach','en','Excercise Zones','Exercise Zones'),('zones_athlete','de','Trainingsbereiche','Trainingsbereiche'),('zones_athlete','en','My Zones','My Zones'),('competitions_all','de','Wettkämpfe','Wettkämpfe'),('competitions_all','en','Competitions','Competitions'),('competitions_own','de','Meine Wettkämpfe','Meine Wettkämpfe'),('competitions_own','en','My Competitions','My Competitions'),('scouted_own','de','Meine Athleten','Meine Athleten'),('scouted_own','en','My Athletes','My Athletes'),('results_scout','de','Ergebnisse','Ergebnisse'),('results_scout','en','Results','Results'),('relation_scout','de','Scouter','Scouter'),('relation_scout','en','Scout','Scout'),('results_all','de','Ergebnisse','Ergebnisse'),('results_all','en','Results','Results'),('adminpanel','de','Admin Konsole','Admin Konsole');
 
 /*Table structure for table `t_languages` */
 
@@ -944,6 +944,8 @@ CREATE TABLE `users` (
   `active` tinyint(1) DEFAULT '1' COMMENT 'user is active',
   `person_id` varchar(36) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
+  `last_login` datetime DEFAULT NULL,
+  `last_login_ip` varchar(20) DEFAULT NULL,
   `created_at` datetime DEFAULT '1900-01-01 00:00:00',
   `created_by` varchar(36) DEFAULT NULL COMMENT 'Datensatz erstellt von',
   `modified_at` datetime DEFAULT '1900-01-01 00:00:00',
@@ -959,7 +961,7 @@ CREATE TABLE `users` (
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`user_name`,`user_hash`,`language_key`,`currency_key`,`locked`,`initial`,`active`,`person_id`,`email`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('e96bcbd2-676d-102c-ace2-9cc3fca64c87','reich','test','de','eur',0,0,1,'0b0b7658-2ddb-11de-86ae-00301bb60f17','reich.markus@gmail.com','1900-01-01 00:00:00','','1900-01-01 00:00:00','',0,0),('e96bcbd2-676d-102c-ace2-9cc3fca64c88','bucher','test','en','usd',0,0,1,'10f52302-2ddb-11de-86ae-00301bb60f17','dany.bucher@gmail.com','1900-01-01 00:00:00','','2009-06-21 17:04:39','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('e96bcbd2-676d-102c-ace2-9cc3fca64c89','mach','test','de','eur',0,0,1,'7522bc7f-42cf-415c-a050-da12518a4cd3','mach.thomas@gmail.com','1900-01-01 00:00:00','','1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('1c203729-ac8a-424a-960a-85ed6dae03d7','diechtler',NULL,'en',NULL,0,0,0,NULL,'marcel.diechtler@gmail.com','2009-09-14 19:02:37','e96bcbd2-676d-102c-ace2-9cc3fca64c87',NULL,'e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
+insert  into `users`(`id`,`user_name`,`user_hash`,`language_key`,`currency_key`,`locked`,`initial`,`active`,`person_id`,`email`,`last_login`,`last_login_ip`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('e96bcbd2-676d-102c-ace2-9cc3fca64c87','reich','test','de','eur',0,0,1,'0b0b7658-2ddb-11de-86ae-00301bb60f17','reich.markus@gmail.com','2009-11-15 23:09:42','169.254.1.10','1900-01-01 00:00:00','','1900-01-01 00:00:00','',0,0),('e96bcbd2-676d-102c-ace2-9cc3fca64c88','bucher','test','en','usd',0,0,1,'10f52302-2ddb-11de-86ae-00301bb60f17','dany.bucher@gmail.com',NULL,NULL,'1900-01-01 00:00:00','','2009-06-21 17:04:39','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('e96bcbd2-676d-102c-ace2-9cc3fca64c89','mach','test','de','eur',0,0,1,'7522bc7f-42cf-415c-a050-da12518a4cd3','mach.thomas@gmail.com',NULL,NULL,'1900-01-01 00:00:00','','1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('1c203729-ac8a-424a-960a-85ed6dae03d7','diechtler',NULL,'en',NULL,0,0,0,NULL,'marcel.diechtler@gmail.com',NULL,NULL,'2009-09-14 19:02:37','e96bcbd2-676d-102c-ace2-9cc3fca64c87',NULL,'e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
 
 /*Table structure for table `users_have_authorizations` */
 
@@ -1042,10 +1044,10 @@ DROP TABLE IF EXISTS `entities`;
 /*!50001 DROP TABLE IF EXISTS `entities` */;
 
 /*!50001 CREATE TABLE `entities` (
-  `id` varchar(36) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  `entity` varchar(11) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `id` varchar(36) NOT NULL DEFAULT '',
+  `entity` varchar(11) NOT NULL DEFAULT '',
   `deleted` tinyint(4) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 */;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 */;
 
 /*Table structure for table `relations` */
 
@@ -1055,11 +1057,11 @@ DROP TABLE IF EXISTS `relations`;
 /*!50001 DROP TABLE IF EXISTS `relations` */;
 
 /*!50001 CREATE TABLE `relations` (
-  `id` varchar(36) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  `partner1` varchar(36) CHARACTER SET utf8 DEFAULT NULL,
-  `partner2` varchar(36) CHARACTER SET utf8 DEFAULT NULL,
-  `reltyp_key` varchar(10) CHARACTER SET utf8 DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 */;
+  `id` varchar(36) NOT NULL DEFAULT '',
+  `partner1` varchar(36) DEFAULT NULL,
+  `partner2` varchar(36) DEFAULT NULL,
+  `reltyp_key` varchar(10) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 */;
 
 /*View structure for view entities */
 

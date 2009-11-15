@@ -42,6 +42,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 	public Constants.Entity getEntity() { return entity; }
 	private SAuthorization authorization;
 	private String personId;
+	private String filter;
 	public boolean getCreateAllowed() { return authorization.create; }
 	public boolean getDeleteAllowed() { return authorization.delete; }
 	public boolean getChangeAllowed() { return authorization.change; }	
@@ -74,13 +75,15 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 		}
 		// get entity id
 		personId = getWorkpage().getParam(Constants.P_PERSON);
+		// get filter
+		filter = getWorkpage().getParam(Constants.P_FILTER);
 		// set up grid output		
-		gridMetaData = ENTITYLISTLOGIC.getGridMetaData(entity);		
+		gridMetaData = ENTITYLISTLOGIC.getGridMetaData(entity, filter);		
 		// if base is a relation, add standard column		
 		if(entity.hasStandard()) {
 			gridMetaData.add(0, new SGridMetaData("#{rr.literals.standard}", Constants.STANDARD, SGridMetaData.Component.CHECKBOX));       
 		}
-		buildData();
+		buildData(filter);
 	}
 	
 	// Constructor for LabelSearchResult
@@ -91,7 +94,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 		this.authorization = authorization;	
 		this.entity = entity;
 		personId = null;
-		gridMetaData = ENTITYLISTLOGIC.getGridMetaData(entity);
+		gridMetaData = ENTITYLISTLOGIC.getGridMetaData(entity, null);
 		buildData(ids);
 	}
 
@@ -157,7 +160,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 	}
 
 	public void onRefresh(ActionEvent event) {
-		buildData();
+		buildData(filter);
 	}
 
 	public void onNew(ActionEvent event) {
@@ -211,9 +214,9 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 	}
 
 	// common build method
-	private void buildData() {
+	private void buildData(String filter) {
 		// load entities from database
-		gridData = ENTITYLISTLOGIC.getData(entity, personId);
+		gridData = ENTITYLISTLOGIC.getData(entity, personId, filter);
 		// rebuild grid list
 		m_gridList.getItems().clear();
 		for (IEntityData datum : gridData) {

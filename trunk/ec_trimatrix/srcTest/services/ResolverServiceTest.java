@@ -20,10 +20,10 @@ public class ResolverServiceTest {
 	public void testGetGridMetaData() {
 		ResolverService resolverService = ResolverService.getFromApplicationContext(context);
 		// user entity
-		List<SGridMetaData> userMetaData = resolverService.getGridMetaData(Constants.Entity.USER);
+		List<SGridMetaData> userMetaData = resolverService.getGridMetaData(Constants.Entity.USER, Constants.NO_FILTER);
 		Assert.assertTrue(userMetaData.size()>0);
 		// person entity
-		List<SGridMetaData> personMetaData = resolverService.getGridMetaData(Constants.Entity.PERSON);
+		List<SGridMetaData> personMetaData = resolverService.getGridMetaData(Constants.Entity.PERSON, Constants.NO_FILTER);
 		Assert.assertTrue(personMetaData.size()>0);
 		
 	}

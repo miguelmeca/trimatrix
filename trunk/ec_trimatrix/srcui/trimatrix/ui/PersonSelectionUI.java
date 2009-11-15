@@ -36,7 +36,7 @@ public class PersonSelectionUI extends EntitySelectionUI implements Serializable
     
     public void buildData(Entity entity) {
 		// load entities from database
-		gridData = ENTITYLISTLOGIC.getData(entity);	
+		gridData = ENTITYLISTLOGIC.getData(entity, Constants.NO_FILTER);	
 		// rebuild grid list
 		m_gridList.getItems().clear();
 		for (IEntityData datum : gridData) {	

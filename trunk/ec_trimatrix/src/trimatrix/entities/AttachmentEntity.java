@@ -74,7 +74,7 @@ public class AttachmentEntity extends AEntity {
 		return result.get(0);
 	}	
 
-	public List<IEntityData> getData(Entity entity) {
+	public List<IEntityData> getData(Entity entity, String filter) {
 		if (entity == Constants.Entity.ATTACHMENT) {
         	return sqlExecutorService.getAttachmentEntities();
         } else if (entity == Constants.Entity.MYATTACHMENTS) {
@@ -84,7 +84,7 @@ public class AttachmentEntity extends AEntity {
         }
 	}
 	
-	public List<IEntityData> getData(Entity entity, String personId) {
+	public List<IEntityData> getData(Entity entity, String personId, String filter) {
 		if (entity == Constants.Entity.ATTACHMENT) {
         	return sqlExecutorService.getAttachmentRelationEntities(personId, Constants.Relation.ATTACHMENT);
         } else {

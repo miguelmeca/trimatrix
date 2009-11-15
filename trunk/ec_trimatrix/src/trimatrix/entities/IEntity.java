@@ -10,13 +10,15 @@ import trimatrix.utils.Constants;
 public interface IEntity {	
 
 	public abstract List<SGridMetaData> getGridMetaData();
+	
+	public abstract List<SGridMetaData> getGridMetaData(String filter);
 
 	public abstract List<IEntityData> getData(Constants.Entity entity,
-			String personId);
+			String personId, String filter);
 	
 	public abstract List<IEntityData> getData(List<String> ids);
 
-	public abstract List<IEntityData> getData(Constants.Entity entity);
+	public abstract List<IEntityData> getData(Constants.Entity entity, String filter);
 	
 	public abstract IEntityData getData(String id);
 

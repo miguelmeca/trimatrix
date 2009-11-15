@@ -196,12 +196,15 @@ public final class Constants {
 	public static final String P_MODE = "mode";
 	public static final String P_SCOUTCOMPETITION = "scoutcompetition";
 	public static final String P_ATHLETE = "athlete";
+	public static final String P_FILTER = "filter";
 	
 	public static final String CREATE = "create";
 	public static final String CHANGE = "change";
 	public static final String DELETE = "delete";
 	public static final String ISRELATION = "isrelation";
 	public static final String STANDARD = "standard";
+	
+	public static final String NO_FILTER = "no_filter";
 		
 	public static final String BGP_MANDATORY = "mandatory()";
 	// constants for file extension

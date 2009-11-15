@@ -1,5 +1,6 @@
 package trimatrix.entities;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -18,6 +19,8 @@ public final class UserEntity extends AEntity {
 	public static final String ACTIVE = "active";
 	public static final String INITIAL = "initial";
 	public static final String LOCKED = "locked";	
+	public static final String LASTLOGON = "last_logon";
+	public static final String LASTLOGONIP = "last_logon_ip";	
 	
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IUserEntity#getGridMetaData()
@@ -32,20 +35,22 @@ public final class UserEntity extends AEntity {
         gridMetaData.add(new SGridMetaData("gesperrt", LOCKED, SGridMetaData.Component.CHECKBOX));
         gridMetaData.add(new SGridMetaData("initial", INITIAL, SGridMetaData.Component.CHECKBOX));
         gridMetaData.add(new SGridMetaData("aktiv", ACTIVE, SGridMetaData.Component.CHECKBOX));
+        gridMetaData.add(new SGridMetaData("Letzter Logon", LASTLOGON, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData("IP letzter Logon", LASTLOGONIP, SGridMetaData.Component.CALENDARFIELD));
         return gridMetaData;
     }	
 	
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#getData(trimatrix.utils.Constants.Entity)
 	 */
-	public List<IEntityData> getData(Constants.Entity entity) {
+	public List<IEntityData> getData(Constants.Entity entity, String filter) {
 		return getData();
 	}
 	
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#getData(trimatrix.utils.Constants.Entity, java.lang.String)
 	 */
-	public List<IEntityData> getData(Constants.Entity entity, String personId) {
+	public List<IEntityData> getData(Constants.Entity entity, String personId, String filter) {
 		return getData();
 	}
 	
@@ -84,6 +89,8 @@ public final class UserEntity extends AEntity {
 		public boolean locked;
 		public boolean initial;
 		public boolean active;		
+		public Timestamp last_logon;
+		public String last_logon_ip;
 		
 		/* (non-Javadoc)
 		 * @see trimatrix.entities.IEntityData#getId()
@@ -128,6 +135,14 @@ public final class UserEntity extends AEntity {
 
 		public boolean getActive() {
 			return active;
+		}
+
+		public Timestamp getLast_logon() {
+			return last_logon;
+		}
+
+		public String getLast_logon_ip() {
+			return last_logon_ip;
 		}		
 	}	
 }

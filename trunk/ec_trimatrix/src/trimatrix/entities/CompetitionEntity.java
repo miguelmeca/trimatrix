@@ -26,6 +26,9 @@ public final class CompetitionEntity extends AEntity {
     public static final String COUNTRY = "country";
     public static final String RESULTS = "results";
     
+    // Comp Types
+    public static final String TRIATHLON = "tria";
+    
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IUserEntity#getGridMetaData()
 	 */
@@ -50,7 +53,7 @@ public final class CompetitionEntity extends AEntity {
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#getData(trimatrix.utils.Constants.Entity)
 	 */
-	public List<IEntityData> getData(Constants.Entity entity) {
+	public List<IEntityData> getData(Constants.Entity entity, String filter) {
 		if (entity == Constants.Entity.COMPETITION) {
 			return sqlExecutorService.getCompetitionEntities();
         } else if (entity == Constants.Entity.MYCOMPETITIONS) {
@@ -65,7 +68,7 @@ public final class CompetitionEntity extends AEntity {
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#getData(trimatrix.utils.Constants.Entity, java.lang.String)
 	 */
-	public List<IEntityData> getData(Constants.Entity entity, String personId) {		
+	public List<IEntityData> getData(Constants.Entity entity, String personId, String filter) {		
 		return null;		
 	}
 	
