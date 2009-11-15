@@ -1,6 +1,7 @@
 package trimatrix.ui;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoCancelListener;
 import org.eclnt.jsfserver.elements.events.BaseActionEventDrop;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDTreeItem;
+import org.eclnt.jsfserver.elements.util.ValidValuesBinding.ValidValue;
 import org.eclnt.jsfserver.managedbean.IDispatcher;
 import org.eclnt.workplace.IWorkpage;
 import org.eclnt.workplace.IWorkpageContainer;
@@ -255,13 +257,26 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 						FunctionNode results_node = new FunctionNode(athlete_node, Constants.Page.ENTITYLIST.getUrl());
 						pageId = Constants.Entity.MYRESULTS.name() + ":" + athlete.getId();
 						results_node.setId(pageId);
-						results_node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
+						results_node.setStatus(FIXGRIDTreeItem.STATUS_CLOSED);
 						results_node.setOpenMultipleInstances(false);
 						results_node.setText(Helper.getLiteral("results"));
 						results_node.setParam(Constants.P_PERSON, athlete.getId());
 						results_node.setParam(Constants.P_ENTITY, Constants.Entity.MYRESULTS.name());
-						// authorization => coach is allowed to manually change
-						// values
+						// node per type of result e.g. triathlon
+						Iterator<ValidValue> iterator = FUNCTIONTREELOGIC.getCompetitionTypes();
+						while(iterator.hasNext()) {
+							ValidValue value = iterator.next();
+							FunctionNode results_type_node = new FunctionNode(results_node, Constants.Page.ENTITYLIST.getUrl());
+							pageId = Constants.Entity.MYRESULTS.name() + ":" + value.getValue() + ":" + athlete.getId();
+							results_type_node.setId(pageId);
+							results_type_node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
+							results_type_node.setOpenMultipleInstances(false);
+							results_type_node.setText(value.getText());
+							results_type_node.setParam(Constants.P_PERSON, athlete.getId());
+							results_type_node.setParam(Constants.P_FILTER, value.getValue());
+							results_type_node.setParam(Constants.P_ENTITY, Constants.Entity.MYRESULTS.name());							
+						}
+						// authorization => coach is allowed to manually change values
 						FUNCTIONTREELOGIC.setAuthority(functionTree, results_node);
 					}
 				}

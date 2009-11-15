@@ -61,6 +61,7 @@ public class SQLExecutorService {
 	private static final String COMPETITIONRELATIONENTITYQUERY = "CompetitionRelationEntityList";
 	private static final String COMPETITIONSCOUTRELATIONENTITYQUERY = "CompetitionScoutRelationEntityList";
 	private static final String RESULTENTITYLISTQUERY = "ResultEntityList";	
+	private static final String RESULTTRIAENTITYLISTQUERY = "ResultTriaEntityList";	
 	private static final String PERSONPERSONQUERY = "PersonPersonRelationList";
 	private static final String PERSONDOCTORQUERY = "PersonDoctorRelationList";
 	private static final String PERSONATTACHMENTQUERY = "PersonAttachmentRelationList";
@@ -146,6 +147,8 @@ public class SQLExecutorService {
 			datum.locked = (Boolean)line[i++];
 			datum.initial = (Boolean)line[i++];
 			datum.active = (Boolean)line[i++];
+			datum.last_logon = (Timestamp)line[i++];
+			datum.last_logon_ip = (String)line[i++];
 			data.add(datum);
 		}
 		session.close();
@@ -523,11 +526,14 @@ public class SQLExecutorService {
 	 * @return	result entities
 	 */
 	@SuppressWarnings("unchecked")
-	public List<IEntityData> getResultEntities(String lang_key, String id, String competitionId, String scoutId, String athleteId, boolean deleted, boolean test) {
+	public List<IEntityData> getResultEntities(String lang_key, String id, String competitionId, String scoutId, String athleteId, String compType, boolean deleted, boolean test) {
 		List<IEntityData> data = new ArrayList<IEntityData>();
 		SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Query query = session.getNamedQuery(RESULTENTITYLISTQUERY);
+		if(CompetitionEntity.TRIATHLON.equals(compType)) {
+			query = session.getNamedQuery(RESULTTRIAENTITYLISTQUERY);
+		}
 		//query.setString("p_lang_key", lang_key);
 		query.setBoolean("p_deleted", deleted);
 		query.setBoolean("p_test", test);
@@ -567,22 +573,34 @@ public class SQLExecutorService {
 			datum.final_position = (String)line[i++];	
 			datum.time = (String)line[i++];
 			datum.comment = (String)line[i++];	
+			// triathlon
+			if(CompetitionEntity.TRIATHLON.equals(compType)) {
+				datum.category_tria = (String)line[i++];	
+			}
 			data.add(datum);
 		}
 		session.close();
 		return data;
-	}
+	}	
 	
 	/**
 	 * Get all results
 	 * @return
 	 */
 	public List<IEntityData> getResultEntities() {
-		return getResultEntities(dictionaryService.getLanguage(), null, null, null, null, false, false);
+		return getResultEntities(dictionaryService.getLanguage(), null, null, null, null, null, false, false);
 	}
 	
-	public List<IEntityData> getResultEntities(String id, String competitionId, String scoutId, String athleteId) {
-		return getResultEntities(dictionaryService.getLanguage(), id, competitionId, scoutId, athleteId, false, false);
+	/**
+	 * @param id	ID
+	 * @param competitionId	Competition ID
+	 * @param scoutId	Scout ID
+	 * @param athleteId	Athlete ID
+	 * @param compType	Competition Type
+	 * @return	Result entities
+	 */
+	public List<IEntityData> getResultEntities(String id, String competitionId, String scoutId, String athleteId, String compType) {
+		return getResultEntities(dictionaryService.getLanguage(), id, competitionId, scoutId, athleteId, compType, false, false);
 	}
 	
 	/**

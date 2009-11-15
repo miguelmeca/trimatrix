@@ -78,7 +78,7 @@ public final class PersonEntity extends AEntity {
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#getData(trimatrix.utils.Constants.Entity)
 	 */
-	public List<IEntityData> getData(Constants.Entity entity) {
+	public List<IEntityData> getData(Constants.Entity entity, String filter) {
 		if (entity == Constants.Entity.PERSON) {
         	return sqlExecutorService.getPersonEntities();
         } else if (entity == Constants.Entity.MYATHLETES) {
@@ -99,7 +99,7 @@ public final class PersonEntity extends AEntity {
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#getData(trimatrix.utils.Constants.Entity, java.lang.String)
 	 */
-	public List<IEntityData> getData(Constants.Entity entity, String personId) {
+	public List<IEntityData> getData(Constants.Entity entity, String personId, String filter) {
 		if (entity == Constants.Entity.PERSON) {
         	return sqlExecutorService.getPersonRelationEntities(personId, Constants.Relation.COACH, true);
         } else {

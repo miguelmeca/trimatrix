@@ -12,7 +12,9 @@ SELECT
   TRIM(CONCAT(persons.name_first,' ', persons.name_last)) person,
   users.locked,
   users.initial,
-  users.active
+  users.active,
+  users.last_logon,
+  users.last_logon_ip
 FROM users
   LEFT JOIN t_languages
     ON t_languages.key = users.language_key
@@ -33,6 +35,8 @@ WHERE users.test = :p_test
   <return-scalar column="locked" type="java.lang.Boolean"/>
   <return-scalar column="initial" type="java.lang.Boolean"/>
   <return-scalar column="active" type="java.lang.Boolean"/>
+  <return-scalar column="last_logon" type="java.sql.Timestamp"/>
+  <return-scalar column="last_logon_ip" type="java.lang.String"/>
 </sql-query>
  
 <sql-query cacheable="true" name="PersonEntityList" read-only="true">
@@ -643,7 +647,7 @@ WHERE results.test = :p_test
     AND (results.scout_id = :p_scout
           OR 0 = :p_scout_on)
     AND (results.athlete_id = :p_athlete
-          OR 0 = :p_athlete_on)
+          OR 0 = :p_athlete_on)    
 ORDER BY results.created_at DESC
   <return-scalar column="id" type="java.lang.String"/>
   <return-scalar column="competition" type="java.lang.String"/>
@@ -652,6 +656,46 @@ ORDER BY results.created_at DESC
   <return-scalar column="final_position" type="java.lang.String"/>
   <return-scalar column="time" type="java.lang.String"/>
   <return-scalar column="comment" type="java.lang.String"/>
+</sql-query> 
+
+<sql-query cacheable="true" name="ResultTriaEntityList" read-only="true">
+ SELECT
+  results.id,
+  competitions.description competition,
+  TRIM(CONCAT(scouts.name_first,' ', scouts.name_last)) scout,
+  TRIM(CONCAT(athletes.name_first,' ', athletes.name_last)) athlete,
+  results.final_position,
+  results.time,
+  results.comment,
+  results_tria.category
+FROM results
+  JOIN results_tria
+    ON results_tria.id = results.id
+  LEFT OUTER JOIN competitions
+    ON competitions.id = results.competition_id
+  LEFT OUTER JOIN persons scouts
+    ON scouts.id = results.scout_id
+  LEFT OUTER JOIN persons athletes
+    ON athletes.id = results.athlete_id
+WHERE results.test = :p_test
+    AND results.deleted = :p_deleted
+    AND (results.id = :p_id
+          OR 0 = :p_id_on)
+    AND (results.competition_id = :p_competition
+          OR 0 = :p_competition_on)
+    AND (results.scout_id = :p_scout
+          OR 0 = :p_scout_on)
+    AND (results.athlete_id = :p_athlete
+          OR 0 = :p_athlete_on)    
+ORDER BY results.created_at DESC
+  <return-scalar column="id" type="java.lang.String"/>
+  <return-scalar column="competition" type="java.lang.String"/>
+  <return-scalar column="scout" type="java.lang.String"/>
+  <return-scalar column="athlete" type="java.lang.String"/>
+  <return-scalar column="final_position" type="java.lang.String"/>
+  <return-scalar column="time" type="java.lang.String"/>
+  <return-scalar column="comment" type="java.lang.String"/>
+  <return-scalar column="category" type="java.lang.String"/>
 </sql-query> 
  
  <sql-query cacheable="true" name="LanguageValueList"

@@ -11,6 +11,7 @@ import org.springframework.orm.hibernate3.HibernateTransactionManager;
 import trimatrix.db.DAOLayer;
 import trimatrix.db.IEntityDAO;
 import trimatrix.services.SQLExecutorService;
+import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Dictionary;
 
 public abstract class AEntity implements IEntity{	
@@ -18,6 +19,7 @@ public abstract class AEntity implements IEntity{
 	
 	// Variables
 	protected SQLExecutorService sqlExecutorService;
+
 	protected Dictionary dictionaryService;
 	protected DAOLayer daoLayer;
 	protected HibernateTransactionManager transactionManager;
@@ -78,6 +80,11 @@ public abstract class AEntity implements IEntity{
 			data.add(datum);
 		}
 		return data;
+	}
+	
+	public List<SGridMetaData> getGridMetaData(String filter) {
+		// if not implemented delegate to general function
+		return getGridMetaData();
 	}
 	
 	public void setSqlExecutorService(SQLExecutorService sqlExecutorService) {

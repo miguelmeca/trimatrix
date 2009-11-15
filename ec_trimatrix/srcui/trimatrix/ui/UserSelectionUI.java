@@ -69,7 +69,7 @@ public class UserSelectionUI extends MyWorkpageDispatchedBean implements Seriali
     
     private void buildData() {
 		// load entities from database
-		gridData = ENTITYLISTLOGIC.getData(Constants.Entity.USER);	
+		gridData = ENTITYLISTLOGIC.getData(Constants.Entity.USER, Constants.NO_FILTER);	
 		// rebuild grid list
 		m_gridList.getItems().clear();
 		for (IEntityData datum : gridData) {	

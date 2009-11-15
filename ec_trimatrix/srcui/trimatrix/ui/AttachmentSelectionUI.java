@@ -35,7 +35,7 @@ public class AttachmentSelectionUI extends EntitySelectionUI implements Serializ
     
     public void buildData(Entity entity) {
 		// load entities from database
-		gridData = ENTITYLISTLOGIC.getData(entity);	
+		gridData = ENTITYLISTLOGIC.getData(entity, Constants.NO_FILTER);	
 		// rebuild grid list
 		m_gridList.getItems().clear();
 		for (IEntityData datum : gridData) {	

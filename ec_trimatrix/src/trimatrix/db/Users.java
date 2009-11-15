@@ -39,6 +39,8 @@ public class Users implements java.io.Serializable, IEntityObject {
 	private Boolean active;
 	private String personId;
 	private String email;
+	private Timestamp lastLogin;
+	private String lastLoginIp;
 	private Timestamp createdAt;
 	private String createdBy;
 	private Timestamp modifiedAt;
@@ -66,6 +68,7 @@ public class Users implements java.io.Serializable, IEntityObject {
 	public Users(String id, String userName, String userHash,
 			String languageKey, String currencyKey, Boolean locked,
 			Boolean initial, Boolean active, String personId, String email,
+			Timestamp lastLogin, String lastLoginIp,
 			Timestamp createdAt, String createdBy, Timestamp modifiedAt,
 			String modifiedBy, Boolean deleted, Boolean test) {
 		this.id = id;
@@ -78,6 +81,8 @@ public class Users implements java.io.Serializable, IEntityObject {
 		this.active = active;
 		this.personId = personId;
 		this.email = email;
+		this.lastLogin = lastLogin;
+		this.lastLoginIp = lastLoginIp;
 		this.createdAt = createdAt;
 		this.createdBy = createdBy;
 		this.modifiedAt = modifiedAt;
@@ -177,6 +182,24 @@ public class Users implements java.io.Serializable, IEntityObject {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	@Column(name = "last_login", length = 19)
+	public Timestamp getLastLogin() {
+		return lastLogin;
+	}
+
+	public void setLastLogin(Timestamp lastLogin) {
+		this.lastLogin = lastLogin;
+	}
+
+	@Column(name = "last_login_ip")
+	public String getLastLoginIp() {
+		return lastLoginIp;
+	}
+
+	public void setLastLoginIp(String lastLoginIp) {
+		this.lastLoginIp = lastLoginIp;
 	}
 
 	@Column(name = "created_at", length = 19)

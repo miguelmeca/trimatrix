@@ -1,8 +1,11 @@
 package trimatrix.logic;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
+import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
+import org.eclnt.jsfserver.elements.util.ValidValuesBinding.ValidValue;
 import org.eclnt.workplace.WorkplaceFunctionTree.FunctionNode;
 import org.springframework.dao.DataIntegrityViolationException;
 
@@ -22,6 +25,7 @@ import trimatrix.relations.RelationLayer;
 import trimatrix.services.ServiceLayer;
 import trimatrix.structures.SFunctionTree;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Constants.ValueList;
 
 public class FunctionTreeLogic {
 	private EntityLayer entityLayer;
@@ -30,11 +34,16 @@ public class FunctionTreeLogic {
 	private ServiceLayer serviceLayer;
 
 	public List<IEntityData> getMyAthletes() {
-		return entityLayer.getPersonEntity().getData(Constants.Entity.MYATHLETES);
+		return entityLayer.getPersonEntity().getData(Constants.Entity.MYATHLETES, Constants.NO_FILTER);
 	}
 	
 	public List<IEntityData> getMyScoutedAthletes() {
-		return entityLayer.getPersonEntity().getData(Constants.Entity.MYSCOUTEDATHLETES);
+		return entityLayer.getPersonEntity().getData(Constants.Entity.MYSCOUTEDATHLETES, Constants.NO_FILTER);
+	}
+	
+	public Iterator<ValidValue> getCompetitionTypes() {
+		ValidValuesBinding vvbCompTypes = serviceLayer.getValueListBindingService().getVVBinding(ValueList.COMPTYPE);
+		return vvbCompTypes.getValidValues();		
 	}
 	
 	public void setAuthority(SFunctionTree functionTree, FunctionNode node) {

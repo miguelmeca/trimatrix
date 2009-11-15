@@ -89,7 +89,7 @@ public final class TestEntity extends AEntity {
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#getData(trimatrix.utils.Constants.Entity)
 	 */
-	public List<IEntityData> getData(Constants.Entity entity) {
+	public List<IEntityData> getData(Constants.Entity entity, String filter) {
 		if (entity == Constants.Entity.TEST) {
 			return sqlExecutorService.getTestEntities();
         } else if (entity == Constants.Entity.MYTESTS) {
@@ -104,7 +104,7 @@ public final class TestEntity extends AEntity {
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#getData(trimatrix.utils.Constants.Entity, java.lang.String)
 	 */
-	public List<IEntityData> getData(Constants.Entity entity, String personId) {		
+	public List<IEntityData> getData(Constants.Entity entity, String personId, String filter) {		
 		if (entity == Constants.Entity.TEST) {
 			return sqlExecutorService.getTestEntities(PERSON, personId);
 		} else if (entity == Constants.Entity.COACHTESTS) {

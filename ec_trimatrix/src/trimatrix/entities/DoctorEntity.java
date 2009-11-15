@@ -69,7 +69,7 @@ public class DoctorEntity extends AEntity {
 		return result;		
 	}
 
-	public List<IEntityData> getData(Entity entity, String personId) {
+	public List<IEntityData> getData(Entity entity, String personId, String filter) {
 		if (entity == Constants.Entity.DOCTOR) {
         	return sqlExecutorService.getDoctorRelationEntities(personId, Constants.Relation.DOCTOR);
         } else {
@@ -77,7 +77,7 @@ public class DoctorEntity extends AEntity {
         }
 	}
 	
-	public List<IEntityData> getData(Entity entity) {
+	public List<IEntityData> getData(Entity entity, String filter) {
 		if (entity == Constants.Entity.DOCTOR) {
         	return sqlExecutorService.getDoctorEntities();
         } else if (entity == Constants.Entity.MYDOCTORS) {

@@ -32,7 +32,7 @@ public final class ResolverService {
 	private IRelation personCompetitionRelation;
 
 	// Entities	
-	public List<SGridMetaData> getGridMetaData(Constants.Entity entity) {
+	public List<SGridMetaData> getGridMetaData(Constants.Entity entity, String filter) {
 		switch (entity.getBase()) {
 		case USER:
 			return userEntity.getGridMetaData();
@@ -47,49 +47,49 @@ public final class ResolverService {
 		case COMPETITION:
 			return competitionEntity.getGridMetaData();
 		case RESULT:
-			return resultEntity.getGridMetaData();
+			return resultEntity.getGridMetaData(filter);
 		}
 		logger.warn("GETMETADATA : Entity " + entity.toString() + " not valid!");
 		return new ArrayList<SGridMetaData>();
 	}
 	
-	public List<IEntityData> getData(Constants.Entity entity) {
+	public List<IEntityData> getData(Constants.Entity entity, String filter) {
 		switch (entity.getBase()) {
 		case USER:
-			return userEntity.getData(entity);
+			return userEntity.getData(entity, filter);
 		case PERSON:
-			return personEntity.getData(entity);
+			return personEntity.getData(entity, filter);
 		case DOCTOR:
-			return doctorEntity.getData(entity);
+			return doctorEntity.getData(entity, filter);
 		case ATTACHMENT:
-			return attachmentEntity.getData(entity);
+			return attachmentEntity.getData(entity, filter);
 		case TEST:
-			return testEntity.getData(entity);
+			return testEntity.getData(entity, filter);
 		case COMPETITION:
-			return competitionEntity.getData(entity);
+			return competitionEntity.getData(entity, filter);
 		case RESULT:
-			return resultEntity.getData(entity);
+			return resultEntity.getData(entity, filter);
 		}
 		logger.warn("GETDATA : Entity " + entity.toString() + " not valid!");
 		return new ArrayList<IEntityData>();
 	}
 	
-	public List<IEntityData> getData(Constants.Entity entity, String personId) {
+	public List<IEntityData> getData(Constants.Entity entity, String personId, String filter) 	{	
 		switch (entity.getBase()) {
 		case USER:
-			return userEntity.getData(entity, personId);
+			return userEntity.getData(entity, personId, filter);
 		case PERSON:
-			return personEntity.getData(entity, personId);
+			return personEntity.getData(entity, personId, filter);
 		case DOCTOR:
-			return doctorEntity.getData(entity, personId);
+			return doctorEntity.getData(entity, personId, filter);
 		case ATTACHMENT:
-			return attachmentEntity.getData(entity, personId);
+			return attachmentEntity.getData(entity, personId, filter);
 		case TEST:
-			return testEntity.getData(entity, personId);
+			return testEntity.getData(entity, personId, filter);
 		case COMPETITION:
-			return competitionEntity.getData(entity, personId);
+			return competitionEntity.getData(entity, personId, filter);
 		case RESULT:
-			return resultEntity.getData(entity, personId);
+			return resultEntity.getData(entity, personId, filter);
 		}
 		logger.warn("GETDATA : Entity " + entity.toString() + " not valid!");
 		return new ArrayList<IEntityData>();

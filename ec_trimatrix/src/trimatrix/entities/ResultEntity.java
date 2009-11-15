@@ -34,7 +34,7 @@ public final class ResultEntity extends AEntity {
     public static final String SWIM_DEFICIT = "swim_def";
     public static final String RUN_DEFICIT = "run_def";
     public static final String SWIMSUIT = "swimsuit";
-    
+          
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IUserEntity#getGridMetaData()
 	 */
@@ -49,6 +49,16 @@ public final class ResultEntity extends AEntity {
         return gridMetaData;
     }
 	
+	public List<SGridMetaData> getGridMetaData(String filter) {
+		// get general Meta Data
+		List<SGridMetaData> gridMetaData = getGridMetaData();
+		// add specific data
+		if(CompetitionEntity.TRIATHLON.equalsIgnoreCase(filter)) {
+			gridMetaData.add(new SGridMetaData("Kategorie",CATEGORY_TRIA, SGridMetaData.Component.FIELD)); 
+		}
+		return gridMetaData;
+	}
+	
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#getData()
 	 */
@@ -59,11 +69,11 @@ public final class ResultEntity extends AEntity {
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#getData(trimatrix.utils.Constants.Entity)
 	 */
-	public List<IEntityData> getData(Constants.Entity entity) {
+	public List<IEntityData> getData(Constants.Entity entity, String filter) {
 		if (entity == Constants.Entity.RESULT) {
 			return sqlExecutorService.getResultEntities();
         } else if(entity == Constants.Entity.SCOUTRESULTS) {
-        	return sqlExecutorService.getResultEntities(null, null, dictionaryService.getMyPerson().getId(), null);
+        	return sqlExecutorService.getResultEntities(null, null, dictionaryService.getMyPerson().getId(), null, filter);
         } else {
         	return Constants.EMPTYENTITYLIST;
         }		
@@ -72,9 +82,9 @@ public final class ResultEntity extends AEntity {
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#getData(trimatrix.utils.Constants.Entity, java.lang.String)
 	 */
-	public List<IEntityData> getData(Constants.Entity entity, String personId) {		
+	public List<IEntityData> getData(Constants.Entity entity, String personId, String filter) {		
 		if (entity == Constants.Entity.MYRESULTS) {
-        	return sqlExecutorService.getResultEntities(null, null, dictionaryService.getMyPerson().getId(), personId);
+        	return sqlExecutorService.getResultEntities(null, null, dictionaryService.getMyPerson().getId(), personId, filter);
         }  else {
         	return Constants.EMPTYENTITYLIST;
         }		
@@ -82,7 +92,7 @@ public final class ResultEntity extends AEntity {
 	
 	@Override
 	public IEntityData getData(String id) {
-		List<IEntityData> result = sqlExecutorService.getResultEntities(id, null, null, null);
+		List<IEntityData> result = sqlExecutorService.getResultEntities(id, null, null, null, null);
 		if (result.size()==0) return null;
 		return result.get(0);
 	}
@@ -141,6 +151,7 @@ public final class ResultEntity extends AEntity {
 		public String final_position;
 		public String time;
 		public String comment;
+		public String category_tria;
 		
 		/* (non-Javadoc)
 		 * @see trimatrix.entities.IEntityData#getId()
@@ -177,6 +188,10 @@ public final class ResultEntity extends AEntity {
 
 		public String getComment() {
 			return comment;
-		}			
+		}		
+		
+		public String getCategory_tria() {
+			return category_tria;
+		}
 	}
 }

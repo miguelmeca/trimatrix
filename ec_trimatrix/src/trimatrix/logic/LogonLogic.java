@@ -14,6 +14,7 @@ import trimatrix.db.KRoles;
 import trimatrix.db.Users;
 import trimatrix.services.ServiceLayer;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Helper;
 import trimatrix.utils.UserTracker;
 
 public class LogonLogic {
@@ -51,6 +52,14 @@ public class LogonLogic {
 		}
 		serviceLayer.getDictionaryService().setMyRoles(myRoles);
 		
+		// set marker in user table
+		user.setLastLogin(new java.sql.Timestamp((new java.util.Date()).getTime()));
+		user.setLastLoginIp(Helper.getClientIP());
+		try {
+			daoLayer.getUsersDAO().merge(user);
+		} catch (Exception ex) {
+			logger.error("Problem wrtiting user logon info : " + ex.toString());
+		}		
 		UserTracker.addUser(username);
 		return true;
 	}

@@ -24,19 +24,19 @@ public class EntityListLogic {
 	 * @param entity entity
 	 * @return metadata of entity
 	 */
-	public List<SGridMetaData> getGridMetaData(Constants.Entity entity) {
-		return serviceLayer.getResolverService().getGridMetaData(entity);
+	public List<SGridMetaData> getGridMetaData(Constants.Entity entity, String filter) {
+		return serviceLayer.getResolverService().getGridMetaData(entity, filter);
 	}
 	
-	public List<IEntityData> getData(Constants.Entity entity) {
-		return serviceLayer.getResolverService().getData(entity);
+	public List<IEntityData> getData(Constants.Entity entity, String filter) {
+		return serviceLayer.getResolverService().getData(entity, filter);
 	}	
 	
-	public List<IEntityData> getData(Constants.Entity entity, String personId) {
+	public List<IEntityData> getData(Constants.Entity entity, String personId, String filter) {
 		if(personId==null || personId.length() == 0) {
-			return serviceLayer.getResolverService().getData(entity);
+			return getData(entity, filter);
 		} 
-		return serviceLayer.getResolverService().getData(entity, personId);
+		return serviceLayer.getResolverService().getData(entity, personId, filter);
 	}
 	
 	public List<IEntityData> getData(Constants.Entity entity, List<String> ids) {

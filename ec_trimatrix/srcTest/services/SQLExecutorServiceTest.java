@@ -5,9 +5,12 @@ import java.util.Map;
 
 import junit.framework.Assert;
 
+import org.hibernate.validator.Size;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 
+import trimatrix.db.DAOLayer;
+import trimatrix.db.Labels;
 import trimatrix.entities.IEntityData;
 import trimatrix.relations.IRelationData;
 import trimatrix.services.SQLExecutorService;
@@ -20,6 +23,7 @@ public class SQLExecutorServiceTest {
 	
 	private static ApplicationContext context = ContextStatic.getInstance();
 	private static SQLExecutorService sqlExecutorService = SQLExecutorService.getFromApplicationContext(context);	
+	private static DAOLayer daoLayer = DAOLayer.getFromApplicationContext(context);
 
 	@Test
 	public void testUserEntityListQuery() {		
@@ -41,7 +45,11 @@ public class SQLExecutorServiceTest {
 	
 	@Test
 	public void testEntitiesByLabelQuery() {
-		Map<Constants.Entity, List<String>> map = sqlExecutorService.getEntitiesByLabelList("55620350-6d49-11de-a69b-604b59d93789", false);
-		Assert.assertTrue(map.size() > 0);
+		List<Labels> labels = daoLayer.getLabelsDAO().findAll();
+		if (labels!=null && labels.size()>0) {
+			Map<Constants.Entity, List<String>> map = sqlExecutorService.getEntitiesByLabelList(labels.get(0).getId(), false);
+			Assert.assertTrue(map.size() > 0);
+		}
+		
 	}
 }
