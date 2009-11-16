@@ -147,8 +147,8 @@ public class SQLExecutorService {
 			datum.locked = (Boolean)line[i++];
 			datum.initial = (Boolean)line[i++];
 			datum.active = (Boolean)line[i++];
-			datum.last_logon = (Timestamp)line[i++];
-			datum.last_logon_ip = (String)line[i++];
+			datum.last_login = (Timestamp)line[i++];
+			datum.last_login_ip = (String)line[i++];
 			data.add(datum);
 		}
 		session.close();
@@ -576,6 +576,15 @@ public class SQLExecutorService {
 			// triathlon
 			if(CompetitionEntity.TRIATHLON.equals(compType)) {
 				datum.category_tria = (String)line[i++];	
+				datum.swimsuit = (Boolean)line[i++];				
+				datum.swim_split = (String)line[i++];	
+				datum.swim_pos = (String)line[i++];	
+				datum.swim_def = (String)line[i++];	
+				datum.best_swim_split = (String)line[i++];					
+				datum.run_split = (String)line[i++];	
+				datum.run_pos = (String)line[i++];	
+				datum.run_def = (String)line[i++];	
+				datum.best_run_split = (String)line[i++];	
 			}
 			data.add(datum);
 		}

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Method;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
@@ -247,6 +248,24 @@ public class Helper {
 	    list.add((E)item);
 	}	
 
+	/**
+	 * Dynamic invocation of objects
+	 * @param methodName
+	 * @param obj
+	 * @param args
+	 * @return
+	 */
+	public static Object callMethod(String methodName, Object obj, Object...args) throws Exception {
+	    Class classes[] = new Class[args.length];
+	    for (int j = 0; j != classes.length; j++) {
+	      classes[j] = args[j].getClass();
+	    }
+	    Class oClass = obj.getClass();
+	    Method method = oClass.getMethod(methodName, classes);
+	    return method.invoke(obj, args);
+	  }
+
+	
 	//public static final Log logger = LogFactory.getLog("trimatrix");
 	//CLog.L logger
 	//public static Logger logger = Logger.getLogger("trimatrix");

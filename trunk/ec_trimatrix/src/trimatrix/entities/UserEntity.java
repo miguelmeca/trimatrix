@@ -19,8 +19,8 @@ public final class UserEntity extends AEntity {
 	public static final String ACTIVE = "active";
 	public static final String INITIAL = "initial";
 	public static final String LOCKED = "locked";	
-	public static final String LASTLOGON = "last_logon";
-	public static final String LASTLOGONIP = "last_logon_ip";	
+	public static final String LASTLOGON = "last_login";
+	public static final String LASTLOGONIP = "last_login_ip";	
 	
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IUserEntity#getGridMetaData()
@@ -35,8 +35,8 @@ public final class UserEntity extends AEntity {
         gridMetaData.add(new SGridMetaData("gesperrt", LOCKED, SGridMetaData.Component.CHECKBOX));
         gridMetaData.add(new SGridMetaData("initial", INITIAL, SGridMetaData.Component.CHECKBOX));
         gridMetaData.add(new SGridMetaData("aktiv", ACTIVE, SGridMetaData.Component.CHECKBOX));
-        gridMetaData.add(new SGridMetaData("Letzter Logon", LASTLOGON, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("IP letzter Logon", LASTLOGONIP, SGridMetaData.Component.CALENDARFIELD));
+        gridMetaData.add(new SGridMetaData("Letzter Logon", LASTLOGON, SGridMetaData.Component.FORMATED_DATETIME));
+        gridMetaData.add(new SGridMetaData("IP letzter Logon", LASTLOGONIP, SGridMetaData.Component.FIELD));
         return gridMetaData;
     }	
 	
@@ -89,8 +89,8 @@ public final class UserEntity extends AEntity {
 		public boolean locked;
 		public boolean initial;
 		public boolean active;		
-		public Timestamp last_logon;
-		public String last_logon_ip;
+		public Timestamp last_login;
+		public String last_login_ip;
 		
 		/* (non-Javadoc)
 		 * @see trimatrix.entities.IEntityData#getId()
@@ -137,12 +137,12 @@ public final class UserEntity extends AEntity {
 			return active;
 		}
 
-		public Timestamp getLast_logon() {
-			return last_logon;
+		public Timestamp getLast_login() {
+			return last_login;
 		}
 
-		public String getLast_logon_ip() {
-			return last_logon_ip;
+		public String getLast_login_ip() {
+			return last_login_ip;
 		}		
 	}	
 }

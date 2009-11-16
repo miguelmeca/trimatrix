@@ -13,8 +13,8 @@ SELECT
   users.locked,
   users.initial,
   users.active,
-  users.last_logon,
-  users.last_logon_ip
+  users.last_login,
+  users.last_login_ip
 FROM users
   LEFT JOIN t_languages
     ON t_languages.key = users.language_key
@@ -35,8 +35,8 @@ WHERE users.test = :p_test
   <return-scalar column="locked" type="java.lang.Boolean"/>
   <return-scalar column="initial" type="java.lang.Boolean"/>
   <return-scalar column="active" type="java.lang.Boolean"/>
-  <return-scalar column="last_logon" type="java.sql.Timestamp"/>
-  <return-scalar column="last_logon_ip" type="java.lang.String"/>
+  <return-scalar column="last_login" type="java.sql.Timestamp"/>
+  <return-scalar column="last_login_ip" type="java.lang.String"/>
 </sql-query>
  
 <sql-query cacheable="true" name="PersonEntityList" read-only="true">
@@ -667,7 +667,16 @@ ORDER BY results.created_at DESC
   results.final_position,
   results.time,
   results.comment,
-  results_tria.category
+  results_tria.category,
+  results_tria.swimsuit,
+  results_tria.swim_split,
+  results_tria.swim_position,
+  results_tria.swim_deficit,
+  results_tria.best_swim_split,
+  results_tria.run_split,
+  results_tria.run_position,
+  results_tria.run_deficit,
+  results_tria.best_run_split
 FROM results
   JOIN results_tria
     ON results_tria.id = results.id
@@ -696,6 +705,15 @@ ORDER BY results.created_at DESC
   <return-scalar column="time" type="java.lang.String"/>
   <return-scalar column="comment" type="java.lang.String"/>
   <return-scalar column="category" type="java.lang.String"/>
+  <return-scalar column="swimsuit" type="java.lang.Boolean"/>
+  <return-scalar column="swim_split" type="java.lang.String"/>
+  <return-scalar column="swim_position" type="java.lang.String"/>
+  <return-scalar column="swim_deficit" type="java.lang.String"/>
+  <return-scalar column="best_swim_split" type="java.lang.String"/>
+  <return-scalar column="run_split" type="java.lang.String"/>
+  <return-scalar column="run_position" type="java.lang.String"/>
+  <return-scalar column="run_deficit" type="java.lang.String"/>
+  <return-scalar column="best_run_split" type="java.lang.String"/>
 </sql-query> 
  
  <sql-query cacheable="true" name="LanguageValueList"
