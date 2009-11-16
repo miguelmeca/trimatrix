@@ -4,7 +4,7 @@ public final class SGridMetaData {
 	private final static String DEFAULT_WIDTH = "100";
 	
 	public static enum Component {
-		FIELD, CHECKBOX, CALENDARFIELD, ICON
+		FIELD, CHECKBOX, CALENDARFIELD, FORMATED_DATETIME, ICON
 	}
    
     public String header;

@@ -133,6 +133,10 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 			if (meta.component == SGridMetaData.Component.CALENDARFIELD) {
 				isCalendarField = true;
 			} 
+			boolean isFormatedDateTime = false;
+			if (meta.component == SGridMetaData.Component.FORMATED_DATETIME) {
+				isFormatedDateTime = true;
+			} 
 			boolean isIcon = false;
 			if (meta.component == SGridMetaData.Component.ICON) {
 				isIcon= true;
@@ -146,8 +150,11 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 			} else if (isCalendarField) {
 				xml.append("<t:calendarfield value='.{datum."
 						+ meta.techname + "}' format='date' timezone='CET' enabled='false'/>");
+			} else if (isFormatedDateTime) {
+				xml.append("<t:formattedfield value='.{datum."
+						+ meta.techname + "}' format='datetime' formatmask='medium' enabled='false' width='100'/>");
 			} else if (isIcon) {
-				xml.append("<t:icon image='.{datum."
+				xml.append("<t:icon align='center' image='.{datum."
 						+ meta.techname + "}' enabled='true' imageheight='20' imagewidth='20'/>");			
 			} else {	
 				xml.append("<t:field text='.{datum." + meta.techname

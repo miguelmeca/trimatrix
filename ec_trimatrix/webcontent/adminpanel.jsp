@@ -41,7 +41,7 @@
 <t:field id="g_23" align="center" enabled="false" text=".{clientIP}" width="100" />
 </t:gridcol>
 <t:gridcol id="g_24" align="center" text="Session ID" width="100" >
-<t:field id="g_25" align="center" enabled="false" text=".{sessionID}" width="100" />
+<t:field id="g_25" align="center" enabled="false" text=".{sessionID}" width="150" />
 </t:gridcol>
 </t:fixgrid>
 </t:row>

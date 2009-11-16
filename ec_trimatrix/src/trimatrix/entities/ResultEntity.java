@@ -54,7 +54,16 @@ public final class ResultEntity extends AEntity {
 		List<SGridMetaData> gridMetaData = getGridMetaData();
 		// add specific data
 		if(CompetitionEntity.TRIATHLON.equalsIgnoreCase(filter)) {
-			gridMetaData.add(new SGridMetaData("Kategorie",CATEGORY_TRIA, SGridMetaData.Component.FIELD)); 
+			gridMetaData.add(new SGridMetaData("#{rr.literals.category}",CATEGORY_TRIA, SGridMetaData.Component.FIELD)); 
+			gridMetaData.add(new SGridMetaData("#{rr.literals.swimsuit}",SWIMSUIT, SGridMetaData.Component.CHECKBOX)); 
+			gridMetaData.add(new SGridMetaData("#{rr.literals.swim_split}",SWIM_SPLIT, SGridMetaData.Component.FIELD));
+			gridMetaData.add(new SGridMetaData("#{rr.literals.ranking_swim}",SWIM_POSITION, SGridMetaData.Component.FIELD)); 
+			gridMetaData.add(new SGridMetaData("#{rr.literals.deficit_swim}",SWIM_DEFICIT, SGridMetaData.Component.FIELD));
+			gridMetaData.add(new SGridMetaData("#{rr.literals.best_swim_split}",BEST_SWIM_SPLIT, SGridMetaData.Component.FIELD)); 
+			gridMetaData.add(new SGridMetaData("#{rr.literals.run_split}",RUN_SPLIT, SGridMetaData.Component.FIELD));
+			gridMetaData.add(new SGridMetaData("#{rr.literals.ranking_run}",RUN_POSITION, SGridMetaData.Component.FIELD)); 
+			gridMetaData.add(new SGridMetaData("#{rr.literals.deficit_run}",RUN_DEFICIT, SGridMetaData.Component.FIELD));
+			gridMetaData.add(new SGridMetaData("#{rr.literals.best_run_split}",BEST_RUN_SPLIT, SGridMetaData.Component.FIELD));		
 		}
 		return gridMetaData;
 	}
@@ -152,6 +161,15 @@ public final class ResultEntity extends AEntity {
 		public String time;
 		public String comment;
 		public String category_tria;
+		public boolean swimsuit;
+		public String swim_split;
+		public String swim_pos;
+		public String swim_def;
+		public String best_swim_split;
+		public String run_split;
+		public String run_pos;
+		public String run_def;
+		public String best_run_split;
 		
 		/* (non-Javadoc)
 		 * @see trimatrix.entities.IEntityData#getId()
@@ -193,5 +211,41 @@ public final class ResultEntity extends AEntity {
 		public String getCategory_tria() {
 			return category_tria;
 		}
+
+		public boolean getSwimsuit() {
+			return swimsuit;
+		}
+
+		public String getSwim_split() {
+			return swim_split;
+		}
+
+		public String getSwim_pos() {
+			return swim_pos;
+		}
+
+		public String getSwim_def() {
+			return swim_def;
+		}
+
+		public String getBest_swim_split() {
+			return best_swim_split;
+		}
+
+		public String getRun_split() {
+			return run_split;
+		}
+
+		public String getRun_pos() {
+			return run_pos;
+		}
+
+		public String getRun_def() {
+			return run_def;
+		}
+
+		public String getBest_run_split() {
+			return best_run_split;
+		}		
 	}
 }

@@ -1,5 +1,6 @@
 package trimatrix.services;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +16,16 @@ import trimatrix.relations.IRelationData;
 import trimatrix.relations.IRelationObject;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Constants.Entity;
+import trimatrix.utils.Constants.Relation;
 
+@SuppressWarnings("unused")
 public final class ResolverService {
 	public static final Log logger = LogFactory.getLog(ResolverService.class);
+	
+	public static List<SGridMetaData> EMPTYMETADATA =  new ArrayList<SGridMetaData>();
+	public static List<IEntityData> EMPTYENTITYDATA = new ArrayList<IEntityData>();
+	public static List<IRelationData> EMPTYRELATIONDATA = new ArrayList<IRelationData>();
 	
 	private IEntity userEntity;
 	private IEntity personEntity;
@@ -33,108 +41,51 @@ public final class ResolverService {
 
 	// Entities	
 	public List<SGridMetaData> getGridMetaData(Constants.Entity entity, String filter) {
-		switch (entity.getBase()) {
-		case USER:
-			return userEntity.getGridMetaData();
-		case PERSON:
-			return personEntity.getGridMetaData();
-		case DOCTOR:
-			return doctorEntity.getGridMetaData();
-		case ATTACHMENT:
-			return attachmentEntity.getGridMetaData();
-		case TEST:
-			return testEntity.getGridMetaData();
-		case COMPETITION:
-			return competitionEntity.getGridMetaData();
-		case RESULT:
-			return resultEntity.getGridMetaData(filter);
+		filter = filter==null ? Constants.NO_FILTER : filter;
+		try {
+			return (List<SGridMetaData>)getProxy(entity).getGridMetaData(filter);
+		} catch (Exception ex) {
+			logger.error("GETMETADATA : Entity " + entity.toString() + " not valid! : " + ex.toString());
+			return EMPTYMETADATA;
 		}
-		logger.warn("GETMETADATA : Entity " + entity.toString() + " not valid!");
-		return new ArrayList<SGridMetaData>();
 	}
 	
 	public List<IEntityData> getData(Constants.Entity entity, String filter) {
-		switch (entity.getBase()) {
-		case USER:
-			return userEntity.getData(entity, filter);
-		case PERSON:
-			return personEntity.getData(entity, filter);
-		case DOCTOR:
-			return doctorEntity.getData(entity, filter);
-		case ATTACHMENT:
-			return attachmentEntity.getData(entity, filter);
-		case TEST:
-			return testEntity.getData(entity, filter);
-		case COMPETITION:
-			return competitionEntity.getData(entity, filter);
-		case RESULT:
-			return resultEntity.getData(entity, filter);
+		filter = filter==null ? Constants.NO_FILTER : filter;
+		try {
+			return (List<IEntityData>)getProxy(entity).getData(entity, filter);
+		} catch (Exception ex) {
+			logger.error("GETDATA : Entity " + entity.toString() + " not valid! : " + ex.toString());
+			return EMPTYENTITYDATA;
 		}
-		logger.warn("GETDATA : Entity " + entity.toString() + " not valid!");
-		return new ArrayList<IEntityData>();
 	}
 	
 	public List<IEntityData> getData(Constants.Entity entity, String personId, String filter) 	{	
-		switch (entity.getBase()) {
-		case USER:
-			return userEntity.getData(entity, personId, filter);
-		case PERSON:
-			return personEntity.getData(entity, personId, filter);
-		case DOCTOR:
-			return doctorEntity.getData(entity, personId, filter);
-		case ATTACHMENT:
-			return attachmentEntity.getData(entity, personId, filter);
-		case TEST:
-			return testEntity.getData(entity, personId, filter);
-		case COMPETITION:
-			return competitionEntity.getData(entity, personId, filter);
-		case RESULT:
-			return resultEntity.getData(entity, personId, filter);
+		filter = filter==null ? Constants.NO_FILTER : filter;
+		try {
+			return (List<IEntityData>)getProxy(entity).getData(entity, personId, filter);
+		} catch (Exception ex) {
+			logger.error("GETDATA : Entity " + entity.toString() + " not valid! : " + ex.toString());
+			return EMPTYENTITYDATA;
 		}
-		logger.warn("GETDATA : Entity " + entity.toString() + " not valid!");
-		return new ArrayList<IEntityData>();
 	}
 	
 	public List<IEntityData> getData(Constants.Entity entity, List<String> ids) {
-		switch (entity.getBase()) {
-		case USER:
-			return userEntity.getData(ids);
-		case PERSON:
-			return personEntity.getData(ids);
-		case DOCTOR:
-			return doctorEntity.getData(ids);
-		case ATTACHMENT:
-			return attachmentEntity.getData(ids);
-		case TEST:
-			return testEntity.getData(ids);
-		case COMPETITION:
-			return competitionEntity.getData(ids);
-		case RESULT:
-			return resultEntity.getData(ids);
-		}
-		logger.warn("GETDATA : Entity " + entity.toString() + " not valid!");
-		return new ArrayList<IEntityData>();
+		try {
+			return (List<IEntityData>)getProxy(entity).getData(ids);
+		} catch (Exception ex) {
+			logger.error("GETDATA : Entity " + entity.toString() + " not valid! : " + ex.toString());
+			return EMPTYENTITYDATA;
+		}		
 	}
 	
 	public boolean delete(Constants.Entity entity, String id) {
-		switch (entity.getBase()) {
-		case USER:
-			return userEntity.delete(id);
-		case PERSON:
-			return personEntity.delete(id);
-		case DOCTOR:
-			return doctorEntity.delete(id);
-		case ATTACHMENT:
-			return attachmentEntity.delete(id);
-		case TEST:
-			return testEntity.delete(id);
-		case COMPETITION:
-			return competitionEntity.delete(id);
-		case RESULT:
-			return resultEntity.delete(id);
+		try {
+			return (boolean)getProxy(entity).delete(id);
+		} catch (Exception ex) {
+			logger.error("DELETE : Entity " + entity.toString() + " not valid! : " + ex.toString());
+			return false;
 		}
-		logger.warn("DELETE : Entity " + entity.toString() + " not valid!");
-		return false;
 	}
 	
 	public boolean delete(Constants.Entity entity, String id, String personId) {
@@ -150,232 +101,140 @@ public final class ResolverService {
 		case RESULT:
 			return resultEntity.delete(id);
 		}
-		logger.warn("DELETE : Entity " + entity.toString() + " not valid!");
+		logger.error("DELETE : Entity " + entity.toString() + " not valid!");
 		return false;
 	}
 	
 	public IEntityObject create(Constants.Entity entity) {
-		switch (entity.getBase()) {
-		case USER:
-			return userEntity.create();
-		case PERSON:
-			return personEntity.create();
-		case DOCTOR:
-			return doctorEntity.create();
-		case ATTACHMENT:
-			return attachmentEntity.create();
-		case TEST:
-			return testEntity.create();
-		case COMPETITION:
-			return competitionEntity.create();	
-		case RESULT:
-			return resultEntity.create();
+		try {
+			return (IEntityObject)getProxy(entity).create();
+		} catch (Exception ex) {
+			logger.error("CREATE : Entity " + entity.toString() + " not valid! : " + ex.toString());
+			return null;
 		}
-		logger.warn("CREATE : Entity " + entity.toString() + " not valid!");
-		return null;
 	}
 	
 	public IEntityObject get(Constants.Entity entity, String id) {
-		switch (entity.getBase()) {
-		case USER:
-			return userEntity.get(id);
-		case PERSON:
-			return personEntity.get(id);
-		case DOCTOR:
-			return doctorEntity.get(id);
-		case ATTACHMENT:
-			return attachmentEntity.get(id);
-		case TEST:
-			return testEntity.get(id);
-		case COMPETITION:
-			return competitionEntity.get(id);
-		case RESULT:
-			return resultEntity.get(id);
+		try {
+			return (IEntityObject)getProxy(entity).get(id);
+		} catch (Exception ex) {
+			logger.error("GET : Entity " + entity.toString() + " not valid! : " + ex.toString());
+			return null;
 		}
-		logger.warn("GET : Entity " + entity.toString() + " not valid!");
-		return null;
 	}
 	
 	public IEntityObject save(Constants.Entity entity, IEntityObject entityObject) {
-		switch (entity.getBase()) {
-		case USER:
-			return userEntity.save(entityObject);
-		case PERSON:
-			return personEntity.save(entityObject);
-		case DOCTOR:
-			return doctorEntity.save(entityObject);
-		case ATTACHMENT:
-			return attachmentEntity.save(entityObject);
-		case TEST:
-			return testEntity.save(entityObject);
-		case COMPETITION:
-			return competitionEntity.save(entityObject);
-		case RESULT:
-			return resultEntity.save(entityObject);
+		try {
+			return (IEntityObject)getProxy(entity).save(entityObject);
+		} catch (Exception ex) {
+			logger.error("SAVE : Entity " + entity.toString() + " not valid! : " + ex.toString());
+			return null;
 		}
-		logger.warn("SAVE : Entity " + entity.toString() + " not valid!");
-		return null;
 	}
 	
 	public void reload(Constants.Entity entity, IEntityObject entityObject) {
-		switch (entity.getBase()) {
-		case USER:
-			userEntity.reload(entityObject); break;
-		case PERSON:
-			personEntity.reload(entityObject); break;
-		case DOCTOR:
-			doctorEntity.reload(entityObject); break;
-		case ATTACHMENT:
-			attachmentEntity.reload(entityObject); break;
-		case TEST:
-			testEntity.reload(entityObject); break;
-		case COMPETITION:
-			competitionEntity.reload(entityObject); break;
-		case RESULT:
-			resultEntity.reload(entityObject); break;
+		try {
+			getProxy(entity).reload(entityObject);
+		} catch (Exception ex) {
+			logger.error("RELOAD : Entity " + entity.toString() + " not valid! : " + ex.toString());
 		}
-		logger.warn("RELOAD : Entity " + entity.toString() + " not valid!");				
+		
 	}
 	
 	public IEntityObject copy(Constants.Entity entity, IEntityObject entityObject) {
-		switch (entity.getBase()) {
-		case USER:
-			return userEntity.copy(entityObject); 
-		case PERSON:
-			return personEntity.copy(entityObject); 
-		case DOCTOR:
-			return doctorEntity.copy(entityObject); 
-		case ATTACHMENT:
-			return attachmentEntity.copy(entityObject); 
-		case TEST:
-			return testEntity.copy(entityObject); 
-		case COMPETITION:
-			return competitionEntity.copy(entityObject); 
-		case RESULT:
-			return resultEntity.copy(entityObject); 
+		try {
+			return (IEntityObject)getProxy(entity).copy(entityObject);
+		} catch (Exception ex) {
+			logger.error("COPY : Entity " + entity.toString() + " not valid! : " + ex.toString());
+			return null;
 		}
-		logger.warn("COPY : Entity " + entity.toString() + " not valid!");	
-		return null;
 	}
 	
 	public boolean isCopyable(Constants.Entity entity, IEntityObject entityObject) {
-		switch (entity.getBase()) {
-		case USER:
-			return userEntity.isCopyable(entityObject); 
-		case PERSON:
-			return personEntity.isCopyable(entityObject); 
-		case DOCTOR:
-			return doctorEntity.isCopyable(entityObject); 
-		case ATTACHMENT:
-			return attachmentEntity.isCopyable(entityObject); 
-		case TEST:
-			return testEntity.isCopyable(entityObject); 
-		case COMPETITION:
-			return competitionEntity.isCopyable(entityObject); 
-		case RESULT:
-			return resultEntity.isCopyable(entityObject); 
-		}
-		logger.warn("ISCOPYABLE : Entity " + entity.toString() + " not valid!");	
-		return false;
+		try {
+			return (boolean)getProxy(entity).isCopyable(entityObject);
+		} catch (Exception ex) {
+			logger.error("ISCOPYABLE : Entity " + entity.toString() + " not valid! : " + ex.toString());
+			return false;
+		}		
 	}
 	
 	// Relations
 	public List<SGridMetaData> getGridMetaData(Constants.Relation relation) {
-		if (relation.getBase()==Constants.Relation.PERSONPERSON) {
-			return personPersonRelation.getGridMetaData();
-		} else if (relation.getBase()==Constants.Relation.PERSONDOCTOR) {
-			return personDoctorRelation.getGridMetaData();
-		} else if (relation.getBase()==Constants.Relation.PERSONATTACHMENT) {
-			return personAttachmentRelation.getGridMetaData();
-		} else if (relation.getBase()==Constants.Relation.PERSONCOMPETITION) {
-			return personCompetitionRelation.getGridMetaData();
+		try {
+			return (List<SGridMetaData>)getProxy(relation).getGridMetaData();
+		} catch (Exception ex) {
+			logger.error("GETMETADATA : Relation " + relation.toString() + " not valid! : " + ex.toString());
+			return EMPTYMETADATA;
 		}
-		logger.warn("GETMETADATA : Relation " + relation.toString() + " not valid!");
-		return new ArrayList<SGridMetaData>();
 	}
 	
 	public List<IRelationData> getData(Constants.Relation relation) {
-		if (relation.getBase()==Constants.Relation.PERSONPERSON) {
-			return personPersonRelation.getData(relation);
-		} else if (relation.getBase()==Constants.Relation.PERSONDOCTOR) {
-			return personDoctorRelation.getData(relation);
-		} else if (relation.getBase()==Constants.Relation.PERSONATTACHMENT) {
-			return personAttachmentRelation.getData(relation);
-		} else if (relation.getBase()==Constants.Relation.PERSONCOMPETITION) {
-			return personCompetitionRelation.getData(relation);
+		try {
+			return (List<IRelationData>)getProxy(relation).getData(relation);
+		} catch (Exception ex) {
+			logger.error("GETDATA : Relation " + relation.toString() + " not valid! : " + ex.toString());
+			return EMPTYRELATIONDATA;
 		}
-		logger.warn("GETDATA : Relation " + relation.toString() + " not valid!");
-		return new ArrayList<IRelationData>();
 	}
 	
 	public boolean delete(Constants.Relation relation, String id) {
-		if (relation.getBase()==Constants.Relation.PERSONPERSON) {
-			return personPersonRelation.delete(id);
-		} else if (relation.getBase()==Constants.Relation.PERSONDOCTOR) {
-			return personDoctorRelation.delete(id);
-		} else if (relation.getBase()==Constants.Relation.PERSONATTACHMENT) {
-			return personAttachmentRelation.delete(id);
-		} else if (relation.getBase()==Constants.Relation.PERSONCOMPETITION) {
-			return personCompetitionRelation.delete(id);
+		try {
+			return (boolean)getProxy(relation).delete(id);
+		} catch (Exception ex) {
+			logger.error("DELETE : Relation " + relation.toString() + " not valid! : " + ex.toString());
+			return false;
 		}
-		logger.warn("DELETE : Relation " + relation.toString() + " not valid!");
-		return false;
 	}
 	
 	public IRelationObject create(Constants.Relation relation) {
-		if (relation.getBase()==Constants.Relation.PERSONPERSON) {
-			return personPersonRelation.create();
-		} else if (relation.getBase()==Constants.Relation.PERSONDOCTOR) {
-			return personDoctorRelation.create();
-		} else if (relation.getBase()==Constants.Relation.PERSONATTACHMENT) {
-			return personAttachmentRelation.create();
-		} else if (relation.getBase()==Constants.Relation.PERSONCOMPETITION) {
-			return personCompetitionRelation.create();
-		}
-		logger.warn("DELETE : Relation " + relation.toString() + " not valid!");
-		return null;
+		try {
+			return (IRelationObject)getProxy(relation).create();
+		} catch (Exception ex) {
+			logger.error("CREATE : Relation " + relation.toString() + " not valid! : " + ex.toString());
+			return null;
+		}		
 	}
 	
 	public IRelationObject get(Constants.Relation relation, String id) {
-		if (relation.getBase()==Constants.Relation.PERSONPERSON) {
-			return personPersonRelation.get(id);
-		} else if (relation.getBase()==Constants.Relation.PERSONDOCTOR) {
-			return personDoctorRelation.get(id);
-		} else if (relation.getBase()==Constants.Relation.PERSONATTACHMENT) {
-			return personAttachmentRelation.get(id);
-		} else if (relation.getBase()==Constants.Relation.PERSONCOMPETITION) {
-			return personCompetitionRelation.get(id);
+		try {
+			return (IRelationObject)getProxy(relation).get(id);
+		} catch (Exception ex) {
+			logger.error("GET : Relation " + relation.toString() + " not valid! : " + ex.toString());
+			return null;
 		}
-		logger.warn("GET : Relation " + relation.toString() + " not valid!");
-		return null;
 	}
 	
 	public void save(Constants.Relation relation, IRelationObject relationObject) {
-		if (relation.getBase()==Constants.Relation.PERSONPERSON) {
-			personPersonRelation.save(relationObject);
-		} else if (relation.getBase()==Constants.Relation.PERSONDOCTOR) {
-			personDoctorRelation.save(relationObject);
-		} else if (relation.getBase()==Constants.Relation.PERSONATTACHMENT) {
-			personAttachmentRelation.save(relationObject);
-		} else if (relation.getBase()==Constants.Relation.PERSONCOMPETITION) {
-			personCompetitionRelation.save(relationObject);
-		}else {
-			logger.warn("SAVE : Relation " + relation.toString() + " not valid!");
-		}		
+		try {
+			getProxy(relation).save(relationObject);
+		} catch (Exception ex) {
+			logger.error("SAVE : Relation " + relation.toString() + " not valid! : " + ex.toString());
+		}
 	}
 	
 	public void reload(Constants.Relation relation, IRelationObject relationObject) {
-		if (relation.getBase()==Constants.Relation.PERSONPERSON) {
-			personPersonRelation.reload(relationObject);
-		} else if (relation.getBase()==Constants.Relation.PERSONDOCTOR) {
-			personDoctorRelation.reload(relationObject);
-		} else if (relation.getBase()==Constants.Relation.PERSONATTACHMENT) {
-			personAttachmentRelation.reload(relationObject);
-		} else if (relation.getBase()==Constants.Relation.PERSONCOMPETITION) {
-			personCompetitionRelation.reload(relationObject);
-		}else {
-			logger.warn("RELOAD : Relation " + relation.toString() + " not valid!");
-		}		
+		try {
+			getProxy(relation).reload(relationObject);
+		} catch (Exception ex) {
+			logger.error("RELOAD : Relation " + relation.toString() + " not valid! : " + ex.toString());
+		}	
+	}
+	
+	// use reflection for resolving entity to a proxy
+	private IEntity getProxy(Entity entity) throws Exception{
+		Field field;
+		Class<? extends ResolverService> clazz = this.getClass();
+		field = clazz.getDeclaredField(entity.getBase().getEntityInstance());
+		return (IEntity)field.get(this);		
+	}
+	
+	// use reflection for resolving relation to a proxy
+	private IRelation getProxy(Relation relation) throws Exception{
+		Field field;
+		Class<? extends ResolverService> clazz = this.getClass();
+		field = clazz.getDeclaredField(relation.getBase().getRelationInstance());
+		return (IRelation)field.get(this);		
 	}
 	
 	// Setter 	

@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
+import org.eclnt.jsfserver.elements.impl.FIXGRIDTreeItem;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding.ValidValue;
 import org.eclnt.workplace.WorkplaceFunctionTree.FunctionNode;
@@ -135,7 +136,7 @@ public class FunctionTreeLogic {
 		result.setScout(serviceLayer.getDictionaryService().getMyPerson());
 		result.setAthlete((Persons)entityLayer.getPersonEntity().get(athleteId));
 		return (Results)entityLayer.getResultEntity().save(result);
-	}
+	}	
 	
 	public void setServiceLayer(ServiceLayer serviceLayer) {
 		this.serviceLayer = serviceLayer;

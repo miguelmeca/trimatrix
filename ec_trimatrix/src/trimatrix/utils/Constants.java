@@ -48,13 +48,13 @@ public final class Constants {
 	// all used entities
 	public static enum Entity {
 		// order is relevant, first all entities which are base entities
-		USER(null, Page.USERDETAIL, Page.USERSELECTION, false), 
-		PERSON(null, Page.PERSONDETAIL, Page.PERSONSELECTION, false),
-		DOCTOR(null, Page.DOCTORDETAIL, Page.DOCTORSELECTION, false),
-		TEST(null, Page.TESTDETAIL, Page.TESTSELECTION, false),
-		COMPETITION(null, Page.COMPETITIONDETAIL, Page.COMPETITIONSELECTION, false),
-		RESULT(null, Page.RESULTDETAIL, null, false),
-		ATTACHMENT(null, Page.ATTACHMENTDETAIL, Page.ATTACHMENTSELECTION, false),
+		USER(Page.USERDETAIL, Page.USERSELECTION, "userEntity"), 
+		PERSON(Page.PERSONDETAIL, Page.PERSONSELECTION, "personEntity"),
+		DOCTOR(Page.DOCTORDETAIL, Page.DOCTORSELECTION, "doctorEntity"),
+		TEST(Page.TESTDETAIL, Page.TESTSELECTION, "testEntity"),
+		COMPETITION(Page.COMPETITIONDETAIL, Page.COMPETITIONSELECTION, "competitionEntity"),
+		RESULT(Page.RESULTDETAIL, null, "resultEntity"),
+		ATTACHMENT(Page.ATTACHMENTDETAIL, Page.ATTACHMENTSELECTION, "attachmentEntity"),
 		MYCOACHES(PERSON, Page.PERSONDETAIL, Page.PERSONSELECTION, true), 
 		MYATHLETES(PERSON, Page.PERSONDETAIL, Page.PERSONSELECTION, false),
 		MYSCOUTEDATHLETES(PERSON, Page.PERSONDETAIL, Page.PERSONSELECTION, false),
@@ -72,11 +72,23 @@ public final class Constants {
 		private final Page detailPage;
 		private final Page selectionPage;
 		private final boolean hasStandard;
+		private final String entityInstance;
+		
+		// constructor for base entities
+		Entity(Page detailPage, Page selectionPage, String entityInstance) {
+			this.baseEntity = null;
+			this.detailPage = detailPage;
+			this.selectionPage = selectionPage;
+			this.hasStandard = false;
+			this.entityInstance = entityInstance;
+		}
+		
 		Entity(Entity baseEntity, Page detailPage, Page selectionPage, boolean hasStandard) {
 			this.baseEntity = baseEntity;
 			this.detailPage = detailPage;
 			this.selectionPage = selectionPage;
 			this.hasStandard = hasStandard;
+			this.entityInstance = null;
 		}
 		public Entity getBase() { 
 			if(baseEntity==null) return this; 
@@ -91,14 +103,18 @@ public final class Constants {
 		public boolean hasStandard() {
 			return hasStandard;
 		}
+		public String getEntityInstance() {
+			return entityInstance;
+		}
+		
 	}
 	// all relationtypes
 	public static enum Relation {
 		// order is relevant, first all relations which are base relations
-		PERSONPERSON(Entity.PERSON, Entity.PERSON),
-		PERSONDOCTOR(Entity.PERSON, Entity.DOCTOR),
-		PERSONATTACHMENT(Entity.PERSON, Entity.ATTACHMENT),
-		PERSONCOMPETITION(Entity.PERSON, Entity.COMPETITION),
+		PERSONPERSON(Entity.PERSON, Entity.PERSON, "personPersonRelation"),
+		PERSONDOCTOR(Entity.PERSON, Entity.DOCTOR, "personDoctorRelation"),
+		PERSONATTACHMENT(Entity.PERSON, Entity.ATTACHMENT, "personAttachmentRelation"),
+		PERSONCOMPETITION(Entity.PERSON, Entity.COMPETITION, "personCompetitionRelation"),
 		COACH("coach", PERSONPERSON),
 		SCOUT("scout", PERSONPERSON),
 		DOCTOR("doctor", PERSONDOCTOR),
@@ -109,17 +125,20 @@ public final class Constants {
 		private final Relation baseRelation;
 		private final Constants.Entity partner1;
 		private final Constants.Entity partner2;
+		private final String relationInstance;
 		Relation(String type, Relation baseRelation) {
 			this.type = type;
 			this.baseRelation = baseRelation;
 			this.partner1 = null;
 			this.partner2 = null;
+			this.relationInstance = null;
 		}
-		Relation(Constants.Entity partner1, Constants.Entity partner2){
+		Relation(Constants.Entity partner1, Constants.Entity partner2, String relationInstance){
 			this.type = null;
 			this.baseRelation = null;
 			this.partner1 = partner1;
 			this.partner2 = partner2;
+			this.relationInstance = relationInstance;
 		}
 		public String type(){ return type; }
 		public Relation getBase(){ 
@@ -134,6 +153,9 @@ public final class Constants {
 			if(baseRelation==null) return this.partner2; 
 			return baseRelation.partner2;
 		};
+		public String getRelationInstance() {
+			return relationInstance;
+		}
 	}
 	// all roles
 	public static enum Role {
@@ -147,19 +169,6 @@ public final class Constants {
 		public int getId() { return id; }
 		public String getName() { return name; }
 	}
-	// all authorisation objectes
-	public static enum AuthObject {
-		PERSON(Entity.PERSON, "Personen");
-		AuthObject(Entity entity, String name) {
-			this.entity = entity;
-			this.name = name;
-		}
-		private String name;
-		private Entity entity;
-		public Entity getEntity() { return entity; }
-		public String getName() { return name; }
-	}
-	
 	
 	// all value lists
 	public static enum ValueList {
@@ -264,5 +273,5 @@ public final class Constants {
 	public static final String POLYNOMIAL = "Polynomial";	
 	
 	// Global Workplace parameters
-	public static final int MAXWORKPAGES = 5;
+	public static final int MAXWORKPAGES = 10;
 }

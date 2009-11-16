@@ -41,6 +41,10 @@ public class ZonesLogic {
 		return true;
 	}
 	
+	public ZonesDefinition getMyZone() {
+		return null;
+	}
+	
 	public void setServiceLayer(ServiceLayer serviceLayer) {
 		this.serviceLayer = serviceLayer;
 	}

@@ -7,7 +7,7 @@ import org.springframework.context.ApplicationContext;
 import trimatrix.db.DAOLayer;
 import trimatrix.structures.SAuthorization;
 import trimatrix.utils.Dictionary;
-import trimatrix.utils.Constants.AuthObject;
+import trimatrix.utils.Constants.Entity;
 import trimatrix.utils.Constants.Role;
 
 public class AuthorizationService {
@@ -19,14 +19,14 @@ public class AuthorizationService {
 		this.dictionaryService = dictionaryService;
 	}	
 	
-	public SAuthorization getAuthorization(AuthObject authObject, String id) {
+	public SAuthorization getAuthorization(Entity entity, String id) {
 		// admin gets all
 		if(dictionaryService.getMyRoles().contains(Role.ADMIN)) {
 			return SAuthorization.ALL;
 		}
 		SAuthorization authorization = null;
 		// no admin, check more detailed :-((
-		switch (authObject) {
+		switch (entity.getBase()) {
 		case PERSON:
 			authorization = handlePerson(id);			
 			break;
