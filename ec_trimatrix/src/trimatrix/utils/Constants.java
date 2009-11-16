@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import trimatrix.entities.IEntityData;
+import trimatrix.relations.IRelationData;
+import trimatrix.structures.SGridMetaData;
 
 public final class Constants {	
 	// all used jsp pages
@@ -236,8 +238,10 @@ public final class Constants {
 	public static final Integer MB_1 = new Integer(1024*1024);
 	public static final Integer KB_64 = new Integer(1024*64);
 	
-	
-	public static final List<IEntityData> EMPTYENTITYLIST = new ArrayList<IEntityData>();
+	// empty lists
+	public static final List<IEntityData> EMPTYENTITYDATA = new ArrayList<IEntityData>();
+	public static final List<SGridMetaData> EMPTYMETADATA =  new ArrayList<SGridMetaData>();
+	public static final List<IRelationData> EMPTYRELATIONDATA = new ArrayList<IRelationData>();
 	
 	public static final String UNKNOWN_MIME_TYPE="application/x-unknown-mime-type";
 	public static final String PDF_MIME_TYPE="application/pdf";

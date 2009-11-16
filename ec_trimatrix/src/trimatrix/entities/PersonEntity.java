@@ -92,7 +92,7 @@ public final class PersonEntity extends AEntity {
         } else if (entity == Constants.Entity.ATHLETES) {
         	return sqlExecutorService.getAthleteEntities();
         } else {
-        	return Constants.EMPTYENTITYLIST;
+        	return Constants.EMPTYENTITYDATA;
         }		
 	}
 	
@@ -103,7 +103,7 @@ public final class PersonEntity extends AEntity {
 		if (entity == Constants.Entity.PERSON) {
         	return sqlExecutorService.getPersonRelationEntities(personId, Constants.Relation.COACH, true);
         } else {
-        	return Constants.EMPTYENTITYLIST;
+        	return Constants.EMPTYENTITYDATA;
         }		
 	}
 	

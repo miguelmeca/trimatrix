@@ -1,6 +1,7 @@
 package trimatrix.db;
 
 import java.util.List;
+import java.util.Map;
 
 import trimatrix.relations.IRelationObject;
 
@@ -17,6 +18,8 @@ public interface IRelationDAO<E extends IRelationObject> {
 	public abstract List<E> findByProperty(String propertyName,
 			Object value);
 
+	public List<E> findByProperties(Map<String, Object> properties);
+	
 	public abstract List<E> findAll();
 
 	public abstract E merge(IRelationObject detachedInstance);

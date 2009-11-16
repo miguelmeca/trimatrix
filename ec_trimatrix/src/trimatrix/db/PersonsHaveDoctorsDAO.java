@@ -1,6 +1,7 @@
 package trimatrix.db;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -102,6 +103,32 @@ public class PersonsHaveDoctorsDAO extends HibernateDaoSupport implements IRelat
          log.error("find by property name failed", re);
          throw re;
       }
+	}
+    
+    /* (non-Javadoc)
+     * @see trimatrix.db.IRelationDAO#findByProperties(java.util.Map)
+     */
+    @SuppressWarnings("unchecked")
+	public List<PersonsHaveDoctors> findByProperties(Map<String, Object> properties) {
+		log.debug("finding PersonsHaveDoctors instance with properties");
+		try {
+			StringBuffer queryString = new StringBuffer("from PersonsHaveDoctors as model where");
+			StringBuffer whereString = new StringBuffer();
+			for(String key : properties.keySet()) {
+				if(whereString.length()==0) {
+					whereString.append(" where");
+				} else {
+					whereString.append(" and");
+				}
+				whereString.append(" model." + key + "=?");
+			}			
+			queryString.append(whereString);
+			queryString.append(" order by model.standard desc");
+			return getHibernateTemplate().find(queryString.toString(), properties.values().toArray());
+		} catch (RuntimeException re) {
+			log.error("find by properties name failed", re);
+			throw re;
+		}
 	}
 
     /* (non-Javadoc)

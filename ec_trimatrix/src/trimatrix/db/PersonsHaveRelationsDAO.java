@@ -1,6 +1,7 @@
 package trimatrix.db;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -112,34 +113,32 @@ public class PersonsHaveRelationsDAO extends HibernateDaoSupport implements IRel
 			throw re;
 		}
 	}
-
+	
 	/* (non-Javadoc)
-	 * @see trimatrix.db.IPersonsHaveRelationsDAO#findByPartner1(java.lang.Object)
+	 * @see trimatrix.db.IRelationDAO#findByProperties(java.util.Map)
 	 */
-	public List<PersonsHaveRelations> findByPartner1(Object partner1) {
-		return findByProperty(PARTNER1, partner1);
-	}
-
-	/* (non-Javadoc)
-	 * @see trimatrix.db.IPersonsHaveRelationsDAO#findByPartner2(java.lang.Object)
-	 */
-	public List<PersonsHaveRelations> findByPartner2(Object partner2) {
-		return findByProperty(PARTNER2, partner2);
-	}
-
-	/* (non-Javadoc)
-	 * @see trimatrix.db.IPersonsHaveRelationsDAO#findByReltypKey(java.lang.Object)
-	 */
-	public List<PersonsHaveRelations> findByReltypKey(Object reltypKey) {
-		return findByProperty(RELTYP_KEY, reltypKey);
-	}
-
-	/* (non-Javadoc)
-	 * @see trimatrix.db.IPersonsHaveRelationsDAO#findByDefault_(java.lang.Object)
-	 */
-	public List<PersonsHaveRelations> findByDefault_(Object default_) {
-		return findByProperty(DEFAULT_, default_);
-	}
+	@SuppressWarnings("unchecked")
+	public List<PersonsHaveRelations> findByProperties(Map<String, Object> properties) {
+		log.debug("finding PersonsHaveRelations instance with properties");
+		try {
+			StringBuffer queryString = new StringBuffer("from PersonsHaveRelations as model");
+			StringBuffer whereString = new StringBuffer();
+			for(String key : properties.keySet()) {
+				if(whereString.length()==0) {
+					whereString.append(" where");
+				} else {
+					whereString.append(" and");
+				}
+				whereString.append(" model." + key + "=?");
+			}			
+			queryString.append(whereString);
+			queryString.append(" order by model.standard desc");
+			return getHibernateTemplate().find(queryString.toString(), properties.values().toArray());
+		} catch (RuntimeException re) {
+			log.error("find by properties name failed", re);
+			throw re;
+		}
+	}	
 
 	/* (non-Javadoc)
 	 * @see trimatrix.db.IPersonsHaveRelationsDAO#findAll()

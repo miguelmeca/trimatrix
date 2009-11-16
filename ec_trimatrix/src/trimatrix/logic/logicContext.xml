@@ -61,7 +61,7 @@
         </property>   
         <property name="daoLayer">
             <ref bean="daoLayer" />            
-        </property>   
+        </property>             
     </bean>
     
     <bean id="zonesLogic" class="trimatrix.logic.ZonesLogic"

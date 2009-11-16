@@ -44,6 +44,7 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
     }
 	
 	private void buildGrid() {
+		getLogic().getZonesLogic().getAthletesZone(getServiceLayer().getDictionaryService().getMyPerson().getId());
 		if(getChangeAllowed()) {
 			Statusbar.outputMessage("Änderungen erlaubt!");
 		} else {

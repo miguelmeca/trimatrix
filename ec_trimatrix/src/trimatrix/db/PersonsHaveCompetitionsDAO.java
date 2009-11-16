@@ -1,6 +1,7 @@
 package trimatrix.db;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -90,6 +91,29 @@ public class PersonsHaveCompetitionsDAO extends HibernateDaoSupport implements I
 			return getHibernateTemplate().find(queryString, value);
 		} catch (RuntimeException re) {
 			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<PersonsHaveCompetitions> findByProperties(Map<String, Object> properties) {
+		log.debug("finding PersonsHaveCompetitions instance with properties");
+		try {
+			StringBuffer queryString = new StringBuffer("from PersonsHaveCompetitions as model where");
+			StringBuffer whereString = new StringBuffer();
+			for(String key : properties.keySet()) {
+				if(whereString.length()==0) {
+					whereString.append(" where");
+				} else {
+					whereString.append(" and");
+				}
+				whereString.append(" model." + key + "=?");
+			}			
+			queryString.append(whereString);
+			queryString.append(" order by model.standard desc");
+			return getHibernateTemplate().find(queryString.toString(), properties.values().toArray());
+		} catch (RuntimeException re) {
+			log.error("find by properties name failed", re);
 			throw re;
 		}
 	}

@@ -12,6 +12,12 @@ import trimatrix.utils.Constants.Page;
 
 public class MyWorkpage extends Workpage{	
 
+	@Override
+	public void reactOnDisplay() {		
+		super.reactOnDisplay();
+		System.out.println("React on Display!!!");
+	}
+
 	private Object parentBean;
 	private IEntityObject entityObject;
 	private SAuthorization authorization;

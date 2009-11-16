@@ -120,12 +120,14 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 	}
 	
 	public void onRemove(ActionEvent event) {
-		final MyARRAYGRIDItem item = (MyARRAYGRIDItem)grid.getSelectedItem();		
+		final MyARRAYGRIDItem item = (MyARRAYGRIDItem)grid.getSelectedItem();	
+		if(item==null) return;
 		deleteRelation(item);		
 	}
 	
 	public void onStandard(ActionEvent event) {
 		MyARRAYGRIDItem item = (MyARRAYGRIDItem)grid.getSelectedItem();
+		if(item==null) return;
 		setStandard(item);
 	}
 	
