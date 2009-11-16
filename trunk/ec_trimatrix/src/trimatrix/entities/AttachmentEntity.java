@@ -80,7 +80,7 @@ public class AttachmentEntity extends AEntity {
         } else if (entity == Constants.Entity.MYATTACHMENTS) {
         	return sqlExecutorService.getAttachmentRelationEntities(dictionaryService.getMyPerson().getId(), Constants.Relation.ATTACHMENT);
         } else {
-        	return Constants.EMPTYENTITYLIST;
+        	return Constants.EMPTYENTITYDATA;
         }
 	}
 	
@@ -88,7 +88,7 @@ public class AttachmentEntity extends AEntity {
 		if (entity == Constants.Entity.ATTACHMENT) {
         	return sqlExecutorService.getAttachmentRelationEntities(personId, Constants.Relation.ATTACHMENT);
         } else {
-        	return Constants.EMPTYENTITYLIST;
+        	return Constants.EMPTYENTITYDATA;
         }
 	}
 

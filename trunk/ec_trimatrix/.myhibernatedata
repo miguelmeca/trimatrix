@@ -1,15 +1,15 @@
 #MyEclipse Hibernate Properties
-#Thu Nov 05 15:16:16 CET 2009
+#Mon Nov 16 23:00:53 CET 2009
 sessionFactoryName=utils.HibernateSessionFactory
 genBasicCompId=true
 profile=
-daoSFId=sessionFactory
+daoSFId=
 version=3.2
 jndiPath=
 detectM2M=false
 reStrategyClass=
 detectO2O=false
-springDaoFile=src/trimatrix/db/dbContext.xml
+springDaoFile=
 useJavaTypes=true
 keyGenerator=assigned
 libInstallFolder=WEB-INF/lib

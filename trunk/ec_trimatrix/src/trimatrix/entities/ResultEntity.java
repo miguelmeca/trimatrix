@@ -84,7 +84,7 @@ public final class ResultEntity extends AEntity {
         } else if(entity == Constants.Entity.SCOUTRESULTS) {
         	return sqlExecutorService.getResultEntities(null, null, dictionaryService.getMyPerson().getId(), null, filter);
         } else {
-        	return Constants.EMPTYENTITYLIST;
+        	return Constants.EMPTYENTITYDATA;
         }		
 	}
 	
@@ -95,7 +95,7 @@ public final class ResultEntity extends AEntity {
 		if (entity == Constants.Entity.MYRESULTS) {
         	return sqlExecutorService.getResultEntities(null, null, dictionaryService.getMyPerson().getId(), personId, filter);
         }  else {
-        	return Constants.EMPTYENTITYLIST;
+        	return Constants.EMPTYENTITYDATA;
         }		
 	}
 	

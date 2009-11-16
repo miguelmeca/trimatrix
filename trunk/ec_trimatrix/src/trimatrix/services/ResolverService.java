@@ -1,7 +1,6 @@
 package trimatrix.services;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -23,10 +22,6 @@ import trimatrix.utils.Constants.Relation;
 public final class ResolverService {
 	public static final Log logger = LogFactory.getLog(ResolverService.class);
 	
-	public static List<SGridMetaData> EMPTYMETADATA =  new ArrayList<SGridMetaData>();
-	public static List<IEntityData> EMPTYENTITYDATA = new ArrayList<IEntityData>();
-	public static List<IRelationData> EMPTYRELATIONDATA = new ArrayList<IRelationData>();
-	
 	private IEntity userEntity;
 	private IEntity personEntity;
 	private IEntity doctorEntity;
@@ -46,7 +41,7 @@ public final class ResolverService {
 			return (List<SGridMetaData>)getProxy(entity).getGridMetaData(filter);
 		} catch (Exception ex) {
 			logger.error("GETMETADATA : Entity " + entity.toString() + " not valid! : " + ex.toString());
-			return EMPTYMETADATA;
+			return Constants.EMPTYMETADATA;
 		}
 	}
 	
@@ -56,7 +51,7 @@ public final class ResolverService {
 			return (List<IEntityData>)getProxy(entity).getData(entity, filter);
 		} catch (Exception ex) {
 			logger.error("GETDATA : Entity " + entity.toString() + " not valid! : " + ex.toString());
-			return EMPTYENTITYDATA;
+			return Constants.EMPTYENTITYDATA;
 		}
 	}
 	
@@ -66,7 +61,7 @@ public final class ResolverService {
 			return (List<IEntityData>)getProxy(entity).getData(entity, personId, filter);
 		} catch (Exception ex) {
 			logger.error("GETDATA : Entity " + entity.toString() + " not valid! : " + ex.toString());
-			return EMPTYENTITYDATA;
+			return Constants.EMPTYENTITYDATA;
 		}
 	}
 	
@@ -75,7 +70,7 @@ public final class ResolverService {
 			return (List<IEntityData>)getProxy(entity).getData(ids);
 		} catch (Exception ex) {
 			logger.error("GETDATA : Entity " + entity.toString() + " not valid! : " + ex.toString());
-			return EMPTYENTITYDATA;
+			return Constants.EMPTYENTITYDATA;
 		}		
 	}
 	
@@ -165,7 +160,7 @@ public final class ResolverService {
 			return (List<SGridMetaData>)getProxy(relation).getGridMetaData();
 		} catch (Exception ex) {
 			logger.error("GETMETADATA : Relation " + relation.toString() + " not valid! : " + ex.toString());
-			return EMPTYMETADATA;
+			return Constants.EMPTYMETADATA;
 		}
 	}
 	
@@ -174,7 +169,7 @@ public final class ResolverService {
 			return (List<IRelationData>)getProxy(relation).getData(relation);
 		} catch (Exception ex) {
 			logger.error("GETDATA : Relation " + relation.toString() + " not valid! : " + ex.toString());
-			return EMPTYRELATIONDATA;
+			return Constants.EMPTYRELATIONDATA;
 		}
 	}
 	

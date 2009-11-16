@@ -1,14 +1,20 @@
 package trimatrix.logic;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import trimatrix.db.DAOLayer;
+import trimatrix.db.Persons;
+import trimatrix.db.PersonsHaveRelations;
+import trimatrix.db.PersonsHaveRelationsDAO;
 import trimatrix.db.ZonesDefinition;
 import trimatrix.services.ServiceLayer;
+import trimatrix.utils.Constants.Relation;
 
 public class ZonesLogic {
 	public static final Log logger = LogFactory.getLog(ZonesLogic.class);
@@ -41,8 +47,20 @@ public class ZonesLogic {
 		return true;
 	}
 	
-	public ZonesDefinition getMyZone() {
-		return null;
+	public void getAthletesZone(String athleteId) {
+		// get coach of athlete
+		Map<String, Object> properties = new HashMap<String, Object>();
+		properties.put(PersonsHaveRelationsDAO.PARTNER1, athleteId);
+		properties.put(PersonsHaveRelationsDAO.RELTYP_KEY, Relation.COACH.type());
+		List<PersonsHaveRelations> phrs = daoLayer.getPersonsHaveRelationsDAO().findByProperties(properties);
+		for(PersonsHaveRelations phr : phrs) {
+			System.out.println("PHR : " + phr.getId());
+		}
+		//if(phrs==null || phrs.size()==0) return null;
+		String coachId = phrs.get(0).getPartner2();
+		Persons coach = daoLayer.getPersonsDAO().findById(coachId);
+		// get zones definition
+		List<ZonesDefinition> zonesDefinitions = coach.getZonesDefinition();   	
 	}
 	
 	public void setServiceLayer(ServiceLayer serviceLayer) {

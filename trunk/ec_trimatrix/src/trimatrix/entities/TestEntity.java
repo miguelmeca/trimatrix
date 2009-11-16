@@ -97,7 +97,7 @@ public final class TestEntity extends AEntity {
         } else if (entity == Constants.Entity.COACHTESTS) {
         	return sqlExecutorService.getTestEntities(COACH, dictionaryService.getMyPerson().getId());	
         } else {
-        	return Constants.EMPTYENTITYLIST;
+        	return Constants.EMPTYENTITYDATA;
         }		
 	}
 	
@@ -110,7 +110,7 @@ public final class TestEntity extends AEntity {
 		} else if (entity == Constants.Entity.COACHTESTS) {
 			return sqlExecutorService.getTestEntities(COACH, personId);
 		} else {
-        	return Constants.EMPTYENTITYLIST;
+        	return Constants.EMPTYENTITYDATA;
         }		
 	}
 	

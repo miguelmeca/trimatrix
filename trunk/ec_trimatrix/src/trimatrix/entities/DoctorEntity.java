@@ -73,7 +73,7 @@ public class DoctorEntity extends AEntity {
 		if (entity == Constants.Entity.DOCTOR) {
         	return sqlExecutorService.getDoctorRelationEntities(personId, Constants.Relation.DOCTOR);
         } else {
-        	return Constants.EMPTYENTITYLIST;
+        	return Constants.EMPTYENTITYDATA;
         }
 	}
 	
@@ -83,7 +83,7 @@ public class DoctorEntity extends AEntity {
         } else if (entity == Constants.Entity.MYDOCTORS) {
         	return sqlExecutorService.getDoctorRelationEntities(dictionaryService.getMyPerson().getId(), Constants.Relation.DOCTOR);
         } else {
-        	return Constants.EMPTYENTITYLIST;
+        	return Constants.EMPTYENTITYDATA;
         }
 	}	
 

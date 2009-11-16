@@ -1,6 +1,7 @@
 package trimatrix.db;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -112,35 +113,33 @@ public class PersonsHaveAttachmentsDAO extends HibernateDaoSupport implements IR
 			throw re;
 		}
 	}
-
-	/* (non-Javadoc)
-	 * @see trimatrix.db.IPersonsHaveAttachmentsDAO#findByPerson(java.lang.Object)
-	 */
-	public List<PersonsHaveAttachments> findByPerson(Object person) {
-		return findByProperty(PERSON, person);
-	}
-
-	/* (non-Javadoc)
-	 * @see trimatrix.db.IPersonsHaveAttachmentsDAO#findByAttachment(java.lang.Object)
-	 */
-	public List<PersonsHaveAttachments> findByAttachment(Object attachment) {
-		return findByProperty(ATTACHMENT, attachment);
-	}
-
-	/* (non-Javadoc)
-	 * @see trimatrix.db.IPersonsHaveAttachmentsDAO#findByReltypKey(java.lang.Object)
-	 */
-	public List<PersonsHaveAttachments> findByReltypKey(Object reltypKey) {
-		return findByProperty(RELTYP_KEY, reltypKey);
-	}
-
-	/* (non-Javadoc)
-	 * @see trimatrix.db.IPersonsHaveAttachmentsDAO#findByStandard(java.lang.Object)
-	 */
-	public List<PersonsHaveAttachments> findByStandard(Object standard) {
-		return findByProperty(STANDARD, standard);
-	}
 	
+	/* (non-Javadoc)
+	 * @see trimatrix.db.IRelationDAO#findByProperties(java.util.Map)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<PersonsHaveAttachments> findByProperties(Map<String, Object> properties) {
+		log.debug("finding PersonsHaveAttachments instance with properties");
+		try {
+			StringBuffer queryString = new StringBuffer("from PersonsHaveAttachments as model where");
+			StringBuffer whereString = new StringBuffer();
+			for(String key : properties.keySet()) {
+				if(whereString.length()==0) {
+					whereString.append(" where");
+				} else {
+					whereString.append(" and");
+				}
+				whereString.append(" model." + key + "=?");
+			}			
+			queryString.append(whereString);
+			queryString.append(" order by model.standard desc");
+			return getHibernateTemplate().find(queryString.toString(), properties.values().toArray());
+		} catch (RuntimeException re) {
+			log.error("find by properties name failed", re);
+			throw re;
+		}
+	}
+
 	/* (non-Javadoc)
 	 * @see trimatrix.db.IPersonsHaveAttachmentsDAO#findAll()
 	 */

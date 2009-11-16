@@ -61,7 +61,7 @@ public final class CompetitionEntity extends AEntity {
         } else if (entity == Constants.Entity.SCOUTCOMPETITIONS) {
         	return sqlExecutorService.getCompetitionRelationEntities(dictionaryService.getMyPerson().getId(), Relation.COMPETITIONSCOUT);
         }else {
-        	return Constants.EMPTYENTITYLIST;
+        	return Constants.EMPTYENTITYDATA;
         }		
 	}
 	
