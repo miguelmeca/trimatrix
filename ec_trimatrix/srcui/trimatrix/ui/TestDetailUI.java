@@ -740,7 +740,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 				String maxPerformance = (String) values.get(TestEntity.PERFORMANCE_MAX);
 				if (maxPerformance == null)
 					return null;
-				return (Helper.percentageOfTime(maxPerformance, 200 - intensity));
+				return (Helper.getTimeByPercentage(maxPerformance, 200 - intensity));
 			} else {
 				return ((GridSwimItem) this.getParentNode()).getTargetTime();
 			}

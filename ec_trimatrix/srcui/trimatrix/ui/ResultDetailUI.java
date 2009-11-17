@@ -283,6 +283,14 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 		values.put(field, splitTime);
 	}
 
+	public Double getPercentDeficitSwim() {
+		return Helper.getPercentageByTime((String)values.get(ResultEntity.BEST_SWIM_SPLIT), (String)values.get(ResultEntity.SWIM_DEFICIT));
+	}
+	
+	public Double getPercentDeficitRun() {
+		return Helper.getPercentageByTime((String)values.get(ResultEntity.BEST_RUN_SPLIT), (String)values.get(ResultEntity.RUN_DEFICIT));
+	}
+	
 	@Override
 	public void prepareSave() {
 		// ergo

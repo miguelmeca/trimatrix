@@ -137,6 +137,14 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 			if (meta.component == SGridMetaData.Component.FORMATED_DATETIME) {
 				isFormatedDateTime = true;
 			} 
+			boolean isFormatedDouble = false;
+			if (meta.component == SGridMetaData.Component.FORMATED_DOUBLE) {
+				isFormatedDouble = true;
+			}
+			boolean isColorField = false;
+			if (meta.component == SGridMetaData.Component.COLORFIELD) {
+				isColorField = true;
+			}
 			boolean isIcon = false;
 			if (meta.component == SGridMetaData.Component.ICON) {
 				isIcon= true;
@@ -153,6 +161,12 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 			} else if (isFormatedDateTime) {
 				xml.append("<t:formattedfield value='.{datum."
 						+ meta.techname + "}' format='datetime' formatmask='medium' enabled='false' width='100'/>");
+			} else if (isFormatedDouble) {
+				xml.append("<t:formattedfield value='.{datum."
+						+ meta.techname + "}' format='double' enabled='false' width='100'/>");
+			} else if (isColorField) {
+				xml.append("<t:label background='.{datum."
+						+ meta.techname + "}' focusable='false' width='20' height='20'/>");
 			} else if (isIcon) {
 				xml.append("<t:icon align='center' image='.{datum."
 						+ meta.techname + "}' enabled='true' imageheight='20' imagewidth='20'/>");			

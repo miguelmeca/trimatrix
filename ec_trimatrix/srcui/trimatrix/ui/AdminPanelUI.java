@@ -17,11 +17,19 @@ import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.structures.SUserInfo;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
+import trimatrix.utils.MessageHandler;
 import trimatrix.utils.UserTracker;
 
 @CCGenClass (expressionBase="#{d.AdminPanelUI}")
 
 public class AdminPanelUI extends MyWorkpageDispatchedBean implements Serializable {
+
+    public String getLogonMessage() { return MessageHandler.getLogonMessage(); }
+    public void setLogonMessage(String value) { MessageHandler.setLogonMessage(value); }
+
+    public boolean getShowLogonMessage() { return MessageHandler.isShowLogonMessage(); }
+    public void setShowLogonMessage(boolean value) { MessageHandler.setShowLogonMessage(value); }
+
     
     protected FIXGRIDListBinding<GridLoggedInUsersItem> m_gridLoggedInUsers = new FIXGRIDListBinding<GridLoggedInUsersItem>();
     public FIXGRIDListBinding<GridLoggedInUsersItem> getGridLoggedInUsers() { return m_gridLoggedInUsers; }
