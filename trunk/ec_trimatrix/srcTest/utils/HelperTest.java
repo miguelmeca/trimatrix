@@ -36,15 +36,15 @@ public class HelperTest {
 	
 	@Test
 	public void testCalucaltePercentage() {
-		Assert.assertEquals("02:00", Helper.percentageOfTime("01:00", 200));
-		Assert.assertEquals("01:00", Helper.percentageOfTime("01:00", 100));
-		Assert.assertEquals("00:45", Helper.percentageOfTime("01:00", 75));
-		Assert.assertEquals("00:30", Helper.percentageOfTime("01:00", 50));
-		Assert.assertEquals("00:00", Helper.percentageOfTime("01:00", 0));
+		Assert.assertEquals("02:00", Helper.getTimeByPercentage("01:00", 200));
+		Assert.assertEquals("01:00", Helper.getTimeByPercentage("01:00", 100));
+		Assert.assertEquals("00:45", Helper.getTimeByPercentage("01:00", 75));
+		Assert.assertEquals("00:30", Helper.getTimeByPercentage("01:00", 50));
+		Assert.assertEquals("00:00", Helper.getTimeByPercentage("01:00", 0));
 		
-		Assert.assertEquals("01:02:04", Helper.percentageOfTime("00:31:02", 200));
-		Assert.assertEquals("00:45:30", Helper.percentageOfTime("01:31:00", 50));
-		Assert.assertEquals("01:11:11", Helper.percentageOfTime("01:11:11", 100));
-		Assert.assertEquals("00:00:00", Helper.percentageOfTime("00:31:00", 0));
+		Assert.assertEquals("01:02:04", Helper.getTimeByPercentage("00:31:02", 200));
+		Assert.assertEquals("00:45:30", Helper.getTimeByPercentage("01:31:00", 50));
+		Assert.assertEquals("01:11:11", Helper.getTimeByPercentage("01:11:11", 100));
+		Assert.assertEquals("00:00:00", Helper.getTimeByPercentage("00:31:00", 0));
 	}
 }

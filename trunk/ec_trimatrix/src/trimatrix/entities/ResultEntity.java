@@ -12,6 +12,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 import trimatrix.db.Results;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Helper;
 
 public final class ResultEntity extends AEntity {
 	
@@ -33,6 +34,9 @@ public final class ResultEntity extends AEntity {
     public static final String BEST_RUN_SPLIT = "best_run_split";
     public static final String SWIM_DEFICIT = "swim_def";
     public static final String RUN_DEFICIT = "run_def";
+    public static final String SWIM_DEFICIT_PER = "swim_def_per";
+    public static final String RUN_DEFICIT_PER = "run_def_per";
+    public static final String RUN_COLOR = "run_color";
     public static final String SWIMSUIT = "swimsuit";
           
 	/* (non-Javadoc)
@@ -60,10 +64,13 @@ public final class ResultEntity extends AEntity {
 			gridMetaData.add(new SGridMetaData("#{rr.literals.ranking_swim}",SWIM_POSITION, SGridMetaData.Component.FIELD)); 
 			gridMetaData.add(new SGridMetaData("#{rr.literals.deficit_swim}",SWIM_DEFICIT, SGridMetaData.Component.FIELD));
 			gridMetaData.add(new SGridMetaData("#{rr.literals.best_swim_split}",BEST_SWIM_SPLIT, SGridMetaData.Component.FIELD)); 
+			gridMetaData.add(new SGridMetaData("#{rr.literals.deficit_percent}",SWIM_DEFICIT_PER, SGridMetaData.Component.FORMATED_DOUBLE)); 
 			gridMetaData.add(new SGridMetaData("#{rr.literals.run_split}",RUN_SPLIT, SGridMetaData.Component.FIELD));
 			gridMetaData.add(new SGridMetaData("#{rr.literals.ranking_run}",RUN_POSITION, SGridMetaData.Component.FIELD)); 
 			gridMetaData.add(new SGridMetaData("#{rr.literals.deficit_run}",RUN_DEFICIT, SGridMetaData.Component.FIELD));
-			gridMetaData.add(new SGridMetaData("#{rr.literals.best_run_split}",BEST_RUN_SPLIT, SGridMetaData.Component.FIELD));		
+			gridMetaData.add(new SGridMetaData("#{rr.literals.best_run_split}",BEST_RUN_SPLIT, SGridMetaData.Component.FIELD));	
+			gridMetaData.add(new SGridMetaData("#{rr.literals.deficit_percent}",RUN_DEFICIT_PER, SGridMetaData.Component.FORMATED_DOUBLE));
+			gridMetaData.add(new SGridMetaData("Farbe",RUN_COLOR, SGridMetaData.Component.COLORFIELD));
 		}
 		return gridMetaData;
 	}
@@ -247,5 +254,17 @@ public final class ResultEntity extends AEntity {
 		public String getBest_run_split() {
 			return best_run_split;
 		}		
+		
+		public Double getSwim_def_per() {
+			return Helper.getPercentageByTime(best_swim_split, swim_def);
+		}
+		
+		public Double getRun_def_per() {
+			return Helper.getPercentageByTime(best_run_split, run_def);
+		}
+		
+		public String getRun_color() {
+			return Constants.BLACK;
+		}
 	}
 }

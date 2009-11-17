@@ -160,7 +160,7 @@ public class Helper {
 	 * @param percentage
 	 * @return calculated time
 	 */
-	public static String percentageOfTime(String time, Integer percentage) {
+	public static String getTimeByPercentage(String time, Integer percentage) {
 		boolean hhmmss; 
 		switch (time.length()) {
 		case 5: //mm:ss
@@ -178,6 +178,13 @@ public class Helper {
 		int secTime = calculateSeconds(time);
 		double seconds = (secTime / 100d) * percentage;
 		return calculateTime((int)seconds, hhmmss);			
+	}
+	
+	public static Double getPercentageByTime(String time, String part) {
+		int secTime = calculateSeconds(time);
+		if(secTime==0) return 0d;
+		int secPart = calculateSeconds(part);
+		return 100d/secTime * secPart;		
 	}
 	
 	/**
@@ -204,7 +211,7 @@ public class Helper {
 		// mm:hh:ss
 		if(arrTime.length==3) return Integer.valueOf(arrTime[0]) * 3600 + Integer.valueOf(arrTime[1]) * 60 + Integer.valueOf(arrTime[2]);
 		// wrong
-		return null;
+		return 0;
 	} 
 	
 	/**

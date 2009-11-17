@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 
 import trimatrix.db.DAOLayer;
@@ -15,6 +16,7 @@ import trimatrix.db.Users;
 import trimatrix.services.ServiceLayer;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
+import trimatrix.utils.MessageHandler;
 import trimatrix.utils.UserTracker;
 
 public class LogonLogic {
@@ -61,6 +63,8 @@ public class LogonLogic {
 			logger.error("Problem wrtiting user logon info : " + ex.toString());
 		}		
 		UserTracker.addUser(username);
+		// check logon message is active
+		if(MessageHandler.isShowLogonMessage()) Statusbar.outputAlert(MessageHandler.getLogonMessage());
 		return true;
 	}
 	

@@ -80,6 +80,17 @@
 </t:row>
 </t:pane>
 </t:row>
+<t:rowdistance id="g_50" height="15" />
+<t:row id="g_51" comment="message handling" >
+<t:pane id="g_52" height="100%" rowdistance="5" width="100%" >
+<t:rowtitlebar id="g_53" text="Meldungsverwaltung" />
+<t:rowheader id="g_54" />
+<t:row id="g_55" >
+<t:checkbox id="g_56" flush="true" selected="#{d.AdminPanelUI.showLogonMessage}" text="Logon Meldung aktiv" />
+<t:textarea id="g_57" enabled="#{d.AdminPanelUI.showLogonMessage==false}" flush="true" height="100" text="#{d.AdminPanelUI.logonMessage}" width="400" />
+</t:row>
+</t:pane>
+</t:row>
 </t:rowbodypane>
 <t:pageaddons id="g_pa"/>
 </f:subview>
