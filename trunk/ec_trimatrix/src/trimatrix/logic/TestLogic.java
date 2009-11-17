@@ -64,6 +64,7 @@ public class TestLogic {
             	if(i>=parts.length) {
             		result[i] = new Split();
             	}
+            	// remove brackets
                 String part = parts[i].substring(1, parts[i].length()-1);
                 String[] elements = part.split(";");
                 String time = elements[0];

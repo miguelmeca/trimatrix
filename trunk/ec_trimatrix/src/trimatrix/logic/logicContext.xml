@@ -86,6 +86,11 @@
         </property>   
     </bean> 
     
+    <bean id="competitionLogic" class="trimatrix.logic.CompetitionLogic"
+        abstract="false" lazy-init="default" autowire="default"
+        dependency-check="default">
+    </bean> 
+    
     <bean id="logicLayer" class="trimatrix.logic.LogicLayer"
         abstract="false" lazy-init="default" autowire="default"
         dependency-check="default">
@@ -109,6 +114,9 @@
         </property> 
         <property name="testLogic">
             <ref bean="testLogic" />
+        </property> 
+        <property name="competitionLogic">
+            <ref bean="competitionLogic" />
         </property> 
     </bean>    
 </beans>

@@ -22,7 +22,8 @@ public class CompetitionsScouts  implements java.io.Serializable {
     // Fields    
 
      private CompetitionsScoutsId id;
-     private String factors;
+     private String category;
+     private String limits;
 
 
     // Constructors
@@ -37,9 +38,10 @@ public class CompetitionsScouts  implements java.io.Serializable {
     }
     
     /** full constructor */
-    public CompetitionsScouts(CompetitionsScoutsId id, String factors) {
+    public CompetitionsScouts(CompetitionsScoutsId id, String category, String limits) {
         this.id = id;
-        this.factors = factors;
+        this.category = category;
+        this.limits = limits;
     }
 
    
@@ -58,22 +60,22 @@ public class CompetitionsScouts  implements java.io.Serializable {
         this.id = id;
     }
     
-    @Column(name="factors", columnDefinition="text")
+    @Column(name="category",  length = 10)
+    public String getCategory() {
+		return category;
+	}
 
-    public String getFactors() {
-        return this.factors;
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	@Column(name="limits", columnDefinition="text")
+
+    public String getLimits() {
+        return this.limits;
     }
     
-    public void setFactors(String factors) {
-        this.factors = factors;
+    public void setLimits(String limits) {
+        this.limits = limits;
     }
-   
-
-
-
-
-
-
-
-
 }

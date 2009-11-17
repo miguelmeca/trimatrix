@@ -377,10 +377,10 @@ public class DBConnectionTest {
 		// Competitions Scout
 		CompetitionsScoutsId csId = new CompetitionsScoutsId(id,"ABCDEFGH");
 		CompetitionsScouts compScout = new CompetitionsScouts(csId);
-		compScout.setFactors("Faktoren");
+		compScout.setLimits("Faktoren");
 		daoLayer.getCompetitionsScoutsDAO().save(compScout);
 		CompetitionsScouts compScout2 = daoLayer.getCompetitionsScoutsDAO().findById(csId);
-		Assert.assertEquals("Faktoren", compScout2.getFactors());
+		Assert.assertEquals("Faktoren", compScout2.getLimits());
 		// Competitions Relation
 		String phcId = UUID.randomUUID().toString();
 		PersonsHaveCompetitions phc = new PersonsHaveCompetitions(phcId);
