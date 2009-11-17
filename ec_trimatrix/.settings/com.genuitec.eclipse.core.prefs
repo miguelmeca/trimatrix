@@ -1,7 +1,9 @@
-#Thu Nov 05 15:38:41 CET 2009
+#Tue Nov 17 21:50:14 CET 2009
 clsCnt=235
 eclipse.preferences.version=1
 locCnt=28382
 pkgCnt=19
 sTime=Donnerstag, 05. November 2009 15\:38 Uhr MEZ
 srcCnt=3
+validator.Checked=webcontent/MessAdmin/inc/js.inc,webcontent/MessAdmin/serverInfos.jsp
+validator.Unchecked=

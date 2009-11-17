@@ -33,10 +33,32 @@
 <t:label id="g_16" text="#{rr.literals.country}" width="100" />
 <t:combobox id="g_17" attributemacro="entityDetailMacro(CompetitionDetailUI,country)" validvaluesbinding="#{d.CompetitionDetailUI.countriesVvb}" width="200" />
 </t:row>
-<t:row id="g_18" comment="Factors" rendered="#{d.CompetitionDetailUI.myCompetition}" >
-<t:pane id="g_19" >
-<t:row id="g_20" >
-<t:label id="g_21" text="Faktoren" />
+<t:rowdistance id="g_18" />
+<t:row id="g_19" comment="Limits" rendered="#{d.CompetitionDetailUI.myCompetition}" >
+<t:pane id="g_20" rowdistance="5" width="100%" >
+<t:row id="g_21" >
+<t:label id="g_22" font="size:12;weight:bold" text="#{rr.literals.limits}" />
+</t:row>
+<t:row id="g_23" >
+<t:fixgrid id="g_24" avoidroundtrips="true" objectbinding="#{d.CompetitionDetailUI.gridLimits}" sbvisibleamount="10" width="500" >
+<t:gridcol id="g_25" columnresizingenabled="false" searchenabled="false" sortenabled="false" width="20" >
+<t:gridrowselector id="g_26" />
+</t:gridcol>
+<t:gridcol id="g_27" align="center" text="#{rr.literals.category}" width="120" >
+<t:field id="g_28" enabled="#{d.CompetitionDetailUI.enabled}" maxlength="10" text=".{category}" />
+</t:gridcol>
+<t:gridcol id="g_29" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.green_area_high}" width="170" >
+<t:formattedfield id="g_30" background="#00FF00" enabled="#{d.CompetitionDetailUI.enabled}" font="weight:bold" format="double" userhint="%" value=".{greenAreaHigh}" />
+</t:gridcol>
+<t:gridcol id="g_31" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.red_area_low}" width="170" >
+<t:formattedfield id="g_32" background="#FF0000" enabled="#{d.CompetitionDetailUI.enabled}" font="weight:bold" format="double" userhint="%" value=".{redAreaLow}" />
+</t:gridcol>
+</t:fixgrid>
+</t:row>
+<t:row id="g_33" >
+<t:button id="g_34" actionListener="#{d.CompetitionDetailUI.onAddLimit}" enabled="#{d.CompetitionDetailUI.enabled}" text="#{rr.literals.list_add}" />
+<t:coldistance id="g_35" />
+<t:button id="g_36" actionListener="#{d.CompetitionDetailUI.onRemoveLimit}" enabled="#{d.CompetitionDetailUI.enabled}" text="#{rr.literals.list_remove}" />
 </t:row>
 </t:pane>
 </t:row>

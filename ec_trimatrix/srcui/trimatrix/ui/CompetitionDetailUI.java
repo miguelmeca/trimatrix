@@ -4,7 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.event.ActionEvent;
+
 import org.eclnt.editor.annotations.CCGenClass;
+import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
+import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
@@ -22,6 +26,61 @@ import trimatrix.utils.Constants.Mode;
 @CCGenClass (expressionBase="#{d.CompetitionDetailUI}")
 
 public class CompetitionDetailUI extends AEntityDetailUI implements Serializable {
+    protected String m_category;
+    public String getCategory() { return m_category; }
+    public void setCategory(String value) { m_category = value; }
+
+    protected FIXGRIDListBinding<GridLimitsItem> m_gridLimits = new FIXGRIDListBinding<GridLimitsItem>();
+    public FIXGRIDListBinding<GridLimitsItem> getGridLimits() { return m_gridLimits; }
+    public void setGridLimits(FIXGRIDListBinding<GridLimitsItem> value) { m_gridLimits = value; }
+
+    public class GridLimitsItem extends FIXGRIDItem implements java.io.Serializable
+    {
+    	private String category;
+    	private Double greenAreaHigh;
+    	private Double redAreaLow;   	
+    	
+    	public GridLimitsItem() {
+    		category = null;
+    		greenAreaHigh = 0d;
+    		redAreaLow = 0d;
+		}
+    	
+		public GridLimitsItem(String category, Double greenAreaHigh, Double redAreaLow) {
+			super();
+			this.category = category;
+			this.greenAreaHigh = greenAreaHigh;
+			this.redAreaLow = redAreaLow;
+		}
+		
+		public String getCategory() {
+			return category;
+		}
+		public void setCategory(String category) {
+			this.category = category;
+		}
+		public Double getGreenAreaHigh() {
+			return greenAreaHigh;
+		}
+		public void setGreenAreaHigh(Double greenAreaHigh) {
+			this.greenAreaHigh = greenAreaHigh;
+		}
+		public Double getRedAreaLow() {
+			return redAreaLow;
+		}
+		public void setRedAreaLow(Double redAreaLow) {
+			this.redAreaLow = redAreaLow;
+		}    	
+    }
+
+    public void onRemoveLimit(ActionEvent event) {
+    	m_gridLimits.getItems().remove(m_gridLimits.getSelectedItem());
+    }
+
+    public void onAddLimit(ActionEvent event) {
+    	m_gridLimits.getItems().add(new GridLimitsItem());
+    }
+
 	protected ValidValuesBinding countriesVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.COUNTRY);
     public ValidValuesBinding getCountriesVvb() { return countriesVvb; }
     
@@ -96,7 +155,12 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		values.put(CompetitionEntity.TYPE, entity.getType());
 		values.put(CompetitionEntity.DATE, entity.getDate());
 		values.put(CompetitionEntity.ADDRESS, entity.getAddress());
-		values.put(CompetitionEntity.COUNTRY, entity.getCountryKey());		
+		values.put(CompetitionEntity.COUNTRY, entity.getCountryKey());
+		// scout part
+		if(entityCS!=null) {
+			m_gridLimits.getItems().clear();
+			
+		}
 		// add bgpaint of fields
 		bgpaint.clear();
 		// mandatory fields

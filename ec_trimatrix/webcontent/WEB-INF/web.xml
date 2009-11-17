@@ -171,6 +171,25 @@
 		<!-- MessAdmin listener -->
 		<listener-class>clime.messadmin.core.MessAdminListener</listener-class>
 	</listener>
+
+	<servlet>
+		<!-- MessAdmin Servlet -->
+		<servlet-name>MessAdminServlet</servlet-name>
+		<servlet-class>clime.messadmin.admin.MessAdminServlet</servlet-class>
+		<init-param>
+			<param-name>AuthorizationPassword</param-name>
+			<param-value>mymessadm</param-value>
+		</init-param>
+		<load-on-startup>-1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>MessAdminServlet</servlet-name>
+		<url-pattern>/messadmin</url-pattern>
+		<!--
+			You can change this pattern!
+		-->
+	</servlet-mapping>
 	<!--
 		MessAdmin End
 	-->
