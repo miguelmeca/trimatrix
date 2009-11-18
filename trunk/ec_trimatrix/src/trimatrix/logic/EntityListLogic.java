@@ -109,6 +109,13 @@ public class EntityListLogic {
 		return daoLayer.getCompetitionsScoutsDAO().findById(csId);
 	}
 	
+	public CompetitionsScouts getCompetitionScouts(String competitionId, String scoutId) {
+		CompetitionsScoutsId csId = new CompetitionsScoutsId();
+		csId.setCompetitionId(competitionId);
+		csId.setScoutId(scoutId);
+		return daoLayer.getCompetitionsScoutsDAO().findById(csId);
+	}
+	
 	public void setServiceLayer(ServiceLayer serviceLayer) {
 		this.serviceLayer = serviceLayer;
 	}

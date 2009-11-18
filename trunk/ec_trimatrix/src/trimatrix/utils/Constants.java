@@ -252,6 +252,9 @@ public final class Constants {
 	// colors as string
 	public static final String WHITE = "#FFFFFF";
 	public static final String BLACK = "#000000";
+	public static final String RED = "#FF0000";
+	public static final String GREEN = "#00FF00";
+	public static final String YELLOW = "#FFFF00";
 	
 	// UI parameter
 	public static final String CLIENTNAME = "clientname";

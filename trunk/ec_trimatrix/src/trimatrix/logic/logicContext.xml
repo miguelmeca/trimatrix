@@ -85,6 +85,9 @@
 	<bean id="competitionLogic" class="trimatrix.logic.CompetitionLogic"
 		abstract="false" lazy-init="default" autowire="default"
 		dependency-check="default">
+		<property name="serviceLayer">
+			<ref bean="serviceLayer" />
+		</property>
 		<property name="daoLayer">
 			<ref bean="daoLayer" />
 		</property>

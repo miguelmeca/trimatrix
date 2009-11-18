@@ -45,13 +45,13 @@
 <t:gridrowselector id="g_26" />
 </t:gridcol>
 <t:gridcol id="g_27" align="center" text="#{rr.literals.category}" width="120" >
-<t:field id="g_28" enabled="#{d.CompetitionDetailUI.enabled}" maxlength="10" text=".{category}" />
+<t:combofield id="g_28" actionListener=".{onCategoryF4}" editable="true" enabled="#{d.CompetitionDetailUI.enabled}" flush="true" flushtimer="1000" keepfocus="true" maxlength="10" text=".{category}" />
 </t:gridcol>
 <t:gridcol id="g_29" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.green_area_high}" width="120" >
 <t:formattedfield id="g_30" align="center" background="#00FF00" enabled="#{d.CompetitionDetailUI.enabled}" font="weight:bold" format="double" userhint="%" value=".{greenAreaHigh}" />
 </t:gridcol>
 <t:gridcol id="g_31" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.red_area_low}" width="120" >
-<t:formattedfield id="g_32" actionListener="center" background="#FF0000" enabled="#{d.CompetitionDetailUI.enabled}" font="weight:bold" format="double" userhint="%" value=".{redAreaLow}" />
+<t:formattedfield id="g_32" align="center" background="#FF0000" enabled="#{d.CompetitionDetailUI.enabled}" font="weight:bold" format="double" userhint="%" value=".{redAreaLow}" />
 </t:gridcol>
 </t:fixgrid>
 </t:row>

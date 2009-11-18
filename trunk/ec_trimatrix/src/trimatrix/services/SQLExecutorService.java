@@ -24,6 +24,8 @@ import trimatrix.entities.PersonEntity;
 import trimatrix.entities.ResultEntity;
 import trimatrix.entities.TestEntity;
 import trimatrix.entities.UserEntity;
+import trimatrix.logic.LogicLayer;
+import trimatrix.logic.CompetitionLogic.Limit;
 import trimatrix.relations.IRelationData;
 import trimatrix.relations.PersonAttachmentRelation;
 import trimatrix.relations.PersonDoctorRelation;
@@ -75,6 +77,7 @@ public class SQLExecutorService {
 	private HibernateTransactionManager transactionManager;
 	private Dictionary dictionaryService;
 	private DAOLayer daoLayer;
+	private LogicLayer logicLayer;
 	
 	/**
 	 * Retrieve functiontree for workplace
@@ -585,6 +588,13 @@ public class SQLExecutorService {
 				datum.run_pos = (String)line[i++];	
 				datum.run_def = (String)line[i++];	
 				datum.best_run_split = (String)line[i++];	
+				// get limits
+				Map<String, Double[]> limitsMap = logicLayer.getCompetitionLogic().getLimitsMap((String)line[i++]);
+				Double[] limits = limitsMap.get(datum.category_tria);
+				if(limits!=null && limits.length==2) {
+					datum.green_high = limits[0];
+					datum.red_low = limits[1];
+				}
 			}
 			data.add(datum);
 		}
@@ -983,7 +993,7 @@ public class SQLExecutorService {
 		query.setString("p_id", id);
 		return query.executeUpdate (); 		
 	}
-
+	
 	public void setTransactionManager(HibernateTransactionManager transactionManager) {
 		this.transactionManager = transactionManager;
 	}	
@@ -994,6 +1004,10 @@ public class SQLExecutorService {
 
 	public void setDaoLayer(DAOLayer daoLayer) {
 		this.daoLayer = daoLayer;
+	}
+
+	public void setLogicLayer(LogicLayer logicLayer) {
+		this.logicLayer = logicLayer;
 	}
 
 	public static SQLExecutorService getFromApplicationContext(ApplicationContext ctx) {

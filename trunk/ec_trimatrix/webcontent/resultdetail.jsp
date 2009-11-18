@@ -87,15 +87,12 @@
 </t:row>
 <t:row id="g_61" >
 <t:label id="g_62" text="#{rr.literals.deficit_percent}" width="120" />
-<t:formattedfield id="g_63" enabled="false" format="double" userhint="%" value="#{d.ResultDetailUI.percentDeficitSwim}" width="100" />
+<t:formattedfield id="g_63" align="center" background="#{d.ResultDetailUI.colorSwim}" enabled="false" font="weight:bold" format="double" userhint="%" value="#{d.ResultDetailUI.percentDeficitSwim}" width="100" />
 <t:coldistance id="g_64" width="45" />
 <t:label id="g_65" text="#{rr.literals.deficit_percent}" width="100" />
-<t:formattedfield id="g_66" enabled="false" format="double" userhint="%" value="#{d.ResultDetailUI.percentDeficitRun}" width="100" />
+<t:formattedfield id="g_66" align="center" background="#{d.ResultDetailUI.colorRun}" enabled="false" font="weight:bold" format="double" userhint="%" value="#{d.ResultDetailUI.percentDeficitRun}" width="100" />
 </t:row>
 </t:pane>
-</t:row>
-<t:row id="g_67" >
-<t:label id="g_68" background="#FF0000" focusable="false" height="20" width="20" />
 </t:row>
 </t:rowbodypane>
 <t:pageaddons id="g_pa"/>

@@ -27,6 +27,9 @@
         </property>  
         <property name="daoLayer">
             <ref bean="daoLayer" />            
+        </property> 
+        <property name="logicLayer">
+            <ref bean="logicLayer" />            
         </property>         
     </bean>
     

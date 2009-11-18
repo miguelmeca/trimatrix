@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.LockMode;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -20,7 +19,8 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @author MyEclipse Persistence Tools
  */
 
-public class EntitiesDAO extends HibernateDaoSupport {
+@SuppressWarnings("unchecked")
+public class EntitiesDAO extends HibernateDaoSupport implements IViewDAO<Entities, EntitiesId> {
 	private static final Log log = LogFactory.getLog(EntitiesDAO.class);
 
 	// property constants
@@ -28,28 +28,6 @@ public class EntitiesDAO extends HibernateDaoSupport {
 	@Override
 	protected void initDao() {
 		// do nothing
-	}
-
-	public void save(Entities transientInstance) {
-		log.debug("saving Entities instance");
-		try {
-			getHibernateTemplate().save(transientInstance);
-			log.debug("save successful");
-		} catch (RuntimeException re) {
-			log.error("save failed", re);
-			throw re;
-		}
-	}
-
-	public void delete(Entities persistentInstance) {
-		log.debug("deleting Entities instance");
-		try {
-			getHibernateTemplate().delete(persistentInstance);
-			log.debug("delete successful");
-		} catch (RuntimeException re) {
-			log.error("delete failed", re);
-			throw re;
-		}
 	}
 
 	public Entities findById(trimatrix.db.EntitiesId id) {
@@ -64,7 +42,7 @@ public class EntitiesDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public List findByExample(Entities instance) {
+	public List<Entities> findByExample(Entities instance) {
 		log.debug("finding Entities instance by example");
 		try {
 			List results = getHibernateTemplate().findByExample(instance);
@@ -76,8 +54,8 @@ public class EntitiesDAO extends HibernateDaoSupport {
 			throw re;
 		}
 	}
-
-	public List findByProperty(String propertyName, Object value) {
+	
+	public List<Entities> findByProperty(String propertyName, Object value) {
 		log.debug("finding Entities instance with property: " + propertyName
 				+ ", value: " + value);
 		try {
@@ -90,7 +68,7 @@ public class EntitiesDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public List findAll() {
+	public List<Entities> findAll() {
 		log.debug("finding all Entities instances");
 		try {
 			String queryString = "from Entities";
@@ -101,42 +79,7 @@ public class EntitiesDAO extends HibernateDaoSupport {
 		}
 	}
 
-	public Entities merge(Entities detachedInstance) {
-		log.debug("merging Entities instance");
-		try {
-			Entities result = (Entities) getHibernateTemplate().merge(
-					detachedInstance);
-			log.debug("merge successful");
-			return result;
-		} catch (RuntimeException re) {
-			log.error("merge failed", re);
-			throw re;
-		}
-	}
-
-	public void attachDirty(Entities instance) {
-		log.debug("attaching dirty Entities instance");
-		try {
-			getHibernateTemplate().saveOrUpdate(instance);
-			log.debug("attach successful");
-		} catch (RuntimeException re) {
-			log.error("attach failed", re);
-			throw re;
-		}
-	}
-
-	public void attachClean(Entities instance) {
-		log.debug("attaching clean Entities instance");
-		try {
-			getHibernateTemplate().lock(instance, LockMode.NONE);
-			log.debug("attach successful");
-		} catch (RuntimeException re) {
-			log.error("attach failed", re);
-			throw re;
-		}
-	}
-
-	public static EntitiesDAO getFromApplicationContext(ApplicationContext ctx) {
-		return (EntitiesDAO) ctx.getBean("EntitiesDAO");
+	public static IViewDAO<Entities, EntitiesId> getFromApplicationContext(ApplicationContext ctx) {
+		return (IViewDAO<Entities, EntitiesId>) ctx.getBean("EntitiesDAO");
 	}
 }

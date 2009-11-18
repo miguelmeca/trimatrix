@@ -1,21 +1,31 @@
 package trimatrix.logic;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import trimatrix.db.Categories;
+import trimatrix.db.CategoriesDAO;
 import trimatrix.db.CompetitionsScouts;
 import trimatrix.db.DAOLayer;
+import trimatrix.services.ServiceLayer;
 import trimatrix.utils.Constants;
 
 public class CompetitionLogic {
 	public static final Log logger = LogFactory.getLog(CompetitionLogic.class);
 	private DAOLayer daoLayer;
+	private ServiceLayer serviceLayer;
 	
 	public void saveCompetitionScouts(CompetitionsScouts cs) {
 		daoLayer.getCompetitionsScoutsDAO().merge(cs);
+	}
+	
+	public List<Categories> getCategories() {
+		 return daoLayer.getCategoriesDAO().findByProperty(CategoriesDAO.SCOUTID, serviceLayer.getDictionaryService().getMyPerson().getId());
 	}
 	
 	public String buildString(List<Limit> limits) {
@@ -47,6 +57,21 @@ public class CompetitionLogic {
 			// remove brackets
 			String limit = arrLimits[i].substring(1, arrLimits[i].length()-1);
 			result[i] = new Limit(limit);
+		}		
+		return result;
+	}
+	
+	public Map<String, Double[]> getLimitsMap(String limits) {
+		Map<String, Double[]> result = new HashMap<String, Double[]>();
+		if(limits==null || limits.length()==0) return result;		
+		// remove brackets
+		limits = limits.substring(1, limits.length()-1);
+		String[] arrLimits = limits.split(";");
+		for(int i=0;i<arrLimits.length;i++) { 
+			// remove brackets
+			String strLimit = arrLimits[i].substring(1, arrLimits[i].length()-1);
+			Limit limit = new Limit(strLimit);
+			result.put(limit.getCategory(), limit.getLimits());
 		}		
 		return result;
 	}
@@ -105,6 +130,10 @@ public class CompetitionLogic {
 		public String toString() {
 			return category + " : " + Arrays.toString(limits);
 		}			
+	}
+
+	public void setServiceLayer(ServiceLayer serviceLayer) {
+		this.serviceLayer = serviceLayer;
 	}
 
 	public void setDaoLayer(DAOLayer daoLayer) {

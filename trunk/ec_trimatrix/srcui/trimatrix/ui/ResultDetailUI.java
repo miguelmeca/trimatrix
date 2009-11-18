@@ -1,6 +1,7 @@
 package trimatrix.ui;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import javax.faces.event.ActionEvent;
 
@@ -8,6 +9,7 @@ import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.db.Competitions;
+import trimatrix.db.CompetitionsScouts;
 import trimatrix.db.Persons;
 import trimatrix.db.Results;
 import trimatrix.db.ResultsTria;
@@ -22,6 +24,13 @@ import trimatrix.utils.Constants.Entity;
 @CCGenClass (expressionBase="#{d.ResultDetailUI}")
 
 public class ResultDetailUI extends AEntityDetailUI implements Serializable {
+	
+	private Double green_high;
+	private Double red_low;
+	
+    public String getColorRun() { return getColor(getPercentDeficitRun()); }
+    public String getColorSwim() { return getColor(getPercentDeficitSwim()); }
+
 	protected final String[] MANDATORY_FIELDS_TRIA = new String[] {ResultEntity.CATEGORY_TRIA, ResultEntity.SWIM_SPLIT, ResultEntity.RUN_SPLIT};
 	
     public boolean isAdminView() {
@@ -50,6 +59,8 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
     public void init(Object entityObject) {
     	// set entity object
     	entity = (Results)entityObject;    
+    	// set limits 
+    	setLimits();
     	// set enabled state and set fields
     	init();
     }
@@ -304,5 +315,40 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 		// others
 	}
 	
+	/**
+	 * Set the color for percentage, same logic as in ResultEntity Data class
+	 * @param percent Percentage
+	 * @return	Color
+	 */
+	private String getColor(Double percent) {
+		// green
+		if(green_high!=null && green_high > 0 && percent<green_high) return Constants.GREEN;				
+		// red
+		if(red_low!=null && red_low > 0 && percent>red_low) return Constants.RED;		
+		// unspecified
+		if(green_high==null && red_low==null) return Constants.WHITE;
+		// yellow
+		return Constants.YELLOW;
+	}
 	
+	
+	/**
+	 * Set limits, same logic as for ResultEntity there the info is set in
+	 * SQLExecutorService and Data class
+	 */
+	private void setLimits() {
+		if(entity==null) return;
+		if(entity.getCompetitionId()==null || entity.getScoutId()==null) return;
+		CompetitionsScouts entityCS = ENTITYLISTLOGIC.getCompetitionScouts(entity.getCompetitionId(), entity.getScoutId());
+		if(entityCS==null) return;
+		Map<String, Double[]> limitsMap = getLogic().getCompetitionLogic().getLimitsMap(entityCS.getLimits());
+		// tria
+		if(entity.getResultsTria()!=null) {
+			Double[] limits = limitsMap.get(entity.getResultsTria().getCategory());
+			if(limits!=null && limits.length==2) {
+				green_high = limits[0];
+				red_low = limits[1];
+			}		
+		}		
+	}	
 }
