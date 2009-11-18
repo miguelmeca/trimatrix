@@ -1,7 +1,7 @@
 package trimatrix.utils;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,7 +15,7 @@ public class UserTracker {
 	private static Map<HttpSession, SUserInfo> loggedInUserMap;
 	
 	static {
-		loggedInUserMap = new HashMap<HttpSession, SUserInfo>();
+		loggedInUserMap = new ConcurrentHashMap<HttpSession, SUserInfo>();
 	}
 
 	public static void addUser(String username) {

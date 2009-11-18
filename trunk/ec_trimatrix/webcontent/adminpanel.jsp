@@ -43,51 +43,61 @@
 <t:gridcol id="g_24" align="center" text="Session ID" width="100" >
 <t:field id="g_25" align="center" enabled="false" text=".{sessionID}" width="150" />
 </t:gridcol>
+<t:gridcol id="g_26" align="center" text="Message" width="20" >
+<t:checkbox id="g_27" align="center" enabled="false" selected=".{message}" width="150" />
+</t:gridcol>
 </t:fixgrid>
 </t:row>
-<t:row id="g_26" >
-<t:button id="g_27" actionListener="#{d.AdminPanelUI.onInvalidate}" text="Session löschen" />
+<t:row id="g_28" >
+<t:button id="g_29" actionListener="#{d.AdminPanelUI.onInvalidate}" text="Session löschen" />
 </t:row>
 </t:pane>
 </t:row>
-<t:rowdistance id="g_28" height="15" />
-<t:row id="g_29" comment="restart workplace" >
-<t:pane id="g_30" height="100%" rowdistance="5" width="100%" >
-<t:rowtitlebar id="g_31" text="Workplace Neustart" />
-<t:rowheader id="g_32" />
-<t:row id="g_33" >
-<t:button id="g_34" actionListener="#{d.AdminPanelUI.onRestart}" text="Workplace neu starten (Hard)" />
-<t:coldistance id="g_35" />
-<t:button id="g_36" actionListener="#{d.AdminPanelUI.onRestartSoft}" text="Workplace neu starten (Soft)" />
+<t:rowdistance id="g_30" height="15" />
+<t:row id="g_31" comment="restart workplace" >
+<t:pane id="g_32" height="100%" rowdistance="5" width="100%" >
+<t:rowtitlebar id="g_33" text="Workplace Neustart" />
+<t:rowheader id="g_34" />
+<t:row id="g_35" >
+<t:button id="g_36" actionListener="#{d.AdminPanelUI.onRestart}" text="Workplace neu starten (Hard)" />
+<t:coldistance id="g_37" />
+<t:button id="g_38" actionListener="#{d.AdminPanelUI.onRestartSoft}" text="Workplace neu starten (Soft)" />
 </t:row>
 </t:pane>
 </t:row>
-<t:rowdistance id="g_37" height="15" />
-<t:row id="g_38" comment="memory handling" >
-<t:pane id="g_39" height="100%" rowdistance="5" width="100%" >
-<t:rowtitlebar id="g_40" text="Speicherverwaltung" />
-<t:rowheader id="g_41" />
-<t:row id="g_42" >
-<t:label id="g_43" text="Verbrauchter Speicher" width="150" />
-<t:formattedfield id="g_44" enabled="false" format="long" value="#{d.AdminPanelUI.usedMemory}" width="100" />
+<t:rowdistance id="g_39" height="15" />
+<t:row id="g_40" comment="memory handling" >
+<t:pane id="g_41" height="100%" rowdistance="5" width="100%" >
+<t:rowtitlebar id="g_42" text="Speicherverwaltung" />
+<t:rowheader id="g_43" />
+<t:row id="g_44" >
+<t:label id="g_45" text="Verbrauchter Speicher" width="150" />
+<t:formattedfield id="g_46" enabled="false" format="long" value="#{d.AdminPanelUI.usedMemory}" width="100" />
 </t:row>
-<t:row id="g_45" >
-<t:label id="g_46" text="Freier Speicher" width="150" />
-<t:formattedfield id="g_47" enabled="false" format="long" value="#{d.AdminPanelUI.availableMemory}" width="100" />
+<t:row id="g_47" >
+<t:label id="g_48" text="Freier Speicher" width="150" />
+<t:formattedfield id="g_49" enabled="false" format="long" value="#{d.AdminPanelUI.availableMemory}" width="100" />
 </t:row>
-<t:row id="g_48" >
-<t:button id="g_49" actionListener="#{d.AdminPanelUI.onCollectGarbage}" text="Garbage Collection starten" />
+<t:row id="g_50" >
+<t:button id="g_51" actionListener="#{d.AdminPanelUI.onCollectGarbage}" text="Garbage Collection starten" />
 </t:row>
 </t:pane>
 </t:row>
-<t:rowdistance id="g_50" height="15" />
-<t:row id="g_51" comment="message handling" >
-<t:pane id="g_52" height="100%" rowdistance="5" width="100%" >
-<t:rowtitlebar id="g_53" text="Meldungsverwaltung" />
-<t:rowheader id="g_54" />
-<t:row id="g_55" >
-<t:checkbox id="g_56" flush="true" selected="#{d.AdminPanelUI.showLogonMessage}" text="Logon Meldung aktiv" />
-<t:textarea id="g_57" enabled="#{d.AdminPanelUI.showLogonMessage==false}" flush="true" height="100" text="#{d.AdminPanelUI.logonMessage}" width="400" />
+<t:rowdistance id="g_52" height="15" />
+<t:row id="g_53" comment="message handling" >
+<t:pane id="g_54" height="100%" rowdistance="5" width="100%" >
+<t:rowtitlebar id="g_55" text="Meldungsverwaltung" />
+<t:rowheader id="g_56" />
+<t:row id="g_57" >
+<t:checkbox id="g_58" flush="true" selected="#{d.AdminPanelUI.showLogonMessage}" text="Logon Meldung aktiv" width="150" />
+<t:textarea id="g_59" enabled="#{d.AdminPanelUI.showLogonMessage==false}" flush="true" height="100" text="#{d.AdminPanelUI.logonMessage}" width="400" />
+</t:row>
+<t:row id="g_60" >
+<t:label id="g_61" text="Session" />
+<t:combobox id="g_62" validvaluesbinding="#{d.AdminPanelUI.vvbSessionIds}" value="#{d.AdminPanelUI.sessionId}" width="114" />
+<t:textarea id="g_63" height="100" text="#{d.AdminPanelUI.sessionMessage}" width="400" />
+<t:coldistance id="g_64" />
+<t:button id="g_65" actionListener="#{d.AdminPanelUI.onSetSessionMessage}" text="Setzen" />
 </t:row>
 </t:pane>
 </t:row>

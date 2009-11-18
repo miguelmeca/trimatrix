@@ -40,18 +40,18 @@
 <t:label id="g_22" font="size:12;weight:bold" text="#{rr.literals.limits}" />
 </t:row>
 <t:row id="g_23" >
-<t:fixgrid id="g_24" avoidroundtrips="true" objectbinding="#{d.CompetitionDetailUI.gridLimits}" sbvisibleamount="10" width="500" >
+<t:fixgrid id="g_24" avoidroundtrips="true" objectbinding="#{d.CompetitionDetailUI.gridLimits}" sbvisibleamount="10" >
 <t:gridcol id="g_25" columnresizingenabled="false" searchenabled="false" sortenabled="false" width="20" >
 <t:gridrowselector id="g_26" />
 </t:gridcol>
 <t:gridcol id="g_27" align="center" text="#{rr.literals.category}" width="120" >
 <t:field id="g_28" enabled="#{d.CompetitionDetailUI.enabled}" maxlength="10" text=".{category}" />
 </t:gridcol>
-<t:gridcol id="g_29" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.green_area_high}" width="170" >
-<t:formattedfield id="g_30" background="#00FF00" enabled="#{d.CompetitionDetailUI.enabled}" font="weight:bold" format="double" userhint="%" value=".{greenAreaHigh}" />
+<t:gridcol id="g_29" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.green_area_high}" width="120" >
+<t:formattedfield id="g_30" align="center" background="#00FF00" enabled="#{d.CompetitionDetailUI.enabled}" font="weight:bold" format="double" userhint="%" value=".{greenAreaHigh}" />
 </t:gridcol>
-<t:gridcol id="g_31" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.red_area_low}" width="170" >
-<t:formattedfield id="g_32" background="#FF0000" enabled="#{d.CompetitionDetailUI.enabled}" font="weight:bold" format="double" userhint="%" value=".{redAreaLow}" />
+<t:gridcol id="g_31" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.red_area_low}" width="120" >
+<t:formattedfield id="g_32" actionListener="center" background="#FF0000" enabled="#{d.CompetitionDetailUI.enabled}" font="weight:bold" format="double" userhint="%" value=".{redAreaLow}" />
 </t:gridcol>
 </t:fixgrid>
 </t:row>

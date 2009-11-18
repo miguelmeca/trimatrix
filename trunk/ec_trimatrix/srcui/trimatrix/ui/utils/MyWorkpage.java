@@ -7,6 +7,7 @@ import org.eclnt.workplace.Workpage;
 import trimatrix.entities.IEntityObject;
 import trimatrix.structures.SAuthorization;
 import trimatrix.ui.EntityDetailUI;
+import trimatrix.utils.MessageHandler;
 import trimatrix.utils.Constants.Mode;
 import trimatrix.utils.Constants.Page;
 
@@ -15,7 +16,8 @@ public class MyWorkpage extends Workpage{
 	@Override
 	public void reactOnDisplay() {		
 		super.reactOnDisplay();
-		System.out.println("React on Display!!!");
+		String message = MessageHandler.getSessionMessage();
+    	if(message!=null) Statusbar.outputAlert(message);
 	}
 
 	private Object parentBean;
