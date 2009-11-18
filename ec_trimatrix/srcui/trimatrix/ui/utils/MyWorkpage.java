@@ -15,9 +15,7 @@ public class MyWorkpage extends Workpage{
 
 	@Override
 	public void reactOnDisplay() {		
-		super.reactOnDisplay();
-		String message = MessageHandler.getSessionMessage();
-    	if(message!=null) Statusbar.outputAlert(message);
+		super.reactOnDisplay();		
 	}
 
 	private Object parentBean;

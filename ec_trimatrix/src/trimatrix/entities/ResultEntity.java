@@ -36,6 +36,7 @@ public final class ResultEntity extends AEntity {
     public static final String RUN_DEFICIT = "run_def";
     public static final String SWIM_DEFICIT_PER = "swim_def_per";
     public static final String RUN_DEFICIT_PER = "run_def_per";
+    public static final String SWIM_COLOR = "swim_color";
     public static final String RUN_COLOR = "run_color";
     public static final String SWIMSUIT = "swimsuit";
           
@@ -65,12 +66,13 @@ public final class ResultEntity extends AEntity {
 			gridMetaData.add(new SGridMetaData("#{rr.literals.deficit_swim}",SWIM_DEFICIT, SGridMetaData.Component.FIELD));
 			gridMetaData.add(new SGridMetaData("#{rr.literals.best_swim_split}",BEST_SWIM_SPLIT, SGridMetaData.Component.FIELD)); 
 			gridMetaData.add(new SGridMetaData("#{rr.literals.deficit_percent}",SWIM_DEFICIT_PER, SGridMetaData.Component.FORMATED_DOUBLE)); 
+			gridMetaData.add(new SGridMetaData("#{rr.literals.swim}",SWIM_COLOR, SGridMetaData.Component.COLORFIELD));
 			gridMetaData.add(new SGridMetaData("#{rr.literals.run_split}",RUN_SPLIT, SGridMetaData.Component.FIELD));
 			gridMetaData.add(new SGridMetaData("#{rr.literals.ranking_run}",RUN_POSITION, SGridMetaData.Component.FIELD)); 
 			gridMetaData.add(new SGridMetaData("#{rr.literals.deficit_run}",RUN_DEFICIT, SGridMetaData.Component.FIELD));
 			gridMetaData.add(new SGridMetaData("#{rr.literals.best_run_split}",BEST_RUN_SPLIT, SGridMetaData.Component.FIELD));	
 			gridMetaData.add(new SGridMetaData("#{rr.literals.deficit_percent}",RUN_DEFICIT_PER, SGridMetaData.Component.FORMATED_DOUBLE));
-			gridMetaData.add(new SGridMetaData("Farbe",RUN_COLOR, SGridMetaData.Component.COLORFIELD));
+			gridMetaData.add(new SGridMetaData("#{rr.literals.run}",RUN_COLOR, SGridMetaData.Component.COLORFIELD));
 		}
 		return gridMetaData;
 	}
@@ -175,8 +177,12 @@ public final class ResultEntity extends AEntity {
 		public String best_swim_split;
 		public String run_split;
 		public String run_pos;
-		public String run_def;
+		public String run_def;		
 		public String best_run_split;
+		public String swim_color;
+		public String run_color;
+		public Double green_high;
+		public Double red_low;
 		
 		/* (non-Javadoc)
 		 * @see trimatrix.entities.IEntityData#getId()
@@ -263,8 +269,23 @@ public final class ResultEntity extends AEntity {
 			return Helper.getPercentageByTime(best_run_split, run_def);
 		}
 		
+		public String getSwim_color() {
+			return getColor(getSwim_def_per());
+		}
+		
 		public String getRun_color() {
-			return Constants.BLACK;
+			return getColor(getRun_def_per());
+		}
+		
+		private String getColor(Double percent) {
+			// green
+			if(green_high!=null && green_high > 0 && percent<green_high) return Constants.GREEN;				
+			// red
+			if(red_low!=null && red_low > 0 && percent>red_low) return Constants.RED;		
+			// unspecified
+			if(green_high==null && red_low==null) return Constants.WHITE;
+			// yellow
+			return Constants.YELLOW;
 		}
 	}
 }

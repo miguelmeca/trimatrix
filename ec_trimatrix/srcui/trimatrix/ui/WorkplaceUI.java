@@ -234,5 +234,10 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 		}
 		xml.append("</t:pane>");
 		m_labels.setContentXml(xml.toString());
-	}       	
+	}      
+    
+    public void checkSessionMessage(ActionEvent event) {
+    	String message = MessageHandler.getSessionMessage();
+    	if(message!=null) Statusbar.outputAlert(message);
+    }
 }

@@ -78,6 +78,7 @@
 </t:popupmenu>
 <t:beanprocessing id="g_43" >
 <t:sessioncloser id="g_44" />
+<t:beanmethodinvoker id="g_45" actionListener="#{d.WorkplaceUI.checkSessionMessage}" jsfphase="invokeEnd" />
 </t:beanprocessing>
 <t:pageaddons id="g_pa"/>
 </f:subview>

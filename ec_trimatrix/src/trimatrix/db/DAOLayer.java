@@ -34,10 +34,12 @@ public class DAOLayer {
 	private ILabelsDAO labelsDAO;
 	private ISimpleDAO<Zones> zonesDAO;
 	private ISimpleDAO<ZonesDefinition> zonesDefinitionDAO;
+	private IViewDAO<Entities, EntitiesId> entitiesDAO;
+	private IViewDAO<Categories, CategoriesId> categoriesDAO;
 	
 	private IEntitiesHaveLabelsDAO entitiesHaveLabelsDAO;
 	private List<IRelationDAO<IRelationObject>> relationDAOs;		
-	
+		
 	public int deleteRelationsByPartner(String partnerId) {
 		int count = 0;
 		for(IRelationDAO<IRelationObject> relation : relationDAOs) {
@@ -235,6 +237,18 @@ public class DAOLayer {
 	}
 	public void setZonesDefinitionDAO(ISimpleDAO<ZonesDefinition> zonesDefinitionDAO) {
 		this.zonesDefinitionDAO = zonesDefinitionDAO;
+	}		
+	public IViewDAO<Entities, EntitiesId> getEntitiesDAO() {
+		return entitiesDAO;
+	}
+	public void setEntitiesDAO(IViewDAO<Entities, EntitiesId> entitiesDAO) {
+		this.entitiesDAO = entitiesDAO;
+	}
+	public IViewDAO<Categories, CategoriesId> getCategoriesDAO() {
+		return categoriesDAO;
+	}
+	public void setCategoriesDAO(IViewDAO<Categories, CategoriesId> categoriesDAO) {
+		this.categoriesDAO = categoriesDAO;
 	}
 	public IEntitiesHaveLabelsDAO getEntitiesHaveLabelsDAO() {
 		return entitiesHaveLabelsDAO;

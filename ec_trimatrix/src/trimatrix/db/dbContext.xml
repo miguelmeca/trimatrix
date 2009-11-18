@@ -105,6 +105,8 @@
                 <idref local="ZonesDAO" />
                 <idref local="ZonesDefinitionDAO" />
                 <idref local="EntitiesHaveLabelsDAO" />
+                <idref local="EntitiesDAO" />
+                <idref local="CategoriesDAO" />
             </list>
         </property>
     </bean>
@@ -166,6 +168,12 @@
         <property name="labelsDAO">
             <ref bean="LabelsDAO" />
         </property>   
+        <property name="entitiesDAO">
+            <ref bean="EntitiesDAO" />
+        </property> 
+        <property name="categoriesDAO">
+            <ref bean="CategoriesDAO" />
+        </property> 
         <property name="entitiesHaveLabelsDAO">
             <ref bean="EntitiesHaveLabelsDAO" />
         </property>   
@@ -412,6 +420,11 @@
 		</property>
 	</bean>
 	<bean id="ResultsTriaDAO" class="trimatrix.db.ResultsTriaDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="CategoriesDAO" class="trimatrix.db.CategoriesDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>

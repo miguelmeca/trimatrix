@@ -11,7 +11,7 @@ MySQL - 5.1.33-community : Database - trimatrix
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`trimatrix` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`trimatrix` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
 USE `trimatrix`;
 
@@ -82,7 +82,7 @@ CREATE TABLE `competitions_scouts` (
 
 /*Data for the table `competitions_scouts` */
 
-insert  into `competitions_scouts`(`competition_id`,`scout_id`,`limits`) values ('x96bcbd2-676d-102c-ace2-9cc3fca64c87','0b0b7658-2ddb-11de-86ae-00301bb60f17','[{W20:5.0,10.0};{M30:6.21,7.99}]'),('63df5d72-3d22-411f-affa-3c974318e790','0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL),('ba76369e-5c2b-4814-a1ca-6229a2a2fa1a','0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL),('0d1edae8-a48a-4aa2-a9db-fdebd1acc15e','0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL);
+insert  into `competitions_scouts`(`competition_id`,`scout_id`,`limits`) values ('x96bcbd2-676d-102c-ace2-9cc3fca64c87','0b0b7658-2ddb-11de-86ae-00301bb60f17','[{M20:5.0,10.0};{M30:6.21,7.99};{W20:17.0,45.0}]'),('63df5d72-3d22-411f-affa-3c974318e790','0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL),('ba76369e-5c2b-4814-a1ca-6229a2a2fa1a','0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL),('0d1edae8-a48a-4aa2-a9db-fdebd1acc15e','0b0b7658-2ddb-11de-86ae-00301bb60f17',NULL);
 
 /*Table structure for table `doctors` */
 
@@ -525,7 +525,7 @@ CREATE TABLE `results_tria` (
 
 /*Data for the table `results_tria` */
 
-insert  into `results_tria`(`id`,`category`,`swim_split`,`run_split`,`swim_position`,`run_position`,`best_swim_split`,`best_run_split`,`swim_deficit`,`run_deficit`,`swimsuit`) values ('42473dc1-e4f2-4408-910f-10b4e64a04c1','M20','00:35:00','00:32:00','20','3','00:34:00','00:31:00','01:00','01:00',1),('7fbe2262-8b66-465b-8070-8a59bb3c2d50','W20','00:30:00','00:30:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL),('89c8328f-7a18-4b35-9c5f-8275ccf4f5f4','W40','01:00:00','00:45:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL),('e0729fb3-ba68-46ca-badc-21a24187953c','W20','00:30:00','00:29:00',NULL,NULL,NULL,NULL,NULL,NULL,1);
+insert  into `results_tria`(`id`,`category`,`swim_split`,`run_split`,`swim_position`,`run_position`,`best_swim_split`,`best_run_split`,`swim_deficit`,`run_deficit`,`swimsuit`) values ('42473dc1-e4f2-4408-910f-10b4e64a04c1','M20','00:35:00','00:35:00','20','3','00:34:00','00:32:00','01:00','03:00',1),('7fbe2262-8b66-465b-8070-8a59bb3c2d50','W20','00:30:00','00:30:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL),('89c8328f-7a18-4b35-9c5f-8275ccf4f5f4','W40','01:00:00','00:45:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL),('e0729fb3-ba68-46ca-badc-21a24187953c','W20','00:30:00','00:29:00',NULL,NULL,NULL,NULL,NULL,NULL,1);
 
 /*Table structure for table `roles_have_functionnodes` */
 
@@ -961,7 +961,7 @@ CREATE TABLE `users` (
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`user_name`,`user_hash`,`language_key`,`currency_key`,`locked`,`initial`,`active`,`person_id`,`email`,`last_login`,`last_login_ip`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('e96bcbd2-676d-102c-ace2-9cc3fca64c87','reich','test','de','eur',0,0,1,'0b0b7658-2ddb-11de-86ae-00301bb60f17','reich.markus@gmail.com','2009-11-18 16:21:31','10.1.21.30','1900-01-01 00:00:00','','1900-01-01 00:00:00','',0,0),('e96bcbd2-676d-102c-ace2-9cc3fca64c88','bucher','test','en','usd',0,0,1,'10f52302-2ddb-11de-86ae-00301bb60f17','dany.bucher@gmail.com',NULL,NULL,'1900-01-01 00:00:00','','2009-06-21 17:04:39','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('e96bcbd2-676d-102c-ace2-9cc3fca64c89','mach','test','de','eur',0,0,1,'7522bc7f-42cf-415c-a050-da12518a4cd3','mach.thomas@gmail.com','2009-11-18 16:01:06','10.1.21.30','1900-01-01 00:00:00','','1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('1c203729-ac8a-424a-960a-85ed6dae03d7','diechtler',NULL,'en',NULL,0,0,0,NULL,'marcel.diechtler@gmail.com',NULL,NULL,'2009-09-14 19:02:37','e96bcbd2-676d-102c-ace2-9cc3fca64c87',NULL,'e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('c841dff0-94ea-4415-b145-9fe4f6fec5fa','baumgartner',NULL,'de',NULL,0,0,0,'514f02d2-2a7d-4bec-a6c4-9e9e97ffefe4','wolfgang@gmx.at',NULL,NULL,'2009-11-16 13:19:46','e96bcbd2-676d-102c-ace2-9cc3fca64c87',NULL,'e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
+insert  into `users`(`id`,`user_name`,`user_hash`,`language_key`,`currency_key`,`locked`,`initial`,`active`,`person_id`,`email`,`last_login`,`last_login_ip`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('e96bcbd2-676d-102c-ace2-9cc3fca64c87','reich','test','de','eur',0,0,1,'0b0b7658-2ddb-11de-86ae-00301bb60f17','reich.markus@gmail.com','2009-11-18 23:05:27','169.254.1.10','1900-01-01 00:00:00','','1900-01-01 00:00:00','',0,0),('e96bcbd2-676d-102c-ace2-9cc3fca64c88','bucher','test','en','usd',0,0,1,'10f52302-2ddb-11de-86ae-00301bb60f17','dany.bucher@gmail.com',NULL,NULL,'1900-01-01 00:00:00','','2009-06-21 17:04:39','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('e96bcbd2-676d-102c-ace2-9cc3fca64c89','mach','test','de','eur',0,0,1,'7522bc7f-42cf-415c-a050-da12518a4cd3','mach.thomas@gmail.com','2009-11-18 19:43:48','169.254.1.10','1900-01-01 00:00:00','','1900-01-01 00:00:00','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('1c203729-ac8a-424a-960a-85ed6dae03d7','diechtler',NULL,'en',NULL,0,0,0,NULL,'marcel.diechtler@gmail.com',NULL,NULL,'2009-09-14 19:02:37','e96bcbd2-676d-102c-ace2-9cc3fca64c87',NULL,'e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('c841dff0-94ea-4415-b145-9fe4f6fec5fa','baumgartner',NULL,'de',NULL,0,0,0,'514f02d2-2a7d-4bec-a6c4-9e9e97ffefe4','wolfgang@gmx.at',NULL,NULL,'2009-11-16 13:19:46','e96bcbd2-676d-102c-ace2-9cc3fca64c87',NULL,'e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
 
 /*Table structure for table `users_have_authorizations` */
 
@@ -1041,6 +1041,18 @@ CREATE TABLE `zones_definition` (
 
 insert  into `zones_definition`(`id`,`coach_id`,`sequence`,`shortcut`,`description`,`color`,`lactate_low`,`lactate_high`,`hr_low`,`hr_high`) values ('e154a52c-1e5e-43b1-bc6c-5ec89d0ea915','0b0b7658-2ddb-11de-86ae-00301bb60f17',0,'GA 1','Grundlagen Ausdauer 1','#66ff66','0.00','1.00',0,50),('41ac38c4-4609-4e18-98a0-ec3b20f001de','0b0b7658-2ddb-11de-86ae-00301bb60f17',1,'GA 2','Grundlagen Ausdauer 1','#0000ff','1.00','2.00',51,70),('396456df-eaa5-4e6a-a83c-9b9ac7659eb9','0b0b7658-2ddb-11de-86ae-00301bb60f17',2,'EXT','Extensiver Bereich','#990099','2.00','4.00',71,90),('1e678437-441a-470e-b058-cca95cfea404','0b0b7658-2ddb-11de-86ae-00301bb60f17',3,'INT','Intensiver Bereich','#cc0000','4.00','10.00',91,100);
 
+/*Table structure for table `categories` */
+
+DROP TABLE IF EXISTS `categories`;
+
+/*!50001 DROP VIEW IF EXISTS `categories` */;
+/*!50001 DROP TABLE IF EXISTS `categories` */;
+
+/*!50001 CREATE TABLE `categories` (
+  `scout_id` varchar(36) CHARACTER SET latin1 NOT NULL,
+  `category` varchar(10) CHARACTER SET latin1 DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 */;
+
 /*Table structure for table `entities` */
 
 DROP TABLE IF EXISTS `entities`;
@@ -1049,10 +1061,10 @@ DROP TABLE IF EXISTS `entities`;
 /*!50001 DROP TABLE IF EXISTS `entities` */;
 
 /*!50001 CREATE TABLE `entities` (
-  `id` varchar(36) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  `entity` varchar(11) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `id` varchar(36) NOT NULL DEFAULT '',
+  `entity` varchar(11) NOT NULL DEFAULT '',
   `deleted` tinyint(4) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 */;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 */;
 
 /*Table structure for table `relations` */
 
@@ -1062,11 +1074,18 @@ DROP TABLE IF EXISTS `relations`;
 /*!50001 DROP TABLE IF EXISTS `relations` */;
 
 /*!50001 CREATE TABLE `relations` (
-  `id` varchar(36) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  `partner1` varchar(36) CHARACTER SET utf8 DEFAULT NULL,
-  `partner2` varchar(36) CHARACTER SET utf8 DEFAULT NULL,
-  `reltyp_key` varchar(10) CHARACTER SET utf8 DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 */;
+  `id` varchar(36) NOT NULL DEFAULT '',
+  `partner1` varchar(36) DEFAULT NULL,
+  `partner2` varchar(36) DEFAULT NULL,
+  `reltyp_key` varchar(10) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 */;
+
+/*View structure for view categories */
+
+/*!50001 DROP TABLE IF EXISTS `categories` */;
+/*!50001 DROP VIEW IF EXISTS `categories` */;
+
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `categories` AS select distinct `results`.`scout_id` AS `scout_id`,`results_tria`.`category` AS `category` from (`results_tria` join `results` on((`results`.`id` = `results_tria`.`id`))) where (`results`.`deleted` = 0) */;
 
 /*View structure for view entities */
 

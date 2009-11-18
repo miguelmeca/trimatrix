@@ -8,16 +8,14 @@ public class MessageHandler {
 	private static String logonMessage;	
 	private static Map<String, String> sessionMessagesMap;
 	
-	static {
-		sessionMessagesMap = new ConcurrentHashMap<String, String>();
+	static {		
+		if(sessionMessagesMap==null) sessionMessagesMap = new ConcurrentHashMap<String, String>();
 	}
 	
 	public static String getSessionMessage() {
 		String session = Helper.getSession().getId();
 		if(!sessionMessagesMap.containsKey(session)) return null;
-		String message = sessionMessagesMap.get(Helper.getSession());
-		sessionMessagesMap.remove(session);
-		return message;
+		return sessionMessagesMap.remove(session);
 	}
 	
 	public static boolean isSessionMessageSet(String sessionId) {

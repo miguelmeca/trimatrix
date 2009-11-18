@@ -676,12 +676,16 @@ ORDER BY results.created_at DESC
   results_tria.run_split,
   results_tria.run_position,
   results_tria.run_deficit,
-  results_tria.best_run_split
+  results_tria.best_run_split,
+  competitions_scouts.limits 
 FROM results
   JOIN results_tria
     ON results_tria.id = results.id
   LEFT OUTER JOIN competitions
     ON competitions.id = results.competition_id
+  LEFT OUTER JOIN competitions_scouts    
+    ON competitions_scouts.competition_id = competitions.id
+    AND competitions_scouts.scout_id = results.scout_id        
   LEFT OUTER JOIN persons scouts
     ON scouts.id = results.scout_id
   LEFT OUTER JOIN persons athletes
@@ -714,6 +718,7 @@ ORDER BY results.created_at DESC
   <return-scalar column="run_position" type="java.lang.String"/>
   <return-scalar column="run_deficit" type="java.lang.String"/>
   <return-scalar column="best_run_split" type="java.lang.String"/>
+  <return-scalar column="limits" type="java.lang.String"/>
 </sql-query> 
  
  <sql-query cacheable="true" name="LanguageValueList"
