@@ -2,121 +2,119 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-    
-	<bean id="logonLogic" class="trimatrix.logic.LogonLogic"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">
-        <property name="daoLayer">
-            <ref bean="daoLayer" />
-        </property>
-        <property name="serviceLayer">
-            <ref bean="serviceLayer" />            
-        </property> 
-    </bean>
-    
-    <bean id="entityListLogic" class="trimatrix.logic.EntityListLogic"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">
-        <property name="serviceLayer">
-            <ref bean="serviceLayer" />            
-        </property>   
-        <property name="daoLayer">
-            <ref bean="daoLayer" />            
-        </property>   
-    </bean>
-    
-    <bean id="functionTreeLogic" class="trimatrix.logic.FunctionTreeLogic"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">
-        <property name="entityLayer">
-            <ref bean="entityLayer" />
-        </property>    
-        <property name="daoLayer">
-            <ref bean="daoLayer" />
-        </property>
-        <property name="serviceLayer">
-            <ref bean="serviceLayer" />            
-        </property> 
-        <property name="relationLayer">
-            <ref bean="relationLayer" />            
-        </property> 
-    </bean>
-    
-    <bean id="relationListLogic" class="trimatrix.logic.RelationListLogic"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">   
-        <property name="daoLayer">
-            <ref bean="daoLayer" />
-        </property>
-        <property name="serviceLayer">
-            <ref bean="serviceLayer" />            
-        </property> 
-    </bean>
-    
-    <bean id="labelLogic" class="trimatrix.logic.LabelLogic"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">
-        <property name="serviceLayer">
-            <ref bean="serviceLayer" />            
-        </property>   
-        <property name="daoLayer">
-            <ref bean="daoLayer" />            
-        </property>             
-    </bean>
-    
-    <bean id="zonesLogic" class="trimatrix.logic.ZonesLogic"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">
-        <property name="serviceLayer">
-            <ref bean="serviceLayer" />            
-        </property>   
-        <property name="daoLayer">
-            <ref bean="daoLayer" />            
-        </property>   
-    </bean>
-    
-    <bean id="testLogic" class="trimatrix.logic.TestLogic"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">
-        <property name="serviceLayer">
-            <ref bean="serviceLayer" />            
-        </property>   
-        <property name="daoLayer">
-            <ref bean="daoLayer" />            
-        </property>   
-    </bean> 
-    
-    <bean id="competitionLogic" class="trimatrix.logic.CompetitionLogic"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">
-    </bean> 
-    
-    <bean id="logicLayer" class="trimatrix.logic.LogicLayer"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">
-        <property name="logonLogic">
-            <ref bean="logonLogic" />
-        </property>    
-        <property name="entityListLogic">
-            <ref bean="entityListLogic" />
-        </property> 
-        <property name="functionTreeLogic">
-            <ref bean="functionTreeLogic" />
-        </property> 
-        <property name="relationListLogic">
-            <ref bean="relationListLogic" />
-        </property> 
-        <property name="labelLogic">
-            <ref bean="labelLogic" />
-        </property> 
-        <property name="zonesLogic">
-            <ref bean="zonesLogic" />
-        </property> 
-        <property name="testLogic">
-            <ref bean="testLogic" />
-        </property> 
-        <property name="competitionLogic">
-            <ref bean="competitionLogic" />
-        </property> 
-    </bean>    
+
+	<bean id="logonLogic" class="trimatrix.logic.LogonLogic" abstract="false"
+		lazy-init="default" autowire="default" dependency-check="default">
+		<property name="daoLayer">
+			<ref bean="daoLayer" />
+		</property>
+		<property name="serviceLayer">
+			<ref bean="serviceLayer" />
+		</property>
+	</bean>
+
+	<bean id="entityListLogic" class="trimatrix.logic.EntityListLogic"
+		abstract="false" lazy-init="default" autowire="default"
+		dependency-check="default">
+		<property name="serviceLayer">
+			<ref bean="serviceLayer" />
+		</property>
+		<property name="daoLayer">
+			<ref bean="daoLayer" />
+		</property>
+	</bean>
+
+	<bean id="functionTreeLogic" class="trimatrix.logic.FunctionTreeLogic"
+		abstract="false" lazy-init="default" autowire="default"
+		dependency-check="default">
+		<property name="entityLayer">
+			<ref bean="entityLayer" />
+		</property>
+		<property name="daoLayer">
+			<ref bean="daoLayer" />
+		</property>
+		<property name="serviceLayer">
+			<ref bean="serviceLayer" />
+		</property>
+		<property name="relationLayer">
+			<ref bean="relationLayer" />
+		</property>
+	</bean>
+
+	<bean id="relationListLogic" class="trimatrix.logic.RelationListLogic"
+		abstract="false" lazy-init="default" autowire="default"
+		dependency-check="default">
+		<property name="daoLayer">
+			<ref bean="daoLayer" />
+		</property>
+		<property name="serviceLayer">
+			<ref bean="serviceLayer" />
+		</property>
+	</bean>
+
+	<bean id="labelLogic" class="trimatrix.logic.LabelLogic" abstract="false"
+		lazy-init="default" autowire="default" dependency-check="default">
+		<property name="serviceLayer">
+			<ref bean="serviceLayer" />
+		</property>
+		<property name="daoLayer">
+			<ref bean="daoLayer" />
+		</property>
+	</bean>
+
+	<bean id="zonesLogic" class="trimatrix.logic.ZonesLogic" abstract="false"
+		lazy-init="default" autowire="default" dependency-check="default">
+		<property name="serviceLayer">
+			<ref bean="serviceLayer" />
+		</property>
+		<property name="daoLayer">
+			<ref bean="daoLayer" />
+		</property>
+	</bean>
+
+	<bean id="testLogic" class="trimatrix.logic.TestLogic" abstract="false"
+		lazy-init="default" autowire="default" dependency-check="default">
+		<property name="serviceLayer">
+			<ref bean="serviceLayer" />
+		</property>
+		<property name="daoLayer">
+			<ref bean="daoLayer" />
+		</property>
+	</bean>
+
+	<bean id="competitionLogic" class="trimatrix.logic.CompetitionLogic"
+		abstract="false" lazy-init="default" autowire="default"
+		dependency-check="default">
+		<property name="daoLayer">
+			<ref bean="daoLayer" />
+		</property>
+	</bean>
+
+	<bean id="logicLayer" class="trimatrix.logic.LogicLayer" abstract="false"
+		lazy-init="default" autowire="default" dependency-check="default">
+		<property name="logonLogic">
+			<ref bean="logonLogic" />
+		</property>
+		<property name="entityListLogic">
+			<ref bean="entityListLogic" />
+		</property>
+		<property name="functionTreeLogic">
+			<ref bean="functionTreeLogic" />
+		</property>
+		<property name="relationListLogic">
+			<ref bean="relationListLogic" />
+		</property>
+		<property name="labelLogic">
+			<ref bean="labelLogic" />
+		</property>
+		<property name="zonesLogic">
+			<ref bean="zonesLogic" />
+		</property>
+		<property name="testLogic">
+			<ref bean="testLogic" />
+		</property>
+		<property name="competitionLogic">
+			<ref bean="competitionLogic" />
+		</property>
+	</bean>
 </beans>

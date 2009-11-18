@@ -24,6 +24,7 @@ import trimatrix.ui.utils.MyWorkpage;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
+import trimatrix.utils.MessageHandler;
 
 @SuppressWarnings("serial")
 @CCGenClass (expressionBase="#{d.WorkplaceUI}")
@@ -233,6 +234,5 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 		}
 		xml.append("</t:pane>");
 		m_labels.setContentXml(xml.toString());
-	}
-	
+	}       	
 }

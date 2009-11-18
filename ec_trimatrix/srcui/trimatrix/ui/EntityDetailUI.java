@@ -133,20 +133,20 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
         	try {        		
         		id = getWorkpage().getId();
                 // if id is not set, get id of own entity
-            	if (id == null || id.length()==0) {
-                	if (entity == Constants.Entity.USER) {
-                       	id = getServiceLayer().getDictionaryService().getMyUser().getId();          	           
-                	} else if (entity == Constants.Entity.PERSON) {
-                       	id = getServiceLayer().getDictionaryService().getMyUser().getPerson().getId(); 
-                    } 
-                }
+            	if (id == null || id.length()==0) { throw new NullPointerException(); }
+                // check if it's not the ID
+            	if (Constants.Entity.USER.name().equalsIgnoreCase(id)) {
+                   	id = getServiceLayer().getDictionaryService().getMyUser().getId();          	           
+                } else if (Constants.Entity.PERSON.name().equalsIgnoreCase(id)) {
+                   	id = getServiceLayer().getDictionaryService().getMyUser().getPerson().getId(); 
+                } 
             	// get entity
             	entityObject = ENTITYLISTLOGIC.get(entity, id);          		        		
         		// set title of workpage
         		getWorkpage().setTitle(entityObject.toString());
         	} catch (NullPointerException npe) {
         		Statusbar.outputError("Entity doesn't exist!", "Maybe the entity is marked as deleted!");
-            	getWorkpageContainer().closeWorkpage(getWorkpage());
+            	// TODO close workpage or switch to another
         	} 
 			break;
 		}

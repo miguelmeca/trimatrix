@@ -272,7 +272,8 @@ public class PersonDetailUI extends AEntityDetailUI implements Serializable
 	
 	public String getPicture() {
 		try {
-			return ValueManager.encodeHexString(entity.getPicture());
+			byte[] bytes = entity.getPicture();
+			return ValueManager.encodeHexString(bytes);
 		} catch (Exception ex) {
 			return Constants.EMPTY;
 		}		

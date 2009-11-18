@@ -1,6 +1,7 @@
 package trimatrix.ui;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import trimatrix.db.Results;
 import trimatrix.entities.CompetitionEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
+import trimatrix.logic.CompetitionLogic.Limit;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Constants.Entity;
 import trimatrix.utils.Constants.Mode;
@@ -36,40 +38,34 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 
     public class GridLimitsItem extends FIXGRIDItem implements java.io.Serializable
     {
-    	private String category;
-    	private Double greenAreaHigh;
-    	private Double redAreaLow;   	
+    	private Limit limit;   	
+    	public Limit getLimit() { return limit; }
     	
     	public GridLimitsItem() {
-    		category = null;
-    		greenAreaHigh = 0d;
-    		redAreaLow = 0d;
+    		limit = getLogic().getCompetitionLogic().createLimit();
 		}
     	
-		public GridLimitsItem(String category, Double greenAreaHigh, Double redAreaLow) {
-			super();
-			this.category = category;
-			this.greenAreaHigh = greenAreaHigh;
-			this.redAreaLow = redAreaLow;
+		public GridLimitsItem(Limit limit) {
+			this.limit = limit;
 		}
 		
 		public String getCategory() {
-			return category;
+			return limit.getCategory();
 		}
 		public void setCategory(String category) {
-			this.category = category;
+			limit.setCategory(category);
 		}
 		public Double getGreenAreaHigh() {
-			return greenAreaHigh;
+			return limit.getLimits()[0];
 		}
 		public void setGreenAreaHigh(Double greenAreaHigh) {
-			this.greenAreaHigh = greenAreaHigh;
+			limit.getLimits()[0] = greenAreaHigh;
 		}
 		public Double getRedAreaLow() {
-			return redAreaLow;
+			return limit.getLimits()[1];
 		}
 		public void setRedAreaLow(Double redAreaLow) {
-			this.redAreaLow = redAreaLow;
+			limit.getLimits()[1] = redAreaLow;
 		}    	
     }
 
@@ -138,6 +134,10 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		checkMandatory();
 		// fill values to entities properties
 		fillEntityProperties();
+		// save scout part, always at the end of validation!!
+		if(entityCS!=null) {
+			getLogic().getCompetitionLogic().saveCompetitionScouts(entityCS);
+		}
 	}
 	
 	private void fillEntityProperties() {
@@ -146,6 +146,18 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		entity.setDate((Date)values.get(CompetitionEntity.DATE));
 		entity.setAddress((String)values.get(CompetitionEntity.ADDRESS));
 		entity.setCountryKey((String)values.get(CompetitionEntity.COUNTRY));
+		// create CS entity if relevant;
+		if(isMyCompetition()&&entityCS==null) {
+			if(getLogic().getFunctionTreeLogic().createCompetitionScout(entity.getId())) entityCS = ENTITYLISTLOGIC.getCompetitionScouts(entity.getId());
+		}
+		// scout part
+		if(entityCS!=null) {
+			List<Limit> limits = new ArrayList<Limit>();
+			for(GridLimitsItem item : m_gridLimits.getItems()) {
+				limits.add(item.getLimit());
+			}
+			entityCS.setLimits(getLogic().getCompetitionLogic().buildString(limits));
+		}
 	}
 	
 	private void fillMaps() {
@@ -157,9 +169,12 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		values.put(CompetitionEntity.ADDRESS, entity.getAddress());
 		values.put(CompetitionEntity.COUNTRY, entity.getCountryKey());
 		// scout part
-		if(entityCS!=null) {
-			m_gridLimits.getItems().clear();
-			
+		m_gridLimits.getItems().clear();
+		if(entityCS!=null) {			
+			Limit[] limits = getLogic().getCompetitionLogic().getLimits(entityCS.getLimits());
+			for(Limit limit : limits) {
+				m_gridLimits.getItems().add(new GridLimitsItem(limit));
+			}			
 		}
 		// add bgpaint of fields
 		bgpaint.clear();
@@ -175,14 +190,5 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 	@Override
 	public boolean getEnabled() {
 		return super.getEnabled() && ENTITYLISTLOGIC.isUserEqualUserLoggedOn(entity.getCreatedBy());
-	}
-
-	@Override
-	public void prepareSave() {		
-		if(entityDetailUI.entity==Entity.SCOUTCOMPETITIONS) {
-			if(mode==Mode.NEW || mode==Mode.COPY) getLogic().getFunctionTreeLogic().createCompetitionScout(entity.getId());
-		}
-	}
-	
-	
+	}	
 }

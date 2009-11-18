@@ -12,6 +12,7 @@ import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
+import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.jsfserver.util.HttpSessionAccess;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
@@ -23,6 +24,29 @@ import trimatrix.utils.UserTracker;
 @CCGenClass (expressionBase="#{d.AdminPanelUI}")
 
 public class AdminPanelUI extends MyWorkpageDispatchedBean implements Serializable {
+    protected String m_sessionMessage;
+    public String getSessionMessage() { return m_sessionMessage; }
+    public void setSessionMessage(String value) { m_sessionMessage = value; }
+
+    protected ValidValuesBinding m_vvbSessionIds = new ValidValuesBinding();
+    public ValidValuesBinding getVvbSessionIds() { 
+    	m_vvbSessionIds.clear();
+    	for(GridLoggedInUsersItem item : m_gridLoggedInUsers.getItems()) {
+    		m_vvbSessionIds.addValidValue(item.getSessionID(), item.getUserName());
+    	}
+    	return m_vvbSessionIds; 
+    }
+    public void setVvbSessionIds(ValidValuesBinding value) { m_vvbSessionIds = value; }
+
+    public void onSetSessionMessage(ActionEvent event) {
+    	if(m_sessionId!=null && m_sessionId.length()>0 && m_sessionMessage!=null && m_sessionMessage.length()>0) {
+    		MessageHandler.putSessionMessage(m_sessionId, m_sessionMessage);
+    	}
+    }
+
+    protected String m_sessionId;
+    public String getSessionId() { return m_sessionId; }
+    public void setSessionId(String value) { m_sessionId = value; }
 
     public String getLogonMessage() { return MessageHandler.getLogonMessage(); }
     public void setLogonMessage(String value) { MessageHandler.setLogonMessage(value); }
@@ -63,6 +87,10 @@ public class AdminPanelUI extends MyWorkpageDispatchedBean implements Serializab
 		public String getSessionID() {
 			return session.getId();
 		}   	
+		
+		public boolean getMessage() {
+			return MessageHandler.isSessionMessageSet(session.getId());
+		}
 		
 		public void invalidate() {
 			session.invalidate();
