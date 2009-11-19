@@ -61,6 +61,10 @@
 <t:label id="g_39" height="20" text="#{rr.literals.role_athlet}" width="100" />
 <t:checkbox id="g_40" align="center" enabled="#{d.UserDetailUI.enabled}" height="20" selected="#{d.UserDetailUI.athlete}" />
 </t:row>
+<t:row id="g_41" >
+<t:label id="g_42" height="20" text="#{rr.literals.role_scouter}" width="100" />
+<t:checkbox id="g_43" align="center" enabled="#{d.UserDetailUI.enabled}" height="20" selected="#{d.UserDetailUI.scouter}" />
+</t:row>
 </t:foldablepane>
 </t:row>
 </t:rowbodypane>

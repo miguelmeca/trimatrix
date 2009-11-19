@@ -46,6 +46,10 @@ public class PersonDetailUI extends AEntityDetailUI implements Serializable
     public boolean isAthlete() { return athlete; }
     public void setAthlete(boolean value) { athlete = value; };
     
+    public boolean isAdmin() { 
+    	return getServiceLayer().getDictionaryService().getMyRoles().contains(Constants.Role.ADMIN.getName());
+    }
+    
 	public String getBorder() {
     	if(entity.getPicture() == null || entity.getPicture().length == 0) {
     		return BORDER;
