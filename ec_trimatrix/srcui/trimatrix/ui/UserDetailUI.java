@@ -48,9 +48,12 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable
 	public boolean isAthlete() {return isAthlete;}	
 	public void setAthlete(boolean isAthlete) {	this.isAthlete = isAthlete;	}
 	
-
+	protected boolean isScouter;
+	public boolean isScouter() {return isScouter;}	
+	public void setScouter(boolean isScouter) {	this.isScouter = isScouter;	}
+	
 	public UserDetailUI(IWorkpageDispatcher dispatcher) {		
-		super(dispatcher, new String[] {UserEntity.USER_NAME, UserEntity.EMAIL});
+		super(dispatcher, new String[] {UserEntity.USER_NAME, UserEntity.EMAIL, UserEntity.PERSON});
 		// get wrapping entity detail UI bean
 		entityDetailUI = getEntityDetailUI();		
 		entityDetailUI.setEntityDetailUI(this);		
@@ -84,7 +87,7 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable
 			throw new EmailNotValidException((String)values.get(values.get(UserEntity.EMAIL)));
 		}	
 		// check if at least one role selected
-		if(!isAdmin && !isCoach && !isAthlete) {
+		if(!isAdmin && !isCoach && !isAthlete && !isScouter) {
 			throw new MandatoryCheckException("roles");
 		}		
 		// fill values to entities properties
@@ -135,11 +138,13 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable
 		isAdmin = false;
 		isCoach = false;
 		isAthlete = false;
+		isScouter = false;
 		Set<KRoles> roles = entity.getRoles();
 		for (KRoles role : roles) {
 			if(role.getKey().equals(Constants.Role.ADMIN.getName())) isAdmin = true;
 			if(role.getKey().equals(Constants.Role.COACH.getName())) isCoach= true;
 			if(role.getKey().equals(Constants.Role.ATHLETE.getName())) isAthlete = true;
+			if(role.getKey().equals(Constants.Role.SCOUTER.getName())) isScouter = true;
 		}
 	}
 
@@ -151,6 +156,7 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable
 		if (isAdmin) roles.add(new KRoles(Constants.Role.ADMIN.getName()));
 		if (isCoach) roles.add(new KRoles(Constants.Role.COACH.getName()));
 		if (isAthlete) roles.add(new KRoles(Constants.Role.ATHLETE.getName()));
+		if (isScouter) roles.add(new KRoles(Constants.Role.SCOUTER.getName()));
 		entity.setRoles(roles);
 	}
 	

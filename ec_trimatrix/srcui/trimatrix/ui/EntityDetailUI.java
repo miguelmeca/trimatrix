@@ -183,10 +183,11 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 						if(isDeleted) {	
 							entityDetailUI.postDelete(true);
 							Statusbar.outputSuccess("Entity deleted");
-							refreshParent();
-							getWorkpageContainer().closeWorkpage(getWorkpage());
+							refreshParent();							
 							// refresh beans
 					        getWorkpage().throwWorkpageProcessingEvent(new WorkpageRefreshEvent(entity));
+					        // close page
+					        getWorkpageContainer().closeWorkpage(getWorkpage());
 						} else {
 							entityDetailUI.postDelete(false);
 							Statusbar.outputError("Entity could not be deleted!");
@@ -234,6 +235,8 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 		if (mode == Constants.Mode.NEW ||
 			mode == Constants.Mode.COPY	|| 
 			mode == Constants.Mode.SINGLECHANGE) {
+			// set mode back so the close handler will not be invoked
+			mode = Constants.Mode.SHOW;
 			getWorkpageContainer().closeWorkpage(getWorkpage());
 		} else {
 			ENTITYLISTLOGIC.reload(entity, entityObject);   

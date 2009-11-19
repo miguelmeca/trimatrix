@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -47,9 +48,9 @@ public class Users implements java.io.Serializable, IEntityObject {
 	private String modifiedBy;
 	private Boolean deleted;
 	private Boolean test;
-	
+
 	// Collections
-	
+
 	private Set<KRoles> roles = new HashSet<KRoles>();
 	private Persons person;
 
@@ -65,12 +66,8 @@ public class Users implements java.io.Serializable, IEntityObject {
 	}
 
 	/** full constructor */
-	public Users(String id, String userName, String userHash,
-			String languageKey, String currencyKey, Boolean locked,
-			Boolean initial, Boolean active, String personId, String email,
-			Timestamp lastLogin, String lastLoginIp,
-			Timestamp createdAt, String createdBy, Timestamp modifiedAt,
-			String modifiedBy, Boolean deleted, Boolean test) {
+	public Users(String id, String userName, String userHash, String languageKey, String currencyKey, Boolean locked, Boolean initial, Boolean active, String personId, String email,
+			Timestamp lastLogin, String lastLoginIp, Timestamp createdAt, String createdBy, Timestamp modifiedAt, String modifiedBy, Boolean deleted, Boolean test) {
 		this.id = id;
 		this.userName = userName;
 		this.userHash = userHash;
@@ -255,9 +252,9 @@ public class Users implements java.io.Serializable, IEntityObject {
 	public void setTest(Boolean test) {
 		this.test = test;
 	}
-		
-	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
-	@JoinColumn(name="person_id")
+
+	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, fetch = FetchType.EAGER)
+	@JoinColumn(name = "person_id")
 	public Persons getPerson() {
 		return person;
 	}
@@ -267,9 +264,7 @@ public class Users implements java.io.Serializable, IEntityObject {
 	}
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name="users_have_roles", 
-			   joinColumns=@JoinColumn(name="user_id"),
-			   inverseJoinColumns=@JoinColumn(name="role_key"))
+	@JoinTable(name = "users_have_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_key"))
 	public Set<KRoles> getRoles() {
 		return roles;
 	}

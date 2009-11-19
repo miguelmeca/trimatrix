@@ -32,10 +32,16 @@ public class LogonUI extends MyDispatchedBean implements Serializable
 			return;
 		}
 		// logon
-		if(!LOGONLOGIC.logon(m_user, m_password)) {
-			Statusbar.outputError("Logon not successful!");
+		try {
+			if(!LOGONLOGIC.logon(m_user, m_password)) {
+				Statusbar.outputError("Logon not successful!");
+				return;
+			}
+		} catch (Exception ex) {
+			Statusbar.outputAlert(ex.toString(), "Database is down!");
 			return;
 		}
+		
 		// check if locked
 		if(LOGONLOGIC.isUserLocked()) {
 			Statusbar.outputError("User is locked!");
@@ -78,7 +84,7 @@ public class LogonUI extends MyDispatchedBean implements Serializable
     public String getUser() { return m_user; }
     public void setUser(String value) { m_user = value; }
     
-    protected String m_language;
+    protected String m_language = "de";	
     public String getLanguage() { return m_language; }
     public void setLanguage(String value) { m_language = value; }
 

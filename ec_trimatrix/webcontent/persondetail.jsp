@@ -123,7 +123,7 @@
 </t:row>
 </t:foldablepane>
 </t:row>
-<t:row id="g_87" rendered="true" >
+<t:row id="g_87" rendered="#{d.PersonDetailUI.admin}" >
 <t:foldablepane id="g_88" rowdistance="5" text="Admin" width="100%" >
 <t:row id="g_89" >
 <t:label id="g_90" text="#{rr.literals.profile_athlete}" width="100" x="15" y="15" />
