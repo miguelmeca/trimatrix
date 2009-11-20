@@ -25,9 +25,22 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
     public FIXGRIDListBinding<GridZonesItem> getGridZones() { return m_gridZones; }
     public void setGridZones(FIXGRIDListBinding<GridZonesItem> value) { m_gridZones = value; }
 	
+    private Constants.Entity entity;
+    private String PersonId;
+    
 	public ZonesDetailUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
 		// get parameters from functiontree
+		// get entity
+        String strEntity = getWorkpage().getParam(Constants.P_ENTITY);
+        try {
+        	entity = Constants.Entity.valueOf(strEntity.toUpperCase());
+        } catch (Exception ex) {
+        	Statusbar.outputError("No or wrong entity set", "For list view processing an entity has to be set by the functiontreenode!");
+        	getWorkpageContainer().closeWorkpage(getWorkpage());
+        }  
+        PersonId = getWorkpage().getId();
+        
 		// get authorization
 		String create = getWorkpage().getParam(Constants.CREATE);
 		String change = getWorkpage().getParam(Constants.CHANGE);

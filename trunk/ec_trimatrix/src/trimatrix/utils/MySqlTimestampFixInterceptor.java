@@ -20,7 +20,7 @@ public class MySqlTimestampFixInterceptor extends EmptyInterceptor {
 	public void postFlush(Iterator entities) {
 		while (entities.hasNext()) {
 			Object entity = entities.next();
-			if (entity instanceof IEntityObject	&& ((IEntityObject) entity).getModifiedAt() != null) {
+			if (entity instanceof IEntityObject) { //	&& ((IEntityObject) entity).getModifiedAt() != null) {
 				IEntityObject entityObject = (IEntityObject) entity;
 				//System.out.println(entityObject.getModifiedAt());
 				Timestamp timestamp = new java.sql.Timestamp((entityObject.getModifiedAt().getTime() / 1000) * 1000);

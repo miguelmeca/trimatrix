@@ -15,7 +15,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
+import javax.persistence.Version;
 
 import org.hibernate.validator.Email;
 
@@ -226,7 +229,7 @@ public class Users implements java.io.Serializable, IEntityObject {
 		this.modifiedAt = modifiedAt;
 	}
 
-	@Column(name = "modified_by", length = 36)
+	@Column(name = "modified_by", length = 36)	
 	public String getModifiedBy() {
 		return this.modifiedBy;
 	}
