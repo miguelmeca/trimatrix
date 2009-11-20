@@ -13,6 +13,7 @@ import org.eclnt.jsfserver.managedbean.IDispatcher;
 import trimatrix.logic.LogonLogic;
 import trimatrix.ui.utils.MyDispatchedBean;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Helper;
 
 @SuppressWarnings("serial")
 @CCGenClass (expressionBase="#{d.LogonUI}")
@@ -24,6 +25,8 @@ public class LogonUI extends MyDispatchedBean implements Serializable
 	public LogonUI(IDispatcher dispatcher)
     {
         super(dispatcher);
+        // set language
+        m_language = Helper.getLocale().getLanguage();
     }  
 
 	public void onLogon(ActionEvent event) {
@@ -84,7 +87,7 @@ public class LogonUI extends MyDispatchedBean implements Serializable
     public String getUser() { return m_user; }
     public void setUser(String value) { m_user = value; }
     
-    protected String m_language = "de";	
+    protected String m_language;	
     public String getLanguage() { return m_language; }
     public void setLanguage(String value) { m_language = value; }
 

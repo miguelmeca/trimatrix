@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import trimatrix.entities.IEntityObject;
 import trimatrix.utils.Constants;
@@ -179,7 +180,6 @@ public class Attachments  implements java.io.Serializable, IEntityObject {
     }
     
     @Column(name="modified_at", length=19)
-
     public Timestamp getModifiedAt() {
         return this.modifiedAt;
     }

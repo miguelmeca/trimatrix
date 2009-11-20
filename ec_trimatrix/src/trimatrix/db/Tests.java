@@ -170,7 +170,6 @@ public class Tests implements java.io.Serializable, IEntityObject {
 		this.createdBy = createdBy;
 	}
 
-	@Version
 	@Column(name = "modified_at", length = 19)
 	public Timestamp getModifiedAt() {
 		return this.modifiedAt;
