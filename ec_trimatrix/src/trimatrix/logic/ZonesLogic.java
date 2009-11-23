@@ -11,6 +11,7 @@ import org.apache.commons.logging.LogFactory;
 
 import trimatrix.db.DAOLayer;
 import trimatrix.db.Persons;
+import trimatrix.db.PersonsAthlete;
 import trimatrix.db.PersonsHaveRelations;
 import trimatrix.db.PersonsHaveRelationsDAO;
 import trimatrix.db.Zones;
@@ -74,6 +75,10 @@ public class ZonesLogic {
 			}
 		}
 		return result;	
+	}
+	
+	public PersonsAthlete getPersonsAthlete(String personId) {
+		return daoLayer.getPersonAthleteDAO().findById(personId);
 	}
 	
 	public void setServiceLayer(ServiceLayer serviceLayer) {

@@ -91,6 +91,12 @@ public class Helper {
 			return Constants.BLACK;
 		}
 	}
+	
+	public static String getBlackOrWhite(String color) {
+		return getBlackOrWhite(Color.decode(color));
+	}
+	
+	
 
 	public static String getValueFromExpression(String expression) {
 		return (String) FacesContext.getCurrentInstance().getApplication()

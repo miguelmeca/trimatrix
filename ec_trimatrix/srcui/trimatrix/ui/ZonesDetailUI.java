@@ -9,10 +9,14 @@ import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
+import trimatrix.db.PersonsAthlete;
+import trimatrix.db.Zones;
+import trimatrix.db.ZonesDefinition;
 import trimatrix.logic.ZonesLogic;
 import trimatrix.structures.SAuthorization;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Helper;
 
 @CCGenClass (expressionBase="#{d.ZonesDetailUI}")
 
@@ -28,6 +32,7 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
     public void setGridZones(FIXGRIDListBinding<GridZonesItem> value) { m_gridZones = value; }
 	
     private String personId;
+    private PersonsAthlete personsAthlete;
     
 	public ZonesDetailUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
@@ -37,7 +42,9 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
         if(personId==null || personId.length()==0) {
         	Statusbar.outputError("No or wrong entity set", "For list view processing an entity has to be set by the functiontreenode!");
         	getWorkpageContainer().closeWorkpage(getWorkpage());
-        }      
+        }
+        // get athlete info
+        personsAthlete = getLogic().getZonesLogic().getPersonsAthlete(personId);
 		// get authorization
 		String create = getWorkpage().getParam(Constants.CREATE);
 		String change = getWorkpage().getParam(Constants.CHANGE);
@@ -49,12 +56,34 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
         buildGrid();
 	}
 		
-    public class GridZonesItem extends FIXGRIDItem implements java.io.Serializable
-    {
+    public class GridZonesItem extends FIXGRIDItem implements java.io.Serializable {
+    	private ZonesDefinition definition;
+    	private Zones zones;
+    	
+		public GridZonesItem(ZonesLogic.ZoneInfo zonesInfo) {
+			this.definition = zonesInfo.getDefinition();
+			if(zonesInfo.getZone()!=null) this.zones = zonesInfo.getZone();
+		}
+		public String getColor() { return definition.getColor(); }
+		public String getForeground() { return Helper.getBlackOrWhite(getColor()); }
+		public String getShortcut() { return definition.getShortcut(); }
+		public Integer getHrLow() { return zones!=null ? zones.getHrLow() : null; }
+		public Integer getHrHigh() { return zones!=null ? zones.getHrHigh() : null; }
+		public Double getSpeedLow() { return zones!=null ? zones.getSpeedLow() : null; }
+		public Double getSpeedHigh() { return zones!=null ? zones.getSpeedHigh() : null; }
+		public Integer getHrLowPrct() { 
+			return personsAthlete!=null ? personsAthlete.getMaxHr() * definition.getHrLow() / 100 : null; 
+		}
+		public Integer getHrHighPrct() { 
+			return personsAthlete!=null ? personsAthlete.getMaxHr() * definition.getHrHigh() / 100 : null; 
+		}	
     }
 	
 	private void buildGrid() {
+		m_gridZones.getItems().clear();
 		List<ZonesLogic.ZoneInfo> zonesInfos = getLogic().getZonesLogic().getAthletesZone(personId);
-		Statusbar.outputMessage("ZoneInfos: " + zonesInfos.size());				
+		for(ZonesLogic.ZoneInfo zonesInfo : zonesInfos) {
+			m_gridZones.getItems().add(new GridZonesItem(zonesInfo));			
+		}
 	}
 }
