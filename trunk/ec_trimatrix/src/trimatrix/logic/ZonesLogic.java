@@ -12,6 +12,7 @@ import trimatrix.db.DAOLayer;
 import trimatrix.db.Persons;
 import trimatrix.db.PersonsHaveRelations;
 import trimatrix.db.PersonsHaveRelationsDAO;
+import trimatrix.db.Zones;
 import trimatrix.db.ZonesDefinition;
 import trimatrix.services.ServiceLayer;
 import trimatrix.utils.Constants.Relation;
@@ -53,14 +54,21 @@ public class ZonesLogic {
 		properties.put(PersonsHaveRelationsDAO.PARTNER1, athleteId);
 		properties.put(PersonsHaveRelationsDAO.RELTYP_KEY, Relation.COACH.type());
 		List<PersonsHaveRelations> phrs = daoLayer.getPersonsHaveRelationsDAO().findByProperties(properties);
-		for(PersonsHaveRelations phr : phrs) {
-			System.out.println("PHR : " + phr.getId());
-		}
-		//if(phrs==null || phrs.size()==0) return null;
+		if(phrs==null || phrs.size()==0) return;
 		String coachId = phrs.get(0).getPartner2();
 		Persons coach = daoLayer.getPersonsDAO().findById(coachId);
 		// get zones definition
 		List<ZonesDefinition> zonesDefinitions = coach.getZonesDefinition();   	
+		for(ZonesDefinition zonesDefinition : zonesDefinitions) {
+			// read athletes detail
+			Zones example = new Zones();
+			example.setAthleteId(athleteId);
+			example.setZonesDefinitionId(zonesDefinition.getId());
+			List<Zones> zones = daoLayer.getZonesDAO().findByExample(example);
+			if(zones==null || zones.size()==0) return;
+			Zones zone = zones.get(0);
+		}
+	
 	}
 	
 	public void setServiceLayer(ServiceLayer serviceLayer) {

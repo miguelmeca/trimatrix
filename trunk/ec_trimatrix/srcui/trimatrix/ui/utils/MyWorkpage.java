@@ -13,11 +13,6 @@ import trimatrix.utils.Constants.Page;
 
 public class MyWorkpage extends Workpage{	
 
-	@Override
-	public void reactOnDisplay() {		
-		super.reactOnDisplay();		
-	}
-
 	private Object parentBean;
 	private IEntityObject entityObject;
 	private SAuthorization authorization;
@@ -76,5 +71,10 @@ public class MyWorkpage extends Workpage{
 	@Override
 	public void closeForced() {				
 		super.closeForced();		
+	}
+	
+	@Override
+	public void reactOnDisplay() {		
+		super.reactOnDisplay();		
 	}
 }

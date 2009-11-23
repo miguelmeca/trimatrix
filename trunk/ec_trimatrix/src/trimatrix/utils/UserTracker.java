@@ -12,24 +12,24 @@ import trimatrix.structures.SUserInfo;
 
 public class UserTracker {
 	public static final Log logger = LogFactory.getLog(UserTracker.class);
-	private static Map<HttpSession, SUserInfo> loggedInUserMap;
+	private static ConcurrentHashMap<String, SUserInfo> loggedInUserMap;
 	
 	static {
-		loggedInUserMap = new ConcurrentHashMap<HttpSession, SUserInfo>();
+		loggedInUserMap = new ConcurrentHashMap<String, SUserInfo>();
 	}
 
 	public static void addUser(String username) {
 		HttpSession session = Helper.getSession();
-		if(loggedInUserMap.containsKey(session)) {
+		if(loggedInUserMap.containsKey(session.getId())) {
 			logger.error(session.getId() + " : This session is already in use!");
 			return;
 		} 
-		loggedInUserMap.put(session, new SUserInfo(username, Helper.getClientIP()));
+		loggedInUserMap.putIfAbsent(session.getId(), new SUserInfo(username, session, Helper.getClientIP()));
 	}
 
-	public static void deleteUser(HttpSession session) {
-		if(loggedInUserMap.containsKey(session)) {
-			loggedInUserMap.remove(session);
+	public static void deleteUser(String sessionId) {
+		if(loggedInUserMap.containsKey(sessionId)) {
+			loggedInUserMap.remove(sessionId);
 		}		
 	}
 
@@ -37,8 +37,17 @@ public class UserTracker {
 		return loggedInUserMap.size();
 	}
 	
-	public static Map<HttpSession, SUserInfo> getLoggedInUserMap() {
+	public static Map<String, SUserInfo> getLoggedInUserMap() {
 		return loggedInUserMap;
+	}
+	
+	public static boolean containsSession(String sessionId) {
+		return loggedInUserMap.containsKey(sessionId);
+	}
+	
+	public static String getUser(String sessionId) {
+		if(!loggedInUserMap.containsKey(sessionId)) return null;
+		return (loggedInUserMap.get(sessionId)).user;
 	}
 	
 }
