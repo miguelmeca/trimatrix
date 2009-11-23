@@ -57,6 +57,9 @@
     <tag name="gridcol" variant="default">
         <set attribute="background" value="#C0C0C0"/>
     </tag>
+    <tag name="gridheaderlabel" variant="default">
+        <set attribute="background" value="#C0C0C0"/>
+    </tag>
     <tag name="modalpopup" variant="default">
         <set attribute="bgpaint" value="rectangle(0,0,100%,100%,#F0F0F0,#909090,vertical)"/>
     </tag>

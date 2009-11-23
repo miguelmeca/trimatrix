@@ -2,6 +2,7 @@ package trimatrix.ui;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.Map.Entry;
 
@@ -16,6 +17,8 @@ import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.jsfserver.util.HttpSessionAccess;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
+import trimatrix.db.Entities;
+import trimatrix.db.EntitiesDAO;
 import trimatrix.structures.SUserInfo;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.LockManager;
@@ -25,25 +28,20 @@ import trimatrix.utils.UserTracker;
 @CCGenClass (expressionBase="#{d.AdminPanelUI}")
 
 public class AdminPanelUI extends MyWorkpageDispatchedBean implements Serializable {
-    protected FIXGRIDListBinding<GridLockedEntitesItem> m_gridLockedEntities = new FIXGRIDListBinding<GridLockedEntitesItem>();
-    public FIXGRIDListBinding<GridLockedEntitesItem> getGridLockedEntites() { return m_gridLockedEntities; }
-    public void setGridLockedEntites(FIXGRIDListBinding<GridLockedEntitesItem> value) { m_gridLockedEntities = value; }
+    protected FIXGRIDListBinding<GridLockedEntitiesItem> m_gridLockedEntities = new FIXGRIDListBinding<GridLockedEntitiesItem>();
+    public FIXGRIDListBinding<GridLockedEntitiesItem> getGridLockedEntities() { return m_gridLockedEntities; }
+    public void setGridLockedEntities(FIXGRIDListBinding<GridLockedEntitiesItem> value) { m_gridLockedEntities = value; }
 
-    public class GridLockedEntitesItem extends FIXGRIDItem implements java.io.Serializable
-    {
+    public class GridLockedEntitiesItem extends FIXGRIDItem implements java.io.Serializable {
     	private String id;
     	private String entity;
-    	private String description;
     	private String sessionId;
-    	private String user;
+    	private String user;    	
     	
-    	
-    	
-		public GridLockedEntitesItem(String id, String entity,
-				String description, String sessionId, String user) {
+		public GridLockedEntitiesItem(String id, String entity,
+				 String sessionId, String user) {
 			this.id = id;
 			this.entity = entity;
-			this.description = description;
 			this.sessionId = sessionId;
 			this.user = user;
 		}
@@ -52,9 +50,6 @@ public class AdminPanelUI extends MyWorkpageDispatchedBean implements Serializab
 		}
 		public String getEntity() {
 			return entity;
-		}
-		public String getDescription() {
-			return description;
 		}
 		public String getSessionId() {
 			return sessionId;
@@ -69,7 +64,7 @@ public class AdminPanelUI extends MyWorkpageDispatchedBean implements Serializab
     }
 
     public void onUnlockEntity(ActionEvent event) {
-    	GridLockedEntitesItem selected = m_gridLockedEntities.getSelectedItem();
+    	GridLockedEntitiesItem selected = m_gridLockedEntities.getSelectedItem();
     	if(selected!=null) {
     		selected.unlock();    		
     	}
@@ -206,7 +201,13 @@ public class AdminPanelUI extends MyWorkpageDispatchedBean implements Serializab
     private void buildLockedEntitiesGrid() {
     	m_gridLockedEntities.getItems().clear();
     	for(Entry<String, String> lock : LockManager.getEntityLockMap().entrySet()) {
-    		GridLockedEntitesItem item = new GridLockedEntitesItem(lock.getKey(),null,null,lock.getValue(),null);
+    		List<Entities> entities = getDaoLayer().getEntitiesDAO().findByProperty(EntitiesDAO.ID, lock.getKey());
+    		String entity = null;
+    		if(entities!=null && entities.size()>0) entity = entities.get(0).getId().getEntity();  
+    		SUserInfo userInfo = UserTracker.getUserInfo(lock.getValue());
+    		String user = null;
+    		if(userInfo!=null) user = userInfo.user;
+    		GridLockedEntitiesItem item = new GridLockedEntitiesItem(lock.getKey(),entity, lock.getValue(),user);
     		m_gridLockedEntities.getItems().add(item);
     	}
     	

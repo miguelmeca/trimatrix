@@ -26,7 +26,7 @@
 				<t:row id="g_7">
 					<t:coldistance id="g_8" width="50%" />
 					<t:button id="g_9" actionListener="#{eclntdefscr.okPopup.onClose}"
-						image="../images/okpopup_ok.png" text="#{eclnti18n.OKPopup_ok}" />
+						image="../images/okpopup_ok.png" text="#{eclntdefscr.okPopup.textOk}" />
 					<t:coldistance id="g_10" width="50%" />
 				</t:row>
 			</t:rowbodypane>

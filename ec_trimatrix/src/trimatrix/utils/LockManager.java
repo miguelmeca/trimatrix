@@ -1,6 +1,7 @@
 package trimatrix.utils;
 
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -33,5 +34,14 @@ public class LockManager {
 	
 	public static Map<String, String> getEntityLockMap() {
 		return entityLockMap;
+	}
+	
+	public static void removeBySession(String sessionId) {
+		ConcurrentHashMap<String, String> copy = new ConcurrentHashMap<String, String>(entityLockMap.size());
+		for(Entry<String, String> entry : entityLockMap.entrySet()) {
+			if(!entry.getValue().equals(sessionId)) copy.put(entry.getKey(), entry.getValue());			
+		}
+		// switch maps
+		entityLockMap = copy;
 	}
 }

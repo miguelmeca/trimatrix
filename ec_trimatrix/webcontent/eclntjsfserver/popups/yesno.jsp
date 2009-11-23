@@ -27,17 +27,17 @@
 					<t:coldistance id="g_8" width="50%" />
 					<t:button id="g_9" actionListener="#{eclntdefscr.yesNoPopup.onYes}"
 						image="../images/yesnopopup_yes.png"
-						text="#{eclnti18n.YESNOPopup_yes}" width="80+" />
+						text="#{eclntdefscr.yesNoPopup.textYes}" width="80+" />
 					<t:coldistance id="g_10" />
 					<t:button id="g_11" actionListener="#{eclntdefscr.yesNoPopup.onNo}"
 						image="../images/yesnopopup_no.png"
-						text="#{eclnti18n.YESNOPopup_no}" width="80+" />
+						text="#{eclntdefscr.yesNoPopup.textNo}" width="80+" />
 					<t:coldistance id="g_12"
 						rendered="#{eclntdefscr.yesNoPopup.showCancel}" width="50" />
 					<t:button id="g_13"
 						actionListener="#{eclntdefscr.yesNoPopup.onCancel}"
 						rendered="#{eclntdefscr.yesNoPopup.showCancel}"
-						text="#{eclnti18n.YESNOPopup_cancel}" width="80+" />
+						text="#{eclntdefscr.yesNoPopup.textCancel}" width="80+" />
 					<t:coldistance id="g_14" width="50%" />
 				</t:row>
 			</t:rowbodypane>

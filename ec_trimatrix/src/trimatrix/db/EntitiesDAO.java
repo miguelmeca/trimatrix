@@ -24,7 +24,8 @@ public class EntitiesDAO extends HibernateDaoSupport implements IViewDAO<Entitie
 	private static final Log log = LogFactory.getLog(EntitiesDAO.class);
 
 	// property constants
-
+	public static final String ID = "id.id";
+	
 	@Override
 	protected void initDao() {
 		// do nothing

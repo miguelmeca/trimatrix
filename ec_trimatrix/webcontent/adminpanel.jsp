@@ -37,8 +37,8 @@
 <t:gridcol id="g_21" align="center" text="Client IP" width="100" >
 <t:field id="g_22" align="center" enabled="false" text=".{clientIP}" width="100" />
 </t:gridcol>
-<t:gridcol id="g_23" align="center" text="Session ID" width="100" >
-<t:field id="g_24" align="center" enabled="false" text=".{sessionID}" width="150" />
+<t:gridcol id="g_23" align="center" text="Session ID" width="220" >
+<t:field id="g_24" align="center" enabled="false" text=".{sessionID}" />
 </t:gridcol>
 <t:gridcol id="g_25" align="center" text="Logon Zeitpunkt" width="150" >
 <t:formattedfield id="g_26" align="center" enabled="false" format="datetime" formatmask="medium" value=".{creationTime}" width="100" />
@@ -131,27 +131,24 @@
 <t:gridcol id="g_89" columnresizingenabled="false" width="20" >
 <t:gridrowselector id="g_90" />
 </t:gridcol>
-<t:gridcol id="g_91" align="center" text="Entity" width="150" >
-<t:field id="g_92" align="center" enabled="false" text=".{entity}" width="150" />
+<t:gridcol id="g_91" align="center" text="Entity" width="100" >
+<t:field id="g_92" align="center" enabled="false" text=".{entity}" />
 </t:gridcol>
-<t:gridcol id="g_93" align="center" text="ID" width="150" >
-<t:field id="g_94" enabled="false" text=".{id}" width="150" />
+<t:gridcol id="g_93" align="center" text="ID" width="220" >
+<t:field id="g_94" align="center" enabled="false" text=".{id}" width="150" />
 </t:gridcol>
-<t:gridcol id="g_95" align="center" text="Beschreibung" width="200" >
-<t:field id="g_96" align="center" enabled="false" text=".{description}" width="200" />
+<t:gridcol id="g_95" align="center" text="Session ID" width="220" >
+<t:field id="g_96" align="center" enabled="false" text=".{sessionId}" />
 </t:gridcol>
-<t:gridcol id="g_97" align="center" text="Session ID" width="100" >
-<t:field id="g_98" align="center" enabled="false" text=".{sessionID}" width="150" />
-</t:gridcol>
-<t:gridcol id="g_99" align="center" text="Benutzer" width="100" >
-<t:field id="g_100" align="center" enabled="false" text=".{user}" width="100" />
+<t:gridcol id="g_97" align="center" text="Benutzer" width="100" >
+<t:field id="g_98" align="center" enabled="false" text=".{user}" width="100" />
 </t:gridcol>
 </t:fixgrid>
 </t:row>
-<t:row id="g_101" >
-<t:button id="g_102" actionListener="#{d.AdminPanelUI.onRefreshLocks}" text="Aktualisieren" />
-<t:coldistance id="g_103" />
-<t:button id="g_104" actionListener="#{d.AdminPanelUI.onUnlockEntity}" text="Sperre löschen" />
+<t:row id="g_99" >
+<t:button id="g_100" actionListener="#{d.AdminPanelUI.onRefreshLocks}" text="Aktualisieren" />
+<t:coldistance id="g_101" />
+<t:button id="g_102" actionListener="#{d.AdminPanelUI.onUnlockEntity}" text="Sperre löschen" />
 </t:row>
 </t:pane>
 </t:row>
