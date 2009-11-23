@@ -1,5 +1,6 @@
 package trimatrix.logic;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,27 +49,31 @@ public class ZonesLogic {
 		return true;
 	}
 	
-	public void getAthletesZone(String athleteId) {
+	public List<ZoneInfo> getAthletesZone(String athleteId) {
+		List<ZoneInfo> result = new ArrayList<ZoneInfo>();
 		// get coach of athlete
 		Map<String, Object> properties = new HashMap<String, Object>();
 		properties.put(PersonsHaveRelationsDAO.PARTNER1, athleteId);
 		properties.put(PersonsHaveRelationsDAO.RELTYP_KEY, Relation.COACH.type());
 		List<PersonsHaveRelations> phrs = daoLayer.getPersonsHaveRelationsDAO().findByProperties(properties);
-		if(phrs==null || phrs.size()==0) return;
+		if(phrs==null || phrs.size()==0) return result;
 		String coachId = phrs.get(0).getPartner2();
 		Persons coach = daoLayer.getPersonsDAO().findById(coachId);
 		// get zones definition
 		List<ZonesDefinition> zonesDefinitions = coach.getZonesDefinition();   	
 		for(ZonesDefinition zonesDefinition : zonesDefinitions) {
-			// read athletes detail
+			// read athletes detail			
 			Zones example = new Zones();
 			example.setAthleteId(athleteId);
 			example.setZonesDefinitionId(zonesDefinition.getId());
 			List<Zones> zones = daoLayer.getZonesDAO().findByExample(example);
-			if(zones==null || zones.size()==0) return;
-			Zones zone = zones.get(0);
+			if(zones==null || zones.size()==0) {
+				result.add(new ZoneInfo(zonesDefinition,null));
+			} else {
+				result.add(new ZoneInfo(zonesDefinition,zones.get(0)));
+			}
 		}
-	
+		return result;	
 	}
 	
 	public void setServiceLayer(ServiceLayer serviceLayer) {
@@ -78,4 +83,24 @@ public class ZonesLogic {
 	public void setDaoLayer(DAOLayer daoLayer) {
 		this.daoLayer = daoLayer;
 	}	
+	
+	public class ZoneInfo {
+		private ZonesDefinition definition;
+		private Zones zone;
+		
+		private ZoneInfo() { }
+
+		public ZoneInfo(ZonesDefinition definition, Zones zone) {
+			this.definition = definition;
+			this.zone = zone;
+		}
+
+		public ZonesDefinition getDefinition() {
+			return definition;
+		}
+
+		public Zones getZone() {
+			return zone;
+		}		
+	}
 }

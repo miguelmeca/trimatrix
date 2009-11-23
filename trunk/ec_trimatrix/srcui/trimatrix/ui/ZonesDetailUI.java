@@ -1,6 +1,7 @@
 package trimatrix.ui;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
@@ -8,6 +9,7 @@ import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
+import trimatrix.logic.ZonesLogic;
 import trimatrix.structures.SAuthorization;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
@@ -25,22 +27,17 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
     public FIXGRIDListBinding<GridZonesItem> getGridZones() { return m_gridZones; }
     public void setGridZones(FIXGRIDListBinding<GridZonesItem> value) { m_gridZones = value; }
 	
-    private Constants.Entity entity;
     private String personId;
     
 	public ZonesDetailUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
 		// get parameters from functiontree
 		// get entity
-        String strEntity = getWorkpage().getParam(Constants.P_ENTITY);
-        try {
-        	entity = Constants.Entity.valueOf(strEntity.toUpperCase());
-        } catch (Exception ex) {
+        personId = getWorkpage().getParam(Constants.P_PERSON);
+        if(personId==null || personId.length()==0) {
         	Statusbar.outputError("No or wrong entity set", "For list view processing an entity has to be set by the functiontreenode!");
         	getWorkpageContainer().closeWorkpage(getWorkpage());
-        }  
-        personId = getWorkpage().getId();
-        
+        }      
 		// get authorization
 		String create = getWorkpage().getParam(Constants.CREATE);
 		String change = getWorkpage().getParam(Constants.CHANGE);
@@ -57,12 +54,7 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
     }
 	
 	private void buildGrid() {
-		getLogic().getZonesLogic().getAthletesZone(personId);
-		if(getChangeAllowed()) {
-			Statusbar.outputMessage("Änderungen erlaubt!");
-		} else {
-			Statusbar.outputMessage("Änderungen nicht erlaubt!");
-		}		
-		
+		List<ZonesLogic.ZoneInfo> zonesInfos = getLogic().getZonesLogic().getAthletesZone(personId);
+		Statusbar.outputMessage("ZoneInfos: " + zonesInfos.size());				
 	}
 }

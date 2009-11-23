@@ -30,6 +30,8 @@ public class UserTracker {
 	public static void deleteUser(String sessionId) {
 		if(loggedInUserMap.containsKey(sessionId)) {
 			loggedInUserMap.remove(sessionId);
+			// remove locked entities by sessionId
+			LockManager.removeBySession(sessionId);
 		}		
 	}
 
@@ -48,6 +50,10 @@ public class UserTracker {
 	public static String getUser(String sessionId) {
 		if(!loggedInUserMap.containsKey(sessionId)) return null;
 		return (loggedInUserMap.get(sessionId)).user;
+	}
+	
+	public static SUserInfo getUserInfo(String sessionId) {
+		return loggedInUserMap.get(sessionId);
 	}
 	
 }

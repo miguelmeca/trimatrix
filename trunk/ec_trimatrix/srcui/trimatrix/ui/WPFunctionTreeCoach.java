@@ -217,7 +217,7 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 						// add zones per athlete
 						FunctionNode zones_node = new FunctionNode(athlete_node, Constants.Page.ZONESDETAIL.getUrl());	
 						pageId = "zones:" + athlete.getId();
-						zones_node.setId(athlete.getId());
+						zones_node.setId(pageId);
 						zones_node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
 						zones_node.setOpenMultipleInstances(false);						
 						zones_node.setText(Helper.getLiteral("exercise_zones"));	

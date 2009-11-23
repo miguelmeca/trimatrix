@@ -77,4 +77,18 @@
         name="org.eclnt.jsfserver.calendar.ExtCalendarMgr"
      />
      -->
+     
+    <!--
+      *************************************************************************
+      Configuration of general fixgrid attributes
+          Export format for csv and xml export
+      *************************************************************************
+     -->
+    <!--
+     <fixgrid
+        exportcharactersetcsv="UTF-8"
+        exportcharactersetxml="UTF-8"
+     />
+     -->
+     
 </system>
