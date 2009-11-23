@@ -15,6 +15,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 
 import trimatrix.entities.IEntityObject;
 import trimatrix.exceptions.EmailNotValidException;
+import trimatrix.exceptions.EntityLockedException;
 import trimatrix.exceptions.MandatoryCheckException;
 import trimatrix.logic.EntityListLogic;
 import trimatrix.structures.SAuthorization;
@@ -22,6 +23,7 @@ import trimatrix.ui.utils.MyWorkpage;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.ui.utils.WorkpageRefreshEvent;
 import trimatrix.utils.Constants;
+import trimatrix.utils.LockManager;
 
 @SuppressWarnings("serial")
 @CCGenClass(expressionBase = "#{d.EntityDetailUI}")
@@ -121,12 +123,26 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 		case NEW:
 			entityObject = ENTITYLISTLOGIC.create(entity);
     		id = entityObject.getId();
+    		// check global lock
+    		try {
+    			LockManager.lockEntry(id);
+    		} catch (Exception ex) {
+    			// this should never happen!
+    			Statusbar.outputAlert("The entity couldn't be locked!\n" + ex.toString(), "Lockmanager");
+    		}    		
     		getWorkpage().setId(id);    
 			break;			
 		case COPY:
 			// set title of workpage
 			id = getWorkpage().getId();
     		getWorkpage().setTitle(entityObject.toString());
+    		// check global lock
+    		try {
+    			LockManager.lockEntry(id);
+    		} catch (Exception ex) {
+    			// this should never happen!
+    			Statusbar.outputAlert("The entity couldn't be locked!\n" + ex.toString(), "Lockmanager");
+    		}
     		break;
 		default:
 			// catch NullPointerException if entity doesn't exist
@@ -208,6 +224,8 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 			getWorkpage().setTitle(entityObject.toString());
 			Statusbar.outputSuccess("Entity saved");
 			//refreshParent();
+			// unlock entity
+			LockManager.unlockEntity(id);
 			changeMode(Constants.Mode.SHOW);
 			entityDetailUI.init(entityObject);
 			// refresh beans
@@ -224,8 +242,18 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 		} 	
 	}
 	
-	public void onEdit(ActionEvent event) {
+	public void onEdit(ActionEvent event) {		
 		if(!entityDetailUI.checkEdit()) return;
+		// check global lock
+		try {
+			LockManager.lockEntry(id);
+		} catch (EntityLockedException ele) {
+			Statusbar.outputAlert("Entity locked by " + ele.getUser(), "Lockmanager");
+			return;
+		} catch (Exception ex) {
+			Statusbar.outputAlert("The entity couldn't be locked!\n" + ex.toString(), "Lockmanager");
+			return;
+		}
 		changeMode(Constants.Mode.CHANGE);
 		entityDetailUI.init();
 	}
@@ -234,7 +262,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 		// when called in save mode, close page
 		if (mode == Constants.Mode.NEW ||
 			mode == Constants.Mode.COPY	|| 
-			mode == Constants.Mode.SINGLECHANGE) {
+			mode == Constants.Mode.SINGLECHANGE) {			
 			// set mode back so the close handler will not be invoked
 			mode = Constants.Mode.SHOW;
 			getWorkpageContainer().closeWorkpage(getWorkpage());
@@ -243,6 +271,8 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 			changeMode(Constants.Mode.SHOW);
 			entityDetailUI.init();
 		}		
+		// unlock entity
+		LockManager.unlockEntity(id);
 	}
 	
 	public void onNew(ActionEvent event) {		

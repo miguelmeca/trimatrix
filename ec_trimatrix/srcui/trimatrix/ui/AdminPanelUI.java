@@ -18,12 +18,63 @@ import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.structures.SUserInfo;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
+import trimatrix.utils.LockManager;
 import trimatrix.utils.MessageHandler;
 import trimatrix.utils.UserTracker;
 
 @CCGenClass (expressionBase="#{d.AdminPanelUI}")
 
 public class AdminPanelUI extends MyWorkpageDispatchedBean implements Serializable {
+    protected FIXGRIDListBinding<GridLockedEntitesItem> m_gridLockedEntities = new FIXGRIDListBinding<GridLockedEntitesItem>();
+    public FIXGRIDListBinding<GridLockedEntitesItem> getGridLockedEntites() { return m_gridLockedEntities; }
+    public void setGridLockedEntites(FIXGRIDListBinding<GridLockedEntitesItem> value) { m_gridLockedEntities = value; }
+
+    public class GridLockedEntitesItem extends FIXGRIDItem implements java.io.Serializable
+    {
+    	private String id;
+    	private String entity;
+    	private String description;
+    	private String sessionId;
+    	private String user;
+    	
+    	
+    	
+		public GridLockedEntitesItem(String id, String entity,
+				String description, String sessionId, String user) {
+			this.id = id;
+			this.entity = entity;
+			this.description = description;
+			this.sessionId = sessionId;
+			this.user = user;
+		}
+		public String getId() {
+			return id;
+		}
+		public String getEntity() {
+			return entity;
+		}
+		public String getDescription() {
+			return description;
+		}
+		public String getSessionId() {
+			return sessionId;
+		}
+		public String getUser() {
+			return user;
+		}    	
+		
+		private void unlock() {
+			LockManager.unlockEntity(id);
+		}
+    }
+
+    public void onUnlockEntity(ActionEvent event) {
+    	GridLockedEntitesItem selected = m_gridLockedEntities.getSelectedItem();
+    	if(selected!=null) {
+    		selected.unlock();    		
+    	}
+    }
+
     protected String m_sessionMessage;
     public String getSessionMessage() { return m_sessionMessage; }
     public void setSessionMessage(String value) { m_sessionMessage = value; }
@@ -101,10 +152,15 @@ public class AdminPanelUI extends MyWorkpageDispatchedBean implements Serializab
     public AdminPanelUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
 		buildGrid();
+		buildLockedEntitiesGrid();
 	}
 
 	public void onRefresh(ActionEvent event) {
 		buildGrid();
+	}
+	
+	public void onRefreshLocks(ActionEvent event) {
+		buildLockedEntitiesGrid();
 	}
 	
 	public void onRestart(ActionEvent event) 
@@ -131,7 +187,7 @@ public class AdminPanelUI extends MyWorkpageDispatchedBean implements Serializab
 			} catch (Exception ex) {
 				Statusbar.outputMessage("Session already invalidated!");				
 			} finally {
-				UserTracker.deleteUser(selected.session);
+				UserTracker.deleteUser(selected.session.getId());
 				buildGrid();
 			}    		
     	}
@@ -141,10 +197,19 @@ public class AdminPanelUI extends MyWorkpageDispatchedBean implements Serializab
     
     private void buildGrid() {
     	m_gridLoggedInUsers.getItems().clear();
-    	Set<Entry<HttpSession, SUserInfo>> loggedInUserSet = UserTracker.getLoggedInUserMap().entrySet();
-    	for(Entry<HttpSession, SUserInfo> entry : loggedInUserSet) {
-    		m_gridLoggedInUsers.getItems().add(new GridLoggedInUsersItem(entry.getValue().user,entry.getValue().clientIP, entry.getKey()));
+    	Set<Entry<String, SUserInfo>> loggedInUserSet = UserTracker.getLoggedInUserMap().entrySet();
+    	for(Entry<String, SUserInfo> entry : loggedInUserSet) {
+    		m_gridLoggedInUsers.getItems().add(new GridLoggedInUsersItem(entry.getValue().user,entry.getValue().clientIP, entry.getValue().session));
     	}
+    }
+    
+    private void buildLockedEntitiesGrid() {
+    	m_gridLockedEntities.getItems().clear();
+    	for(Entry<String, String> lock : LockManager.getEntityLockMap().entrySet()) {
+    		GridLockedEntitesItem item = new GridLockedEntitesItem(lock.getKey(),null,null,lock.getValue(),null);
+    		m_gridLockedEntities.getItems().add(item);
+    	}
+    	
     }
     
     public long getAvailableMemory() 

@@ -10,7 +10,7 @@ public class MySessionListener implements HttpSessionListener {
 	}
 
 	public void sessionDestroyed(HttpSessionEvent event) {		
-		UserTracker.deleteUser(event.getSession());
+		UserTracker.deleteUser(event.getSession().getId());
 	}
 
 }

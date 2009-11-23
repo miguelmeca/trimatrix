@@ -26,7 +26,7 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
     public void setGridZones(FIXGRIDListBinding<GridZonesItem> value) { m_gridZones = value; }
 	
     private Constants.Entity entity;
-    private String PersonId;
+    private String personId;
     
 	public ZonesDetailUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
@@ -39,7 +39,7 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
         	Statusbar.outputError("No or wrong entity set", "For list view processing an entity has to be set by the functiontreenode!");
         	getWorkpageContainer().closeWorkpage(getWorkpage());
         }  
-        PersonId = getWorkpage().getId();
+        personId = getWorkpage().getId();
         
 		// get authorization
 		String create = getWorkpage().getParam(Constants.CREATE);
@@ -57,7 +57,7 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
     }
 	
 	private void buildGrid() {
-		getLogic().getZonesLogic().getAthletesZone(getServiceLayer().getDictionaryService().getMyPerson().getId());
+		getLogic().getZonesLogic().getAthletesZone(personId);
 		if(getChangeAllowed()) {
 			Statusbar.outputMessage("Änderungen erlaubt!");
 		} else {
