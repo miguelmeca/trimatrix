@@ -138,6 +138,10 @@ public class FunctionTreeLogic {
 		return (Results)entityLayer.getResultEntity().save(result);
 	}	
 	
+	public String getMyPersonId() {
+		return serviceLayer.getDictionaryService().getMyPerson().getId();
+	}
+	
 	public void setServiceLayer(ServiceLayer serviceLayer) {
 		this.serviceLayer = serviceLayer;
 	}

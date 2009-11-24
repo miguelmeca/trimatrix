@@ -1290,6 +1290,15 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		m_diagram = buildDiagram(result, hrs, m_width, m_height, descriptionX,
 				unitX, descriptionY, unitY, highToLow);
 	}
+	
+	public void onSetZones(ActionEvent event) {
+		if(result==null) {
+			Statusbar.outputAlert("You have to refresh, for initialization!");
+			return;
+		}
+		// TODO put into Zones
+		
+	}
 
 	public void onChangeXY(ActionEvent event) {
 		//cast

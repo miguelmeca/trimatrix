@@ -194,6 +194,11 @@ public final class Constants {
 		SHOW, CHANGE, NEW, COPY, SINGLECHANGE
 	}	
 	
+	// authority objects
+	public static enum AuthorityObject {
+		ZONES
+	}
+	
 	public static final String NULL = "null";
 	public static final String EMPTY = "";
 	public static final String WHITESPACE = " ";

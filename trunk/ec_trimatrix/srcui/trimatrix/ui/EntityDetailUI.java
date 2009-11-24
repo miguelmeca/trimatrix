@@ -264,7 +264,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 			mode == Constants.Mode.COPY	|| 
 			mode == Constants.Mode.SINGLECHANGE) {			
 			// set mode back so the close handler will not be invoked
-			mode = Constants.Mode.SHOW;
+			changeMode(Constants.Mode.SHOW);
 			getWorkpageContainer().closeWorkpage(getWorkpage());
 		} else {
 			ENTITYLISTLOGIC.reload(entity, entityObject);   
