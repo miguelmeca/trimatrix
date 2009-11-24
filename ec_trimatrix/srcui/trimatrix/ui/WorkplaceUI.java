@@ -31,7 +31,7 @@ import trimatrix.utils.MessageHandler;
 
 public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializable
 {    
-	private static final String DIVIDERLOCATIONMAX = "150";
+	private static final String DIVIDERLOCATIONMAX = "175";
 	private static final String DIVIDERLOCATIONMIN = "0";
     //protected String m_toggleShowHideImage;
    

@@ -15,6 +15,7 @@ import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SFunctionTree;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Context;
+import trimatrix.utils.Constants.Page;
 
 @SuppressWarnings("serial")
 public class WPFunctionTreeAthlet extends WorkplaceFunctionTree {
@@ -66,12 +67,21 @@ public class WPFunctionTreeAthlet extends WorkplaceFunctionTree {
 					logger.warn(ex.toString());
 					continue;
 				}	
-				node = new FunctionNode(parentNode, page.getUrl());
-				node.setId(functionTree.entity);
-				node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
-				node.setOpenMultipleInstances(false);
-				if(functionTree.entity != null && functionTree.entity.length() > 0) {
-					node.setParam(Constants.P_ENTITY, functionTree.entity);
+				node = new FunctionNode(parentNode, page.getUrl());				
+				// special handling for zones
+				if(functionTree.page.equalsIgnoreCase(Page.ZONESDETAIL.name())) {
+					String personId = FUNCTIONTREELOGIC.getMyPersonId();
+					node.setId("zones:" + personId);
+					node.setParam(Constants.P_PERSON, personId);
+					node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
+					node.setOpenMultipleInstances(false);
+				} else {					
+					node.setId(functionTree.entity);
+					node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
+					node.setOpenMultipleInstances(false);
+					if(functionTree.entity != null && functionTree.entity.length() > 0) {
+						node.setParam(Constants.P_ENTITY, functionTree.entity);
+					}
 				}
 				// authorization
 				FUNCTIONTREELOGIC.setAuthority(functionTree, node);

@@ -7,6 +7,7 @@ import org.eclnt.workplace.Workpage;
 import trimatrix.entities.IEntityObject;
 import trimatrix.structures.SAuthorization;
 import trimatrix.ui.EntityDetailUI;
+import trimatrix.ui.ZonesDetailUI;
 import trimatrix.utils.MessageHandler;
 import trimatrix.utils.Constants.Mode;
 import trimatrix.utils.Constants.Page;
@@ -57,14 +58,23 @@ public class MyWorkpage extends Workpage{
 
 	@Override
 	public boolean close() {		
+		boolean doClose = true;
 		if(Page.ENTITYDETAIL.getUrl().equalsIgnoreCase(getJspPage())) {
 			EntityDetailUI entityDetailUI = (EntityDetailUI) getDispatcher().getDispatchedBean(EntityDetailUI.class);
 			if(entityDetailUI!=null && entityDetailUI.getMode()!=Mode.SHOW) {
-				Statusbar.outputAlert("Please save data before closing the workpage!");
-				return false;
+				doClose = false;
+			}
+		} else if(Page.ZONESDETAIL.getUrl().equalsIgnoreCase(getJspPage())) {
+			ZonesDetailUI zonesDetailUI = (ZonesDetailUI) getDispatcher().getDispatchedBean(ZonesDetailUI.class);
+			if(zonesDetailUI!=null && zonesDetailUI.getMode()!=Mode.SHOW) {
+				doClose =  false;
 			}
 		}
-		return super.close();
+		
+		if(!doClose) {
+			Statusbar.outputAlert("Please save data before closing the workpage!");
+			return false;
+		} else return super.close();
 		
 	}	
 	

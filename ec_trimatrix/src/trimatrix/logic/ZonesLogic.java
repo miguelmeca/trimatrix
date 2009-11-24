@@ -5,9 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
 
 import trimatrix.db.DAOLayer;
 import trimatrix.db.Persons;
@@ -17,6 +19,8 @@ import trimatrix.db.PersonsHaveRelationsDAO;
 import trimatrix.db.Zones;
 import trimatrix.db.ZonesDefinition;
 import trimatrix.services.ServiceLayer;
+import trimatrix.structures.SAuthorization;
+import trimatrix.utils.Constants.AuthorityObject;
 import trimatrix.utils.Constants.Relation;
 
 public class ZonesLogic {
@@ -50,16 +54,19 @@ public class ZonesLogic {
 		return true;
 	}
 	
-	public List<ZoneInfo> getAthletesZone(String athleteId) {
-		List<ZoneInfo> result = new ArrayList<ZoneInfo>();
+	public Persons getStandardCoach(String athleteId) {
 		// get coach of athlete
 		Map<String, Object> properties = new HashMap<String, Object>();
 		properties.put(PersonsHaveRelationsDAO.PARTNER1, athleteId);
 		properties.put(PersonsHaveRelationsDAO.RELTYP_KEY, Relation.COACH.type());
 		List<PersonsHaveRelations> phrs = daoLayer.getPersonsHaveRelationsDAO().findByProperties(properties);
-		if(phrs==null || phrs.size()==0) return result;
+		if(phrs==null || phrs.size()==0) return null;
 		String coachId = phrs.get(0).getPartner2();
-		Persons coach = daoLayer.getPersonsDAO().findById(coachId);
+		return daoLayer.getPersonsDAO().findById(coachId);
+	}
+	
+	public List<ZoneInfo> getAthletesZone(String athleteId, Persons coach) {
+		List<ZoneInfo> result = new ArrayList<ZoneInfo>();		
 		// get zones definition
 		List<ZonesDefinition> zonesDefinitions = coach.getZonesDefinition();   	
 		for(ZonesDefinition zonesDefinition : zonesDefinitions) {
@@ -75,6 +82,25 @@ public class ZonesLogic {
 			}
 		}
 		return result;	
+	}
+	
+	public Zones createZone(String athleteId, String zonesDefinitionId) {
+		String id = UUID.randomUUID().toString();
+		return new Zones(id, athleteId, zonesDefinitionId);
+	}
+	
+	public boolean saveZone(Zones zone) {
+		try {
+			daoLayer.getZonesDAO().merge(zone);
+			return true;
+		} catch (Exception ex) {
+			Statusbar.outputError("Zone couldn't be saved!", ex.toString());
+			return false;
+		}
+	}
+	
+	public SAuthorization getAuthorization(String coachId) {
+		return serviceLayer.getAuthorizationService().getAuthorization(AuthorityObject.ZONES, coachId);
 	}
 	
 	public PersonsAthlete getPersonsAthlete(String personId) {
