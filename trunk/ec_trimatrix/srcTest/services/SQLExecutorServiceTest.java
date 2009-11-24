@@ -5,7 +5,6 @@ import java.util.Map;
 
 import junit.framework.Assert;
 
-import org.hibernate.validator.Size;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 
