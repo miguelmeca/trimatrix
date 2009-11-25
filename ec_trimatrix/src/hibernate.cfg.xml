@@ -34,8 +34,8 @@
 		<property name="max_fetch_depth">3</property>
 
 		<!-- Print SQL to stdout. -->
-		<property name="show_sql">true</property>
-		<property name="format_sql">true</property>
+		<property name="show_sql">false</property>
+		<property name="format_sql">false</property>
 
 		<!-- Bind the getCurrentSession() method to the thread. -->
 		<property name="current_session_context_class">thread</property>

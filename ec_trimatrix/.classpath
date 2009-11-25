@@ -76,14 +76,5 @@
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/envers-1.2.1.ga-hibernate-3.3.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/ezmorph-1.0.6.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/json-lib-2.3-jdk15.jar"/>
-	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/MessAdmin-ClickStream-4.2.jar"/>
-	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/MessAdmin-Core-4.2.jar"/>
-	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/MessAdmin-DiskBrowser-4.2.jar"/>
-	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/MessAdmin-Ehcache-4.2.jar"/>
-	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/MessAdmin-Log4J-4.2.jar"/>
-	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/MessAdmin-ScriptExecutor-4.2.jar"/>
-	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/MessAdmin-Serializable-4.2.jar"/>
-	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/MessAdmin-ServletStats-4.2.jar"/>
-	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/MessAdmin-SessionKiller-4.2.jar"/>
 	<classpathentry kind="output" path="webcontent/WEB-INF/classes"/>
 </classpath>

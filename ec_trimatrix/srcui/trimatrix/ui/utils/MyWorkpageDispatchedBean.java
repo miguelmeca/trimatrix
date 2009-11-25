@@ -129,7 +129,7 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 		// return if labeling functionality is not set
 		if(!labelingEnabled) return;
 		// return if entity id is not set
-		String entityID = getWorkpage().getId();
+		String entityID = getWorkpage().getId().replace(Constants.FINAL, Constants.EMPTY);
 		if(entityID==null||entityID.length()==0) return;
     	BUTTONComponent button =(BUTTONComponent)event.getSource();
     	String label_id = button.getAttributeValueAsString(Constants.CLIENTNAME);
@@ -139,7 +139,7 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
     
     public void onLabelClick(ActionEvent event) {
     	// return if entity id is not set
-		String entityID = getWorkpage().getId();
+		String entityID = getWorkpage().getId().replace(Constants.FINAL, Constants.EMPTY);
 		if(entityID==null||entityID.length()==0) return;
     	BUTTONComponent button =(BUTTONComponent)event.getSource();
     	String label_id = button.getAttributeValueAsString(Constants.CLIENTNAME);
@@ -162,7 +162,7 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 		// return if labeling functionality is not set
 		if(!labelingEnabled) return;
 		// return if entity id is not set
-		String entityID = getWorkpage().getId();
+		String entityID = getWorkpage().getId().replace(Constants.FINAL, Constants.EMPTY);
 		if(entityID==null||entityID.length()==0) return;
 		// build dynamic row with labels
 		StringBuffer xml = new StringBuffer();
@@ -185,7 +185,7 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 		// return if labeling functionality is not set
 		if(!labelingEnabled) return;
 		// return if entity id is not set
-		String entityID = getWorkpage().getId();
+		String entityID = getWorkpage().getId().replace(Constants.FINAL, Constants.EMPTY);
 		if(entityID==null||entityID.length()==0) return;
 	   	final ModelessPopup popup = getOwningDispatcher().createModelessPopup();  
 	   	LabelPopUpUI labelPopUpUI = getLabelPopUpUI();
@@ -316,9 +316,10 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 		} 
 		// Page doesn't exist, create it
 		wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.getUrl(),
-				id, title, null, true);			
+				Constants.FINAL + id, title, null, true);			
 		wp.setParam(Constants.P_ENTITY, entity.name());
-		wp.setParam(Constants.P_MODE, Constants.Mode.SHOW.name());			
+		wp.setParam(Constants.P_MODE, Constants.Mode.FINAL.name());
+		
 		wpc.addWorkpage(wp);
 	}
 }

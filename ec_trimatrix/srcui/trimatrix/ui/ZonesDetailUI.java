@@ -20,6 +20,7 @@ import trimatrix.structures.SAuthorization;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
+import trimatrix.utils.Constants.Entity;
 import trimatrix.utils.Constants.Mode;
 
 @CCGenClass (expressionBase="#{d.ZonesDetailUI}")
@@ -77,6 +78,11 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
 	 	changeMode(Constants.Mode.SHOW);
 	}
 	
+	public void onCoachClicked(ActionEvent event) {
+		if(coach==null) return;
+		loadEntityDetailPage(Entity.PERSON, coach.getId(), coach.toString());
+	}
+	
 	protected FIXGRIDListBinding<GridZonesItem> m_gridZones = new FIXGRIDListBinding<GridZonesItem>();
     public FIXGRIDListBinding<GridZonesItem> getGridZones() { return m_gridZones; }
     public void setGridZones(FIXGRIDListBinding<GridZonesItem> value) { m_gridZones = value; }
@@ -84,6 +90,7 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
     private String personId;
     private PersonsAthlete personsAthlete;
     private Persons coach;
+    public String getCoach() { return coach!=null ? coach.toString() : null; } 
     
 	public ZonesDetailUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);

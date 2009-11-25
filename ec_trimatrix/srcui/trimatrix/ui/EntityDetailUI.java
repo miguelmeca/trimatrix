@@ -74,8 +74,8 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 	public boolean getRenderNewButton() { return renderNewButton; }
 	
 	protected boolean renderCopyButton;
-	public boolean getRenderCopyButton() { return renderCopyButton && copyable; }
-
+	public boolean getRenderCopyButton() { return renderCopyButton; }
+	
 	public EntityDetailUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);			
 		// get entity
@@ -113,7 +113,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
     		if(change==null || !change.equals(Constants.TRUE)) change = Constants.FALSE;
     		if(delete==null || !delete.equals(Constants.TRUE)) delete = Constants.FALSE;
     		authorization = new SAuthorization(create, change, delete);
-        }        
+        }         
         // change mode to set buttons
         changeMode(mode);               
         // set entity detail page 
@@ -147,7 +147,8 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 		default:
 			// catch NullPointerException if entity doesn't exist
         	try {        		
-        		id = getWorkpage().getId();
+        		
+        		id = getWorkpage().getId().replace(Constants.FINAL, Constants.EMPTY);      		
                 // if id is not set, get id of own entity
             	if (id == null || id.length()==0) { throw new NullPointerException(); }
                 // check if it's not the ID
@@ -165,7 +166,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
             	// TODO close workpage or switch to another
         	} 
 			break;
-		}
+		}        
         // set if copyable
         copyable = ENTITYLISTLOGIC.isCopyable(entity, entityObject);
 	}
@@ -330,6 +331,14 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 			renderEditButton = false;
 			renderSaveButton = true;
 			renderCancelButton = true;
+			renderCopyButton = false;
+		}
+		if (mode == Constants.Mode.FINAL) {
+			renderNewButton = false;
+			renderDeleteButton = false;
+			renderEditButton = false;
+			renderSaveButton = false;
+			renderCancelButton = false;	
 			renderCopyButton = false;
 		}
 	}

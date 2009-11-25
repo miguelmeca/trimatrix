@@ -54,10 +54,10 @@ public class LabelSearchResultUI extends MyWorkpageDispatchedBean implements Ser
     
     public void setResultRowDynamic() { 		
     	StringBuffer xml = new StringBuffer();
- 		xml.append("<t:pane height='100%' width='100%' background='" + label.getColor() + "30'>");
+ 		xml.append("<t:pane width='100%' background='" + label.getColor() + "30'>");
 		for(String entityName : entityLists.keySet()) {
 			xml.append("<t:row>");
-			xml.append("<t:foldablepane height='100%' width='100%' text='" + entityName + "'>");
+			xml.append("<t:foldablepane width='100%' text='" + entityName + "'>");
 			xml.append("<t:rowinclude contentreplacedrilldown='EntityListUI:LabelSearchResultUI.entityLists." + entityName + "' page='entitylist.jsp' />");
 			xml.append("</t:foldablepane>");
 			xml.append("</t:row>");

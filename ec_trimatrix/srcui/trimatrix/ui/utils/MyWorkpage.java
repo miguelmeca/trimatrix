@@ -61,12 +61,12 @@ public class MyWorkpage extends Workpage{
 		boolean doClose = true;
 		if(Page.ENTITYDETAIL.getUrl().equalsIgnoreCase(getJspPage())) {
 			EntityDetailUI entityDetailUI = (EntityDetailUI) getDispatcher().getDispatchedBean(EntityDetailUI.class);
-			if(entityDetailUI!=null && entityDetailUI.getMode()!=Mode.SHOW) {
+			if(entityDetailUI!=null && entityDetailUI.getMode()!=Mode.SHOW && entityDetailUI.getMode()!=Mode.FINAL) {
 				doClose = false;
 			}
 		} else if(Page.ZONESDETAIL.getUrl().equalsIgnoreCase(getJspPage())) {
 			ZonesDetailUI zonesDetailUI = (ZonesDetailUI) getDispatcher().getDispatchedBean(ZonesDetailUI.class);
-			if(zonesDetailUI!=null && zonesDetailUI.getMode()!=Mode.SHOW) {
+			if(zonesDetailUI!=null && zonesDetailUI.getMode()!=Mode.SHOW && zonesDetailUI.getMode()!=Mode.FINAL) {
 				doClose =  false;
 			}
 		}

@@ -39,6 +39,10 @@ public final class ResultEntity extends AEntity {
     public static final String SWIM_COLOR = "swim_color";
     public static final String RUN_COLOR = "run_color";
     public static final String SWIMSUIT = "swimsuit";
+    
+    // Constants for SGRIDMETADATA
+    public static final String META_SWIM = "<t:formattedfield value='.{datum." + SWIM_DEFICIT_PER + "}' background='.{datum." + SWIM_COLOR + "}'  format='double' enabled='false' width='50' align='center'/>";
+    public static final String META_RUN = "<t:formattedfield value='.{datum." + RUN_DEFICIT_PER + "}' background='.{datum." + RUN_COLOR + "}'  format='double' enabled='false' width='50' align='center'/>";
           
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IUserEntity#getGridMetaData()
@@ -65,14 +69,16 @@ public final class ResultEntity extends AEntity {
 			gridMetaData.add(new SGridMetaData("#{rr.literals.ranking_swim}",SWIM_POSITION, SGridMetaData.Component.FIELD)); 
 			gridMetaData.add(new SGridMetaData("#{rr.literals.deficit_swim}",SWIM_DEFICIT, SGridMetaData.Component.FIELD));
 			gridMetaData.add(new SGridMetaData("#{rr.literals.best_swim_split}",BEST_SWIM_SPLIT, SGridMetaData.Component.FIELD)); 
-			gridMetaData.add(new SGridMetaData("#{rr.literals.deficit_percent}",SWIM_DEFICIT_PER, SGridMetaData.Component.FORMATED_DOUBLE)); 
-			gridMetaData.add(new SGridMetaData("#{rr.literals.swim}",SWIM_COLOR, SGridMetaData.Component.COLORFIELD));
+			//gridMetaData.add(new SGridMetaData("#{rr.literals.deficit_percent}",SWIM_DEFICIT_PER, SGridMetaData.Component.FORMATED_DOUBLE)); 
+			//gridMetaData.add(new SGridMetaData("#{rr.literals.swim}",SWIM_COLOR, SGridMetaData.Component.COLORFIELD));
+			gridMetaData.add(new SGridMetaData("#{rr.literals.swim}",SWIM_COLOR, META_SWIM));
 			gridMetaData.add(new SGridMetaData("#{rr.literals.run_split}",RUN_SPLIT, SGridMetaData.Component.FIELD));
 			gridMetaData.add(new SGridMetaData("#{rr.literals.ranking_run}",RUN_POSITION, SGridMetaData.Component.FIELD)); 
 			gridMetaData.add(new SGridMetaData("#{rr.literals.deficit_run}",RUN_DEFICIT, SGridMetaData.Component.FIELD));
 			gridMetaData.add(new SGridMetaData("#{rr.literals.best_run_split}",BEST_RUN_SPLIT, SGridMetaData.Component.FIELD));	
-			gridMetaData.add(new SGridMetaData("#{rr.literals.deficit_percent}",RUN_DEFICIT_PER, SGridMetaData.Component.FORMATED_DOUBLE));
-			gridMetaData.add(new SGridMetaData("#{rr.literals.run}",RUN_COLOR, SGridMetaData.Component.COLORFIELD));
+			//gridMetaData.add(new SGridMetaData("#{rr.literals.deficit_percent}",RUN_DEFICIT_PER, SGridMetaData.Component.FORMATED_DOUBLE));
+			//gridMetaData.add(new SGridMetaData("#{rr.literals.run}",RUN_COLOR, SGridMetaData.Component.COLORFIELD));
+			gridMetaData.add(new SGridMetaData("#{rr.literals.run}",RUN_COLOR, META_RUN));
 		}
 		return gridMetaData;
 	}
