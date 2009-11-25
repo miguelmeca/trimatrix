@@ -150,7 +150,7 @@
 <t:link id="g_108" actionListener="#{d.TestDetailUI.gridTreadmill.onOpenGridFunctions}" text="#{rr.literals.export}" />
 </t:row>
 <t:row id="g_109" >
-<t:fixgrid id="g_110" avoidroundtrips="1" bordercolor="#C0C0C0" borderheight="1" borderwidth="1" enabled="#{d.TestDetailUI.enabled}" multiselect="false" objectbinding="#{d.TestDetailUI.gridTreadmill}" sbvisibleamount="20" width="100%" >
+<t:fixgrid id="g_110" avoidroundtrips="1" bordercolor="#C0C0C0" borderheight="1" borderwidth="1" enabled="#{d.TestDetailUI.enabled}" multiselect="false" objectbinding="#{d.TestDetailUI.gridTreadmill}" sbvisibleamount="20" showemptyrows="false" width="100%" >
 <t:gridcol id="g_111" columnresizingenabled="false" sortenabled="false" width="20" >
 <t:gridrowselector id="g_112" />
 </t:gridcol>
@@ -218,7 +218,7 @@
 <t:link id="g_155" actionListener="#{d.TestDetailUI.gridErgo.onOpenGridFunctions}" text="#{rr.literals.export}" />
 </t:row>
 <t:row id="g_156" >
-<t:fixgrid id="g_157" avoidroundtrips="1" border="#808080" enabled="#{d.TestDetailUI.enabled}" multiselect="false" objectbinding="#{d.TestDetailUI.gridErgo}" sbvisibleamount="20" width="100%" >
+<t:fixgrid id="g_157" avoidroundtrips="1" border="#808080" enabled="#{d.TestDetailUI.enabled}" multiselect="false" objectbinding="#{d.TestDetailUI.gridErgo}" sbvisibleamount="20" showemptyrows="false" width="100%" >
 <t:gridcol id="g_158" columnresizingenabled="false" sortenabled="false" width="20" >
 <t:gridrowselector id="g_159" />
 </t:gridcol>
@@ -249,7 +249,7 @@
 <t:gridcol id="g_176" align="center" sortenabled="false" text="CO2" width="45" >
 <t:formattedfield id="g_177" enabled="#{d.TestDetailUI.enabled}" format="int" value=".{co2_emission}" />
 </t:gridcol>
-<t:gridcol id="g_178" align="center" sortenabled="false" text="RQ" width="15" >
+<t:gridcol id="g_178" align="center" sortenabled="false" text="RQ" width="45" >
 <t:formattedfield id="g_179" enabled="#{d.TestDetailUI.enabled}" format="double" value=".{rq}" />
 </t:gridcol>
 </t:fixgrid>
@@ -286,7 +286,7 @@
 <t:link id="g_203" actionListener="#{d.TestDetailUI.gridSwim.onOpenGridFunctions}" text="#{rr.literals.export}" />
 </t:row>
 <t:row id="g_204" >
-<t:fixgrid id="g_205" avoidroundtrips="1" border="#808080" enabled="#{d.TestDetailUI.enabled}" multiselect="false" objectbinding="#{d.TestDetailUI.gridSwim}" sbvisibleamount="20" width="100%" >
+<t:fixgrid id="g_205" avoidroundtrips="1" border="#808080" enabled="#{d.TestDetailUI.enabled}" multiselect="false" objectbinding="#{d.TestDetailUI.gridSwim}" sbvisibleamount="20" showemptyrows="false" width="100%" >
 <t:gridcol id="g_206" align="center" sortenabled="false" text="#{rr.literals.step}" width="100" >
 <t:treenode id="g_207" bgpaint="rectangle(0,0,100%,100%,#FFFFFF40,#FFFFFF10,vertical)" text=".{step}" />
 </t:gridcol>

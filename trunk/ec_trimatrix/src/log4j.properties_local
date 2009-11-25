@@ -4,12 +4,6 @@ log4j.appender.stdout.Target=System.out
 log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
 log4j.appender.stdout.layout.ConversionPattern=%d{ABSOLUTE} %5p %c{1}:%L - %m%n
 
-### direct log messages to messadm ###
-log4j.appender.MESSADMIN=clime.messadmin.providers.log4j.Log4JAppender
-log4j.appender.MESSADMIN.layout=org.apache.log4j.PatternLayout
-log4j.appender.MESSADMIN.layout.ConversionPattern=%d{ISO8601} [%-5p] %c %x - %m%n
-log4j.appender.MESSADMIN.Threshold=INFO
-
 ### direct messages to file hibernate.log ###
 #log4j.appender.file=org.apache.log4j.FileAppender
 #log4j.appender.file.File=trimatrix.log
@@ -17,7 +11,7 @@ log4j.appender.MESSADMIN.Threshold=INFO
 #log4j.appender.file.layout.ConversionPattern=%d{ABSOLUTE} %5p %c{1}:%L - %m%n
 
 ### set log levels for all loggers - for more verbose logging change 'info' to 'debug' ###
-log4j.rootLogger=warn, stdout
+log4j.rootLogger=info, stdout
 
 ### Trimatrix
 #log4j.logger.trimatrix=info

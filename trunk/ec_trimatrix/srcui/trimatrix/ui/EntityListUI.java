@@ -28,6 +28,7 @@ import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.ui.utils.WorkpageRefreshEvent;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Constants.Entity;
+import trimatrix.utils.Constants.Mode;
 
 @SuppressWarnings("serial")
 @CCGenClass(expressionBase = "#{d.EntityListUI}")
@@ -122,9 +123,13 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 	private void setRowDynamic() {
 		String dragKey = Constants.P_ENTITY + ":" + Constants.P_ENTITYLIST;
 		StringBuffer xml = new StringBuffer();
-		xml.append("<t:fixgrid avoidroundtrips='true' dragsend='" + dragKey + "' rowdragsend='" + dragKey + "' drawoddevenrows='true' objectbinding='#{d.EntityListUI.gridList}' persistid='gridList' bordercolor='C0C0C0' borderheight='1' borderwidth='1' cellselection='true' rowheight='20' width='100%' sbvisibleamount='20'>");
+		xml.append("<t:fixgrid avoidroundtrips='true' dragsend='" + dragKey + "' rowdragsend='" + dragKey + "' drawoddevenrows='true' objectbinding='#{d.EntityListUI.gridList}' persistid='gridList' bordercolor='C0C0C0' borderheight='1' borderwidth='1' cellselection='true' rowheight='20' width='100%' sbvisibleamount='20' showemptyrows='false' headlinerowheight='20'>");
 		for (SGridMetaData meta : gridMetaData) {
 			// component type checkbox
+			boolean isIndividual = false;			
+			if (meta.component == SGridMetaData.Component.INDIVIDUAL) {
+				isIndividual = true;
+			} 			
 			boolean isCheckBox = false;			
 			if (meta.component == SGridMetaData.Component.CHECKBOX) {
 				isCheckBox = true;
@@ -152,7 +157,8 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 			xml.append("<t:gridcol text='" + meta.header
 					+ "' align='center' width='" + meta.width + "' sortreference='.{datum." + meta.techname
 					+ "}' searchenabled='true'>");
-			if (isCheckBox) {
+			if (isIndividual) xml.append(meta.code);
+			else if (isCheckBox) {
 				xml.append("<t:checkbox align='center' selected='.{datum."
 						+ meta.techname + "}' enabled='false'/>");
 			} else if (isCalendarField) {
@@ -303,10 +309,17 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 				return;
 			} 
 			// Page doesn't exist, create it
+			String pageId = datum.getId();
+			Mode pageMode = Mode.SHOW;
+			if(!renderButtons) {
+				pageId = Constants.FINAL + pageId;
+				pageMode = Mode.FINAL;
+			}
+			
 			wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.getUrl(),
-					datum.getId(), datum.toString(), null, true, entityList, authorization, null);			
+					pageId, datum.toString(), null, true, entityList, authorization, null);			
 			wp.setParam(Constants.P_ENTITY, entity.name());
-			wp.setParam(Constants.P_MODE, Constants.Mode.SHOW.name());			
+			wp.setParam(Constants.P_MODE, pageMode.name());			
 			wpc.addWorkpage(wp);
 		}
 

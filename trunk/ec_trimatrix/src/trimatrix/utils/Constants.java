@@ -191,7 +191,7 @@ public final class Constants {
 	}
 	// modes
 	public static enum Mode {
-		SHOW, CHANGE, NEW, COPY, SINGLECHANGE
+		SHOW, CHANGE, NEW, COPY, SINGLECHANGE, FINAL
 	}	
 	
 	// authority objects
@@ -213,6 +213,7 @@ public final class Constants {
 	public static final String P_SCOUTCOMPETITION = "scoutcompetition";
 	public static final String P_ATHLETE = "athlete";
 	public static final String P_FILTER = "filter";
+	public static final String FINAL = "final:";
 	
 	public static final String CREATE = "create";
 	public static final String CHANGE = "change";

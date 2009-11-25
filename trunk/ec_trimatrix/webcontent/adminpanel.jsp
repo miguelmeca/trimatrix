@@ -27,7 +27,7 @@
 <t:button id="g_14" actionListener="#{d.AdminPanelUI.onRefresh}" text="Aktualisieren" />
 </t:row>
 <t:row id="g_15" >
-<t:fixgrid id="g_16" objectbinding="#{d.AdminPanelUI.gridLoggedInUsers}" sbvisibleamount="10" width="100%" >
+<t:fixgrid id="g_16" horizontalscrollmode="hidden" objectbinding="#{d.AdminPanelUI.gridLoggedInUsers}" sbvisibleamount="10" showemptyrows="false" width="100%" >
 <t:gridcol id="g_17" columnresizingenabled="false" width="20" >
 <t:gridrowselector id="g_18" />
 </t:gridcol>
@@ -84,71 +84,77 @@
 <t:rowtitlebar id="g_53" text="Meldungsverwaltung" />
 <t:rowheader id="g_54" />
 <t:row id="g_55" >
-<t:label id="g_56" font="size:12;weight:bold" text="Logon Meldung" />
-</t:row>
+<t:pane id="g_56" rowalignmenty="top" rowdistance="5" >
 <t:row id="g_57" >
-<t:checkbox id="g_58" flush="true" selected="#{d.AdminPanelUI.showLogonMessage}" text="Logon Meldung aktiv" />
-<t:textarea id="g_59" enabled="#{d.AdminPanelUI.showLogonMessage==false}" flush="true" height="100" text="#{d.AdminPanelUI.logonMessage}" width="400" />
+<t:label id="g_58" font="size:12;weight:bold" text="Logon Meldung" />
 </t:row>
-<t:rowdistance id="g_60" />
-<t:rowline id="g_61" />
-<t:rowdistance id="g_62" />
-<t:row id="g_63" >
-<t:label id="g_64" font="size:12;weight:bold" text="Session  Meldung" />
+<t:row id="g_59" >
+<t:checkbox id="g_60" flush="true" selected="#{d.AdminPanelUI.showLogonMessage}" text="Logon Meldung aktiv" />
 </t:row>
+<t:row id="g_61" >
+<t:textarea id="g_62" enabled="#{d.AdminPanelUI.showLogonMessage==false}" flush="true" height="100" text="#{d.AdminPanelUI.logonMessage}" width="400" />
+</t:row>
+</t:pane>
+<t:coldistance id="g_63" width="20" />
+<t:pane id="g_64" rowalignmenty="top" rowdistance="5" >
 <t:row id="g_65" >
-<t:label id="g_66" text="Session" />
-<t:coldistance id="g_67" />
-<t:combobox id="g_68" validvaluesbinding="#{d.AdminPanelUI.vvbSessionIds}" value="#{d.AdminPanelUI.sessionId}" valuetextmode="VALUE (TEXT)" />
-<t:coldistance id="g_69" />
-<t:button id="g_70" actionListener="#{d.AdminPanelUI.onSetSessionMessage}" text="Setzen" />
+<t:label id="g_66" font="size:12;weight:bold" text="Session  Meldung" />
 </t:row>
-<t:row id="g_71" >
-<t:textarea id="g_72" height="100" text="#{d.AdminPanelUI.sessionMessage}" width="400" />
+<t:row id="g_67" >
+<t:label id="g_68" text="Session" />
+<t:coldistance id="g_69" />
+<t:combobox id="g_70" validvaluesbinding="#{d.AdminPanelUI.vvbSessionIds}" value="#{d.AdminPanelUI.sessionId}" valuetextmode="VALUE (TEXT)" />
+<t:coldistance id="g_71" />
+<t:button id="g_72" actionListener="#{d.AdminPanelUI.onSetSessionMessage}" text="Setzen" />
+</t:row>
+<t:row id="g_73" >
+<t:textarea id="g_74" height="100" text="#{d.AdminPanelUI.sessionMessage}" width="400" />
 </t:row>
 </t:pane>
 </t:row>
-<t:rowdistance id="g_73" height="15" />
-<t:row id="g_74" comment="restart workplace" >
-<t:pane id="g_75" height="100%" rowdistance="5" width="100%" >
-<t:rowtitlebar id="g_76" text="Workplace Neustart" />
-<t:rowheader id="g_77" />
-<t:row id="g_78" >
-<t:button id="g_79" actionListener="#{d.AdminPanelUI.onRestart}" text="Workplace neu starten (Hard)" />
-<t:coldistance id="g_80" />
-<t:button id="g_81" actionListener="#{d.AdminPanelUI.onRestartSoft}" text="Workplace neu starten (Soft)" />
+</t:pane>
+</t:row>
+<t:rowdistance id="g_75" height="15" />
+<t:row id="g_76" comment="restart workplace" >
+<t:pane id="g_77" height="100%" rowdistance="5" width="100%" >
+<t:rowtitlebar id="g_78" text="Workplace Neustart" />
+<t:rowheader id="g_79" />
+<t:row id="g_80" >
+<t:button id="g_81" actionListener="#{d.AdminPanelUI.onRestart}" text="Workplace neu starten (Hard)" />
+<t:coldistance id="g_82" />
+<t:button id="g_83" actionListener="#{d.AdminPanelUI.onRestartSoft}" text="Workplace neu starten (Soft)" />
 </t:row>
 </t:pane>
 </t:row>
 </t:tabbedpanetab>
-<t:tabbedpanetab id="g_82" text="Entities" >
-<t:row id="g_83" comment="entity locks" >
-<t:pane id="g_84" rowdistance="5" width="100%" >
-<t:rowtitlebar id="g_85" text="Objektsperren" />
-<t:rowheader id="g_86" />
-<t:row id="g_87" >
-<t:fixgrid id="g_88" objectbinding="#{d.AdminPanelUI.gridLockedEntities}" sbvisibleamount="10" width="100%" >
-<t:gridcol id="g_89" columnresizingenabled="false" width="20" >
-<t:gridrowselector id="g_90" />
+<t:tabbedpanetab id="g_84" text="Entities" >
+<t:row id="g_85" comment="entity locks" >
+<t:pane id="g_86" rowdistance="5" width="100%" >
+<t:rowtitlebar id="g_87" text="Objektsperren" />
+<t:rowheader id="g_88" />
+<t:row id="g_89" >
+<t:fixgrid id="g_90" horizontalscrollmode="hidden" objectbinding="#{d.AdminPanelUI.gridLockedEntities}" sbvisibleamount="10" showemptyrows="false" width="100%" >
+<t:gridcol id="g_91" columnresizingenabled="false" width="20" >
+<t:gridrowselector id="g_92" />
 </t:gridcol>
-<t:gridcol id="g_91" align="center" text="Entity" width="100" >
-<t:field id="g_92" align="center" enabled="false" text=".{entity}" />
+<t:gridcol id="g_93" align="center" text="Entity" width="100" >
+<t:field id="g_94" align="center" enabled="false" text=".{entity}" />
 </t:gridcol>
-<t:gridcol id="g_93" align="center" text="ID" width="220" >
-<t:field id="g_94" align="center" enabled="false" text=".{id}" width="150" />
+<t:gridcol id="g_95" align="center" text="ID" width="220" >
+<t:field id="g_96" align="center" enabled="false" text=".{id}" width="150" />
 </t:gridcol>
-<t:gridcol id="g_95" align="center" text="Session ID" width="220" >
-<t:field id="g_96" align="center" enabled="false" text=".{sessionId}" />
+<t:gridcol id="g_97" align="center" text="Session ID" width="220" >
+<t:field id="g_98" align="center" enabled="false" text=".{sessionId}" />
 </t:gridcol>
-<t:gridcol id="g_97" align="center" text="Benutzer" width="100" >
-<t:field id="g_98" align="center" enabled="false" text=".{user}" width="100" />
+<t:gridcol id="g_99" align="center" text="Benutzer" width="100" >
+<t:field id="g_100" align="center" enabled="false" text=".{user}" width="100" />
 </t:gridcol>
 </t:fixgrid>
 </t:row>
-<t:row id="g_99" >
-<t:button id="g_100" actionListener="#{d.AdminPanelUI.onRefreshLocks}" text="Aktualisieren" />
-<t:coldistance id="g_101" />
-<t:button id="g_102" actionListener="#{d.AdminPanelUI.onUnlockEntity}" text="Sperre löschen" />
+<t:row id="g_101" >
+<t:button id="g_102" actionListener="#{d.AdminPanelUI.onRefreshLocks}" text="Aktualisieren" />
+<t:coldistance id="g_103" />
+<t:button id="g_104" actionListener="#{d.AdminPanelUI.onUnlockEntity}" text="Sperre löschen" />
 </t:row>
 </t:pane>
 </t:row>
