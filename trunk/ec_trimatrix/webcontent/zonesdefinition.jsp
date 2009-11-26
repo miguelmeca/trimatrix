@@ -23,7 +23,7 @@
 <t:rowline id="g_9" />
 <t:rowdistance id="g_10" height="10" />
 <t:row id="g_11" >
-<t:fixgrid id="g_12" avoidroundtrips="true" cellselection="true" headlinerowheight="20" objectbinding="#{d.ZonesDefinitionUI.gridZones}" rowheight="20" sbvisibleamount="10" showemptyrows="false" width="100%" >
+<t:fixgrid id="g_12" avoidroundtrips="true" cellselection="true" headlinerowheight="20" objectbinding="#{d.ZonesDefinitionUI.gridZones}" rowheight="20" sbvisibleamount="10" showemptyrows="false" >
 <t:gridcol id="g_13" columnresizingenabled="false" sortenabled="false" width="20" >
 <t:gridrowselector id="g_14" />
 </t:gridcol>

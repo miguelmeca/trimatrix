@@ -11,7 +11,7 @@
 <f:view>
 <h:form>
 <f:subview id="entitydetailg_sv">
-<t:rowdistance id="g_1" />
+<t:rowbodypane id="g_1" rowdistance="5" >
 <t:row id="g_2" >
 <t:button id="g_3" actionListener="#{d.EntityDetailUI.onNew}" enabled="#{d.EntityDetailUI.createAllowed}" rendered="#{d.EntityDetailUI.renderNewButton}" text="#{rr.literals.new}" />
 <t:coldistance id="g_4" width="3" />
@@ -25,8 +25,8 @@
 <t:coldistance id="g_12" width="3" />
 <t:button id="g_13" actionListener="#{d.EntityDetailUI.onDelete}" enabled="#{d.EntityDetailUI.deleteAllowed}" rendered="#{d.EntityDetailUI.renderDeleteButton}" text="#{rr.literals.delete}" />
 </t:row>
-<t:rowdistance id="g_14" />
-<t:rowinclude id="g_15" page="#{d.EntityDetailUI.entityDetailPage}" />
+<t:rowinclude id="g_14" page="#{d.EntityDetailUI.entityDetailPage}" />
+</t:rowbodypane>
 <t:pageaddons id="g_pa"/>
 </f:subview>
 </h:form>

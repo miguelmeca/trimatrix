@@ -12,7 +12,7 @@
 <h:form>
 <f:subview id="aroundg_sv">
 <t:row id="g_1" >
-<t:pane id="g_2" bgpaint="image(0,0,100%,100%,/images/background.jpg,lefttop);rectangle(0,0,100%,100%,#FFFFFF40);" height="100%" width="100%" >
+<t:pane id="g_2" background="#FFFFFF" height="100%" width="100%" >
 <t:rowinclude id="g_3" page="#{d.AroundUI.contentPage}" />
 </t:pane>
 </t:row>
