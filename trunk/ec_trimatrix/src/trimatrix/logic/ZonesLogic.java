@@ -1,6 +1,7 @@
 package trimatrix.logic;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,6 +83,11 @@ public class ZonesLogic {
 			}
 		}
 		return result;	
+	}
+	
+	public List<ZoneInfo> getAthletesZone(String athleteId) {
+		Persons coach = getStandardCoach(athleteId);
+		return coach!=null ? getAthletesZone(athleteId, coach) : new ArrayList<ZoneInfo>();	
 	}
 	
 	public Zones createZone(String athleteId, String zonesDefinitionId) {
