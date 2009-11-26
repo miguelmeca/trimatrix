@@ -34,7 +34,7 @@
 <t:coldistance id="g_18" />
 </t:row>
 <t:row id="g_19" >
-<t:fixgrid id="g_20" avoidroundtrips="true" objectbinding="#{d.ZonesDetailUI.gridZones}" sbvisibleamount="10" showemptyrows="false" width="100%" >
+<t:fixgrid id="g_20" avoidroundtrips="true" objectbinding="#{d.ZonesDetailUI.gridZones}" sbvisibleamount="10" showemptyrows="false" >
 <t:gridcol id="g_21" align="center" searchenabled="false" sortenabled="false" text="Bereich" width="100" >
 <t:field id="g_22" align="center" background=".{color}" enabled="false" font="size:14;weight:bold" foreground=".{foreground}" text=".{shortcut}" width="100" />
 </t:gridcol>
