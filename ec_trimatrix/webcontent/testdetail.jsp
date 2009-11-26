@@ -420,54 +420,56 @@
 <t:formattedfield id="g_290" format="int" userhint="Höhe" value="#{d.TestDetailUI.height}" width="50" />
 <t:coldistance id="g_291" />
 <t:button id="g_292" actionListener="#{d.TestDetailUI.onRefresh}" text="#{rr.literals.list_refresh}" />
+<t:coldistance id="g_293" />
+<t:button id="g_294" actionListener="#{d.TestDetailUI.onSetZones}" text="#{rr.literals.set_zones}" />
 </t:row>
-<t:rowdistance id="g_293" />
-<t:row id="g_294" >
-<t:label id="g_295" text="#{rr.literals.formula}" width="100" />
-<t:field id="g_296" enabled="false" text="#{d.TestDetailUI.formel}" width="400" />
+<t:rowdistance id="g_295" />
+<t:row id="g_296" >
+<t:label id="g_297" text="#{rr.literals.formula}" width="100" />
+<t:field id="g_298" enabled="false" text="#{d.TestDetailUI.formel}" width="400" />
 </t:row>
-<t:rowdistance id="g_297" />
-<t:row id="g_298" >
-<t:label id="g_299" text="#{rr.literals.correlation}" width="100" />
-<t:field id="g_300" enabled="false" text="#{d.TestDetailUI.correlation}" width="200" />
+<t:rowdistance id="g_299" />
+<t:row id="g_300" >
+<t:label id="g_301" text="#{rr.literals.correlation}" width="100" />
+<t:field id="g_302" enabled="false" text="#{d.TestDetailUI.correlation}" width="200" />
 </t:row>
-<t:rowdistance id="g_301" />
-<t:row id="g_302" >
-<t:heximage id="g_303" align="center" border="#808080" height="#{d.TestDetailUI.height}" hexdata="#{d.TestDetailUI.diagram}" rowalignmenty="center" valign="center" width="#{d.TestDetailUI.width}" />
+<t:rowdistance id="g_303" />
+<t:row id="g_304" >
+<t:heximage id="g_305" align="center" border="#808080" height="#{d.TestDetailUI.height}" hexdata="#{d.TestDetailUI.diagram}" rowalignmenty="center" valign="center" width="#{d.TestDetailUI.width}" />
 </t:row>
-<t:rowdistance id="g_304" />
-<t:rowdistance id="g_305" />
-<t:row id="g_306" >
-<t:label id="g_307" text="#{rr.literals.function}" width="100" />
-<t:combobox id="g_308" actionListener="#{d.TestDetailUI.resetResult}" flush="true" validvaluesbinding="#{d.TestDetailUI.functionsVvb}" value="#{d.TestDetailUI.function}" width="200" />
+<t:rowdistance id="g_306" />
+<t:rowdistance id="g_307" />
+<t:row id="g_308" >
+<t:label id="g_309" text="#{rr.literals.function}" width="100" />
+<t:combobox id="g_310" actionListener="#{d.TestDetailUI.resetResult}" flush="true" validvaluesbinding="#{d.TestDetailUI.functionsVvb}" value="#{d.TestDetailUI.function}" width="200" />
 </t:row>
-<t:rowdistance id="g_309" />
-<t:row id="g_310" >
-<t:label id="g_311" text="#{rr.literals.offset}" width="100" />
-<t:formattedfield id="g_312" actionListener="#{d.TestDetailUI.resetResult}" flush="true" format="double" value="#{d.TestDetailUI.offset}" width="50" />
+<t:rowdistance id="g_311" />
+<t:row id="g_312" >
+<t:label id="g_313" text="#{rr.literals.offset}" width="100" />
+<t:formattedfield id="g_314" actionListener="#{d.TestDetailUI.resetResult}" flush="true" format="double" value="#{d.TestDetailUI.offset}" width="50" />
 </t:row>
-<t:row id="g_313" >
-<t:label id="g_314" text="#{rr.literals.degree}" width="100" />
-<t:spinner id="g_315" actionListener="#{d.TestDetailUI.resetResult}" flush="true" maxvalue="6" minvalue="0" value="#{d.TestDetailUI.degree}" width="50" />
+<t:row id="g_315" >
+<t:label id="g_316" text="#{rr.literals.degree}" width="100" />
+<t:spinner id="g_317" actionListener="#{d.TestDetailUI.resetResult}" flush="true" maxvalue="6" minvalue="0" value="#{d.TestDetailUI.degree}" width="50" />
 </t:row>
-<t:rowdistance id="g_316" />
-<t:row id="g_317" >
-<t:label id="g_318" text="x" width="100" />
-<t:formattedfield id="g_319" actionListener="#{d.TestDetailUI.onChangeXY}" clientname="x" flush="true" format="double" value="#{d.TestDetailUI.valueX}" width="50" />
+<t:rowdistance id="g_318" />
+<t:row id="g_319" >
+<t:label id="g_320" text="x" width="100" />
+<t:formattedfield id="g_321" actionListener="#{d.TestDetailUI.onChangeXY}" clientname="x" flush="true" format="double" value="#{d.TestDetailUI.valueX}" width="50" />
 </t:row>
-<t:rowdistance id="g_320" />
-<t:row id="g_321" >
-<t:label id="g_322" text="y" width="100" />
-<t:formattedfield id="g_323" actionListener="#{d.TestDetailUI.onChangeXY}" clientname="y" flush="true" format="double" value="#{d.TestDetailUI.valueY}" width="50" />
+<t:rowdistance id="g_322" />
+<t:row id="g_323" >
+<t:label id="g_324" text="y" width="100" />
+<t:formattedfield id="g_325" actionListener="#{d.TestDetailUI.onChangeXY}" clientname="y" flush="true" format="double" value="#{d.TestDetailUI.valueY}" width="50" />
 </t:row>
-<t:rowdistance id="g_324" />
-<t:row id="g_325" >
-<t:label id="g_326" text="hr" width="100" />
-<t:formattedfield id="g_327" enabled="false" format="int" value="#{d.TestDetailUI.hr}" width="50" />
+<t:rowdistance id="g_326" />
+<t:row id="g_327" >
+<t:label id="g_328" text="hr" width="100" />
+<t:formattedfield id="g_329" enabled="false" format="int" value="#{d.TestDetailUI.hr}" width="50" />
 </t:row>
-<t:rowdistance id="g_328" />
-<t:row id="g_329" >
-<t:field id="g_330" text="#{d.TestDetailUI.maxWidth}" width="100" />
+<t:rowdistance id="g_330" />
+<t:row id="g_331" >
+<t:field id="g_332" text="#{d.TestDetailUI.maxWidth}" width="100" />
 </t:row>
 </t:pane>
 </t:row>

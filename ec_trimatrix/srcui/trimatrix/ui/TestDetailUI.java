@@ -16,6 +16,8 @@ import net.sf.json.JSONSerializer;
 
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
+import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
+import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoCancelListener;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDTreeBinding;
@@ -45,11 +47,15 @@ import trimatrix.db.TestsSwim;
 import trimatrix.db.TestsSwimProtocol;
 import trimatrix.db.TestsSwimProtocolId;
 import trimatrix.db.TestsTreadmill;
+import trimatrix.db.Zones;
+import trimatrix.db.ZonesDefinition;
 import trimatrix.entities.TestEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
+import trimatrix.logic.ZonesLogic;
 import trimatrix.logic.TestLogic.LactateSamples;
 import trimatrix.logic.TestLogic.Split;
+import trimatrix.ui.utils.WorkpageRefreshEvent;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.Entity;
@@ -58,14 +64,18 @@ import trimatrix.utils.maths.RegressionFunctions;
 import trimatrix.utils.maths.AFunctions.IResult;
 
 @CCGenClass(expressionBase = "#{d.TestDetailUI}")
-public class TestDetailUI extends AEntityDetailUI implements Serializable {   
+public class TestDetailUI extends AEntityDetailUI implements Serializable {
 
-	protected final String[] MANDATORY_FIELDS_SWIM = new String[] {TestEntity.DISTANCE, TestEntity.SPLITS};
-	protected final String[] MANDATORY_FIELDS_TREADMILL = new String[] {TestEntity.SPEED_INIT, TestEntity.INCLINE_INIT};
-	protected final String[] MANDATORY_FIELDS_ERGO = new String[] {TestEntity.CADENCE_LOW, TestEntity.CADENCE_HIGH, TestEntity.POWER_INIT, TestEntity.POWER_STEP};
-	
+	protected final String[] MANDATORY_FIELDS_SWIM = new String[] {
+			TestEntity.DISTANCE, TestEntity.SPLITS };
+	protected final String[] MANDATORY_FIELDS_TREADMILL = new String[] {
+			TestEntity.SPEED_INIT, TestEntity.INCLINE_INIT };
+	protected final String[] MANDATORY_FIELDS_ERGO = new String[] {
+			TestEntity.CADENCE_LOW, TestEntity.CADENCE_HIGH,
+			TestEntity.POWER_INIT, TestEntity.POWER_STEP };
+
 	private boolean isDirtySwimProtocol = false;
-	
+
 	public void onDoctorSearch(ActionEvent event) {
 		IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(Constants.Entity.DOCTOR);
 		entitySelectionUI.buildData(Entity.DOCTOR);
@@ -212,16 +222,17 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			}
 			return;
 		}
-		
+
 		// delete swim protocolls
 		// TODO move to logic e.g. TestLogic
-		if(isDirtySwimProtocol) {
+		if (isDirtySwimProtocol) {
 			getLogic().getTestLogic().deleteAllSwimProtocolls(entity.getId());
-			isDirtySwimProtocol = false;		
+			isDirtySwimProtocol = false;
 		}
 	}
 
-	public void validate() throws MandatoryCheckException, EmailNotValidException {
+	public void validate() throws MandatoryCheckException,
+			EmailNotValidException {
 		// mandatory check
 		checkMandatory();
 		// details mandatory fields
@@ -397,7 +408,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		// mandatory fields for treadmill test
 		for (String field : MANDATORY_FIELDS_TREADMILL) {
 			bgpaint.put(field, Constants.BGP_MANDATORY);
-		}		
+		}
 		// mandatory fields for swim test
 		for (String field : MANDATORY_FIELDS_SWIM) {
 			bgpaint.put(field, Constants.BGP_MANDATORY);
@@ -405,7 +416,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 	}
 
 	public void onChangeData(ActionEvent ae) {
-		Integer splits = (Integer) values.get(TestEntity.SPLITS);		
+		Integer splits = (Integer) values.get(TestEntity.SPLITS);
 		if (splits != null && splits > maxSplits)
 			values.put(TestEntity.SPLITS, maxSplits);
 	}
@@ -489,13 +500,14 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 	// logic for protocols
 	// ------------------------------------------------------------------------
 	public static final int maxSplits = 8;
-	
-    public double getMaxSpeed() { 
-    	String maxPerformance = (String) values.get(TestEntity.PERFORMANCE_MAX);
-    	Integer distance = (Integer) values.get(TestEntity.DISTANCE);
-		if(maxPerformance == null || distance == null)	return 0d;
+
+	public double getMaxSpeed() {
+		String maxPerformance = (String) values.get(TestEntity.PERFORMANCE_MAX);
+		Integer distance = (Integer) values.get(TestEntity.DISTANCE);
+		if (maxPerformance == null || distance == null)
+			return 0d;
 		return Helper.calculateMeterPerSecond(distance, maxPerformance);
-    }
+	}
 
 	protected FIXGRIDListBinding<GridTreadmillItem> m_gridTreadmill = new FIXGRIDListBinding<GridTreadmillItem>(
 			true);
@@ -516,8 +528,8 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 
 	public FIXGRIDTreeBinding<GridSwimItem> getGridSwim() {
 		return m_gridSwim;
-	}	
-	
+	}
+
 	public class AGridItem extends FIXGRIDItem implements java.io.Serializable {
 		protected Integer step;
 		protected String step_time = "00:00";
@@ -527,36 +539,76 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		protected Integer o2_absorption;
 		protected Integer co2_emission;
 		protected Double rq;
-		
+
 		public AGridItem(Integer step) {
 			this.step = step;
 		}
-		
-		public Integer getStep() {return step;}
-		public void setStep(Integer step) { this.step = step; }	
-		
-		public String getStep_time() { return step_time; }
-		public void setStep_time(String step_time) { this.step_time = step_time; }
 
-		public String getTime_total() {	return time_total; }
-		public void setTime_total(String time_total) { this.time_total = time_total; }
+		public Integer getStep() {
+			return step;
+		}
 
-		public Double getLactate() {return lactate;}
-		public void setLactate(Double lactate) {this.lactate = lactate;}
-		
-		public Integer getHr() {return hr;}
-		public void setHr(Integer hr) {this.hr = hr;}
-		
-		public Integer getO2_absorption() {return o2_absorption;}		
-		public void setO2_absorption(Integer o2_absorption) {this.o2_absorption = o2_absorption;}
-		
-		public Integer getCo2_emission() {return co2_emission;}
-		public void setCo2_emission(Integer co2_emission) {this.co2_emission = co2_emission;}
-		
-		public Double getRq() {return rq;}
-		public void setRq(Double rq) {this.rq = rq;}
+		public void setStep(Integer step) {
+			this.step = step;
+		}
+
+		public String getStep_time() {
+			return step_time;
+		}
+
+		public void setStep_time(String step_time) {
+			this.step_time = step_time;
+		}
+
+		public String getTime_total() {
+			return time_total;
+		}
+
+		public void setTime_total(String time_total) {
+			this.time_total = time_total;
+		}
+
+		public Double getLactate() {
+			return lactate;
+		}
+
+		public void setLactate(Double lactate) {
+			this.lactate = lactate;
+		}
+
+		public Integer getHr() {
+			return hr;
+		}
+
+		public void setHr(Integer hr) {
+			this.hr = hr;
+		}
+
+		public Integer getO2_absorption() {
+			return o2_absorption;
+		}
+
+		public void setO2_absorption(Integer o2_absorption) {
+			this.o2_absorption = o2_absorption;
+		}
+
+		public Integer getCo2_emission() {
+			return co2_emission;
+		}
+
+		public void setCo2_emission(Integer co2_emission) {
+			this.co2_emission = co2_emission;
+		}
+
+		public Double getRq() {
+			return rq;
+		}
+
+		public void setRq(Double rq) {
+			this.rq = rq;
+		}
 	}
-	
+
 	public class GridTreadmillItem extends AGridItem {
 		private Double speed;
 		private Integer incline;
@@ -594,7 +646,8 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			}
 			// get previous step
 			AGridItem preItem = m_gridTreadmill.getItems().get(step - 2);
-			return Helper.calculateDuration(preItem.getTime_total(), getStep_time(), false, false);
+			return Helper.calculateDuration(preItem.getTime_total(),
+					getStep_time(), false, false);
 		}
 	}
 
@@ -630,7 +683,8 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			}
 			// get previous step
 			AGridItem preItem = m_gridErgo.getItems().get(step - 2);
-			return Helper.calculateDuration(preItem.getTime_total(),getStep_time(), false, false);
+			return Helper.calculateDuration(preItem.getTime_total(),
+					getStep_time(), false, false);
 		}
 	}
 
@@ -666,7 +720,8 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 					Split split = getLogic().getTestLogic().createSplit();
 					splits[i - 1] = split;
 				}
-				lactateSamples = getLogic().getTestLogic().createLactateSamples();
+				lactateSamples = getLogic().getTestLogic()
+						.createLactateSamples();
 				// set valid node at top node
 				((GridSwimItem) getParentNode()).setValidNode(getParentNode()
 						.getChildNodes().size());
@@ -691,7 +746,8 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 				if (valid)
 					((GridSwimItem) getParentNode()).setValidNode(step - 1);
 				time = protocol.getTime();
-				lactateSamples = getLogic().getTestLogic().createLactateSamples(protocol.getLactate());
+				lactateSamples = getLogic().getTestLogic()
+						.createLactateSamples(protocol.getLactate());
 				if (protocol.getHr() != null)
 					hr = Integer.valueOf(protocol.getHr());
 				// splits, if null, create array with split count elements
@@ -708,7 +764,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 
 		public void setStep(Integer step) {
 			this.step = step;
-		}	
+		}
 
 		public Integer getIntensity() {
 			if (isTopNode()) {
@@ -732,30 +788,34 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			// workaround to refresh nodes below
 			closeAllNodes();
 			expandNode();
-			
+
 		}
 
 		public String getTargetTime() {
 			if (isTopNode()) {
-				String maxPerformance = (String) values.get(TestEntity.PERFORMANCE_MAX);
+				String maxPerformance = (String) values
+						.get(TestEntity.PERFORMANCE_MAX);
 				if (maxPerformance == null)
 					return null;
-				return (Helper.getTimeByPercentage(maxPerformance, 200 - intensity));
+				return (Helper.getTimeByPercentage(maxPerformance,
+						200 - intensity));
 			} else {
 				return ((GridSwimItem) this.getParentNode()).getTargetTime();
 			}
 		}
-		
+
 		public Double getSpeed() {
 			Integer distance = (Integer) values.get(TestEntity.DISTANCE);
-			if(distance==null) return 0d;
-			return Helper.calculateMeterPerSecond(distance, getTime());			
+			if (distance == null)
+				return 0d;
+			return Helper.calculateMeterPerSecond(distance, getTime());
 		}
-		
+
 		public Double getTargetSpeed() {
 			Integer distance = (Integer) values.get(TestEntity.DISTANCE);
-			if(distance==null) return 0d;
-			return Helper.calculateMeterPerSecond(distance, getTargetTime());			
+			if (distance == null)
+				return 0d;
+			return Helper.calculateMeterPerSecond(distance, getTargetTime());
 		}
 
 		public String getTime() {
@@ -946,7 +1006,8 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 				return;
 
 			FIXGRIDItem selected = grid.getSelectedItem();
-			if (selected == null) return;
+			if (selected == null)
+				return;
 			grid.getItems().remove(selected);
 			// recalculate step numbers and total time
 			int step = 1;
@@ -961,9 +1022,11 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		} else {
 			// swim
 			GridSwimItem selected = m_gridSwim.getSelectedItem();
-			if (selected == null) return;
+			if (selected == null)
+				return;
 			FIXGRIDTreeItem root = selected.getParentNode();
-			if(root == null) return;			
+			if (root == null)
+				return;
 			selected.removeNode();
 			// recalculate step numbers and total time
 			int step = 1;
@@ -977,7 +1040,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 
 	private void fillSwimProtocol() {
 		TestsSwim swim = entity.getTestsSwim();
-		List<TestsSwimProtocol> protocols = new ArrayList<TestsSwimProtocol>();		
+		List<TestsSwimProtocol> protocols = new ArrayList<TestsSwimProtocol>();
 		for (FIXGRIDTreeItem step : m_gridSwim.getRootNode().getChildNodes()) {
 			for (FIXGRIDTreeItem attempt : step.getChildNodes()) {
 				GridSwimItem item = (GridSwimItem) attempt;
@@ -992,13 +1055,15 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 				if (item.getHr() != null)
 					protocol.setHr(item.getHr().toString());
 				Integer count = entity.getTestsSwim().getSplits();
-				protocol.setSplits(getLogic().getTestLogic().buildString(item.getSplits(), count));
+				protocol.setSplits(getLogic().getTestLogic().buildString(
+						item.getSplits(), count));
 				protocol.setComment(item.getComment());
 				protocols.add(protocol);
 			}
 		}
 		// set steps for analyze method
-		entity.getTestsProtocol().setCountSteps(m_gridSwim.getRootNode().getChildNodes().size());
+		entity.getTestsProtocol().setCountSteps(
+				m_gridSwim.getRootNode().getChildNodes().size());
 		swim.setSteps(protocols);
 	}
 
@@ -1180,7 +1245,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			}
 		}
 	}
-	
+
 	private void checkDetailGrid() throws MandatoryCheckException {
 		// treadmill
 		if (isTreadmill()) {
@@ -1252,33 +1317,65 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 	public void setOffset(double value) {
 		m_offset = value;
 	}
-	
-	protected String m_function = getServiceLayer().getValueListBindingService().FUNCTIONS.getValidValues().next().getValue(); // init with first value    
-	public String getFunction() { return m_function; }
-    public void setFunction(String value) { m_function = value; }
-    
-    protected int m_degree;
-    public int getDegree() { return m_degree; }
-    public void setDegree(int value) { m_degree = value; }    
 
-    protected double m_valueY;
-    public double getValueY() { return m_valueY; }
-    public void setValueY(double value) { m_valueY = value; }
+	protected String m_function = getServiceLayer()
+			.getValueListBindingService().FUNCTIONS.getValidValues().next()
+			.getValue(); // init with first value
 
-    protected double m_valueX;
-    public double getValueX() { return m_valueX; }
-    public void setValueX(double value) { m_valueX = value; }
-    
-    protected Integer m_hr;
-    public Integer getHr() { return m_hr; }
-    public void setHr(Integer value) { m_hr = value; }
-    
-    public int getMaxWidth() { 
-    	Statusbar.outputMessage("Actual width: " + Helper.getWidth());
-    	return Helper.getWidth(); 
-    }
+	public String getFunction() {
+		return m_function;
+	}
 
-	public ValidValuesBinding getFunctionsVvb() {		
+	public void setFunction(String value) {
+		m_function = value;
+	}
+
+	protected int m_degree;
+
+	public int getDegree() {
+		return m_degree;
+	}
+
+	public void setDegree(int value) {
+		m_degree = value;
+	}
+
+	protected double m_valueY;
+
+	public double getValueY() {
+		return m_valueY;
+	}
+
+	public void setValueY(double value) {
+		m_valueY = value;
+	}
+
+	protected double m_valueX;
+
+	public double getValueX() {
+		return m_valueX;
+	}
+
+	public void setValueX(double value) {
+		m_valueX = value;
+	}
+
+	protected Integer m_hr;
+
+	public Integer getHr() {
+		return m_hr;
+	}
+
+	public void setHr(Integer value) {
+		m_hr = value;
+	}
+
+	public int getMaxWidth() {
+		Statusbar.outputMessage("Actual width: " + Helper.getWidth());
+		return Helper.getWidth();
+	}
+
+	public ValidValuesBinding getFunctionsVvb() {
 		return getServiceLayer().getValueListBindingService().FUNCTIONS;
 	}
 
@@ -1286,36 +1383,100 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		if (result == null)
 			result = analyze();
 		// build the chart based on the computed result
-		if(result==null) return;
+		if (result == null)
+			return;
 		m_diagram = buildDiagram(result, hrs, m_width, m_height, descriptionX,
 				unitX, descriptionY, unitY, highToLow);
 	}
-	
+
 	public void onSetZones(ActionEvent event) {
-		if(result==null) {
+		if (result == null) {
 			Statusbar.outputAlert("You have to refresh, for initialization!");
 			return;
 		}
-		// TODO put into Zones
-		
+		YESNOPopup popup = YESNOPopup.createInstance(
+				"Write data to training zones",
+				"Do you really want to write/overwrite the training zones?",
+				new IYesNoCancelListener() {
+					public void reactOnCancel() {
+					}
+
+					public void reactOnNo() {
+					}
+
+					public void reactOnYes() {
+						// get training zones of ahlete
+						String athleteId = entity.getAthlete().getId();
+						List<ZonesLogic.ZoneInfo> zoneInfos = getLogic()
+								.getZonesLogic().getAthletesZone(athleteId);
+						for (ZonesLogic.ZoneInfo zoneInfo : zoneInfos) {
+							ZonesDefinition definition = zoneInfo
+									.getDefinition();
+							// create zone if empty
+							Zones zone = zoneInfo.getZone() != null ? zoneInfo
+									.getZone() : getLogic().getZonesLogic()
+									.createZone(athleteId,
+											zoneInfo.getDefinition().getId());
+							// calculate values, special for swim test
+							try {
+								if (!isSwim()) {
+									zone
+											.setHrLow((int) Math
+													.round(trimatrix.utils.maths.Helper
+															.getYFromMultiLinearFunction(
+																	hrs,
+																	definition
+																			.getLactateLow())));
+									zone.setHrHigh((int) Math
+											.round(trimatrix.utils.maths.Helper
+													.getYFromMultiLinearFunction(
+															hrs,
+															definition
+																	.getLactateHigh())));
+									zone.setAutoHr(true);
+									zone.setTestIdSpeed(entity.getId());
+								} else {
+									zone.setSpeedLow(result.getX(definition
+											.getLactateLow()));
+									zone.setSpeedHigh(result.getX(definition
+											.getLactateHigh()));
+									zone.setAutoSpeed(true);
+									zone.setTestIdSpeed(entity.getId());
+								}
+								getLogic().getZonesLogic().saveZone(zone);
+							} catch (Exception ex) {
+								Statusbar.outputError(
+										"Error occured writing back the zone "
+												+ definition.getShortcut()
+												+ "!", ex.toString());
+								continue;
+							}
+						}
+					}
+				});
+		popup.getModalPopup().setLeftTopReferenceCentered();
 	}
 
 	public void onChangeXY(ActionEvent event) {
-		//cast
-		//BaseActionEventFlush baef = (BaseActionEventFlush)event;
-		String clientname = (String)event.getComponent().getAttributes().get(Constants.CLIENTNAME);
+		// cast
+		// BaseActionEventFlush baef = (BaseActionEventFlush)event;
+		String clientname = (String) event.getComponent().getAttributes().get(
+				Constants.CLIENTNAME);
 		try {
 			// x value changed
-			if("x".equals(clientname)) {
+			if ("x".equals(clientname)) {
 				m_valueY = result.getY(m_valueX);
 			}
 			// y value changed
-			if("y".equals(clientname)) {
+			if ("y".equals(clientname)) {
 				m_valueX = result.getX(m_valueY);
 			}
-			if(hrs!=null) m_hr = (int)Math.round(trimatrix.utils.maths.Helper.getYFromMultiLinearFunction(hrs, m_valueX));
+			if (hrs != null)
+				m_hr = (int) Math.round(trimatrix.utils.maths.Helper
+						.getYFromMultiLinearFunction(hrs, m_valueX));
 		} catch (Exception ex) {
-			Statusbar.outputError("Problem to get calculate heartrate value!" , ex.toString());
+			Statusbar.outputError("Problem to get calculate heartrate value!",
+					ex.toString());
 		}
 	}
 
@@ -1364,11 +1525,11 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			// heartrate
 			JSONArray hrs = null;
 			String hr = treadmillProt.getHr();
-			if(hr != null) {
+			if (hr != null) {
 				hrs = (JSONArray) JSONSerializer.toJSON(hr);
 			}
-			this.hrs = new double[steps*2];
-			
+			this.hrs = new double[steps * 2];
+
 			for (int i = 0; i < steps; i++) {
 				// x value
 				xyArr[2 * i] = treadmill.getSpeedInit()
@@ -1398,11 +1559,11 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			// heartrate
 			JSONArray hrs = null;
 			String hr = ergoProt.getHr();
-			if(hr != null) {
+			if (hr != null) {
 				hrs = (JSONArray) JSONSerializer.toJSON(hr);
 			}
-			this.hrs = new double[steps*2];
-			
+			this.hrs = new double[steps * 2];
+
 			for (int i = 0; i < steps; i++) {
 				// x value
 				xyArr[2 * i] = ergo.getPowerInit() + ergo.getPowerStep() * i;
@@ -1411,60 +1572,68 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 				// hr value
 				this.hrs[2 * i] = xyArr[2 * i];
 				this.hrs[2 * i + 1] = hrs.getInt(i);
-			}			
+			}
 		}
 		// swim
-		if (isSwim()) {			
-			//descriptionX = SPEED;
-			//unitX = UNIT_MS;
+		if (isSwim()) {
+			// descriptionX = SPEED;
+			// unitX = UNIT_MS;
 			descriptionX = TIME;
 			unitX = UNIT_MMSS;
-			
+
 			descriptionY = LACTATE;
 			unitY = UNIT_MMOL;
-			
+
 			highToLow = true;
 
-			TestsSwim swim = entity.getTestsSwim();			
+			TestsSwim swim = entity.getTestsSwim();
 			List<TestsSwimProtocol> protocols = swim.getSteps();
 			int steps = entity.getTestsProtocol().getCountSteps();
 			xyArr = new double[steps * 2];
 			int i = 0;
-			for(TestsSwimProtocol protocol : protocols) {
-				if(protocol.getValid()) {					
+			for (TestsSwimProtocol protocol : protocols) {
+				if (protocol.getValid()) {
 					// x value
-					//xyArr[2 * i] = Helper.calculateMeterPerSecond(swim.getDistance(), protocol.getTime());
+					// xyArr[2 * i] =
+					// Helper.calculateMeterPerSecond(swim.getDistance(),
+					// protocol.getTime());
 					xyArr[2 * i] = Helper.calculateSeconds(protocol.getTime());
 					// y value
-					xyArr[2 * i + 1] = getLogic().getTestLogic().createLactateSamples(protocol.getLactate()).getSingleDoubleValue();
+					xyArr[2 * i + 1] = getLogic().getTestLogic()
+							.createLactateSamples(protocol.getLactate())
+							.getSingleDoubleValue();
 					i++;
-				}				
+				}
 			}
-			
+
 		}
-		
-		if(Constants.EXP.equals(m_function)) {
+
+		if (Constants.EXP.equals(m_function)) {
 			RegressionFunctions function = new RegressionFunctions(
 					RegressionFunctions.EXP_REGRESSION, xyArr, m_offset);
 			return function.getResult();
-		} 
-		if(Constants.POLY.equals(m_function)) {
+		}
+		if (Constants.POLY.equals(m_function)) {
 			try {
-				PolynomialFunctions function = new PolynomialFunctions(xyArr, m_degree);
+				PolynomialFunctions function = new PolynomialFunctions(xyArr,
+						m_degree);
 				return function.getResult();
 			} catch (Exception ex) {
-				Statusbar.outputError("Problem computing result for polnomial function", ex.toString());
+				Statusbar.outputError(
+						"Problem computing result for polnomial function", ex
+								.toString());
 				return null;
-			}			
-		}		
+			}
+		}
 		Statusbar.outputError("Type of function does not exist!");
 		return null;
 	}
 
 	// TODO put into logic layer
 
-	private byte[] buildDiagram(IResult resultLactate, double[] hrs, int width, int height,
-			String descriptionX, String unitX, String descriptionY, String unitY, boolean highToLow) {
+	private byte[] buildDiagram(IResult resultLactate, double[] hrs, int width,
+			int height, String descriptionX, String unitX, String descriptionY,
+			String unitY, boolean highToLow) {
 		// constants
 		final String MEASUREPOINTS = "Messpunkte";
 		final int GRANULARITY = 10;
@@ -1481,7 +1650,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		int low = (int) (Math.floor(seriesPoints.getMinX()));
 		int high = (int) (Math.ceil(seriesPoints.getMaxX()));
 		int grain = (high - low) * GRANULARITY;
-		
+
 		// curve
 		XYSeries seriesCurve = DatasetUtilities.sampleFunction2DToSeries(
 				resultLactate.getFunction2D(), low, high, grain, descriptionY);
@@ -1489,7 +1658,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		// build data set for chart
 		XYSeriesCollection dataset = new XYSeriesCollection();
 		dataset.addSeries(seriesPoints);
-		dataset.addSeries(seriesCurve);	
+		dataset.addSeries(seriesCurve);
 
 		// build chart
 		final JFreeChart chart = ChartFactory.createXYLineChart(null,
@@ -1503,7 +1672,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		plot.setDomainGridlinePaint(Color.white);
 		plot.setRangeGridlinePaint(Color.white);
 		// change low and high
-		if(highToLow) {
+		if (highToLow) {
 			plot.getDomainAxis().setInverted(true);
 		}
 
@@ -1511,22 +1680,23 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		renderer.setSeriesLinesVisible(0, false);
 		renderer.setSeriesShapesVisible(1, false);
 		plot.setRenderer(renderer);
-			
+
 		// add hr values
-		if(hrs!=null) {
+		if (hrs != null) {
 			XYSeries seriesHR = new XYSeries("Herzfrequenz");
-			for(int i=1;i<hrs.length;i+=2){
-				seriesHR.add(hrs[i-1], hrs[i]);
+			for (int i = 1; i < hrs.length; i += 2) {
+				seriesHR.add(hrs[i - 1], hrs[i]);
 			}
 			XYSeriesCollection datasetHR = new XYSeriesCollection();
 			datasetHR.addSeries(seriesHR);
-	        ValueAxis axis2 = new NumberAxis("Herzfrequenz");	        
-	        plot.setRangeAxis(1, axis2);
-	        plot.setDataset(1, datasetHR);
-	        plot.mapDatasetToRangeAxis(1, 1);
-			XYLineAndShapeRenderer renderer2 = new XYLineAndShapeRenderer(true, true);
+			ValueAxis axis2 = new NumberAxis("Herzfrequenz");
+			plot.setRangeAxis(1, axis2);
+			plot.setDataset(1, datasetHR);
+			plot.mapDatasetToRangeAxis(1, 1);
+			XYLineAndShapeRenderer renderer2 = new XYLineAndShapeRenderer(true,
+					true);
 			renderer2.setSeriesPaint(0, Color.black);
-	        plot.setRenderer(1, renderer2);
+			plot.setRenderer(1, renderer2);
 		}
 
 		// add some annotations
