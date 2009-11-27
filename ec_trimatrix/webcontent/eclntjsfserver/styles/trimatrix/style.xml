@@ -1,4 +1,8 @@
-<style>
+<style>	 	
+    <tag name="outlookbar" variant="default">
+	     <set attribute="bgpaintselected" value="rectangle(0,0,100%,100%,#606070,#202030,vertical)"/>
+		  <set attribute="bgpaintrollover" value="rectangle(0,0,100%,100%,#606070,#202030,vertical)"/>
+    </tag>
     <tag name="buttonmenu" variant="default">
         <set attribute="foreground" value="#FFFFFF"/>
     </tag>
@@ -151,20 +155,20 @@
     </tag>
     
     <!--  WORKPAGE VARIANTS -->
-    <tag name="tabbedline" variant="WP_WORKPAGESELECTOR">
-        <set attribute="bgpaintdefault" value="rectangle(0,0,100%,30,#FFFFFF40,#00000040,vertical)"/>       
-        <set attribute="bgpaintrollover" value="rectangle(0,0,100%,30,#FFFFC080,#20200080,vertical)"/>       
-        <set attribute="bgpaintselected" value="rectangle(0,0,100%,30,#FFFFFF80,#00000080,vertical)"/>       
-        <set attribute="font" value="size:11"/>       
-        <set attribute="foregrounddefault" value="#C0C0C0"/>       
-        <set attribute="foregroundselected" value="#ffffff"/>       
-        <set attribute="tabheight" value="15"/>       
-        <set attribute="width" value="100%"/>       
-    </tag>
-	
+	<tag name="tabbedline" variant="WP_WORKPAGESELECTOR">
+         <set attribute="bgpaintdefault" value="rectangle(0,0,100%,100%,#808080,#808080,horizontal)"/>
+         <set attribute="bgpaintrollover" value="rectangle(0,0,100%,100%,#C08080,#C08080,horizontal)"/>
+         <set attribute="bgpaintselected" value="rectangle(0,0,100%,100%,#C08080,#C08080,horizontal)"/>
+         <set attribute="font" value="size:20"/>
+         <set attribute="foregrounddefault" value="#000000"/>
+         <set attribute="foregroundselected" value="#000000"/>
+         <set attribute="rowalignmenty" value="bottom"/>
+         <set attribute="indentwidth" value="0"/>
+     </tag>
+	 
 	<tag name="button" variant="WP_ISOLATEDWORKPAGE">
         <set attribute="contentareafilled" value="false"/>
-        <set attribute="foreground" value="#f0f0f0"/>
+        <set attribute="foreground" value="#000000"/>
     </tag>
     
     <!--  IDVALUESELECTION VARIANTS -->

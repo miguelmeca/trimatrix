@@ -10,7 +10,9 @@
 		
 		<copy file="../ec_trimatrix/src/log4j.properties_production" tofile="../ec_trimatrix/src/log4j.properties" overwrite="true"/>
 		<copy file="../ec_trimatrix/webcontent/WEB-INF/web.xml_production" tofile="../ec_trimatrix/webcontent/WEB-INF/web.xml" overwrite="true"/>
+		<copy file="../ec_trimatrix/src/hibernate.cfg.xml_production" tofile="../ec_trimatrix/src/hibernate.cfg.xml" overwrite="true"/>
 				
+		
 		<jar destfile="${dist}/trimatrix.war">
 			<fileset dir="../ec_trimatrix/webcontent">
 				<include name="**/**" />
@@ -26,7 +28,7 @@
 		
 		<copy file="../ec_trimatrix/src/log4j.properties_local" tofile="../ec_trimatrix/src/log4j.properties" overwrite="true"/>
 		<copy file="../ec_trimatrix/webcontent/WEB-INF/web.xml_local" tofile="../ec_trimatrix/webcontent/WEB-INF/web.xml" overwrite="true"/>
-		
+		<copy file="../ec_trimatrix/src/hibernate.cfg.xml_local" tofile="../ec_trimatrix/src/hibernate.cfg.xml" overwrite="true"/>
 	</target>
 
 	<target name="clean" depends="">
