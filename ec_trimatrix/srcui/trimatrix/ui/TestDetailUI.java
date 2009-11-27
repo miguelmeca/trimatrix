@@ -1420,19 +1420,21 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 							// calculate values, special for swim test
 							try {
 								if (!isSwim()) {
+									Integer hrLow = (int) Math
+									.round(trimatrix.utils.maths.Helper
+											.getYFromMultiLinearFunction(
+													hrs,
+													definition
+															.getLactateLow()));
 									zone
-											.setHrLow((int) Math
-													.round(trimatrix.utils.maths.Helper
-															.getYFromMultiLinearFunction(
-																	hrs,
-																	definition
-																			.getLactateLow())));
-									zone.setHrHigh((int) Math
-											.round(trimatrix.utils.maths.Helper
-													.getYFromMultiLinearFunction(
-															hrs,
-															definition
-																	.getLactateHigh())));
+											.setHrLow(hrLow);
+									Integer hrHigh = (int) Math
+									.round(trimatrix.utils.maths.Helper
+									.getYFromMultiLinearFunction(
+											hrs,
+											definition
+													.getLactateHigh()));
+									zone.setHrHigh(hrHigh);
 									zone.setAutoHr(true);
 									zone.setTestIdSpeed(entity.getId());
 								} else {
