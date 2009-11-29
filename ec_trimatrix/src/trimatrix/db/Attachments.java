@@ -180,6 +180,7 @@ public class Attachments  implements java.io.Serializable, IEntityObject {
     }
     
     @Column(name="modified_at", length=19)
+    @Version
     public Timestamp getModifiedAt() {
         return this.modifiedAt;
     }

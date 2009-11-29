@@ -116,8 +116,9 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 										IWorkpageDispatcher wpd = (IWorkpageDispatcher) getOwningDispatcher();
 										IWorkpageContainer wpc = getWorkpageContainer();
 										IWorkpage wp = new MyWorkpage(wpd, Constants.Page.ENTITYDETAIL.getUrl(), datum.getId(), datum.toString(), null, true, null, null, null);
-										wp.setParam(Constants.P_ENTITY, entity.name());
+										wp.setParam(Constants.P_ENTITY, Entity.SCOUTCOMPETITIONS.name());
 										wp.setParam(Constants.P_MODE, Constants.Mode.SINGLECHANGE.name());
+										FUNCTIONTREELOGIC.setAuthority(wp, true, true, true);
 										wpc.addWorkpage(wp);
 									}
 								});
@@ -144,6 +145,7 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 								IWorkpage wp = new MyWorkpage(wpd, Constants.Page.ENTITYDETAIL.getUrl(), result.getId(), result.toString(), null, true, null, null, null);
 								wp.setParam(Constants.P_ENTITY, Entity.RESULT.name());
 								wp.setParam(Constants.P_MODE, Constants.Mode.SINGLECHANGE.name());
+								FUNCTIONTREELOGIC.setAuthority(wp, true, true, true);
 								wpc.addWorkpage(wp);
 							}
 						});

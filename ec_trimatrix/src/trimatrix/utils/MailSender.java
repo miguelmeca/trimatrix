@@ -35,7 +35,7 @@ public class MailSender {
 	 * @param message	Message
 	 * @throws MessagingException
 	 */
-	public static void postMail(String recipients[], String subject, String message, SAttachment attachments)
+	public static void postMail(String recipients[], String subject, String message, String type, SAttachment attachments)
 			throws MessagingException {
 		boolean debug = false;
 		// Set the host smtp address
@@ -69,7 +69,7 @@ public class MailSender {
 		MimeBodyPart messageBodyPart = new MimeBodyPart();
 
 		// fill message
-		messageBodyPart.setText(message);
+		messageBodyPart.setContent(message,type);
 
 		Multipart multipart = new MimeMultipart();
 		multipart.addBodyPart(messageBodyPart);

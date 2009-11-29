@@ -28,12 +28,13 @@
 <t:coldistance id="g_13" />
 <t:button id="g_14" actionListener="#{d.CreateRelationUI.onSelectPartner2}" height="20" text="#{rr.literals.select}" width="80" x="260" y="75" />
 </t:row>
-</t:rowbodypane>
-<t:row id="g_15" >
-<t:button id="g_16" actionListener="#{d.CreateRelationUI.onSave}" text="#{rr.literals.new}" />
-<t:coldistance id="g_17" width="100%" />
-<t:button id="g_18" actionListener="#{d.CreateRelationUI.onCancel}" text="#{rr.literals.cancel}" />
+<t:rowdistance id="g_15" height="100%" />
+<t:row id="g_16" >
+<t:button id="g_17" actionListener="#{d.CreateRelationUI.onSave}" text="#{rr.literals.new}" />
+<t:coldistance id="g_18" width="100%" />
+<t:button id="g_19" actionListener="#{d.CreateRelationUI.onCancel}" text="#{rr.literals.cancel}" />
 </t:row>
+</t:rowbodypane>
 <t:pageaddons id="g_pa"/>
 </f:subview>
 </h:form>

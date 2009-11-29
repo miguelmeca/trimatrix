@@ -50,6 +50,8 @@ public final class Constants {
 	// all used entities
 	public static enum Entity {
 		// order is relevant, first all entities which are base entities
+		ZONE(Page.ZONESDETAIL, null, "zoneDetail"),
+		ZONEDEFINITION(Page.ZONESDEFINITION, null, "zonesDefinition"),
 		USER(Page.USERDETAIL, Page.USERSELECTION, "userEntity"), 
 		PERSON(Page.PERSONDETAIL, Page.PERSONSELECTION, "personEntity"),
 		DOCTOR(Page.DOCTORDETAIL, Page.DOCTORSELECTION, "doctorEntity"),
@@ -208,6 +210,7 @@ public final class Constants {
 	public static final String P_ENTITY = "entity";
 	public static final String P_ENTITYLIST = "entitylist";
 	public static final String P_PERSON = "person";
+	public static final String P_USER = "user";
 	public static final String P_LABEL= "label";
 	public static final String P_MODE = "mode";
 	public static final String P_SCOUTCOMPETITION = "scoutcompetition";
@@ -226,15 +229,18 @@ public final class Constants {
 	public static final String BGP_MANDATORY = "mandatory()";
 	// constants for file extension
 	public static final String GIF_EXTENSION = "gif";
+	// constants for templates
+	public static final String TEMPLATE_NEWPASSWORD = "/templates/mail/password.template";
 	// constants for paths
 	public static final String PATH_MIMEICONS = "/images/mimeicons/";
-	public static final String PATH_ICONS = "/images/icons/";	
+	public static final String PATH_ICONS = "/images/icons/";		
 	// constants for smtp	
 	public static final ResourceBundle MAIL_BUNDLE = ResourceBundle.getBundle("mail");	
 	public static final String SMTP_AUTH_USER = "smtp_auth_user";
 	public static final String SMTP_AUTH_PASS = "smtp_auth_pass";
 	public static final String SMTP_HOST_NAME = "smtp_host_name";
 	public static final String EMAIL_FROM_ADDRESS = "email_from_address";	
+	public static final String TYPE_TEXTHTML = "text/html";	
 	// constants for images
 	public static final String SIDE_EXPAND = PATH_ICONS + "application_side_expand.png";
 	public static final String SIDE_CONTRACT = PATH_ICONS + "application_side_contract.png";
@@ -287,4 +293,7 @@ public final class Constants {
 	
 	// Global Workplace parameters
 	public static final int MAXWORKPAGES = 10;
+	
+	// Server url
+	public static final String TRIMATRIXURL = "http://cardassia.secitec.net/trimatrix";
 }

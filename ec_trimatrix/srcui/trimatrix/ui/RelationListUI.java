@@ -116,7 +116,7 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 		});		
 		m_popup = getWorkpage().createModalPopupInWorkpageContext();    
 		m_popup.setLeftTopReferenceCentered();
-    	m_popup.open(Constants.Page.CREATERELATION.getUrl(), "Beziehung anlegen", 400, 300, this); 
+    	m_popup.open(Constants.Page.CREATERELATION.getUrl(), "Beziehung anlegen", 400, 160, this); 
 	}
 	
 	public void onRemove(ActionEvent event) {

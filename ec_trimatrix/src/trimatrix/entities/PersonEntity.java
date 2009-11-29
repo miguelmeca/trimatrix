@@ -132,7 +132,7 @@ public final class PersonEntity extends AEntity {
 						}	
 						Statusbar.outputSuccess("Successfully deleted entity incl. " + deleted + " relations!");
 					} else {
-						Statusbar.outputAlert("Do delete this object you have to be admin or the creator of this object!");
+						Statusbar.outputAlert("Do delete this object you have to be admin or the creator of this object!").setLeftTopReferenceCentered();
 						return false;
 					}								
 				} catch (Exception ex) {

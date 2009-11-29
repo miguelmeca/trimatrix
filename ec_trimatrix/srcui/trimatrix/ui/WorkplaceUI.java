@@ -238,6 +238,6 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
     
     public void checkSessionMessage(ActionEvent event) {
     	String message = MessageHandler.getSessionMessage();
-    	if(message!=null) Statusbar.outputAlert(message);
+    	if(message!=null) Statusbar.outputAlert(message).setLeftTopReferenceCentered();    	
     }
 }

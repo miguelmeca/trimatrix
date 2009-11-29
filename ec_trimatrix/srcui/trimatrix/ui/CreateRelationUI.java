@@ -45,7 +45,7 @@ public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serial
     	OKPopup popup = null;
     	// check mandatory fields
     	if(partner1==null || partner2==null || relation==null){
-    		Statusbar.outputAlert("Not all mandatory fields filled!");
+    		Statusbar.outputAlert("Not all mandatory fields filled!").setLeftTopReferenceCentered();
     		return;
     	}
     	// save prepare

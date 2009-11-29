@@ -20,6 +20,8 @@ public class UserTracker {
 
 	public static void addUser(String username) {
 		HttpSession session = Helper.getSession();
+		// set user directly into the session as attribute
+		session.setAttribute(Constants.P_USER, username);
 		if(loggedInUserMap.containsKey(session.getId())) {
 			logger.error(session.getId() + " : This session is already in use!");
 			return;

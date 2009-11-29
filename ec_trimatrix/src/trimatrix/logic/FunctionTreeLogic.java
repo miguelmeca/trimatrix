@@ -4,9 +4,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
-import org.eclnt.jsfserver.elements.impl.FIXGRIDTreeItem;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding.ValidValue;
+import org.eclnt.workplace.IWorkpage;
 import org.eclnt.workplace.WorkplaceFunctionTree.FunctionNode;
 import org.springframework.dao.DataIntegrityViolationException;
 
@@ -74,6 +74,21 @@ public class FunctionTreeLogic {
 		node.setParam(Constants.DELETE, Constants.FALSE);
 		if(delete) {
 			node.setParam(Constants.DELETE, Constants.TRUE);
+		}
+	}
+	
+	public void setAuthority(IWorkpage wp, boolean create, boolean  edit, boolean delete) {
+		wp.setParam(Constants.CREATE, Constants.FALSE);
+		if(create) {
+			wp.setParam(Constants.CREATE, Constants.TRUE);
+		}
+		wp.setParam(Constants.CHANGE, Constants.FALSE);
+		if(edit) {
+			wp.setParam(Constants.CHANGE, Constants.TRUE);
+		}
+		wp.setParam(Constants.DELETE, Constants.FALSE);
+		if(delete) {
+			wp.setParam(Constants.DELETE, Constants.TRUE);
 		}
 	}
 	

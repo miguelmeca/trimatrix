@@ -1,5 +1,6 @@
 	package trimatrix.ui;
 
+import java.io.FileReader;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,6 +24,7 @@ import trimatrix.entities.UserEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Helper;
 import trimatrix.utils.MailSender;
 import trimatrix.utils.Constants.Entity;
 
@@ -219,8 +221,15 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable
 							validate();
 							ENTITYLISTLOGIC.save(Constants.Entity.USER, entity);
 							String receiver = entity.getEmail();
-							String message = "Hello Trimatrix User, \n a new password " + password + " is generated for your user " + entity.getUserName() + ". \n\n regards your Trimatrix Team"; 
-							MailSender.postMail(new String[] {receiver}, "New password generated", message, null);
+							// get template
+							String message = Helper.readFileAsString(Constants.TEMPLATE_NEWPASSWORD);
+							// replace variables
+							message = message.replace("%name%", entity.getPerson().toString());
+							message = message.replace("%user%", entity.getUserName());
+							message = message.replace("%pass%", password);
+							message = message.replace("%url%", Constants.TRIMATRIXURL);							
+							//String message = "Hello Trimatrix User, \n a new password " + password + " is generated for your user " + entity.getUserName() + ". \n\n regards your Trimatrix Team"; 
+							MailSender.postMail(new String[] {receiver}, "Welcome to Trimatrix", message, Constants.TYPE_TEXTHTML, null);
 							Statusbar.outputSuccess("Password successfully send to " + receiver);
 						} catch (Exception ex) {
 							Statusbar.outputError("Password couldn't be generated/sent!", ex.toString());

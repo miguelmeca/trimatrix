@@ -24,6 +24,7 @@ import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.ui.utils.WorkpageRefreshEvent;
 import trimatrix.utils.Constants;
 import trimatrix.utils.LockManager;
+import trimatrix.utils.Constants.Entity;
 
 @SuppressWarnings("serial")
 @CCGenClass(expressionBase = "#{d.EntityDetailUI}")
@@ -128,7 +129,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
     			LockManager.lockEntry(id);
     		} catch (Exception ex) {
     			// this should never happen!
-    			Statusbar.outputAlert("The entity couldn't be locked!\n" + ex.toString(), "Lockmanager");
+    			Statusbar.outputAlert("The entity couldn't be locked!\n" + ex.toString(), "Lockmanager").setLeftTopReferenceCentered();
     		}    		
     		getWorkpage().setId(id);    
 			break;			
@@ -141,15 +142,25 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
     			LockManager.lockEntry(id);
     		} catch (Exception ex) {
     			// this should never happen!
-    			Statusbar.outputAlert("The entity couldn't be locked!\n" + ex.toString(), "Lockmanager");
+    			Statusbar.outputAlert("The entity couldn't be locked!\n" + ex.toString(), "Lockmanager").setLeftTopReferenceCentered();
     		}
     		break;
 		default:
 			// catch NullPointerException if entity doesn't exist
-        	try {        		
-        		
-        		id = getWorkpage().getId().replace(Constants.FINAL, Constants.EMPTY);      		
-                // if id is not set, get id of own entity
+        	try {   
+        		id = getWorkpage().getId();  
+        		// if id is not set, get id of own entity
+            	if (id == null || id.length()==0) { throw new NullPointerException(); }
+            	// remove immutability mark
+            	id = id.replace(Constants.FINAL, Constants.EMPTY);
+        		// special handling for competitions
+    			// because page ID has to be unique to resolve right page
+    			// set in EntityListUI
+        		if(entity.getBase().equals(Entity.COMPETITION)) {
+        			String[] arrId = id.split("#");
+        			if(arrId!=null && arrId.length==2) id = arrId[1];
+        		}   
+        		// if id is not set, get id of own entity
             	if (id == null || id.length()==0) { throw new NullPointerException(); }
                 // check if it's not the ID
             	if (Constants.Entity.USER.name().equalsIgnoreCase(id)) {
@@ -233,13 +244,13 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 	        getWorkpage().throwWorkpageProcessingEvent(new WorkpageRefreshEvent(entity));
 
 		} catch (MandatoryCheckException mce) {
-			Statusbar.outputAlert("Not all mandatory fields filled", "Value for field " + mce.getField() + " missing!" );
+			Statusbar.outputAlert("Not all mandatory fields filled", "Value for field " + mce.getField() + " missing!" ).setLeftTopReferenceCentered();
 		} catch (EmailNotValidException env) {
-			Statusbar.outputAlert("Email is not valid", "The email address " + env.getEmail() + " is not valid!" );
+			Statusbar.outputAlert("Email is not valid", "The email address " + env.getEmail() + " is not valid!" ).setLeftTopReferenceCentered();
 		} catch (DataIntegrityViolationException dive) {
-			Statusbar.outputAlert("Entity could not be saved (Data Integrity)", dive.getRootCause().toString());
+			Statusbar.outputAlert("Entity could not be saved (Data Integrity)", dive.getRootCause().toString()).setLeftTopReferenceCentered();
 		} catch (Exception ex){			
-			Statusbar.outputAlert(ex.toString(), "Entity could not be saved");				
+			Statusbar.outputAlert(ex.toString(), "Entity could not be saved").setLeftTopReferenceCentered();				
 		} 	
 	}
 	
@@ -249,10 +260,10 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 		try {
 			LockManager.lockEntry(id);
 		} catch (EntityLockedException ele) {
-			Statusbar.outputAlert("Entity locked by " + ele.getUser(), "Lockmanager");
+			Statusbar.outputAlert("Entity locked by " + ele.getUser(), "Lockmanager").setLeftTopReferenceCentered();
 			return;
 		} catch (Exception ex) {
-			Statusbar.outputAlert("The entity couldn't be locked!\n" + ex.toString(), "Lockmanager");
+			Statusbar.outputAlert("The entity couldn't be locked!\n" + ex.toString(), "Lockmanager").setLeftTopReferenceCentered();
 			return;
 		}
 		changeMode(Constants.Mode.CHANGE);
