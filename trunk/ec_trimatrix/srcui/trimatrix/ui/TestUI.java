@@ -534,7 +534,7 @@ public class TestUI extends MyWorkpageDispatchedBean implements Serializable
 		String[] recipients = {m_email};
 		SAttachment attachment = new SAttachment("Testprotokoll.pdf",baos.toByteArray(),Constants.PDF_MIME_TYPE);
 		try {
-			MailSender.postMail(recipients, "Testprotokoll", "Anbei finden sie das Testprotokoll für " + m_name, attachment);
+			MailSender.postMail(recipients, "Testprotokoll", "Anbei finden sie das Testprotokoll für " + m_name, Constants.TYPE_TEXTHTML, attachment);
 		} catch (MessagingException mex) {
 			Statusbar.outputError("Error sending Mail",mex.toString());
 			return;

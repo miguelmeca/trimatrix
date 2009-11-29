@@ -41,7 +41,7 @@ public class LogonUI extends MyDispatchedBean implements Serializable
 				return;
 			}
 		} catch (Exception ex) {
-			Statusbar.outputAlert(ex.toString(), "Database is down!");
+			Statusbar.outputAlert(ex.toString(), "Database is down!").setLeftTopReferenceCentered();
 			return;
 		}
 		

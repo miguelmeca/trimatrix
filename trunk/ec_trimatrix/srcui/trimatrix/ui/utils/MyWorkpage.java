@@ -72,7 +72,7 @@ public class MyWorkpage extends Workpage{
 		}
 		
 		if(!doClose) {
-			Statusbar.outputAlert("Please save data before closing the workpage!");
+			Statusbar.outputAlert("Please save data before closing the workpage!").setLeftTopReferenceCentered();
 			return false;
 		} else return super.close();
 		

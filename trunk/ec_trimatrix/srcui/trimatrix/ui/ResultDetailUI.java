@@ -6,8 +6,11 @@ import java.util.Map;
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
+import org.eclnt.jsfserver.defaultscreens.ISetId;
+import org.eclnt.jsfserver.defaultscreens.IdTextSelection;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
+import trimatrix.db.Categories;
 import trimatrix.db.Competitions;
 import trimatrix.db.CompetitionsScouts;
 import trimatrix.db.Persons;
@@ -16,6 +19,7 @@ import trimatrix.db.ResultsTria;
 import trimatrix.entities.ResultEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
+import trimatrix.ui.CompetitionDetailUI.GridLimitsItem;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.Entity;
@@ -300,6 +304,23 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 	
 	public Double getPercentDeficitRun() {
 		return Helper.getPercentageByTime((String)values.get(ResultEntity.BEST_RUN_SPLIT), (String)values.get(ResultEntity.RUN_DEFICIT));
+	}
+	
+	public void onCategoryF4(ActionEvent event) {
+		IdTextSelection idts = IdTextSelection.createInstance();
+		for (Categories category : getLogic().getCompetitionLogic().getCategories()) {
+			idts.addLine(category.getId().getCategory(), "");
+		}
+		idts.setCallBack(new ISetId() {
+			public void setId(String id) {
+				values.put(ResultEntity.CATEGORY_TRIA, id);
+			}
+		});
+		idts.setWithHeader(false);
+		idts.setSuppressHeadline(true);
+		idts.setRenderTextColumn(false);
+		idts.setPopupWidth(120);
+		idts.setPopupHeight(100);
 	}
 	
 	@Override

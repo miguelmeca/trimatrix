@@ -31,6 +31,16 @@ public class Helper {
 		File file = new File(path);
 		return file.exists();	
 	}
+	
+	public static String readFileAsString(String filePath) throws Exception {
+		FacesContext context = FacesContext.getCurrentInstance();
+		ServletContext sc = (ServletContext) context.getExternalContext().getContext();
+		filePath = sc.getRealPath(filePath);		
+	    byte[] buffer = new byte[(int) new File(filePath).length()];
+	    FileInputStream f = new FileInputStream(filePath);
+	    f.read(buffer);
+	    return new String(buffer);
+	}
 
 	public static boolean isEmailValid(String email) {
 		// When not set ok

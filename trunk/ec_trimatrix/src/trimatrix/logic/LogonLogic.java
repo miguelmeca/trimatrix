@@ -64,7 +64,7 @@ public class LogonLogic {
 		}		
 		UserTracker.addUser(username);
 		// check logon message is active
-		if(MessageHandler.isShowLogonMessage()) Statusbar.outputAlert(MessageHandler.getLogonMessage());
+		if(MessageHandler.isShowLogonMessage()) Statusbar.outputAlert(MessageHandler.getLogonMessage()).setLeftTopReferenceCentered();
 		return true;
 	}
 	

@@ -1,5 +1,6 @@
 package trimatrix.ui;
 
+import org.eclnt.jsfserver.defaultscreens.BasePopup;
 import org.eclnt.workplace.IWorkpageContainer;
 import org.eclnt.workplace.WorkpageDispatcher;
 import org.eclnt.workplace.WorkpageStarterFactory;
@@ -26,10 +27,12 @@ public class Dispatcher extends WorkpageDispatcher
 	 */
 	public Dispatcher() {
         super();
-        // Limit nr. of max opened pages
+        // limit nr. of max opened pages
         getWorkpageContainer().setMaxNumberOfWorkpages(Constants.MAXWORKPAGES);
-        // Set own Starter e.g. for WPFunctionTrees
+        // set own Starter e.g. for WPFunctionTrees
         WorkpageStarterFactory.setWorkpageStarter(new MyWorkpageStarter());   
+        // set background of all popups!
+        BasePopup.initialize("rectangle(0,0,100%,100%,#FFFFFF00");
     }
 	
 	/**

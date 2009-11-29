@@ -288,19 +288,19 @@
 <t:row id="g_204" >
 <t:fixgrid id="g_205" avoidroundtrips="1" border="#808080" enabled="#{d.TestDetailUI.enabled}" multiselect="false" objectbinding="#{d.TestDetailUI.gridSwim}" sbvisibleamount="20" showemptyrows="false" >
 <t:gridcol id="g_206" align="center" sortenabled="false" text="#{rr.literals.step}" width="100" >
-<t:treenode id="g_207" bgpaint="rectangle(0,0,100%,100%,#FFFFFF40,#FFFFFF10,vertical)" text=".{step}" />
+<t:treenode id="g_207" text=".{step}" />
 </t:gridcol>
-<t:gridcol id="g_208" sortenabled="false" width="20" >
-<t:pane id="g_209" bgpaint="null!" >
+<t:gridcol id="g_208" align="center" sortenabled="false" width="20" >
+<t:pane id="g_209" background="rectangle(0,0,100%,50%,#c0c0c008);rectangle(0,50%,100%,50%,#00000006)" >
 <t:row id="g_210" >
-<t:button id="g_211" actionListener=".{onAddSubItem}" contentareafilled="false" enabled="#{d.TestDetailUI.enabled}" horizontaltextposition="center" image="/images/icons/add.png" rendered=".{topNode}" verticaltextposition="middle" />
+<t:button id="g_211" actionListener=".{onAddSubItem}" align="center" contentareafilled="false" enabled="#{d.TestDetailUI.enabled}" horizontaltextposition="center" image="/images/icons/add.png" rendered=".{topNode}" rowalignmenty="center" verticaltextposition="middle" />
 </t:row>
 </t:pane>
 </t:gridcol>
 <t:gridcol id="g_212" sortenabled="false" width="20" >
-<t:pane id="g_213" bgpaint="null!" >
+<t:pane id="g_213" bgpaint="rectangle(0,0,100%,50%,#c0c0c008);rectangle(0,50%,100%,50%,#00000006)" >
 <t:row id="g_214" >
-<t:checkbox id="g_215" actionListener=".{onMarkItem}" enabled="#{d.TestDetailUI.enabled}" flush="true" rendered=".{topNode==false}" selected=".{valid}" />
+<t:checkbox id="g_215" actionListener=".{onMarkItem}" align="center" enabled="#{d.TestDetailUI.enabled}" flush="true" rendered=".{topNode==false}" selected=".{valid}" />
 </t:row>
 </t:pane>
 </t:gridcol>

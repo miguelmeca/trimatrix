@@ -123,7 +123,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 	private void setRowDynamic() {
 		String dragKey = Constants.P_ENTITY + ":" + Constants.P_ENTITYLIST;
 		StringBuffer xml = new StringBuffer();
-		xml.append("<t:fixgrid avoidroundtrips='true' dragsend='" + dragKey + "' rowdragsend='" + dragKey + "' drawoddevenrows='true' objectbinding='#{d.EntityListUI.gridList}' persistid='gridList' bordercolor='C0C0C0' borderheight='1' borderwidth='1' cellselection='true' rowheight='20' width='100%' sbvisibleamount='20' showemptyrows='false' headlinerowheight='20'>");
+		xml.append("<t:fixgrid avoidroundtrips='true' dragsend='" + dragKey + "' rowdragsend='" + dragKey + "' drawoddevenrows='true' objectbinding='#{d.EntityListUI.gridList}' persistid='gridList' cellselection='true' rowheight='20' width='100%' sbvisibleamount='20' showemptyrows='false'>");
 		for (SGridMetaData meta : gridMetaData) {
 			// component type checkbox
 			boolean isIndividual = false;			
@@ -310,12 +310,18 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 			} 
 			// Page doesn't exist, create it
 			String pageId = datum.getId();
-			Mode pageMode = Mode.SHOW;
+			Mode pageMode = Mode.SHOW;		
+			// special handling for competitions
+			// because page ID has to be unique to resolve right page
+			// resolved in EntityDetailUI
+			if(entity.getBase().equals(Entity.COMPETITION)) {				
+				pageId = entity.name() + "#" + pageId;
+			}
+			// if buttons are not rendered details are immutable
 			if(!renderButtons) {
 				pageId = Constants.FINAL + pageId;
 				pageMode = Mode.FINAL;
-			}
-			
+			}				
 			wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.getUrl(),
 					pageId, datum.toString(), null, true, entityList, authorization, null);			
 			wp.setParam(Constants.P_ENTITY, entity.name());

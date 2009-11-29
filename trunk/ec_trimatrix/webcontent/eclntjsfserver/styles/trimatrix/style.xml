@@ -1,7 +1,7 @@
 <style>	 	
     <tag name="outlookbar" variant="default">
 	     <set attribute="bgpaintselected" value="rectangle(0,0,100%,100%,#606070,#202030,vertical)"/>
-		  <set attribute="bgpaintrollover" value="rectangle(0,0,100%,100%,#606070,#202030,vertical)"/>
+		 <set attribute="bgpaintrollover" value="rectangle(0,0,100%,100%,#606070,#20203050,vertical)"/>
     </tag>
     <tag name="buttonmenu" variant="default">
         <set attribute="foreground" value="#FFFFFF"/>
@@ -10,7 +10,8 @@
         <set attribute="foreground" value="#FFFFFF"/>
     </tag>
     <tag name="checkbox" variant="default">
-        <set attribute="foreground" value="#FFFFFF"/>
+        <set attribute="foreground" value="#000000"/>
+		<set attribute="background" value="#FFFFFF00"/>
     </tag>
     <tag name="colline" variant="default">
         <set attribute="background" value="#C0C0C0"/>
@@ -18,16 +19,19 @@
         <set attribute="width" value="1"/>
     </tag>
     <tag name="combofield" variant="default">
-        <set attribute="background" value="#FFFFFFC0"/>
+        <set attribute="background" value="#FFFFFF"/>
     </tag>
     <tag name="combofield" variant="INGRID">
-        <set attribute="background" value="#FFFFFFC0"/>
+        <set attribute="background" value="#FFFFFF"/>
+    </tag>
+	<tag name="calendarfield" variant="default">
+        <set attribute="background" value="#FFFFFF"/>
     </tag>
     <tag name="field" variant="default">
         <set attribute="background" value="#FFFFFF"/>
     </tag>
     <tag name="field" variant="INGRID">
-        <set attribute="background" value="#FFFFFF80"/>
+        <set attribute="background" value="#FFFFFF"/>
         <set attribute="bgpaint" value="rectangle(0,0,100%,50%,#c0c0c008);rectangle(0,50%,100%,50%,#00000006)"/>
     </tag>
     <tag name="foldablepane" variant="default">
@@ -142,33 +146,33 @@
         <set attribute="padding" value="5"/>       
     </tag>
     <tag name="textpane" variant="default">
-        <set attribute="background" value="#00000000"/>       
+        <set attribute="background" value="#FFFFFF00"/>       
         <set attribute="foreground" value="#000000"/>       
     </tag>
     <tag name="textarea" variant="default">
-        <set attribute="background" value="#00000000"/>       
-        <set attribute="foreground" value="#f0f0f0"/>       
+        <set attribute="background" value="#FFFFFF"/>       
+        <set attribute="foreground" value="#000000"/>       
     </tag>
     <tag name="treenode" variant="default">
-        <set attribute="foreground" value="#F0F0F0"/>       
+        <set attribute="foreground" value="#000000"/>       
         <set attribute="bgpaint" value="rectangle(0,0,100%,50%,#c0c0c008);rectangle(0,50%,100%,50%,#00000006)"/>
     </tag>
     
     <!--  WORKPAGE VARIANTS -->
 	<tag name="tabbedline" variant="WP_WORKPAGESELECTOR">
-         <set attribute="bgpaintdefault" value="rectangle(0,0,100%,100%,#808080,#808080,horizontal)"/>
-         <set attribute="bgpaintrollover" value="rectangle(0,0,100%,100%,#C08080,#C08080,horizontal)"/>
-         <set attribute="bgpaintselected" value="rectangle(0,0,100%,100%,#C08080,#C08080,horizontal)"/>
-         <set attribute="font" value="size:20"/>
+		<set attribute="bgpaintselected" value="rectangle(0,0,100%,100%,#606070,#202030,vertical)"/>
+		 <set attribute="bgpaintrollover" value="rectangle(0,0,100%,100%,#606070,#20203050,vertical)"/>
+         <set attribute="bgpaintdefault" value="rectangle(0,0,100%,100%,#00000050,#00000020,vertical)"/>
+         <set attribute="font" value="size:10"/>
          <set attribute="foregrounddefault" value="#000000"/>
-         <set attribute="foregroundselected" value="#000000"/>
+         <set attribute="foregroundselected" value="#FFFFFF"/>
          <set attribute="rowalignmenty" value="bottom"/>
          <set attribute="indentwidth" value="0"/>
      </tag>
 	 
 	<tag name="button" variant="WP_ISOLATEDWORKPAGE">
         <set attribute="contentareafilled" value="false"/>
-        <set attribute="foreground" value="#000000"/>
+        <set attribute="foreground" value="#f0f0f0"/>
     </tag>
     
     <!--  IDVALUESELECTION VARIANTS -->

@@ -140,7 +140,7 @@ public final class TestEntity extends AEntity {
 						int deleted = daoLayer.deleteRelationsByPartner(id);
 						Statusbar.outputSuccess("Successfully deleted entity incl. " + deleted + " relations!");
 					} else {
-						Statusbar.outputAlert("Do delete this object you have to be admin or the creator of this object!");
+						Statusbar.outputAlert("Do delete this object you have to be admin or the creator of this object!").setLeftTopReferenceCentered();
 						return false;
 					}					
 				} catch (Exception ex) {
@@ -186,7 +186,7 @@ public final class TestEntity extends AEntity {
 			if(entityCopy.getTestsSwim()!=null) entityCopy.getTestsSwim().setId(id);
 			return entityCopy;
 		} catch (Exception ex) {
-			Statusbar.outputAlert(ex.toString(), "Copy failed!");
+			Statusbar.outputAlert(ex.toString(), "Copy failed!").setLeftTopReferenceCentered();
 			return null;
 		}				
 	}

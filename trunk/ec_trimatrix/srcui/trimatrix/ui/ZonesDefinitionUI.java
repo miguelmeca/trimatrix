@@ -17,7 +17,9 @@ import org.eclnt.workplace.IWorkpageDispatcher;
 import trimatrix.db.ZonesDefinition;
 import trimatrix.structures.SAuthorization;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
+import trimatrix.ui.utils.WorkpageRefreshEvent;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Constants.Entity;
 
 @CCGenClass (expressionBase="#{d.ZonesDefinitionUI}")
 
@@ -61,8 +63,7 @@ public class ZonesDefinitionUI extends MyWorkpageDispatchedBean implements Seria
     	}   	
 
     	protected ZonesDefinition zonesDefinition;
-    	public ZonesDefinition getZonesDefinition() { return zonesDefinition; }
-      
+    	public ZonesDefinition getZonesDefinition() { return zonesDefinition; }      
     }
     
     private void buildGrid() {    	
@@ -97,6 +98,8 @@ public class ZonesDefinitionUI extends MyWorkpageDispatchedBean implements Seria
 			zonesDefinitions.add(zonesDefinition);
 		}		
 		getLogic().getZonesLogic().updateZones(zonesDefinitions);
+		// refresh beans
+        getWorkpage().throwWorkpageProcessingEvent(new WorkpageRefreshEvent(Entity.ZONE));
 		// refresh
 		buildGrid();
 	}
@@ -118,7 +121,4 @@ public class ZonesDefinitionUI extends MyWorkpageDispatchedBean implements Seria
     		m_gridZones.getItems().add(index, item); 
     	}
     }
-
-    
-
 }

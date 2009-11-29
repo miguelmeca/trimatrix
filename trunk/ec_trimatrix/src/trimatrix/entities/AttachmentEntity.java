@@ -53,7 +53,7 @@ public class AttachmentEntity extends AEntity {
 						int deleted = daoLayer.deleteRelationsByPartner(id);
 						Statusbar.outputSuccess(String.format("Successfully deleted entity incl. %s relations!", deleted));
 					} else {
-						Statusbar.outputAlert("Do delete this object you have to be admin or owner of this object!");
+						Statusbar.outputAlert("Do delete this object you have to be admin or owner of this object!").setLeftTopReferenceCentered();
 						return false;
 					}
 				} catch (Exception ex) {

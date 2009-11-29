@@ -51,11 +51,11 @@
 <t:pane id="g_30" rowdistance="5" width="100%" >
 <t:row id="g_31" >
 <t:label id="g_32" text="#{rr.literals.category}" width="120" />
-<t:field id="g_33" attributemacro="entityDetailMacro(ResultDetailUI,category_tria)" maxlength="10" width="100" />
+<t:combofield id="g_33" actionListener="#{d.ResultDetailUI.onCategoryF4}" attributemacro="entityDetailMacro(ResultDetailUI,category_tria)" maxlength="10" width="100" />
 </t:row>
 <t:row id="g_34" >
 <t:label id="g_35" text="#{rr.literals.swimsuit}" width="120" />
-<t:checkbox id="g_36" enabled="#{d.ResultDetailUI.enabled}" selected="#{d.ResultDetailUI.values.swimsuit}" width="100" />
+<t:checkbox id="g_36" enabled="#{d.ResultDetailUI.enabled}" selected="#{d.ResultDetailUI.values.swimsuit}" />
 </t:row>
 <t:row id="g_37" >
 <t:label id="g_38" text="#{rr.literals.swim_split}" width="120" />

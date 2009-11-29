@@ -23,6 +23,7 @@
 				<exclude name="**/*junit*" />	
 				<exclude name="**/log4j.properties_*" />
 				<exclude name="**/*.xml_*" />
+				<exclude name="**/mysql-connector-java*" />
 			</fileset>
 		</jar>	
 		

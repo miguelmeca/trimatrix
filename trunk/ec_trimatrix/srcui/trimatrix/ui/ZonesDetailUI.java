@@ -10,6 +10,8 @@ import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
+import org.eclnt.workplace.IWorkpageProcessingEventListener;
+import org.eclnt.workplace.WorkpageProcessingEvent;
 
 import trimatrix.db.Persons;
 import trimatrix.db.PersonsAthlete;
@@ -18,6 +20,7 @@ import trimatrix.db.ZonesDefinition;
 import trimatrix.logic.ZonesLogic;
 import trimatrix.structures.SAuthorization;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
+import trimatrix.ui.utils.WorkpageRefreshEvent;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.Entity;
@@ -25,7 +28,7 @@ import trimatrix.utils.Constants.Mode;
 
 @CCGenClass (expressionBase="#{d.ZonesDetailUI}")
 
-public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializable {	
+public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializable, IWorkpageProcessingEventListener {	
 	
 	private boolean changeAllowed;
 	public boolean getChangeAllowed() { return authorization.change; }
@@ -74,8 +77,12 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
 	public void onSave(ActionEvent event) {
 	 	for(GridZonesItem item : m_gridZones.getItems()) {
 	 		item.save();
-	 	}
+	 	}	 	
 	 	changeMode(Constants.Mode.SHOW);
+	 	// refresh beans
+        getWorkpage().throwWorkpageProcessingEvent(new WorkpageRefreshEvent(Entity.ZONE));
+        // refresh
+		buildGrid();
 	}
 	
 	public void onCoachClicked(ActionEvent event) {
@@ -94,6 +101,8 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
     
 	public ZonesDetailUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
+		// register listener for events
+		getWorkpage().addWorkpageProcessingEventListener(this);
 		// get parameters from functiontree
 		// get entity
         personId = getWorkpage().getParam(Constants.P_PERSON);
@@ -184,5 +193,14 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
 		for(ZonesLogic.ZoneInfo zonesInfo : zonesInfos) {
 			m_gridZones.getItems().add(new GridZonesItem(zonesInfo));			
 		}
+	}
+	
+	public void processEvent(WorkpageProcessingEvent event) {
+		// refresh list
+		if (event instanceof WorkpageRefreshEvent) {
+			Entity entity = ((WorkpageRefreshEvent)event).getEntity();
+			if(Entity.ZONE==entity.getBase()) buildGrid();
+		}	
+		
 	}
 }
