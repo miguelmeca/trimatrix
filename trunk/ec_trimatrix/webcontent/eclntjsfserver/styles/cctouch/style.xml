@@ -149,6 +149,10 @@
         <set attribute="background" value="#00000000"/>       
         <set attribute="foreground" value="#f0f0f0"/>       
     </tag>
+    <tag name="textpane" variant="TRANSPARENT">
+        <set attribute="background" value="#00000000"/>       
+        <set attribute="foreground" value="#f0f0f0"/>       
+    </tag>
     <tag name="textarea" variant="default">
         <set attribute="background" value="#00000000"/>       
         <set attribute="foreground" value="#f0f0f0"/>       

@@ -123,7 +123,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 	private void setRowDynamic() {
 		String dragKey = Constants.P_ENTITY + ":" + Constants.P_ENTITYLIST;
 		StringBuffer xml = new StringBuffer();
-		xml.append("<t:fixgrid avoidroundtrips='true' dragsend='" + dragKey + "' rowdragsend='" + dragKey + "' drawoddevenrows='true' objectbinding='#{d.EntityListUI.gridList}' persistid='gridList' cellselection='true' rowheight='20' width='100%' sbvisibleamount='20' showemptyrows='false'>");
+		xml.append("<t:fixgrid avoidroundtrips='true' dragsend='" + dragKey + "' rowdragsend='" + dragKey + "' drawoddevenrows='true' objectbinding='#{d.EntityListUI.gridList}' persistid='gridList' cellselection='true' rowheight='20' width='100%' sbvisibleamount='20' showemptyrows='false' horizontalscrollmode='autowithresize'>");
 		for (SGridMetaData meta : gridMetaData) {
 			// component type checkbox
 			boolean isIndividual = false;			

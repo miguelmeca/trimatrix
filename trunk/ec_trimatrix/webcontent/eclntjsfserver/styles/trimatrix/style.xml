@@ -146,9 +146,16 @@
         <set attribute="padding" value="5"/>       
     </tag>
     <tag name="textpane" variant="default">
-        <set attribute="background" value="#FFFFFF00"/>       
+        <set attribute="background" value="#FFFFFF"/>       
         <set attribute="foreground" value="#000000"/>       
     </tag>
+	
+	<!-- explicit transparent usage of text pane e.g. in popups -->
+    <tag name="textpane" variant="TRANSPARENT">
+		<set attribute="background" value="#FFFFFF00"/>       
+        <set attribute="foreground" value="#000000"/>   
+    </tag>
+	
     <tag name="textarea" variant="default">
         <set attribute="background" value="#FFFFFF"/>       
         <set attribute="foreground" value="#000000"/>       

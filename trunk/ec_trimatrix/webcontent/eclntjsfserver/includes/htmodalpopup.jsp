@@ -11,25 +11,25 @@
 <f:subview id="eclntjsfserver_includes_modalpopupg_3">
 
 <t:htmodalpopup id="g_24" 
-              rendered="#{eclntdefscr.modalPopups[0].opened == true}"
-              opened="#{eclntdefscr.modalPopups[0].opened}" 
-              title="#{eclntdefscr.modalPopups[0].title}" 
-              left="#{eclntdefscr.modalPopups[0].left}" 
-              top="#{eclntdefscr.modalPopups[0].top}" 
-              height="#{eclntdefscr.modalPopups[0].height}" 
-              width="#{eclntdefscr.modalPopups[0].width}" >
+              rendered="#{eclntdefscr.htModalPopup.opened == true}"
+              opened="#{eclntdefscr.htModalPopup.opened}" 
+              title="#{eclntdefscr.htModalPopup.title}" 
+              left="#{eclntdefscr.htModalPopup.left}" 
+              top="#{eclntdefscr.htModalPopup.top}" 
+              height="#{eclntdefscr.htModalPopup.height}" 
+              width="#{eclntdefscr.htModalPopup.width}" >
   <t:htrow id="g_100" width="100%" styleClass="classtitlebarback">
-    <t:htlabel id="g_101" text="#{eclntdefscr.modalPopups[0].title}" styleClass="classtitlebartext" width="100%">
+    <t:htlabel id="g_101" text="#{eclntdefscr.htModalPopup.title}" styleClass="classtitlebartext" width="100%">
     </t:htlabel>
-    <t:htbutton id="g_102" image="../eclntjsfserver/images/window_close.png" styleClass="classbuttonplain" actionListener="#{eclntdefscr.modalPopups[0].onPopupClosedByUser}">
+    <t:htbutton id="g_102" image="../eclntjsfserver/images/window_close.png" styleClass="classbuttonplain" actionListener="#{eclntdefscr.htModalPopup.onPopupClosedByUser}">
     </t:htbutton>
   </t:htrow>
   <t:htrow id="g_201" width="100%" height="100%">
     <t:htpane id="g_202" styleClass="classpopupinnercontent" width="100%" height="100%">
       <t:rowinclude id="g_25" 
-                    page="#{eclntdefscr.modalPopups[0].page}" 
-                    contentreplace="#{eclntdefscr.modalPopups[0].contentReplace}" 
-                    contentreplacedrilldown="#{eclntdefscr.modalPopups[0].contentReplaceDrillDown}"/>
+                    page="#{eclntdefscr.htModalPopup.page}" 
+                    contentreplace="#{eclntdefscr.htModalPopup.contentReplace}" 
+                    contentreplacedrilldown="#{eclntdefscr.htModalPopup.contentReplaceDrillDown}"/>
     </t:htpane>
   </t:htrow>
 </t:htmodalpopup>
