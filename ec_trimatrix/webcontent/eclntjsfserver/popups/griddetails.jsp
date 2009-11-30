@@ -20,14 +20,14 @@
 
 						<t:row id="g_4">
 
-							<t:fixgrid id="g_5" background="#E0E0E0" bordercolor="#c0c0c0"
+							<t:fixgrid id="g_5" background="#E0E0E0" bordercolor="#00000030"
 								borderheight="1" borderwidth="1" height="100%"
 								multiselect="true"
 								objectbinding="#{eclntdefscr.gridDetails.lefts}"
-								sbvisibleamount="25" width="40%">
+								sbvisibleamount="25" width="40%" rowheight="16">
 
 								<t:gridcol id="g_6" text="#{eclnti18n.GRID_availableColumns}"
-									width="100%">
+									width="100%" sortenabled="false" columnresizingenabled="false">
 
 									<t:label id="g_7" dragsend="lefts:lefts" text=".{text}" />
 								</t:gridcol>
@@ -62,14 +62,14 @@
 
 								<t:row id="g_18">
 
-									<t:fixgrid id="g_19" background="#FFFFFF" bordercolor="#c0c0c0"
+									<t:fixgrid id="g_19" background="#FFFFFF" bordercolor="#00000030"
 										borderheight="1" borderwidth="1" height="100%"
 										multiselect="true"
 										objectbinding="#{eclntdefscr.gridDetails.rights}"
-										sbvisibleamount="25" width="100%">
+										sbvisibleamount="25" width="100%" rowheight="16">
 
 										<t:gridcol id="g_20" text="#{eclnti18n.GRID_selectedColumns}"
-											width="100%">
+											width="100%" searchenabled="false" sortenabled="false" columnresizingenabled="false">
 
 											<t:label id="g_21" actionListener=".{onDropRights}"
 												dragsend="rights:rights" dropreceive="rights;lefts"

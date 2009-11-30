@@ -18,7 +18,7 @@
 					<t:scrollpane id="g_3" height="100%" width="100%">
 						<t:row id="g_4">
 							<t:textpane id="g_5" text="#{eclntdefscr.yesNoPopup.text}" align="center"
-								width="100%" />
+								width="100%" stylevariant="TRANSPARENT"/>
 						</t:row>
 					</t:scrollpane>
 				</t:row>

@@ -114,6 +114,10 @@
         <set attribute="tabshadingbackground1" value="#FFFFFFC0"/>
         <set attribute="tabshadingbackground2" value="#FFFFFF00"/>
     </tag>
+
+    <!-- explicit transparent usage of text pane e.g. in popups -->
+    <tag name="textpane" variant="TRANSPARENT">
+    </tag>
     
     <!--  WORKPAGE VARIANTS -->
     <tag name="rowworkplacefunctiontree" variant="default">

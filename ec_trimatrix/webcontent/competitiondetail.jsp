@@ -40,7 +40,7 @@
 <t:label id="g_22" font="size:12;weight:bold" text="#{rr.literals.limits}" />
 </t:row>
 <t:row id="g_23" >
-<t:fixgrid id="g_24" avoidroundtrips="true" objectbinding="#{d.CompetitionDetailUI.gridLimits}" sbvisibleamount="10" showemptyrows="false" >
+<t:fixgrid id="g_24" avoidroundtrips="true" horizontalscrollmode="autowithresize" objectbinding="#{d.CompetitionDetailUI.gridLimits}" sbvisibleamount="10" showemptyrows="false" >
 <t:gridcol id="g_25" columnresizingenabled="false" searchenabled="false" sortenabled="false" width="20" >
 <t:gridrowselector id="g_26" />
 </t:gridcol>

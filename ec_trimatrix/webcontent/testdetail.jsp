@@ -150,7 +150,7 @@
 <t:link id="g_108" actionListener="#{d.TestDetailUI.gridTreadmill.onOpenGridFunctions}" text="#{rr.literals.export}" />
 </t:row>
 <t:row id="g_109" >
-<t:fixgrid id="g_110" avoidroundtrips="1" bordercolor="#C0C0C0" borderheight="1" borderwidth="1" enabled="#{d.TestDetailUI.enabled}" multiselect="false" objectbinding="#{d.TestDetailUI.gridTreadmill}" sbvisibleamount="20" showemptyrows="false" >
+<t:fixgrid id="g_110" avoidroundtrips="1" bordercolor="#C0C0C0" borderheight="1" borderwidth="1" enabled="#{d.TestDetailUI.enabled}" horizontalscrollmode="autowithresize" multiselect="false" objectbinding="#{d.TestDetailUI.gridTreadmill}" sbvisibleamount="20" showemptyrows="false" >
 <t:gridcol id="g_111" columnresizingenabled="false" sortenabled="false" width="20" >
 <t:gridrowselector id="g_112" />
 </t:gridcol>
@@ -218,7 +218,7 @@
 <t:link id="g_155" actionListener="#{d.TestDetailUI.gridErgo.onOpenGridFunctions}" text="#{rr.literals.export}" />
 </t:row>
 <t:row id="g_156" >
-<t:fixgrid id="g_157" avoidroundtrips="1" border="#808080" enabled="#{d.TestDetailUI.enabled}" multiselect="false" objectbinding="#{d.TestDetailUI.gridErgo}" sbvisibleamount="20" showemptyrows="false" >
+<t:fixgrid id="g_157" avoidroundtrips="1" border="#808080" enabled="#{d.TestDetailUI.enabled}" horizontalscrollmode="autowithresize" multiselect="false" objectbinding="#{d.TestDetailUI.gridErgo}" sbvisibleamount="20" showemptyrows="false" >
 <t:gridcol id="g_158" columnresizingenabled="false" sortenabled="false" width="20" >
 <t:gridrowselector id="g_159" />
 </t:gridcol>
@@ -286,7 +286,7 @@
 <t:link id="g_203" actionListener="#{d.TestDetailUI.gridSwim.onOpenGridFunctions}" text="#{rr.literals.export}" />
 </t:row>
 <t:row id="g_204" >
-<t:fixgrid id="g_205" avoidroundtrips="1" border="#808080" enabled="#{d.TestDetailUI.enabled}" multiselect="false" objectbinding="#{d.TestDetailUI.gridSwim}" sbvisibleamount="20" showemptyrows="false" >
+<t:fixgrid id="g_205" avoidroundtrips="1" border="#808080" enabled="#{d.TestDetailUI.enabled}" horizontalscrollmode="autowithresize" multiselect="false" objectbinding="#{d.TestDetailUI.gridSwim}" sbvisibleamount="20" showemptyrows="false" >
 <t:gridcol id="g_206" align="center" sortenabled="false" text="#{rr.literals.step}" width="100" >
 <t:treenode id="g_207" text=".{step}" />
 </t:gridcol>
