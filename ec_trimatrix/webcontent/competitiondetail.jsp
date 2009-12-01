@@ -54,12 +54,24 @@
 <t:gridcol id="g_32" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.red_area_low}" width="120" >
 <t:formattedfield id="g_33" align="center" background="#FF0000" enabled="#{d.CompetitionDetailUI.enabled}" font="weight:bold" format="double" userhint="%" value=".{redAreaLow}" />
 </t:gridcol>
+<t:gridcol id="g_34" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.best_run_split}" width="130" >
+<t:field id="g_35" align="center" enabled="#{d.CompetitionDetailUI.enabled}" maxlength="8" regex="\d\d:[0-5]\d:[0-5]\d" regexmode="1" text=".{runSplit}" userhint="hh:mm:ss" />
+</t:gridcol>
+<t:gridcol id="g_36" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.best_runner}" width="160" >
+<t:field id="g_37" align="center" enabled="#{d.CompetitionDetailUI.enabled}" text=".{runAthlet}" />
+</t:gridcol>
+<t:gridcol id="g_38" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.best_swim_split}" width="130" >
+<t:field id="g_39" align="center" enabled="#{d.CompetitionDetailUI.enabled}" maxlength="8" regex="\d\d:[0-5]\d:[0-5]\d" regexmode="1" text=".{swimSplit}" userhint="hh:mm:ss" />
+</t:gridcol>
+<t:gridcol id="g_40" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.best_swimer}" width="160" >
+<t:field id="g_41" align="center" enabled="#{d.CompetitionDetailUI.enabled}" text=".{swimAthlet}" />
+</t:gridcol>
 </t:fixgrid>
 </t:row>
-<t:row id="g_34" >
-<t:button id="g_35" actionListener="#{d.CompetitionDetailUI.onAddLimit}" enabled="#{d.CompetitionDetailUI.enabled}" text="#{rr.literals.list_add}" />
-<t:coldistance id="g_36" />
-<t:button id="g_37" actionListener="#{d.CompetitionDetailUI.onRemoveLimit}" enabled="#{d.CompetitionDetailUI.enabled}" text="#{rr.literals.list_remove}" />
+<t:row id="g_42" >
+<t:button id="g_43" actionListener="#{d.CompetitionDetailUI.onAddLimit}" enabled="#{d.CompetitionDetailUI.enabled}" text="#{rr.literals.list_add}" />
+<t:coldistance id="g_44" />
+<t:button id="g_45" actionListener="#{d.CompetitionDetailUI.onRemoveLimit}" enabled="#{d.CompetitionDetailUI.enabled}" text="#{rr.literals.list_remove}" />
 </t:row>
 </t:pane>
 </t:row>

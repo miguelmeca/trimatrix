@@ -25,6 +25,7 @@ import trimatrix.entities.ResultEntity;
 import trimatrix.entities.TestEntity;
 import trimatrix.entities.UserEntity;
 import trimatrix.logic.LogicLayer;
+import trimatrix.logic.helper.Limit;
 import trimatrix.relations.IRelationData;
 import trimatrix.relations.PersonAttachmentRelation;
 import trimatrix.relations.PersonDoctorRelation;
@@ -581,18 +582,16 @@ public class SQLExecutorService {
 				datum.swimsuit = (Boolean)line[i++];				
 				datum.swim_split = (String)line[i++];	
 				datum.swim_pos = (String)line[i++];	
-				datum.swim_def = (String)line[i++];	
-				datum.best_swim_split = (String)line[i++];					
 				datum.run_split = (String)line[i++];	
 				datum.run_pos = (String)line[i++];	
-				datum.run_def = (String)line[i++];	
-				datum.best_run_split = (String)line[i++];	
 				// get limits
-				Map<String, Double[]> limitsMap = logicLayer.getCompetitionLogic().getLimitsMap((String)line[i++]);
-				Double[] limits = limitsMap.get(datum.category_tria);
-				if(limits!=null && limits.length==2) {
-					datum.green_high = limits[0];
-					datum.red_low = limits[1];
+				Map<String, Limit> limitsMap = logicLayer.getCompetitionLogic().getLimitsMap((String)line[i++]);
+				Limit limit = limitsMap.get(datum.category_tria);
+				if(limit!=null) {
+					datum.green_high = limit.getLimits()[0];
+					datum.red_low = limit.getLimits()[1];
+					datum.best_run_split = limit.getRun()[1];
+					datum.best_swim_split = limit.getSwim()[1];
 				}
 			}
 			data.add(datum);

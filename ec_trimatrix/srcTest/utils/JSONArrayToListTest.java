@@ -60,8 +60,8 @@ public class JSONArrayToListTest {
 		// Limits		
 		Marshaller<Limit> limitMarshaller = TwoLattes.createMarshaller(Limit.class);
 		List<Limit> limits = new ArrayList<Limit>(2);
-		limits.add(new Limit("W20", new Double[] {new Double(2), 2.2d}));
-		limits.add(new Limit("W30", new Double[] {2.1d, 3.2d}));
+		limits.add(new Limit("W20", new Double[] {new Double(2), 2.2d},new String[] {"Markus", "00:35"}, new String[] {"Dany", "01:35"}));
+		limits.add(new Limit("W30", new Double[] {2.1d, 3.2d},new String[] {"Seppo", "01:00"}, new String[] {"Hannes", "01:52"}));
 		Json.Array array = limitMarshaller.marshallList(limits);
 		String strLimits = array.toString();
 		System.out.println(strLimits);

@@ -5,7 +5,7 @@
     <information>
         <title>CaptainCasa Enterprise Client</title>
         <vendor>CaptainCasa GmbH</vendor>
-	    <icon href="eclnt/images/splash.png" kind="splash"/> 
+	    <icon href="eclnt/images/trimatrix.png" kind="splash"/> 
     </information>
    
     <security>

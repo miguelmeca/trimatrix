@@ -51,7 +51,7 @@
 <t:pane id="g_30" rowdistance="5" width="100%" >
 <t:row id="g_31" >
 <t:label id="g_32" text="#{rr.literals.category}" width="120" />
-<t:combofield id="g_33" actionListener="#{d.ResultDetailUI.onCategoryF4}" attributemacro="entityDetailMacro(ResultDetailUI,category_tria)" maxlength="10" width="100" />
+<t:combofield id="g_33" actionListener="#{d.ResultDetailUI.onCategoryF4}" attributemacro="entityDetailMacro(ResultDetailUI,category_tria)" flush="true" maxlength="10" width="100" />
 </t:row>
 <t:row id="g_34" >
 <t:label id="g_35" text="#{rr.literals.swimsuit}" width="120" />
@@ -59,31 +59,31 @@
 </t:row>
 <t:row id="g_37" >
 <t:label id="g_38" text="#{rr.literals.swim_split}" width="120" />
-<t:field id="g_39" attributemacro="entityDetailMacro(ResultDetailUI,swim_split)" maxlength="8" regex="\d\d:[0-5]\d:[0-5]\d" regexmode="1" userhint="hh:mm:ss" width="100" />
+<t:field id="g_39" align="center" attributemacro="entityDetailMacro(ResultDetailUI,swim_split)" maxlength="8" regex="\d\d:[0-5]\d:[0-5]\d" regexmode="1" userhint="hh:mm:ss" width="100" />
 <t:coldistance id="g_40" width="45" />
 <t:label id="g_41" text="#{rr.literals.run_split}" width="100" />
-<t:field id="g_42" attributemacro="entityDetailMacro(ResultDetailUI,run_split)" maxlength="8" regex="\d\d:[0-5]\d:[0-5]\d" regexmode="1" width="100" />
+<t:field id="g_42" align="center" attributemacro="entityDetailMacro(ResultDetailUI,run_split)" maxlength="8" regex="\d\d:[0-5]\d:[0-5]\d" regexmode="1" width="100" />
 </t:row>
 <t:row id="g_43" >
 <t:label id="g_44" text="#{rr.literals.ranking}" width="120" />
-<t:field id="g_45" attributemacro="entityDetailMacro(ResultDetailUI,swim_pos)" maxlength="5" regex="(DSQ|DNF|\d.*)" regexmode="1" userhint="DNF, DSQ, 1 ... 999" width="100" />
+<t:field id="g_45" align="center" attributemacro="entityDetailMacro(ResultDetailUI,swim_pos)" maxlength="5" regex="(DSQ|DNF|\d.*)" regexmode="1" userhint="DNF, DSQ, 1 ... 999" width="100" />
 <t:coldistance id="g_46" width="45" />
 <t:label id="g_47" text="#{rr.literals.ranking}" width="100" />
-<t:field id="g_48" attributemacro="entityDetailMacro(ResultDetailUI,run_pos)" maxlength="5" regex="(DSQ|DNF|\d.*)" regexmode="1" userhint="DNF, DSQ, 1 ... 999" width="100" />
+<t:field id="g_48" align="center" attributemacro="entityDetailMacro(ResultDetailUI,run_pos)" maxlength="5" regex="(DSQ|DNF|\d.*)" regexmode="1" userhint="DNF, DSQ, 1 ... 999" width="100" />
 </t:row>
 <t:row id="g_49" >
 <t:label id="g_50" text="#{rr.literals.deficit}" width="120" />
-<t:field id="g_51" actionListener="#{d.ResultDetailUI.onSplitsChange}" attributemacro="entityDetailMacro(ResultDetailUI,swim_def)" clientname="swim_def" flush="true" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" userhint="mm:ss" width="100" />
+<t:field id="g_51" align="center" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text="#{d.ResultDetailUI.swimDeficit}" userhint="mm:ss" width="100" />
 <t:coldistance id="g_52" width="45" />
 <t:label id="g_53" text="#{rr.literals.deficit}" width="100" />
-<t:field id="g_54" actionListener="#{d.ResultDetailUI.onSplitsChange}" attributemacro="entityDetailMacro(ResultDetailUI,run_def)" clientname="run_def" flush="true" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" userhint="mm:ss" width="100" />
+<t:field id="g_54" align="center" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text="#{d.ResultDetailUI.runDeficit}" userhint="mm:ss" width="100" />
 </t:row>
 <t:row id="g_55" >
 <t:label id="g_56" text="#{rr.literals.best_split}" width="120" />
-<t:field id="g_57" actionListener="#{d.ResultDetailUI.onSplitsChange}" attributemacro="entityDetailMacro(ResultDetailUI,best_swim_split)" clientname="best_swim_split" flush="true" width="100" />
+<t:field id="g_57" align="center" enabled="false" text="#{d.ResultDetailUI.bestSwim}" width="100" />
 <t:coldistance id="g_58" width="45" />
 <t:label id="g_59" text="#{rr.literals.best_split}" width="100" />
-<t:field id="g_60" actionListener="#{d.ResultDetailUI.onSplitsChange}" attributemacro="entityDetailMacro(ResultDetailUI,best_run_split)" clientname="best_run_split" flush="true" width="100" />
+<t:field id="g_60" align="center" enabled="false" text="#{d.ResultDetailUI.bestRun}" width="100" />
 </t:row>
 <t:row id="g_61" >
 <t:label id="g_62" text="#{rr.literals.deficit_percent}" width="120" />
