@@ -8,6 +8,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import trimatrix.db.DAOLayer;
+import trimatrix.logic.helper.Split;
 import trimatrix.services.ServiceLayer;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
@@ -215,23 +216,5 @@ public class TestLogic {
 				return minLactate;
 			}
 		}
-	}
-	
-	public class Split {
-		String time = "00:00";
-		int strokes;
-		
-		public Split() { };
-		
-		public Split(String time, int strokes) {
-			this.time = time;
-			this.strokes = strokes;
-		}
-		
-		public String getTime() {return time;}
-		public void setTime(String time) {this.time = time;}
-		
-		public int getStrokes() {return strokes;}
-		public void setStrokes(int strokes) {this.strokes = strokes;}			
-	}
+	}	
 }

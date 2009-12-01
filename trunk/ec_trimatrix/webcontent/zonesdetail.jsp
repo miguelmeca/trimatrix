@@ -11,60 +11,62 @@
 <f:view>
 <h:form>
 <f:subview id="zonesdetailg_sv">
-<t:rowbodypane id="g_1" rowdistance="5" >
-<t:row id="g_2" >
-<t:button id="g_3" actionListener="#{d.ZonesDetailUI.onEdit}" enabled="#{d.ZonesDetailUI.changeAllowed}" rendered="#{d.ZonesDetailUI.renderEditButton}" text="#{rr.literals.edit}" />
-<t:coldistance id="g_4" />
-<t:button id="g_5" actionListener="#{d.ZonesDetailUI.onSave}" rendered="#{d.ZonesDetailUI.renderSaveButton}" text="#{rr.literals.save}" />
-<t:coldistance id="g_6" />
-<t:button id="g_7" actionListener="#{d.ZonesDetailUI.onCancel}" rendered="#{d.ZonesDetailUI.renderCancelButton}" text="#{rr.literals.cancel}" />
+<t:row id="g_1" >
+<t:pane id="g_2" rowdistance="5" width="100%" >
+<t:row id="g_3" >
+<t:button id="g_4" actionListener="#{d.ZonesDetailUI.onEdit}" enabled="#{d.ZonesDetailUI.changeAllowed}" rendered="#{d.ZonesDetailUI.renderEditButton}" text="#{rr.literals.edit}" />
+<t:coldistance id="g_5" />
+<t:button id="g_6" actionListener="#{d.ZonesDetailUI.onSave}" rendered="#{d.ZonesDetailUI.renderSaveButton}" text="#{rr.literals.save}" />
+<t:coldistance id="g_7" />
+<t:button id="g_8" actionListener="#{d.ZonesDetailUI.onCancel}" rendered="#{d.ZonesDetailUI.renderCancelButton}" text="#{rr.literals.cancel}" />
 </t:row>
-<t:row id="g_8" >
-<t:label id="g_9" text="#{rr.literals.coach}" />
-<t:coldistance id="g_10" />
-<t:link id="g_11" actionListener="#{d.ZonesDetailUI.onCoachClicked}" align="left" enabled="true" focusable="true" foreground="#000000" height="20" text="#{d.ZonesDetailUI.coach}" width="200" />
+<t:row id="g_9" >
+<t:label id="g_10" text="#{rr.literals.coach}" />
+<t:coldistance id="g_11" />
+<t:link id="g_12" actionListener="#{d.ZonesDetailUI.onCoachClicked}" align="left" enabled="true" focusable="true" foreground="#000000" height="20" text="#{d.ZonesDetailUI.coach}" width="200" />
 </t:row>
-<t:row id="g_12" >
-<t:label id="g_13" text="Distanz für Zeit" />
-<t:coldistance id="g_14" />
-<t:combobox id="g_15" bufferobjecttype="Integer" combopopupwidth="60" editable="false" flush="true" itemborder="noborder" value="#{d.ZonesDetailUI.distance}" width="60" withnullitem="false" >
-<t:comboboxitem id="g_16" text="100 m" value="100" />
-<t:comboboxitem id="g_17" text="200 m" value="200" />
+<t:row id="g_13" >
+<t:label id="g_14" text="Distanz für Zeit" />
+<t:coldistance id="g_15" />
+<t:combobox id="g_16" bufferobjecttype="Integer" combopopupwidth="60" editable="false" flush="true" itemborder="noborder" value="#{d.ZonesDetailUI.distance}" width="60" withnullitem="false" >
+<t:comboboxitem id="g_17" text="100 m" value="100" />
+<t:comboboxitem id="g_18" text="200 m" value="200" />
 </t:combobox>
-<t:coldistance id="g_18" />
+<t:coldistance id="g_19" />
 </t:row>
-<t:row id="g_19" >
-<t:fixgrid id="g_20" avoidroundtrips="true" horizontalscrollmode="autowithresize" objectbinding="#{d.ZonesDetailUI.gridZones}" sbvisibleamount="10" showemptyrows="false" >
-<t:gridcol id="g_21" align="center" searchenabled="false" sortenabled="false" text="Bereich" width="100" >
-<t:field id="g_22" align="center" background=".{color}" enabled="false" font="size:14;weight:bold" foreground=".{foreground}" text=".{shortcut}" width="100" />
+<t:row id="g_20" >
+<t:fixgrid id="g_21" avoidroundtrips="true" horizontalscrollmode="autowithresize" objectbinding="#{d.ZonesDetailUI.gridZones}" sbvisibleamount="10" showemptyrows="false" >
+<t:gridcol id="g_22" align="center" searchenabled="false" sortenabled="false" text="Bereich" width="100" >
+<t:field id="g_23" align="center" background=".{color}" enabled="false" font="size:14;weight:bold" foreground=".{foreground}" text=".{shortcut}" width="100" />
 </t:gridcol>
-<t:gridcol id="g_23" align="center" searchenabled="false" sortenabled="false" text="von HR" width="80" >
-<t:formattedfield id="g_24" align="center" enabled="#{d.ZonesDetailUI.enabled}" format="int" value=".{hrLow}" />
+<t:gridcol id="g_24" align="center" searchenabled="false" sortenabled="false" text="von HR" width="80" >
+<t:formattedfield id="g_25" align="center" enabled="#{d.ZonesDetailUI.enabled}" format="int" value=".{hrLow}" />
 </t:gridcol>
-<t:gridcol id="g_25" align="center" searchenabled="false" sortenabled="false" text="bis HR" width="80" >
-<t:formattedfield id="g_26" align="center" enabled="#{d.ZonesDetailUI.enabled}" format="int" value=".{hrHigh}" />
+<t:gridcol id="g_26" align="center" searchenabled="false" sortenabled="false" text="bis HR" width="80" >
+<t:formattedfield id="g_27" align="center" enabled="#{d.ZonesDetailUI.enabled}" format="int" value=".{hrHigh}" />
 </t:gridcol>
-<t:gridcol id="g_27" align="center" searchenabled="false" sortenabled="false" text="von HR %" width="80" >
-<t:formattedfield id="g_28" align="center" enabled="false" format="int" value=".{hrLowPrct}" />
+<t:gridcol id="g_28" align="center" searchenabled="false" sortenabled="false" text="von HR %" width="80" >
+<t:formattedfield id="g_29" align="center" enabled="false" format="int" value=".{hrLowPrct}" />
 </t:gridcol>
-<t:gridcol id="g_29" align="center" searchenabled="false" sortenabled="false" text="bis HR %" width="80" >
-<t:formattedfield id="g_30" align="center" enabled="false" format="int" value=".{hrHighPrct}" />
+<t:gridcol id="g_30" align="center" searchenabled="false" sortenabled="false" text="bis HR %" width="80" >
+<t:formattedfield id="g_31" align="center" enabled="false" format="int" value=".{hrHighPrct}" />
 </t:gridcol>
-<t:gridcol id="g_31" align="center" searchenabled="false" sortenabled="false" text="von Geschwindigkeit" width="120" >
-<t:formattedfield id="g_32" align="center" enabled="#{d.ZonesDetailUI.enabled}" format="double" value=".{speedLow}" />
+<t:gridcol id="g_32" align="center" searchenabled="false" sortenabled="false" text="von Geschwindigkeit" width="120" >
+<t:formattedfield id="g_33" align="center" enabled="#{d.ZonesDetailUI.enabled}" format="double" value=".{speedLow}" />
 </t:gridcol>
-<t:gridcol id="g_33" align="center" searchenabled="false" sortenabled="false" text="bis Geschwindigkeit" width="120" >
-<t:formattedfield id="g_34" align="center" enabled="#{d.ZonesDetailUI.enabled}" format="double" value=".{speedHigh}" />
+<t:gridcol id="g_34" align="center" searchenabled="false" sortenabled="false" text="bis Geschwindigkeit" width="120" >
+<t:formattedfield id="g_35" align="center" enabled="#{d.ZonesDetailUI.enabled}" format="double" value=".{speedHigh}" />
 </t:gridcol>
-<t:gridcol id="g_35" align="center" searchenabled="false" sortenabled="false" text="von Zeit" width="80" >
-<t:field id="g_36" align="center" enabled="false" text=".{timeLow}" />
+<t:gridcol id="g_36" align="center" searchenabled="false" sortenabled="false" text="von Zeit" width="80" >
+<t:field id="g_37" align="center" enabled="false" text=".{timeLow}" />
 </t:gridcol>
-<t:gridcol id="g_37" align="center" searchenabled="false" sortenabled="false" text="bis Zeit" width="80" >
-<t:field id="g_38" align="center" enabled="false" text=".{timeHigh}" />
+<t:gridcol id="g_38" align="center" searchenabled="false" sortenabled="false" text="bis Zeit" width="80" >
+<t:field id="g_39" align="center" enabled="false" text=".{timeHigh}" />
 </t:gridcol>
 </t:fixgrid>
 </t:row>
-</t:rowbodypane>
+</t:pane>
+</t:row>
 <t:pageaddons id="g_pa"/>
 </f:subview>
 </h:form>

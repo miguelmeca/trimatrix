@@ -25,7 +25,6 @@ import trimatrix.entities.ResultEntity;
 import trimatrix.entities.TestEntity;
 import trimatrix.entities.UserEntity;
 import trimatrix.logic.LogicLayer;
-import trimatrix.logic.CompetitionLogic.Limit;
 import trimatrix.relations.IRelationData;
 import trimatrix.relations.PersonAttachmentRelation;
 import trimatrix.relations.PersonDoctorRelation;

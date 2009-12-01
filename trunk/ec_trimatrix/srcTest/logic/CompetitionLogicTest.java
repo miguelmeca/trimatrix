@@ -10,7 +10,7 @@ import org.springframework.context.ApplicationContext;
 
 import trimatrix.logic.CompetitionLogic;
 import trimatrix.logic.LogicLayer;
-import trimatrix.logic.CompetitionLogic.Limit;
+import trimatrix.logic.helper.Limit;
 import trimatrix.utils.ContextStatic;
 
 public class CompetitionLogicTest {
@@ -24,10 +24,10 @@ public class CompetitionLogicTest {
 		Limit[] limits = {competitionLogic.createLimit("W20", arrLimits), competitionLogic.createLimit("M30", arrLimits2)};
 		List<Limit> lstLimits = Arrays.asList(limits);
 		String strLimits = competitionLogic.buildString(lstLimits);
-		Assert.assertEquals("[{W20:1.2,3.4};{M30:2.123,4.0}]", strLimits);
-		Limit[] limits2 = competitionLogic.getLimits(strLimits);
-		Assert.assertEquals(limits.length, limits2.length);
-		Assert.assertEquals(limits[0].toString(), limits2[0].toString());
-		Assert.assertEquals(limits[1].toString(), limits2[1].toString());
+		Assert.assertEquals("[{\"category\":\"W20\",\"limits\":[1.2,3.4]},{\"category\":\"M30\",\"limits\":[2.123,4.0]}]", strLimits);
+		List<Limit> limits2 = competitionLogic.getLimits(strLimits);
+		Assert.assertEquals(limits.length, limits2.size());
+		Assert.assertEquals(limits[0].toString(), limits2.get(0).toString());
+		Assert.assertEquals(limits[1].toString(), limits2.get(1).toString());
 	}
 }
