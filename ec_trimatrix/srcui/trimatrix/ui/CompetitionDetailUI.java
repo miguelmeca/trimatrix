@@ -22,7 +22,7 @@ import trimatrix.db.Results;
 import trimatrix.entities.CompetitionEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
-import trimatrix.logic.CompetitionLogic.Limit;
+import trimatrix.logic.helper.Limit;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Constants.Entity;
 
@@ -217,7 +217,7 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		// scout part
 		m_gridLimits.getItems().clear();
 		if (entityCS != null) {
-			Limit[] limits = getLogic().getCompetitionLogic().getLimits(entityCS.getLimits());
+			List<Limit> limits = getLogic().getCompetitionLogic().getLimits(entityCS.getLimits());
 			for (Limit limit : limits) {
 				m_gridLimits.getItems().add(new GridLimitsItem(limit));
 			}

@@ -287,7 +287,10 @@ public class Helper {
 	    Method method = oClass.getMethod(methodName, classes);
 	    return method.invoke(obj, args);
 	  }
-
+	
+	public static boolean isEmpty(String string) {
+		return string==null||string.trim().length()==0;
+	}
 	
 	//public static final Log logger = LogFactory.getLog("trimatrix");
 	//CLog.L logger

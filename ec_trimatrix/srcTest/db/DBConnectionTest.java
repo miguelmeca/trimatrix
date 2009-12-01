@@ -77,7 +77,6 @@ public class DBConnectionTest {
 		newUser.setId(id);
 		newUser.setUserName("Meex");
 		newUser.setCreatedAt(now);
-		newUser.setModifiedAt(now);
 		usersDAO.merge(newUser);
 		
 		// 2.0.1. Test load functionality
@@ -92,7 +91,6 @@ public class DBConnectionTest {
 		newUser2.setUserName("Meex");
 		now = new java.sql.Timestamp((new java.util.Date()).getTime());
 		newUser2.setCreatedAt(now);
-		newUser2.setModifiedAt(now);
 		boolean DIVExceptionRaised = false;
 		try {
 			usersDAO.merge(newUser2);
@@ -105,10 +103,9 @@ public class DBConnectionTest {
 		Persons newPerson = new Persons();
 		id = UUID.randomUUID().toString();
 		newPerson.setId(id);
-		newPerson.setNameLast("Reich");
+		newPerson.setNameLast("XYZ");
 		newPerson.setCreatedAt(now);
-		newPerson.setModifiedAt(now);
-		personsDAO.merge(newPerson);
+		personsDAO.save(newPerson);
 
 		newUser.setUserHash("test");
 		newUser.setPerson(newPerson);
@@ -128,7 +125,7 @@ public class DBConnectionTest {
 			System.out.println(user.getId() + " : " + user.getUserName()
 					+ " : Anzahl Roles = " + roles.size());
 			if (user.getUserName().equals("Meex")) {
-				Assert.assertEquals("Reich", user.getPerson().getNameLast());
+				Assert.assertEquals("XYZ", user.getPerson().getNameLast());
 				usersDAO.delete(user);
 			}
 		}

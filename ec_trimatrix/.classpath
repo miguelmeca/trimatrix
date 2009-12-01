@@ -76,5 +76,7 @@
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/envers-1.2.1.ga-hibernate-3.3.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/ezmorph-1.0.6.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/json-lib-2.3-jdk15.jar"/>
+	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/json-0.19.jar"/>
+	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/asm-2.2.3.jar"/>
 	<classpathentry kind="output" path="webcontent/WEB-INF/classes"/>
 </classpath>
