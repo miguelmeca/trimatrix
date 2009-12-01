@@ -23,7 +23,6 @@ public class CompetitionsScouts  implements java.io.Serializable {
 
      private CompetitionsScoutsId id;
      private String limits;
-     private String times;
 
     // Constructors
 
@@ -37,10 +36,9 @@ public class CompetitionsScouts  implements java.io.Serializable {
     }
     
     /** full constructor */
-    public CompetitionsScouts(CompetitionsScoutsId id, String limits, String times) {
+    public CompetitionsScouts(CompetitionsScoutsId id, String limits) {
         this.id = id;
         this.limits = limits;
-        this.times = times;
     }
 
    
@@ -67,15 +65,5 @@ public class CompetitionsScouts  implements java.io.Serializable {
     
     public void setLimits(String limits) {
         this.limits = limits;
-    }
-
-    @Column(name="times", columnDefinition="text")
-    
-	public String getTimes() {
-		return times;
-	}
-
-	public void setTimes(String times) {
-		this.times = times;
-	}    
+    }   
 }

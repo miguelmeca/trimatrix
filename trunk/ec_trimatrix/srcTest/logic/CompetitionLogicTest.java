@@ -21,10 +21,14 @@ public class CompetitionLogicTest {
 	public void testLimits() {
 		Double[] arrLimits = {1.2, 3.4};
 		Double[] arrLimits2 = {2.123, 4d};
-		Limit[] limits = {competitionLogic.createLimit("W20", arrLimits), competitionLogic.createLimit("M30", arrLimits2)};
+		String[] arrSwim = {"Markus", "00:35"};
+		String[] arrRun = {"Dany", "01:01"};
+		String[] arrSwim2 = {"Reich", "00:35:17"};
+		String[] arrRun2 = {"Bucher", "01:01:00"};
+		Limit[] limits = {competitionLogic.createLimit("W20", arrLimits, arrSwim, arrRun), competitionLogic.createLimit("M30", arrLimits2, arrSwim2, arrRun2)};
 		List<Limit> lstLimits = Arrays.asList(limits);
 		String strLimits = competitionLogic.buildString(lstLimits);
-		Assert.assertEquals("[{\"category\":\"W20\",\"limits\":[1.2,3.4]},{\"category\":\"M30\",\"limits\":[2.123,4.0]}]", strLimits);
+		Assert.assertEquals("[{\"category\":\"W20\",\"limits\":[1.2,3.4],\"run\":[\"Dany\",\"01:01\"],\"swim\":[\"Markus\",\"00:35\"]},{\"category\":\"M30\",\"limits\":[2.123,4.0],\"run\":[\"Bucher\",\"01:01:00\"],\"swim\":[\"Reich\",\"00:35:17\"]}]", strLimits);
 		List<Limit> limits2 = competitionLogic.getLimits(strLimits);
 		Assert.assertEquals(limits.length, limits2.size());
 		Assert.assertEquals(limits[0].toString(), limits2.get(0).toString());

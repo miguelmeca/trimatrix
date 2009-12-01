@@ -8,6 +8,7 @@ import javax.faces.event.ActionEvent;
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.ISetId;
 import org.eclnt.jsfserver.defaultscreens.IdTextSelection;
+import org.eclnt.jsfserver.util.IPropertyChangeAware;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.db.Categories;
@@ -19,7 +20,7 @@ import trimatrix.db.ResultsTria;
 import trimatrix.entities.ResultEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
-import trimatrix.ui.CompetitionDetailUI.GridLimitsItem;
+import trimatrix.logic.helper.Limit;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.Entity;
@@ -31,6 +32,12 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 	
 	private Double green_high;
 	private Double red_low;
+	
+	private String bestSwim;
+	public String getBestSwim() { return bestSwim; }
+	
+	private String bestRun;
+	public String getBestRun() { return bestRun; }
 	
     public String getColorRun() { return getColor(getPercentDeficitRun()); }
     public String getColorSwim() { return getColor(getPercentDeficitSwim()); }
@@ -62,9 +69,7 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 
     public void init(Object entityObject) {
     	// set entity object
-    	entity = (Results)entityObject;    
-    	// set limits 
-    	setLimits();
+    	entity = (Results)entityObject;        	
     	// set enabled state and set fields
     	init();
     }
@@ -103,10 +108,6 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 			tria.setRunSplit((String)values.get(ResultEntity.RUN_SPLIT));
 			tria.setSwimPosition((String)values.get(ResultEntity.SWIM_POSITION));
 			tria.setRunPosition((String)values.get(ResultEntity.RUN_POSITION));
-			tria.setBestSwimSplit((String)values.get(ResultEntity.BEST_SWIM_SPLIT));
-			tria.setBestRunSplit((String)values.get(ResultEntity.BEST_RUN_SPLIT));
-			tria.setSwimDeficit((String)values.get(ResultEntity.SWIM_DEFICIT));
-			tria.setRunDeficit((String)values.get(ResultEntity.RUN_DEFICIT));
 			tria.setSwimsuit((Boolean)values.get(ResultEntity.SWIMSUIT));
 		}
 	}
@@ -127,14 +128,11 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 			values.put(ResultEntity.SWIM_SPLIT, tria.getSwimSplit());
 			values.put(ResultEntity.RUN_SPLIT, tria.getRunSplit());
 			values.put(ResultEntity.SWIM_POSITION, tria.getSwimPosition());
-			values.put(ResultEntity.RUN_POSITION, tria.getRunPosition());
-			values.put(ResultEntity.BEST_SWIM_SPLIT, tria.getBestSwimSplit());
-			values.put(ResultEntity.BEST_RUN_SPLIT, tria.getBestRunSplit());
-			values.put(ResultEntity.SWIM_DEFICIT, tria.getSwimDeficit());
-			values.put(ResultEntity.RUN_DEFICIT, tria.getRunDeficit());			
+			values.put(ResultEntity.RUN_POSITION, tria.getRunPosition());	
 			values.put(ResultEntity.SWIMSUIT, tria.getSwimsuit());
-		}
-		
+		}		
+		// limits 
+    	setLimits();		
 		
 		// add bgpaint of fields
 		bgpaint.clear();
@@ -274,36 +272,14 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 	
 	public void onScoutClicked(ActionEvent event) {
 		loadEntityDetailPage(Entity.PERSON, entity.getScout().getId(), entity.getScout().toString());
-	}
-	
-	public void onSplitsChange(ActionEvent event) {
-		String clientname = (String)event.getComponent().getAttributes().get(Constants.CLIENTNAME);
-		String splitTime = null;
-		String field = null;
-		if(ResultEntity.SWIM_DEFICIT.equalsIgnoreCase(clientname)) {
-			field = ResultEntity.BEST_SWIM_SPLIT;
-			splitTime = Helper.calculateDuration((String)values.get(ResultEntity.SWIM_SPLIT), (String)values.get(ResultEntity.SWIM_DEFICIT), true, true);
-		} else if(ResultEntity.RUN_DEFICIT.equalsIgnoreCase(clientname)) {
-			field = ResultEntity.BEST_RUN_SPLIT;
-			splitTime = Helper.calculateDuration((String)values.get(ResultEntity.RUN_SPLIT), (String)values.get(ResultEntity.RUN_DEFICIT), true, true);
-		} else  if(ResultEntity.BEST_SWIM_SPLIT.equalsIgnoreCase(clientname)) {
-			field = ResultEntity.SWIM_DEFICIT;
-			splitTime = Helper.calculateDuration((String)values.get(ResultEntity.SWIM_SPLIT), (String)values.get(ResultEntity.BEST_SWIM_SPLIT), true, false);
-		} else  if(ResultEntity.BEST_RUN_SPLIT.equalsIgnoreCase(clientname)) {
-			field = ResultEntity.RUN_DEFICIT;
-			splitTime = Helper.calculateDuration((String)values.get(ResultEntity.RUN_SPLIT), (String)values.get(ResultEntity.BEST_RUN_SPLIT), true, false);
-		} else {
-			return;
-		}
-		values.put(field, splitTime);
-	}
+	}	
 
 	public Double getPercentDeficitSwim() {
-		return Helper.getPercentageByTime((String)values.get(ResultEntity.BEST_SWIM_SPLIT), (String)values.get(ResultEntity.SWIM_DEFICIT));
+		return Helper.getPercentageByTime(getBestSwim(), getSwimDeficit());
 	}
 	
 	public Double getPercentDeficitRun() {
-		return Helper.getPercentageByTime((String)values.get(ResultEntity.BEST_RUN_SPLIT), (String)values.get(ResultEntity.RUN_DEFICIT));
+		return Helper.getPercentageByTime(getBestRun(), getRunDeficit());
 	}
 	
 	public void onCategoryF4(ActionEvent event) {
@@ -314,6 +290,8 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 		idts.setCallBack(new ISetId() {
 			public void setId(String id) {
 				values.put(ResultEntity.CATEGORY_TRIA, id);
+				// refresh limits
+				setLimits();
 			}
 		});
 		idts.setWithHeader(false);
@@ -362,14 +340,24 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 		if(entity.getCompetitionId()==null || entity.getScoutId()==null) return;
 		CompetitionsScouts entityCS = ENTITYLISTLOGIC.getCompetitionScouts(entity.getCompetitionId(), entity.getScoutId());
 		if(entityCS==null) return;
-		Map<String, Double[]> limitsMap = getLogic().getCompetitionLogic().getLimitsMap(entityCS.getLimits());
+		Map<String, Limit> limitsMap = getLogic().getCompetitionLogic().getLimitsMap(entityCS.getLimits());
 		// tria
 		if(entity.getResultsTria()!=null) {
-			Double[] limits = limitsMap.get(entity.getResultsTria().getCategory());
-			if(limits!=null && limits.length==2) {
-				green_high = limits[0];
-				red_low = limits[1];
+			Limit limits = limitsMap.get((String)values.get(ResultEntity.CATEGORY_TRIA));
+			if(limits!=null) {
+				green_high = limits.getLimits()[0];
+				red_low = limits.getLimits()[1];
+				bestSwim = limits.getSwim()[1];
+				bestRun = limits.getRun()[1];				
 			}		
 		}		
 	}	
+	
+	public String getSwimDeficit() {
+		return Helper.calculateDuration((String)values.get(ResultEntity.SWIM_SPLIT), bestSwim, true, false);
+	}
+	
+	public String getRunDeficit() {
+		return Helper.calculateDuration((String)values.get(ResultEntity.RUN_SPLIT), bestRun, true, false);
+	}
 }

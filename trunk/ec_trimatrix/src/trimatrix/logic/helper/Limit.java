@@ -10,21 +10,33 @@ public class Limit {
 	@Value
 	String category;
 	@Value
-	Double[] limits = new Double[2];	// initialize!!
-	
+	Double[] limits = new Double[2]; // LOW - HIGH
+	@Value
+	String[] swim = new String[2]; // Name - Time
+	@Value
+	String[] run = new String[2]; //Name - Time
+
 	public Limit() { }
 	
-	public Limit(String category, Double[] limits) {
+	public Limit(String category, Double[] limits, String[] swim, String[] run) {
 		this.category = category;
 		if(limits!=null) this.limits = limits;
+		if(swim!=null) this.swim = swim;
+		if(run!=null) this.run = run;
 	}
 	
 	public String getCategory() {return category;}
 	public void setCategory(String category) {this.category = category;}
 
 	public Double[] getLimits() {return limits;}
-	public void setLimits(Double[] limits) {this.limits = limits;}
+	public void setLimits(Double[] limits) {this.limits = limits;}	
 	
+	public String[] getSwim() {return swim;}
+	public void setSwim(String[] swim) {this.swim = swim;}
+
+	public String[] getRun() {return run;}
+	public void setRun(String[] run) {this.run = run;}
+
 	@Override
 	public String toString() {return category + " : " + Arrays.toString(limits);}
 }

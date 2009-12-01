@@ -48,12 +48,12 @@ public class CompetitionLogic {
 		return limitMarshaller.unmarshallList(array);
 	}
 	
-	public Map<String, Double[]> getLimitsMap(String limits) {
+	public Map<String, Limit> getLimitsMap(String limits) {
 		if(Helper.isEmpty(limits)) return Collections.EMPTY_MAP;
-		Map<String, Double[]> result = new HashMap<String, Double[]>();
+		Map<String, Limit> result = new HashMap<String, Limit>();
 		List<Limit> lstLimits = getLimits(limits);
 		for(Limit limit:lstLimits) {
-			result.put(limit.getCategory(), limit.getLimits());
+			result.put(limit.getCategory(), limit);
 		}
 		return result;
 	}
@@ -62,8 +62,8 @@ public class CompetitionLogic {
 		return new Limit();
 	}
 	
-	public Limit createLimit(String category, Double[] limits) {
-		return new Limit(category, limits);
+	public Limit createLimit(String category, Double[] limits, String[] swim, String[] run) {
+		return new Limit(category, limits, swim, run);
 	}
 
 	public void setServiceLayer(ServiceLayer serviceLayer) {

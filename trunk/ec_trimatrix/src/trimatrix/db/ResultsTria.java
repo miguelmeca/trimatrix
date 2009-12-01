@@ -20,10 +20,6 @@ public class ResultsTria implements java.io.Serializable {
 	private String runSplit;
 	private String swimPosition;
 	private String runPosition;
-	private String bestSwimSplit;
-	private String bestRunSplit;
-	private String swimDeficit;
-	private String runDeficit;
 	private Boolean swimsuit;
 
 	// Constructors
@@ -40,18 +36,13 @@ public class ResultsTria implements java.io.Serializable {
 	/** full constructor */
 	public ResultsTria(String id, String category, String swimSplit,
 			String runSplit, String swimPosition, String runPosition,
-			String bestSwimSplit, String bestRunSplit, String swimDeficit,
-			String runDeficit, Boolean swimsuit) {
+			Boolean swimsuit) {
 		this.id = id;
 		this.category = category;
 		this.swimSplit = swimSplit;
 		this.runSplit = runSplit;
 		this.swimPosition = swimPosition;
 		this.runPosition = runPosition;
-		this.bestSwimSplit = bestSwimSplit;
-		this.bestRunSplit = bestRunSplit;
-		this.swimDeficit = swimDeficit;
-		this.runDeficit = runDeficit;
 		this.swimsuit = swimsuit;
 	}
 
@@ -109,43 +100,7 @@ public class ResultsTria implements java.io.Serializable {
 
 	public void setRunPosition(String runPosition) {
 		this.runPosition = runPosition;
-	}
-
-	@Column(name = "best_swim_split", length = 8)
-	public String getBestSwimSplit() {
-		return this.bestSwimSplit;
-	}
-
-	public void setBestSwimSplit(String bestSwimSplit) {
-		this.bestSwimSplit = bestSwimSplit;
-	}
-
-	@Column(name = "best_run_split", length = 8)
-	public String getBestRunSplit() {
-		return this.bestRunSplit;
-	}
-
-	public void setBestRunSplit(String bestRunSplit) {
-		this.bestRunSplit = bestRunSplit;
-	}
-
-	@Column(name = "swim_deficit", length = 8)
-	public String getSwimDeficit() {
-		return this.swimDeficit;
-	}
-
-	public void setSwimDeficit(String swimDeficit) {
-		this.swimDeficit = swimDeficit;
-	}
-
-	@Column(name = "run_deficit", length = 8)
-	public String getRunDeficit() {
-		return this.runDeficit;
-	}
-
-	public void setRunDeficit(String runDeficit) {
-		this.runDeficit = runDeficit;
-	}
+	}	
 
 	@Column(name = "swimsuit")
 	public Boolean getSwimsuit() {

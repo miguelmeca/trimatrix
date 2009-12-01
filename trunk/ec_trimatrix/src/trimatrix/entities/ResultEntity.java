@@ -179,11 +179,9 @@ public final class ResultEntity extends AEntity {
 		public boolean swimsuit;
 		public String swim_split;
 		public String swim_pos;
-		public String swim_def;
 		public String best_swim_split;
 		public String run_split;
 		public String run_pos;
-		public String run_def;		
 		public String best_run_split;
 		public String swim_color;
 		public String run_color;
@@ -244,7 +242,7 @@ public final class ResultEntity extends AEntity {
 		}
 
 		public String getSwim_def() {
-			return swim_def;
+			return Helper.calculateDuration(swim_split, best_swim_split, true, false);
 		}
 
 		public String getBest_swim_split() {
@@ -260,7 +258,7 @@ public final class ResultEntity extends AEntity {
 		}
 
 		public String getRun_def() {
-			return run_def;
+			return Helper.calculateDuration(run_split, best_run_split, true, false);
 		}
 
 		public String getBest_run_split() {
@@ -268,11 +266,11 @@ public final class ResultEntity extends AEntity {
 		}		
 		
 		public Double getSwim_def_per() {
-			return Helper.getPercentageByTime(best_swim_split, swim_def);
+			return Helper.getPercentageByTime(best_swim_split, getSwim_def());
 		}
 		
 		public Double getRun_def_per() {
-			return Helper.getPercentageByTime(best_run_split, run_def);
+			return Helper.getPercentageByTime(best_run_split, getRun_def());
 		}
 		
 		public String getSwim_color() {
