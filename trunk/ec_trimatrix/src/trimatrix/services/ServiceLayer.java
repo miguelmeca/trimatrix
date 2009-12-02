@@ -10,6 +10,7 @@ public class ServiceLayer {
 	private ResolverService resolverService;
 	private SQLExecutorService sqlExecutorService;
 	private AuthorizationService authorizationService;
+	private MailService mailService;
 
 	public ValueListBindingService getValueListBindingService() {
 		return valueListBindingService;
@@ -50,6 +51,14 @@ public class ServiceLayer {
 
 	public void setAuthorizationService(AuthorizationService authorizationService) {
 		this.authorizationService = authorizationService;
+	}
+
+	public MailService getMailService() {
+		return mailService;
+	}
+
+	public void setMailService(MailService mailService) {
+		this.mailService = mailService;
 	}
 
 	public static ServiceLayer getFromApplicationContext(ApplicationContext ctx) {

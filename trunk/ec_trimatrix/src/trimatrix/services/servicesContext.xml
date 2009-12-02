@@ -1,116 +1,161 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+	<util:properties id="mailConfiguration" location="classpath:mail.properties" />
+
+	<bean id="mailProperties"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="properties" ref="mailConfiguration" />
+	</bean>
+
+	<!-- Mail service -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${smtp_host_name}" />
+		<property name="username" value="${smtp_auth_user}" />
+		<property name="password" value="${smtp_auth_pass}" />
+		<property name="javaMailProperties">
+			<props>
+				<!-- Use SMTP-AUTH to authenticate to SMTP server -->
+				<prop key="mail.smtp.auth">true</prop>
+				<!-- Use TLS to encrypt communication with SMTP server -->
+				<prop key="mail.smtp.starttls.enable">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- Mail message -->
+	<bean id="mailMessage" class="org.springframework.mail.SimpleMailMessage">
+		<property name="from">
+			<value><![CDATA[Trimatrix <noreply@somehost.com>]]></value>
+		</property>
+	</bean>
+
+	<bean id="mailService" class="trimatrix.services.MailService"
+		abstract="false" lazy-init="default" autowire="default"
+		dependency-check="default">
+		<property name="mailSender">
+			<ref bean="mailSender" />
+		</property>
+		<property name="mailMessage">
+			<ref bean="mailMessage" />
+		</property>
+	</bean>
 
 	<bean id="encryptionService" class="trimatrix.services.EncryptionService"
 		abstract="false" lazy-init="default" autowire="default"
 		dependency-check="default">
 	</bean>
-	
+
 	<bean id="translationService" class="trimatrix.services.TranslationService"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">
-        <property name="languagesDAO">
-            <ref bean="TLanguagesDAO" />
-        </property>
-    </bean>
-    
-    <bean id="sqlExecutorService" class="trimatrix.services.SQLExecutorService"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">
-        <property name="transactionManager">
-            <ref bean="transactionManager" />
-        </property>
-        <property name="dictionaryService">
-            <ref bean="dictionaryService" />            
-        </property>  
-        <property name="daoLayer">
-            <ref bean="daoLayer" />            
-        </property> 
-        <property name="logicLayer">
-            <ref bean="logicLayer" />            
-        </property>         
-    </bean>
-    
-    <bean id="authorizationService" class="trimatrix.services.AuthorizationService"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">
-        <property name="dictionaryService">
-            <ref bean="dictionaryService" />            
-        </property>  
-        <property name="daoLayer">
-            <ref bean="daoLayer" />            
-        </property>         
-    </bean>
-    
-    <bean id="resolverService" class="trimatrix.services.ResolverService"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">
-        <property name="userEntity">
-            <ref bean="userEntity" />
-        </property>
-        <property name="personEntity">
-            <ref bean="personEntity" />
-        </property>
-        <property name="doctorEntity">
-            <ref bean="doctorEntity" />
-        </property>
-        <property name="attachmentEntity">
-            <ref bean="attachmentEntity" />
-        </property>
-        <property name="testEntity">
-            <ref bean="testEntity" />
-        </property>
-        <property name="competitionEntity">
-            <ref bean="competitionEntity" />
-        </property>
-        <property name="resultEntity">
-            <ref bean="resultEntity" />
-        </property>
-        <property name="personPersonRelation">
-            <ref bean="personPersonRelation" />
-        </property>
-        <property name="personDoctorRelation">
-            <ref bean="personDoctorRelation" />
-        </property>
-        <property name="personAttachmentRelation">
-            <ref bean="personAttachmentRelation" />
-        </property>
-        <property name="personCompetitionRelation">
-            <ref bean="personCompetitionRelation" />
-        </property>
-    </bean>
-    
-    <bean id="valueListBindigService" class="trimatrix.services.ValueListBindingService"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">
-        <property name="sqlExecutorService">
-            <ref bean="sqlExecutorService" />
-        </property>
-        <property name="dictionaryService">
-            <ref bean="dictionaryService" />            
-        </property>  
-    </bean>
-    
-    <bean id="serviceLayer" class="trimatrix.services.ServiceLayer"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">
-        <property name="valueListBindingService">
-            <ref bean="valueListBindigService" />
-        </property>   
-        <property name="dictionaryService">
-            <ref bean="dictionaryService" />
-        </property>   
-        <property name="sqlExecutorService">
-            <ref bean="sqlExecutorService" />
-        </property> 
-        <property name="resolverService">
-            <ref bean="resolverService" />
-        </property> 
-        <property name="authorizationService">
-            <ref bean="authorizationService" />
-        </property> 
-    </bean>
-    
+		abstract="false" lazy-init="default" autowire="default"
+		dependency-check="default">
+		<property name="languagesDAO">
+			<ref bean="TLanguagesDAO" />
+		</property>
+	</bean>
+
+	<bean id="sqlExecutorService" class="trimatrix.services.SQLExecutorService"
+		abstract="false" lazy-init="default" autowire="default"
+		dependency-check="default">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="dictionaryService">
+			<ref bean="dictionaryService" />
+		</property>
+		<property name="daoLayer">
+			<ref bean="daoLayer" />
+		</property>
+		<property name="logicLayer">
+			<ref bean="logicLayer" />
+		</property>
+	</bean>
+
+	<bean id="authorizationService" class="trimatrix.services.AuthorizationService"
+		abstract="false" lazy-init="default" autowire="default"
+		dependency-check="default">
+		<property name="dictionaryService">
+			<ref bean="dictionaryService" />
+		</property>
+		<property name="daoLayer">
+			<ref bean="daoLayer" />
+		</property>
+	</bean>
+
+	<bean id="resolverService" class="trimatrix.services.ResolverService"
+		abstract="false" lazy-init="default" autowire="default"
+		dependency-check="default">
+		<property name="userEntity">
+			<ref bean="userEntity" />
+		</property>
+		<property name="personEntity">
+			<ref bean="personEntity" />
+		</property>
+		<property name="doctorEntity">
+			<ref bean="doctorEntity" />
+		</property>
+		<property name="attachmentEntity">
+			<ref bean="attachmentEntity" />
+		</property>
+		<property name="testEntity">
+			<ref bean="testEntity" />
+		</property>
+		<property name="competitionEntity">
+			<ref bean="competitionEntity" />
+		</property>
+		<property name="resultEntity">
+			<ref bean="resultEntity" />
+		</property>
+		<property name="personPersonRelation">
+			<ref bean="personPersonRelation" />
+		</property>
+		<property name="personDoctorRelation">
+			<ref bean="personDoctorRelation" />
+		</property>
+		<property name="personAttachmentRelation">
+			<ref bean="personAttachmentRelation" />
+		</property>
+		<property name="personCompetitionRelation">
+			<ref bean="personCompetitionRelation" />
+		</property>
+	</bean>
+
+	<bean id="valueListBindigService" class="trimatrix.services.ValueListBindingService"
+		abstract="false" lazy-init="default" autowire="default"
+		dependency-check="default">
+		<property name="sqlExecutorService">
+			<ref bean="sqlExecutorService" />
+		</property>
+		<property name="dictionaryService">
+			<ref bean="dictionaryService" />
+		</property>
+	</bean>
+
+	<bean id="serviceLayer" class="trimatrix.services.ServiceLayer"
+		abstract="false" lazy-init="default" autowire="default"
+		dependency-check="default">
+		<property name="valueListBindingService">
+			<ref bean="valueListBindigService" />
+		</property>
+		<property name="dictionaryService">
+			<ref bean="dictionaryService" />
+		</property>
+		<property name="sqlExecutorService">
+			<ref bean="sqlExecutorService" />
+		</property>
+		<property name="resolverService">
+			<ref bean="resolverService" />
+		</property>
+		<property name="authorizationService">
+			<ref bean="authorizationService" />
+		</property>
+		<property name="mailService">
+			<ref bean="mailService" />
+		</property>
+	</bean>
+
 </beans>
