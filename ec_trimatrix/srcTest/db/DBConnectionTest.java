@@ -323,7 +323,7 @@ public class DBConnectionTest {
 		Assert.assertNotNull(test2.getTestsProtocol());
 		Assert.assertEquals("02:22", test2.getTestsProtocol().getPerformanceMax());
 		Assert.assertEquals(1, test2.getTestsSwim().getSteps().size());
-		Assert.assertEquals(100, test2.getTestsSwim().getSteps().iterator().next().getIntensity());
+		Assert.assertEquals(new Integer(100), test2.getTestsSwim().getSteps().iterator().next().getIntensity());
 		daoLayer.getTestsDAO().delete(test2);	
 	}
 	
@@ -341,9 +341,8 @@ public class DBConnectionTest {
 		daoLayer.getZonesDefinitionDAO().save(definition);
 		ZonesDefinition definition2 = daoLayer.getZonesDefinitionDAO().findById(id);
 		Assert.assertEquals("123456ABCDEFG", definition2.getCoachId());
-		Assert.assertEquals(1, definition2.getSequence());
-		Assert.assertEquals(10d, definition2.getLactateLow());
-		Assert.assertEquals(12.1d, definition2.getLactateHigh());
+		Assert.assertEquals(new Integer(1), definition2.getSequence());
+		Assert.assertEquals(new Double(10), definition2.getLactateHigh());
 		Assert.assertEquals("Test", definition2.getDescription());		
 		// Zones
 		String id2 = UUID.randomUUID().toString();
