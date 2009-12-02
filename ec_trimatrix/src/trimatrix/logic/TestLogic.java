@@ -116,21 +116,21 @@ public class TestLogic {
 			// 2. Multi values
 			singleValue = false;
 			lactates = new LactateList();
-			Pattern pattern = Pattern.compile("(\\d*[,.]?\\d*@\\d*)");
+			Pattern pattern = Pattern.compile("(\\d*[,.]?\\d*@\\d*[,.]?\\d*)");
 			Matcher matcher = pattern.matcher(samples);
 			while (matcher.find()) {
 				String[] parts = matcher.group().split("@");
 				Double lactate = 0d;
-				Integer minutes = 0;
+				Double minutes = 0d;
 				try {
 					lactate = Double.valueOf(parts[0].replaceAll(",", "."));
 				} catch (NumberFormatException nfe) {
 					logger.warn("Lactate " + lactate + " is not of type double!");
 				}
 				try {
-					minutes = Integer.valueOf(parts[1]);
+					minutes = Double.valueOf(parts[1].replaceAll(",", "."));
 				} catch (NumberFormatException nfe) {
-					logger.warn("Minutes " + minutes + " is not of type integer!");
+					logger.warn("Minutes " + minutes + " is not of type double!");
 				}
 				lactates.add(new Lactate(minutes, lactate));
 			}
@@ -169,19 +169,19 @@ public class TestLogic {
 		}
 
 		public class Lactate {
-			Integer minutes = 0;
+			Double minutes = 0d;
 			Double lactate = 0d;
 
-			public Lactate(Integer minutes, Double lactate) {
+			public Lactate(Double minutes, Double lactate) {
 				this.minutes = minutes;
 				this.lactate = lactate;
 			}
 
-			public Integer getMinutes() {
+			public Double getMinutes() {
 				return minutes;
 			}
 
-			public void setMinutes(Integer minutes) {
+			public void setMinutes(Double minutes) {
 				this.minutes = minutes;
 			}
 
@@ -195,7 +195,7 @@ public class TestLogic {
 
 			@Override
 			public String toString() {
-				return Helper.getNumberFormat().format(lactate) + "@" + minutes;
+				return Helper.getNumberFormat().format(lactate) + "@" + Helper.getNumberFormat().format(minutes);
 			}		
 		}
 		

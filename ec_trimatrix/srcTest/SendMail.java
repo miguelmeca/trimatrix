@@ -1,4 +1,5 @@
 import java.io.ByteArrayOutputStream;
+import java.util.Date;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -15,7 +16,13 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.mail.MailMessage;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
+
 import trimatrix.utils.Constants;
+import trimatrix.utils.ContextStatic;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.Paragraph;
@@ -38,6 +45,16 @@ public class SendMail {
 	private static final String[] emailList = { "reich.markus@gmail.com" };
 
 	public static void main(String args[]) throws Exception {
+//		ApplicationContext context = ContextStatic.getInstance();
+//		MailSender mailSender = (MailSender)context.getBean("mailSender");
+//		SimpleMailMessage mailMessage = (SimpleMailMessage)context.getBean("mailMessage");
+//		SimpleMailMessage message = new SimpleMailMessage(mailMessage);
+//		message.setSentDate(new Date());
+//		message.setText("Blah blah blah...");
+//		message.setSubject("Test");
+//		message.setTo("reich.markus@gmail.com");
+//		mailSender.send(message);
+		
 		SendMail smtpMailSender = new SendMail();
 		smtpMailSender.postMail(emailList, emailSubjectTxt, emailMsgTxt,
 				emailFromAddress);

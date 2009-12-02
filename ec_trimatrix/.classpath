@@ -78,5 +78,6 @@
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/json-lib-2.3-jdk15.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/asm-2.2.3.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/json-0.19.jar"/>
+	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/spring-context-support.jar"/>
 	<classpathentry kind="output" path="webcontent/WEB-INF/classes"/>
 </classpath>

@@ -10,6 +10,7 @@ import net.sf.json.JsonConfig;
 
 import org.junit.Test;
 
+import trimatrix.logic.helper.DoubleType;
 import trimatrix.logic.helper.Limit;
 import trimatrix.logic.helper.Split;
 
@@ -56,7 +57,7 @@ public class JSONArrayToListTest {
 			Split split = (Split)obj;
 			System.out.println((Integer)split.getStrokes() + " - " + split.getTime());
 		}
-		
+
 		// Limits		
 		Marshaller<Limit> limitMarshaller = TwoLattes.createMarshaller(Limit.class);
 		List<Limit> limits = new ArrayList<Limit>(2);
@@ -67,6 +68,17 @@ public class JSONArrayToListTest {
 		System.out.println(strLimits);
 		Json.Array array2 = (Json.Array)Json.fromString(strLimits);
 		List<Limit> limits2 = limitMarshaller.unmarshallList(array2);
-		Assert.assertEquals(limits.size(), limits2.size());				
+		Assert.assertEquals(limits.size(), limits2.size());
+		
+//		Marshaller<Double> doubleMarshaller = TwoLattes.withType(DoubleType.class).createMarshaller(double.class);
+//		List<Double> doubles = new ArrayList<Double>(2);
+//		doubles.add(2.1d);
+//		doubles.add(1d);
+//		Json.Array jsonArrDouble = doubleMarshaller.marshallList(doubles);
+//		String strDoubles = jsonArrDouble.toString();
+//		System.out.println(strDoubles);
+//		Json.Array jsonArrDouble2 = (Json.Array)Json.fromString(strDoubles);
+//		List<Double> doubles2 = doubleMarshaller.unmarshallList(jsonArrDouble2);
+//		Assert.assertEquals(doubles.size(), doubles2.size());
 	}	
 }
