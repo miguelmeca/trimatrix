@@ -53,7 +53,7 @@ import trimatrix.utils.Constants.Entity;
 
 public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements IModalPopupListener {	
 	public static final Log logger = LogFactory.getLog(MyWorkpageDispatchedBean.class);
-	
+		
 	public MyWorkpageDispatchedBean(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
 		labelingEnabled = false;	
@@ -65,10 +65,20 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 		// get expression base by annotation
 	    CCGenClass ccgenClass = getClass().getAnnotation(CCGenClass.class);	    
     	if(ccgenClass!=null) expressionBase = ccgenClass.expressionBase().replace('}', '.');
+    	// get entity ID
+    	if(labelingEnabled) {
+    		// logic from EntityDetailUI constructor
+    		entityId = getWorkpage().getId().replace(Constants.FINAL, Constants.EMPTY);    		
+    		// logic from EntityDetailUI constructor part 2
+    		String[] arrId = entityId.split("#");
+    		if(arrId!=null && arrId.length==2) entityId = arrId[1]; 
+    	}
     	// initialize Label row
     	if(labelingEnabled) setLabelRowDynamic();
 	}
 	
+	private String entityId;
+		
 	@Override
 	public Dispatcher getOwningDispatcher() {
 		return (Dispatcher) super.getOwningDispatcher();
@@ -127,20 +137,16 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
     
     public void onLabelDelete(ActionEvent event) {
 		// return if labeling functionality is not set
-		if(!labelingEnabled) return;
-		// return if entity id is not set
-		String entityID = getWorkpage().getId().replace(Constants.FINAL, Constants.EMPTY);
-		if(entityID==null||entityID.length()==0) return;
+		if(!labelingEnabled || Helper.isEmpty(entityId)) return;		
     	BUTTONComponent button =(BUTTONComponent)event.getSource();
     	String label_id = button.getAttributeValueAsString(Constants.CLIENTNAME);
-    	getLogic().getLabelLogic().deleteLabelRelation(entityID, label_id);
+    	getLogic().getLabelLogic().deleteLabelRelation(entityId, label_id);
     	setLabelRowDynamic();        	
     }
     
     public void onLabelClick(ActionEvent event) {
-    	// return if entity id is not set
-		String entityID = getWorkpage().getId().replace(Constants.FINAL, Constants.EMPTY);
-		if(entityID==null||entityID.length()==0) return;
+    	// return if labeling functionality is not set
+		if(!labelingEnabled || Helper.isEmpty(entityId)) return;
     	BUTTONComponent button =(BUTTONComponent)event.getSource();
     	String label_id = button.getAttributeValueAsString(Constants.CLIENTNAME);
     	String label_description = button.getAttributeValueAsString(Constants.TEXT);
@@ -160,13 +166,10 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 	
 	protected void setLabelRowDynamic() { 
 		// return if labeling functionality is not set
-		if(!labelingEnabled) return;
-		// return if entity id is not set
-		String entityID = getWorkpage().getId().replace(Constants.FINAL, Constants.EMPTY);
-		if(entityID==null||entityID.length()==0) return;
+		if(!labelingEnabled || Helper.isEmpty(entityId)) return;
 		// build dynamic row with labels
 		StringBuffer xml = new StringBuffer();
-		List<Labels> labels = getLogic().getLabelLogic().getLabelsByEntity(entityID);
+		List<Labels> labels = getLogic().getLabelLogic().getLabelsByEntity(entityId);
 		for(Labels label:labels) {
 			// get inverted color for font
 			Color background = Color.decode(label.getColor());
@@ -183,13 +186,11 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 	 
 	public void onLabelSearch(ActionEvent event) {
 		// return if labeling functionality is not set
-		if(!labelingEnabled) return;
-		// return if entity id is not set
-		String entityID = getWorkpage().getId().replace(Constants.FINAL, Constants.EMPTY);
-		if(entityID==null||entityID.length()==0) return;
+		if(!labelingEnabled || Helper.isEmpty(entityId)) return;
+		
 	   	final ModelessPopup popup = getOwningDispatcher().createModelessPopup();  
 	   	LabelPopUpUI labelPopUpUI = getLabelPopUpUI();
-	   	labelPopUpUI.setEntityID(entityID);
+	   	labelPopUpUI.setEntityID(entityId);
 	   	labelPopUpUI.initialize();
 	   	labelPopUpUI.prepareCallback(new LabelPopUpUI.IApplyingCallback(){
 			public void apply() {

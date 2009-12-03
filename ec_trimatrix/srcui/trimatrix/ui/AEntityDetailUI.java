@@ -60,7 +60,7 @@ public abstract class AEntityDetailUI extends MyWorkpageDispatchedBean implement
 	protected void setState() {
 		mode = entityDetailUI.getMode();
         // enabled?
-        if (mode == Constants.Mode.SHOW) {
+        if (mode == Constants.Mode.SHOW || mode == Constants.Mode.FINAL) {
         	m_enabled = false;
         } else {
         	m_enabled = true;

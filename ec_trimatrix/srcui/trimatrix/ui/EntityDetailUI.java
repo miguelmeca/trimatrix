@@ -148,6 +148,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 		default:
 			// catch NullPointerException if entity doesn't exist
         	try {   
+        		// the whole logic also has to be implemented in MyWorkpageDispagedBean Label handling!!
         		id = getWorkpage().getId();  
         		// if id is not set, get id of own entity
             	if (id == null || id.length()==0) { throw new NullPointerException(); }
@@ -155,11 +156,9 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
             	id = id.replace(Constants.FINAL, Constants.EMPTY);
         		// special handling for competitions
     			// because page ID has to be unique to resolve right page
-    			// set in EntityListUI
-        		if(entity.getBase().equals(Entity.COMPETITION)) {
-        			String[] arrId = id.split("#");
-        			if(arrId!=null && arrId.length==2) id = arrId[1];
-        		}   
+    			// set in EntityListUI            	
+       			String[] arrId = id.split("#");
+        		if(arrId!=null && arrId.length==2) id = arrId[1]; 
         		// if id is not set, get id of own entity
             	if (id == null || id.length()==0) { throw new NullPointerException(); }
                 // check if it's not the ID
@@ -351,6 +350,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 			renderSaveButton = false;
 			renderCancelButton = false;	
 			renderCopyButton = false;
+			authorization = authorization.NONE;
 		}
 	}
 
