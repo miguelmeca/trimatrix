@@ -20,7 +20,7 @@
 </t:row>
 <t:row id="g_7" >
 <t:label id="g_8" height="20" text="#{rr.literals.language}" width="100" x="20" y="60" />
-<t:combobox id="g_9" attributemacro="entityDetailMacro(UserDetailUI,language)" height="20" validvaluesbinding="#{d.UserDetailUI.languagesVvb}" valuetextmode="TEXT" width="100" x="115" y="60" />
+<t:combobox id="g_9" attributemacro="entityDetailMacro(UserDetailUI,language)" height="20" validvaluesbinding="#{helper.vvb.language}" valuetextmode="TEXT" width="100" x="115" y="60" />
 </t:row>
 <t:row id="g_10" >
 <t:label id="g_11" height="20" text="#{rr.literals.user_person}" width="100" x="20" y="90" />
