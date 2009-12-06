@@ -24,7 +24,6 @@ import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.ui.utils.WorkpageRefreshEvent;
 import trimatrix.utils.Constants;
 import trimatrix.utils.LockManager;
-import trimatrix.utils.Constants.Entity;
 
 @SuppressWarnings("serial")
 @CCGenClass(expressionBase = "#{d.EntityDetailUI}")

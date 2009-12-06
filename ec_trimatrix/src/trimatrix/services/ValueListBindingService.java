@@ -10,6 +10,7 @@ import trimatrix.utils.Dictionary;
 
 public class ValueListBindingService {
 	// constant vvbs
+	public static ValidValuesBinding EMPTYLIST = new ValidValuesBinding();
 	public static ValidValuesBinding FUNCTIONS = new ValidValuesBinding() {
 		{
 			addValidValue(Constants.EXP, Constants.EXPONENTIAL);
@@ -42,6 +43,12 @@ public class ValueListBindingService {
 		String language = dictionaryService.getLanguage();
 		ValidValuesBinding vvb = getVVBinding(valueList, language);	
 		return vvb;
+	}
+	
+	public ValidValuesBinding getVVBinding(String strValueList) {
+		Constants.ValueList valueList = Constants.ValueList.valueOf(strValueList.toUpperCase());
+		if(valueList==null) return EMPTYLIST;
+		return getVVBinding(valueList);
 	}
 	
 	public void setSqlExecutorService(SQLExecutorService sqlExecutorService) {
