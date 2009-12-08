@@ -150,7 +150,7 @@
 <t:link id="g_108" actionListener="#{d.TestDetailUI.gridTreadmill.onOpenGridFunctions}" text="#{rr.literals.export}" />
 </t:row>
 <t:row id="g_109" >
-<t:fixgrid id="g_110" avoidroundtrips="1" bordercolor="#C0C0C0" borderheight="1" borderwidth="1" enabled="#{d.TestDetailUI.enabled}" horizontalscrollmode="autowithresize" multiselect="false" objectbinding="#{d.TestDetailUI.gridTreadmill}" sbvisibleamount="20" showemptyrows="false" >
+<t:fixgrid id="g_110" avoidroundtrips="1" enabled="#{d.TestDetailUI.enabled}" horizontalscrollmode="autowithresize" multiselect="false" objectbinding="#{d.TestDetailUI.gridTreadmill}" sbvisibleamount="20" showemptyrows="false" >
 <t:gridcol id="g_111" columnresizingenabled="false" sortenabled="false" width="20" >
 <t:gridrowselector id="g_112" />
 </t:gridcol>
@@ -164,7 +164,7 @@
 <t:formattedfield id="g_118" enabled="false" format="int" value=".{incline}" />
 </t:gridcol>
 <t:gridcol id="g_119" align="center" sortenabled="false" text="#{rr.literals.time_step}" width="75" >
-<t:field id="g_120" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{step_time}" userhint="mm:ss" />
+<t:field id="g_120" enabled=".{lastItemEnabled}" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{step_time}" userhint="mm:ss" />
 </t:gridcol>
 <t:gridcol id="g_121" align="center" sortenabled="false" text="#{rr.literals.total_time}" width="75" >
 <t:field id="g_122" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{time_total}" userhint="mm:ss" />
@@ -195,7 +195,7 @@
 </t:pane>
 </t:row>
 <t:row id="g_138" comment="ergo protocol" rendered="#{d.TestDetailUI.ergo}" >
-<t:pane id="g_139" height="100%" rowdistance="2" width="100%" >
+<t:pane id="g_139" rowdistance="2" >
 <t:row id="g_140" >
 <t:label id="g_141" rowalignmenty="top" text="#{rr.literals.description}" width="100" />
 <t:textarea id="g_142" attributemacro="entityDetailMacro(TestDetailUI,protocol_description)" height="100" width="510" />
@@ -218,7 +218,7 @@
 <t:link id="g_155" actionListener="#{d.TestDetailUI.gridErgo.onOpenGridFunctions}" text="#{rr.literals.export}" />
 </t:row>
 <t:row id="g_156" >
-<t:fixgrid id="g_157" avoidroundtrips="1" border="#808080" enabled="#{d.TestDetailUI.enabled}" horizontalscrollmode="autowithresize" multiselect="false" objectbinding="#{d.TestDetailUI.gridErgo}" sbvisibleamount="20" showemptyrows="false" >
+<t:fixgrid id="g_157" avoidroundtrips="1" enabled="#{d.TestDetailUI.enabled}" horizontalscrollmode="autowithresize" multiselect="false" objectbinding="#{d.TestDetailUI.gridErgo}" sbvisibleamount="20" showemptyrows="false" >
 <t:gridcol id="g_158" columnresizingenabled="false" sortenabled="false" width="20" >
 <t:gridrowselector id="g_159" />
 </t:gridcol>
@@ -232,7 +232,7 @@
 <t:field id="g_165" enabled="false" text=".{cadence}" />
 </t:gridcol>
 <t:gridcol id="g_166" align="center" sortenabled="false" text="#{rr.literals.time_step}" width="75" >
-<t:field id="g_167" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{step_time}" userhint="mm:ss" />
+<t:field id="g_167" enabled=".{lastItemEnabled}" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{step_time}" userhint="mm:ss" />
 </t:gridcol>
 <t:gridcol id="g_168" align="center" sortenabled="false" text="#{rr.literals.total_time}" width="75" >
 <t:field id="g_169" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{time_total}" userhint="mm:ss" />
@@ -263,7 +263,7 @@
 </t:pane>
 </t:row>
 <t:row id="g_185" comment="swim protocol" rendered="#{d.TestDetailUI.swim}" >
-<t:pane id="g_186" height="100%" rowdistance="2" width="100%" >
+<t:pane id="g_186" rowdistance="2" >
 <t:row id="g_187" >
 <t:label id="g_188" rowalignmenty="top" text="#{rr.literals.description}" width="120" />
 <t:textarea id="g_189" attributemacro="entityDetailMacro(TestDetailUI,protocol_description)" height="100" width="510" />
