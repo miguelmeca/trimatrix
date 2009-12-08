@@ -112,6 +112,7 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 			public void ok() {
 				m_popup.close();	
 				buildData();
+				reloadFunctionTree();
 			}
 		});		
 		m_popup = getWorkpage().createModalPopupInWorkpageContext();    
@@ -122,7 +123,7 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 	public void onRemove(ActionEvent event) {
 		final MyARRAYGRIDItem item = (MyARRAYGRIDItem)grid.getSelectedItem();	
 		if(item==null) return;
-		deleteRelation(item);		
+		deleteRelation(item);			
 	}
 	
 	public void onStandard(ActionEvent event) {
@@ -153,7 +154,8 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 					public void reactOnYes() {	
 						if(RELATIONLISTLOGIC.delete(relation, item.id)) {		
 							grid.getItems().remove(item);	
-							Statusbar.outputSuccess("Relation deleted");											
+							Statusbar.outputSuccess("Relation deleted");	
+							reloadFunctionTree();
 						} else {
 							Statusbar.outputError("Relation could not be deleted!");
 						}								

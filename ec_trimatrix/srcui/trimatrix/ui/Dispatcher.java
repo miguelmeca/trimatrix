@@ -71,7 +71,10 @@ public class Dispatcher extends WorkpageDispatcher
     {
         return "#{d}";
     }
-    
+        
+    /**
+     * Business tier, instantiation through JSF managed properties
+     */
     protected LogicLayer logicLayer = LogicLayer.getFromApplicationContext(Context.getInstance());
 	public LogicLayer getLogicLayer() {	return logicLayer; }
 	public void setLogicLayer(LogicLayer logicLayer) { this.logicLayer = logicLayer; }

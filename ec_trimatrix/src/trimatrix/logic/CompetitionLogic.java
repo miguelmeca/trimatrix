@@ -26,7 +26,7 @@ import com.twolattes.json.Value;
 
 public class CompetitionLogic {
 	public static final Log logger = LogFactory.getLog(CompetitionLogic.class);
-	public static final Marshaller<Limit> limitMarshaller = TwoLattes.createMarshaller(Limit.class);
+	private static final Marshaller<Limit> limitMarshaller = TwoLattes.createMarshaller(Limit.class);
 	private DAOLayer daoLayer;
 	private ServiceLayer serviceLayer;
 	
