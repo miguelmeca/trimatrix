@@ -15,6 +15,7 @@ import trimatrix.utils.Helper;
 
 public class TestLogic {
 	public static final Log logger = LogFactory.getLog(TestLogic.class);
+		
 	private DAOLayer daoLayer;
 	private ServiceLayer serviceLayer;
 	

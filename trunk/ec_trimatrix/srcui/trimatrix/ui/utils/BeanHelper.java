@@ -11,9 +11,8 @@ import trimatrix.utils.Context;
 
 public class BeanHelper implements Serializable
 {
-	ServiceLayer serviceLayer = ServiceLayer.getFromApplicationContext(Context.getInstance());
-	
-	public BeanHelper() { System.out.println("Helper created!"); }
+	private ServiceLayer serviceLayer = ServiceLayer.getFromApplicationContext(Context.getInstance());
+
 	public Map<String, ValidValuesBinding> vvb = new HashMap<String, ValidValuesBinding>() {
 		public ValidValuesBinding get(Object key) {
 			return serviceLayer.getValueListBindingService().getVVBinding((String)key);

@@ -22,6 +22,7 @@ public class TestsProtocol implements java.io.Serializable {
 	private String modelLactate;
 	private String modelSpiro;
 	private Integer countSteps = 0;
+	private String timeLastStep;
 	private String lactate;
 	private String hr;
 	private String o2Absorption;
@@ -44,7 +45,7 @@ public class TestsProtocol implements java.io.Serializable {
 
 	/** full constructor */
 	public TestsProtocol(String id, String description, String model,
-			String modelLactate, String modelSpiro, Integer countSteps,
+			String modelLactate, String modelSpiro, Integer countSteps, String timeLastStep,
 			String lactate, String hr, String o2Absorption, String co2Emission,
 			String rq, String performanceMax) {
 		this.id = id;
@@ -53,6 +54,7 @@ public class TestsProtocol implements java.io.Serializable {
 		this.modelLactate = modelLactate;
 		this.modelSpiro = modelSpiro;
 		this.countSteps = countSteps;
+		this.timeLastStep = timeLastStep;
 		this.lactate = lactate;
 		this.hr = hr;
 		this.o2Absorption = o2Absorption;
@@ -115,6 +117,15 @@ public class TestsProtocol implements java.io.Serializable {
 
 	public void setCountSteps(Integer countSteps) {
 		this.countSteps = countSteps;
+	}
+
+	@Column(name = "time_last_step")
+	public String getTimeLastStep() {
+		return timeLastStep;
+	}
+
+	public void setTimeLastStep(String timeLastStep) {
+		this.timeLastStep = timeLastStep;
 	}
 
 	@Column(name = "lactate", columnDefinition="text")

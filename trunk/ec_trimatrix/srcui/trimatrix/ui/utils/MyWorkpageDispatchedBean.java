@@ -306,6 +306,14 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 		ThreadData.getInstance().registerChangeUpdatingAllAreas();
 	}
 	
+	public void reloadFunctionTree() {
+		((WPFunctionTreeAdmin)getOwningDispatcher().getTopOwner().getDispatchedBean(WPFunctionTreeAdmin.class)).reload();
+		((WPFunctionTreeAthlet)getOwningDispatcher().getTopOwner().getDispatchedBean(WPFunctionTreeAthlet.class)).reload();
+		((WPFunctionTreeCoach)getOwningDispatcher().getTopOwner().getDispatchedBean(WPFunctionTreeCoach.class)).reload();
+		((WPFunctionTreeScouter)getOwningDispatcher().getTopOwner().getDispatchedBean(WPFunctionTreeScouter.class)).reload();
+		ThreadData.getInstance().registerChangeUpdatingAllAreas();
+	}
+	
 	protected void loadEntityDetailPage(Entity entity, String id, String title) {
 		// Switch to or create entities page
 		IWorkpageDispatcher wpd = getOwningDispatcher();
