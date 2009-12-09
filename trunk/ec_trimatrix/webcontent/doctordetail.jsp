@@ -57,10 +57,21 @@
 <t:label id="g_38" text="#{rr.literals.fax}" width="100" x="15" y="195" />
 <t:field id="g_39" attributemacro="entityDetailMacro(DoctorDetailUI,fax)" width="200" x="115" y="195" />
 </t:row>
+<t:rowdistance id="g_40" height="20" />
+<t:row id="g_41" >
+<t:button id="g_42" actionListener="#{d.DoctorDetailUI.onMapSearch}" text="Suche Adresse" />
+<t:coldistance id="g_43" />
+<t:field id="g_44" enabled="false" text="#{d.DoctorDetailUI.latitude}" width="100" />
+<t:field id="g_45" enabled="false" text="#{d.DoctorDetailUI.longitude}" width="100" />
+</t:row>
+<t:row id="g_46" >
+<t:browser id="g_47" height="300" url="#{d.DoctorDetailUI.url}" width="400" />
+</t:row>
 </t:rowbodypane>
-<t:beanprocessing id="g_40" >
-<t:mailto id="g_41" receiver="#{d.DoctorDetailUI.values.email}" trigger="#{d.DoctorDetailUI.sendTrigger}" />
-<t:jshowurl id="g_42" target="_blank" trigger="#{d.PersonDetailUI.browserTrigger}" url="#{d.PersonDetailUI.values.homepage}" usedesktop="true" />
+<t:beanprocessing id="g_48" >
+<t:mailto id="g_49" receiver="#{d.DoctorDetailUI.values.email}" trigger="#{d.DoctorDetailUI.sendTrigger}" />
+<t:jshowurl id="g_50" target="_blank" trigger="#{d.PersonDetailUI.browserTrigger}" url="#{d.PersonDetailUI.values.homepage}" usedesktop="true" />
+<t:clienthttpreceiver id="g_51" actionListener="#{d.DoctorDetailUI.onClientReceive}" port="50055" />
 </t:beanprocessing>
 <t:pageaddons id="g_pa"/>
 </f:subview>
