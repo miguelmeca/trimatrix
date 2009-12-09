@@ -9,6 +9,7 @@ import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.elements.events.BaseActionEventUpload;
+import org.eclnt.jsfserver.elements.util.Trigger;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.util.valuemgmt.ValueManager;
 import org.eclnt.workplace.IWorkpageDispatcher;
@@ -32,16 +33,23 @@ import trimatrix.utils.Constants.Role;
 
 public class PersonDetailUI extends AEntityDetailUI implements Serializable
 {
+	protected Trigger sendTrigger = new Trigger();
+    public Trigger getSendTrigger() { return sendTrigger; }
+    
+    public void onMailSend(ActionEvent event) {
+    	sendTrigger.trigger();
+    }
+    
+    protected Trigger browserTrigger = new Trigger();
+    public Trigger getBrowserTrigger() { return browserTrigger; }
+
+    public void onShowUrl(ActionEvent event) {
+    	browserTrigger.trigger();
+    }
     
 	// #{d.WorkplaceUI.renderAdmin}
-	private final static String BORDER = "#808080";
-	
-	protected ValidValuesBinding salutationsVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.SALUTATION);
-    public ValidValuesBinding getSalutationsVvb() { return salutationsVvb; }
-	
-    protected ValidValuesBinding countriesVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.COUNTRY);
-    public ValidValuesBinding getCountriesVvb() { return countriesVvb; }
-    
+	private final static String BORDER = "#808080";	
+   
     private boolean athlete;
     public boolean isAthlete() { return athlete; }
     public void setAthlete(boolean value) { athlete = value; };

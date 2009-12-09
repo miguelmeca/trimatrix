@@ -14,11 +14,11 @@
 <t:row id="g_1" >
 <t:pane id="g_2" rowdistance="5" width="100%" >
 <t:row id="g_3" >
-<t:button id="g_4" actionListener="#{d.ZonesDefinitionUI.onAddZone}" enabled="#{d.ZonesDefinitionUI.changeAllowed}" text="#{rr.literals.zone_add}" />
+<t:button id="g_4" actionListener="#{d.ZonesDefinitionUI.onAddZone}" enabled="#{d.ZonesDefinitionUI.changeAllowed}" image="/images/icons/add.png" text="#{rr.literals.zone_add}" />
 <t:coldistance id="g_5" />
-<t:button id="g_6" actionListener="#{d.ZonesDefinitionUI.onDeleteZone}" enabled="#{d.ZonesDefinitionUI.changeAllowed}" text="#{rr.literals.zone_delete}" />
+<t:button id="g_6" actionListener="#{d.ZonesDefinitionUI.onDeleteZone}" enabled="#{d.ZonesDefinitionUI.changeAllowed}" image="/images/icons/remove.png" imageheight="15" text="#{rr.literals.zone_delete}" />
 <t:coldistance id="g_7" />
-<t:button id="g_8" actionListener="#{d.ZonesDefinitionUI.onSave}" enabled="#{d.ZonesDefinitionUI.changeAllowed}" text="#{rr.literals.save}" />
+<t:button id="g_8" actionListener="#{d.ZonesDefinitionUI.onSave}" enabled="#{d.ZonesDefinitionUI.changeAllowed}" image="/images/icons/save.png" imageheight="15" text="#{rr.literals.save}" />
 </t:row>
 <t:rowdistance id="g_9" height="5" />
 <t:rowline id="g_10" />
@@ -52,9 +52,9 @@
 </t:fixgrid>
 </t:row>
 <t:row id="g_30" >
-<t:button id="g_31" actionListener="#{d.ZonesDefinitionUI.onShiftUp}" enabled="#{d.ZonesDefinitionUI.changeAllowed}" text="#{rr.literals.shift_up}" />
+<t:button id="g_31" actionListener="#{d.ZonesDefinitionUI.onShiftUp}" enabled="#{d.ZonesDefinitionUI.changeAllowed}" image="/images/icons/arrow_up.png" imageheight="15" text="#{rr.literals.shift_up}" />
 <t:coldistance id="g_32" />
-<t:button id="g_33" actionListener="#{d.ZonesDefinitionUI.onShiftDown}" enabled="#{d.ZonesDefinitionUI.changeAllowed}" text="#{rr.literals.shift_down}" />
+<t:button id="g_33" actionListener="#{d.ZonesDefinitionUI.onShiftDown}" enabled="#{d.ZonesDefinitionUI.changeAllowed}" image="/images/icons/arrow_down.png" imageheight="15" text="#{rr.literals.shift_down}" />
 </t:row>
 </t:pane>
 </t:row>

@@ -14,11 +14,11 @@
 <t:row id="g_1" >
 <t:pane id="g_2" rowdistance="5" width="100%" >
 <t:row id="g_3" >
-<t:button id="g_4" actionListener="#{d.ZonesDetailUI.onEdit}" enabled="#{d.ZonesDetailUI.changeAllowed}" rendered="#{d.ZonesDetailUI.renderEditButton}" text="#{rr.literals.edit}" />
+<t:button id="g_4" actionListener="#{d.ZonesDetailUI.onEdit}" enabled="#{d.ZonesDetailUI.changeAllowed}" image="/images/icons/edit.png" imageheight="15" rendered="#{d.ZonesDetailUI.renderEditButton}" text="#{rr.literals.edit}" />
 <t:coldistance id="g_5" />
-<t:button id="g_6" actionListener="#{d.ZonesDetailUI.onSave}" rendered="#{d.ZonesDetailUI.renderSaveButton}" text="#{rr.literals.save}" />
+<t:button id="g_6" actionListener="#{d.ZonesDetailUI.onSave}" image="/images/icons/save.png" imageheight="15" rendered="#{d.ZonesDetailUI.renderSaveButton}" text="#{rr.literals.save}" />
 <t:coldistance id="g_7" />
-<t:button id="g_8" actionListener="#{d.ZonesDetailUI.onCancel}" rendered="#{d.ZonesDetailUI.renderCancelButton}" text="#{rr.literals.cancel}" />
+<t:button id="g_8" actionListener="#{d.ZonesDetailUI.onCancel}" image="/images/icons/cancel.png" imageheight="15" rendered="#{d.ZonesDetailUI.renderCancelButton}" text="#{rr.literals.cancel}" />
 </t:row>
 <t:row id="g_9" >
 <t:label id="g_10" text="#{rr.literals.coach}" />
