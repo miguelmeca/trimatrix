@@ -16,9 +16,9 @@
 <t:row id="g_3" >
 <t:pane id="g_4" >
 <t:row id="g_5" rendered="#{d.EntityListUI.renderButtons}" >
-<t:button id="g_6" actionListener="#{d.EntityListUI.onNew}" enabled="#{d.EntityListUI.createAllowed}" text="#{rr.literals.new}" />
+<t:button id="g_6" actionListener="#{d.EntityListUI.onNew}" enabled="#{d.EntityListUI.createAllowed}" image="/images/icons/new.png" imageheight="15" text="#{rr.literals.new}" />
 <t:coldistance id="g_7" />
-<t:button id="g_8" actionListener="#{d.EntityListUI.onDelete}" enabled="#{d.EntityListUI.deleteAllowed}" text="#{rr.literals.delete}" />
+<t:button id="g_8" actionListener="#{d.EntityListUI.onDelete}" enabled="#{d.EntityListUI.deleteAllowed}" image="/images/icons/delete.png" imageheight="15" text="#{rr.literals.delete}" />
 </t:row>
 </t:pane>
 </t:row>
@@ -32,10 +32,10 @@
 <t:rowline id="g_15" />
 <t:rowdynamiccontent id="g_16" contentbinding="#{d.EntityListUI.dynRow}" />
 <t:row id="g_17" rendered="#{d.EntityListUI.renderButtons}" >
-<t:button id="g_18" actionListener="#{d.EntityListUI.onRefresh}" text="#{rr.literals.list_refresh}" />
+<t:button id="g_18" actionListener="#{d.EntityListUI.onRefresh}" image="/images/icons/refresh.png" imageheight="15" text="#{rr.literals.list_refresh}" />
 <t:coldistance id="g_19" width="100%" />
-<t:button id="g_20" actionListener="#{d.EntityListUI.gridList.onEditColumnDetails}" text="#{rr.literals.list_configure}" />
-<t:button id="g_21" actionListener="#{d.EntityListUI.saveGridState}" text="#{rr.literals.save}" />
+<t:button id="g_20" actionListener="#{d.EntityListUI.gridList.onEditColumnDetails}" image="/images/icons/configure.png" imageheight="15" text="#{rr.literals.list_configure}" />
+<t:button id="g_21" actionListener="#{d.EntityListUI.saveGridState}" image="/images/icons/save.png" imageheight="15" text="#{rr.literals.save}" />
 </t:row>
 </t:pane>
 </t:row>
