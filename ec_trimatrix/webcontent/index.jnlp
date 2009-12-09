@@ -5,7 +5,7 @@
     <information>
         <title>CaptainCasa Enterprise Client</title>
         <vendor>CaptainCasa GmbH</vendor>
-	    <icon href="eclnt/images/trimatrix.png" kind="splash"/> 
+	    <icon href="eclnt/images/splash.png" kind="splash"/> 
     </information>
    
     <security>
@@ -17,10 +17,10 @@
    	    <jar href="eclnt/lib/eclnt.jar"/>  
    	    
    	    <!-- ONLY REQUIRED WHEN USING BROWSER OR ACTIVEX COMPONENT! -->
-   	    <!-- @@nativebegin@@
+   	    <!-- -->
         <jar href="eclnt/lib/swt.jar"/>  
         <nativelib href="eclnt/lib/swt.jar"/>  
-        @@nativeend@@ -->
+        <!-- -->
         
         <!-- ONLY REQUIRED WHEN USING JRVIEWER COMPONENT! (JasperReports) -->
         <!-- @@jasperbegin@@
@@ -43,6 +43,11 @@
         <!-- @@pdfrendererbegin@@
         <jar href="eclnt/lib/PDFRenderer.jar"/>  
         @@pdfrendererend@@ -->
+        
+        <!-- ONLY REQUIRED WHEN USING SIMPLEHTMLEDITOR COMPONENT! -->
+        <!-- @@simplehtmleditorbegin@@
+        <jar href="eclnt/lib/eclnt_simplyhtml.jar"/>  
+        @@simplehtmleditorend@@ -->
    	</resources>   
     
     <application-desc main-class="org.eclnt.client.page.PageWebStart">
