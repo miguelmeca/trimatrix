@@ -17,24 +17,20 @@
 	var m_search = unescape(urlparams[1]);
 	var m_lat = urlparams[2] * 1;
 	var m_lng = urlparams[3] * 1;
-	var map = null;
-	var geocoder = null;
+	var m_name = urlparams[4];
+	var m_info = '<b>' + m_name + '</b><br/>' + m_search;
+	var map;
+	var geocoder;
+	var marker;
 	function load() {
 		if (GBrowserIsCompatible()) {
 			geocoder = new GClientGeocoder();
 			map = new GMap2(document.getElementById("map"));
-			map.addControl(new GOverviewMapControl());
-			map.enableDoubleClickZoom();
-			map.enableScrollWheelZoom();
-			map.addControl(new GMapTypeControl());
-			map.addControl(new GSmallMapControl());
-
+			map.setUIToDefault();
 			if (m_lat != "" && m_lng != "") {
-				map.setCenter(new GLatLng(m_lat, m_lng), 13);
+				createMarker(map, new GLatLng(m_lat, m_lng));
 			} else if (m_search != "") {
 				showAddress(m_search);
-			} else {
-				map.setCenter(new GLatLng(37.4419, -122.1419), 13);
 			}
 		}
 	}
@@ -44,42 +40,34 @@
 		var divurl = "<iframe src='" + m_urlBase + "/" + lat + ":" + lng
 				+ ")' width='0' height='0'>";
 		divcomm.innerHTML = divurl;
-	}	
+	}
 
-	function showAddress(address) {
+	function createMarker(map, point) {
+		map.clearOverlays();
+		map.setCenter(point, 17);
+		marker = new GMarker(point, {
+			draggable : true
+		});
+		map.addOverlay(marker);
+		marker.openInfoWindowHtml(m_info);
+		sendCoordinates(point.lat(), point.lng());
+		GEvent.addListener(marker, "dragend", function() {
+			var point = marker.getPoint();
+			map.panTo(point);
+			sendCoordinates(point.lat(), point.lng());
+		});
+		GEvent.addListener(marker, "click", function() {
+			marker.openInfoWindowHtml(m_info);
+		});
+	}
+
+	function showAddress(address) {		
 		if (geocoder) {
 			geocoder.getLatLng(address, function(point) {
 				if (!point) {
 					alert(address + " not found");
 				} else {
-					map.setCenter(point, 17);
-					var marker = new GMarker(point, {
-						draggable : true
-					});
-					map.addOverlay(marker);
-					marker.openInfoWindowHtml(address);
-					sendCoordinates(point.lat(), point.lng());
-					GEvent.addListener(marker, "dragend", function() {
-						var point = marker.getPoint();
-						map.panTo(point);
-						sendCoordinates(point.lat(), point.lng());
-					});
-					GEvent.addListener(marker, "click", function() {
-          				marker.openInfoWindowHtml(address);
-        			});
-					GEvent.addListener(map, "moveend", function() {
-						map.clearOverlays();
-						var center = map.getCenter();
-						var marker = new GMarker(center, {
-							draggable : true
-						});
-						map.addOverlay(marker);
-						GEvent.addListener(marker, "dragend", function() {
-							var point = marker.getPoint();
-							map.panTo(point);
-							sendCoordinates(point.lat(), point.lng());
-						});
-					});
+					createMarker(map, point);
 				}
 			});
 		}

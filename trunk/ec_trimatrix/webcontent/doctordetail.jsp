@@ -59,19 +59,16 @@
 </t:row>
 <t:rowdistance id="g_40" height="20" />
 <t:row id="g_41" >
-<t:button id="g_42" actionListener="#{d.DoctorDetailUI.onMapSearch}" text="Suche Adresse" />
-<t:coldistance id="g_43" />
-<t:field id="g_44" enabled="false" text="#{d.DoctorDetailUI.latitude}" width="100" />
-<t:field id="g_45" enabled="false" text="#{d.DoctorDetailUI.longitude}" width="100" />
+<t:button id="g_42" actionListener="#{d.DoctorDetailUI.onMapSearch}" enabled="#{d.DoctorDetailUI.enabled}" text="#{rr.literals.search_address}" />
 </t:row>
-<t:row id="g_46" >
-<t:browser id="g_47" height="300" url="#{d.DoctorDetailUI.url}" width="400" />
+<t:row id="g_43" >
+<t:browser id="g_44" height="300" url="#{d.DoctorDetailUI.url}" width="400" />
 </t:row>
 </t:rowbodypane>
-<t:beanprocessing id="g_48" >
-<t:mailto id="g_49" receiver="#{d.DoctorDetailUI.values.email}" trigger="#{d.DoctorDetailUI.sendTrigger}" />
-<t:jshowurl id="g_50" target="_blank" trigger="#{d.PersonDetailUI.browserTrigger}" url="#{d.PersonDetailUI.values.homepage}" usedesktop="true" />
-<t:clienthttpreceiver id="g_51" actionListener="#{d.DoctorDetailUI.onClientReceive}" port="50055" />
+<t:beanprocessing id="g_45" >
+<t:mailto id="g_46" receiver="#{d.DoctorDetailUI.values.email}" trigger="#{d.DoctorDetailUI.sendTrigger}" />
+<t:jshowurl id="g_47" target="_blank" trigger="#{d.DoctorDetailUI.browserTrigger}" url="#{d.DoctorDetailUI.values.homepage}" usedesktop="true" />
+<t:clienthttpreceiver id="g_48" actionListener="#{d.DoctorDetailUI.onClientReceive}" port="50055" />
 </t:beanprocessing>
 <t:pageaddons id="g_pa"/>
 </f:subview>

@@ -5,8 +5,10 @@ import java.io.Serializable;
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.elements.events.BaseActionEventClientHttpReceive;
 import org.eclnt.jsfserver.elements.util.Trigger;
+import org.eclnt.util.log.SysOutMgr;
 import org.eclnt.workplace.IWorkpageDispatcher;
 import org.hibernate.validator.ClassValidator;
 import org.hibernate.validator.InvalidValue;
@@ -27,22 +29,16 @@ public class DoctorDetailUI extends AEntityDetailUI implements Serializable {
 	public String getUrl() {return m_url;}
 	public void setUrl(String value) {m_url = value;}
 
-	protected String m_latitude;
-	public String getLatitude() {return m_latitude;}
-	public void setLatitude(String value) {m_latitude = value;}
-
-	protected String m_longitude;
-	public String getLongitude() {return m_longitude;}
-	public void setLongitude(String value) {m_longitude = value;}
-
 	public void onMapSearch(ActionEvent event) {
 		String searchString = (String)values.get(DoctorEntity.POSTCODE) + " " + 
-				              (String) values.get(DoctorEntity.CITY) + " " + 
-				              (String) values.get(DoctorEntity.STREET) + " " +
-				              (String) values.get(DoctorEntity.HOUSENUMBER) + " " +
-				              (String) values.get(DoctorEntity.COUNTRY);			
-		
-		m_url = "/html/googlewrapper.html?param=(http://localhost:50055," + searchString.trim() + ",,)";
+				              (String)values.get(DoctorEntity.CITY) + " " + 
+				              (String)values.get(DoctorEntity.STREET) + " " +
+				              (String)values.get(DoctorEntity.HOUSENUMBER) + " " +
+				              ((String)values.get(DoctorEntity.COUNTRY)).toUpperCase();	
+		String longitude = entity.getLongitude()!=null ? entity.getLongitude().toString() : Constants.EMPTY;
+		String latitude = entity.getLatitude()!=null ? entity.getLatitude().toString() : Constants.EMPTY;
+		String name = (String)values.get(DoctorEntity.NAME);
+		m_url = "/html/googlewrapper.html?param=(http://localhost:50055," + searchString.trim() + "," + latitude + "," + longitude + "," + name +")";
 	}
 	
 	public void onClientReceive(ActionEvent event) {
@@ -52,8 +48,12 @@ public class DoctorDetailUI extends AEntityDetailUI implements Serializable {
 			// truncate first slash and last bracket
 			String[] lat_lng = query.substring(1, query.length()-1).split(":");
 			if(lat_lng.length!=2) return;
-			m_latitude = lat_lng[0];
-			m_longitude = lat_lng[1];
+			try {
+				entity.setLatitude(Double.valueOf(lat_lng[0]));
+				entity.setLongitude(Double.valueOf(lat_lng[1]));
+			} catch (Exception ex) {
+				Statusbar.outputError(ex.toString());
+			}
 		}
 	}
 
@@ -89,6 +89,8 @@ public class DoctorDetailUI extends AEntityDetailUI implements Serializable {
 	public void init() {
 		// set fields
 		fillMaps();
+		// load GMap
+		onMapSearch(null);
 		// set state
 		setState();
 	}
