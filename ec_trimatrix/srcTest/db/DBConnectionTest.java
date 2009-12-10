@@ -342,7 +342,7 @@ public class DBConnectionTest {
 		ZonesDefinition definition2 = daoLayer.getZonesDefinitionDAO().findById(id);
 		Assert.assertEquals("123456ABCDEFG", definition2.getCoachId());
 		Assert.assertEquals(new Integer(1), definition2.getSequence());
-		Assert.assertEquals(new Double(10), definition2.getLactateHigh());
+		Assert.assertEquals(new Double(12.1), definition2.getLactateHigh());
 		Assert.assertEquals("Test", definition2.getDescription());		
 		// Zones
 		String id2 = UUID.randomUUID().toString();

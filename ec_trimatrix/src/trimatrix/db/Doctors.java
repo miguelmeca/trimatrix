@@ -30,6 +30,8 @@ public class Doctors implements java.io.Serializable, IEntityObject {
 	private String city;
 	private String state;
 	private String countryKey;
+	private Double longitude;
+	private Double latitude;
 	private String email;
 	private String homepage;
 	private String telephone;
@@ -56,6 +58,7 @@ public class Doctors implements java.io.Serializable, IEntityObject {
 	/** full constructor */
 	public Doctors(String id, String name, String street, String housenumber,
 			String postcode, String city, String state, String countryKey,
+			Double longitude, Double latitude,
 			String email, String homepage, String telephone, String mobile,
 			String fax, Timestamp createdAt, String createdBy,
 			Timestamp modifiedAt, String modifiedBy, Boolean deleted,
@@ -68,6 +71,8 @@ public class Doctors implements java.io.Serializable, IEntityObject {
 		this.city = city;
 		this.state = state;
 		this.countryKey = countryKey;
+		this.longitude = longitude;
+		this.latitude = latitude;
 		this.email = email;
 		this.homepage = homepage;
 		this.telephone = telephone;
@@ -153,6 +158,24 @@ public class Doctors implements java.io.Serializable, IEntityObject {
 
 	public void setCountryKey(String countryKey) {
 		this.countryKey = countryKey;
+	}
+
+	@Column(name = "longitude", columnDefinition="decimal")
+	public Double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
+
+	@Column(name = "latitude", columnDefinition="decimal")
+	public Double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
 	}
 
 	@Column(name = "email")

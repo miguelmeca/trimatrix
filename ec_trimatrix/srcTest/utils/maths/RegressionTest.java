@@ -45,11 +45,11 @@ public class RegressionTest {
 		double y;
 		try {
 			y = Helper.getYFromMultiLinearFunction(xyArr, 11);
-			Assert.assertEquals(140.0, y);
+			Assert.assertEquals(new Double(140.0), (Double)y);
 			y = Helper.getYFromMultiLinearFunction(xyArr, 8);
-			Assert.assertEquals(120.0, y);
+			Assert.assertEquals(new Double(120.0), (Double)y);
 			y = Helper.getYFromMultiLinearFunction(xyArr, 8.5);
-			Assert.assertEquals(122.5, y);
+			Assert.assertEquals(new Double(122.5), (Double)y);
 		} catch (OutOfBoundsException e) {
 			e.printStackTrace();
 		} catch (ArrayNotEvenException e) {
