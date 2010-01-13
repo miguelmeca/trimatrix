@@ -44,6 +44,7 @@
             </t:row>
             <t:rowdistance id="g_100" height="$rowdistancecommandpane$" />
           </t:pane>
+          <t:fileupload id="g_221" focusable="false" height="0" width="0" actionListener="#{v_imagecapture.uploadExecute}" openpopuptrigger="#{v_imagecapture.uploadTrigger}"/>
         </t:row>
       </t:pane>
     </t:row>
