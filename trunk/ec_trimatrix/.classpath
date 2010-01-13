@@ -52,7 +52,6 @@
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/xapool.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/xml-apis.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/commons-beanutils.jar"/>
-	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/commons-collections-2.1.1.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/commons-digester.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/commons-fileupload-1.2.1.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/commons-io-1.4.jar"/>
