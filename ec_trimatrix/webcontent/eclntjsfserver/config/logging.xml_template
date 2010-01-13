@@ -12,6 +12,15 @@ if not defined then the log is written in the web application temp directory
 (Tomcat: /tomcat/work/Catalina/....)
 Example value: c:/logs/EnterpriseClient/
 
+limit: (optional) number of bytes written to any one logfile,
+the default is 10.000.000 - after reaching this limit a new file
+is started, receiving a new counter. The counte is rotating up
+to the count-paramter.
+
+count: (optional) Number of files written. If a file is written and reaches
+its size-limit, then the next file is started. The name of the file is rotating
+from 0 up to the parameter defined via this count definition. The default is 5.
+
 delegateclassname: (optional) name of class implementing ILogOutput.
 By using this class you can delegate log output to your own logging 
 infrstructure. There is a default class "org.eclnt.util.log.Log4JLogOutput"

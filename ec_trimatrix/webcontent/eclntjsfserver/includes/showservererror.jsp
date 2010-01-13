@@ -10,24 +10,26 @@
 <!-- ========== CONTENT BEGIN ========== -->
 <f:view>
 <h:form>
-<f:subview id="eclntjsfserver_includes_showservererrorg_19">
-<t:beanprocessing id="g_100">
-    <t:beanmethodinvoker jsfphase="renderBegin" actionListener="#{eclntdefscr.showServerError.onHideAllPopups}"  />
+<f:subview id="eclntjsfserver_includes_showservererrorg_sv">
+<t:beanprocessing id="g_1" >
+<t:beanmethodinvoker id="g_2" actionListener="#{eclntdefscr.showServerError.onHideAllPopups}" jsfphase="renderBegin" />
 </t:beanprocessing>
-<t:rowtitlebar id="g_2" bgpaint="rectangle(0,0,100%,100%,#680000,#FF0000,vertical)" text="Server Side Error occurred" />
-<t:rowbodypane id="g_3" bgpaint="rectangle(0,0,100%,100%,#D0D0D0,#FFFFFF,vertical)" >
-  <t:row id="g_4" >
-    <t:textpane id="g_5" text="An error occurred within your server side application that was not caught by the application processing. Please check with your application provider." width="100%" />
-  </t:row>
-  <t:rowdistance id="g_6" height="10" />
-  <t:row id="g_7" >
-    <t:label id="g_8" text="Server Side Stack Trace" />
-  </t:row>
-  <t:row id="g_9" >
-    <t:textarea id="g_10" height="100%" text="#{eclntdefscr.showServerError.text}" width="100%" />
-  </t:row>
+<t:rowbodypane id="g_3" background="#FFFFFF" rowdistance="5" >
+<t:row id="g_4" >
+<t:label id="g_5" font="size:20;weight:bold" foreground="#800000" text="Server Side Error" />
+</t:row>
+<t:row id="g_6" >
+<t:textpane id="g_7" text="An error occurred within your server side application that was not caught by the application processing. Please check with your application provider." width="100%" />
+</t:row>
+<t:rowdistance id="g_8" height="10" />
+<t:row id="g_9" >
+<t:label id="g_10" text="Server Side Stack Trace" />
+</t:row>
+<t:row id="g_11" >
+<t:textarea id="g_12" height="100%" text="#{eclntdefscr.showServerError.text}" width="100%" />
+</t:row>
 </t:rowbodypane>
-<t:pageaddons/>
+<t:pageaddons id="g_pa"/>
 </f:subview>
 </h:form>
 </f:view>
