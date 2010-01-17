@@ -161,6 +161,7 @@ public final class Constants {
 			return relationInstance;
 		}
 	}
+	
 	// all roles
 	public static enum Role {
 		ADMIN(0,"admin"), COACH(1,"coach"), ATHLETE(2,"athlete"), SCOUTER(3,"scouter");

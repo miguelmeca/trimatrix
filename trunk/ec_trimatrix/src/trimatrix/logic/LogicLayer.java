@@ -11,6 +11,7 @@ public final class LogicLayer {
 	private ZonesLogic zonesLogic;
 	private TestLogic testLogic;
 	private CompetitionLogic competitionLogic;
+	private ScheduleLogic scheduleLogic;
 	
 	public LogonLogic getLogonLogic() {
 		return logonLogic;
@@ -59,6 +60,14 @@ public final class LogicLayer {
 	}
 	public void setCompetitionLogic(CompetitionLogic competitionLogic) {
 		this.competitionLogic = competitionLogic;
+	}	
+	
+	public ScheduleLogic getScheduleLogic() {
+		return scheduleLogic;
+	}
+	
+	public void setScheduleLogic(ScheduleLogic scheduleLogic) {
+		this.scheduleLogic = scheduleLogic;
 	}
 	public static LogicLayer getFromApplicationContext(ApplicationContext ctx) {
 		return (LogicLayer) ctx.getBean("logicLayer");
