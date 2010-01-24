@@ -40,6 +40,7 @@ import trimatrix.ui.IEntityDetailUI;
 import trimatrix.ui.LabelChangePopUp;
 import trimatrix.ui.LabelPopUpUI;
 import trimatrix.ui.PersonSelectionUI;
+import trimatrix.ui.ScheduleChangePopUp;
 import trimatrix.ui.UserDetailUI;
 import trimatrix.ui.UserSelectionUI;
 import trimatrix.ui.WPFunctionTreeAdmin;
@@ -282,6 +283,10 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 	
 	public LabelChangePopUp getLabelChangePopUp() {
 		return (LabelChangePopUp)getOwningDispatcher().getDispatchedBean(LabelChangePopUp.class);
+	}
+	
+	public ScheduleChangePopUp getScheduleChangePopUp() {
+		return (ScheduleChangePopUp)getOwningDispatcher().getDispatchedBean(ScheduleChangePopUp.class);
 	}
 	
 	public WorkplaceUI getWorkplaceUI() {

@@ -37,7 +37,8 @@ public final class Constants {
 		CREATERELATION("/createrelation.jsp", "Beziehungsanlage"),
 		LABELPOPUP("/labelpopup.jsp", "Labels"),
 		LABELCHANGEPOPUP("/popups/labelchange.jsp", "Label ändern"),
-		LABELSEARCHRESULT("/labelsearchresult.jsp", "Label Suchergebnis");
+		LABELSEARCHRESULT("/labelsearchresult.jsp", "Label Suchergebnis"),
+		SCHEDULECHANGEPOPUP("/popups/schedulechange.jsp", "Termin ändern");
 		private final String url;
 		private final String description;
 		Page(String url, String description) {
@@ -268,6 +269,7 @@ public final class Constants {
 	public static final String RED = "#FF0000";
 	public static final String GREEN = "#00FF00";
 	public static final String YELLOW = "#FFFF00";
+	public static final String BLUE = "#0000FF";
 	
 	// UI parameter
 	public static final String CLIENTNAME = "clientname";
@@ -297,4 +299,8 @@ public final class Constants {
 	
 	// Server url
 	public static final String TRIMATRIXURL = "http://cardassia.secitec.net/trimatrix";
+	
+	// Animation type
+	public static final String HIDETOLEFT = "hidetoleft";
+	public static final String HIDETORIGHT = "hidetoright";
 }
