@@ -84,10 +84,7 @@ public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serial
    			public void idSelected(String id) {  
    				partner1 = getLogic().getEntityListLogic().get(entity, id);    				
    				m_popup.close();
-   			}});    	
-       	String width = HttpSessionAccess.getCurrentRequest().getHeader("eclnt-width");
-       	String height = HttpSessionAccess.getCurrentRequest().getHeader("eclnt-height");
-       	logger.warn("Width: " + width + " - Height: " + height);
+   			}});         	
        	m_popup = getWorkpage().createModalPopupInWorkpageContext();      
        	m_popup.setLeftTopReferenceCentered();
        	m_popup.open(selectionPage.getUrl(), selectionPage.getDescription(), 800, 600, this);
@@ -106,9 +103,6 @@ public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serial
    				partner2 = getLogic().getEntityListLogic().get(entity, id);    				
    				m_popup.close();
    			}});    	
-       	String width = HttpSessionAccess.getCurrentRequest().getHeader("eclnt-width");
-       	String height = HttpSessionAccess.getCurrentRequest().getHeader("eclnt-height");
-       	logger.warn("Width: " + width + " - Height: " + height);
        	m_popup = getWorkpage().createModalPopupInWorkpageContext();    
        	m_popup.setLeftTopReferenceCentered();
        	m_popup.open(selectionPage.getUrl(), selectionPage.getDescription(), 800, 600, this);

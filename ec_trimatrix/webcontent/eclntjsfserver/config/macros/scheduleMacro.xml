@@ -1,0 +1,23 @@
+<!--
+Macro for swim protocol splits head
+ -->
+<macro>
+    <applysto>
+        <tag name="t:schedule"/>
+    </applysto>
+    <parameters>
+        <parameter name="day"/>
+    </parameters>
+    <attributes>
+    	<attribute name="background" value="#FFFFFF"/>
+        <attribute name="border" value="top:1;left:0;right:1;bottom:1;color:#C0C0C0"/>
+        <attribute name="dropreceive" value="schedule"/>
+        <attribute name="height" value="100%"/>
+        <attribute name="numberofblocks" value="#{d.ScheduleUI.numberOfBlocks}"/>
+        <attribute name="orientation" value="vertical"/>
+        <attribute name="padding" value="5"/>
+        <attribute name="popupmenu" value="SCHEDULE"/>
+        <attribute name="schedulemax" value="#{d.ScheduleUI.scheduleMax}"/>
+        <attribute name="actionListener" value="#{d.ScheduleUI.sp${day}.onScheduleAction}"/>
+    </attributes>
+</macro>
