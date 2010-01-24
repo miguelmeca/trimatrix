@@ -21,7 +21,6 @@ import org.eclnt.workplace.IWorkpageContainer;
 import org.eclnt.workplace.IWorkpageDispatcher;
 import org.eclnt.workplace.WorkpageContainer;
 import org.eclnt.workplace.WorkplaceFunctionTree;
-import org.eclnt.workplace.WorkplaceFunctionTree.FunctionNode;
 
 import trimatrix.db.Results;
 import trimatrix.entities.IEntityData;

@@ -1,6 +1,5 @@
 package trimatrix.logic;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -15,14 +14,11 @@ import trimatrix.db.CompetitionsScouts;
 import trimatrix.db.DAOLayer;
 import trimatrix.logic.helper.Limit;
 import trimatrix.services.ServiceLayer;
-import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
 
-import com.twolattes.json.Entity;
 import com.twolattes.json.Json;
 import com.twolattes.json.Marshaller;
 import com.twolattes.json.TwoLattes;
-import com.twolattes.json.Value;
 
 public class CompetitionLogic {
 	public static final Log logger = LogFactory.getLog(CompetitionLogic.class);

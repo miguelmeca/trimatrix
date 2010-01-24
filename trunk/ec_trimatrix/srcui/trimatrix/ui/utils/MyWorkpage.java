@@ -8,7 +8,6 @@ import trimatrix.entities.IEntityObject;
 import trimatrix.structures.SAuthorization;
 import trimatrix.ui.EntityDetailUI;
 import trimatrix.ui.ZonesDetailUI;
-import trimatrix.utils.MessageHandler;
 import trimatrix.utils.Constants.Mode;
 import trimatrix.utils.Constants.Page;
 

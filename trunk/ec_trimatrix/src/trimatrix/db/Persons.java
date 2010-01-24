@@ -18,7 +18,6 @@ import javax.persistence.Version;
 import org.hibernate.annotations.IndexColumn;
 import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
-import org.hibernate.annotations.OrderBy;
 import org.hibernate.validator.Email;
 
 import trimatrix.entities.IEntityObject;

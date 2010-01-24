@@ -8,7 +8,6 @@ import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.elements.events.BaseActionEventClientHttpReceive;
 import org.eclnt.jsfserver.elements.util.Trigger;
-import org.eclnt.util.log.SysOutMgr;
 import org.eclnt.workplace.IWorkpageDispatcher;
 import org.hibernate.validator.ClassValidator;
 import org.hibernate.validator.InvalidValue;

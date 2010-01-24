@@ -1,5 +1,4 @@
 import java.io.ByteArrayOutputStream;
-import java.util.Date;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -16,13 +15,7 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.mail.MailMessage;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
-
 import trimatrix.utils.Constants;
-import trimatrix.utils.ContextStatic;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.Paragraph;
