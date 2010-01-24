@@ -8,7 +8,6 @@ import javax.faces.event.ActionEvent;
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.ISetId;
 import org.eclnt.jsfserver.defaultscreens.IdTextSelection;
-import org.eclnt.jsfserver.util.IPropertyChangeAware;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.db.Categories;

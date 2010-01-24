@@ -10,7 +10,6 @@ import javax.faces.event.ActionEvent;
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.elements.events.BaseActionEventUpload;
 import org.eclnt.jsfserver.elements.util.Trigger;
-import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.util.valuemgmt.ValueManager;
 import org.eclnt.workplace.IWorkpageDispatcher;
 import org.hibernate.validator.ClassValidator;
