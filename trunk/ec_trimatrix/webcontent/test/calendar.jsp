@@ -98,13 +98,13 @@
 <t:scheduleitem id="g_77" align="right!" font="size:12;weight:bold" resizingenabled="false" scheduleleft="22" schedulewidth="1" text="17:00" />
 <t:scheduleitem id="g_78" scheduleleft="23" schedulewidth="1" />
 </t:schedule>
-<t:schedule id="g_79" attributemacro="scheduleMacro(0)" componentbinding="#{d.ScheduleUI.day0}" width="16%" />
-<t:schedule id="g_80" attributemacro="scheduleMacro(1)" componentbinding="#{d.ScheduleUI.day1}" width="16%" />
-<t:schedule id="g_81" attributemacro="scheduleMacro(2)" componentbinding="#{d.ScheduleUI.day2}" width="16%" />
-<t:schedule id="g_82" attributemacro="scheduleMacro(3)" componentbinding="#{d.ScheduleUI.day3}" width="16%" />
-<t:schedule id="g_83" attributemacro="scheduleMacro(4)" componentbinding="#{d.ScheduleUI.day4}" width="16%" />
-<t:schedule id="g_84" attributemacro="scheduleMacro(5)" componentbinding="#{d.ScheduleUI.day5}" width="10%" />
-<t:schedule id="g_85" attributemacro="scheduleMacro(6)" componentbinding="#{d.ScheduleUI.day6}" width="10%" />
+<t:schedule id="g_79" attributemacro="scheduleMacro(0)" width="16%" />
+<t:schedule id="g_80" attributemacro="scheduleMacro(1)" width="16%" />
+<t:schedule id="g_81" attributemacro="scheduleMacro(2)" width="16%" />
+<t:schedule id="g_82" attributemacro="scheduleMacro(3)" width="16%" />
+<t:schedule id="g_83" attributemacro="scheduleMacro(4)" width="16%" />
+<t:schedule id="g_84" attributemacro="scheduleMacro(5)" width="10%" />
+<t:schedule id="g_85" attributemacro="scheduleMacro(6)" width="10%" />
 </t:row>
 </t:pane>
 </t:row>

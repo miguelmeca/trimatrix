@@ -19,5 +19,6 @@ Macro for swim protocol splits head
         <attribute name="popupmenu" value="SCHEDULE"/>
         <attribute name="schedulemax" value="#{d.ScheduleUI.scheduleMax}"/>
         <attribute name="actionListener" value="#{d.ScheduleUI.sp${day}.onScheduleAction}"/>
+        <attribute name="componentbinding" value ="#{d.ScheduleUI.day${day}}"/>
     </attributes>
 </macro>
