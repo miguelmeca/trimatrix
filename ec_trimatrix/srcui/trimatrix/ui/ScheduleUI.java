@@ -104,7 +104,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements Serializable
 		if (m_day0 == value)
 			return;
 		m_day0 = value;
-		refreshSchedule(0);
+		refreshSchedule(0);		
 	}
 
 	public void setDay1(SCHEDULEComponent value) {
@@ -224,11 +224,12 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements Serializable
 		int dayOfWeek = DAYSOFWEEK[day];
 		int counter = -1;
 		for (ScheduleItem item : scheduleItems) {
-			counter++;
+			counter++;			
+			String expressionBase = getWorkpage().getDispatcher().getExpressionBase().replace("}", ".");
 			if (item.getFromWeekDay() != dayOfWeek)	continue;
 			SCHEDULEITEMComponentTag st = new SCHEDULEITEMComponentTag();
 			st.setScheduleleft(item.getFromInMinutes() + "");
-			st.setSchedulewidth("#{d.ScheduleUI.scheduleItems[" + counter + "].durationInMinutes}");
+			st.setSchedulewidth(expressionBase + "ScheduleUI.scheduleItems[" + counter + "].durationInMinutes}");
 			st.setText(item.getText());
 			//st.setBgpaint(ResourceManager.getRuntimeInstance().readProperty("constants", "itemSchedule"));
 			st.setBgpaint("roundedborder(0,0,100%,100%,10,10,#000000,2)");
@@ -237,7 +238,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements Serializable
 			st.setBackground(item.getColor());
 			st.setForeground(Helper.getBlackOrWhite(item.getColor()));
 			st.setPopupmenu("SCHEDULEITEM");
-			st.setActionListener("#{d.ScheduleUI.scheduleItems[" + counter + "].onScheduleItemAction}");
+			st.setActionListener(expressionBase + "ScheduleUI.scheduleItems[" + counter + "].onScheduleItemAction}");
 			st.setDragsend("schedule:" + counter);
 			// st.setFlushonselect("true");
 			st.setInvokeevent("doubleclick");
