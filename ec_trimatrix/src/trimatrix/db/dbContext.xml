@@ -83,6 +83,7 @@
                 <idref local="AttachmentsDAO" />
                 <idref local="TestsDAO" />
                 <idref local="CompetitionsDAO" />
+                <idref local="SchedulesDAO" />
                 <idref local="CompetitionsScoutsDAO" />
                 <idref local="ResultsDAO" />
                 <idref local="ResultsTriaDAO" />
@@ -100,13 +101,14 @@
                 <idref local="TSalutationDAO" />
                 <idref local="TCategoriesDAO" />
                 <idref local="TTesttypesDAO" />
+                <idref local="TScheduletypesDAO" />
                 <idref local="ListVariantsDAO" />
                 <idref local="LabelsDAO" />
                 <idref local="ZonesDAO" />
                 <idref local="ZonesDefinitionDAO" />
                 <idref local="EntitiesHaveLabelsDAO" />
                 <idref local="EntitiesDAO" />
-                <idref local="CategoriesDAO" />
+                <idref local="CategoriesDAO" />                
             </list>
         </property>
     </bean>
@@ -131,6 +133,9 @@
         </property> 
         <property name="competitionsDAO">
             <ref bean="CompetitionsDAO" />
+        </property> 
+        <property name="schedulesDAO">
+            <ref bean="SchedulesDAO" />
         </property> 
         <property name="competitionsScoutsDAO">
             <ref bean="CompetitionsScoutsDAO" />
@@ -161,6 +166,9 @@
         </property>  
         <property name="ttesttypesDAO">
             <ref bean="TTesttypesDAO" />
+        </property>
+        <property name="tscheduletypesDAO">
+            <ref bean="TScheduletypesDAO" />
         </property>
         <property name="listVariantsDAO">
             <ref bean="ListVariantsDAO" />
@@ -425,6 +433,17 @@
 		</property>
 	</bean>
 	<bean id="CategoriesDAO" class="trimatrix.db.CategoriesDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="SchedulesDAO" class="trimatrix.db.SchedulesDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TScheduletypesDAO"
+		class="trimatrix.db.TScheduletypesDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>

@@ -8,10 +8,14 @@
 
 	<session-factory>
 		<property name="myeclipse.connection.profile">MySQL</property>
-		<property name="connection.url">jdbc:mysql://localhost/trimatrix?autoReconnect=true</property>
+		<property name="connection.url">
+			jdbc:mysql://localhost/trimatrix?autoReconnect=true
+		</property>
 		<property name="connection.username">trimatrix</property>
 		<property name="connection.password">trimatrix</property>
-		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.driver_class">
+			com.mysql.jdbc.Driver
+		</property>
 
 		<property name="dialect">
 			org.hibernate.dialect.MySQLDialect
@@ -91,6 +95,8 @@
 		<mapping class="trimatrix.db.PersonsHaveAttachments" />
 		<mapping class="trimatrix.db.PersonsHaveDoctors" />
 		<mapping class="trimatrix.db.Categories" />
+		<mapping class="trimatrix.db.Schedules" />
+		<mapping class="trimatrix.db.TScheduletypes" />
 	</session-factory>
 
 </hibernate-configuration>
