@@ -13,6 +13,7 @@ public class DAOLayer {
 	private IEntityDAO<Attachments> attachmentsDAO;
 	private IEntityDAO<Tests> testsDAO;
 	private IEntityDAO<Competitions> competitionsDAO;
+	private IEntityDAO<Schedules> schedulesDAO;
 	private IComplexDAO<CompetitionsScouts, CompetitionsScoutsId> competitionsScoutsDAO;
 	private IEntityDAO<Results> resultsDAO;
 	private ISimpleDAO<ResultsTria> resultsTriaDAO;
@@ -23,6 +24,7 @@ public class DAOLayer {
 	private ITextDAO<TSalutation, TSalutationId> tsalutationDAO;
 	private ITextDAO<TCategories, TCategoriesId> tcategoriesDAO;
 	private ITextDAO<TTesttypes, TTesttypesId> ttesttypesDAO;
+	private ITextDAO<TScheduletypes, TScheduletypesId> tscheduletypesDAO;
 	private ISimpleDAO<PersonsAthlete> personAthleteDAO;	
 	private ISimpleDAO<TestsErgo> testsErgoDAO;
 	private ISimpleDAO<TestsTreadmill> testsTreadmillDAO;
@@ -137,6 +139,12 @@ public class DAOLayer {
 	}
 	public void setResultsDAO(IEntityDAO<Results> resultsDAO) {
 		this.resultsDAO = resultsDAO;
+	}	
+	public IEntityDAO<Schedules> getSchedulesDAO() {
+		return schedulesDAO;
+	}
+	public void setSchedulesDAO(IEntityDAO<Schedules> schedulesDAO) {
+		this.schedulesDAO = schedulesDAO;
 	}
 	public ISimpleDAO<ResultsTria> getResultsTriaDAO() {
 		return resultsTriaDAO;
@@ -164,6 +172,12 @@ public class DAOLayer {
 	}
 	public void setTtesttypesDAO(ITextDAO<TTesttypes, TTesttypesId> ttesttypesDAO) {
 		this.ttesttypesDAO = ttesttypesDAO;
+	}	
+	public ITextDAO<TScheduletypes, TScheduletypesId> getTscheduletypesDAO() {
+		return tscheduletypesDAO;
+	}
+	public void setTscheduletypesDAO(ITextDAO<TScheduletypes, TScheduletypesId> tscheduletypesDAO) {
+		this.tscheduletypesDAO = tscheduletypesDAO;
 	}
 	public ISimpleDAO<PersonsAthlete> getPersonAthleteDAO() {
 		return personAthleteDAO;
