@@ -28,6 +28,10 @@ import trimatrix.utils.Helper;
 
 @CCGenClass(expressionBase = "#{d.ScheduleUI}")
 public class ScheduleUI extends MyWorkpageDispatchedBean implements Serializable {
+    public void onCopySchedules(ActionEvent event) {}
+
+    public void onCreateTemplate(ActionEvent event) {}
+
 	protected final int DURATION = 3600000; // in ms
 	protected final int STARTINGHOUR = 6;
 	

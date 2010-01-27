@@ -24,6 +24,7 @@ public class Schedules implements java.io.Serializable, IEntityObject {
 	private Timestamp start;
 	private Integer duration;
 	private String color;
+	private Boolean template;
 	private Timestamp createdAt;
 	private String createdBy;
 	private Timestamp modifiedAt;
@@ -43,7 +44,7 @@ public class Schedules implements java.io.Serializable, IEntityObject {
 	}
 
 	/** full constructor */
-	public Schedules(String id, String personId, String type, String description, Timestamp start, Integer duration, String color, Timestamp createdAt, String createdBy, Timestamp modifiedAt,
+	public Schedules(String id, String personId, String type, String description, Timestamp start, Integer duration, String color, Boolean template, Timestamp createdAt, String createdBy, Timestamp modifiedAt,
 			String modifiedBy, Boolean deleted, Boolean test) {
 		this.id = id;
 		this.personId = personId;
@@ -52,6 +53,7 @@ public class Schedules implements java.io.Serializable, IEntityObject {
 		this.start = start;
 		this.duration = duration;
 		this.color = color;
+		this.template = template;
 		this.createdAt = createdAt;
 		this.createdBy = createdBy;
 		this.modifiedAt = modifiedAt;
@@ -89,7 +91,7 @@ public class Schedules implements java.io.Serializable, IEntityObject {
 		this.type = type;
 	}
 
-	@Column(name = "description", length = 65535)
+	@Column(name = "description", columnDefinition="text")
 	public String getDescription() {
 		return this.description;
 	}
@@ -123,6 +125,15 @@ public class Schedules implements java.io.Serializable, IEntityObject {
 
 	public void setColor(String color) {
 		this.color = color;
+	}
+		
+	@Column(name = "template")
+	public Boolean getTemplate() {
+		return template;
+	}
+
+	public void setTemplate(Boolean template) {
+		this.template = template;
 	}
 
 	@Column(name = "created_at", length = 19)
