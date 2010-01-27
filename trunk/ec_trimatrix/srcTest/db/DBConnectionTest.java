@@ -40,6 +40,7 @@ import trimatrix.db.PersonsAthlete;
 import trimatrix.db.PersonsHaveCompetitions;
 import trimatrix.db.PersonsHaveRelations;
 import trimatrix.db.RolesHaveFunctionnodes;
+import trimatrix.db.Schedules;
 import trimatrix.db.Tests;
 import trimatrix.db.TestsErgo;
 import trimatrix.db.TestsProtocol;
@@ -129,7 +130,7 @@ public class DBConnectionTest {
 				usersDAO.delete(user);
 			}
 		}
-		/* 4. Delete Data */
+		/* 4. Delete Data */		
 		personsDAO.delete(newPerson);
 	}
 
@@ -391,6 +392,22 @@ public class DBConnectionTest {
 		daoLayer.getPersonsHaveCompetitionsDAO().delete(phc2);
 		daoLayer.getCompetitionsScoutsDAO().delete(compScout2);
 		daoLayer.getCompetitionsDAO().delete(comp2);
+	}
+	
+	@Test
+	public void testSchedules() {
+		// Competitions
+		String id = UUID.randomUUID().toString();
+		Schedules schedules = new Schedules(id);
+		schedules.setDescription("Test");
+		schedules.setColor("#000000");
+		schedules.setTemplate(true);
+		daoLayer.getSchedulesDAO().save(schedules);
+		Schedules schedules2 = daoLayer.getSchedulesDAO().findById(id);
+		Assert.assertEquals("Test", schedules2.getDescription());
+		Assert.assertEquals("#000000", schedules2.getColor());
+		Assert.assertEquals(true, schedules2.getTemplate());
+		daoLayer.getSchedulesDAO().delete(schedules2);		
 	}
 	
 	@After

@@ -1,5 +1,5 @@
 /*
-SQLyog Enterprise - MySQL GUI v8.05 
+SQLyog Community Edition- MySQL GUI v8.2 Beta 1
 MySQL - 5.1.33-community : Database - trimatrix
 *********************************************************************
 */
@@ -8,9 +8,10 @@ MySQL - 5.1.33-community : Database - trimatrix
 
 /*!40101 SET SQL_MODE=''*/;
 
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 CREATE DATABASE /*!32312 IF NOT EXISTS*/`trimatrix` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
 USE `trimatrix`;
@@ -274,6 +275,17 @@ CREATE TABLE `k_salutation` (
 /*Data for the table `k_salutation` */
 
 insert  into `k_salutation`(`key`) values ('mr'),('mrs');
+
+/*Table structure for table `k_scheduletypes` */
+
+DROP TABLE IF EXISTS `k_scheduletypes`;
+
+CREATE TABLE `k_scheduletypes` (
+  `key` varchar(10) NOT NULL,
+  PRIMARY KEY (`key`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+/*Data for the table `k_scheduletypes` */
 
 /*Table structure for table `k_sex` */
 
@@ -544,6 +556,32 @@ CREATE TABLE `roles_have_functionnodes` (
 
 insert  into `roles_have_functionnodes`(`role_key`,`functionnode_key`,`node`,`parent`,`order`) values ('admin','masterdata',1,0,1),('admin','users_all',2,1,1),('admin','persons_all',3,1,2),('athlete','person_own',1,0,1),('athlete','coaches_own',2,0,2),('coach','person_own',1,0,1),('coach','athletes_own',2,0,2),('admin','relations',4,0,2),('admin','relation_coach',5,4,1),('admin','doctors_all',6,1,3),('admin','relation_doctor',7,4,2),('athlete','doctors_own',3,0,3),('coach','doctors_own',3,0,3),('admin','attachments_all',7,1,4),('athlete','attachments_own',4,0,4),('coach','attachments_own',4,0,4),('admin','relation_attachment',8,4,3),('admin','tests_all',9,1,5),('athlete','tests_own',5,0,5),('coach','tests_coach',5,0,5),('coach','zones_coach',6,0,6),('athlete','zones_athlete',6,0,6),('admin','competitions_all',10,1,6),('scouter','competitions_all',1,0,1),('scouter','competitions_own',2,0,2),('scouter','scouted_own',3,0,3),('scouter','results_scout',4,0,4),('admin','relation_scout',11,4,4),('admin','results_all',12,1,7);
 
+/*Table structure for table `schedules` */
+
+DROP TABLE IF EXISTS `schedules`;
+
+CREATE TABLE `schedules` (
+  `id` varchar(36) NOT NULL,
+  `person_id` varchar(36) DEFAULT NULL,
+  `type` varchar(10) DEFAULT NULL,
+  `description` text,
+  `start` datetime DEFAULT NULL,
+  `duration` int(11) DEFAULT NULL COMMENT 'Duration  in minutes',
+  `color` varchar(10) DEFAULT NULL,
+  `template` tinyint(1) DEFAULT '0',
+  `created_at` datetime DEFAULT '1900-01-01 00:00:00',
+  `created_by` varchar(36) DEFAULT NULL,
+  `modified_at` datetime DEFAULT '1900-01-01 00:00:00',
+  `modified_by` varchar(36) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT '0',
+  `test` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `fk_schedules_persons` (`person_id`),
+  KEY `fk_schedules_scheduletypes` (`type`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Table for superclass of schedule items';
+
+/*Data for the table `schedules` */
+
 /*Table structure for table `t_authorizations` */
 
 DROP TABLE IF EXISTS `t_authorizations`;
@@ -722,6 +760,22 @@ CREATE TABLE `t_salutation` (
 /*Data for the table `t_salutation` */
 
 insert  into `t_salutation`(`key`,`language_key`,`description`,`description_long`) values ('mr','de','Herr','Herr'),('mr','en','Mr.','Mr.'),('mrs','de','Frau','Frau'),('mrs','en','Mrs.','Mrs.');
+
+/*Table structure for table `t_scheduletypes` */
+
+DROP TABLE IF EXISTS `t_scheduletypes`;
+
+CREATE TABLE `t_scheduletypes` (
+  `key` varchar(10) NOT NULL,
+  `language_key` varchar(2) NOT NULL,
+  `description` varchar(20) DEFAULT NULL,
+  `description_long` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`key`,`language_key`),
+  KEY `fk_t_scheduletypes_k_languages` (`language_key`),
+  KEY `fk_t_scheduletypes_k_scheduletypes` (`key`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+/*Data for the table `t_scheduletypes` */
 
 /*Table structure for table `t_sex` */
 
@@ -960,7 +1014,7 @@ CREATE TABLE `users` (
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`user_name`,`user_hash`,`language_key`,`currency_key`,`locked`,`initial`,`active`,`person_id`,`email`,`last_login`,`last_login_ip`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('e96bcbd2-676d-102c-ace2-9cc3fca64c87','reich','test','de','eur',0,0,1,'0b0b7658-2ddb-11de-86ae-00301bb60f17','reich.markus@gmail.com','2010-01-13 21:29:33','10.17.7.247','1900-01-01 00:00:00','','2010-01-13 21:29:34','',0,0),('e96bcbd2-676d-102c-ace2-9cc3fca64c88','bucher','test','en','usd',0,0,1,'10f52302-2ddb-11de-86ae-00301bb60f17','dany.bucher@gmail.com',NULL,NULL,'1900-01-01 00:00:00','','2009-06-21 17:04:39','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('e96bcbd2-676d-102c-ace2-9cc3fca64c89','mach','test','de','eur',0,0,1,'7522bc7f-42cf-415c-a050-da12518a4cd3','mach.thomas@gmail.com','2009-11-28 17:36:47','169.254.1.10','1900-01-01 00:00:00','','2009-11-28 17:36:47','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('f6352d84-ae4b-4a5e-ab7b-e9a0df84e86a','diechtler','f5d8476efe68','de',NULL,0,1,0,'aa37127b-0622-483d-89c8-fe378fe63a0d','marcel.diechtler@gmail.com',NULL,NULL,'2009-11-19 23:00:43','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-11-28 17:28:15','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('c841dff0-94ea-4415-b145-9fe4f6fec5fa','baumgartner',NULL,'de',NULL,0,0,0,'514f02d2-2a7d-4bec-a6c4-9e9e97ffefe4','wolfgang@gmx.de',NULL,NULL,'2009-11-16 13:19:46','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-06-12 23:25:01','e96bcbd2-676d-102c-ace2-9cc3fca64c87',1,0);
+insert  into `users`(`id`,`user_name`,`user_hash`,`language_key`,`currency_key`,`locked`,`initial`,`active`,`person_id`,`email`,`last_login`,`last_login_ip`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('e96bcbd2-676d-102c-ace2-9cc3fca64c87','reich','test','de','eur',0,0,1,'0b0b7658-2ddb-11de-86ae-00301bb60f17','reich.markus@gmail.com','2010-01-25 20:16:34','169.254.1.10','1900-01-01 00:00:00','','2010-01-25 20:16:34','',0,0),('e96bcbd2-676d-102c-ace2-9cc3fca64c88','bucher','test','en','usd',0,0,1,'10f52302-2ddb-11de-86ae-00301bb60f17','dany.bucher@gmail.com',NULL,NULL,'1900-01-01 00:00:00','','2009-06-21 17:04:39','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('e96bcbd2-676d-102c-ace2-9cc3fca64c89','mach','test','de','eur',0,0,1,'7522bc7f-42cf-415c-a050-da12518a4cd3','mach.thomas@gmail.com','2009-11-28 17:36:47','169.254.1.10','1900-01-01 00:00:00','','2009-11-28 17:36:47','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('f6352d84-ae4b-4a5e-ab7b-e9a0df84e86a','diechtler','f5d8476efe68','de',NULL,0,1,0,'aa37127b-0622-483d-89c8-fe378fe63a0d','marcel.diechtler@gmail.com',NULL,NULL,'2009-11-19 23:00:43','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-11-28 17:28:15','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0),('c841dff0-94ea-4415-b145-9fe4f6fec5fa','baumgartner',NULL,'de',NULL,0,0,0,'514f02d2-2a7d-4bec-a6c4-9e9e97ffefe4','wolfgang@gmx.de',NULL,NULL,'2009-11-16 13:19:46','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-06-12 23:25:01','e96bcbd2-676d-102c-ace2-9cc3fca64c87',1,0);
 
 /*Table structure for table `users_have_authorizations` */
 
@@ -1049,10 +1103,10 @@ DROP TABLE IF EXISTS `categories`;
 /*!50001 DROP VIEW IF EXISTS `categories` */;
 /*!50001 DROP TABLE IF EXISTS `categories` */;
 
-/*!50001 CREATE TABLE `categories` (
-  `scout_id` varchar(36) CHARACTER SET latin1 NOT NULL,
-  `category` varchar(10) CHARACTER SET latin1 DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 */;
+/*!50001 CREATE TABLE  `categories`(
+ `scout_id` varchar(36) ,
+ `category` varchar(10) 
+)*/;
 
 /*Table structure for table `entities` */
 
@@ -1061,11 +1115,11 @@ DROP TABLE IF EXISTS `entities`;
 /*!50001 DROP VIEW IF EXISTS `entities` */;
 /*!50001 DROP TABLE IF EXISTS `entities` */;
 
-/*!50001 CREATE TABLE `entities` (
-  `id` varchar(36) NOT NULL DEFAULT '',
-  `entity` varchar(11) NOT NULL DEFAULT '',
-  `deleted` tinyint(4) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 */;
+/*!50001 CREATE TABLE  `entities`(
+ `id` varchar(36) ,
+ `entity` varchar(11) ,
+ `deleted` tinyint(4) 
+)*/;
 
 /*Table structure for table `relations` */
 
@@ -1074,12 +1128,12 @@ DROP TABLE IF EXISTS `relations`;
 /*!50001 DROP VIEW IF EXISTS `relations` */;
 /*!50001 DROP TABLE IF EXISTS `relations` */;
 
-/*!50001 CREATE TABLE `relations` (
-  `id` varchar(36) NOT NULL DEFAULT '',
-  `partner1` varchar(36) DEFAULT NULL,
-  `partner2` varchar(36) DEFAULT NULL,
-  `reltyp_key` varchar(10) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 */;
+/*!50001 CREATE TABLE  `relations`(
+ `id` varchar(36) ,
+ `partner1` varchar(36) ,
+ `partner2` varchar(36) ,
+ `reltyp_key` varchar(10) 
+)*/;
 
 /*View structure for view categories */
 
@@ -1104,3 +1158,5 @@ DROP TABLE IF EXISTS `relations`;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
