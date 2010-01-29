@@ -26,6 +26,12 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
     protected IPopupCallback callback;
     protected ScheduleItem scheduleItem;
     
+    public String getColor() { return scheduleItem.getColor(); }
+    public void setColor(String color) { scheduleItem.setColor(color); }
+    
+    public String getType() { return scheduleItem.getType(); }
+    public void setType(String type) { scheduleItem.setType(type); }
+    
     public String getText() { return scheduleItem.getText(); }
     public void setText(String text) { scheduleItem.setText(text); }
     

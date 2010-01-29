@@ -22,14 +22,26 @@
 <t:calendarfield id="g_9" timezone="CET" value="#{d.ScheduleChangePopUp.to}" />
 </t:row>
 <t:row id="g_10" >
-<t:label id="g_11" text="Beschreibung" />
-<t:coldistance id="g_12" />
-<t:field id="g_13" text="#{d.ScheduleChangePopUp.text}" width="150" />
+<t:label id="g_11" text="Farbe" width="90" />
+<t:colorfield id="g_12" background="#{d.ScheduleChangePopUp.color}" flush="true" focusable="false" foreground="#FFFFFF00" value="#{d.ScheduleChangePopUp.color}" width="100" />
 </t:row>
-<t:row id="g_14" >
-<t:button id="g_15" actionListener="#{d.ScheduleChangePopUp.onOk}" text="Ok" />
-<t:coldistance id="g_16" />
-<t:button id="g_17" actionListener="#{d.ScheduleChangePopUp.onCancel}" text="Abbrechen" />
+<t:row id="g_13" >
+<t:label id="g_14" text="Type" width="90" />
+<t:combobox id="g_15" value="#{d.ScheduleChangePopUp.type}" width="100" >
+<t:comboboxitem id="g_16" text="Laufen" value="run" />
+<t:comboboxitem id="g_17" text="Rad" value="bike" />
+<t:comboboxitem id="g_18" text="Schwimmen" value="swim" />
+</t:combobox>
+</t:row>
+<t:row id="g_19" >
+<t:label id="g_20" text="Beschreibung" width="80" />
+<t:coldistance id="g_21" />
+<t:field id="g_22" text="#{d.ScheduleChangePopUp.text}" width="150" />
+</t:row>
+<t:row id="g_23" >
+<t:button id="g_24" actionListener="#{d.ScheduleChangePopUp.onOk}" text="Ok" />
+<t:coldistance id="g_25" />
+<t:button id="g_26" actionListener="#{d.ScheduleChangePopUp.onCancel}" text="Abbrechen" />
 </t:row>
 </t:rowbodypane>
 <t:pageaddons id="g_pa"/>
