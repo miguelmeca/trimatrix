@@ -15,7 +15,7 @@
 <t:row id="g_2" >
 <t:label id="g_3" text="#{rr.literals.color}" width="70" />
 <t:coldistance id="g_4" />
-<t:colorfield id="g_5" background="#{d.LabelChangePopUp.color}" flush="true" focusable="false" foreground="#{d.LabelChangePopUp.color}" value="#{d.LabelChangePopUp.color}" width="100" />
+<t:colorfield id="g_5" background="#{d.LabelChangePopUp.color}" flush="true" focusable="false" foreground="#FFFFFF00" value="#{d.LabelChangePopUp.color}" width="100" />
 </t:row>
 <t:rowdistance id="g_6" />
 <t:row id="g_7" >

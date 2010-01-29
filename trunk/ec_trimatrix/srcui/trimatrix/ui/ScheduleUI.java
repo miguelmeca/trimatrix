@@ -17,6 +17,8 @@ import org.eclnt.jsfserver.elements.events.BaseActionEventFlush;
 import org.eclnt.jsfserver.elements.events.BaseActionEventInvoke;
 import org.eclnt.jsfserver.elements.events.BaseActionEventPopupMenuItem;
 import org.eclnt.jsfserver.elements.events.BaseActionEventScheduleSizeChanged;
+import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
+import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.jsfserver.elements.impl.SCHEDULEComponent;
 import org.eclnt.jsfserver.elements.impl.SCHEDULEITEMComponentTag;
 import org.eclnt.jsfserver.elements.util.Trigger;
@@ -28,13 +30,37 @@ import trimatrix.utils.Helper;
 
 @CCGenClass(expressionBase = "#{d.ScheduleUI}")
 public class ScheduleUI extends MyWorkpageDispatchedBean implements Serializable {
-    public void onCopySchedules(ActionEvent event) {}
+    protected FIXGRIDListBinding<GridAgendaItem> m_gridAgenda = new FIXGRIDListBinding<GridAgendaItem>();
+    public FIXGRIDListBinding<GridAgendaItem> getGridAgenda() { return m_gridAgenda; }
+    public void setGridAgenda(FIXGRIDListBinding<GridAgendaItem> value) { m_gridAgenda = value; }
 
-    public void onCreateTemplate(ActionEvent event) {}
+    public class GridAgendaItem extends FIXGRIDItem implements java.io.Serializable
+    {
+        private ScheduleItem scheduleItem;
+		public ScheduleItem getScheduleItem() {return scheduleItem;}
+		public void setScheduleItem(ScheduleItem scheduleItem) {this.scheduleItem = scheduleItem;}	 
+		
+		public GridAgendaItem(ScheduleItem scheduleItem) {
+			this.scheduleItem = scheduleItem;
+		} 
+    }
+    
+    private void refreshAgenda() {
+    	m_gridAgenda.getItems().clear();
+    	for(ScheduleItem scheduleItem : scheduleItems) {
+    		m_gridAgenda.getItems().add(new GridAgendaItem(scheduleItem));
+    	}
+    }
+
+	public void onCopySchedules(ActionEvent event) {
+	}
+
+	public void onCreateTemplate(ActionEvent event) {
+	}
 
 	protected final int DURATION = 3600000; // in ms
 	protected final int STARTINGHOUR = 6;
-	
+
 	protected final int NUMBEROFBLOCKS = 24;
 
 	public int getNumberOfBlocks() {
@@ -78,15 +104,21 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements Serializable
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
+
 	ScheduleUI scheduleUI = this;
 
-	List<ScheduleItem> scheduleItems = new ArrayList<ScheduleItem>();	
-	public List<ScheduleItem> getScheduleItems() {return scheduleItems;}
+	List<ScheduleItem> scheduleItems = new ArrayList<ScheduleItem>();
+
+	public List<ScheduleItem> getScheduleItems() {
+		return scheduleItems;
+	}
 
 	ScheduleItem selectedScheduleItem = null;
-	private void selectScheduleItem(ScheduleItem item) {selectedScheduleItem = item;}
-    
+
+	private void selectScheduleItem(ScheduleItem item) {
+		selectedScheduleItem = item;
+	}
+
 	int[] DAYSOFWEEK = new int[] { Calendar.MONDAY, Calendar.TUESDAY, Calendar.WEDNESDAY, Calendar.THURSDAY, Calendar.FRIDAY, Calendar.SATURDAY, Calendar.SUNDAY };
 
 	SCHEDULEComponent m_day0;
@@ -108,7 +140,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements Serializable
 		if (m_day0 == value)
 			return;
 		m_day0 = value;
-		refreshSchedule(0);		
+		refreshSchedule(0);
 	}
 
 	public void setDay1(SCHEDULEComponent value) {
@@ -223,24 +255,26 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements Serializable
 	}
 
 	private void refreshSchedule(SCHEDULEComponent schedule, int day) {
-		if (schedule == null) return;
+		if (schedule == null)
+			return;
 		schedule.getChildren().clear();
 		int dayOfWeek = DAYSOFWEEK[day];
 		int counter = -1;
 		for (ScheduleItem item : scheduleItems) {
-			counter++;			
+			counter++;
 			String expressionBase = getWorkpage().getDispatcher().getExpressionBase().replace("}", ".");
-			if (item.getFromWeekDay() != dayOfWeek)	continue;
+			String background = item.getColor();
+			String foreground = Helper.getBlackOrWhite(background);
+
+			if (item.getFromWeekDay() != dayOfWeek)
+				continue;
 			SCHEDULEITEMComponentTag st = new SCHEDULEITEMComponentTag();
 			st.setScheduleleft(item.getFromInMinutes() + "");
 			st.setSchedulewidth(expressionBase + "ScheduleUI.scheduleItems[" + counter + "].durationInMinutes}");
-			st.setText(item.getText());
-			//st.setBgpaint(ResourceManager.getRuntimeInstance().readProperty("constants", "itemSchedule"));
-			st.setBgpaint("roundedborder(0,0,100%,100%,10,10,#000000,2)");
-			// rectangle(0,0,100,20,#FF0000);rectangle(0,20,100,100,#FF000020);write(5,0,9.00 - 10.00,lefttop);write(5,20,Beschreibung,lefttop)
-			//st.setBorder("#C0C0C0");
-			st.setBackground(item.getColor());
-			st.setForeground(Helper.getBlackOrWhite(item.getColor()));
+			st.setText("\n" + item.getText());
+			st.setBgpaint("roundedborder(0,0,100%,100%,10,10," + background + ",2);rectangle(0,0,100%,16," + background + ");write(5,0," + item.getType() + ",12," + foreground + ",lefttop)");
+			st.setBackground(item.getColor() + "60"); // Add Transparency
+			st.setForeground(foreground);
 			st.setPopupmenu("SCHEDULEITEM");
 			st.setActionListener(expressionBase + "ScheduleUI.scheduleItems[" + counter + "].onScheduleItemAction}");
 			st.setDragsend("schedule:" + counter);
@@ -249,7 +283,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements Serializable
 			schedule.getChildren().add(st.createBaseComponent());
 		}
 	}
-	
+
 	public String getActualDate() {
 		return new SimpleDateFormat("EEEE, d. MMMM yyyy").format(new Date());
 	}
@@ -307,7 +341,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements Serializable
 				Date from = getLogic().getScheduleLogic().calculateBeginDate(bae.getPercentageVerticalAsFloat(), SCHEDULEMAX, getBeginOfWeek(), day, STARTINGHOUR);
 				Date to = new Date(from.getTime() + DURATION);
 				// add to list of visible items
-                ScheduleItem scheduleItem = new ScheduleItem(from, to, Constants.BLUE, "Neuer Termin"); 
+                ScheduleItem scheduleItem = new ScheduleItem(from, to, Constants.BLUE, "Neuer Termin", "Laufen"); 
                 scheduleItems.add(scheduleItem);
                 refreshSchedule(day);
                 // open in popup
@@ -319,10 +353,22 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements Serializable
                 if (dragInfo.startsWith("schedule:")) {
                 	String[] dragInfos = dragInfo.split(":");
                 	// new or existing schedule item
-                	if(dragInfos[1].equalsIgnoreCase("new")) {
+                	if(dragInfos[1].startsWith("new")) {
                 		Date to = new Date(from.getTime() + DURATION);
+                		String type;
+                		String color;
+                		if(dragInfos[1].equalsIgnoreCase("new_run")) {
+                			type = "Laufen";
+                			color = Constants.BLUE;
+                		} else if(dragInfos[1].equalsIgnoreCase("new_bike")) { 
+                			type = "Rad";
+                			color = Constants.GREEN;
+                		} else {
+                			type = "Schwimmen";
+                			color = Constants.RED;
+                		}						
         				// add to list of visible items
-                        ScheduleItem scheduleItem = new ScheduleItem(from, to, Constants.BLUE, "Neuer Termin"); 
+                        ScheduleItem scheduleItem = new ScheduleItem(from, to, color, "Neuer Termin",type); 
                         scheduleItems.add(scheduleItem);
                         refreshSchedule(day);
                         // open in popup
@@ -337,31 +383,67 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements Serializable
                 	}                    
                 }
 			}
+			refreshAgenda();
 		}
 	}
 
 	public class ScheduleItem {
+		String type;
+
+		public String getType() {
+			return type;
+		}
+
+		public void setType(String type) {
+			this.type = type;
+		}
+
 		Date from;
-		public Date getFrom() { return from; }
-		public void setFrom(Date from) { this.from = from; }
-		
+
+		public Date getFrom() {
+			return from;
+		}
+
+		public void setFrom(Date from) {
+			this.from = from;
+		}
+
 		Date to;
-		public Date getTo() { return to; }
-		public void setTo(Date to) { this.to = to; }
-		
+
+		public Date getTo() {
+			return to;
+		}
+
+		public void setTo(Date to) {
+			this.to = to;
+		}
+
 		String color;
-		public String getColor() {return color;}
-		public void setColor(String color) {this.color = color;}
+
+		public String getColor() {
+			return color;
+		}
+
+		public void setColor(String color) {
+			this.color = color;
+		}
 
 		String text;
-		public String getText() {return text;}
-		public void setText(String text) {this.text = text;}
 
-		public ScheduleItem(Date from, Date to, String color, String text) {
+		public String getText() {
+			return text;
+		}
+
+		public void setText(String text) {
+			this.text = text;
+		}
+
+		public ScheduleItem(Date from, Date to, String color, String text, String type) {
 			this.from = from;
 			this.to = to;
 			this.color = color;
 			this.text = text;
+			this.type = type;
 		}
 
 		public int getFromWeekDay() {
@@ -384,7 +466,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements Serializable
 		public long getDurationInMinutes() {
 			return getDuration() / 60000;
 		}
-		
+
 		public long getDuration() {
 			return to.getTime() - from.getTime();
 		}
@@ -402,14 +484,14 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements Serializable
 						}
 
 						public void reactOnYes() {
-							Statusbar.outputMessage("Item removed!");							
+							Statusbar.outputMessage("Item removed!");
 							try {
-								ScheduleItem this_ = (ScheduleItem)getClass().getDeclaredField("this$1").get(this);
+								ScheduleItem this_ = (ScheduleItem) getClass().getDeclaredField("this$1").get(this);
 								scheduleItems.remove(this_);
 								refreshAllSchedules();
 							} catch (Exception ex) {
 								Statusbar.outputError("Error removing schedule item!", ex.toString());
-							} 							
+							}
 						}
 					});
 				}
@@ -424,21 +506,22 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements Serializable
 			} else if (event instanceof BaseActionEventInvoke) {
 				openInPopup();
 			}
+			refreshAgenda();
 		}
 
 		private void openInPopup() {
 			selectScheduleItem(this);
 			ScheduleChangePopUp scheduleChangePopUp = getScheduleChangePopUp();
-			scheduleChangePopUp.prepareCallback(new ScheduleChangePopUp.IPopupCallback(){
+			scheduleChangePopUp.prepareCallback(new ScheduleChangePopUp.IPopupCallback() {
 				public void cancel() {
-					m_popup.close();	
+					m_popup.close();
 					refresh();
-				}					
+				}
 			}, this);
-			m_popup = getWorkpage().createModalPopupInWorkpageContext();    
-	       	m_popup.setLeftTopReferenceCentered();
-	       	m_popup.setUndecorated(true);
-	       	m_popup.open(Constants.Page.SCHEDULECHANGEPOPUP.getUrl(), "Termin", 400, 300, scheduleUI);			
-		}		
+			m_popup = getWorkpage().createModalPopupInWorkpageContext();
+			m_popup.setLeftTopReferenceCentered();
+			m_popup.setUndecorated(true);
+			m_popup.open(Constants.Page.SCHEDULECHANGEPOPUP.getUrl(), "Termin", 400, 300, scheduleUI);
+		}
 	}
 }
