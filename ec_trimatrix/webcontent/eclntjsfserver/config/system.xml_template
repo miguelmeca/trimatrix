@@ -14,8 +14,8 @@
       bugs, so we open up the usage of the parser. 
       *************************************************************************
      -->
-    <!--
-    <saxparserfactory name="org.apache.crimson.jaxp.SAXParserFactoryImpl"/>
+    <!-- Example:
+    <saxparserfactory name="org.apache.xerces.jaxp.SAXParserFactoryImpl"/>
      -->
      
     <!--
