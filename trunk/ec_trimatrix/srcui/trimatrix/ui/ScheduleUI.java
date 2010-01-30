@@ -58,6 +58,9 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements Serializable
 	public void onCreateTemplate(ActionEvent event) {
 	}
 
+	public void onCreateSerie(ActionEvent event) {
+	}
+	
 	protected final int DURATION = 3600000; // in ms
 	protected final int STARTINGHOUR = 6;
 
@@ -373,6 +376,23 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements Serializable
                         refreshSchedule(day);
                         // open in popup
                         scheduleItem.openInPopup();
+                	} else if(dragInfos[1].startsWith("series")) {
+                		Date to = new Date(from.getTime() + DURATION);
+                		String type;
+                		String color;
+                		if(dragInfos[1].equalsIgnoreCase("series_a")) {
+                			
+                		} else if(dragInfos[1].equalsIgnoreCase("series_b")) { 
+                			
+                		} else {
+                			
+                		}						
+        				// add to list of visible items
+                        //ScheduleItem scheduleItem = new ScheduleItem(from, to, color, "Neuer Termin",type); 
+                        //scheduleItems.add(scheduleItem);
+                        //refreshSchedule(day);
+                        // open in popup
+                        //scheduleItem.openInPopup();
                 	} else {
                 		int index = new Integer(bae.getDragInfo().substring("schedule:".length())).intValue();
                         ScheduleItem scheduleItem = scheduleItems.get(index);
