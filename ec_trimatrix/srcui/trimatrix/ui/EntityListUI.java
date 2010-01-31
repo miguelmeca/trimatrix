@@ -46,7 +46,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 	private String filter;
 	public boolean getCreateAllowed() { return authorization.create; }
 	public boolean getDeleteAllowed() { return authorization.delete; }
-	public boolean getChangeAllowed() { return authorization.change; }	
+	public boolean getChangeAllowed() { return authorization.change; }
 	private boolean renderButtons;
 	public boolean getRenderButtons() { return renderButtons; }
 
@@ -63,14 +63,14 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 		if(create==null || !create.equals(Constants.TRUE)) create = Constants.FALSE;
 		if(change==null || !change.equals(Constants.TRUE)) change = Constants.FALSE;
 		if(delete==null || !delete.equals(Constants.TRUE)) delete = Constants.FALSE;
-		authorization = new SAuthorization(create, change, delete);	
+		authorization = new SAuthorization(create, change, delete);
 		// render buttons
 		renderButtons = true;
 		// get entity
 		String strEntity = getWorkpage().getParam(Constants.P_ENTITY);
 		try {
 			entity = Constants.Entity.valueOf(strEntity.toUpperCase());
-		} catch (Exception ex) {			
+		} catch (Exception ex) {
 			Statusbar.outputError("No or wrong entity set", "For list view processing an entity has to be set by the functiontreenode!");
 			getWorkpageContainer().closeWorkpage(getWorkpage());
 		}
@@ -78,21 +78,21 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 		personId = getWorkpage().getParam(Constants.P_PERSON);
 		// get filter
 		filter = getWorkpage().getParam(Constants.P_FILTER);
-		// set up grid output		
-		gridMetaData = ENTITYLISTLOGIC.getGridMetaData(entity, filter);		
-		// if base is a relation, add standard column		
+		// set up grid output
+		gridMetaData = ENTITYLISTLOGIC.getGridMetaData(entity, filter);
+		// if base is a relation, add standard column
 		if(entity.hasStandard()) {
-			gridMetaData.add(0, new SGridMetaData("#{rr.literals.standard}", Constants.STANDARD, SGridMetaData.Component.CHECKBOX));       
+			gridMetaData.add(0, new SGridMetaData("#{rr.literals.standard}", Constants.STANDARD, SGridMetaData.Component.CHECKBOX));
 		}
 		buildData(filter);
 	}
-	
+
 	// Constructor for LabelSearchResult
 	public EntityListUI(IWorkpageDispatcher dispatcher, Constants.Entity entity, List<String> ids, SAuthorization authorization) {
 		super(dispatcher);
 		// render no buttons
-		renderButtons = false;		
-		this.authorization = authorization;	
+		renderButtons = false;
+		this.authorization = authorization;
 		this.entity = entity;
 		personId = null;
 		gridMetaData = ENTITYLISTLOGIC.getGridMetaData(entity, null);
@@ -123,25 +123,25 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 	private void setRowDynamic() {
 		String dragKey = Constants.P_ENTITY + ":" + Constants.P_ENTITYLIST;
 		StringBuffer xml = new StringBuffer();
-		xml.append("<t:fixgrid avoidroundtrips='true' dragsend='" + dragKey + "' rowdragsend='" + dragKey + "' drawoddevenrows='true' objectbinding='#{d.EntityListUI.gridList}' persistid='gridList' cellselection='true' rowheight='20' width='100%' sbvisibleamount='20' showemptyrows='false' horizontalscrollmode='autowithresize'>");
+		xml.append("<t:fixgrid avoidroundtrips='true' dragsend='" + dragKey + "' rowdragsend='" + dragKey + "' drawoddevenrows='true' objectbinding='#{d.EntityListUI.gridList}' persistid='gridList' cellselection='true' rowheight='20' sbvisibleamount='20' showemptyrows='false' horizontalscrollmode='autowithresize'>");
 		for (SGridMetaData meta : gridMetaData) {
 			// component type checkbox
-			boolean isIndividual = false;			
+			boolean isIndividual = false;
 			if (meta.component == SGridMetaData.Component.INDIVIDUAL) {
 				isIndividual = true;
-			} 			
-			boolean isCheckBox = false;			
+			}
+			boolean isCheckBox = false;
 			if (meta.component == SGridMetaData.Component.CHECKBOX) {
 				isCheckBox = true;
-			} 
+			}
 			boolean isCalendarField = false;
 			if (meta.component == SGridMetaData.Component.CALENDARFIELD) {
 				isCalendarField = true;
-			} 
+			}
 			boolean isFormatedDateTime = false;
 			if (meta.component == SGridMetaData.Component.FORMATED_DATETIME) {
 				isFormatedDateTime = true;
-			} 
+			}
 			boolean isFormatedDouble = false;
 			if (meta.component == SGridMetaData.Component.FORMATED_DOUBLE) {
 				isFormatedDouble = true;
@@ -153,7 +153,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 			boolean isIcon = false;
 			if (meta.component == SGridMetaData.Component.ICON) {
 				isIcon= true;
-			} 
+			}
 			xml.append("<t:gridcol text='" + meta.header
 					+ "' align='center' width='" + meta.width + "' sortreference='.{datum." + meta.techname
 					+ "}' searchenabled='true'>");
@@ -175,8 +175,8 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 						+ meta.techname + "}' focusable='false' width='20' height='20'/>");
 			} else if (isIcon) {
 				xml.append("<t:icon align='center' image='.{datum."
-						+ meta.techname + "}' enabled='true' imageheight='20' imagewidth='20'/>");			
-			} else {	
+						+ meta.techname + "}' enabled='true' imageheight='20' imagewidth='20'/>");
+			} else {
 				xml.append("<t:field text='.{datum." + meta.techname
 						+ "}' enabled='false'/>");
 			}
@@ -199,18 +199,18 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 		wp.setParam(Constants.P_MODE, Constants.Mode.NEW.name());
 		wpc.addWorkpage(wp);
 	}
-	
-	public void onDelete(ActionEvent event) {		
+
+	public void onDelete(ActionEvent event) {
 		final GridListItem selectedItem = m_gridList.getSelectedItem();
 		if(selectedItem == null) {
 			Statusbar.outputMessage("No entity selected!");
 			return;
 		}
-		final String selectedID = ((IEntityData)selectedItem.getDatum()).getId();	
+		final String selectedID = ((IEntityData)selectedItem.getDatum()).getId();
 		if(selectedID!=null && selectedID.length()>0) {
 			YESNOPopup popup = YESNOPopup.createInstance(
-					"Confirm deletion", 
-					"Do you really want to delete the selected entity?", 
+					"Confirm deletion",
+					"Do you really want to delete the selected entity?",
 					new IYesNoCancelListener(){
 
 						public void reactOnCancel() {}
@@ -232,12 +232,12 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 									return;
 								}
 							}
-							Statusbar.outputError("Entity/Relation could not be deleted!");				
-						}						
+							Statusbar.outputError("Entity/Relation could not be deleted!");
+						}
 					}
-			);	
+			);
 			popup.getModalPopup().setLeftTopReferenceCentered();
-		} 
+		}
 	}
 
 	// common build method
@@ -253,7 +253,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 		// load grid state
 		loadGridState();
 	}
-	
+
 	// special build method for labelsearch
 	public void buildData(List<String> ids) {
 		// load entities from database
@@ -267,12 +267,12 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 		// load grid state
 		loadGridState();
 	}
-	
+
 	public void saveGridState(ActionEvent event) {
 		SListVariant lv = new SListVariant(m_gridList.getColumnsequence(), m_gridList.getModcolumnwidths());
 		ENTITYLISTLOGIC.saveGridState(entity, lv);
 	}
-	
+
 	private void loadGridState() {
 		SListVariant lv = ENTITYLISTLOGIC.loadGridState(entity);
 		if(lv==null) return;
@@ -307,25 +307,25 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 			if(wp != null) {
 				wpc.switchToWorkpage(wp);
 				return;
-			} 
+			}
 			// Page doesn't exist, create it
 			String pageId = datum.getId();
-			Mode pageMode = Mode.SHOW;		
+			Mode pageMode = Mode.SHOW;
 			// special handling for competitions
 			// because page ID has to be unique to resolve right page
 			// resolved in EntityDetailUI
-			if(entity.getBase().equals(Entity.COMPETITION)) {				
+			if(entity.getBase().equals(Entity.COMPETITION)) {
 				pageId = entity.name() + "#" + pageId;
 			}
 			// if buttons are not rendered details are immutable
 			if(!renderButtons) {
 				pageId = Constants.FINAL + pageId;
 				pageMode = Mode.FINAL;
-			}				
+			}
 			wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.getUrl(),
-					pageId, datum.toString(), null, true, entityList, authorization, null);			
+					pageId, datum.toString(), null, true, entityList, authorization, null);
 			wp.setParam(Constants.P_ENTITY, entity.name());
-			wp.setParam(Constants.P_MODE, pageMode.name());			
+			wp.setParam(Constants.P_MODE, pageMode.name());
 			wpc.addWorkpage(wp);
 		}
 
@@ -336,6 +336,6 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 		if (event instanceof WorkpageRefreshEvent) {
 			Entity entity = ((WorkpageRefreshEvent)event).getEntity();
 			if(this.entity.getBase()==entity.getBase()) onRefresh(null);
-		}		
+		}
 	}
 }

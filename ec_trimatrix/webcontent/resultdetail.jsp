@@ -59,10 +59,10 @@
 </t:row>
 <t:row id="g_37" >
 <t:label id="g_38" text="#{rr.literals.swim_split}" width="120" />
-<t:field id="g_39" align="center" attributemacro="entityDetailMacro(ResultDetailUI,swim_split)" maxlength="8" regex="\d\d:[0-5]\d:[0-5]\d" regexmode="1" userhint="hh:mm:ss" width="100" />
+<t:field id="g_39" align="center" attributemacro="entityDetailMacro(ResultDetailUI,swim_split)" background="#{d.ResultDetailUI.colorSwim}" maxlength="8" regex="\d\d:[0-5]\d:[0-5]\d" regexmode="1" userhint="hh:mm:ss" width="100" />
 <t:coldistance id="g_40" width="45" />
 <t:label id="g_41" text="#{rr.literals.run_split}" width="100" />
-<t:field id="g_42" align="center" attributemacro="entityDetailMacro(ResultDetailUI,run_split)" maxlength="8" regex="\d\d:[0-5]\d:[0-5]\d" regexmode="1" width="100" />
+<t:field id="g_42" align="center" attributemacro="entityDetailMacro(ResultDetailUI,run_split)" maxlength="8" regex="\d\d:[0-5]\d:[0-5]\d" regexmode="1" userhint="hh:mm:ss" width="100" />
 </t:row>
 <t:row id="g_43" >
 <t:label id="g_44" text="#{rr.literals.ranking}" width="120" />
@@ -87,10 +87,10 @@
 </t:row>
 <t:row id="g_61" >
 <t:label id="g_62" text="#{rr.literals.deficit_percent}" width="120" />
-<t:formattedfield id="g_63" align="center" background="#{d.ResultDetailUI.colorSwim}" enabled="false" font="weight:bold" format="double" userhint="%" value="#{d.ResultDetailUI.percentDeficitSwim}" width="100" />
+<t:formattedfield id="g_63" align="center" enabled="false" font="weight:bold" format="double" userhint="%" value="#{d.ResultDetailUI.percentDeficitSwim}" width="100" />
 <t:coldistance id="g_64" width="45" />
 <t:label id="g_65" text="#{rr.literals.deficit_percent}" width="100" />
-<t:formattedfield id="g_66" align="center" background="#{d.ResultDetailUI.colorRun}" enabled="false" font="weight:bold" format="double" userhint="%" value="#{d.ResultDetailUI.percentDeficitRun}" width="100" />
+<t:formattedfield id="g_66" align="center" enabled="false" font="weight:bold" format="double" userhint="%" value="#{d.ResultDetailUI.percentDeficitRun}" width="100" />
 </t:row>
 </t:pane>
 </t:row>

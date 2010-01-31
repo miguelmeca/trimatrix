@@ -63,38 +63,38 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 			limit.setCategory(category);
 		}
 
-		public Double getGreenAreaHigh() {
+		public String getGreenAreaHigh() {
 			return limit.getLimits()[0];
 		}
 
-		public void setGreenAreaHigh(Double greenAreaHigh) {
+		public void setGreenAreaHigh(String greenAreaHigh) {
 			limit.getLimits()[0] = greenAreaHigh;
 		}
 
-		public Double getRedAreaLow() {
+		public String getRedAreaLow() {
 			return limit.getLimits()[1];
 		}
 
-		public void setRedAreaLow(Double redAreaLow) {
+		public void setRedAreaLow(String redAreaLow) {
 			limit.getLimits()[1] = redAreaLow;
 		}
-		
+
 		public String getSwimAthlet() { return limit.getSwim()[0]; }
 		public void setSwimAthlet(String athlet) {limit.getSwim()[0] = athlet; }
-		
+
 		public String getRunAthlet() { return limit.getRun()[0]; }
 		public void setRunAthlet(String athlet) {limit.getRun()[0] = athlet; }
-		
+
 		public String getSwimSplit() { return limit.getSwim()[1]; }
 		public void setSwimSplit(String split) {limit.getSwim()[1] = split; }
-		
+
 		public String getRunSplit() { return limit.getRun()[1]; }
 		public void setRunSplit(String split) {limit.getRun()[1] = split; }
 
 		/**
 		 * F4 Help for category fieldcombo Values are selected from view
 		 * categories
-		 * 
+		 *
 		 * @param event
 		 */
 		public void onCategoryF4(ActionEvent event) {

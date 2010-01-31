@@ -28,38 +28,38 @@ import trimatrix.utils.Constants.Entity;
 @CCGenClass (expressionBase="#{d.ResultDetailUI}")
 
 public class ResultDetailUI extends AEntityDetailUI implements Serializable {
-	
-	private Double green_high;
-	private Double red_low;
-	
+
+	private String green_high;
+	private String red_low;
+
 	private String bestSwim;
 	public String getBestSwim() { return bestSwim; }
-	
+
 	private String bestRun;
 	public String getBestRun() { return bestRun; }
-	
-    public String getColorRun() { return getColor(getPercentDeficitRun()); }
-    public String getColorSwim() { return getColor(getPercentDeficitSwim()); }
+
+    //public String getColorRun() { return getColor(getPercentDeficitRun()); }
+    public String getColorSwim() { return getColor((String)values.get(ResultEntity.SWIM_SPLIT)); }
 
 	protected final String[] MANDATORY_FIELDS_TRIA = new String[] {ResultEntity.CATEGORY_TRIA, ResultEntity.SWIM_SPLIT, ResultEntity.RUN_SPLIT};
-	
+
     public boolean isAdminView() {
     	return entityDetailUI.getEntity()==Entity.RESULT;
     }
-	
+
     public boolean isTria() {
     	if (entity.getCompetition().getType() == null || !entity.getCompetition().getType().equals("tria"))
 			return false;
 		return true;
 	}
-    
-	private Results entity;	
-    
+
+	private Results entity;
+
 	public ResultDetailUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher, new String[] {ResultEntity.COMPETITION, ResultEntity.SCOUT, ResultEntity.ATHLETE}, true);
 		// get wrapping entity detail UI bean
-		entityDetailUI = getEntityDetailUI();		
-		entityDetailUI.setEntityDetailUI(this);		
+		entityDetailUI = getEntityDetailUI();
+		entityDetailUI.setEntityDetailUI(this);
         // init data
         init(entityDetailUI.getEntityObject());
         // labeling
@@ -68,23 +68,23 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 
     public void init(Object entityObject) {
     	// set entity object
-    	entity = (Results)entityObject;        	
+    	entity = (Results)entityObject;
     	// set enabled state and set fields
     	init();
     }
-    
+
     public void init() {
     	// set state
     	setState();
     	// set scout
     	if(!isAdminView()) {
     		entity.setScout(getServiceLayer().getDictionaryService().getMyPerson());
-    	} 
+    	}
     	// set fields
-    	fillMaps();    	
-    }    
+    	fillMaps();
+    }
 
-	public void validate() throws MandatoryCheckException, EmailNotValidException {		
+	public void validate() throws MandatoryCheckException, EmailNotValidException {
 		// mandatory check
 		checkMandatory();
 		// ergo
@@ -94,7 +94,7 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 		// fill values to entities properties
 		fillEntityProperties();
 	}
-	
+
 	private void fillEntityProperties() {
 		entity.setFinalPosition((String)values.get(ResultEntity.FINALPOSITION));
 		entity.setTime((String)values.get(ResultEntity.TIME));
@@ -110,13 +110,13 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 			tria.setSwimsuit((Boolean)values.get(ResultEntity.SWIMSUIT));
 		}
 	}
-	
+
 	private void fillMaps() {
 		// add values of fields
-		values.clear();		
+		values.clear();
 		values.put(ResultEntity.FINALPOSITION, entity.getFinalPosition());
 		values.put(ResultEntity.TIME, entity.getTime());
-		values.put(ResultEntity.COMMENT, entity.getComment());		
+		values.put(ResultEntity.COMMENT, entity.getComment());
 		setCompetitionDescription(entity);
 		setScoutDescription(entity);
 		setAthleteDescription(entity);
@@ -127,31 +127,31 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 			values.put(ResultEntity.SWIM_SPLIT, tria.getSwimSplit());
 			values.put(ResultEntity.RUN_SPLIT, tria.getRunSplit());
 			values.put(ResultEntity.SWIM_POSITION, tria.getSwimPosition());
-			values.put(ResultEntity.RUN_POSITION, tria.getRunPosition());	
+			values.put(ResultEntity.RUN_POSITION, tria.getRunPosition());
 			values.put(ResultEntity.SWIMSUIT, tria.getSwimsuit());
-		}		
-		// limits 
-    	setLimits();		
-		
+		}
+		// limits
+    	setLimits();
+
 		// add bgpaint of fields
 		bgpaint.clear();
 		// mandatory fields
 		for(String field : MANDATORY_FIELDS){
 			bgpaint.put(field,Constants.BGP_MANDATORY);
-		}		
+		}
 		// mandatory fields for tria result
 		for (String field : MANDATORY_FIELDS_TRIA) {
 			bgpaint.put(field, Constants.BGP_MANDATORY);
 		}
 	}
-	
+
 	/**
 	 * Call competition selection pop up
 	 * @param event
 	 */
 	public void onCompetitionSearch(ActionEvent event) {
 		IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(Constants.Entity.COMPETITION);
-		// restrict if not in admin view	
+		// restrict if not in admin view
 		if(isAdminView()) {
 			entitySelectionUI.buildData(Entity.COMPETITION);
 		} else {
@@ -159,19 +159,19 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 		}
        	entitySelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){
 			public void cancel() {
-				m_popup.close();				
+				m_popup.close();
 			}
 			public void idSelected(String id) {
 				Competitions competition = (Competitions)ENTITYLISTLOGIC.get(Constants.Entity.COMPETITION, id);
 				entity.setCompetition(competition);
-				setCompetitionDescription(entity);	
+				setCompetitionDescription(entity);
 				m_popup.close();
-			}});    	
-    	m_popup = getWorkpage().createModalPopupInWorkpageContext();  
+			}});
+    	m_popup = getWorkpage().createModalPopupInWorkpageContext();
     	m_popup.setLeftTopReferenceCentered();
-    	m_popup.open(Constants.Page.COMPETITIONSELECTION.getUrl(), "Wettkampfsuche", 800, 600, this);    	
+    	m_popup.open(Constants.Page.COMPETITIONSELECTION.getUrl(), "Wettkampfsuche", 800, 600, this);
     }
-	
+
 	/**
 	 * Get description for selected competition
 	 * @param competition
@@ -184,7 +184,7 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 		}
 		values.put(ResultEntity.COMPETITION, competitionDescription);
 	}
-		
+
 	/**
 	 * Call scout selection pop up
 	 * Only in admin view available
@@ -195,19 +195,19 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 		entitySelectionUI.buildData(Entity.SCOUTS);
        	entitySelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){
 			public void cancel() {
-				m_popup.close();				
+				m_popup.close();
 			}
 			public void idSelected(String id) {
 				Persons person = (Persons)ENTITYLISTLOGIC.get(Constants.Entity.PERSON, id);
 				entity.setScout(person);
-				setScoutDescription(entity);	
+				setScoutDescription(entity);
 				m_popup.close();
-			}});    	
-    	m_popup = getWorkpage().createModalPopupInWorkpageContext();  
+			}});
+    	m_popup = getWorkpage().createModalPopupInWorkpageContext();
     	m_popup.setLeftTopReferenceCentered();
-    	m_popup.open(Constants.Page.PERSONSELECTION.getUrl(), "Scoutsuche", 800, 600, this);    	
+    	m_popup.open(Constants.Page.PERSONSELECTION.getUrl(), "Scoutsuche", 800, 600, this);
     }
-	
+
 	/**
 	 * Get description for selected scout
 	 * @param scout
@@ -220,7 +220,7 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 		}
 		values.put(ResultEntity.SCOUT, scoutDescription);
 	}
-	
+
 	/**
 	 * Call athlete selection pop up
 	 * @param event
@@ -235,19 +235,19 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 		}
        	entitySelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){
 			public void cancel() {
-				m_popup.close();				
+				m_popup.close();
 			}
 			public void idSelected(String id) {
 				Persons person = (Persons)ENTITYLISTLOGIC.get(Constants.Entity.PERSON, id);
 				entity.setAthlete(person);
-				setAthleteDescription(entity);	
+				setAthleteDescription(entity);
 				m_popup.close();
-			}});    	
-    	m_popup = getWorkpage().createModalPopupInWorkpageContext();  
+			}});
+    	m_popup = getWorkpage().createModalPopupInWorkpageContext();
     	m_popup.setLeftTopReferenceCentered();
-    	m_popup.open(Constants.Page.PERSONSELECTION.getUrl(), "Athletensuche", 800, 600, this);    	
+    	m_popup.open(Constants.Page.PERSONSELECTION.getUrl(), "Athletensuche", 800, 600, this);
     }
-		
+
 	/**
 	 * Get description for selected athlete
 	 * @param athlete
@@ -259,28 +259,28 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 			athleteDescription = athlete.toString();
 		}
 		values.put(ResultEntity.ATHLETE, athleteDescription);
-	}	
-	
+	}
+
 	public void onCompetitionClicked(ActionEvent event) {
 		loadEntityDetailPage(Entity.COMPETITION, entity.getCompetition().getId(), entity.getCompetition().toString());
 	}
-	
+
 	public void onAthleteClicked(ActionEvent event) {
 		loadEntityDetailPage(Entity.PERSON, entity.getAthlete().getId(), entity.getAthlete().toString());
 	}
-	
+
 	public void onScoutClicked(ActionEvent event) {
 		loadEntityDetailPage(Entity.PERSON, entity.getScout().getId(), entity.getScout().toString());
-	}	
+	}
 
 	public Double getPercentDeficitSwim() {
 		return Helper.getPercentageByTime(getBestSwim(), getSwimDeficit());
 	}
-	
+
 	public Double getPercentDeficitRun() {
 		return Helper.getPercentageByTime(getBestRun(), getRunDeficit());
 	}
-	
+
 	public void onCategoryF4(ActionEvent event) {
 		IdTextSelection idts = IdTextSelection.createInstance();
 		for (Categories category : getLogic().getCompetitionLogic().getCategories()) {
@@ -299,7 +299,7 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 		idts.setPopupWidth(120);
 		idts.setPopupHeight(100);
 	}
-	
+
 	@Override
 	public void prepareSave() {
 		// ergo
@@ -312,24 +312,28 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 		}
 		// others
 	}
-	
+
 	/**
 	 * Set the color for percentage, same logic as in ResultEntity Data class
 	 * @param percent Percentage
 	 * @return	Color
 	 */
-	private String getColor(Double percent) {
+	private String getColor(String time) {
+		Integer greenSeconds = Helper.calculateSeconds(green_high);
+		Integer redSeconds = Helper.calculateSeconds(red_low);
+		Integer seconds = Helper.calculateSeconds(time);
+		if(seconds==null) return Constants.WHITE;
 		// green
-		if(green_high!=null && green_high > 0 && percent<green_high) return Constants.GREEN;				
+		if(greenSeconds!=null && greenSeconds>0 && seconds<greenSeconds) return Constants.GREEN;
 		// red
-		if(red_low!=null && red_low > 0 && percent>red_low) return Constants.RED;		
+		if(redSeconds!=null && redSeconds>0 && seconds>redSeconds) return Constants.RED;
 		// unspecified
 		if(green_high==null && red_low==null) return Constants.WHITE;
 		// yellow
 		return Constants.YELLOW;
 	}
-	
-	
+
+
 	/**
 	 * Set limits, same logic as for ResultEntity there the info is set in
 	 * SQLExecutorService and Data class
@@ -347,15 +351,15 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 				green_high = limits.getLimits()[0];
 				red_low = limits.getLimits()[1];
 				bestSwim = limits.getSwim()[1];
-				bestRun = limits.getRun()[1];				
-			}		
-		}		
-	}	
-	
+				bestRun = limits.getRun()[1];
+			}
+		}
+	}
+
 	public String getSwimDeficit() {
 		return Helper.calculateDuration((String)values.get(ResultEntity.SWIM_SPLIT), bestSwim, true, false);
 	}
-	
+
 	public String getRunDeficit() {
 		return Helper.calculateDuration((String)values.get(ResultEntity.RUN_SPLIT), bestRun, true, false);
 	}

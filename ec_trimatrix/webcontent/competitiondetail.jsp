@@ -49,22 +49,22 @@
 <t:combofield id="g_29" actionListener=".{onCategoryF4}" editable="true" enabled="#{d.CompetitionDetailUI.enabled}" flush="true" flushtimer="1000" keepfocus="true" maxlength="10" text=".{category}" />
 </t:gridcol>
 <t:gridcol id="g_30" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.green_area_high}" width="120" >
-<t:formattedfield id="g_31" align="center" background="#00FF00" enabled="#{d.CompetitionDetailUI.enabled}" font="weight:bold" format="double" userhint="%" value=".{greenAreaHigh}" />
+<t:field id="g_31" align="center" background="#00FF00" enabled="#{d.CompetitionDetailUI.enabled}" font="weight:bold" maxlength="8" regex="\d\d:[0-5]\d:[0-5]\d" regexmode="1" text=".{greenAreaHigh}" tooltip="#{rr.literals.swim_corridor}" userhint="hh:mm:ss" />
 </t:gridcol>
 <t:gridcol id="g_32" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.red_area_low}" width="120" >
-<t:formattedfield id="g_33" align="center" background="#FF0000" enabled="#{d.CompetitionDetailUI.enabled}" font="weight:bold" format="double" userhint="%" value=".{redAreaLow}" />
+<t:field id="g_33" align="center" background="#FF0000" enabled="#{d.CompetitionDetailUI.enabled}" font="weight:bold" maxlength="8" regex="\d\d:[0-5]\d:[0-5]\d" regexmode="1" text=".{redAreaLow}" tooltip="#{rr.literals.swim_corridor}" userhint="hh:mm:ss" />
 </t:gridcol>
-<t:gridcol id="g_34" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.best_run_split}" width="130" >
-<t:field id="g_35" align="center" enabled="#{d.CompetitionDetailUI.enabled}" maxlength="8" regex="\d\d:[0-5]\d:[0-5]\d" regexmode="1" text=".{runSplit}" userhint="hh:mm:ss" />
+<t:gridcol id="g_34" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.best_swim_split}" width="130" >
+<t:field id="g_35" align="center" enabled="#{d.CompetitionDetailUI.enabled}" maxlength="8" regex="\d\d:[0-5]\d:[0-5]\d" regexmode="1" text=".{swimSplit}" userhint="hh:mm:ss" />
 </t:gridcol>
-<t:gridcol id="g_36" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.best_runner}" width="160" >
-<t:field id="g_37" align="center" enabled="#{d.CompetitionDetailUI.enabled}" text=".{runAthlet}" />
+<t:gridcol id="g_36" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.best_swimer}" width="160" >
+<t:field id="g_37" align="center" enabled="#{d.CompetitionDetailUI.enabled}" text=".{swimAthlet}" />
 </t:gridcol>
-<t:gridcol id="g_38" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.best_swim_split}" width="130" >
-<t:field id="g_39" align="center" enabled="#{d.CompetitionDetailUI.enabled}" maxlength="8" regex="\d\d:[0-5]\d:[0-5]\d" regexmode="1" text=".{swimSplit}" userhint="hh:mm:ss" />
+<t:gridcol id="g_38" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.best_run_split}" width="130" >
+<t:field id="g_39" align="center" enabled="#{d.CompetitionDetailUI.enabled}" maxlength="8" regex="\d\d:[0-5]\d:[0-5]\d" regexmode="1" text=".{runSplit}" userhint="hh:mm:ss" />
 </t:gridcol>
-<t:gridcol id="g_40" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.best_swimer}" width="160" >
-<t:field id="g_41" align="center" enabled="#{d.CompetitionDetailUI.enabled}" text=".{swimAthlet}" />
+<t:gridcol id="g_40" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.best_runner}" width="160" >
+<t:field id="g_41" align="center" enabled="#{d.CompetitionDetailUI.enabled}" text=".{runAthlet}" />
 </t:gridcol>
 </t:fixgrid>
 </t:row>
