@@ -6,8 +6,7 @@ import java.sql.Statement;
 
 
 public class JDBCDemo {
-	 public static void main (String[] args)
-     {
+	public static void main(String[] args) {
          Connection conn = null;
 
          try
@@ -18,18 +17,18 @@ public class JDBCDemo {
              Class.forName ("com.mysql.jdbc.Driver").newInstance ();
              conn = DriverManager.getConnection (url, userName, password);
              System.out.println ("Database connection established");
-             
+
              String speed, heartrate, lactate;
              speed = "Speed";
              heartrate = "Heartrate";
-             lactate = "Lactate";             
-             
+             lactate = "Lactate";
+
              Statement i = conn.createStatement();
              String insertStmt = "INSERT INTO test VALUES('" + speed + "','" + heartrate + "','" + lactate + "')";
              System.out.println(insertStmt);
              i.executeUpdate(insertStmt);
              i.close();
-                   
+
              Statement s = conn.createStatement ();
              s.executeQuery ("SELECT speed, heartrate, lactate FROM test");
              ResultSet rs = s.getResultSet ();
@@ -48,7 +47,7 @@ public class JDBCDemo {
              rs.close ();
              s.close ();
              System.out.println (count + " rows were retrieved");
-             
+
          }
          catch (Exception e)
          {

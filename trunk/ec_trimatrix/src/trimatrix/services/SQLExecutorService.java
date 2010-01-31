@@ -42,9 +42,9 @@ import trimatrix.utils.Constants.Role;
  */
 public class SQLExecutorService {
 	public static final Log logger = LogFactory.getLog(SQLExecutorService.class);
-	
+
 	public static final String ID = "ID";
-	
+
 	private static final String USERENTITYLISTQUERY = "UserEntityList";
 	private static final String PERSONENTITYLISTQUERY = "PersonEntityList";
 	private static final String PERSONBYROLEENTITYLISTQUERY = "PersonByRoleEntityList";
@@ -62,8 +62,8 @@ public class SQLExecutorService {
 	private static final String ATTACHMENTRELATIONENTITYQUERY = "AttachmentRelationEntityList";
 	private static final String COMPETITIONRELATIONENTITYQUERY = "CompetitionRelationEntityList";
 	private static final String COMPETITIONSCOUTRELATIONENTITYQUERY = "CompetitionScoutRelationEntityList";
-	private static final String RESULTENTITYLISTQUERY = "ResultEntityList";	
-	private static final String RESULTTRIAENTITYLISTQUERY = "ResultTriaEntityList";	
+	private static final String RESULTENTITYLISTQUERY = "ResultEntityList";
+	private static final String RESULTTRIAENTITYLISTQUERY = "ResultTriaEntityList";
 	private static final String PERSONPERSONQUERY = "PersonPersonRelationList";
 	private static final String PERSONDOCTORQUERY = "PersonDoctorRelationList";
 	private static final String PERSONATTACHMENTQUERY = "PersonAttachmentRelationList";
@@ -73,12 +73,12 @@ public class SQLExecutorService {
 	private static final String TESTTYPEVALUELISTQUERY = "TestTypeValueList";
 	private static final String COMPTYPEVALUELISTQUERY = "CompTypeValueList";
 	private static final String ENTITIESBYLABELLISTQUERY = "EntitiesByLabelList";
-	
+
 	private HibernateTransactionManager transactionManager;
 	private Dictionary dictionaryService;
 	private DAOLayer daoLayer;
 	private LogicLayer logicLayer;
-	
+
 	/**
 	 * Retrieve functiontree for workplace
 	 * @param role_key	role of user
@@ -104,7 +104,7 @@ public class SQLExecutorService {
 				datum.key = Constants.FunctionNode.valueOf(((String)line[i++]).toUpperCase());
 			} catch (Exception ex) {
 				logger.warn(ex.getMessage());
-			}		 
+			}
 			datum.page = (String)line[i++];
 			datum.entity = (String)line[i++];
 			datum.edit = (Boolean)line[i++];
@@ -117,11 +117,11 @@ public class SQLExecutorService {
 		session.close();
 		return data;
 	}
-	
+
 	public List<SFunctionTree> getFunctionTree(Constants.Role role) {
 		return getFunctionTree(role, dictionaryService.getLanguage());
 	}
-	
+
 	/**
 	 * Retrieve user entities
 	 * @param lang_key	language
@@ -143,9 +143,9 @@ public class SQLExecutorService {
 			int i = 0;
 			datum.id = (String)line[i++];
 			datum.user_name = (String)line[i++];
-			datum.email = (String)line[i++];	
+			datum.email = (String)line[i++];
 			datum.language = (String)line[i++];
-			datum.currency = (String)line[i++];	
+			datum.currency = (String)line[i++];
 			datum.person = (String)line[i++];
 			datum.locked = (Boolean)line[i++];
 			datum.initial = (Boolean)line[i++];
@@ -157,11 +157,11 @@ public class SQLExecutorService {
 		session.close();
 		return data;
 	}
-	
+
 	public List<IEntityData> getUserEntities() {
 		return getUserEntities(dictionaryService.getLanguage(), false, false);
 	}
-	
+
 	/**
 	 * Retrieve person entities
 	 * @param lang_key
@@ -205,22 +205,22 @@ public class SQLExecutorService {
 		session.close();
 		return data;
 	}
-	
+
 	public List<IEntityData> getPersonEntities() {
 		return getPersonEntities(dictionaryService.getLanguage(), false, false, PERSONENTITYLISTQUERY);
 	}
-	
+
 	public List<IEntityData> getAthleteEntities() {
 		return getPersonEntities(dictionaryService.getLanguage(), false, false, ATHLETESENTITYLISTQUERY);
 	}
-	
+
 
 	/**
 	 * Retrieve person entities by role
 	 * @param lang_key	language
 	 * @param role		role
-	 * @param deleted	deleted	
-	 * @param test		test	
+	 * @param deleted	deleted
+	 * @param test		test
 	 * @return			person entities
 	 */
 	@SuppressWarnings("unchecked")
@@ -259,11 +259,11 @@ public class SQLExecutorService {
 		session.close();
 		return data;
 	}
-	
+
 	public List<IEntityData> getPersonByRoleEntities(Role role) {
 		return getPersonByRoleEntities(dictionaryService.getLanguage(), role, false, false);
 	}
-	
+
 	/**
 	 * Retrieve doctor entities
 	 * @param lang_key
@@ -284,7 +284,7 @@ public class SQLExecutorService {
 		for(Object[] line : result) {
 			DoctorEntity.Data datum = new DoctorEntity.Data();
 			int i = 0;
-			datum.id = (String)line[i++];		
+			datum.id = (String)line[i++];
 			datum.name = (String)line[i++];
 			datum.street = (String)line[i++];
 			datum.housenumber = (String)line[i++];
@@ -302,11 +302,11 @@ public class SQLExecutorService {
 		session.close();
 		return data;
 	}
-	
+
 	public List<IEntityData> getDoctorEntities() {
 		return getDoctorEntities(dictionaryService.getLanguage(), false, false);
 	}
-	
+
 	/**
 	 * Retrieve attachment entities
 	 * @param lang_key
@@ -334,7 +334,7 @@ public class SQLExecutorService {
 		for(Object[] line : result) {
 			AttachmentEntity.Data datum = new AttachmentEntity.Data();
 			int i = 0;
-			datum.id = (String)line[i++];	
+			datum.id = (String)line[i++];
 			datum.category = (String)line[i++];
 			datum.description = (String)line[i++];
 			datum.owner = (String)line[i++];
@@ -346,15 +346,15 @@ public class SQLExecutorService {
 		session.close();
 		return data;
 	}
-	
+
 	public List<IEntityData> getAttachmentEntities() {
 		return getAttachmentEntities(dictionaryService.getLanguage(), null, null, false, false);
 	}
-	
+
 	public List<IEntityData> getAttachmentEntities(String parameterName, String parameterValue) {
 		return getAttachmentEntities(dictionaryService.getLanguage(), parameterName, parameterValue, false, false);
 	}
-	
+
 	/**
 	 * Retrieve test entities
 	 * @param lang_key
@@ -394,29 +394,29 @@ public class SQLExecutorService {
 		for(Object[] line : result) {
 			TestEntity.Data datum = new TestEntity.Data();
 			int i = 0;
-			datum.id = (String)line[i++];		
+			datum.id = (String)line[i++];
 			datum.person = (String)line[i++];
 			datum.doctor = (String)line[i++];
 			datum.coach = (String)line[i++];
 			datum.type = (String)line[i++];
 			datum.date = (Timestamp)line[i++];
 			datum.description = (String)line[i++];
-			datum.protocol = (Boolean)line[i++];	
-			datum.analyzed = (Boolean)line[i++];	
+			datum.protocol = (Boolean)line[i++];
+			datum.analyzed = (Boolean)line[i++];
 			data.add(datum);
 		}
 		session.close();
 		return data;
 	}
-	
+
 	public List<IEntityData> getTestEntities() {
 		return getTestEntities(dictionaryService.getLanguage(), null, null, false, false);
 	}
-	
+
 	public List<IEntityData> getTestEntities(String parameterName, String parameterValue) {
 		return getTestEntities(dictionaryService.getLanguage(), parameterName, parameterValue, false, false);
 	}
-	
+
 	/**
 	 * Retrieve competition entities
 	 * @param lang_key
@@ -444,7 +444,7 @@ public class SQLExecutorService {
 		for(Object[] line : result) {
 			CompetitionEntity.Data datum = new CompetitionEntity.Data();
 			int i = 0;
-			datum.id = (String)line[i++];	
+			datum.id = (String)line[i++];
 			datum.date = (Timestamp)line[i++];
 			datum.description = (String)line[i++];
 			datum.type = (String)line[i++];
@@ -456,7 +456,7 @@ public class SQLExecutorService {
 		session.close();
 		return data;
 	}
-	
+
 
 	/**
 	 * Retrieve competitions in a certain relationship
@@ -487,12 +487,12 @@ public class SQLExecutorService {
 			query.setBoolean("p_test", test);
 			query.setString("p_reltyp", relation.type());
 			query.setString("p_person", person_id);
-		}				
+		}
 		List<Object[]> result = query.list();
 		for(Object[] line : result) {
 			CompetitionEntity.Data datum = new CompetitionEntity.Data();
 			int i = 0;
-			datum.id = (String)line[i++];	
+			datum.id = (String)line[i++];
 			datum.date = (Timestamp)line[i++];
 			datum.description = (String)line[i++];
 			datum.type = (String)line[i++];
@@ -504,28 +504,28 @@ public class SQLExecutorService {
 		session.close();
 		return data;
 	}
-	
+
 	public List<IEntityData> getCompetitionRelationEntities(String person_id, Constants.Relation relation) {
 		return getCompetitionRelationEntities(person_id, relation, dictionaryService.getLanguage(), false, false);
 	}
-	
+
 	public List<IEntityData> getCompetitionEntities() {
 		return getCompetitionEntities(dictionaryService.getLanguage(), null, null, false, false);
 	}
-	
+
 	public List<IEntityData> getCompetitionEntities(String parameterName, String parameterValue) {
 		return getCompetitionEntities(dictionaryService.getLanguage(), parameterName, parameterValue, false, false);
 	}
-	
+
 
 	/**
 	 * Retrieve result entities
 	 * @param lang_key	language
 	 * @param id	competition
 	 * @param scoutId	scout
-	 * @param athleteId	athlete	
+	 * @param athleteId	athlete
 	 * @param deleted	deleted
-	 * @param test	test	
+	 * @param test	test
 	 * @return	result entities
 	 */
 	@SuppressWarnings("unchecked")
@@ -545,47 +545,48 @@ public class SQLExecutorService {
 		if(id==null) {
 			query.setBoolean("p_id_on", false);
 		} else {
-			query.setBoolean("p_id_on", true);			
+			query.setBoolean("p_id_on", true);
 		}
 		query.setString("p_competition", competitionId);
 		if(competitionId==null) {
 			query.setBoolean("p_competition_on", false);
 		} else {
-			query.setBoolean("p_competition_on", true);			
+			query.setBoolean("p_competition_on", true);
 		}
 		query.setString("p_scout", scoutId);
 		if(scoutId==null) {
 			query.setBoolean("p_scout_on", false);
 		} else {
-			query.setBoolean("p_scout_on", true);			
+			query.setBoolean("p_scout_on", true);
 		}
 		query.setString("p_athlete", athleteId);
 		if(athleteId==null) {
 			query.setBoolean("p_athlete_on", false);
 		} else {
-			query.setBoolean("p_athlete_on", true);			
+			query.setBoolean("p_athlete_on", true);
 		}
 		List<Object[]> result = query.list();
 		for(Object[] line : result) {
 			ResultEntity.Data datum = new ResultEntity.Data();
 			int i = 0;
-			datum.id = (String)line[i++];	
-			datum.competition = (String)line[i++];	
-			datum.scout = (String)line[i++];	
-			datum.athlete = (String)line[i++];	
-			datum.final_position = (String)line[i++];	
-			datum.time = (String)line[i++];
-			datum.comment = (String)line[i++];	
+			datum.id = (String)line[0];
+			datum.competition = (String)line[1];
+			datum.scout = (String)line[2];
+			datum.athlete = (String)line[3];
+			datum.final_position = (String)line[4];
+			datum.time = (String)line[5];
+			datum.comment = (String)line[6];
+			System.out.println(line.length);
 			// triathlon
 			if(CompetitionEntity.TRIATHLON.equals(compType)) {
-				datum.category_tria = (String)line[i++];	
-				datum.swimsuit = (Boolean)line[i++];				
-				datum.swim_split = (String)line[i++];	
-				datum.swim_pos = (String)line[i++];	
-				datum.run_split = (String)line[i++];	
-				datum.run_pos = (String)line[i++];	
+				datum.category_tria = (String)line[7];
+				datum.swimsuit = (Boolean)line[8];
+				datum.swim_split = (String)line[9];
+				datum.swim_pos = (String)line[10];
+				datum.run_split = (String)line[11];
+				datum.run_pos = (String)line[12];
 				// get limits
-				Map<String, Limit> limitsMap = logicLayer.getCompetitionLogic().getLimitsMap((String)line[i++]);
+				Map<String, Limit> limitsMap = logicLayer.getCompetitionLogic().getLimitsMap((String)line[13]);
 				Limit limit = limitsMap.get(datum.category_tria);
 				if(limit!=null) {
 					datum.green_high = limit.getLimits()[0];
@@ -598,8 +599,8 @@ public class SQLExecutorService {
 		}
 		session.close();
 		return data;
-	}	
-	
+	}
+
 	/**
 	 * Get all results
 	 * @return
@@ -607,7 +608,7 @@ public class SQLExecutorService {
 	public List<IEntityData> getResultEntities() {
 		return getResultEntities(dictionaryService.getLanguage(), null, null, null, null, null, false, false);
 	}
-	
+
 	/**
 	 * @param id	ID
 	 * @param competitionId	Competition ID
@@ -619,7 +620,7 @@ public class SQLExecutorService {
 	public List<IEntityData> getResultEntities(String id, String competitionId, String scoutId, String athleteId, String compType) {
 		return getResultEntities(dictionaryService.getLanguage(), id, competitionId, scoutId, athleteId, compType, false, false);
 	}
-	
+
 	/**
 	 * Retrieve persons in a certain relationship
 	 * @param person_id
@@ -651,13 +652,13 @@ public class SQLExecutorService {
 		for(Object[] line : result) {
 			PersonEntity.Data datum = new PersonEntity.Data();
 			int i = 0;
-			datum.id = (String)line[i++];		
+			datum.id = (String)line[i++];
 			datum.salutation = (String)line[i++];
 			datum.name_first = (String)line[i++];
 			datum.name_last = (String)line[i++];
 			datum.email = (String)line[i++];
 			datum.sex = (String)line[i++];
-			datum.birthdate = (Timestamp)line[i++];	
+			datum.birthdate = (Timestamp)line[i++];
 			datum.street = (String)line[i++];
 			datum.housenumber = (String)line[i++];
 			datum.postcode = (String)line[i++];
@@ -674,11 +675,11 @@ public class SQLExecutorService {
 		session.close();
 		return data;
 	}
-	
+
 	public List<IEntityData> getPersonRelationEntities(String person_id, Constants.Relation relation, boolean inverse) {
 		return getPersonRelationEntities(person_id, relation, inverse, dictionaryService.getLanguage(), false, false);
-	}	
-			
+	}
+
 	/**
 	 * Return person to person relations
 	 * @param relation
@@ -709,17 +710,17 @@ public class SQLExecutorService {
 			datum.description_inverse = (String)line[i++];
 			datum.standard = (Boolean)line[i++];
 			datum.reltyp = (String)line[i++];
-			datum.partner2 = daoLayer.getPersonsDAO().findById((String)line[i++]);			
+			datum.partner2 = daoLayer.getPersonsDAO().findById((String)line[i++]);
 			data.add(datum);
 		}
 		session.close();
 		return data;
 	}
-	
+
 	public List<IRelationData> getPersonPersonRelation(Constants.Relation relation) {
 		return getPersonPersonRelation(relation, dictionaryService.getLanguage());
-	}	
-	
+	}
+
 	/**
 	 * Retrieve doctors in a certain relationship
 	 * @param partner_id
@@ -745,7 +746,7 @@ public class SQLExecutorService {
 		for(Object[] line : result) {
 			DoctorEntity.Data datum = new DoctorEntity.Data();
 			int i = 0;
-			datum.id = (String)line[i++];		
+			datum.id = (String)line[i++];
 			datum.name = (String)line[i++];
 			datum.street = (String)line[i++];
 			datum.housenumber = (String)line[i++];
@@ -764,11 +765,11 @@ public class SQLExecutorService {
 		session.close();
 		return data;
 	}
-	
+
 	public List<IEntityData> getDoctorRelationEntities(String person_id, Constants.Relation relation) {
 		return getDoctorRelationEntities(person_id, relation, dictionaryService.getLanguage(), false, false);
-	}	
-	
+	}
+
 	/**
 	 * Retrieve attachments in a certain relationship
 	 * @param person_id
@@ -793,7 +794,7 @@ public class SQLExecutorService {
 		for(Object[] line : result) {
 			AttachmentEntity.Data datum = new AttachmentEntity.Data();
 			int i = 0;
-			datum.id = (String)line[i++];	
+			datum.id = (String)line[i++];
 			datum.category = (String)line[i++];
 			datum.description = (String)line[i++];
 			datum.owner = (String)line[i++];
@@ -805,11 +806,11 @@ public class SQLExecutorService {
 		session.close();
 		return data;
 	}
-	
+
 	public List<IEntityData> getAttachmentRelationEntities(String person_id, Constants.Relation relation) {
 		return getAttachmentRelationEntities(person_id, relation, dictionaryService.getLanguage(), false, false);
 	}
-	
+
 	/**
 	 * Return person to doctor relations
 	 * @param relation
@@ -840,17 +841,17 @@ public class SQLExecutorService {
 			datum.description_inverse = (String)line[i++];
 			datum.standard = (Boolean)line[i++];
 			datum.reltyp = (String)line[i++];
-			datum.doctor = daoLayer.getDoctorsDAO().findById((String)line[i++]);			
+			datum.doctor = daoLayer.getDoctorsDAO().findById((String)line[i++]);
 			data.add(datum);
 		}
 		session.close();
 		return data;
 	}
-	
+
 	public List<IRelationData> getPersonDoctorRelation(Constants.Relation relation) {
 		return getPersonDoctorRelation(relation, dictionaryService.getLanguage());
-	}	
-	
+	}
+
 	/**
 	 * Return person to doctor relations
 	 * @param relation
@@ -881,22 +882,22 @@ public class SQLExecutorService {
 			datum.description_inverse = (String)line[i++];
 			datum.standard = (Boolean)line[i++];
 			datum.reltyp = (String)line[i++];
-			datum.attachment = daoLayer.getAttachmentsDAO().findById((String)line[i++]);			
+			datum.attachment = daoLayer.getAttachmentsDAO().findById((String)line[i++]);
 			data.add(datum);
 		}
 		session.close();
 		return data;
 	}
-	
+
 	public List<IRelationData> getPersonAttachmentRelation(Constants.Relation relation) {
 		return getPersonAttachmentRelation(relation, dictionaryService.getLanguage());
-	}	
-	
+	}
+
 	/**
 	 * Retrieve value list
 	 * @param valueList
 	 * @param lang_key
-	 * @return			
+	 * @return
 	 */
 	@SuppressWarnings("unchecked")
 	public List<SValueList> getValueList(Constants.ValueList valueList, String lang_key) {
@@ -923,16 +924,16 @@ public class SQLExecutorService {
 			break;
 		case TESTTYPE:
 			namedQuery = TESTTYPEVALUELISTQUERY;
-			break;	
+			break;
 		case COMPTYPE:
 			namedQuery = COMPTYPEVALUELISTQUERY;
-			break;	
+			break;
 		default:
 			logger.warn("Valuelist not found: " + valueList.name());
 			return list;
-		}		
+		}
 		SessionFactory sessionFactory = transactionManager.getSessionFactory();
-		Session session = sessionFactory.openSession();		
+		Session session = sessionFactory.openSession();
 		Query query = session.getNamedQuery(namedQuery);
 		query.setString("p_lang_key", lang_key);
 		List<Object[]> result = query.list();
@@ -947,58 +948,58 @@ public class SQLExecutorService {
 		session.close();
 		return list;
 	}
-	
+
 	/**
 	 * Retrieve all entities and ids for a certain label
 	 * @param labelId Label
 	 * @param deleted deleted
-	 * @return entities which have the label assigned	
+	 * @return entities which have the label assigned
 	 */
 	public Map<Constants.Entity, List<String>> getEntitiesByLabelList(String labelId, boolean deleted) {
-		Map<Constants.Entity, List<String>> map = new HashMap<Constants.Entity, List<String>>();		
+		Map<Constants.Entity, List<String>> map = new HashMap<Constants.Entity, List<String>>();
 		SessionFactory sessionFactory = transactionManager.getSessionFactory();
-		Session session = sessionFactory.openSession();		
+		Session session = sessionFactory.openSession();
 		Query query = session.getNamedQuery(ENTITIESBYLABELLISTQUERY);
 		query.setString("p_label_id", labelId);
 		query.setBoolean("p_deleted", deleted);
 		List<Object[]> result = query.list();
-		for(Object[] line : result) {			
+		for(Object[] line : result) {
 			try {
 				Constants.Entity entity = Constants.Entity.valueOf(((String)line[0]).toUpperCase());
 				String entityId = (String)line[1];
 				// check if entity already in map
 				if(!map.containsKey(entity)) map.put(entity, new ArrayList<String>());
 				// add id
-				map.get(entity).add(entityId);	
-			} catch (Exception ex) {			
+				map.get(entity).add(entityId);
+			} catch (Exception ex) {
 				Statusbar.outputError("No or wrong entity", "For list view processing an entity has to be set!");
 				continue;
 			}
-					
+
 		}
 		session.close();
 		return map;
 	}
-	
+
 	public Map<Constants.Entity, List<String>> getEntitiesByLabelList(String labelId) {
-		return getEntitiesByLabelList(labelId, false); 
+		return getEntitiesByLabelList(labelId, false);
 	}
 
 	public int deleteAllSwimProtocols(String id) {
 		SessionFactory sessionFactory = transactionManager.getSessionFactory();
-		Session session = sessionFactory.openSession();		
+		Session session = sessionFactory.openSession();
 		Query query = session.createQuery("delete TestsSwimProtocol where id.id = :p_id");
 		query.setString("p_id", id);
-		return query.executeUpdate (); 		
+		return query.executeUpdate ();
 	}
-	
+
 	public void setTransactionManager(HibernateTransactionManager transactionManager) {
 		this.transactionManager = transactionManager;
-	}	
-	
+	}
+
 	public void setDictionaryService(Dictionary dictionaryService) {
 		this.dictionaryService = dictionaryService;
-	}	
+	}
 
 	public void setDaoLayer(DAOLayer daoLayer) {
 		this.daoLayer = daoLayer;

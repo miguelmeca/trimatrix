@@ -71,6 +71,7 @@ json-lib-2.3-jdk15.jar
 ezmorph-1.0.6.jar (für json-lib-2.3-jdk15.jar)
 json-0.19.jar (http://code.google.com/p/jsonmarshaller)
 asm-2.2.3.jar (für json-0.19.jar)
+poi-3.6.jar (für Excel Auswertungen)
 
-in der cglib-nodep-2.1_3.jar ist asm.jar und asm-attr.jar bereits enthalten 
+in der cglib-nodep-2.1_3.jar ist asm.jar und asm-attr.jar bereits enthalten
 (können aber für JSON Jar nicht verwendet werden!)

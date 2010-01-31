@@ -25,25 +25,25 @@ public class CompetitionLogic {
 	private static final Marshaller<Limit> limitMarshaller = TwoLattes.createMarshaller(Limit.class);
 	private DAOLayer daoLayer;
 	private ServiceLayer serviceLayer;
-	
+
 	public void saveCompetitionScouts(CompetitionsScouts cs) {
 		daoLayer.getCompetitionsScoutsDAO().merge(cs);
 	}
-	
+
 	public List<Categories> getCategories() {
 		 return daoLayer.getCategoriesDAO().findByProperty(CategoriesDAO.SCOUTID, serviceLayer.getDictionaryService().getMyPerson().getId());
 	}
-	
+
 	public String buildString(List<Limit> limits) {
 		return limitMarshaller.marshallList(limits).toString();
     }
-	
+
 	public List<Limit> getLimits(String limits) {
 		if(Helper.isEmpty(limits)) return Collections.EMPTY_LIST;
 		Json.Array array = (Json.Array)Json.fromString(limits);
 		return limitMarshaller.unmarshallList(array);
 	}
-	
+
 	public Map<String, Limit> getLimitsMap(String limits) {
 		if(Helper.isEmpty(limits)) return Collections.EMPTY_MAP;
 		Map<String, Limit> result = new HashMap<String, Limit>();
@@ -53,12 +53,12 @@ public class CompetitionLogic {
 		}
 		return result;
 	}
-	
+
 	public Limit createLimit() {
 		return new Limit();
 	}
-	
-	public Limit createLimit(String category, Double[] limits, String[] swim, String[] run) {
+
+	public Limit createLimit(String category, String[] limits, String[] swim, String[] run) {
 		return new Limit(category, limits, swim, run);
 	}
 
@@ -68,5 +68,5 @@ public class CompetitionLogic {
 
 	public void setDaoLayer(DAOLayer daoLayer) {
 		this.daoLayer = daoLayer;
-	}	
+	}
 }

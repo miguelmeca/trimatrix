@@ -32,52 +32,52 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 
 	private final EntityListLogic ENTITYLISTLOGIC = getLogic().getEntityListLogic();
 	protected Constants.Entity entity;
-	public Constants.Entity getEntity() { return entity; }	
-	
+	public Constants.Entity getEntity() { return entity; }
+
 	protected String m_entityDetailPage;
 	public String getEntityDetailPage() {return m_entityDetailPage;}
-	
+
 	private IEntityDetailUI entityDetailUI;
-	
+
 	private IEntityObject entityObject;
 	public Object getEntityObject() { return entityObject; }
 	public void setEntityObject(IEntityObject entityObject) { this.entityObject = entityObject; }
-	
+
 	private Object parentBean;
-	
+
 	private boolean copyable;
-	
+
 	private SAuthorization authorization;
 	public boolean getCreateAllowed() { return authorization.create; }
 	public boolean getDeleteAllowed() { return authorization.delete; }
 	public boolean getChangeAllowed() { return authorization.change; }
-	
+
 	private String id;
 	public String getId() { return id; }
-	
+
 	private Constants.Mode mode;
-	public Constants.Mode getMode() { return mode; }	
-	
+	public Constants.Mode getMode() { return mode; }
+
 	protected boolean renderSaveButton;
 	public boolean getRenderSaveButton() { return renderSaveButton; }
-	
+
 	protected boolean renderEditButton;
 	public boolean getRenderEditButton() { return renderEditButton; }
-	
+
 	protected boolean renderCancelButton;
 	public boolean getRenderCancelButton() { return renderCancelButton; }
-	
+
 	protected boolean renderDeleteButton;
 	public boolean getRenderDeleteButton() { return renderDeleteButton; }
-	
+
 	protected boolean renderNewButton;
 	public boolean getRenderNewButton() { return renderNewButton; }
-	
+
 	protected boolean renderCopyButton;
 	public boolean getRenderCopyButton() { return renderCopyButton; }
-	
+
 	public EntityDetailUI(IWorkpageDispatcher dispatcher) {
-		super(dispatcher);			
+		super(dispatcher);
 		// get entity
         String strEntity = getWorkpage().getParam(Constants.P_ENTITY);
         try {
@@ -85,7 +85,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
         } catch (Exception ex) {
         	Statusbar.outputError("No or wrong entity set", "For list view processing an entity has to be set by the functiontreenode!");
         	getWorkpageContainer().closeWorkpage(getWorkpage());
-        }    
+        }
         // a instance of MyWorkpage
         IWorkpage wp = getWorkpage();
         if (wp instanceof MyWorkpage) {
@@ -96,14 +96,14 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
         	// entity object
         	entityObject = ((MyWorkpage)wp).getEntityObject();
         }
-        // get mode 
+        // get mode
         String strMode = getWorkpage().getParam(Constants.P_MODE);
         try {
         	mode = Constants.Mode.valueOf(strMode.toUpperCase());
         } catch (Exception ex) {
         	// if not set, switch to show mode
         	mode = Constants.Mode.SHOW;
-        }   
+        }
         // if authorization is empty try from attribute Map
         if(authorization==null) {
         	String create = getWorkpage().getParam(Constants.CREATE);
@@ -113,10 +113,10 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
     		if(change==null || !change.equals(Constants.TRUE)) change = Constants.FALSE;
     		if(delete==null || !delete.equals(Constants.TRUE)) delete = Constants.FALSE;
     		authorization = new SAuthorization(create, change, delete);
-        }         
+        }
         // change mode to set buttons
-        changeMode(mode);               
-        // set entity detail page 
+        changeMode(mode);
+        // set entity detail page
         m_entityDetailPage = entity.getDetailPage().getUrl();
         // check if in new mode
         switch (mode) {
@@ -129,9 +129,9 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
     		} catch (Exception ex) {
     			// this should never happen!
     			Statusbar.outputAlert("The entity couldn't be locked!\n" + ex.toString(), "Lockmanager").setLeftTopReferenceCentered();
-    		}    		
-    		getWorkpage().setId(id);    
-			break;			
+    		}
+    		getWorkpage().setId(id);
+			break;
 		case COPY:
 			// set title of workpage
 			id = getWorkpage().getId();
@@ -146,41 +146,41 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
     		break;
 		default:
 			// catch NullPointerException if entity doesn't exist
-        	try {   
+        	try {
         		// the whole logic also has to be implemented in MyWorkpageDispagedBean Label handling!!
-        		id = getWorkpage().getId();  
+        		id = getWorkpage().getId();
         		// if id is not set, get id of own entity
             	if (id == null || id.length()==0) { throw new NullPointerException(); }
             	// remove immutability mark
             	id = id.replace(Constants.FINAL, Constants.EMPTY);
         		// special handling for competitions
     			// because page ID has to be unique to resolve right page
-    			// set in EntityListUI            	
+    			// set in EntityListUI
        			String[] arrId = id.split("#");
-        		if(arrId!=null && arrId.length==2) id = arrId[1]; 
+        		if(arrId!=null && arrId.length==2) id = arrId[1];
         		// if id is not set, get id of own entity
             	if (id == null || id.length()==0) { throw new NullPointerException(); }
                 // check if it's not the ID
             	if (Constants.Entity.USER.name().equalsIgnoreCase(id)) {
-                   	id = getServiceLayer().getDictionaryService().getMyUser().getId();          	           
+                   	id = getServiceLayer().getDictionaryService().getMyUser().getId();
                 } else if (Constants.Entity.PERSON.name().equalsIgnoreCase(id)) {
-                   	id = getServiceLayer().getDictionaryService().getMyUser().getPerson().getId(); 
-                } 
+                   	id = getServiceLayer().getDictionaryService().getMyUser().getPerson().getId();
+                }
             	// get entity
-            	entityObject = ENTITYLISTLOGIC.get(entity, id);          		        		
+            	entityObject = ENTITYLISTLOGIC.get(entity, id);
         		// set title of workpage
         		getWorkpage().setTitle(entityObject.toString());
         	} catch (NullPointerException npe) {
         		Statusbar.outputError("Entity doesn't exist!", "Maybe the entity is marked as deleted!");
             	// TODO close workpage or switch to another
-        	} 
+        	}
 			break;
-		}        
+		}
         // set if copyable
         copyable = ENTITYLISTLOGIC.isCopyable(entity, entityObject);
 	}
-	
-	private void refreshParent() {		
+
+	private void refreshParent() {
 		if(parentBean instanceof EntityListUI) {
 			EntityListUI entityListUI = (EntityListUI)parentBean;
 			entityListUI.onRefresh(null);
@@ -189,27 +189,27 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 			logger.info("Bean EntityDetailUI : no parent bean to refresh!");
 		}
 	}
-	
+
 	public void setEntityDetailUI(IEntityDetailUI entityDetailUI){
         this.entityDetailUI = entityDetailUI;
 	}
 
 	public void onDelete(ActionEvent event) {
 		YESNOPopup popup = YESNOPopup.createInstance(
-				"Confirm deletion", 
-				"Do you really want to delete the selected entity?", 
+				"Confirm deletion",
+				"Do you really want to delete the selected entity?",
 				new IYesNoCancelListener(){
 
 					public void reactOnCancel() {}
 
 					public void reactOnNo() {}
 
-					public void reactOnYes() {	
+					public void reactOnYes() {
 						boolean isDeleted = ENTITYLISTLOGIC.delete(entity, id);
-						if(isDeleted) {	
+						if(isDeleted) {
 							entityDetailUI.postDelete(true);
 							Statusbar.outputSuccess("Entity deleted");
-							refreshParent();							
+							refreshParent();
 							// refresh beans
 					        getWorkpage().throwWorkpageProcessingEvent(new WorkpageRefreshEvent(entity));
 					        // close page
@@ -217,16 +217,16 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 						} else {
 							entityDetailUI.postDelete(false);
 							Statusbar.outputError("Entity could not be deleted!");
-						}						
-					}											
+						}
+					}
 				}
-		);	
+		);
 		popup.getModalPopup().setLeftTopReferenceCentered();
 	}
 
 	public void onSave(ActionEvent event) {
 		// delegate to specific detail UI
-		try {	
+		try {
 			entityDetailUI.prepareSave();
 			entityDetailUI.validate();
 			entityObject = ENTITYLISTLOGIC.save(entity, entityObject);
@@ -247,12 +247,12 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 			Statusbar.outputAlert("Email is not valid", "The email address " + env.getEmail() + " is not valid!" ).setLeftTopReferenceCentered();
 		} catch (DataIntegrityViolationException dive) {
 			Statusbar.outputAlert("Entity could not be saved (Data Integrity)", dive.getRootCause().toString()).setLeftTopReferenceCentered();
-		} catch (Exception ex){			
-			Statusbar.outputAlert(ex.toString(), "Entity could not be saved").setLeftTopReferenceCentered();				
-		} 	
+		} catch (Exception ex){
+			Statusbar.outputAlert(ex.toString(), "Entity could not be saved").setLeftTopReferenceCentered();
+		}
 	}
-	
-	public void onEdit(ActionEvent event) {		
+
+	public void onEdit(ActionEvent event) {
 		if(!entityDetailUI.checkEdit()) return;
 		// check global lock
 		try {
@@ -265,27 +265,29 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 			return;
 		}
 		changeMode(Constants.Mode.CHANGE);
+		// reload because of optimistic lock problem with referenced objects
+		ENTITYLISTLOGIC.reload(entity, entityObject);
 		entityDetailUI.init();
 	}
-	
+
 	public void onCancel(ActionEvent event) {
 		// when called in save mode, close page
 		if (mode == Constants.Mode.NEW ||
-			mode == Constants.Mode.COPY	|| 
-			mode == Constants.Mode.SINGLECHANGE) {			
+			mode == Constants.Mode.COPY	||
+			mode == Constants.Mode.SINGLECHANGE) {
 			// set mode back so the close handler will not be invoked
 			changeMode(Constants.Mode.SHOW);
 			getWorkpageContainer().closeWorkpage(getWorkpage());
 		} else {
-			ENTITYLISTLOGIC.reload(entity, entityObject);   
+			ENTITYLISTLOGIC.reload(entity, entityObject);
 			changeMode(Constants.Mode.SHOW);
 			entityDetailUI.init();
-		}		
+		}
 		// unlock entity
 		LockManager.unlockEntity(id);
 	}
-	
-	public void onNew(ActionEvent event) {		
+
+	public void onNew(ActionEvent event) {
 		// create separate workpage
 		IWorkpageDispatcher wpd = getOwningDispatcher();
 		IWorkpageContainer wpc = getWorkpageContainer();
@@ -294,25 +296,25 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 		wp.setParam(Constants.P_ENTITY, entity.name());
 		wp.setParam(Constants.P_MODE, Constants.Mode.NEW.name());
 		wpc.addWorkpage(wp);
-		
+
 	}
-	
-	public void onCopy(ActionEvent event) {		
+
+	public void onCopy(ActionEvent event) {
 		// copy object
 		IEntityObject newEntity = ENTITYLISTLOGIC.copy(entity, entityObject);
 		if(newEntity!=null) {
 			// create separate workpage
 			IWorkpageDispatcher wpd = getOwningDispatcher();
 			IWorkpageContainer wpc = getWorkpageContainer();
-			
+
 			IWorkpage wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.getUrl(),
-					newEntity.getId(),"Copy of " + entityObject.toString(), null, true, parentBean, authorization, newEntity );				
+					newEntity.getId(),"Copy of " + entityObject.toString(), null, true, parentBean, authorization, newEntity );
 			wp.setParam(Constants.P_ENTITY, entity.name());
 			wp.setParam(Constants.P_MODE, Constants.Mode.COPY.name());
 			wpc.addWorkpage(wp);
-		}	
+		}
 	}
-	
+
 	private void changeMode(Constants.Mode mode) {
 		this.mode = mode;
 		if (mode == Constants.Mode.CHANGE ||
@@ -323,17 +325,17 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 			renderSaveButton = true;
 			renderCancelButton = true;
 			renderCopyButton = false;
-			
-		} 
+
+		}
 		if (mode == Constants.Mode.SHOW) {
 			renderNewButton = true;
 			renderDeleteButton = true;
 			renderEditButton = true;
 			renderSaveButton = false;
-			renderCancelButton = false;	
+			renderCancelButton = false;
 			renderCopyButton = true;
-		}		
-		if (mode == Constants.Mode.NEW || 
+		}
+		if (mode == Constants.Mode.NEW ||
 			mode == Constants.Mode.COPY	) {
 			renderNewButton = false;
 			renderDeleteButton = false;
@@ -347,13 +349,13 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 			renderDeleteButton = false;
 			renderEditButton = false;
 			renderSaveButton = false;
-			renderCancelButton = false;	
+			renderCancelButton = false;
 			renderCopyButton = false;
 			authorization = authorization.NONE;
 		}
 	}
 
-	
+
 
 	public void setEntityDetailPage(String value) {
 		m_entityDetailPage = value;
