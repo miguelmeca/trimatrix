@@ -52,50 +52,50 @@ import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.Entity;
 
-public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements IModalPopupListener {	
+public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements IModalPopupListener {
 	public static final Log logger = LogFactory.getLog(MyWorkpageDispatchedBean.class);
-		
+
 	public MyWorkpageDispatchedBean(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
-		labelingEnabled = false;	
-	}		
-	
+		labelingEnabled = false;
+	}
+
 	public MyWorkpageDispatchedBean(IWorkpageDispatcher dispatcher, boolean labelingEnabled) {
 		super(dispatcher);
 		this.labelingEnabled = labelingEnabled;
 		// get expression base by annotation
-	    CCGenClass ccgenClass = getClass().getAnnotation(CCGenClass.class);	    
+	    CCGenClass ccgenClass = getClass().getAnnotation(CCGenClass.class);
     	if(ccgenClass!=null) expressionBase = ccgenClass.expressionBase().replace('}', '.');
     	// get entity ID
     	if(labelingEnabled) {
     		// logic from EntityDetailUI constructor
-    		entityId = getWorkpage().getId().replace(Constants.FINAL, Constants.EMPTY);    		
+    		entityId = getWorkpage().getId().replace(Constants.FINAL, Constants.EMPTY);
     		// logic from EntityDetailUI constructor part 2
     		String[] arrId = entityId.split("#");
-    		if(arrId!=null && arrId.length==2) entityId = arrId[1]; 
+    		if(arrId!=null && arrId.length==2) entityId = arrId[1];
     	}
     	// initialize Label row
     	if(labelingEnabled) setLabelRowDynamic();
 	}
-	
+
 	private String entityId;
-		
+
 	@Override
 	public Dispatcher getOwningDispatcher() {
 		return (Dispatcher) super.getOwningDispatcher();
 	}
-		
+
 	// ------------------------------------------------------------------------
 	// logic for label functionality
-	// ------------------------------------------------------------------------	
+	// ------------------------------------------------------------------------
 	private String expressionBase;
-	private boolean labelingEnabled;	
+	private boolean labelingEnabled;
 	public boolean isLabelingEnabled() { return labelingEnabled; }
-	
+
 	protected ROWDYNAMICCONTENTBinding m_labelRow = new ROWDYNAMICCONTENTBinding();
 	public ROWDYNAMICCONTENTBinding getLabelRow() { return m_labelRow; }
     public void setLabelRow(ROWDYNAMICCONTENTBinding value) { m_labelRow = value; }
-	
+
 	/**
 	 * Refresh the pages which have labeling functionality
 	 */
@@ -113,7 +113,7 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 			}
 		}
 	}
-	
+
 	/**
 	 * OBSOLET
 	 * Recursive walk through all dispatchers and check
@@ -135,16 +135,16 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 			}
 		}
 	}
-    
+
     public void onLabelDelete(ActionEvent event) {
 		// return if labeling functionality is not set
-		if(!labelingEnabled || Helper.isEmpty(entityId)) return;		
+		if(!labelingEnabled || Helper.isEmpty(entityId)) return;
     	BUTTONComponent button =(BUTTONComponent)event.getSource();
     	String label_id = button.getAttributeValueAsString(Constants.CLIENTNAME);
     	getLogic().getLabelLogic().deleteLabelRelation(entityId, label_id);
-    	setLabelRowDynamic();        	
+    	setLabelRowDynamic();
     }
-    
+
     public void onLabelClick(ActionEvent event) {
     	// return if labeling functionality is not set
 		if(!labelingEnabled || Helper.isEmpty(entityId)) return;
@@ -158,14 +158,14 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 		if(wp != null) {
 			wpc.switchToWorkpage(wp);
 			return;
-		} 
+		}
 		// Page doesn't exist, create it
-		wp = new Workpage( wpd, Constants.Page.LABELSEARCHRESULT.getUrl(), label_id, label_description, null, true);			
-		wp.setParam(Constants.P_LABEL, label_id);	
+		wp = new Workpage( wpd, Constants.Page.LABELSEARCHRESULT.getUrl(), label_id, label_description, null, true);
+		wp.setParam(Constants.P_LABEL, label_id);
 		wpc.addWorkpage(wp);
     }
-	
-	protected void setLabelRowDynamic() { 
+
+	protected void setLabelRowDynamic() {
 		// return if labeling functionality is not set
 		if(!labelingEnabled || Helper.isEmpty(entityId)) return;
 		// build dynamic row with labels
@@ -174,7 +174,7 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 		for(Labels label:labels) {
 			// get inverted color for font
 			Color background = Color.decode(label.getColor());
-			String fontColor = Helper.getBlackOrWhite(background);		
+			String fontColor = Helper.getBlackOrWhite(background);
 
 			xml.append("<t:button actionListener='" + expressionBase + "onLabelClick}' clientname='" + label.getId() + "' bgpaint='roundedrectangle(0,0,100%,100%,10,10," + label.getColor() + ");rectangle(10,0,100%,100%," + label.getColor() + ")' stylevariant='WP_ISOLATEDWORKPAGE' foreground ='" + fontColor + "' font='weight:bold' text='"+ label.getDescription()  +"' />");
 			xml.append("<t:coldistance width='1' />");
@@ -183,66 +183,66 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 		}
 		xml.append("<t:button actionListener='" + expressionBase + "onLabelSearch}' contentareafilled='false' image='/images/icons/magnifier.png' text='Label' id='LABELSEARCH' />");
 		m_labelRow.setContentXml(xml.toString());
-	}	
-	 
+	}
+
 	public void onLabelSearch(ActionEvent event) {
 		// return if labeling functionality is not set
 		if(!labelingEnabled || Helper.isEmpty(entityId)) return;
-		
-	   	final ModelessPopup popup = getOwningDispatcher().createModelessPopup();  
+
+	   	final ModelessPopup popup = getOwningDispatcher().createModelessPopup();
 	   	LabelPopUpUI labelPopUpUI = getLabelPopUpUI();
 	   	labelPopUpUI.setEntityID(entityId);
 	   	labelPopUpUI.initialize();
 	   	labelPopUpUI.prepareCallback(new LabelPopUpUI.IApplyingCallback(){
 			public void apply() {
-				setLabelRowDynamic();				
+				setLabelRowDynamic();
 				popup.close();
 			}
-		});		
-	   	popup.open(Constants.Page.LABELPOPUP.getUrl(), "Label", 250, 300, new DefaultModelessPopupListener(popup)); 
+		});
+	   	popup.open(Constants.Page.LABELPOPUP.getUrl(), "Label", 250, 300, new DefaultModelessPopupListener(popup));
 	   	popup.setUndecorated(true);
 	   	popup.setLefTopReferenceComponentIdBottom("LABELSEARCH");
 	   	popup.setCloseonclickoutside(true);
-	} 
-	 
-	
+	}
+
+
 	// ------------------------------------------------------------------------
 	// logic for PopUp
-	// ------------------------------------------------------------------------	
+	// ------------------------------------------------------------------------
 	protected ModalPopup m_popup;
 
 	public void reactOnPopupClosedByUser() {
 		if (m_popup != null)
 			m_popup.close();
 	}
-	
+
 	// ------------------------------------------------------------------------
 	// logic access
 	// ------------------------------------------------------------------------
 	protected LogicLayer getLogic() {
 		return getOwningDispatcher().getLogicLayer();
 	}
-	
+
 	// ------------------------------------------------------------------------
 	// service access
 	// ------------------------------------------------------------------------
 	protected ServiceLayer getServiceLayer() {
 		return getOwningDispatcher().getServiceLayer();
-	}	
-	
+	}
+
 	// ------------------------------------------------------------------------
 	// relation access
 	// ------------------------------------------------------------------------
 	protected RelationLayer getRelationLayer() {
 		return getOwningDispatcher().getRelationLayer();
-	}	
-	
+	}
+
 	// ------------------------------------------------------------------------
 	// dao access
 	// ------------------------------------------------------------------------
 	protected DAOLayer getDaoLayer() {
 		return getOwningDispatcher().getDaoLayer();
-	}	
+	}
 
 	// ------------------------------------------------------------------------
 	// convenience access
@@ -252,47 +252,47 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 		return (UserDetailUI) getOwningDispatcher().getDispatchedBean(
 				UserDetailUI.class);
 	}
-	
+
 	public EntityDetailUI getEntityDetailUI() {
 		return (EntityDetailUI) getOwningDispatcher().getDispatchedBean(
 				EntityDetailUI.class);
 	}
-	
+
 	public EntityListUI getEntityListUI() {
 		return (EntityListUI) getOwningDispatcher().getDispatchedBean(EntityListUI.class);
 	}
-	
+
 	public EntitySelectionUI getEntitySelectionUI(Constants.Entity entity) {
 		if (entity == Constants.Entity.USER) return (EntitySelectionUI)getOwningDispatcher().getDispatchedBean(UserSelectionUI.class);
 		if (entity == Constants.Entity.PERSON) return (EntitySelectionUI)getOwningDispatcher().getDispatchedBean(PersonSelectionUI.class);
 		if (entity == Constants.Entity.DOCTOR) return (EntitySelectionUI)getOwningDispatcher().getDispatchedBean(DoctorSelectionUI.class);
 		if (entity == Constants.Entity.ATTACHMENT) return (EntitySelectionUI)getOwningDispatcher().getDispatchedBean(AttachmentSelectionUI.class);
 		if (entity == Constants.Entity.COMPETITION) return (EntitySelectionUI)getOwningDispatcher().getDispatchedBean(CompetitionSelectionUI.class);
-		
+
 		logger.warn("For entity " + entity.name() + " no SelectionUI available!");
 		return null;
 	}
-	
+
 	public CreateRelationUI getCreateRelationUI() {
 		return (CreateRelationUI)getOwningDispatcher().getDispatchedBean(CreateRelationUI.class);
 	}
-	
+
 	public LabelPopUpUI getLabelPopUpUI() {
 		return (LabelPopUpUI)getOwningDispatcher().getDispatchedBean(LabelPopUpUI.class);
 	}
-	
+
 	public LabelChangePopUp getLabelChangePopUp() {
 		return (LabelChangePopUp)getOwningDispatcher().getDispatchedBean(LabelChangePopUp.class);
 	}
-	
+
 	public ScheduleChangePopUp getScheduleChangePopUp() {
 		return (ScheduleChangePopUp)getOwningDispatcher().getDispatchedBean(ScheduleChangePopUp.class);
 	}
-	
+
 	public WorkplaceUI getWorkplaceUI() {
 		return (WorkplaceUI)getOwningDispatcher().getDispatchedBean(WorkplaceUI.class);
 	}
-	
+
 	public void reloadFunctionTree(Constants.Role role) {
 		switch(role) {
 		case ADMIN:
@@ -310,7 +310,7 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 		}
 		ThreadData.getInstance().registerChangeUpdatingAllAreas();
 	}
-	
+
 	public void reloadFunctionTree() {
 		((WPFunctionTreeAdmin)getOwningDispatcher().getTopOwner().getDispatchedBean(WPFunctionTreeAdmin.class)).reload();
 		((WPFunctionTreeAthlet)getOwningDispatcher().getTopOwner().getDispatchedBean(WPFunctionTreeAthlet.class)).reload();
@@ -318,7 +318,7 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 		((WPFunctionTreeScouter)getOwningDispatcher().getTopOwner().getDispatchedBean(WPFunctionTreeScouter.class)).reload();
 		ThreadData.getInstance().registerChangeUpdatingAllAreas();
 	}
-	
+
 	protected void loadEntityDetailPage(Entity entity, String id, String title) {
 		// Switch to or create entities page
 		IWorkpageDispatcher wpd = getOwningDispatcher();
@@ -327,13 +327,13 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 		if(wp != null) {
 			wpc.switchToWorkpage(wp);
 			return;
-		} 
+		}
 		// Page doesn't exist, create it
 		wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.getUrl(),
-				Constants.FINAL + id, title, null, true);			
+				Constants.FINAL + id, title, null, true);
 		wp.setParam(Constants.P_ENTITY, entity.name());
 		wp.setParam(Constants.P_MODE, Constants.Mode.FINAL.name());
-		
+
 		wpc.addWorkpage(wp);
 	}
 }

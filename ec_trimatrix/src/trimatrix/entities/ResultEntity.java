@@ -10,9 +10,12 @@ import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import trimatrix.db.Results;
+import trimatrix.reports.Report;
+import trimatrix.reports.excel.PerformanceChart;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
+import trimatrix.utils.Constants.Entity;
 
 public final class ResultEntity extends AEntity {
 
@@ -152,6 +155,22 @@ public final class ResultEntity extends AEntity {
 			}
 		});
 		return result;
+	}
+
+	@Override
+	public Report getPrintReport(Entity entity, List<IEntityData> data) {
+		if (entity == Constants.Entity.MYRESULTS) {
+			PerformanceChart.Data reportData = new PerformanceChart.Data();
+			for(IEntityData entityData : data) {
+				ResultEntity.Data resultData = (ResultEntity.Data)entityData;
+				if(reportData.name==null) reportData.name = resultData.athlete;
+				PerformanceChart.Data.Item item = new PerformanceChart.Data.Item();
+				item.position = resultData.final_position;
+				reportData.items.add(item);
+			}
+			return new PerformanceChart(reportData);
+		}
+		return null;
 	}
 
 	/* (non-Javadoc)
