@@ -15,28 +15,30 @@
 <t:row id="g_2" >
 <t:pane id="g_3" rowdistance="5" width="100%" >
 <t:row id="g_4" >
-<t:pane id="g_5" >
+<t:pane id="g_5" width="100%" >
 <t:row id="g_6" rendered="#{d.EntityListUI.renderButtons}" >
 <t:button id="g_7" actionListener="#{d.EntityListUI.onNew}" enabled="#{d.EntityListUI.createAllowed}" image="/images/icons/new.png" imageheight="15" text="#{rr.literals.new}" />
 <t:coldistance id="g_8" />
 <t:button id="g_9" actionListener="#{d.EntityListUI.onDelete}" enabled="#{d.EntityListUI.deleteAllowed}" image="/images/icons/delete.png" imageheight="15" text="#{rr.literals.delete}" />
+<t:coldistance id="g_10" width="100%" />
+<t:filedownloadbutton id="g_11" fileextensions="#{d.EntityListUI.printReportExtension}" filename="#{d.EntityListUI.printReportFilename}" image="/images/icons/print.png" openimmediately="true" opensupported="true" rendered="#{d.EntityListUI.printSupported}" text="#{rr.literals.print}" url="#{d.EntityListUI.printReportUrl}" />
 </t:row>
 </t:pane>
 </t:row>
-<t:row id="g_10" rendered="#{d.EntityListUI.renderButtons}" >
-<t:icon id="g_11" actionListener="#{d.EntityListUI.gridList.textSearcher.onPrevious}" image="/eclntjsfserver/images/control_playbackwards.png" />
-<t:field id="g_12" bgpaint="image(100%-5,50%,/images/icons/magnifier.png,rightmiddle)" text="#{d.EntityListUI.gridList.textSearcher.text}" width="100" />
-<t:icon id="g_13" actionListener="#{d.EntityListUI.gridList.textSearcher.onNext}" image="/eclntjsfserver/images/control_play.png" />
-<t:coldistance id="g_14" width="100%" />
-<t:link id="g_15" actionListener="#{d.EntityListUI.gridList.onOpenGridFunctions}" text="#{rr.literals.export}" />
+<t:row id="g_12" rendered="#{d.EntityListUI.renderButtons}" >
+<t:icon id="g_13" actionListener="#{d.EntityListUI.gridList.textSearcher.onPrevious}" image="/eclntjsfserver/images/control_playbackwards.png" />
+<t:field id="g_14" bgpaint="image(100%-5,50%,/images/icons/magnifier.png,rightmiddle)" text="#{d.EntityListUI.gridList.textSearcher.text}" width="100" />
+<t:icon id="g_15" actionListener="#{d.EntityListUI.gridList.textSearcher.onNext}" image="/eclntjsfserver/images/control_play.png" />
+<t:coldistance id="g_16" width="100%" />
+<t:link id="g_17" actionListener="#{d.EntityListUI.gridList.onOpenGridFunctions}" text="#{rr.literals.export}" />
 </t:row>
-<t:rowline id="g_16" />
-<t:rowdynamiccontent id="g_17" contentbinding="#{d.EntityListUI.dynRow}" />
-<t:row id="g_18" rendered="#{d.EntityListUI.renderButtons}" >
-<t:button id="g_19" actionListener="#{d.EntityListUI.onRefresh}" image="/images/icons/refresh.png" imageheight="15" text="#{rr.literals.list_refresh}" />
-<t:coldistance id="g_20" width="100%" />
-<t:button id="g_21" actionListener="#{d.EntityListUI.gridList.onEditColumnDetails}" image="/images/icons/configure.png" imageheight="15" text="#{rr.literals.list_configure}" />
-<t:button id="g_22" actionListener="#{d.EntityListUI.saveGridState}" image="/images/icons/save.png" imageheight="15" text="#{rr.literals.save}" />
+<t:rowline id="g_18" />
+<t:rowdynamiccontent id="g_19" contentbinding="#{d.EntityListUI.dynRow}" />
+<t:row id="g_20" rendered="#{d.EntityListUI.renderButtons}" >
+<t:button id="g_21" actionListener="#{d.EntityListUI.onRefresh}" image="/images/icons/refresh.png" imageheight="15" text="#{rr.literals.list_refresh}" />
+<t:coldistance id="g_22" width="100%" />
+<t:button id="g_23" actionListener="#{d.EntityListUI.gridList.onEditColumnDetails}" image="/images/icons/configure.png" imageheight="15" text="#{rr.literals.list_configure}" />
+<t:button id="g_24" actionListener="#{d.EntityListUI.saveGridState}" image="/images/icons/save.png" imageheight="15" text="#{rr.literals.save}" />
 </t:row>
 </t:pane>
 </t:row>

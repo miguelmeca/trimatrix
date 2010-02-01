@@ -34,7 +34,7 @@ import trimatrix.utils.Helper;
 
 @CCGenClass(expressionBase = "#{d.ScheduleUI}")
 public class ScheduleUI extends MyWorkpageDispatchedBean implements
-		Serializable {	
+		Serializable {
 	protected FIXGRIDListBinding<GridAgendaItem> m_gridAgenda = new FIXGRIDListBinding<GridAgendaItem>();
 
 	public FIXGRIDListBinding<GridAgendaItem> getGridAgenda() {
@@ -105,7 +105,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 	public String getAnimationType() {
 		return animationType;
 	}
-		
+
 	private DefaultBufferedContent report;
 	public String getPrintReportUrl() {
 		return report==null ? null : report.getURL();
@@ -255,7 +255,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 						BufferedContentMgr.remove(report);
 					}
 				});
-
+		// refresh UI
 		refresh();
 	}
 

@@ -10,13 +10,15 @@ import org.springframework.orm.hibernate3.HibernateTransactionManager;
 
 import trimatrix.db.DAOLayer;
 import trimatrix.db.IEntityDAO;
+import trimatrix.reports.Report;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;
+import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
 
-public abstract class AEntity implements IEntity{	
+public abstract class AEntity implements IEntity{
 	public static final Log logger = LogFactory.getLog(AEntity.class);
-	
+
 	// Variables
 	protected SQLExecutorService sqlExecutorService;
 
@@ -24,15 +26,15 @@ public abstract class AEntity implements IEntity{
 	protected DAOLayer daoLayer;
 	protected HibernateTransactionManager transactionManager;
 	protected IEntityDAO<? extends IEntityObject> entitiesDAO;
-	
+
 	public IEntityData getData(String id) {
 		return null;
 	}
-	
+
 	public void reload(IEntityObject entityObject) {
-		entitiesDAO.reload(entityObject);		
+		entitiesDAO.reload(entityObject);
 	}
-	
+
 	public IEntityObject get(String id) {
 		IEntityObject entity = entitiesDAO.findById(id);
 		if(entity==null) return null;
@@ -53,13 +55,13 @@ public abstract class AEntity implements IEntity{
 		if(entityObject.getCreatedAt() == null) entityObject.setCreatedAt(now);
 		if(entityObject.getCreatedBy() == null) entityObject.setCreatedBy(dictionaryService.getMyUser().getId());
 		// modification timestamp now handled by <timestamp> in hbm File
-		//entity.setModifiedAt(now); 
+		//entity.setModifiedAt(now);
 		//IEntityObject entityObject2 = get(entityObject.getId());
 		//if(entityObject2!=null) entityObject.setModifiedAt(entityObject2.getModifiedAt());
 		entityObject.setModifiedBy(dictionaryService.getMyUser().getId());
 		return entitiesDAO.merge(entityObject);
 	}
-	
+
 	public boolean delete(String id) {
 		IEntityObject entity = entitiesDAO.findById(id);
 		if(entity==null) return false;
@@ -70,9 +72,9 @@ public abstract class AEntity implements IEntity{
 		} catch (Exception ex) {
 			return false;
 		}
-		return true;		
+		return true;
 	}
-	
+
 	public List<IEntityData> getData(List<String> ids) {
 		List<IEntityData> data = new ArrayList<IEntityData>();
 		for(String id : ids) {
@@ -81,12 +83,12 @@ public abstract class AEntity implements IEntity{
 		}
 		return data;
 	}
-	
+
 	public List<SGridMetaData> getGridMetaData(String filter) {
 		// if not implemented delegate to general function
 		return getGridMetaData();
 	}
-	
+
 	public void setSqlExecutorService(SQLExecutorService sqlExecutorService) {
 		this.sqlExecutorService = sqlExecutorService;
 	}
@@ -94,7 +96,7 @@ public abstract class AEntity implements IEntity{
 	public void setDictionaryService(Dictionary dictionaryService) {
 		this.dictionaryService = dictionaryService;
 	}
-	
+
 	public void setDaoLayer(DAOLayer daoLayer) {
 		this.daoLayer = daoLayer;
 	}
@@ -102,16 +104,20 @@ public abstract class AEntity implements IEntity{
 	public void setTransactionManager(HibernateTransactionManager transactionManager) {
 		this.transactionManager = transactionManager;
 	}
-	
+
 	public void setEntitiesDAO(IEntityDAO<? extends IEntityObject> entitiesDAO) {
 		this.entitiesDAO = entitiesDAO;
 	}
 
 	public IEntityObject copy(IEntityObject entityObject) {
 		return null;
-	}	
-	
+	}
+
 	public boolean isCopyable(IEntityObject entityObject) {
 		return false;
-	}	
+	}
+
+	public Report getPrintReport(Constants.Entity entity, List<IEntityData> data) {
+		return null;
+	}
 }

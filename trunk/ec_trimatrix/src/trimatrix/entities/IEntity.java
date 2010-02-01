@@ -4,22 +4,23 @@ import java.util.List;
 
 import org.springframework.dao.DataIntegrityViolationException;
 
+import trimatrix.reports.Report;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
 
-public interface IEntity {	
+public interface IEntity {
 
 	public abstract List<SGridMetaData> getGridMetaData();
-	
+
 	public abstract List<SGridMetaData> getGridMetaData(String filter);
 
 	public abstract List<IEntityData> getData(Constants.Entity entity,
 			String personId, String filter);
-	
+
 	public abstract List<IEntityData> getData(List<String> ids);
 
 	public abstract List<IEntityData> getData(Constants.Entity entity, String filter);
-	
+
 	public abstract IEntityData getData(String id);
 
 	public abstract List<IEntityData> getData();
@@ -34,9 +35,11 @@ public interface IEntity {
 			throws DataIntegrityViolationException;
 
 	public abstract void reload(IEntityObject entityObject);
-	
+
 	public abstract IEntityObject copy(IEntityObject entityObject);
-	
+
 	public abstract boolean isCopyable(IEntityObject entityObject);
+
+	public abstract Report getPrintReport(Constants.Entity entity, List<IEntityData> data);
 
 }
