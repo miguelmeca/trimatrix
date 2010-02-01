@@ -77,6 +77,9 @@ public static void main(String[] args) throws Exception {
     	sheet.autoSizeColumn(i);
     }
 
+    // bold
+    sheet.getRow(2).getCell(0).setCellStyle(styles.get("cell_bold"));
+    
     // merge cells
     sheet.addMergedRegion(CellRangeAddress.valueOf("$A$3:$A$4"));
     sheet.addMergedRegion(CellRangeAddress.valueOf("$B$3:$B$4"));
@@ -104,6 +107,11 @@ public static void main(String[] args) throws Exception {
         Font titleFont = wb.createFont();
         titleFont.setFontHeightInPoints((short)18);
         titleFont.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        
+        Font boldFont = wb.createFont();
+        boldFont.setFontHeightInPoints((short)12);
+        boldFont.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        
         style = wb.createCellStyle();
         style.setAlignment(CellStyle.ALIGN_CENTER);
         style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
@@ -164,6 +172,21 @@ public static void main(String[] args) throws Exception {
         style.setBorderBottom(CellStyle.BORDER_THIN);
         style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
         styles.put("cell", style);
+        
+        style = wb.createCellStyle();
+        style.setAlignment(CellStyle.ALIGN_CENTER);
+        style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+        style.setWrapText(true);
+        style.setBorderRight(CellStyle.BORDER_THIN);
+        style.setRightBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderLeft(CellStyle.BORDER_THIN);
+        style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderTop(CellStyle.BORDER_THIN);
+        style.setTopBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderBottom(CellStyle.BORDER_THIN);
+        style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+        style.setFont(boldFont);
+        styles.put("cell_bold", style);
 
 
         style = wb.createCellStyle();
@@ -197,23 +220,6 @@ public static void main(String[] args) throws Exception {
         style.setBorderBottom(CellStyle.BORDER_THIN);
         style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
         styles.put("cell_red", style);
-
-
-        style = wb.createCellStyle();
-        style.setAlignment(CellStyle.ALIGN_CENTER);
-        style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
-        style.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-        style.setFillPattern(CellStyle.SOLID_FOREGROUND);
-        style.setDataFormat(wb.createDataFormat().getFormat("0.00"));
-        styles.put("formula", style);
-
-        style = wb.createCellStyle();
-        style.setAlignment(CellStyle.ALIGN_CENTER);
-        style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
-        style.setFillForegroundColor(IndexedColors.GREY_40_PERCENT.getIndex());
-        style.setFillPattern(CellStyle.SOLID_FOREGROUND);
-        style.setDataFormat(wb.createDataFormat().getFormat("0.00"));
-        styles.put("formula_2", style);
 
         return styles;
     }

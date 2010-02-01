@@ -32,7 +32,7 @@ public class ScheduleLogic {
 		cal.set(Calendar.HOUR_OF_DAY, hour);
 		cal.set(Calendar.MINUTE, minute);
 		return cal.getTime();
-	}
+	}	
 
 	public void setServiceLayer(ServiceLayer serviceLayer) {
 		this.serviceLayer = serviceLayer;
