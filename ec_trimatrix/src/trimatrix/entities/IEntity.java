@@ -40,6 +40,6 @@ public interface IEntity {
 
 	public abstract boolean isCopyable(IEntityObject entityObject);
 
-	public abstract Report getPrintReport(Constants.Entity entity, List<IEntityData> data);
+	public abstract Report getPrintReport(Constants.Entity entity, String filter, List<IEntityData> data);
 
 }

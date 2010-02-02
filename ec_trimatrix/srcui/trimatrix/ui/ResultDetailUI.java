@@ -29,8 +29,8 @@ import trimatrix.utils.Constants.Entity;
 
 public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 
-	private String green_high;
-	private String red_low;
+	private String cutoffSwim;
+	private String cutoffRun;
 
 	private String bestSwim;
 	public String getBestSwim() { return bestSwim; }
@@ -38,8 +38,8 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 	private String bestRun;
 	public String getBestRun() { return bestRun; }
 
-    //public String getColorRun() { return getColor(getPercentDeficitRun()); }
-    public String getColorSwim() { return getColor((String)values.get(ResultEntity.SWIM_SPLIT)); }
+    public String getColorRun() { return ResultEntity.Data.getColor((String)values.get(ResultEntity.RUN_SPLIT),cutoffRun); }
+    public String getColorSwim() { return ResultEntity.Data.getColor((String)values.get(ResultEntity.SWIM_SPLIT),cutoffSwim); }
 
 	protected final String[] MANDATORY_FIELDS_TRIA = new String[] {ResultEntity.CATEGORY_TRIA, ResultEntity.SWIM_SPLIT, ResultEntity.RUN_SPLIT};
 
@@ -318,20 +318,20 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 	 * @param percent Percentage
 	 * @return	Color
 	 */
-	private String getColor(String time) {
-		Integer greenSeconds = Helper.calculateSeconds(green_high);
-		Integer redSeconds = Helper.calculateSeconds(red_low);
-		Integer seconds = Helper.calculateSeconds(time);
-		if(seconds==null) return Constants.WHITE;
-		// green
-		if(greenSeconds!=null && greenSeconds>0 && seconds<greenSeconds) return Constants.GREEN;
-		// red
-		if(redSeconds!=null && redSeconds>0 && seconds>redSeconds) return Constants.RED;
-		// unspecified
-		if(green_high==null && red_low==null) return Constants.WHITE;
-		// yellow
-		return Constants.YELLOW;
-	}
+//	private String getColor(String time) {
+//		Integer greenSeconds = Helper.calculateSeconds(green_high);
+//		Integer redSeconds = Helper.calculateSeconds(red_low);
+//		Integer seconds = Helper.calculateSeconds(time);
+//		if(seconds==null) return Constants.WHITE;
+//		// green
+//		if(greenSeconds!=null && greenSeconds>0 && seconds<greenSeconds) return Constants.GREEN;
+//		// red
+//		if(redSeconds!=null && redSeconds>0 && seconds>redSeconds) return Constants.RED;
+//		// unspecified
+//		if(green_high==null && red_low==null) return Constants.WHITE;
+//		// yellow
+//		return Constants.YELLOW;
+//	}
 
 
 	/**
@@ -348,8 +348,8 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 		if(entity.getResultsTria()!=null) {
 			Limit limits = limitsMap.get((String)values.get(ResultEntity.CATEGORY_TRIA));
 			if(limits!=null) {
-				green_high = limits.getLimits()[0];
-				red_low = limits.getLimits()[1];
+				cutoffSwim = limits.getLimits()[0];
+				cutoffRun = limits.getLimits()[1];
 				bestSwim = limits.getSwim()[1];
 				bestRun = limits.getRun()[1];
 			}

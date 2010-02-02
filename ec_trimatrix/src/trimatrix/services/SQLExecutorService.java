@@ -589,8 +589,8 @@ public class SQLExecutorService {
 				Map<String, Limit> limitsMap = logicLayer.getCompetitionLogic().getLimitsMap((String)line[13]);
 				Limit limit = limitsMap.get(datum.category_tria);
 				if(limit!=null) {
-					datum.green_high = limit.getLimits()[0];
-					datum.red_low = limit.getLimits()[1];
+					datum.swim_cutoff = limit.getLimits()[0];
+					datum.run_cutoff = limit.getLimits()[1];
 					datum.best_run_split = limit.getRun()[1];
 					datum.best_swim_split = limit.getSwim()[1];
 				}

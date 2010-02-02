@@ -63,20 +63,20 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 			limit.setCategory(category);
 		}
 
-		public String getGreenAreaHigh() {
+		public String getCutoffSwim() {
 			return limit.getLimits()[0];
 		}
 
-		public void setGreenAreaHigh(String greenAreaHigh) {
-			limit.getLimits()[0] = greenAreaHigh;
+		public void setCutoffSwim(String cutoffSwim) {
+			limit.getLimits()[0] = cutoffSwim;
 		}
 
-		public String getRedAreaLow() {
+		public String getCutoffRun() {
 			return limit.getLimits()[1];
 		}
 
-		public void setRedAreaLow(String redAreaLow) {
-			limit.getLimits()[1] = redAreaLow;
+		public void setCutoffRun(String cutoffRun) {
+			limit.getLimits()[1] = cutoffRun;
 		}
 
 		public String getSwimAthlet() { return limit.getSwim()[0]; }

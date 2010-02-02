@@ -62,7 +62,7 @@
 <t:field id="g_39" align="center" attributemacro="entityDetailMacro(ResultDetailUI,swim_split)" background="#{d.ResultDetailUI.colorSwim}" maxlength="8" regex="\d\d:[0-5]\d:[0-5]\d" regexmode="1" userhint="hh:mm:ss" width="100" />
 <t:coldistance id="g_40" width="45" />
 <t:label id="g_41" text="#{rr.literals.run_split}" width="100" />
-<t:field id="g_42" align="center" attributemacro="entityDetailMacro(ResultDetailUI,run_split)" maxlength="8" regex="\d\d:[0-5]\d:[0-5]\d" regexmode="1" userhint="hh:mm:ss" width="100" />
+<t:field id="g_42" align="center" attributemacro="entityDetailMacro(ResultDetailUI,run_split)" background="#{d.ResultDetailUI.colorRun}" maxlength="8" regex="\d\d:[0-5]\d:[0-5]\d" regexmode="1" userhint="hh:mm:ss" width="100" />
 </t:row>
 <t:row id="g_43" >
 <t:label id="g_44" text="#{rr.literals.ranking}" width="120" />

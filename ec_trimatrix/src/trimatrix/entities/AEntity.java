@@ -117,7 +117,7 @@ public abstract class AEntity implements IEntity{
 		return false;
 	}
 
-	public Report getPrintReport(Constants.Entity entity, List<IEntityData> data) {
+	public Report getPrintReport(Constants.Entity entity, String filter, List<IEntityData> data) {
 		return null;
 	}
 }
