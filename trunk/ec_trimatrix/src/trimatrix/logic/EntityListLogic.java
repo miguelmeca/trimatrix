@@ -33,8 +33,8 @@ public class EntityListLogic {
 		return serviceLayer.getResolverService().getData(entity, filter);
 	}
 
-	public Report getPrintReport(Constants.Entity entity, List<IEntityData> data) {
-		return serviceLayer.getResolverService().getPrintReport(entity, data );
+	public Report getPrintReport(Constants.Entity entity, String filter, List<IEntityData> data) {
+		return serviceLayer.getResolverService().getPrintReport(entity, filter, data );
 	}
 
 	public List<IEntityData> getData(Constants.Entity entity, String personId, String filter) {

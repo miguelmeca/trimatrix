@@ -75,9 +75,9 @@ public final class ResolverService {
 		}
 	}
 
-	public Report getPrintReport(Constants.Entity entity, List<IEntityData> data) {
+	public Report getPrintReport(Constants.Entity entity, String filter, List<IEntityData> data) {
 		try {
-			return (Report)getProxy(entity).getPrintReport(entity, data);
+			return (Report)getProxy(entity).getPrintReport(entity, filter, data);
 		} catch (Exception ex) {
 			logger.error("GETPRINTREPORT : Entity " + entity.toString() + " not valid! : " + ex.toString());
 			return null;
