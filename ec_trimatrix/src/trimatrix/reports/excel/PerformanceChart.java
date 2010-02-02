@@ -17,6 +17,7 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.resources.ResourceManager;
 
+import trimatrix.entities.ResultEntity;
 import trimatrix.reports.Report;
 import trimatrix.reports.excel.Styles.Style;
 import trimatrix.utils.Constants;
@@ -70,12 +71,41 @@ public class PerformanceChart extends Report {
 
 			// data rows
 			int actualRow = 2;
-		    for (Data.Item item : data.items) {
-		    	Row row = sheet.createRow(actualRow++);
+			Row row, row2;
+			Cell cell;
+		    for (ResultEntity.Data item : data.items) {
+		    	row = sheet.createRow(actualRow++);
+		    	row2 = sheet.createRow(actualRow++);
 		    	row.setHeightInPoints(20);
-		    	Cell cell = row.createCell(0);
-		        cell.setCellValue(item.position);
+		    	row2.setHeightInPoints(20);
+		    	// position
+		    	cell = row.createCell(0);
+		        cell.setCellValue(item.getFinal_position());
 		        cell.setCellStyle(styles.get(Style.CELL_BOLD));
+		        sheet.addMergedRegion(CellRangeAddress.valueOf("$A$" + (actualRow-1) + ":$A$" + actualRow));
+		        // date
+		        cell = row.createCell(1);
+		        cell.setCellValue("01.01.2010");
+		        cell.setCellStyle(styles.get(Style.CELL));
+		        sheet.addMergedRegion(CellRangeAddress.valueOf("$B$" + (actualRow-1) + ":$B$" + actualRow));
+		        // competition
+		        cell = row.createCell(2);
+		        cell.setCellValue(item.getCompetition());
+		        cell.setCellStyle(styles.get(Style.CELL));
+		        sheet.addMergedRegion(CellRangeAddress.valueOf("$C$" + (actualRow-1) + ":$C$" + actualRow));
+		        // category
+		        cell = row.createCell(3);
+		        cell.setCellValue(item.getCategory_tria());
+		        cell.setCellStyle(styles.get(Style.CELL));
+		        sheet.addMergedRegion(CellRangeAddress.valueOf("$D$" + (actualRow-1) + ":$D$" + actualRow));
+		        // fastest swimsplit
+		        cell = row.createCell(4);
+		        cell.setCellValue(item.getBest_swim_split());
+		        cell.setCellStyle(styles.get(Style.CELL));
+		        cell = row2.createCell(4);
+		        cell.setCellValue("Haskin");
+		        cell.setCellStyle(styles.get(Style.CELL));
+
 			}
 
 		    //footer row
@@ -116,10 +146,6 @@ public class PerformanceChart extends Report {
 
 	public static class Data {
 		public String name;
-		public List<Item> items = new ArrayList<Item>();
-
-		public static class Item {
-			public String position;
-		}
+		public List<ResultEntity.Data> items = new ArrayList<ResultEntity.Data>();
 	}
 }

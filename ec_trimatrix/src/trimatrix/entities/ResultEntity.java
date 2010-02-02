@@ -77,15 +77,15 @@ public final class ResultEntity extends AEntity {
 			gridMetaData.add(new SGridMetaData("#{rr.literals.ranking_swim}",SWIM_POSITION, SGridMetaData.Component.FIELD));
 			gridMetaData.add(new SGridMetaData("#{rr.literals.deficit_swim}",SWIM_DEFICIT, SGridMetaData.Component.FIELD));
 			gridMetaData.add(new SGridMetaData("#{rr.literals.deficit_percent}",SWIM_DEFICIT_PER, SGridMetaData.Component.FORMATED_DOUBLE));
-			
+
 			gridMetaData.add(new SGridMetaData("#{rr.literals.best_run_split}",BEST_RUN_SPLIT, SGridMetaData.Component.FIELD));
 			gridMetaData.add(new SGridMetaData("#{rr.literals.cutoff_run}",RUN_CUTOFF, SGridMetaData.Component.FIELD));
 			gridMetaData.add(new SGridMetaData("#{rr.literals.run_split}",RUN_COLOR, META_RUN));
 			//gridMetaData.add(new SGridMetaData("#{rr.literals.run_split}",RUN_SPLIT, SGridMetaData.Component.FIELD));
 			gridMetaData.add(new SGridMetaData("#{rr.literals.ranking_run}",RUN_POSITION, SGridMetaData.Component.FIELD));
-			gridMetaData.add(new SGridMetaData("#{rr.literals.deficit_run}",RUN_DEFICIT, SGridMetaData.Component.FIELD));			
+			gridMetaData.add(new SGridMetaData("#{rr.literals.deficit_run}",RUN_DEFICIT, SGridMetaData.Component.FIELD));
 			gridMetaData.add(new SGridMetaData("#{rr.literals.deficit_percent}",RUN_DEFICIT_PER, SGridMetaData.Component.FORMATED_DOUBLE));
-			
+
 		}
 		return gridMetaData;
 	}
@@ -168,9 +168,7 @@ public final class ResultEntity extends AEntity {
 			for(IEntityData entityData : data) {
 				ResultEntity.Data resultData = (ResultEntity.Data)entityData;
 				if(reportData.name==null) reportData.name = resultData.athlete;
-				PerformanceChart.Data.Item item = new PerformanceChart.Data.Item();
-				item.position = resultData.final_position;
-				reportData.items.add(item);
+				reportData.items.add(resultData);
 			}
 			return new PerformanceChart(reportData);
 		}
@@ -278,7 +276,7 @@ public final class ResultEntity extends AEntity {
 
 		public String getRun_pos() {
 			return run_pos;
-		}		
+		}
 
 		public String getRun_def() {
 			return Helper.calculateDuration(run_split, best_run_split, true, false);
@@ -302,7 +300,7 @@ public final class ResultEntity extends AEntity {
 
 		public String getRun_color() {
 			return getColor(getRun_split(), run_cutoff);
-		}		
+		}
 
 		public String getSwim_cutoff() {
 			return swim_cutoff;
