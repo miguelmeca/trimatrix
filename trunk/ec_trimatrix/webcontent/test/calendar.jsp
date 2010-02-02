@@ -48,8 +48,8 @@
 <t:button id="g_28" actionListener="#{d.ScheduleUI.onMoveToday}" align="center" font="weight:bold" rowalignmenty="center" text="Heute" />
 <t:coldistance id="g_29" />
 <t:label id="g_30" bgpaint="nodisabled()" font="weight:bold" text="#{d.ScheduleUI.actualDate}" />
-<t:coldistance id="g_31" />
-<t:filedownloadbutton id="g_32" actionListener="#{d.ScheduleUI.onCopySchedules}" fileextensions="xls" filename="performance.xls" openimmediately="true" opensupported="true" text="Drucken" url="#{d.ScheduleUI.printReportUrl}" />
+<t:coldistance id="g_31" width="100%" />
+<t:filedownloadbutton id="g_32" actionListener="#{d.ScheduleUI.onCopySchedules}" fileextensions="xls" filename="performance.xls" image="/images/icons/print.png" openimmediately="true" opensupported="true" text="Drucken" url="#{d.ScheduleUI.printReportUrl}" />
 </t:row>
 <t:rowdistance id="g_33" height="4" />
 <t:row id="g_34" >
@@ -63,87 +63,94 @@
 <t:row id="g_42" >
 <t:label id="g_43" align="center" font="size:12;weight:bold" text="KW" width="60" />
 <t:label id="g_44" align="center" font="size:16;weight:bold" text="Montag" width="16%" />
-<t:label id="g_45" align="center" font="size:16;weight:bold" text="Dienstag" width="16%" />
-<t:label id="g_46" align="center" font="size:16;weight:bold" text="Mittwoch" width="16%" />
-<t:label id="g_47" align="center" font="size:16;weight:bold" text="Donnerstag" width="16%" />
-<t:label id="g_48" align="center" font="size:16;weight:bold" text="Freitag" width="16%" />
-<t:label id="g_49" align="center" font="size:16;weight:bold" text="Samstag" width="10%" />
-<t:label id="g_50" align="center" font="size:16;weight:bold" text="Sonntag" width="10%" />
+<t:button id="g_45" contentareafilled="false" image="/images/icons/info_green.png" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
+<t:label id="g_46" align="center" font="size:16;weight:bold" text="Dienstag" width="16%" />
+<t:button id="g_47" contentareafilled="false" image="/images/icons/info_blue.png" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
+<t:label id="g_48" align="center" font="size:16;weight:bold" text="Mittwoch" width="16%" />
+<t:button id="g_49" contentareafilled="false" image="/images/icons/info_blue.png" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
+<t:label id="g_50" align="center" font="size:16;weight:bold" text="Donnerstag" width="16%" />
+<t:button id="g_51" contentareafilled="false" image="/images/icons/info_blue.png" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
+<t:label id="g_52" align="center" font="size:16;weight:bold" text="Freitag" width="16%" />
+<t:button id="g_53" contentareafilled="false" image="/images/icons/info_blue.png" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
+<t:label id="g_54" align="center" font="size:16;weight:bold" text="Samstag" width="10%" />
+<t:button id="g_55" contentareafilled="false" image="/images/icons/info_blue.png" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
+<t:label id="g_56" align="center" font="size:16;weight:bold" text="Sonntag" width="10%" />
+<t:button id="g_57" contentareafilled="false" image="/images/icons/info_blue.png" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
 </t:row>
-<t:rowdistance id="g_51" height="5" />
-<t:row id="g_52" >
-<t:label id="g_53" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.weekNumber}" width="60" />
-<t:label id="g_54" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.dayInfos[0]}" width="16%" />
-<t:label id="g_55" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.dayInfos[1]}" width="16%" />
-<t:label id="g_56" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.dayInfos[2]}" width="16%" />
-<t:label id="g_57" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.dayInfos[3]}" width="16%" />
-<t:label id="g_58" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.dayInfos[4]}" width="16%" />
-<t:label id="g_59" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.dayInfos[5]}" width="10%" />
-<t:label id="g_60" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.dayInfos[6]}" width="10%" />
+<t:rowdistance id="g_58" height="5" />
+<t:row id="g_59" >
+<t:label id="g_60" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.weekNumber}" width="60" />
+<t:label id="g_61" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.dayInfos[0]}" width="16%" />
+<t:label id="g_62" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.dayInfos[1]}" width="16%" />
+<t:label id="g_63" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.dayInfos[2]}" width="16%" />
+<t:label id="g_64" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.dayInfos[3]}" width="16%" />
+<t:label id="g_65" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.dayInfos[4]}" width="16%" />
+<t:label id="g_66" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.dayInfos[5]}" width="10%" />
+<t:label id="g_67" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.dayInfos[6]}" width="10%" />
 </t:row>
-<t:rowdistance id="g_61" height="5" />
+<t:rowdistance id="g_68" height="5" />
 </t:pane>
 </t:row>
-<t:rowdistance id="g_62" />
-<t:row id="g_63" >
-<t:pane id="g_64" height="100%" width="100%" >
-<t:row id="g_65" >
-<t:schedule id="g_66" background="null!" bgpaint="rectangle(0,0,100%,100%,#80808060,#80808000,horizontal)" border="#C0C0C0" height="100%" numberofblocks="12" orientation="vertical" schedulemax="24" width="60" >
-<t:scheduleitem id="g_67" align="right!" font="size:12;weight:bold" resizingenabled="false" scheduleleft="0" schedulewidth="1" text="06:00" />
-<t:scheduleitem id="g_68" scheduleleft="1" schedulewidth="1" />
-<t:scheduleitem id="g_69" align="right!" font="size:12;weight:bold" resizingenabled="false" scheduleleft="2" schedulewidth="1" text="07:00" />
-<t:scheduleitem id="g_70" scheduleleft="3" schedulewidth="1" />
-<t:scheduleitem id="g_71" align="right!" font="size:12;weight:bold" resizingenabled="false" scheduleleft="4" schedulewidth="1" text="08:00" />
-<t:scheduleitem id="g_72" scheduleleft="5" schedulewidth="1" />
-<t:scheduleitem id="g_73" align="right!" font="size:12;weight:bold" resizingenabled="false" scheduleleft="6" schedulewidth="1" text="09:00" />
-<t:scheduleitem id="g_74" scheduleleft="7" schedulewidth="1" />
-<t:scheduleitem id="g_75" align="right!" font="size:12;weight:bold" resizingenabled="false" scheduleleft="8" schedulewidth="1" text="10:00" />
-<t:scheduleitem id="g_76" scheduleleft="9" schedulewidth="1" />
-<t:scheduleitem id="g_77" align="right!" font="size:12;weight:bold" resizingenabled="false" scheduleleft="10" schedulewidth="1" text="11:00" />
-<t:scheduleitem id="g_78" scheduleleft="11" schedulewidth="1" />
-<t:scheduleitem id="g_79" align="right!" font="size:12;weight:bold" resizingenabled="false" scheduleleft="12" schedulewidth="1" text="12:00" />
-<t:scheduleitem id="g_80" scheduleleft="13" schedulewidth="1" />
-<t:scheduleitem id="g_81" align="right!" font="size:12;weight:bold" resizingenabled="false" scheduleleft="14" schedulewidth="1" text="13:00" />
-<t:scheduleitem id="g_82" scheduleleft="15" schedulewidth="1" />
-<t:scheduleitem id="g_83" align="right!" font="size:12;weight:bold" resizingenabled="false" scheduleleft="16" schedulewidth="1" text="14:00" />
-<t:scheduleitem id="g_84" scheduleleft="17" schedulewidth="1" />
-<t:scheduleitem id="g_85" align="right!" font="size:12;weight:bold" resizingenabled="false" scheduleleft="18" schedulewidth="1" text="15:00" />
-<t:scheduleitem id="g_86" scheduleleft="19" schedulewidth="1" />
-<t:scheduleitem id="g_87" align="right!" font="size:12;weight:bold" resizingenabled="false" scheduleleft="20" schedulewidth="1" text="16:00" />
-<t:scheduleitem id="g_88" scheduleleft="21" schedulewidth="1" />
-<t:scheduleitem id="g_89" align="right!" font="size:12;weight:bold" resizingenabled="false" scheduleleft="22" schedulewidth="1" text="17:00" />
-<t:scheduleitem id="g_90" scheduleleft="23" schedulewidth="1" />
+<t:rowdistance id="g_69" />
+<t:row id="g_70" >
+<t:pane id="g_71" height="100%" width="100%" >
+<t:row id="g_72" >
+<t:schedule id="g_73" background="null!" bgpaint="rectangle(0,0,100%,100%,#80808060,#80808000,horizontal)" border="#C0C0C0" height="100%" numberofblocks="12" orientation="vertical" schedulemax="24" width="60" >
+<t:scheduleitem id="g_74" align="right!" font="size:12;weight:bold" resizingenabled="false" scheduleleft="0" schedulewidth="1" text="06:00" />
+<t:scheduleitem id="g_75" scheduleleft="1" schedulewidth="1" />
+<t:scheduleitem id="g_76" align="right!" font="size:12;weight:bold" resizingenabled="false" scheduleleft="2" schedulewidth="1" text="07:00" />
+<t:scheduleitem id="g_77" scheduleleft="3" schedulewidth="1" />
+<t:scheduleitem id="g_78" align="right!" font="size:12;weight:bold" resizingenabled="false" scheduleleft="4" schedulewidth="1" text="08:00" />
+<t:scheduleitem id="g_79" scheduleleft="5" schedulewidth="1" />
+<t:scheduleitem id="g_80" align="right!" font="size:12;weight:bold" resizingenabled="false" scheduleleft="6" schedulewidth="1" text="09:00" />
+<t:scheduleitem id="g_81" scheduleleft="7" schedulewidth="1" />
+<t:scheduleitem id="g_82" align="right!" font="size:12;weight:bold" resizingenabled="false" scheduleleft="8" schedulewidth="1" text="10:00" />
+<t:scheduleitem id="g_83" scheduleleft="9" schedulewidth="1" />
+<t:scheduleitem id="g_84" align="right!" font="size:12;weight:bold" resizingenabled="false" scheduleleft="10" schedulewidth="1" text="11:00" />
+<t:scheduleitem id="g_85" scheduleleft="11" schedulewidth="1" />
+<t:scheduleitem id="g_86" align="right!" font="size:12;weight:bold" resizingenabled="false" scheduleleft="12" schedulewidth="1" text="12:00" />
+<t:scheduleitem id="g_87" scheduleleft="13" schedulewidth="1" />
+<t:scheduleitem id="g_88" align="right!" font="size:12;weight:bold" resizingenabled="false" scheduleleft="14" schedulewidth="1" text="13:00" />
+<t:scheduleitem id="g_89" scheduleleft="15" schedulewidth="1" />
+<t:scheduleitem id="g_90" align="right!" font="size:12;weight:bold" resizingenabled="false" scheduleleft="16" schedulewidth="1" text="14:00" />
+<t:scheduleitem id="g_91" scheduleleft="17" schedulewidth="1" />
+<t:scheduleitem id="g_92" align="right!" font="size:12;weight:bold" resizingenabled="false" scheduleleft="18" schedulewidth="1" text="15:00" />
+<t:scheduleitem id="g_93" scheduleleft="19" schedulewidth="1" />
+<t:scheduleitem id="g_94" align="right!" font="size:12;weight:bold" resizingenabled="false" scheduleleft="20" schedulewidth="1" text="16:00" />
+<t:scheduleitem id="g_95" scheduleleft="21" schedulewidth="1" />
+<t:scheduleitem id="g_96" align="right!" font="size:12;weight:bold" resizingenabled="false" scheduleleft="22" schedulewidth="1" text="17:00" />
+<t:scheduleitem id="g_97" scheduleleft="23" schedulewidth="1" />
 </t:schedule>
-<t:schedule id="g_91" attributemacro="scheduleMacro(0)" width="16%" />
-<t:schedule id="g_92" attributemacro="scheduleMacro(1)" width="16%" />
-<t:schedule id="g_93" attributemacro="scheduleMacro(2)" width="16%" />
-<t:schedule id="g_94" attributemacro="scheduleMacro(3)" width="16%" />
-<t:schedule id="g_95" attributemacro="scheduleMacro(4)" width="16%" />
-<t:schedule id="g_96" attributemacro="scheduleMacro(5)" width="10%" />
-<t:schedule id="g_97" attributemacro="scheduleMacro(6)" width="10%" />
+<t:schedule id="g_98" attributemacro="scheduleMacro(0)" width="16%" />
+<t:schedule id="g_99" attributemacro="scheduleMacro(1)" width="16%" />
+<t:schedule id="g_100" attributemacro="scheduleMacro(2)" width="16%" />
+<t:schedule id="g_101" attributemacro="scheduleMacro(3)" width="16%" />
+<t:schedule id="g_102" attributemacro="scheduleMacro(4)" width="16%" />
+<t:schedule id="g_103" attributemacro="scheduleMacro(5)" width="10%" />
+<t:schedule id="g_104" attributemacro="scheduleMacro(6)" width="10%" />
 </t:row>
 </t:pane>
 </t:row>
 </t:pane>
 </t:row>
 </t:tabbedpanetab>
-<t:tabbedpanetab id="g_98" bgpaint="!null" text="Agenda" >
-<t:row id="g_99" >
-<t:fixgrid id="g_100" avoidroundtrips="true" background="#FFFFFF" drawoddevenrows="true" horizontalscrollmode="autowithresize" noscrollmode="true" objectbinding="#{d.ScheduleUI.gridAgenda}" sbvisibleamount="30" showemptyrows="false" width="100%" >
-<t:gridcol id="g_101" columnresizingenabled="false" width="20" >
-<t:gridrowselector id="g_102" background=".{scheduleItem.color}" />
+<t:tabbedpanetab id="g_105" bgpaint="!null" text="Agenda" >
+<t:row id="g_106" >
+<t:fixgrid id="g_107" avoidroundtrips="true" background="#FFFFFF" drawoddevenrows="true" horizontalscrollmode="autowithresize" noscrollmode="true" objectbinding="#{d.ScheduleUI.gridAgenda}" sbvisibleamount="30" showemptyrows="false" width="100%" >
+<t:gridcol id="g_108" columnresizingenabled="false" width="20" >
+<t:gridrowselector id="g_109" background=".{scheduleItem.color}" />
 </t:gridcol>
-<t:gridcol id="g_103" align="center" searchenabled="true" sortenabled="true" text="Start" width="150" >
-<t:formattedfield id="g_104" align="center" enabled="false" exacttime="true" focusable="false" format="datetime" formatmask="medium" value=".{scheduleItem.from}" />
+<t:gridcol id="g_110" align="center" searchenabled="true" sortenabled="true" text="Start" width="150" >
+<t:formattedfield id="g_111" align="center" enabled="false" exacttime="true" focusable="false" format="datetime" formatmask="medium" value=".{scheduleItem.from}" />
 </t:gridcol>
-<t:gridcol id="g_105" align="center" searchenabled="true" sortenabled="true" text="Ende" width="150" >
-<t:formattedfield id="g_106" align="center" enabled="false" exacttime="true" focusable="false" format="datetime" formatmask="medium" value=".{scheduleItem.to}" />
+<t:gridcol id="g_112" align="center" searchenabled="true" sortenabled="true" text="Ende" width="150" >
+<t:formattedfield id="g_113" align="center" enabled="false" exacttime="true" focusable="false" format="datetime" formatmask="medium" value=".{scheduleItem.to}" />
 </t:gridcol>
-<t:gridcol id="g_107" align="center" searchenabled="true" sortenabled="true" text="Type" width="100" >
-<t:label id="g_108" text=".{scheduleItem.type}" />
+<t:gridcol id="g_114" align="center" searchenabled="true" sortenabled="true" text="Type" width="100" >
+<t:label id="g_115" text=".{scheduleItem.type}" />
 </t:gridcol>
-<t:gridcol id="g_109" align="center" searchenabled="true" sortenabled="true" text="Beschreibung" width="200" >
-<t:label id="g_110" text=".{scheduleItem.text}" />
+<t:gridcol id="g_116" align="center" searchenabled="true" sortenabled="true" text="Beschreibung" width="200" >
+<t:label id="g_117" text=".{scheduleItem.text}" />
 </t:gridcol>
 </t:fixgrid>
 </t:row>
@@ -154,11 +161,11 @@
 </t:row>
 </t:rowbodypane>
 <t:popupmenu id="SCHEDULE" >
-<t:menuitem id="g_111" command="cmdAdd" text="Neu" />
+<t:menuitem id="g_118" command="cmdAdd" text="Neu" />
 </t:popupmenu>
 <t:popupmenu id="SCHEDULEITEM" >
-<t:menuitem id="g_112" command="cmdEdit" text="Ändern" />
-<t:menuitem id="g_113" command="cmdRemove" text="Löschen" />
+<t:menuitem id="g_119" command="cmdEdit" text="Ändern" />
+<t:menuitem id="g_120" command="cmdRemove" text="Löschen" />
 </t:popupmenu>
 <t:pageaddons id="g_pa"/>
 </f:subview>

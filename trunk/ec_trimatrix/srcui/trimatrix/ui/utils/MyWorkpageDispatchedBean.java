@@ -9,6 +9,7 @@ import javax.faces.event.ActionEvent;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eclnt.editor.annotations.CCGenClass;
+import org.eclnt.jsfserver.bufferedcontent.BufferedContentMgr;
 import org.eclnt.jsfserver.defaultscreens.ModalPopup;
 import org.eclnt.jsfserver.defaultscreens.ModelessPopup;
 import org.eclnt.jsfserver.defaultscreens.ModalPopup.IModalPopupListener;
@@ -21,12 +22,14 @@ import org.eclnt.workplace.IWorkpage;
 import org.eclnt.workplace.IWorkpageContainer;
 import org.eclnt.workplace.IWorkpageDispatcher;
 import org.eclnt.workplace.Workpage;
+import org.eclnt.workplace.WorkpageDefaultLifecycleListener;
 import org.eclnt.workplace.WorkpageDispatchedBean;
 
 import trimatrix.db.DAOLayer;
 import trimatrix.db.Labels;
 import trimatrix.logic.LogicLayer;
 import trimatrix.relations.RelationLayer;
+import trimatrix.reports.Report;
 import trimatrix.services.ServiceLayer;
 import trimatrix.ui.AttachmentSelectionUI;
 import trimatrix.ui.CompetitionSelectionUI;
@@ -76,6 +79,14 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
     	}
     	// initialize Label row
     	if(labelingEnabled) setLabelRowDynamic();
+    	// set close operation - to remove report from memory
+		getWorkpage().addLifecycleListener(
+				new WorkpageDefaultLifecycleListener() {
+					public void reactOnDestroyed() {
+						super.reactOnDestroyed();
+						if(report!=null) BufferedContentMgr.remove(report);
+					}
+				});
 	}
 
 	private String entityId;
@@ -83,6 +94,17 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 	@Override
 	public Dispatcher getOwningDispatcher() {
 		return (Dispatcher) super.getOwningDispatcher();
+	}
+
+	// ------------------------------------------------------------------------
+	// logic for print functionality
+	// ------------------------------------------------------------------------
+	protected Report report;
+	public String getPrintReportUrl() {	return report==null ? null : report.getURL(); }
+	public String getPrintReportFilename() { return report==null ? null : report.getFilename(); }
+	public String getPrintReportExtension() { return report==null ? null : report.getExtension(); }
+	public boolean getPrintSupported() {
+		return report!=null;
 	}
 
 	// ------------------------------------------------------------------------

@@ -88,19 +88,6 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 			gridMetaData.add(0, new SGridMetaData("#{rr.literals.standard}", Constants.STANDARD, SGridMetaData.Component.CHECKBOX));
 		}
 		buildData(filter);
-		// Print report
-		report = ENTITYLISTLOGIC.getPrintReport(entity, filter, gridData);
-		if(report!=null) {
-			BufferedContentMgr.add(report);
-			// set close operation - to remove report from memory
-			getWorkpage().addLifecycleListener(
-					new WorkpageDefaultLifecycleListener() {
-						public void reactOnDestroyed() {
-							super.reactOnDestroyed();
-							BufferedContentMgr.remove(report);
-						}
-					});
-		}
 	}
 
 	// Constructor for LabelSearchResult
@@ -268,6 +255,8 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 		setRowDynamic();
 		// load grid state
 		loadGridState();
+		// print logic
+		setPrintReport();
 	}
 
 	// special build method for labelsearch
@@ -282,6 +271,8 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 		setRowDynamic();
 		// load grid state
 		loadGridState();
+		// print logic
+		setPrintReport();
 	}
 
 	public void saveGridState(ActionEvent event) {
@@ -294,6 +285,13 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 		if(lv==null) return;
 		m_gridList.setColumnsequence(lv.columnsSequence);
 		m_gridList.setModcolumnwidths(lv.columnsWidth);
+	}
+
+	private void setPrintReport() {
+		// Print report
+		if(report!=null) BufferedContentMgr.remove(report);
+		report = ENTITYLISTLOGIC.getPrintReport(entity, filter, gridData);
+		if(report!=null) BufferedContentMgr.add(report);
 	}
 
 	public class GridListItem extends FIXGRIDItem implements
@@ -353,16 +351,5 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 			Entity entity = ((WorkpageRefreshEvent)event).getEntity();
 			if(this.entity.getBase()==entity.getBase()) onRefresh(null);
 		}
-	}
-
-	// ------------------------------------------------------------------------
-	// logic for print functionality
-	// ------------------------------------------------------------------------
-	private Report report;
-	public String getPrintReportUrl() {	return report==null ? null : report.getURL(); }
-	public String getPrintReportFilename() { return report==null ? null : report.getFilename(); }
-	public String getPrintReportExtension() { return report==null ? null : report.getExtension(); }
-	public boolean getPrintSupported() {
-		return report!=null;
 	}
 }
