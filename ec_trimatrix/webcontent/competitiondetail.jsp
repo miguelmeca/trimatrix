@@ -49,7 +49,7 @@
 <t:combofield id="g_29" actionListener=".{onCategoryF4}" editable="true" enabled="#{d.CompetitionDetailUI.enabled}" flush="true" flushtimer="1000" keepfocus="true" maxlength="10" text=".{category}" />
 </t:gridcol>
 <t:gridcol id="g_30" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.cutoff_swim}" width="120" >
-<t:field id="g_31" align="center" background="#00FF00" enabled="#{d.CompetitionDetailUI.enabled}" font="weight:bold" maxlength="8" regex="\d\d:[0-5]\d:[0-5]\d" regexmode="1" text=".{cutoffSwim}" tooltip="#{rr.literals.swim_corridor}" userhint="hh:mm:ss" />
+<t:field id="g_31" align="center" background="#00FF00" enabled="#{d.CompetitionDetailUI.enabled}" font="weight:bold" maxlength="8" regex="(\d\d:[0-5]\d:[0-5]\d)|(\d*%)" regexmode="1" text=".{cutoffSwim}" tooltip="#{rr.literals.swim_corridor}" userhint="hh:mm:ss / xxx% " />
 </t:gridcol>
 <t:gridcol id="g_32" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.best_swim_split}" width="130" >
 <t:field id="g_33" align="center" enabled="#{d.CompetitionDetailUI.enabled}" maxlength="8" regex="\d\d:[0-5]\d:[0-5]\d" regexmode="1" text=".{swimSplit}" userhint="hh:mm:ss" />
@@ -58,7 +58,7 @@
 <t:field id="g_35" align="center" enabled="#{d.CompetitionDetailUI.enabled}" text=".{swimAthlet}" />
 </t:gridcol>
 <t:gridcol id="g_36" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.cutoff_run}" width="120" >
-<t:field id="g_37" align="center" background="#00FF00" enabled="#{d.CompetitionDetailUI.enabled}" font="weight:bold" maxlength="8" regex="\d\d:[0-5]\d:[0-5]\d" regexmode="1" text=".{cutoffRun}" tooltip="#{rr.literals.run_corridor}" userhint="hh:mm:ss" />
+<t:field id="g_37" align="center" background="#00FF00" enabled="#{d.CompetitionDetailUI.enabled}" font="weight:bold" maxlength="8" regex="(\d\d:[0-5]\d:[0-5]\d)|(\d*%)" regexmode="1" text=".{cutoffRun}" tooltip="#{rr.literals.run_corridor}" userhint="hh:mm:ss / xxx%" />
 </t:gridcol>
 <t:gridcol id="g_38" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.best_run_split}" width="130" >
 <t:field id="g_39" align="center" enabled="#{d.CompetitionDetailUI.enabled}" maxlength="8" regex="\d\d:[0-5]\d:[0-5]\d" regexmode="1" text=".{runSplit}" userhint="hh:mm:ss" />

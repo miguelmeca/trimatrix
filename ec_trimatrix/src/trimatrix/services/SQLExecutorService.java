@@ -569,29 +569,31 @@ public class SQLExecutorService {
 		for(Object[] line : result) {
 			ResultEntity.Data datum = new ResultEntity.Data();
 			int i = 0;
-			datum.id = (String)line[0];
-			datum.competition = (String)line[1];
-			datum.scout = (String)line[2];
-			datum.athlete = (String)line[3];
-			datum.final_position = (String)line[4];
-			datum.time = (String)line[5];
-			datum.comment = (String)line[6];
-			System.out.println(line.length);
+			datum.id = (String)line[i++];
+			datum.date = (Timestamp)line[i++];
+			datum.competition = (String)line[i++];
+			datum.scout = (String)line[i++];
+			datum.athlete = (String)line[i++];
+			datum.final_position = (String)line[i++];
+			datum.time = (String)line[i++];
+			datum.comment = (String)line[i++];
 			// triathlon
 			if(CompetitionEntity.TRIATHLON.equals(compType)) {
-				datum.category_tria = (String)line[7];
-				datum.swimsuit = (Boolean)line[8];
-				datum.swim_split = (String)line[9];
-				datum.swim_pos = (String)line[10];
-				datum.run_split = (String)line[11];
-				datum.run_pos = (String)line[12];
+				datum.category_tria = (String)line[i++];
+				datum.swimsuit = (Boolean)line[i++];
+				datum.swim_split = (String)line[i++];
+				datum.swim_pos = (String)line[i++];
+				datum.run_split = (String)line[i++];
+				datum.run_pos = (String)line[i++];
 				// get limits
-				Map<String, Limit> limitsMap = logicLayer.getCompetitionLogic().getLimitsMap((String)line[13]);
+				Map<String, Limit> limitsMap = logicLayer.getCompetitionLogic().getLimitsMap((String)line[i++]);
 				Limit limit = limitsMap.get(datum.category_tria);
 				if(limit!=null) {
 					datum.swim_cutoff = limit.getLimits()[0];
 					datum.run_cutoff = limit.getLimits()[1];
+					datum.best_runner = limit.getRun()[0];
 					datum.best_run_split = limit.getRun()[1];
+					datum.best_swimmer = limit.getSwim()[0];
 					datum.best_swim_split = limit.getSwim()[1];
 				}
 			}
