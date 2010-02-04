@@ -38,8 +38,13 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 	private String bestRun;
 	public String getBestRun() { return bestRun; }
 
-    public String getColorRun() { return ResultEntity.Data.getColor((String)values.get(ResultEntity.RUN_SPLIT),cutoffRun); }
-    public String getColorSwim() { return ResultEntity.Data.getColor((String)values.get(ResultEntity.SWIM_SPLIT),cutoffSwim); }
+    public String getColorRun() {
+    	return ResultEntity.Data.getColor((String)values.get(ResultEntity.RUN_SPLIT), getPercentDeficitRun(), cutoffRun);
+    }
+
+    public String getColorSwim() {
+    	return ResultEntity.Data.getColor((String)values.get(ResultEntity.SWIM_SPLIT), getPercentDeficitSwim(), cutoffSwim);
+    }
 
 	protected final String[] MANDATORY_FIELDS_TRIA = new String[] {ResultEntity.CATEGORY_TRIA, ResultEntity.SWIM_SPLIT, ResultEntity.RUN_SPLIT};
 

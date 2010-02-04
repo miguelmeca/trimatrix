@@ -38,7 +38,7 @@ WHERE users.test = :p_test
   <return-scalar column="last_login" type="java.sql.Timestamp"/>
   <return-scalar column="last_login_ip" type="java.lang.String"/>
 </sql-query>
- 
+
 <sql-query cacheable="true" name="PersonEntityList" read-only="true">
 SELECT
   persons.id,
@@ -62,14 +62,14 @@ FROM persons AS persons
   LEFT OUTER JOIN t_sex
     ON t_sex.key = persons.sex_key
       AND t_sex.language_key = :p_lang_key
-  LEFT OUTER JOIN t_salutation 
+  LEFT OUTER JOIN t_salutation
     ON t_salutation.key = persons.salutation_key
-      AND t_salutation.language_key = :p_lang_key  
+      AND t_salutation.language_key = :p_lang_key
   LEFT OUTER JOIN t_countries
     ON t_countries.key = persons.country_key
       AND t_countries.language_key = :p_lang_key
 WHERE persons.test = :p_test
-    AND persons.deleted = :p_deleted  
+    AND persons.deleted = :p_deleted
   <return-scalar column="id" type="java.lang.String"/>
   <return-scalar column="salutation" type="java.lang.String"/>
   <return-scalar column="name_first" type="java.lang.String"/>
@@ -81,13 +81,13 @@ WHERE persons.test = :p_test
   <return-scalar column="housenumber" type="java.lang.String"/>
   <return-scalar column="postcode" type="java.lang.String"/>
   <return-scalar column="city" type="java.lang.String"/>
-  <return-scalar column="state" type="java.lang.String"/> 
+  <return-scalar column="state" type="java.lang.String"/>
   <return-scalar column="country" type="java.lang.String"/>
   <return-scalar column="homepage" type="java.lang.String"/>
   <return-scalar column="telephone" type="java.lang.String"/>
   <return-scalar column="mobile" type="java.lang.String"/>
   <return-scalar column="fax" type="java.lang.String"/>
-</sql-query> 
+</sql-query>
 
 <sql-query cacheable="true" name="PersonByRoleEntityList" read-only="true">
 SELECT DISTINCT
@@ -136,13 +136,13 @@ WHERE persons.test = :p_test
   <return-scalar column="housenumber" type="java.lang.String"/>
   <return-scalar column="postcode" type="java.lang.String"/>
   <return-scalar column="city" type="java.lang.String"/>
-  <return-scalar column="state" type="java.lang.String"/> 
+  <return-scalar column="state" type="java.lang.String"/>
   <return-scalar column="country" type="java.lang.String"/>
   <return-scalar column="homepage" type="java.lang.String"/>
   <return-scalar column="telephone" type="java.lang.String"/>
   <return-scalar column="mobile" type="java.lang.String"/>
   <return-scalar column="fax" type="java.lang.String"/>
-</sql-query> 
+</sql-query>
 
 <sql-query cacheable="true" name="AthletesEntityList" read-only="true">
 SELECT
@@ -174,7 +174,7 @@ FROM persons
     ON t_countries.key = persons.country_key
       AND t_countries.language_key = :p_lang_key
   JOIN persons_athlete pa
-    ON pa.id = persons.id 
+    ON pa.id = persons.id
 WHERE persons.test = :p_test
     AND persons.deleted = :p_deleted
   <return-scalar column="id" type="java.lang.String"/>
@@ -188,20 +188,20 @@ WHERE persons.test = :p_test
   <return-scalar column="housenumber" type="java.lang.String"/>
   <return-scalar column="postcode" type="java.lang.String"/>
   <return-scalar column="city" type="java.lang.String"/>
-  <return-scalar column="state" type="java.lang.String"/> 
+  <return-scalar column="state" type="java.lang.String"/>
   <return-scalar column="country" type="java.lang.String"/>
   <return-scalar column="homepage" type="java.lang.String"/>
   <return-scalar column="telephone" type="java.lang.String"/>
   <return-scalar column="mobile" type="java.lang.String"/>
   <return-scalar column="fax" type="java.lang.String"/>
-</sql-query> 
+</sql-query>
 
 <sql-query cacheable="true" name="TestEntityList" read-only="true">
 SELECT
   tests.id,
-  TRIM(CONCAT(persons.name_first,' ', persons.name_last)) person,  
+  TRIM(CONCAT(persons.name_first,' ', persons.name_last)) person,
   doctors.name doctor,
-  TRIM(CONCAT(coaches.name_first,' ', coaches.name_last)) coach,  
+  TRIM(CONCAT(coaches.name_first,' ', coaches.name_last)) coach,
   t_testtypes.description type,
   tests.date,
   tests.description,
@@ -211,19 +211,19 @@ FROM tests
   LEFT OUTER JOIN tests_protocol
     ON tests_protocol.id = tests.id
   LEFT OUTER JOIN tests_analysis
-    ON tests_analysis.id = tests.id  
+    ON tests_analysis.id = tests.id
   LEFT OUTER JOIN persons
-    ON persons.id = tests.person_id  
+    ON persons.id = tests.person_id
   LEFT OUTER JOIN persons coaches
-    ON coaches.id = tests.coach_id    
+    ON coaches.id = tests.coach_id
   LEFT OUTER JOIN doctors
-    ON doctors.id = tests.doctor_id    
+    ON doctors.id = tests.doctor_id
   LEFT OUTER JOIN t_testtypes
     ON t_testtypes.key = tests.type
     AND t_testtypes.language_key = :p_lang_key
 WHERE tests.test = :p_test
     AND tests.deleted = :p_deleted
-    AND ( tests.person_id = :p_person OR 0 = :p_person_on )   
+    AND ( tests.person_id = :p_person OR 0 = :p_person_on )
     AND ( tests.coach_id = :p_coach OR 0 = :p_coach_on )
     AND ( tests.id = :p_id OR 0 = :p_id_on )
 ORDER by tests.created_at DESC
@@ -236,7 +236,7 @@ ORDER by tests.created_at DESC
   <return-scalar column="description" type="java.lang.String"/>
   <return-scalar column="protocol" type="java.lang.Boolean"/>
   <return-scalar column="analyzed" type="java.lang.Boolean"/>
-</sql-query> 
+</sql-query>
 
 <sql-query cacheable="true" name="CompetitionEntityList" read-only="true">
 SELECT
@@ -261,10 +261,10 @@ WHERE competitions.test = :p_test
     AND competitions.deleted = :p_deleted
     AND (competitions.id = :p_id
           OR 0 = :p_id_on)
-ORDER by competitions.created_at DESC          
+ORDER by competitions.created_at DESC
   <return-scalar column="id" type="java.lang.String"/>
   <return-scalar column="date" type="java.sql.Timestamp"/>
-  <return-scalar column="description" type="java.lang.String"/>  
+  <return-scalar column="description" type="java.lang.String"/>
   <return-scalar column="type" type="java.lang.String"/>
   <return-scalar column="address" type="java.lang.String"/>
   <return-scalar column="country" type="java.lang.String"/>
@@ -291,21 +291,21 @@ FROM doctors
     ON t_countries.key = doctors.country_key
       AND t_countries.language_key = :p_lang_key
 WHERE doctors.test = :p_test
-    AND doctors.deleted = :p_deleted  
+    AND doctors.deleted = :p_deleted
   <return-scalar column="id" type="java.lang.String"/>
-  <return-scalar column="name" type="java.lang.String"/> 
+  <return-scalar column="name" type="java.lang.String"/>
   <return-scalar column="street" type="java.lang.String"/>
   <return-scalar column="housenumber" type="java.lang.String"/>
   <return-scalar column="postcode" type="java.lang.String"/>
   <return-scalar column="city" type="java.lang.String"/>
-  <return-scalar column="state" type="java.lang.String"/> 
+  <return-scalar column="state" type="java.lang.String"/>
   <return-scalar column="country" type="java.lang.String"/>
   <return-scalar column="email" type="java.lang.String"/>
   <return-scalar column="homepage" type="java.lang.String"/>
   <return-scalar column="telephone" type="java.lang.String"/>
   <return-scalar column="mobile" type="java.lang.String"/>
   <return-scalar column="fax" type="java.lang.String"/>
-</sql-query> 
+</sql-query>
 
 <sql-query cacheable="true" name="AttachmentEntityList" read-only="true">
 SELECT
@@ -321,19 +321,19 @@ FROM attachments
     ON t_categories.key = attachments.category_key
       AND t_categories.language_key = :p_lang_key
   LEFT OUTER JOIN persons
-    ON persons.id = attachments.owner_id    
+    ON persons.id = attachments.owner_id
 WHERE attachments.test = :p_test
-    AND attachments.deleted = :p_deleted  
+    AND attachments.deleted = :p_deleted
     AND ( attachments.id = :p_id OR 0 = :p_id_on )
   <return-scalar column="id" type="java.lang.String"/>
-  <return-scalar column="category" type="java.lang.String"/> 
+  <return-scalar column="category" type="java.lang.String"/>
   <return-scalar column="description" type="java.lang.String"/>
   <return-scalar column="owner" type="java.lang.String"/>
   <return-scalar column="mime_type" type="java.lang.String"/>
   <return-scalar column="file_name" type="java.lang.String"/>
-  <return-scalar column="file_size" type="java.lang.Integer"/> 
-</sql-query> 
- 
+  <return-scalar column="file_size" type="java.lang.Integer"/>
+</sql-query>
+
  <sql-query cacheable="true" name="PersonRelationEntityList" read-only="true">
  SELECT
   persons.id,
@@ -363,7 +363,7 @@ FROM persons
       AND t_salutation.language_key = :p_lang_key
   LEFT OUTER JOIN t_countries
     ON t_countries.key = persons.country_key
-      AND t_countries.language_key = :p_lang_key    
+      AND t_countries.language_key = :p_lang_key
   JOIN persons_have_relations
     ON (partner2 = persons.id
         AND reltyp_key = :p_reltyp
@@ -374,7 +374,7 @@ FROM persons
 WHERE persons.test = :p_test
     AND persons.deleted = :p_deleted
   <return-scalar column="id" type="java.lang.String"/>
-  <return-scalar column="salutation" type="java.lang.String"/> 
+  <return-scalar column="salutation" type="java.lang.String"/>
   <return-scalar column="name_first" type="java.lang.String"/>
   <return-scalar column="name_last" type="java.lang.String"/>
   <return-scalar column="email" type="java.lang.String"/>
@@ -384,14 +384,14 @@ WHERE persons.test = :p_test
   <return-scalar column="housenumber" type="java.lang.String"/>
   <return-scalar column="postcode" type="java.lang.String"/>
   <return-scalar column="city" type="java.lang.String"/>
-  <return-scalar column="state" type="java.lang.String"/> 
+  <return-scalar column="state" type="java.lang.String"/>
   <return-scalar column="country" type="java.lang.String"/>
   <return-scalar column="homepage" type="java.lang.String"/>
   <return-scalar column="telephone" type="java.lang.String"/>
   <return-scalar column="mobile" type="java.lang.String"/>
   <return-scalar column="fax" type="java.lang.String"/>
   <return-scalar column="standard" type="java.lang.Boolean"/>
-</sql-query>  
+</sql-query>
 
 <sql-query cacheable="true" name="DoctorRelationEntityList" read-only="true">
 SELECT
@@ -416,16 +416,16 @@ FROM doctors
   JOIN persons_have_doctors
     ON (doctor = doctors.id
         AND reltyp_key = :p_reltyp
-        AND person = :p_person)   
+        AND person = :p_person)
 WHERE doctors.test = :p_test
     AND doctors.deleted = :p_deleted
   <return-scalar column="id" type="java.lang.String"/>
-  <return-scalar column="name" type="java.lang.String"/> 
+  <return-scalar column="name" type="java.lang.String"/>
   <return-scalar column="street" type="java.lang.String"/>
   <return-scalar column="housenumber" type="java.lang.String"/>
   <return-scalar column="postcode" type="java.lang.String"/>
   <return-scalar column="city" type="java.lang.String"/>
-  <return-scalar column="state" type="java.lang.String"/> 
+  <return-scalar column="state" type="java.lang.String"/>
   <return-scalar column="country" type="java.lang.String"/>
   <return-scalar column="email" type="java.lang.String"/>
   <return-scalar column="homepage" type="java.lang.String"/>
@@ -433,7 +433,7 @@ WHERE doctors.test = :p_test
   <return-scalar column="mobile" type="java.lang.String"/>
   <return-scalar column="fax" type="java.lang.String"/>
   <return-scalar column="standard" type="java.lang.Boolean"/>
-</sql-query>  
+</sql-query>
 
 <sql-query cacheable="true" name="AttachmentRelationEntityList" read-only="true">
 SELECT
@@ -449,11 +449,11 @@ FROM attachments
     ON t_categories.key = attachments.category_key
       AND t_categories.language_key = :p_lang_key
   LEFT OUTER JOIN persons
-    ON persons.id = attachments.owner_id  
+    ON persons.id = attachments.owner_id
   JOIN persons_have_attachments
     ON (attachment = attachments.id
         AND reltyp_key = :p_reltyp
-        AND person = :p_person)   
+        AND person = :p_person)
 WHERE attachments.test = :p_test
     AND attachments.deleted = :p_deleted
 UNION
@@ -470,19 +470,19 @@ FROM attachments
     ON t_categories.key = attachments.category_key
       AND t_categories.language_key = :p_lang_key
   LEFT OUTER JOIN persons
-    ON persons.id = attachments.owner_id  
+    ON persons.id = attachments.owner_id
 WHERE attachments.owner_id = :p_person
 	AND attachments.test = :p_test
     AND attachments.deleted = :p_deleted
   <return-scalar column="id" type="java.lang.String"/>
-  <return-scalar column="category" type="java.lang.String"/> 
+  <return-scalar column="category" type="java.lang.String"/>
   <return-scalar column="description" type="java.lang.String"/>
   <return-scalar column="owner" type="java.lang.String"/>
   <return-scalar column="mime_type" type="java.lang.String"/>
   <return-scalar column="file_name" type="java.lang.String"/>
-  <return-scalar column="file_size" type="java.lang.Integer"/> 
+  <return-scalar column="file_size" type="java.lang.Integer"/>
 </sql-query>
- 
+
 <sql-query cacheable="true" name="PersonPersonRelationList" read-only="true">
 SELECT
   phr.id,
@@ -505,7 +505,7 @@ OR    1 = :p_dummy
   <return-scalar column="standard" type="java.lang.Boolean"/>
   <return-scalar column="reltyp_key" type="java.lang.String"/>
   <return-scalar column="partner2" type="java.lang.String"/>
-</sql-query>  
+</sql-query>
 
 <sql-query cacheable="true" name="PersonDoctorRelationList" read-only="true">
 SELECT
@@ -529,7 +529,7 @@ OR    1 = :p_dummy
   <return-scalar column="standard" type="java.lang.Boolean"/>
   <return-scalar column="reltyp_key" type="java.lang.String"/>
   <return-scalar column="doctor" type="java.lang.String"/>
-</sql-query> 
+</sql-query>
 
 <sql-query cacheable="true" name="PersonAttachmentRelationList" read-only="true">
 SELECT
@@ -553,8 +553,8 @@ OR    1 = :p_dummy
   <return-scalar column="standard" type="java.lang.Boolean"/>
   <return-scalar column="reltyp_key" type="java.lang.String"/>
   <return-scalar column="attachment" type="java.lang.String"/>
-</sql-query> 
- 
+</sql-query>
+
 <sql-query cacheable="true" name="CompetitionRelationEntityList" read-only="true">
 SELECT
   competitions.id,
@@ -572,7 +572,7 @@ FROM competitions
     ON t_countries.key = competitions.country_key
       AND t_countries.language_key = :p_lang_key
   LEFT OUTER JOIN results
-    ON results.competition_id = competitions.id    
+    ON results.competition_id = competitions.id
       AND results.deleted = 0
   JOIN persons_have_competitions
     ON (persons_have_competitions.competition = competitions.id
@@ -582,12 +582,12 @@ WHERE competitions.test = :p_test
     AND competitions.deleted = :p_deleted
   <return-scalar column="id" type="java.lang.String"/>
   <return-scalar column="date" type="java.sql.Timestamp"/>
-  <return-scalar column="description" type="java.lang.String"/>  
+  <return-scalar column="description" type="java.lang.String"/>
   <return-scalar column="type" type="java.lang.String"/>
   <return-scalar column="address" type="java.lang.String"/>
   <return-scalar column="country" type="java.lang.String"/>
   <return-scalar column="results" type="java.lang.Boolean"/>
-</sql-query> 
+</sql-query>
 
 <sql-query cacheable="true" name="CompetitionScoutRelationEntityList" read-only="true">
 SELECT
@@ -615,16 +615,17 @@ WHERE competitions.test = :p_test
     AND competitions.deleted = :p_deleted
   <return-scalar column="id" type="java.lang.String"/>
   <return-scalar column="date" type="java.sql.Timestamp"/>
-  <return-scalar column="description" type="java.lang.String"/>  
+  <return-scalar column="description" type="java.lang.String"/>
   <return-scalar column="type" type="java.lang.String"/>
   <return-scalar column="address" type="java.lang.String"/>
   <return-scalar column="country" type="java.lang.String"/>
   <return-scalar column="results" type="java.lang.Boolean"/>
-</sql-query> 
- 
+</sql-query>
+
 <sql-query cacheable="true" name="ResultEntityList" read-only="true">
  SELECT
   results.id,
+  competitions.date,
   competitions.description competition,
   TRIM(CONCAT(scouts.name_first,' ', scouts.name_last)) scout,
   TRIM(CONCAT(athletes.name_first,' ', athletes.name_last)) athlete,
@@ -647,20 +648,22 @@ WHERE results.test = :p_test
     AND (results.scout_id = :p_scout
           OR 0 = :p_scout_on)
     AND (results.athlete_id = :p_athlete
-          OR 0 = :p_athlete_on)    
+          OR 0 = :p_athlete_on)
 ORDER BY results.created_at DESC
   <return-scalar column="id" type="java.lang.String"/>
+  <return-scalar column="date" type="java.sql.Timestamp"/>
   <return-scalar column="competition" type="java.lang.String"/>
   <return-scalar column="scout" type="java.lang.String"/>
   <return-scalar column="athlete" type="java.lang.String"/>
   <return-scalar column="final_position" type="java.lang.String"/>
   <return-scalar column="time" type="java.lang.String"/>
   <return-scalar column="comment" type="java.lang.String"/>
-</sql-query> 
+</sql-query>
 
 <sql-query cacheable="true" name="ResultTriaEntityList" read-only="true">
  SELECT
   results.id,
+  competitions.date,
   competitions.description competition,
   TRIM(CONCAT(scouts.name_first,' ', scouts.name_last)) scout,
   TRIM(CONCAT(athletes.name_first,' ', athletes.name_last)) athlete,
@@ -673,15 +676,15 @@ ORDER BY results.created_at DESC
   results_tria.swim_position,
   results_tria.run_split,
   results_tria.run_position,
-  competitions_scouts.limits 
+  competitions_scouts.limits
 FROM results
   JOIN results_tria
     ON results_tria.id = results.id
   LEFT OUTER JOIN competitions
     ON competitions.id = results.competition_id
-  LEFT OUTER JOIN competitions_scouts    
+  LEFT OUTER JOIN competitions_scouts
     ON competitions_scouts.competition_id = competitions.id
-    AND competitions_scouts.scout_id = results.scout_id        
+    AND competitions_scouts.scout_id = results.scout_id
   LEFT OUTER JOIN persons scouts
     ON scouts.id = results.scout_id
   LEFT OUTER JOIN persons athletes
@@ -695,9 +698,10 @@ WHERE results.test = :p_test
     AND (results.scout_id = :p_scout
           OR 0 = :p_scout_on)
     AND (results.athlete_id = :p_athlete
-          OR 0 = :p_athlete_on)    
+          OR 0 = :p_athlete_on)
 ORDER BY results.created_at DESC
   <return-scalar column="id" type="java.lang.String"/>
+  <return-scalar column="date" type="java.sql.Timestamp"/>
   <return-scalar column="competition" type="java.lang.String"/>
   <return-scalar column="scout" type="java.lang.String"/>
   <return-scalar column="athlete" type="java.lang.String"/>
@@ -711,26 +715,26 @@ ORDER BY results.created_at DESC
   <return-scalar column="run_split" type="java.lang.String"/>
   <return-scalar column="run_position" type="java.lang.String"/>
   <return-scalar column="limits" type="java.lang.String"/>
-</sql-query> 
- 
+</sql-query>
+
  <sql-query cacheable="true" name="LanguageValueList"
-   read-only="true">SELECT k_languages.key, t_languages.description, t_languages.description_long 
-  FROM k_languages JOIN t_languages ON k_languages.key = t_languages.key 
+   read-only="true">SELECT k_languages.key, t_languages.description, t_languages.description_long
+  FROM k_languages JOIN t_languages ON k_languages.key = t_languages.key
   WHERE t_languages.language_key = :p_lang_key<return-scalar
    column="key" type="java.lang.String"/>
   <return-scalar column="description" type="java.lang.String"/>
   <return-scalar column="description_long" type="java.lang.String"/>
  </sql-query>
  <sql-query cacheable="true" name="LogonLanguageValueList"
-   read-only="true">SELECT k_languages.key, t_languages.description, t_languages.description_long 
-  FROM k_languages JOIN t_languages ON k_languages.key = t_languages.key 
+   read-only="true">SELECT k_languages.key, t_languages.description, t_languages.description_long
+  FROM k_languages JOIN t_languages ON k_languages.key = t_languages.key
   WHERE t_languages.language_key = :p_lang_key
   AND k_languages.logon = '1'<return-scalar
    column="key" type="java.lang.String"/>
   <return-scalar column="description" type="java.lang.String"/>
   <return-scalar column="description_long" type="java.lang.String"/>
  </sql-query>
- 
+
  <sql-query cacheable="true" name="SalutationValueList" read-only="true">
 SELECT
   k_salutation.key,
@@ -743,7 +747,7 @@ WHERE t_salutation.language_key = :p_lang_key
   <return-scalar column="key" type="java.lang.String"/>
   <return-scalar column="description" type="java.lang.String"/>
   <return-scalar column="description_long" type="java.lang.String"/>
-</sql-query> 
+</sql-query>
 
  <sql-query cacheable="true" name="CountryValueList" read-only="true">
 SELECT
@@ -757,7 +761,7 @@ WHERE t_countries.language_key = :p_lang_key
   <return-scalar column="key" type="java.lang.String"/>
   <return-scalar column="description" type="java.lang.String"/>
   <return-scalar column="description_long" type="java.lang.String"/>
-</sql-query> 
+</sql-query>
 
  <sql-query cacheable="true" name="CategoryValueList" read-only="true">
 SELECT
@@ -771,7 +775,7 @@ WHERE t_categories.language_key = :p_lang_key
   <return-scalar column="key" type="java.lang.String"/>
   <return-scalar column="description" type="java.lang.String"/>
   <return-scalar column="description_long" type="java.lang.String"/>
-</sql-query> 
+</sql-query>
 
  <sql-query cacheable="true" name="TestTypeValueList" read-only="true">
 SELECT
@@ -785,7 +789,7 @@ WHERE t_testtypes.language_key = :p_lang_key
   <return-scalar column="key" type="java.lang.String"/>
   <return-scalar column="description" type="java.lang.String"/>
   <return-scalar column="description_long" type="java.lang.String"/>
-</sql-query> 
+</sql-query>
 
  <sql-query cacheable="true" name="CompTypeValueList" read-only="true">
 SELECT
@@ -799,16 +803,16 @@ WHERE t_comptypes.language_key = :p_lang_key
   <return-scalar column="key" type="java.lang.String"/>
   <return-scalar column="description" type="java.lang.String"/>
   <return-scalar column="description_long" type="java.lang.String"/>
-</sql-query> 
- 
+</sql-query>
+
  <sql-query cacheable="true" name="RelTypsValueList"
-   read-only="true">SELECT k_reltyps.key, t_reltyps.description_long, t_reltyps.relation_description 
-  FROM k_reltyps JOIN t_reltyps ON k_reltyps.key = t_reltyps.key 
+   read-only="true">SELECT k_reltyps.key, t_reltyps.description_long, t_reltyps.relation_description
+  FROM k_reltyps JOIN t_reltyps ON k_reltyps.key = t_reltyps.key
   WHERE t_reltyps.language_key = :p_lang_key
   <return-scalar column="key" type="java.lang.String"/>
   <return-scalar column="description_long" type="java.lang.String"/>
   <return-scalar column="relation_description" type="java.lang.String"/>
- </sql-query> 
+ </sql-query>
  <sql-query name="FunctionTree"
    read-only="true">select rhf.node, rhf.parent, rhf.order, k.key, k.page, k.entity, k.edit, k.create, k.delete, t.description, t.description_long
   from roles_have_functionnodes as rhf, k_functionnodes as k, t_functionnodes as t
@@ -829,11 +833,11 @@ WHERE t_comptypes.language_key = :p_lang_key
   <return-scalar column="description" type="java.lang.String"/>
   <return-scalar column="description_long" type="java.lang.String"/>
  </sql-query>
- 
+
 <sql-query cacheable="true" name="EntitiesByLabelList" read-only="true">
 SELECT
   e.entity entity,
-  e.id  
+  e.id
 FROM entities_have_labels AS ehl
   JOIN entities AS e
     ON e.id = ehl.entity
@@ -842,5 +846,5 @@ AND   e.deleted = :p_deleted
 ORDER BY e.entity
   <return-scalar column="entity" type="java.lang.String"/>
   <return-scalar column="id" type="java.lang.String"/>
-</sql-query> 
+</sql-query>
 </hibernate-mapping>

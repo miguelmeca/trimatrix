@@ -1,5 +1,6 @@
 package trimatrix.entities;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -21,6 +22,7 @@ public final class ResultEntity extends AEntity {
 
 	// Constants
     public static final String COMMENT = "comment";
+    public static final String DATE = "date";
     public static final String COMPETITION = "competition";
     public static final String ATHLETE = "athlete";
     public static final String SCOUT = "scout";
@@ -35,6 +37,8 @@ public final class ResultEntity extends AEntity {
     public static final String RUN_POSITION = "run_pos";
     public static final String BEST_SWIM_SPLIT = "best_swim_split";
     public static final String BEST_RUN_SPLIT = "best_run_split";
+    public static final String BEST_SWIMMER = "best_swimmer";
+    public static final String BEST_RUNNER = "best_runner";
     public static final String SWIM_DEFICIT = "swim_def";
     public static final String RUN_DEFICIT = "run_def";
     public static final String SWIM_DEFICIT_PER = "swim_def_per";
@@ -54,6 +58,7 @@ public final class ResultEntity extends AEntity {
 	 */
 	public List<SGridMetaData> getGridMetaData() {
         List<SGridMetaData> gridMetaData = new ArrayList<SGridMetaData>();
+        gridMetaData.add(new SGridMetaData("Datum", DATE, SGridMetaData.Component.CALENDARFIELD));
         gridMetaData.add(new SGridMetaData("Wettkampf",COMPETITION, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("Scouter", SCOUT, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("Athlet", ATHLETE, SGridMetaData.Component.FIELD));
@@ -71,6 +76,7 @@ public final class ResultEntity extends AEntity {
 			gridMetaData.add(new SGridMetaData("#{rr.literals.category}",CATEGORY_TRIA, SGridMetaData.Component.FIELD));
 			gridMetaData.add(new SGridMetaData("#{rr.literals.swimsuit}",SWIMSUIT, SGridMetaData.Component.CHECKBOX));
 			gridMetaData.add(new SGridMetaData("#{rr.literals.best_swim_split}",BEST_SWIM_SPLIT, SGridMetaData.Component.FIELD));
+			gridMetaData.add(new SGridMetaData("#{rr.literals.best_swimmer}",BEST_SWIMMER, SGridMetaData.Component.FIELD));
 			gridMetaData.add(new SGridMetaData("#{rr.literals.cutoff_swim}",SWIM_CUTOFF, SGridMetaData.Component.FIELD));
 			gridMetaData.add(new SGridMetaData("#{rr.literals.swim_split}",SWIM_COLOR, META_SWIM));
 			//gridMetaData.add(new SGridMetaData("#{rr.literals.swim_split}",SWIM_SPLIT, SGridMetaData.Component.FIELD));
@@ -79,6 +85,7 @@ public final class ResultEntity extends AEntity {
 			gridMetaData.add(new SGridMetaData("#{rr.literals.deficit_percent}",SWIM_DEFICIT_PER, SGridMetaData.Component.FORMATED_DOUBLE));
 
 			gridMetaData.add(new SGridMetaData("#{rr.literals.best_run_split}",BEST_RUN_SPLIT, SGridMetaData.Component.FIELD));
+			gridMetaData.add(new SGridMetaData("#{rr.literals.best_runner}",BEST_RUNNER, SGridMetaData.Component.FIELD));
 			gridMetaData.add(new SGridMetaData("#{rr.literals.cutoff_run}",RUN_CUTOFF, SGridMetaData.Component.FIELD));
 			gridMetaData.add(new SGridMetaData("#{rr.literals.run_split}",RUN_COLOR, META_RUN));
 			//gridMetaData.add(new SGridMetaData("#{rr.literals.run_split}",RUN_SPLIT, SGridMetaData.Component.FIELD));
@@ -190,6 +197,7 @@ public final class ResultEntity extends AEntity {
 
 	public static class Data implements IEntityData {
 		public String id;
+		public Timestamp date;
 		public String competition;
 		public String scout;
 		public String athlete;
@@ -208,6 +216,8 @@ public final class ResultEntity extends AEntity {
 		public String run_color;
 		public String swim_cutoff;
 		public String run_cutoff;
+		public String best_swimmer;
+		public String best_runner;
 
 		/* (non-Javadoc)
 		 * @see trimatrix.entities.IEntityData#getId()
@@ -295,11 +305,11 @@ public final class ResultEntity extends AEntity {
 		}
 
 		public String getSwim_color() {
-			return getColor(getSwim_split(),swim_cutoff);
+			return getColor(getSwim_split(), getSwim_def_per(), swim_cutoff);
 		}
 
 		public String getRun_color() {
-			return getColor(getRun_split(), run_cutoff);
+			return getColor(getRun_split(), getRun_def_per(), run_cutoff);
 		}
 
 		public String getSwim_cutoff() {
@@ -310,14 +320,41 @@ public final class ResultEntity extends AEntity {
 			return run_cutoff;
 		}
 
-		public static String getColor(String time, String cutoff) {
-			Integer cutoffSeconds = Helper.calculateSeconds(cutoff);
-			if(cutoffSeconds==null || cutoffSeconds==0) return Constants.WHITE;
-			Integer seconds = Helper.calculateSeconds(time);
-			if(seconds==null || seconds==0) return Constants.WHITE;
-			// green
-			if(seconds<=cutoffSeconds) return Constants.GREEN;
-			return Constants.RED;
+		public String getBest_swimmer() {
+			return best_swimmer;
+		}
+
+		public String getBest_runner() {
+			return best_runner;
+		}
+
+		public Timestamp getDate() {
+			return date;
+		}
+
+		public static String getColor(String time, Double percent, String cutoff) {
+			if(cutoff==null) return Constants.WHITE;
+			if(cutoff.endsWith("%")) {
+				// percent logic
+				Integer cutoffPercent = null;
+				try {
+					cutoffPercent = Integer.valueOf(cutoff.substring(0, cutoff.length()-1));
+				} catch (Exception ex) {}
+				if(cutoffPercent==null || cutoffPercent==0) return Constants.WHITE;
+				if(percent==null || percent==0d) return Constants.WHITE;
+				// green
+				if(percent<=cutoffPercent) return Constants.GREEN;
+				return Constants.RED;
+			} else {
+				// time logic
+				Integer cutoffSeconds = Helper.calculateSeconds(cutoff);
+				if(cutoffSeconds==null || cutoffSeconds==0) return Constants.WHITE;
+				Integer seconds = Helper.calculateSeconds(time);
+				if(seconds==null || seconds==0) return Constants.WHITE;
+				// green
+				if(seconds<=cutoffSeconds) return Constants.GREEN;
+				return Constants.RED;
+			}
 		}
 	}
 }

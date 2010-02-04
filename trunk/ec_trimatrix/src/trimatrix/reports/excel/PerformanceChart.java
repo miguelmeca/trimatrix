@@ -21,11 +21,12 @@ import trimatrix.entities.ResultEntity;
 import trimatrix.reports.Report;
 import trimatrix.reports.excel.Styles.Style;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Helper;
 
 public class PerformanceChart extends Report {
 	private static final String[] titles = {
-        "Final Position","Date","Competition","Category","Fastest swimsplit","Corridor","Swimsplit/Position", "Behind fastest swimmer","Wetsuit",
-        "Fastest runsplit", "Runsplit/Position", "Behind fastest runner","Comment"};
+        "Final Position","Date","Competition","Category","Fastest swimsplit","Swim cutoff","Swimsplit/Position", "Behind fastest swimmer","Wetsuit",
+        "Fastest runsplit","Run cutoff", "Runsplit/Position", "Behind fastest runner","Comment"};
 
 	private Data data;
 
@@ -57,7 +58,7 @@ public class PerformanceChart extends Report {
 			Cell titleCell = titleRow.createCell(0);
 			titleCell.setCellValue(ResourceManager.getRuntimeInstance().readProperty(Constants.LITERALS, "performance_chart") + Constants.WHITESPACE + data.name);
 			titleCell.setCellStyle(styles.get(Style.TITLE));
-			sheet.addMergedRegion(CellRangeAddress.valueOf("$A$1:$M$1"));
+			sheet.addMergedRegion(CellRangeAddress.valueOf("$A$1:$N$1"));
 
 			// header row
 			Row headerRow = sheet.createRow(1);
@@ -85,7 +86,7 @@ public class PerformanceChart extends Report {
 		        sheet.addMergedRegion(CellRangeAddress.valueOf("$A$" + (actualRow-1) + ":$A$" + actualRow));
 		        // date
 		        cell = row.createCell(1);
-		        cell.setCellValue("01.01.2010");
+		        //cell.setCellValue(item.getDate().toString());
 		        cell.setCellStyle(styles.get(Style.CELL));
 		        sheet.addMergedRegion(CellRangeAddress.valueOf("$B$" + (actualRow-1) + ":$B$" + actualRow));
 		        // competition
@@ -103,9 +104,78 @@ public class PerformanceChart extends Report {
 		        cell.setCellValue(item.getBest_swim_split());
 		        cell.setCellStyle(styles.get(Style.CELL));
 		        cell = row2.createCell(4);
-		        cell.setCellValue("Haskin");
+		        cell.setCellValue(item.getBest_swimmer());
 		        cell.setCellStyle(styles.get(Style.CELL));
-
+		        // swim cutoff
+		        cell = row.createCell(5);
+		        cell.setCellValue(item.getSwim_cutoff());
+		        cell.setCellStyle(styles.get(Style.CELL));
+		        sheet.addMergedRegion(CellRangeAddress.valueOf("$F$" + (actualRow-1) + ":$F$" + actualRow));
+		        // swimsplit / position
+		        cell = row.createCell(6);
+		        cell.setCellValue(item.getSwim_split());
+		        if(Constants.RED.equals(item.getSwim_color())) {
+		        	cell.setCellStyle(styles.get(Style.CELL_RED));
+		        } else if(Constants.GREEN.equals(item.getSwim_color())) {
+		        	cell.setCellStyle(styles.get(Style.CELL_GREEN));
+		        } else {
+		        	cell.setCellStyle(styles.get(Style.CELL));
+		        }
+		        cell = row2.createCell(6);
+		        cell.setCellValue(item.getSwim_pos());
+		        cell.setCellStyle(styles.get(Style.CELL));
+		        // behind fastest swimmer
+		        cell = row.createCell(7);
+		        cell.setCellValue(item.getSwim_def());
+		        cell.setCellStyle(styles.get(Style.CELL));
+		        cell = row2.createCell(7);
+		        if(item.getSwim_def_per()!=null) cell.setCellValue(Helper.round(item.getSwim_def_per(),2).toString());
+		        cell.setCellStyle(styles.get(Style.CELL));
+		        // wetsuit
+		        cell = row.createCell(8);
+		        if(item.getSwimsuit()) {
+		        	cell.setCellStyle(styles.get(Style.CELL_BLACK));
+		        } else {
+		        	cell.setCellStyle(styles.get(Style.CELL));
+		        }
+		        sheet.addMergedRegion(CellRangeAddress.valueOf("$I$" + (actualRow-1) + ":$I$" + actualRow));
+		        // fastest runsplit
+		        cell = row.createCell(9);
+		        cell.setCellValue(item.getBest_run_split());
+		        cell.setCellStyle(styles.get(Style.CELL));
+		        cell = row2.createCell(4);
+		        cell.setCellValue(item.getBest_runner());
+		        cell.setCellStyle(styles.get(Style.CELL));
+		        // run cutoff
+		        cell = row.createCell(10);
+		        cell.setCellValue(item.getRun_cutoff());
+		        cell.setCellStyle(styles.get(Style.CELL));
+		        sheet.addMergedRegion(CellRangeAddress.valueOf("$K$" + (actualRow-1) + ":$K$" + actualRow));
+		        // runsplit / position
+		        cell = row.createCell(11);
+		        cell.setCellValue(item.getRun_split());
+		        if(Constants.RED.equals(item.getRun_color())) {
+		        	cell.setCellStyle(styles.get(Style.CELL_RED));
+		        } else if(Constants.GREEN.equals(item.getRun_color())) {
+		        	cell.setCellStyle(styles.get(Style.CELL_GREEN));
+		        } else {
+		        	cell.setCellStyle(styles.get(Style.CELL));
+		        }
+		        cell = row2.createCell(11);
+		        cell.setCellValue(item.getRun_pos());
+		        cell.setCellStyle(styles.get(Style.CELL));
+		        // behind fastest runner
+		        cell = row.createCell(12);
+		        cell.setCellValue(item.getRun_def());
+		        cell.setCellStyle(styles.get(Style.CELL));
+		        cell = row2.createCell(12);
+		        if(item.getRun_def_per()!=null) cell.setCellValue(Helper.round(item.getRun_def_per(),2).toString());
+		        cell.setCellStyle(styles.get(Style.CELL));
+		        // comment
+		        cell = row.createCell(13);
+		        cell.setCellValue(item.getComment());
+		        cell.setCellStyle(styles.get(Style.CELL));
+		        sheet.addMergedRegion(CellRangeAddress.valueOf("$N$" + (actualRow-1) + ":$N$" + actualRow));
 			}
 
 		    //footer row
@@ -114,7 +184,7 @@ public class PerformanceChart extends Report {
 		    Cell footerCell = footerRow.createCell(0);
 		    footerCell.setCellValue("DNF = Did Not Finish, WC = World Cup, CSR = Championship Race");
 		    footerCell.setCellStyle(styles.get(Style.FOOTER));
-		    sheet.addMergedRegion(CellRangeAddress.valueOf("$A$" + (actualRow+1) + ":$M$" + (actualRow+1)));
+		    sheet.addMergedRegion(CellRangeAddress.valueOf("$A$" + (actualRow+1) + ":$N$" + (actualRow+1)));
 
 			wb.write(out);
 			return out.toByteArray();
