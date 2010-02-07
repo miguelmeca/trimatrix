@@ -3,6 +3,7 @@ package trimatrix.reports.excel;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -49,9 +50,7 @@ public class PerformanceChart extends Report {
 			Sheet sheet = wb.createSheet("Performance Chart");
 			PrintSetup printSetup = sheet.getPrintSetup();
 			printSetup.setLandscape(true);
-			sheet.setFitToPage(true);
-			sheet.setHorizontallyCenter(true);
-
+			
 			// title row
 			Row titleRow = sheet.createRow(0);
 			titleRow.setHeightInPoints(45);
@@ -86,7 +85,8 @@ public class PerformanceChart extends Report {
 		        sheet.addMergedRegion(CellRangeAddress.valueOf("$A$" + (actualRow-1) + ":$A$" + actualRow));
 		        // date
 		        cell = row.createCell(1);
-		        //cell.setCellValue(item.getDate().toString());
+		        Date date = item.getDate();
+		        if(date!=null) cell.setCellValue(Helper.formatDate(date, "dd.MM.yyyy"));		        
 		        cell.setCellStyle(styles.get(Style.CELL));
 		        sheet.addMergedRegion(CellRangeAddress.valueOf("$B$" + (actualRow-1) + ":$B$" + actualRow));
 		        // competition
@@ -186,6 +186,15 @@ public class PerformanceChart extends Report {
 		    footerCell.setCellStyle(styles.get(Style.FOOTER));
 		    sheet.addMergedRegion(CellRangeAddress.valueOf("$A$" + (actualRow+1) + ":$N$" + (actualRow+1)));
 
+		    //finally set column widths, the width is measured in units of 1/256th of a character width
+		    for (int i = 0; i < titles.length; i++) {
+		    	sheet.autoSizeColumn(i, true);
+		    }
+		    
+		    // fit to page
+		    sheet.setFitToPage(true);
+			sheet.setHorizontallyCenter(true);
+		    
 			wb.write(out);
 			return out.toByteArray();
 		} catch (Exception ex) {

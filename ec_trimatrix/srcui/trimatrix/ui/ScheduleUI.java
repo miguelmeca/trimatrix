@@ -24,6 +24,7 @@ import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.jsfserver.elements.impl.SCHEDULEComponent;
 import org.eclnt.jsfserver.elements.impl.SCHEDULEITEMComponentTag;
 import org.eclnt.jsfserver.elements.util.Trigger;
+import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 import org.eclnt.workplace.WorkpageDefaultLifecycleListener;
 
@@ -35,6 +36,20 @@ import trimatrix.utils.Helper;
 @CCGenClass(expressionBase = "#{d.ScheduleUI}")
 public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		Serializable {
+    public void onChangeAthlete(ActionEvent event) {
+    	Statusbar.outputMessage(athleteID);
+    }
+
+    protected String athleteID;    
+    public String getAthleteID() {return athleteID;}
+	public void setAthleteID(String athleteID) {this.athleteID = athleteID;}
+
+	protected ValidValuesBinding m_vvbAthletes = new ValidValuesBinding();
+    public ValidValuesBinding getVvbAthletes() {
+    	return m_vvbAthletes;
+    }
+
+
 	protected FIXGRIDListBinding<GridAgendaItem> m_gridAgenda = new FIXGRIDListBinding<GridAgendaItem>();
 
 	public FIXGRIDListBinding<GridAgendaItem> getGridAgenda() {
@@ -260,6 +275,10 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 	}
 
 	private void refresh() {
+		// build vvbAthletes
+		m_vvbAthletes.clear();
+		m_vvbAthletes.addValidValue("0", "Daniela Bucher");
+		m_vvbAthletes.addValidValue("1", "Kate Allen");
 		refreshAllSchedules();
 	}
 

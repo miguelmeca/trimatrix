@@ -8,6 +8,8 @@ import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
@@ -329,6 +331,11 @@ public class Helper {
 		BigDecimal bd = new BigDecimal(Double.toString(d));
 		bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
 		return bd.doubleValue();
+	}
+	
+	public static String formatDate(Date date, String format) {
+		SimpleDateFormat sd = new SimpleDateFormat(format);
+		return sd.format(date); 
 	}
 
 	// public static final Log logger = LogFactory.getLog("trimatrix");
