@@ -43,6 +43,13 @@
     font-size:12px; 
     cursor:pointer;
 }
+.classbuttoninner
+{
+    white-space: nowrap;    
+	font-family:Trebuchet MS;
+    font-size:12px; 
+    cursor:pointer;
+}
 .classbuttonplain
 {
     white-space: nowrap;    

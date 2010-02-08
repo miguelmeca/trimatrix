@@ -53,7 +53,7 @@
 <t:coldistance id="g_32" />
 <t:label id="g_33" bgpaint="nodisabled()" font="weight:bold" text="#{d.ScheduleUI.actualDate}" />
 <t:coldistance id="g_34" width="100%" />
-<t:filedownloadbutton id="g_35" actionListener="#{d.ScheduleUI.onCopySchedules}" fileextensions="xls" filename="performance.xls" image="/images/icons/print.png" openimmediately="true" opensupported="true" text="Drucken" url="#{d.ScheduleUI.printReportUrl}" />
+<t:filedownloadbutton id="g_35" actionListener="#{d.ScheduleUI.onCopySchedules}" fileextensions="xls" filename="performance.xls" image="/images/icons/print.png" imageheight="15" openimmediately="true" opensupported="true" text="Drucken" url="#{d.ScheduleUI.printReportUrl}" />
 </t:row>
 <t:rowdistance id="g_36" height="4" />
 <t:row id="g_37" >

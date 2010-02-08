@@ -21,7 +21,7 @@
 <t:coldistance id="g_8" />
 <t:button id="g_9" actionListener="#{d.EntityListUI.onDelete}" enabled="#{d.EntityListUI.deleteAllowed}" image="/images/icons/delete.png" imageheight="15" text="#{rr.literals.delete}" />
 <t:coldistance id="g_10" width="100%" />
-<t:filedownloadbutton id="g_11" fileextensions="#{d.EntityListUI.printReportExtension}" filename="#{d.EntityListUI.printReportFilename}" image="/images/icons/print.png" openimmediately="true" opensupported="true" rendered="#{d.EntityListUI.printSupported}" text="#{rr.literals.print}" url="#{d.EntityListUI.printReportUrl}" />
+<t:filedownloadbutton id="g_11" fileextensions="#{d.EntityListUI.printReportExtension}" filename="#{d.EntityListUI.printReportFilename}" image="/images/icons/print.png" imageheight="15" openimmediately="true" opensupported="true" rendered="#{d.EntityListUI.printSupported}" text="#{rr.literals.print}" url="#{d.EntityListUI.printReportUrl}" />
 </t:row>
 </t:pane>
 </t:row>

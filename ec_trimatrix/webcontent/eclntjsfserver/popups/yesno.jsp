@@ -15,9 +15,13 @@
 				<t:row id="g_2">
                     <t:image id="g_101" rowalignmenty="middle" image="#{eclntdefscr.yesNoPopup.icon}" rendered="#{eclntdefscr.yesNoPopup.iconRendered}"/>
                     <t:coldistance id="g_102" width="20" rendered="#{eclntdefscr.yesNoPopup.iconRendered}"/>
-					<t:scrollpane id="g_3" height="100%" width="100%">
+					<t:scrollpane id="g_3" height="100%" width="100%" rowdistance="10">
+						<t:row id="g_554" rendered="#{eclntdefscr.yesNoPopup.headlineRendered}">
+							<t:textpane id="g_555" text="#{eclntdefscr.yesNoPopup.headline}" align="#{eclntdefscr.yesNoPopup.textAlign}"
+								width="100%" font="size:16;weight:bold" stylevariant="TRANSPARENT"/>
+						</t:row>
 						<t:row id="g_4">
-							<t:textpane id="g_5" text="#{eclntdefscr.yesNoPopup.text}" align="center"
+							<t:textpane id="g_5" text="#{eclntdefscr.yesNoPopup.text}" align="#{eclntdefscr.yesNoPopup.textAlign}"
 								width="100%" stylevariant="TRANSPARENT"/>
 						</t:row>
 					</t:scrollpane>
