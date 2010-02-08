@@ -167,4 +167,56 @@
     <tag name="textpane" variant="IDVALUESELECTION">
         <set attribute="background" value="#FFFFF0"/>
     </tag>
+    
+    <!--  TABBED LINE STYLE VARIANTS -->
+	<tag name="t:tabbedline" variant="cctl01" >
+	  <set attribute="bgpaintdefault" value="rectangle(0,0,100%,100%,#d0d0d0,#f0f0f0,vertical)" />
+	  <set attribute="bgpaintdefaultfirst" value="roundedrectangle(0,0,50,100%,25,25,#d0d0d0,#f0f0f0,vertical);rectangle(25,0,100%,100%,#d0d0d0,#f0f0f0,vertical)" />
+	  <set attribute="bgpaintdefaultlast" value="roundedrectangle(100%-50,0,50,100%,25,25,#d0d0d0,#f0f0f0,vertical);rectangle(0,0,100%-30,100%,#d0d0d0,#f0f0f0,vertical)" />
+	  <set attribute="bgpaintrollover" value="rectangle(0,0,100%,100%,#e9b475,#fefdd3,vertical)" />
+	  <set attribute="bgpaintrolloverfirst" value="roundedrectangle(0,0,50,100%,25,25,#e9b475,#fefdd3,vertical);rectangle(25,0,100%,100%,#e9b475,#fefdd3,vertical)" />
+	  <set attribute="bgpaintrolloverlast" value="roundedrectangle(100%-50,0,50,100%,25,25,#e9b475,#fefdd3,vertical);rectangle(0,0,100%-30,100%,#e9b475,#fefdd3,vertical)" />
+	  <set attribute="bgpaintselected" value="rectangle(0,0,100%,100%,#75b4e9,#d3fdfe,vertical)" />
+	  <set attribute="bgpaintselectedfirst" value="roundedrectangle(0,0,50,100%,25,25,#75b4e9,#d3fdfe,vertical);rectangle(25,0,100%,100%,#75b4e9,#d3fdfe,vertical)" />
+	  <set attribute="bgpaintselectedlast" value="roundedrectangle(100%-50,0,50,100%,25,25,#75b4e9,#d3fdfe,vertical);rectangle(0,0,100%-30,100%,#75b4e9,#d3fdfe,vertical)" />
+	  <set attribute="fontselected" value="weight:bold" />
+	  <set attribute="foregrounddefault" value="#404040" />
+	  <set attribute="foregroundselected" value="#000000" />
+	  <set attribute="menuiconvisible" value="false" />
+	</tag>
+	<tag name="t:tabbedline" variant="cctl02" >
+	  <set attribute="bgpaintdefault" value="rectangle(0,0,100%,100%,#d0d0d0,#f0f0f0,vertical)" />
+	  <set attribute="bgpaintdefaultfirst" value="roundedrectangle(0,0,50,100%,25,25,#d0d0d0,#f0f0f0,vertical);rectangle(25,0,100%,100%,#d0d0d0,#f0f0f0,vertical)" />
+	  <set attribute="bgpaintdefaultlast" value="roundedrectangle(100%-50,0,50,100%,25,25,#d0d0d0,#f0f0f0,vertical);rectangle(0,0,100%-30,100%,#d0d0d0,#f0f0f0,vertical)" />
+	  <set attribute="bgpaintrollover" value="rectangle(0,0,100%,100%,#e9b475,#fefdd3,vertical)" />
+	  <set attribute="bgpaintrolloverfirst" value="roundedrectangle(0,0,50,100%,25,25,#e9b475,#fefdd3,vertical);rectangle(25,0,100%,100%,#e9b475,#fefdd3,vertical)" />
+	  <set attribute="bgpaintrolloverlast" value="roundedrectangle(100%-50,0,50,100%,25,25,#e9b475,#fefdd3,vertical);rectangle(0,0,100%-30,100%,#e9b475,#fefdd3,vertical)" />
+	  <set attribute="bgpaintselected" value="rectangle(0,0,100%,100%,#804040,#e04040,vertical)" />
+	  <set attribute="bgpaintselectedfirst" value="roundedrectangle(0,0,50,100%,25,25,#804040,#e04040,vertical);rectangle(25,0,100%,100%,#804040,#e04040,vertical)" />
+	  <set attribute="bgpaintselectedlast" value="roundedrectangle(100%-50,0,50,100%,25,25,#804040,#e04040,vertical);rectangle(0,0,100%-30,100%,#804040,#e04040,vertical)" />
+	  <set attribute="fontselected" value="weight:bold" />
+	  <set attribute="foregrounddefault" value="#404040" />
+	  <set attribute="foregroundselected" value="#F0F0F0" />
+	  <set attribute="menuiconvisible" value="false" />
+	</tag>
+	<tag name="t:tabbedline" variant="cctl03" >
+	  <set attribute="bgpaintdefault" value="image(0,0,/eclntjsfserver/images/tabbedline/tl1_defleft.png&amp;mirrorrtl,lefttop);image(100%,0,/eclntjsfserver/images/tabbedline/tl1_defright.png&amp;mirrorrtl,righttop);image(5,0,100%-22,25,/eclntjsfserver/images/tabbedline/tl1_defmid.png&amp;mirrorrtl,lefttop)" />
+	  <set attribute="bgpaintrollover" value="image(0,0,/eclntjsfserver/images/tabbedline/tl1_selleft.png&amp;mirrorrtl,lefttop);image(100%,0,/eclntjsfserver/images/tabbedline/tl1_selright.png&amp;mirrorrtl,righttop);image(5,0,100%-22,25,/eclntjsfserver/images/tabbedline/tl1_selmid.png&amp;mirrorrtl,lefttop)" />
+	  <set attribute="bgpaintselected" value="image(0,0,/eclntjsfserver/images/tabbedline/tl1_selleft.png&amp;mirrorrtl,lefttop);image(100%,0,/eclntjsfserver/images/tabbedline/tl1_selright.png&amp;mirrorrtl,righttop);image(5,0,100%-22,25,/eclntjsfserver/images/tabbedline/tl1_selmid.png&amp;mirrorrtl,lefttop)" />
+	  <set attribute="border" value="bottom:1;color:#00000030" />
+	  <set attribute="font" value="weight:bold" />
+	  <set attribute="fontselected" value="weight:bold" />
+	  <set attribute="tabheight" value="25" />
+	  <set attribute="taboverlap" value="7" />
+	</tag>
+	<tag name="t:tabbedline" variant="cctl04" >
+	  <set attribute="bgpaintdefault" value="roundedborder(0,0,100%,100,10,10,#00000030,1)" />
+	  <set attribute="bgpaintrollover" value="roundedborder(0,0,100%,100,10,10,#FF000030,1)" />
+	  <set attribute="bgpaintselected" value="roundedrectangle(0,0,100%,100,10,10,#FFFFFF);roundedborder(0,0,100%,100,10,10,#00000050,1)" />
+	  <set attribute="border" value="bottom:1;color:#00000030" />
+	  <set attribute="font" value="weight:bold" />
+	  <set attribute="fontselected" value="weight:bold" />
+	  <set attribute="foregrounddefault" value="#00000060" />
+	  <set attribute="foregroundselected" value="#000000" />
+	</tag>
 </style>
