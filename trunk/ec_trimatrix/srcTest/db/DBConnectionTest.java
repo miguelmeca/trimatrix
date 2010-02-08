@@ -31,6 +31,7 @@ import trimatrix.db.Competitions;
 import trimatrix.db.CompetitionsScouts;
 import trimatrix.db.CompetitionsScoutsId;
 import trimatrix.db.DAOLayer;
+import trimatrix.db.DayInfos;
 import trimatrix.db.EntitiesHaveLabels;
 import trimatrix.db.EntitiesHaveLabelsId;
 import trimatrix.db.IEntityDAO;
@@ -62,7 +63,7 @@ public class DBConnectionTest {
 
 	@Before
 	public void setUp() throws Exception {
-		
+
 	}
 
 	@Test
@@ -79,7 +80,7 @@ public class DBConnectionTest {
 		newUser.setUserName("Meex");
 		newUser.setCreatedAt(now);
 		usersDAO.merge(newUser);
-		
+
 		// 2.0.1. Test load functionality
 		newUser.setUserName("Meex_");
 		Assert.assertEquals("Meex_", newUser.getUserName());
@@ -130,7 +131,7 @@ public class DBConnectionTest {
 				usersDAO.delete(user);
 			}
 		}
-		/* 4. Delete Data */		
+		/* 4. Delete Data */
 		personsDAO.delete(newPerson);
 	}
 
@@ -167,8 +168,8 @@ public class DBConnectionTest {
 		List<SFunctionTree> functionTree = sqlExecutorService.getFunctionTree(
 				Constants.Role.ADMIN, "en");
 		System.out.println(functionTree.size());
-	}	
-	
+	}
+
 	public void testProgramaticTransactionMngmt() throws Exception {
 		/* With Template Pattern */
 		// single TransactionTemplate shared amongst all methods in this
@@ -220,7 +221,7 @@ public class DBConnectionTest {
 		// explicitly setting the transaction name is something that can only be done programmatically
 		def.setName("myTx");
 		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-		
+
 		TransactionStatus status = txManager.getTransaction(def);
 		try {
 			Timestamp now = new java.sql.Timestamp(
@@ -242,7 +243,7 @@ public class DBConnectionTest {
 		}
 		txManager.commit(status);
 	}
-	
+
 	@Test
 	public void testPersonPersonRelations() {
 		// create relation
@@ -253,10 +254,10 @@ public class DBConnectionTest {
 		relation.setId(id);
 		relation.setPartner1(partner1);
 		relation.setReltypKey(Constants.Relation.COACH.type());
-		relation.setPartner2(partner2);		
+		relation.setPartner2(partner2);
 		//relation.setDefault_(false);
 		daoLayer.getPersonsHaveRelationsDAO().merge(relation);
-		
+
 		PersonsHaveRelations relation2 = daoLayer.getPersonsHaveRelationsDAO().findById(id);
 		Assert.assertNotNull(relation2);
 		daoLayer.getPersonsHaveRelationsDAO().delete(relation2);
@@ -269,26 +270,26 @@ public class DBConnectionTest {
 		EntitiesHaveLabelsId id = new EntitiesHaveLabelsId("test","label","person");
 		relation.setId(id);
 		daoLayer.getEntitiesHaveLabelsDAO().save(relation);
-		
+
 		// get relation
 		List<EntitiesHaveLabels> relations = daoLayer.getEntitiesHaveLabelsDAO().findByEntity("test");
 		Assert.assertEquals(1, relations.size());
-		daoLayer.getEntitiesHaveLabelsDAO().delete(relation);	
+		daoLayer.getEntitiesHaveLabelsDAO().delete(relation);
 	}
-	
-	@Test 
-	public void testPersonsAthlete() {		
+
+	@Test
+	public void testPersonsAthlete() {
 		// Athlete profile
 		Persons person = daoLayer.getPersonsDAO().findById("0b0b7658-2ddb-11de-86ae-00301bb60f17");
 		PersonsAthlete athlete = person.getProfileAthlete();
-		daoLayer.getPersonsDAO().merge(person);		
+		daoLayer.getPersonsDAO().merge(person);
 		System.out.println(athlete.getHeight());
 	}
-	
+
 	@Test
 	public void testTests() {
 		String id = UUID.randomUUID().toString();
-		Tests test = new Tests(id);		
+		Tests test = new Tests(id);
 		// ergo
 		TestsErgo ergo = new TestsErgo(id);
 		ergo.setCadenceLow(90);
@@ -306,7 +307,7 @@ public class DBConnectionTest {
 		List<TestsSwimProtocol> setSwimProt = new ArrayList<TestsSwimProtocol>();
 		setSwimProt.add(swimProt);
 		swim.setSteps(setSwimProt);
-		test.setTestsSwim(swim);		
+		test.setTestsSwim(swim);
 		// protocoll
 		TestsProtocol protocol = new TestsProtocol(id);
 		protocol.setModel("Testmodell");
@@ -325,9 +326,9 @@ public class DBConnectionTest {
 		Assert.assertEquals("02:22", test2.getTestsProtocol().getPerformanceMax());
 		Assert.assertEquals(1, test2.getTestsSwim().getSteps().size());
 		Assert.assertEquals(new Integer(100), test2.getTestsSwim().getSteps().iterator().next().getIntensity());
-		daoLayer.getTestsDAO().delete(test2);	
+		daoLayer.getTestsDAO().delete(test2);
 	}
-	
+
 	@Test
 	public void testZones() {
 		// Zones Definition
@@ -344,11 +345,11 @@ public class DBConnectionTest {
 		Assert.assertEquals("123456ABCDEFG", definition2.getCoachId());
 		Assert.assertEquals(new Integer(1), definition2.getSequence());
 		Assert.assertEquals(new Double(12.1), definition2.getLactateHigh());
-		Assert.assertEquals("Test", definition2.getDescription());		
+		Assert.assertEquals("Test", definition2.getDescription());
 		// Zones
 		String id2 = UUID.randomUUID().toString();
 		Zones zones = new Zones();
-		zones.setId(id2);	
+		zones.setId(id2);
 		zones.setAthleteId("123456ABCDEFG");
 		zones.setZonesDefinitionId(id);
 		daoLayer.getZonesDAO().save(zones);
@@ -356,9 +357,9 @@ public class DBConnectionTest {
 		Assert.assertEquals("123456ABCDEFG", zones2.getAthleteId());
 		// delete
 		daoLayer.getZonesDAO().delete(zones);
-		daoLayer.getZonesDefinitionDAO().delete(definition2);		
+		daoLayer.getZonesDefinitionDAO().delete(definition2);
 	}
-	
+
 	@Test
 	public void testCompetitions() {
 		// Competitions
@@ -366,7 +367,7 @@ public class DBConnectionTest {
 		Date date = new Date();
 		Competitions comp = new Competitions(id);
 		comp.setDescription("Test Wettkampf");
-		comp.setDate(date); 
+		comp.setDate(date);
 		daoLayer.getCompetitionsDAO().save(comp);
 		Competitions comp2 = daoLayer.getCompetitionsDAO().findById(id);
 		Assert.assertEquals(comp.getDescription(), comp2.getDescription());
@@ -393,7 +394,7 @@ public class DBConnectionTest {
 		daoLayer.getCompetitionsScoutsDAO().delete(compScout2);
 		daoLayer.getCompetitionsDAO().delete(comp2);
 	}
-	
+
 	@Test
 	public void testSchedules() {
 		// Competitions
@@ -407,9 +408,24 @@ public class DBConnectionTest {
 		Assert.assertEquals("Test", schedules2.getDescription());
 		Assert.assertEquals("#000000", schedules2.getColor());
 		Assert.assertEquals(true, schedules2.getTemplate());
-		daoLayer.getSchedulesDAO().delete(schedules2);		
+		daoLayer.getSchedulesDAO().delete(schedules2);
 	}
-	
+
+	@Test
+	public void testDayInfos() {
+		// Competitions
+		String id = UUID.randomUUID().toString();
+		Date date = new Date();
+		DayInfos dayInfos = new DayInfos(id);
+		dayInfos.setDate(date);
+		dayInfos.setRestingHr(42);
+		daoLayer.getDayInfosDAO().save(dayInfos);
+		DayInfos dayInfos2 = daoLayer.getDayInfosDAO().findById(id);
+		Assert.assertNotNull(dayInfos2.getDate());
+		Assert.assertEquals(new Integer(42), dayInfos2.getRestingHr());
+		daoLayer.getDayInfosDAO().delete(dayInfos2);
+	}
+
 	@After
 	public void tearDown() throws Exception {
 	}

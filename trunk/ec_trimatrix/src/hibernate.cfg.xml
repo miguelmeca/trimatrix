@@ -97,6 +97,7 @@
 		<mapping class="trimatrix.db.Categories" />
 		<mapping class="trimatrix.db.Schedules" />
 		<mapping class="trimatrix.db.TScheduletypes" />
+		<mapping class="trimatrix.db.DayInfos" />
 	</session-factory>
 
 </hibernate-configuration>

@@ -29,14 +29,14 @@
 			</entry>
 			<entry key="pre-collection-update">
 				<bean class="org.hibernate.envers.event.AuditEventListener" />
-			</entry>	
+			</entry>
 			<entry key="pre-collection-remove">
 				<bean class="org.hibernate.envers.event.AuditEventListener" />
 			</entry>
 			<entry key="post-collection-recreate">
 				<bean class="org.hibernate.envers.event.AuditEventListener" />
-			</entry>					
-			</map>		
+			</entry>
+			</map>
 		</property>
 		-->
 	</bean>
@@ -108,62 +108,63 @@
                 <idref local="ZonesDefinitionDAO" />
                 <idref local="EntitiesHaveLabelsDAO" />
                 <idref local="EntitiesDAO" />
-                <idref local="CategoriesDAO" />                
+                <idref local="CategoriesDAO" />
+                <idref local="DayInfosDAO" />
             </list>
         </property>
     </bean>
-    
+
     <bean id="daoLayer" class="trimatrix.db.DAOLayer"
         abstract="false" lazy-init="default" autowire="default"
         dependency-check="default">
         <property name="usersDAO">
             <ref bean="UsersDAO" />
-        </property>    
+        </property>
         <property name="personsDAO">
             <ref bean="PersonsDAO" />
-        </property> 
+        </property>
         <property name="doctorsDAO">
             <ref bean="DoctorsDAO" />
-        </property> 
+        </property>
         <property name="attachmentsDAO">
             <ref bean="AttachmentsDAO" />
-        </property> 
+        </property>
         <property name="testsDAO">
             <ref bean="TestsDAO" />
-        </property> 
+        </property>
         <property name="competitionsDAO">
             <ref bean="CompetitionsDAO" />
-        </property> 
+        </property>
         <property name="schedulesDAO">
             <ref bean="SchedulesDAO" />
-        </property> 
+        </property>
         <property name="competitionsScoutsDAO">
             <ref bean="CompetitionsScoutsDAO" />
-        </property> 
+        </property>
         <property name="resultsDAO">
             <ref bean="ResultsDAO" />
-        </property> 
+        </property>
         <property name="resultsTriaDAO">
             <ref bean="ResultsTriaDAO" />
-        </property> 
+        </property>
         <property name="personsHaveRelationsDAO">
-            <ref bean="PersonsHaveRelationsDAO" />    
-        </property> 
+            <ref bean="PersonsHaveRelationsDAO" />
+        </property>
         <property name="personsHaveDoctorsDAO">
-            <ref bean="PersonsHaveDoctorsDAO" />    
-        </property> 
+            <ref bean="PersonsHaveDoctorsDAO" />
+        </property>
         <property name="personsHaveAttachmentsDAO">
-            <ref bean="PersonsHaveAttachmentsDAO" />    
-        </property> 
+            <ref bean="PersonsHaveAttachmentsDAO" />
+        </property>
         <property name="personsHaveCompetitionsDAO">
-            <ref bean="PersonsHaveCompetitionsDAO" />    
+            <ref bean="PersonsHaveCompetitionsDAO" />
         </property>
         <property name="tsalutationDAO">
             <ref bean="TSalutationDAO" />
-        </property>  
+        </property>
         <property name="tcategoriesDAO">
             <ref bean="TCategoriesDAO" />
-        </property>  
+        </property>
         <property name="ttesttypesDAO">
             <ref bean="TTesttypesDAO" />
         </property>
@@ -172,61 +173,64 @@
         </property>
         <property name="listVariantsDAO">
             <ref bean="ListVariantsDAO" />
-        </property>      
+        </property>
         <property name="labelsDAO">
             <ref bean="LabelsDAO" />
-        </property>   
+        </property>
         <property name="entitiesDAO">
             <ref bean="EntitiesDAO" />
-        </property> 
+        </property>
         <property name="categoriesDAO">
             <ref bean="CategoriesDAO" />
-        </property> 
+        </property>
+        <property name="dayInfosDAO">
+            <ref bean="DayInfosDAO" />
+        </property>
         <property name="entitiesHaveLabelsDAO">
             <ref bean="EntitiesHaveLabelsDAO" />
-        </property>   
+        </property>
         <property name="personAthleteDAO">
             <ref bean="PersonsAthleteDAO" />
-        </property> 
+        </property>
         <property name="testsErgoDAO">
             <ref bean="TestsErgoDAO" />
-        </property> 
+        </property>
         <property name="testsTreadmillDAO">
             <ref bean="TestsTreadmillDAO" />
-        </property> 
+        </property>
         <property name="testsSwimDAO">
             <ref bean="TestsSwimDAO" />
         </property>
         <property name="testsProtocolDAO">
             <ref bean="TestsProtocolDAO" />
-        </property> 
+        </property>
         <property name="testsAnalysisDAO">
             <ref bean="TestsAnalysisDAO" />
-        </property> 
+        </property>
         <property name="testsSwimProtocolDAO">
             <ref bean="TestsSwimProtocolDAO" />
-        </property> 
+        </property>
         <property name="zonesDAO">
             <ref bean="ZonesDAO" />
-        </property>  
+        </property>
         <property name="zonesDefinitionDAO">
             <ref bean="ZonesDefinitionDAO" />
-        </property>   
+        </property>
         <property name="relationDAOs">
         	<list>
         		<ref bean="PersonsHaveRelationsDAO" />
-        		<ref bean="PersonsHaveDoctorsDAO" /> 
-        		<ref bean="PersonsHaveAttachmentsDAO" />   
-        		<ref bean="PersonsHaveCompetitionsDAO" />   
+        		<ref bean="PersonsHaveDoctorsDAO" />
+        		<ref bean="PersonsHaveAttachmentsDAO" />
+        		<ref bean="PersonsHaveCompetitionsDAO" />
         	</list>
-        </property> 
+        </property>
     </bean>
 
 	<bean id="UsersDAO" class="trimatrix.db.UsersDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
-	</bean>   	
+	</bean>
 
 	<bean id="PersonsDAO" class="trimatrix.db.PersonsDAO">
 		<property name="sessionFactory">
@@ -444,6 +448,11 @@
 	</bean>
 	<bean id="TScheduletypesDAO"
 		class="trimatrix.db.TScheduletypesDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="DayInfosDAO" class="trimatrix.db.DayInfosDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
