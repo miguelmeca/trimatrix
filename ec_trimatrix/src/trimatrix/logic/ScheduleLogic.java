@@ -3,10 +3,14 @@ package trimatrix.logic;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
+
 import trimatrix.db.DAOLayer;
+import trimatrix.db.DayInfos;
+import trimatrix.db.DayInfosId;
 import trimatrix.services.ServiceLayer;
 
-public class ScheduleLogic {    
+public class ScheduleLogic {
 	private DAOLayer daoLayer;
 	private ServiceLayer serviceLayer;
 
@@ -32,7 +36,31 @@ public class ScheduleLogic {
 		cal.set(Calendar.HOUR_OF_DAY, hour);
 		cal.set(Calendar.MINUTE, minute);
 		return cal.getTime();
-	}	
+	}
+
+	public Date addDaysToDate(Date date, int day) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.add(Calendar.DAY_OF_WEEK, day);
+		return cal.getTime();
+	}
+
+	public DayInfos getDayInfos(String athleteId, Date date) {
+		DayInfosId dayInfosId = new DayInfosId(date, athleteId);
+		DayInfos dayInfos = daoLayer.getDayInfosDAO().findById(dayInfosId);
+		if(dayInfos==null) dayInfos = new DayInfos(dayInfosId);
+		return dayInfos;
+	}
+
+	public boolean saveDayInfos(DayInfos dayInfos) {
+		try {
+			daoLayer.getDayInfosDAO().merge(dayInfos);
+			return true;
+		} catch (Exception ex) {
+			Statusbar.outputAlert("Daten konnten nicht gespeichert werden!", "Fehler", ex.toString());
+			return false;
+		}
+	}
 
 	public void setServiceLayer(ServiceLayer serviceLayer) {
 		this.serviceLayer = serviceLayer;

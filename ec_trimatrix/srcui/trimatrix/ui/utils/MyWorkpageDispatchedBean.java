@@ -34,6 +34,7 @@ import trimatrix.services.ServiceLayer;
 import trimatrix.ui.AttachmentSelectionUI;
 import trimatrix.ui.CompetitionSelectionUI;
 import trimatrix.ui.CreateRelationUI;
+import trimatrix.ui.DayInfoPopUp;
 import trimatrix.ui.Dispatcher;
 import trimatrix.ui.DoctorSelectionUI;
 import trimatrix.ui.EntityDetailUI;
@@ -309,6 +310,10 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 
 	public ScheduleChangePopUp getScheduleChangePopUp() {
 		return (ScheduleChangePopUp)getOwningDispatcher().getDispatchedBean(ScheduleChangePopUp.class);
+	}
+
+	public DayInfoPopUp getDayInfoPopUp() {
+		return (DayInfoPopUp)getOwningDispatcher().getDispatchedBean(DayInfoPopUp.class);
 	}
 
 	public WorkplaceUI getWorkplaceUI() {

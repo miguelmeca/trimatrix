@@ -1,24 +1,68 @@
 package trimatrix.ui;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.faces.event.ActionEvent;
+
 import org.eclnt.editor.annotations.CCGenClass;
+import org.eclnt.workplace.IWorkpageDispatcher;
 
-@CCGenClass (expressionBase="#{d.DayInfoPopUp}")
+import trimatrix.db.DayInfos;
+import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 
-public class DayInfoPopUp implements Serializable
-{
-    protected Date m_actualDate;
-    public Date getActualDate() { return m_actualDate; }
-    public void setActualDate(Date value) { m_actualDate = value; }
+@CCGenClass(expressionBase = "#{d.DayInfoPopUp}")
+public class DayInfoPopUp extends MyWorkpageDispatchedBean implements Serializable {
 
-    protected int m_restHr;
-    public int getRestHr() { return m_restHr; }
-    public void setRestHr(int value) { m_restHr = value; }
+	public DayInfoPopUp(IWorkpageDispatcher dispatcher) {
+		super(dispatcher);
+	}
 
-    public void onSave(ActionEvent event) {}
+	protected DayInfos dayInfos;
+	public DayInfos getDayInfos() { return dayInfos; }
 
-    public void onPreviousDay(ActionEvent event) {}
+	public String getSelectedDate() {
+		return new SimpleDateFormat("EEEE, d. MMMM yyyy").format(date);
+	}
 
-    public void onNextDay(ActionEvent event) {}
+	public void onPreviousDay(ActionEvent event) {
+		date = getLogic().getScheduleLogic().addDaysToDate(date, -1);
+		refresh();
+	}
+
+	public void onNextDay(ActionEvent event) {
+		date = getLogic().getScheduleLogic().addDaysToDate(date, 1);
+		refresh();
+	}
+
+	public interface IPopupCallback {
+		public void cancel();
+	}
+
+	protected IPopupCallback callback;
+	protected String athleteId;
+	protected Date date;
+
+	public void prepareCallback(IPopupCallback callback, String athleteId, Date date) {
+		this.callback = callback;
+		this.athleteId = athleteId;
+		this.date = date;
+		refresh();
+	}
+
+	public void onCancel(ActionEvent event) {
+		callback.cancel();
+	}
+
+	private void refresh() {
+		// get info from db, return a new empty if nothing found
+		this.dayInfos = getLogic().getScheduleLogic().getDayInfos(athleteId, date);
+	}
+
+	public void onSave(ActionEvent event) {
+		getLogic().getScheduleLogic().saveDayInfos(dayInfos);
+		refresh();
+	}
 
 }
