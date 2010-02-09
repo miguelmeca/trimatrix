@@ -37,10 +37,10 @@ import trimatrix.utils.Helper;
 public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		Serializable {
     public void onChangeAthlete(ActionEvent event) {
-    	Statusbar.outputMessage(athleteID);
+    	refreshAgenda();
     }
 
-    protected String athleteID;    
+    protected String athleteID;
     public String getAthleteID() {return athleteID;}
 	public void setAthleteID(String athleteID) {this.athleteID = athleteID;}
 
@@ -277,8 +277,8 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 	private void refresh() {
 		// build vvbAthletes
 		m_vvbAthletes.clear();
-		m_vvbAthletes.addValidValue("0", "Daniela Bucher");
-		m_vvbAthletes.addValidValue("1", "Kate Allen");
+		m_vvbAthletes.addValidValue("10f52302-2ddb-11de-86ae-00301bb60f17", "Daniela Bucher");
+		m_vvbAthletes.addValidValue("0b0b7658-2ddb-11de-86ae-00301bb60f17", "Markus Reich");
 		refreshAllSchedules();
 	}
 
@@ -394,6 +394,32 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		}
 	}
 
+	public void onDayInfo(ActionEvent ae) {
+		// clientname contains the days offset from begin of week
+		Integer days;
+		try {
+			days = Integer.valueOf((String)ae.getComponent().getAttributes().get(Constants.CLIENTNAME));
+		} catch (Exception ex) {
+			Statusbar.outputError("Tag konnte nicht ermittelt werden!", ex.toString());
+			return;
+		}
+
+		Date date = getLogic().getScheduleLogic().addDaysToDate(getBeginOfWeek(), days);
+		DayInfoPopUp dayInfoPopUp = getDayInfoPopUp();
+		dayInfoPopUp.prepareCallback(
+				new DayInfoPopUp.IPopupCallback() {
+					public void cancel() {
+						m_popup.close();
+						refresh();
+					}
+				}, athleteID, date);
+		m_popup = getWorkpage().createModalPopupInWorkpageContext();
+		m_popup.setLeftTopReferenceCentered();
+		m_popup.setUndecorated(true);
+		m_popup.open(Constants.Page.DAYINFOPOPUP.getUrl(), "Tagesinformation",
+				400, 300, scheduleUI);
+	}
+
 	public class ScheduleProcessor implements Serializable {
 		int day;
 
@@ -477,58 +503,33 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			}
 			refreshAgenda();
 		}
+
+		public void onGetDaysInfo(ActionEvent event) {
+			// Load from DB
+			// Show Pop-Up
+		}
 	}
 
 	public class ScheduleItem {
 		String type;
-
-		public String getType() {
-			return type;
-		}
-
-		public void setType(String type) {
-			this.type = type;
-		}
+		public String getType() {return type;}
+		public void setType(String type) {this.type = type;}
 
 		Date from;
-
-		public Date getFrom() {
-			return from;
-		}
-
-		public void setFrom(Date from) {
-			this.from = from;
-		}
+		public Date getFrom() {return from;}
+		public void setFrom(Date from) {this.from = from;}
 
 		Date to;
-
-		public Date getTo() {
-			return to;
-		}
-
-		public void setTo(Date to) {
-			this.to = to;
-		}
+		public Date getTo() {return to;}
+		public void setTo(Date to) {this.to = to;}
 
 		String color;
-
-		public String getColor() {
-			return color;
-		}
-
-		public void setColor(String color) {
-			this.color = color;
-		}
+		public String getColor() {return color;}
+		public void setColor(String color) {this.color = color;}
 
 		String text;
-
-		public String getText() {
-			return text;
-		}
-
-		public void setText(String text) {
-			this.text = text;
-		}
+		public String getText() {return text;}
+		public void setText(String text) {this.text = text;}
 
 		public ScheduleItem(Date from, Date to, String color, String text,
 				String type) {

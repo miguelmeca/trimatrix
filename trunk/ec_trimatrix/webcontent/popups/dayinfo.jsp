@@ -16,14 +16,14 @@
 <t:coldistance id="g_3" width="100%" />
 <t:button id="g_4" actionListener="#{d.DayInfoPopUp.onPreviousDay}" align="center" contentareafilled="false" image="/images/icons/black_prev.png" />
 <t:coldistance id="g_5" />
-<t:label id="g_6" align="center" background="null!" border="noborder" focusable="false" font="weight:bold" format="date" formatmask="long" text="label" timezone="CET" width="150" />
+<t:label id="g_6" text="#{d.DayInfoPopUp.selectedDate}" />
 <t:coldistance id="g_7" />
 <t:button id="g_8" actionListener="#{d.DayInfoPopUp.onNextDay}" align="center" contentareafilled="false" image="/images/icons/black_next.png" />
 <t:coldistance id="g_9" width="100%" />
 </t:row>
 <t:row id="g_10" >
 <t:label id="g_11" text="#{rr.literals.hr_rest}" width="100" />
-<t:formattedfield id="g_12" align="center" format="int" maxlength="3" value="#{d.DayInfoPopUp.restHr}" width="100" />
+<t:formattedfield id="g_12" align="center" format="int" maxlength="3" value="#{d.DayInfoPopUp.dayInfos.restingHr}" width="100" />
 </t:row>
 <t:row id="g_13" >
 <t:coldistance id="g_14" width="100%" />

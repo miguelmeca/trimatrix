@@ -32,6 +32,7 @@ import trimatrix.db.CompetitionsScouts;
 import trimatrix.db.CompetitionsScoutsId;
 import trimatrix.db.DAOLayer;
 import trimatrix.db.DayInfos;
+import trimatrix.db.DayInfosId;
 import trimatrix.db.EntitiesHaveLabels;
 import trimatrix.db.EntitiesHaveLabelsId;
 import trimatrix.db.IEntityDAO;
@@ -414,14 +415,12 @@ public class DBConnectionTest {
 	@Test
 	public void testDayInfos() {
 		// Competitions
-		String id = UUID.randomUUID().toString();
 		Date date = new Date();
-		DayInfos dayInfos = new DayInfos(id);
-		dayInfos.setDate(date);
+		DayInfosId dayInfosId = new DayInfosId(date, "1");
+		DayInfos dayInfos = new DayInfos(dayInfosId);
 		dayInfos.setRestingHr(42);
 		daoLayer.getDayInfosDAO().save(dayInfos);
-		DayInfos dayInfos2 = daoLayer.getDayInfosDAO().findById(id);
-		Assert.assertNotNull(dayInfos2.getDate());
+		DayInfos dayInfos2 = daoLayer.getDayInfosDAO().findById(dayInfosId);
 		Assert.assertEquals(new Integer(42), dayInfos2.getRestingHr());
 		daoLayer.getDayInfosDAO().delete(dayInfos2);
 	}

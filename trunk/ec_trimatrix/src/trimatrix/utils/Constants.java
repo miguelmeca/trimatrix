@@ -9,7 +9,7 @@ import trimatrix.entities.IEntityData;
 import trimatrix.relations.IRelationData;
 import trimatrix.structures.SGridMetaData;
 
-public final class Constants {	
+public final class Constants {
 	// all used jsp pages
 	public static enum Page {
 		WORKPLACE("/workplace.jsp","Workplace"),
@@ -38,7 +38,8 @@ public final class Constants {
 		LABELPOPUP("/labelpopup.jsp", "Labels"),
 		LABELCHANGEPOPUP("/popups/labelchange.jsp", "Label ändern"),
 		LABELSEARCHRESULT("/labelsearchresult.jsp", "Label Suchergebnis"),
-		SCHEDULECHANGEPOPUP("/popups/schedulechange.jsp", "Termin ändern");
+		SCHEDULECHANGEPOPUP("/popups/schedulechange.jsp", "Termin ändern"),
+		DAYINFOPOPUP("/popups/dayinfo.jsp", "Tagesinformation");
 		private final String url;
 		private final String description;
 		Page(String url, String description) {
@@ -47,20 +48,20 @@ public final class Constants {
 		}
 		public String getUrl(){ return url; }
 		public String getDescription(){ return description; }
-	}	
+	}
 	// all used entities
 	public static enum Entity {
 		// order is relevant, first all entities which are base entities
 		ZONE(Page.ZONESDETAIL, null, "zoneDetail"),
 		ZONEDEFINITION(Page.ZONESDEFINITION, null, "zonesDefinition"),
-		USER(Page.USERDETAIL, Page.USERSELECTION, "userEntity"), 
+		USER(Page.USERDETAIL, Page.USERSELECTION, "userEntity"),
 		PERSON(Page.PERSONDETAIL, Page.PERSONSELECTION, "personEntity"),
 		DOCTOR(Page.DOCTORDETAIL, Page.DOCTORSELECTION, "doctorEntity"),
 		TEST(Page.TESTDETAIL, Page.TESTSELECTION, "testEntity"),
 		COMPETITION(Page.COMPETITIONDETAIL, Page.COMPETITIONSELECTION, "competitionEntity"),
 		RESULT(Page.RESULTDETAIL, null, "resultEntity"),
 		ATTACHMENT(Page.ATTACHMENTDETAIL, Page.ATTACHMENTSELECTION, "attachmentEntity"),
-		MYCOACHES(PERSON, Page.PERSONDETAIL, Page.PERSONSELECTION, true), 
+		MYCOACHES(PERSON, Page.PERSONDETAIL, Page.PERSONSELECTION, true),
 		MYATHLETES(PERSON, Page.PERSONDETAIL, Page.PERSONSELECTION, false),
 		MYSCOUTEDATHLETES(PERSON, Page.PERSONDETAIL, Page.PERSONSELECTION, false),
 		SCOUTS(PERSON, Page.PERSONDETAIL, Page.PERSONSELECTION, false),
@@ -78,7 +79,7 @@ public final class Constants {
 		private final Page selectionPage;
 		private final boolean hasStandard;
 		private final String entityInstance;
-		
+
 		// constructor for base entities
 		Entity(Page detailPage, Page selectionPage, String entityInstance) {
 			this.baseEntity = null;
@@ -87,7 +88,7 @@ public final class Constants {
 			this.hasStandard = false;
 			this.entityInstance = entityInstance;
 		}
-		
+
 		Entity(Entity baseEntity, Page detailPage, Page selectionPage, boolean hasStandard) {
 			this.baseEntity = baseEntity;
 			this.detailPage = detailPage;
@@ -95,8 +96,8 @@ public final class Constants {
 			this.hasStandard = hasStandard;
 			this.entityInstance = null;
 		}
-		public Entity getBase() { 
-			if(baseEntity==null) return this; 
+		public Entity getBase() {
+			if(baseEntity==null) return this;
 			return baseEntity;
 		};
 		public Page getDetailPage() {
@@ -111,7 +112,7 @@ public final class Constants {
 		public String getEntityInstance() {
 			return entityInstance;
 		}
-		
+
 	}
 	// all relationtypes
 	public static enum Relation {
@@ -146,23 +147,23 @@ public final class Constants {
 			this.relationInstance = relationInstance;
 		}
 		public String type(){ return type; }
-		public Relation getBase(){ 
-			if(baseRelation==null) return this; 
+		public Relation getBase(){
+			if(baseRelation==null) return this;
 			return baseRelation;
 		};
-		public Constants.Entity getPartner1(){ 
-			if(baseRelation==null) return this.partner1; 
+		public Constants.Entity getPartner1(){
+			if(baseRelation==null) return this.partner1;
 			return baseRelation.partner1;
 		};
-		public Constants.Entity getPartner2(){ 
-			if(baseRelation==null) return this.partner2; 
+		public Constants.Entity getPartner2(){
+			if(baseRelation==null) return this.partner2;
 			return baseRelation.partner2;
 		};
 		public String getRelationInstance() {
 			return relationInstance;
 		}
 	}
-	
+
 	// all roles
 	public static enum Role {
 		ADMIN(0,"admin"), COACH(1,"coach"), ATHLETE(2,"athlete"), SCOUTER(3,"scouter");
@@ -175,11 +176,11 @@ public final class Constants {
 		public int getId() { return id; }
 		public String getName() { return name; }
 	}
-	
+
 	// all value lists
 	public static enum ValueList {
 		LANGUAGE, CURRENCY, LOGONLANGUAGE, SALUTATION, RELTYPS, COUNTRY, CATEGORY, TESTTYPE, COMPTYPE, FUNCTIONS
-	}	
+	}
 	// all functionnodes
 	public static enum FunctionNode {
 		MASTERDATA,
@@ -188,7 +189,7 @@ public final class Constants {
 		RELATIONS, RELATION_COACH, RELATION_DOCTOR, RELATION_ATTACHMENT, RELATION_SCOUT,
 		TESTS_COACH, ZONES_COACH,
 		ZONES_ATHLETE, RESULTS_SCOUT
-	}	
+	}
 	// all used profiles for persons
 	public static enum Profiles {
 		ATHLETE
@@ -196,17 +197,17 @@ public final class Constants {
 	// modes
 	public static enum Mode {
 		SHOW, CHANGE, NEW, COPY, SINGLECHANGE, FINAL
-	}	
-	
+	}
+
 	// authority objects
 	public static enum AuthorityObject {
 		ZONES
 	}
-	
+
 	public static final String NULL = "null";
 	public static final String EMPTY = "";
 	public static final String WHITESPACE = " ";
-	public static final String TRUE = "true";	
+	public static final String TRUE = "true";
 	public static final String FALSE = "false";
 	public static final String CENTER = "center";
 	public static final String P_ENTITY = "entity";
@@ -219,15 +220,15 @@ public final class Constants {
 	public static final String P_ATHLETE = "athlete";
 	public static final String P_FILTER = "filter";
 	public static final String FINAL = "final:";
-	
+
 	public static final String CREATE = "create";
 	public static final String CHANGE = "change";
 	public static final String DELETE = "delete";
 	public static final String ISRELATION = "isrelation";
 	public static final String STANDARD = "standard";
-	
+
 	public static final String NO_FILTER = "no_filter";
-		
+
 	public static final String BGP_MANDATORY = "mandatory()";
 	// constants for file extension
 	public static final String GIF_EXTENSION = "gif";
@@ -235,14 +236,14 @@ public final class Constants {
 	public static final String TEMPLATE_NEWPASSWORD = "/templates/mail/password.template";
 	// constants for paths
 	public static final String PATH_MIMEICONS = "/images/mimeicons/";
-	public static final String PATH_ICONS = "/images/icons/";		
-	// constants for smtp	
-	public static final ResourceBundle MAIL_BUNDLE = ResourceBundle.getBundle("mail");	
+	public static final String PATH_ICONS = "/images/icons/";
+	// constants for smtp
+	public static final ResourceBundle MAIL_BUNDLE = ResourceBundle.getBundle("mail");
 	public static final String SMTP_AUTH_USER = "smtp_auth_user";
 	public static final String SMTP_AUTH_PASS = "smtp_auth_pass";
 	public static final String SMTP_HOST_NAME = "smtp_host_name";
-	public static final String EMAIL_FROM_ADDRESS = "email_from_address";	
-	public static final String TYPE_TEXTHTML = "text/html";	
+	public static final String EMAIL_FROM_ADDRESS = "email_from_address";
+	public static final String TYPE_TEXTHTML = "text/html";
 	// constants for images
 	public static final String SIDE_EXPAND = PATH_ICONS + "application_side_expand.png";
 	public static final String SIDE_CONTRACT = PATH_ICONS + "application_side_contract.png";
@@ -251,18 +252,18 @@ public final class Constants {
 	// constants for sizes
 	public static final Integer MB_1 = new Integer(1024*1024);
 	public static final Integer KB_64 = new Integer(1024*64);
-	
+
 	// empty lists
 	public static final List<IEntityData> EMPTYENTITYDATA = new ArrayList<IEntityData>();
 	public static final List<SGridMetaData> EMPTYMETADATA =  new ArrayList<SGridMetaData>();
 	public static final List<IRelationData> EMPTYRELATIONDATA = new ArrayList<IRelationData>();
-	
+
 	public static final String UNKNOWN_MIME_TYPE="application/x-unknown-mime-type";
 	public static final String PDF_MIME_TYPE="application/pdf";
 
 	public static final String FILESEPARATOR  = "/"; // seems Cpt.Casa also works with Unix style
 	public static final String POINT = ".";
-	
+
 	// colors as string
 	public static final String WHITE = "#FFFFFF";
 	public static final String BLACK = "#000000";
@@ -270,36 +271,36 @@ public final class Constants {
 	public static final String GREEN = "#00FF00";
 	public static final String YELLOW = "#FFFF00";
 	public static final String BLUE = "#0000FF";
-	
+
 	// UI parameter
 	public static final String CLIENTNAME = "clientname";
 	public static final String TEXT = "text";
-	
+
 	// Resources
-	public static final String LITERALS = "literals"; 
-	
+	public static final String LITERALS = "literals";
+
 	// Fonts
 	public static final Font FONT_SS_PLAIN_9 = new Font("SansSerif", Font.PLAIN, 9);
-	
+
 	// HTTP paremeters
 	public static final String ECLNT_LANGUAGE = "eclnt-language";
 	public static final String ECLNT_WIDTH = "eclnt-width";
 	public static final String ECLNT_HEIGHT = "eclnt-height";
 	public static final String ECLNT_IP = "eclnt-ip";
-	
+
 	// VVB
 	public static final String EXP = "exp";
 	public static final String POLY = "poly";
-	
+
 	public static final String EXPONENTIAL = "Exponential";
-	public static final String POLYNOMIAL = "Polynomial";	
-	
+	public static final String POLYNOMIAL = "Polynomial";
+
 	// Global Workplace parameters
 	public static final int MAXWORKPAGES = 10;
-	
+
 	// Server url
 	public static final String TRIMATRIXURL = "http://cardassia.secitec.net/trimatrix";
-	
+
 	// Animation type
 	public static final String HIDETOLEFT = "hidetoleft";
 	public static final String HIDETORIGHT = "hidetoright";

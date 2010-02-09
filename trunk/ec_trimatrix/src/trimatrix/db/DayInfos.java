@@ -1,10 +1,10 @@
 package trimatrix.db;
 
-import java.util.Date;
-
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 
@@ -21,9 +21,7 @@ public class DayInfos  implements java.io.Serializable {
 
     // Fields    
 
-     private String id;
-     private Date date;
-     private String personId;
+     private DayInfosId id;
      private Integer restingHr;
 
 
@@ -34,50 +32,30 @@ public class DayInfos  implements java.io.Serializable {
     }
 
 	/** minimal constructor */
-    public DayInfos(String id) {
+    public DayInfos(DayInfosId id) {
         this.id = id;
     }
     
     /** full constructor */
-    public DayInfos(String id, Date date, String personId, Integer restingHr) {
+    public DayInfos(DayInfosId id, Integer restingHr) {
         this.id = id;
-        this.date = date;
-        this.personId = personId;
         this.restingHr = restingHr;
     }
 
    
     // Property accessors
-    @Id 
+    @EmbeddedId
     
-    @Column(name="id", unique=true, nullable=false, length=36)
+    @AttributeOverrides( {
+        @AttributeOverride(name="date", column=@Column(name="date", nullable=false, length=10) ), 
+        @AttributeOverride(name="personId", column=@Column(name="person_id", nullable=false, length=36) ) } )
 
-    public String getId() {
+    public DayInfosId getId() {
         return this.id;
     }
     
-    public void setId(String id) {
+    public void setId(DayInfosId id) {
         this.id = id;
-    }
-    
-    @Column(name="date", length=19)
-
-    public Date getDate() {
-        return this.date;
-    }
-    
-    public void setDate(Date date) {
-        this.date = date;
-    }
-    
-    @Column(name="person_id", length=36)
-
-    public String getPersonId() {
-        return this.personId;
-    }
-    
-    public void setPersonId(String personId) {
-        this.personId = personId;
     }
     
     @Column(name="resting_hr")
@@ -89,4 +67,13 @@ public class DayInfos  implements java.io.Serializable {
     public void setRestingHr(Integer restingHr) {
         this.restingHr = restingHr;
     }
+   
+
+
+
+
+
+
+
+
 }

@@ -67,19 +67,19 @@
 <t:row id="g_45" >
 <t:label id="g_46" align="center" font="size:12;weight:bold" text="KW" width="60" />
 <t:label id="g_47" align="center" font="size:16;weight:bold" text="Montag" width="16%" />
-<t:button id="g_48" contentareafilled="false" image="/images/icons/info_green.png" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
+<t:button id="g_48" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="0" contentareafilled="false" image="/images/icons/info_green.png" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
 <t:label id="g_49" align="center" font="size:16;weight:bold" text="Dienstag" width="16%" />
-<t:button id="g_50" contentareafilled="false" image="/images/icons/info_blue.png" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
+<t:button id="g_50" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="1" contentareafilled="false" image="/images/icons/info_blue.png" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
 <t:label id="g_51" align="center" font="size:16;weight:bold" text="Mittwoch" width="16%" />
-<t:button id="g_52" contentareafilled="false" image="/images/icons/info_blue.png" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
+<t:button id="g_52" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="2" contentareafilled="false" image="/images/icons/info_blue.png" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
 <t:label id="g_53" align="center" font="size:16;weight:bold" text="Donnerstag" width="16%" />
-<t:button id="g_54" contentareafilled="false" image="/images/icons/info_blue.png" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
+<t:button id="g_54" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="3" contentareafilled="false" image="/images/icons/info_blue.png" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
 <t:label id="g_55" align="center" font="size:16;weight:bold" text="Freitag" width="16%" />
-<t:button id="g_56" contentareafilled="false" image="/images/icons/info_blue.png" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
+<t:button id="g_56" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="4" contentareafilled="false" image="/images/icons/info_blue.png" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
 <t:label id="g_57" align="center" font="size:16;weight:bold" text="Samstag" width="10%" />
-<t:button id="g_58" contentareafilled="false" image="/images/icons/info_blue.png" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
+<t:button id="g_58" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="5" contentareafilled="false" image="/images/icons/info_blue.png" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
 <t:label id="g_59" align="center" font="size:16;weight:bold" text="Sonntag" width="10%" />
-<t:button id="g_60" contentareafilled="false" image="/images/icons/info_blue.png" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
+<t:button id="g_60" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="6" contentareafilled="false" image="/images/icons/info_blue.png" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
 </t:row>
 <t:rowdistance id="g_61" height="5" />
 <t:row id="g_62" >
