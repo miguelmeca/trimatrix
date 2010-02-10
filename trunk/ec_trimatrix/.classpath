@@ -77,5 +77,6 @@
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/json-0.19.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/spring-context-support.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/poi-3.6-20091214.jar"/>
+	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/google-collect-1.0.jar"/>
 	<classpathentry kind="output" path="webcontent/WEB-INF/classes"/>
 </classpath>
