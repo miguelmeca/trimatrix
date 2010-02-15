@@ -31,8 +31,8 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
     public String getType() { return scheduleItem.getType(); }
     public void setType(String type) { scheduleItem.setType(type); }
 
-    public String getText() { return scheduleItem.getText(); }
-    public void setText(String text) { scheduleItem.setText(text); }
+    public String getText() { return scheduleItem.getDescription(); }
+    public void setText(String text) { scheduleItem.setDescription(text); }
 
     public Date getFrom() { return scheduleItem.getFrom(); }
     public void setFrom(Date from) { scheduleItem.setFrom(from); }

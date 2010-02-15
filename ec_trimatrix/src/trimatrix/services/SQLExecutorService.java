@@ -22,6 +22,7 @@ import trimatrix.entities.DoctorEntity;
 import trimatrix.entities.IEntityData;
 import trimatrix.entities.PersonEntity;
 import trimatrix.entities.ResultEntity;
+import trimatrix.entities.ScheduleEntity;
 import trimatrix.entities.TestEntity;
 import trimatrix.entities.UserEntity;
 import trimatrix.logic.LogicLayer;
@@ -53,6 +54,7 @@ public class SQLExecutorService {
 	private static final String ATTACHMENTENTITYLISTQUERY = "AttachmentEntityList";
 	private static final String TESTENTITYLISTQUERY = "TestEntityList";
 	private static final String COMPETITIONENTITYLISTQUERY = "CompetitionEntityList";
+	private static final String SCHEDULEENTITYLISTQUERY = "ScheduleEntityList";
 	private static final String FUNCTIONTREEQUERY = "FunctionTree";
 	private static final String LANGUAGEVALUELISTQUERY = "LanguageValueList";
 	private static final String SALUTATIONVALUELISTQUERY = "SalutationValueList";
@@ -621,6 +623,81 @@ public class SQLExecutorService {
 	 */
 	public List<IEntityData> getResultEntities(String id, String competitionId, String scoutId, String athleteId, String compType) {
 		return getResultEntities(dictionaryService.getLanguage(), id, competitionId, scoutId, athleteId, compType, false, false);
+	}
+
+	/**
+	 * @param lang_key
+	 * @param id
+	 * @param personId
+	 * @param startLow
+	 * @param startHigh
+	 * @param deleted
+	 * @param test
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<IEntityData> getScheduleEntities(String lang_key, String id, String personId, Timestamp startLow, Timestamp startHigh, boolean deleted, boolean test) {
+		List<IEntityData> data = new ArrayList<IEntityData>();
+		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		Query query = session.getNamedQuery(SCHEDULEENTITYLISTQUERY);
+		query.setString("p_lang_key", lang_key);
+		query.setBoolean("p_deleted", deleted);
+		query.setBoolean("p_test", test);
+		// handle parameter
+		query.setString("p_id", id);
+		if(id==null) {
+			query.setBoolean("p_id_on", false);
+		} else {
+			query.setBoolean("p_id_on", true);
+		}
+		query.setString("p_person", personId);
+		if(personId==null) {
+			query.setBoolean("p_person_on", false);
+		} else {
+			query.setBoolean("p_person_on", true);
+		}
+		query.setTimestamp("p_start_low", startLow);
+		query.setTimestamp("p_start_high", startHigh);
+		if(startLow==null || startHigh==null) {
+			query.setBoolean("p_start_on", false);
+		} else {
+			query.setBoolean("p_start_on", true);
+		}
+		List<Object[]> result = query.list();
+		for(Object[] line : result) {
+			ScheduleEntity.Data datum = new ScheduleEntity.Data();
+			int i = 0;
+			datum.id = (String)line[i++];
+			datum.person = (String)line[i++];
+			datum.type = (String)line[i++];
+			datum.description = (String)line[i++];
+			datum.start = (Timestamp)line[i++];
+			datum.duration = (Integer)line[i++];
+			datum.color = (String)line[i++];
+			data.add(datum);
+		}
+		session.close();
+		return data;
+	}
+
+	/**
+	 * Get all schedules
+	 * @return
+	 */
+	public List<IEntityData> getScheduleEntities() {
+		return getScheduleEntities(dictionaryService.getLanguage(), null, null, null, null, false, false);
+	}
+
+	/**
+	 * @param id
+	 * @param personId
+	 * @param startLow
+	 * @param startHigh
+	 * @return
+	 */
+	public List<IEntityData> getScheduleEntities(String id, String personId, Timestamp startLow, Timestamp startHigh) {
+		return getScheduleEntities(dictionaryService.getLanguage(), id, personId, startLow, startHigh, false, false);
 	}
 
 	/**

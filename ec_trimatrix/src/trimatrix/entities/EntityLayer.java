@@ -4,13 +4,14 @@ import org.springframework.context.ApplicationContext;
 
 public class EntityLayer {
 	private PersonEntity personEntity;
-	private UserEntity userEntity;	
+	private UserEntity userEntity;
 	private DoctorEntity doctorEntity;
 	private AttachmentEntity attachmentEntity;
 	private TestEntity testEntity;
 	private CompetitionEntity competitionEntity;
 	private ResultEntity resultEntity;
-	
+	private ScheduleEntity scheduleEntity;
+
 	public PersonEntity getPersonEntity() {
 		return personEntity;
 	}
@@ -25,7 +26,7 @@ public class EntityLayer {
 
 	public void setUserEntity(UserEntity userEntity) {
 		this.userEntity = userEntity;
-	}	
+	}
 
 	public DoctorEntity getDoctorEntity() {
 		return doctorEntity;
@@ -33,7 +34,7 @@ public class EntityLayer {
 
 	public void setDoctorEntity(DoctorEntity doctorEntity) {
 		this.doctorEntity = doctorEntity;
-	}	
+	}
 
 	public AttachmentEntity getAttachmentEntity() {
 		return attachmentEntity;
@@ -41,7 +42,7 @@ public class EntityLayer {
 
 	public void setAttachmentEntity(AttachmentEntity attachmentEntity) {
 		this.attachmentEntity = attachmentEntity;
-	}	
+	}
 
 	public TestEntity getTestEntity() {
 		return testEntity;
@@ -65,6 +66,14 @@ public class EntityLayer {
 
 	public void setResultEntity(ResultEntity resultEntity) {
 		this.resultEntity = resultEntity;
+	}
+
+	public ScheduleEntity getScheduleEntity() {
+		return scheduleEntity;
+	}
+
+	public void setScheduleEntity(ScheduleEntity scheduleEntity) {
+		this.scheduleEntity = scheduleEntity;
 	}
 
 	public static EntityLayer getFromApplicationContext(ApplicationContext ctx) {

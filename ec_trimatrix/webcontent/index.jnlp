@@ -13,7 +13,7 @@
     </security>
     
    	<resources>
-   	    <j2se version="1.6+" java-vm-args="-esa -Xnoclassgc -Xmx256m"/>    
+   	    <j2se version="1.6+" java-vm-args="-dsa -Xnoclassgc -Xmx256m"/>    
    	    <jar href="eclnt/lib/eclnt.jar"/>  
    	    
    	    <!-- ONLY REQUIRED WHEN USING BROWSER OR ACTIVEX COMPONENT! -->
@@ -32,12 +32,12 @@
         <jar href="eclnt/lib/commons-logging.jar"/>  
         <jar href="eclnt/lib/commons-logging-api.jar"/>  
         @@jasperend@@ -->
-        <!-- @@jasperpdfbegin@@
+        <!-- -->
         <jar href="eclnt/lib/iText.jar"/>  
-        @@jasperpdfend@@ -->
-        <!-- @@jasperxlsbegin@@
+        <!-- -->
+        <!-- -->
         <jar href="eclnt/lib/poi.jar"/>  
-        @@jasperxlsend@@ -->
+        <!-- -->
         
         <!-- ONLY REQUIRED WHEN USING PDFRENDERER COMPONENT! -->
         <!-- @@pdfrendererbegin@@

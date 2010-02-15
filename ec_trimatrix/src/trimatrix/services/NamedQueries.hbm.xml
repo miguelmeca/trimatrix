@@ -334,6 +334,36 @@ WHERE attachments.test = :p_test
   <return-scalar column="file_size" type="java.lang.Integer"/>
 </sql-query>
 
+<sql-query cacheable="true" name="ScheduleEntityList" read-only="true">
+SELECT
+  schedules.id,
+  TRIM(CONCAT(persons.name_first,' ', persons.name_last)) person,
+  t_scheduletypes.description TYPE,
+  schedules.description,
+  schedules.start,
+  schedules.duration,
+  schedules.color
+FROM schedules
+  LEFT OUTER JOIN persons
+    ON persons.id = schedules.person_id
+  LEFT OUTER JOIN t_scheduletypes
+    ON t_scheduletypes.key = schedules.type
+    AND t_scheduletypes.language_key = :p_lang_key
+WHERE schedules.test = :p_test
+    AND schedules.deleted = :p_deleted
+    AND ( schedules.person_id = :p_person OR 0 = :p_person_on )
+    AND ( schedules.start BETWEEN :p_start_low AND :p_start_high OR 0 = :p_start_on )
+    AND ( schedules.id = :p_id OR 0 = :p_id_on )
+ORDER BY schedules.start ASC
+  <return-scalar column="id" type="java.lang.String"/>
+  <return-scalar column="person" type="java.lang.String"/>
+  <return-scalar column="type" type="java.lang.String"/>
+  <return-scalar column="description" type="java.lang.String"/>
+  <return-scalar column="start" type="java.sql.Timestamp"/>
+  <return-scalar column="duration" type="java.lang.Integer"/>
+  <return-scalar column="color" type="java.lang.String"/>
+</sql-query>
+
  <sql-query cacheable="true" name="PersonRelationEntityList" read-only="true">
  SELECT
   persons.id,

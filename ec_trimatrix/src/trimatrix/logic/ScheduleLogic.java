@@ -1,13 +1,16 @@
 package trimatrix.logic;
 
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 
 import trimatrix.db.DAOLayer;
 import trimatrix.db.DayInfos;
 import trimatrix.db.DayInfosId;
+import trimatrix.entities.IEntityData;
 import trimatrix.services.ServiceLayer;
 
 public class ScheduleLogic {
@@ -60,6 +63,14 @@ public class ScheduleLogic {
 			Statusbar.outputAlert("Daten konnten nicht gespeichert werden!", "Fehler", ex.toString());
 			return false;
 		}
+	}
+
+	public List<IEntityData> getWeeksSchedule(Date beginOfWeek, String personId) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(beginOfWeek);
+		cal.add(Calendar.DAY_OF_WEEK, 6); // Add a week
+		Date startHigh = cal.getTime();
+		return serviceLayer.getSqlExecutorService().getScheduleEntities(null, personId, new Timestamp(beginOfWeek.getTime()), new Timestamp(startHigh.getTime()) );
 	}
 
 	public void setServiceLayer(ServiceLayer serviceLayer) {

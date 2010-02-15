@@ -8,13 +8,13 @@
 
 	<session-factory>
 		<property name="myeclipse.connection.profile">MySQL</property>
-		<!-- 
+		<!--
 		<property name="connection.url">jdbc:mysql://localhost/trimatrix?autoReconnect=true</property>
 		<property name="connection.username">trimatrix</property>
 		<property name="connection.password">trimatrix</property>
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 		-->
-		<property name="connection.datasource">java:comp/env/jdbc/TrimatrixDB</property>		
+		<property name="connection.datasource">java:comp/env/jdbc/TrimatrixDB</property>
 
 		<property name="dialect">
 			org.hibernate.dialect.MySQLDialect
@@ -44,7 +44,7 @@
 		<property name="hbm2ddl.auto">validate</property>
 
 
-		<!-- Activate Envers                
+		<!-- Activate Envers
 			<property name="hibernate.ejb.event.post-insert">org.hibernate.ejb.event.EJB3PostInsertEventListener,org.hibernate.envers.event.AuditEventListener</property>
 			<property name="hibernate.ejb.event.post-update">org.hibernate.ejb.event.EJB3PostUpdateEventListener,org.hibernate.envers.event.AuditEventListener</property>
 			<property name="hibernate.ejb.event.post-delete">org.hibernate.ejb.event.EJB3PostDeleteEventListener,org.hibernate.envers.event.AuditEventListener</property>
@@ -53,7 +53,6 @@
 			<property name="hibernate.ejb.event.post-collection-recreate">org.hibernate.envers.event.AuditEventListener</property>
 		-->
 
-		<mapping resource="trimatrix/db/UsersHaveRoles.hbm.xml" />
 		<mapping resource="trimatrix/services/NamedQueries.hbm.xml" />
 		<mapping class="trimatrix.db.TestsTreadmill" />
 		<mapping class="trimatrix.db.TestsProtocol" />
@@ -94,6 +93,10 @@
 		<mapping class="trimatrix.db.PersonsHaveAttachments" />
 		<mapping class="trimatrix.db.PersonsHaveDoctors" />
 		<mapping class="trimatrix.db.Categories" />
+		<mapping class="trimatrix.db.Schedules" />
+		<mapping class="trimatrix.db.TScheduletypes" />
+		<mapping class="trimatrix.db.DayInfos" />
+		<mapping class="trimatrix.db.UsersHaveRoles" />
 	</session-factory>
 
 </hibernate-configuration>

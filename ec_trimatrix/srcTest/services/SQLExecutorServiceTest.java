@@ -19,29 +19,29 @@ import trimatrix.utils.ContextStatic;
 
 
 public class SQLExecutorServiceTest {
-	
+
 	private static ApplicationContext context = ContextStatic.getInstance();
-	private static SQLExecutorService sqlExecutorService = SQLExecutorService.getFromApplicationContext(context);	
+	private static SQLExecutorService sqlExecutorService = SQLExecutorService.getFromApplicationContext(context);
 	private static DAOLayer daoLayer = DAOLayer.getFromApplicationContext(context);
 
 	@Test
-	public void testUserEntityListQuery() {		
+	public void testUserEntityListQuery() {
 		List<IEntityData> userEntityData = sqlExecutorService.getUserEntities("de", false, false);
 		Assert.assertTrue(userEntityData.size() > 0);
 	}
-	
+
 	@Test
-	public void testFunctionTreeQuery() {		
+	public void testFunctionTreeQuery() {
 		List<SFunctionTree> functionTree = sqlExecutorService.getFunctionTree(Constants.Role.ADMIN, "de");
 		Assert.assertTrue(functionTree.size() > 0);
 	}
-	
+
 	@Test
-	public void testPersonPersonQuery() {		
+	public void testPersonPersonQuery() {
 		List<IRelationData> relations = sqlExecutorService.getPersonPersonRelation(Constants.Relation.PERSONPERSON, "de");
 		Assert.assertTrue(relations.size() > 0);
 	}
-	
+
 	@Test
 	public void testEntitiesByLabelQuery() {
 		List<Labels> labels = daoLayer.getLabelsDAO().findAll();
@@ -49,6 +49,12 @@ public class SQLExecutorServiceTest {
 			Map<Constants.Entity, List<String>> map = sqlExecutorService.getEntitiesByLabelList(labels.get(0).getId(), false);
 			Assert.assertTrue(map.size() > 0);
 		}
-		
+	}
+
+
+	@Test
+	public void testScheduleListQuery() {
+		List<IEntityData> scheduleEntityData = sqlExecutorService.getScheduleEntities("de", null, null, null, null, false, false);
+		Assert.assertTrue(scheduleEntityData.size()>0);
 	}
 }
