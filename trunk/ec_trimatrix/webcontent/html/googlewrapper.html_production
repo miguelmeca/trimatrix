@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<title>Coder Page</title>
+		<script
+			src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAShQlzoLY1aDSYrVpEMEnJRSOm_K-B5MPQMoN2WPmHO42VCAzYxTRA8UhLkYgqyv6UM_tAcAyT3h_Uw"
+			type="text/javascript"></script>
+		<script type='text/javascript'>
+	var urlstring = document.location.href;
+	var indexStart = urlstring.indexOf("param=(");
+	var indexEnd = urlstring.indexOf(")", indexStart);
+	var urlparam = urlstring.substring(indexStart + 7, indexEnd);
+	var urlparams = urlparam.split(",");
+	var m_urlBase = urlparams[0];
+	var m_search = unescape(urlparams[1]);
+	var m_lat = urlparams[2] * 1;
+	var m_lng = urlparams[3] * 1;
+	var m_name = urlparams[4];
+	var m_info = '<b>' + m_name + '</b><br/>' + m_search;
+	var map;
+	var geocoder;
+	var marker;
+	function load() {
+		if (GBrowserIsCompatible()) {
+			geocoder = new GClientGeocoder();
+			map = new GMap2(document.getElementById("map"));
+			map.setUIToDefault();
+			if (m_lat != "" && m_lng != "") {
+				createMarker(map, new GLatLng(m_lat, m_lng));
+			} else if (m_search != "") {
+				showAddress(m_search);
+			}
+		}
+	}
+
+	function sendCoordinates(lat, lng) {
+		var divcomm = document.getElementById("DIVCOMM");
+		var divurl = "<iframe src='" + m_urlBase + "/" + lat + ":" + lng
+				+ ")' width='0' height='0'>";
+		divcomm.innerHTML = divurl;
+	}
+
+	function createMarker(map, point) {
+		map.clearOverlays();
+		map.setCenter(point, 17);
+		marker = new GMarker(point, {
+			draggable : true
+		});
+		map.addOverlay(marker);
+		marker.openInfoWindowHtml(m_info);
+		sendCoordinates(point.lat(), point.lng());
+		GEvent.addListener(marker, "dragend", function() {
+			var point = marker.getPoint();
+			map.panTo(point);
+			sendCoordinates(point.lat(), point.lng());
+		});
+		GEvent.addListener(marker, "click", function() {
+			marker.openInfoWindowHtml(m_info);
+		});
+	}
+
+	function showAddress(address) {
+		if (geocoder) {
+			geocoder.getLatLng(address, function(point) {
+				if (!point) {
+					alert(address + " not found");
+				} else {
+					createMarker(map, point);
+				}
+			});
+		}
+	}
+</script>
+	</head>
+	<body onload="load()" onunload="GUnload()" topmargin="0" leftmargin="0"
+		rightmargin="0" bottommargin="0" style="padding: 0"
+		style="overflow:hidden" scroll="no">
+		<div id="map" style="width: 400px; height: 300px"></div>
+		<div style="width: 0px; height: 0px" id="DIVCOMM"></div>
+	</body>
+</html>

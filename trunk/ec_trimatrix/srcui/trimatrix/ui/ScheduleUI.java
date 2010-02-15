@@ -28,6 +28,8 @@ import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 import org.eclnt.workplace.WorkpageDefaultLifecycleListener;
 
+import trimatrix.entities.IEntityData;
+import trimatrix.entities.ScheduleEntity;
 import trimatrix.reports.excel.PerformanceChart;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
@@ -85,13 +87,15 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 	}
 
 	public void onCopySchedules(ActionEvent event) {
-		System.out.println("Test");
+		Statusbar.outputAlert("Copy schedule!");
 	}
 
 	public void onCreateTemplate(ActionEvent event) {
+		Statusbar.outputAlert("Create template!");
 	}
 
 	public void onCreateSerie(ActionEvent event) {
+		Statusbar.outputAlert("Create series!");
 	}
 
 	protected final int DURATION = 3600000; // in ms
@@ -270,15 +274,31 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 						BufferedContentMgr.remove(report);
 					}
 				});
-		// refresh UI
-		refresh();
-	}
-
-	private void refresh() {
 		// build vvbAthletes
 		m_vvbAthletes.clear();
 		m_vvbAthletes.addValidValue("10f52302-2ddb-11de-86ae-00301bb60f17", "Daniela Bucher");
 		m_vvbAthletes.addValidValue("0b0b7658-2ddb-11de-86ae-00301bb60f17", "Markus Reich");
+		// refresh UI
+		refresh();
+	}
+
+	/**
+	 * Load schedule entites from database
+	 */
+	private void update() {
+		scheduleItems.clear();
+		List<IEntityData> data = getLogic().getScheduleLogic().getWeeksSchedule(getBeginOfWeek(), getAthleteID());
+		if(data==null) return;
+		for(IEntityData datum : data) {
+			ScheduleEntity.Data schedule = (ScheduleEntity.Data)datum;
+			scheduleItems.add(new ScheduleItem(schedule));
+		}
+
+
+	}
+
+	private void refresh() {
+		update();
 		refreshAllSchedules();
 	}
 
@@ -332,7 +352,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			st.setScheduleleft(item.getFromInMinutes() + "");
 			st.setSchedulewidth(expressionBase + "ScheduleUI.scheduleItems["
 					+ counter + "].durationInMinutes}");
-			st.setText("\n" + item.getText());
+			st.setText("\n" + item.getDescription());
 			st.setBgpaint("roundedborder(0,0,100%,100%,10,10," + background
 					+ ",2);rectangle(0,0,100%,16," + background
 					+ ");write(5,0," + item.getType() + ",12," + foreground
@@ -511,6 +531,14 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 	}
 
 	public class ScheduleItem {
+
+		public ScheduleItem(ScheduleEntity.Data data) {
+			this.type = data.getType();
+			this.from = data.getStart();
+			this.to = data.getEnd();
+			this.color = data.getColor();
+		}
+
 		String type;
 		public String getType() {return type;}
 		public void setType(String type) {this.type = type;}
@@ -527,16 +555,16 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		public String getColor() {return color;}
 		public void setColor(String color) {this.color = color;}
 
-		String text;
-		public String getText() {return text;}
-		public void setText(String text) {this.text = text;}
+		String description;
+		public String getDescription() {return description;}
+		public void setDescription(String description) {this.description = description;}
 
-		public ScheduleItem(Date from, Date to, String color, String text,
+		public ScheduleItem(Date from, Date to, String color, String description,
 				String type) {
 			this.from = from;
 			this.to = to;
 			this.color = color;
-			this.text = text;
+			this.description = description;
 			this.type = type;
 		}
 

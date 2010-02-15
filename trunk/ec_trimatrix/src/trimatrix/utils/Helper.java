@@ -91,6 +91,7 @@ public class Helper {
 	}
 
 	public static String getBlackOrWhite(Color color) {
+		if(color==null) return Constants.BLACK;
 		// get RGB
 		int red = color.getRed();
 		int green = color.getGreen();
@@ -107,6 +108,7 @@ public class Helper {
 	}
 
 	public static String getBlackOrWhite(String color) {
+		if(isEmpty(color)) return Constants.BLACK;
 		return getBlackOrWhite(Color.decode(color));
 	}
 
@@ -332,10 +334,10 @@ public class Helper {
 		bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
 		return bd.doubleValue();
 	}
-	
+
 	public static String formatDate(Date date, String format) {
 		SimpleDateFormat sd = new SimpleDateFormat(format);
-		return sd.format(date); 
+		return sd.format(date);
 	}
 
 	// public static final Log logger = LogFactory.getLog("trimatrix");
