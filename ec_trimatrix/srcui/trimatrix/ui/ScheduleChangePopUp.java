@@ -20,6 +20,8 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 
 	public interface IPopupCallback {
     	public void cancel();
+
+    	public void ok();
     }
 
     protected IPopupCallback callback;
@@ -50,7 +52,7 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
     }
 
     public void onOk(ActionEvent event) {
-    	callback.cancel();
+    	callback.ok();
     }
 
 }

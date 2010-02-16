@@ -20,7 +20,6 @@ public class ScheduleEntity extends AEntity {
     public static final String DURATION = "druration";
     public static final String COLOR = "color";
 
-	@Override
 	public IEntityObject create() {
 		String id = UUID.randomUUID().toString();
 		Schedules entity = new Schedules();
@@ -31,25 +30,21 @@ public class ScheduleEntity extends AEntity {
 		return entity;
 	}
 
-	@Override
 	public List<IEntityData> getData(Entity entity, String personId, String filter) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public List<IEntityData> getData(Entity entity, String filter) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public List<IEntityData> getData() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public List<SGridMetaData> getGridMetaData() {
 		List<SGridMetaData> gridMetaData = new ArrayList<SGridMetaData>();
         gridMetaData.add(new SGridMetaData("Person", PERSON, SGridMetaData.Component.FIELD));
@@ -91,7 +86,7 @@ public class ScheduleEntity extends AEntity {
 		public String getTypeDesc() {
 			return typeDesc;
 		}
-		
+
 		public String getPerson() {
 			return person;
 		}
@@ -100,7 +95,7 @@ public class ScheduleEntity extends AEntity {
 			return description;
 		}
 
-		public Date getStart() {
+		public Timestamp getStart() {
 			return start;
 		}
 
@@ -112,8 +107,8 @@ public class ScheduleEntity extends AEntity {
 			return color;
 		}
 
-		public Date getEnd() {
-			return new Date(getStart().getTime() + duration * 60000);
+		public Timestamp getEnd() {
+			return new Timestamp(getStart().getTime() + duration * 60000);
 		}
 
 

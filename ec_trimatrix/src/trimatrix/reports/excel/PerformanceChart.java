@@ -40,7 +40,6 @@ public class PerformanceChart extends Report {
 		this.data = data;
 	}
 
-	@Override
 	public byte[] getContent() {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		try {
@@ -50,7 +49,7 @@ public class PerformanceChart extends Report {
 			Sheet sheet = wb.createSheet("Performance Chart");
 			PrintSetup printSetup = sheet.getPrintSetup();
 			printSetup.setLandscape(true);
-			
+
 			// title row
 			Row titleRow = sheet.createRow(0);
 			titleRow.setHeightInPoints(45);
@@ -86,7 +85,7 @@ public class PerformanceChart extends Report {
 		        // date
 		        cell = row.createCell(1);
 		        Date date = item.getDate();
-		        if(date!=null) cell.setCellValue(Helper.formatDate(date, "dd.MM.yyyy"));		        
+		        if(date!=null) cell.setCellValue(Helper.formatDate(date, "dd.MM.yyyy"));
 		        cell.setCellStyle(styles.get(Style.CELL));
 		        sheet.addMergedRegion(CellRangeAddress.valueOf("$B$" + (actualRow-1) + ":$B$" + actualRow));
 		        // competition
@@ -190,11 +189,11 @@ public class PerformanceChart extends Report {
 		    for (int i = 0; i < titles.length; i++) {
 		    	sheet.autoSizeColumn(i, true);
 		    }
-		    
+
 		    // fit to page
 		    sheet.setFitToPage(true);
 			sheet.setHorizontallyCenter(true);
-		    
+
 			wb.write(out);
 			return out.toByteArray();
 		} catch (Exception ex) {
@@ -208,7 +207,6 @@ public class PerformanceChart extends Report {
 		return new byte[0];
 	}
 
-	@Override
 	public String getContentType() {
 		return "application/xls";
 	}

@@ -40,8 +40,9 @@ import trimatrix.utils.Helper;
 @CCGenClass(expressionBase = "#{d.ScheduleUI}")
 public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		Serializable {
+
     public void onChangeAthlete(ActionEvent event) {
-    	refreshAgenda();
+    	refresh();
     }
 
     protected String athleteID;
@@ -81,12 +82,12 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		}
 	}
 
-	private void refreshAgenda() {
-		m_gridAgenda.getItems().clear();
-		for (ScheduleItem scheduleItem : scheduleItems) {
-			m_gridAgenda.getItems().add(new GridAgendaItem(scheduleItem));
-		}
-	}
+//	private void refreshAgenda() {
+//		m_gridAgenda.getItems().clear();
+//		for (ScheduleItem scheduleItem : scheduleItems) {
+//			m_gridAgenda.getItems().add(new GridAgendaItem(scheduleItem));
+//		}
+//	}
 
 	public void onCopySchedules(ActionEvent event) {
 		Statusbar.outputAlert("Copy schedule!");
@@ -100,7 +101,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		Statusbar.outputAlert("Create series!");
 	}
 
-	protected final int DURATION = 3600000; // in ms
+	protected final long DURATION = 3600000; // in ms
 	protected final int STARTINGHOUR = 6;
 
 	protected final int NUMBEROFBLOCKS = 24;
@@ -295,8 +296,6 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			ScheduleEntity.Data schedule = (ScheduleEntity.Data)datum;
 			scheduleItems.add(new ScheduleItem(schedule));
 		}
-
-
 	}
 
 	private void refresh() {
@@ -412,6 +411,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			if (date != null) {
 				calendar.setTime(date);
 				calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+				refresh();
 			}
 		}
 	}
@@ -453,15 +453,14 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			// creation of a new schedule through context menue
 			if (event instanceof BaseActionEventPopupMenuItem) {
 				BaseActionEventPopupMenuItem bae = (BaseActionEventPopupMenuItem) event;
-				Date from = getLogic().getScheduleLogic().calculateBeginDate(
+				Timestamp from = getLogic().getScheduleLogic().calculateBeginDate(
 						bae.getPercentageVerticalAsFloat(), SCHEDULEMAX,
 						getBeginOfWeek(), day, STARTINGHOUR);
-				Date to = new Date(from.getTime() + DURATION);
 				// add to list of visible items
-				ScheduleItem scheduleItem = new ScheduleItem(from, to,
-						Constants.BLUE, "Neuer Termin", "Laufen");
-				scheduleItems.add(scheduleItem);				
-				refreshSchedule(day);
+				Schedules schedule = getLogic().getScheduleLogic().createSchedule(from, athleteID);
+				ScheduleItem scheduleItem = new ScheduleItem(schedule);
+				scheduleItems.add(scheduleItem);
+				refresh();
 				// open in popup
 				scheduleItem.openInPopup();
 			} else if (event instanceof BaseActionEventDrop) {
@@ -474,30 +473,14 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 					String[] dragInfos = dragInfo.split(":");
 					// new or existing schedule item
 					if (dragInfos[1].startsWith("new")) {
-						Date to = new Date(from.getTime() + DURATION);
-						String type;
-						String color;
-						if (dragInfos[1].equalsIgnoreCase("new_run")) {
-							type = "Laufen";
-							color = Constants.BLUE;
-						} else if (dragInfos[1].equalsIgnoreCase("new_bike")) {
-							type = "Rad";
-							color = Constants.GREEN;
-						} else {
-							type = "Schwimmen";
-							color = Constants.RED;
-						}
 						// add to list of visible items
-						ScheduleItem scheduleItem = new ScheduleItem(from, to,
-								color, "Neuer Termin", type);
+						Schedules schedule = getLogic().getScheduleLogic().createSchedule(from, athleteID);
+						ScheduleItem scheduleItem = new ScheduleItem(schedule);
 						scheduleItems.add(scheduleItem);
-						refreshSchedule(day);
+						refresh();
 						// open in popup
 						scheduleItem.openInPopup();
 					} else if (dragInfos[1].startsWith("series")) {
-						Date to = new Date(from.getTime() + DURATION);
-						String type;
-						String color;
 						if (dragInfos[1].equalsIgnoreCase("series_a")) {
 
 						} else if (dragInfos[1].equalsIgnoreCase("series_b")) {
@@ -514,17 +497,11 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 						// scheduleItem.openInPopup();
 					} else {
 						String id = dragInfos[1];
-						// TODO put into logic layer
-						Schedules schedule = getDaoLayer().getSchedulesDAO().findById(id);
-						if(schedule!=null) {
-							schedule.setStart(from);
-							getDaoLayer().getSchedulesDAO().merge(schedule);
-						}
+						getLogic().getScheduleLogic().changeStart(id, from);
 						refresh();
 					}
 				}
 			}
-			refreshAgenda();
 		}
 
 		public void onGetDaysInfo(ActionEvent event) {
@@ -539,25 +516,53 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			this.id = data.getId();
 			this.type = data.getType();
 			this.typeDesc = data.getTypeDesc();
-			this.from = data.getStart();
+			this.start = data.getStart();
 			this.to = data.getEnd();
 			this.color = data.getColor();
 			this.description = data.getDescription();
 		}
-		
+
+		public ScheduleItem(Schedules data) {
+			this.id = data.getId();
+			this.type = data.getType();
+			this.start = data.getStart();
+			this.to = data.getEnd();
+			this.color = data.getColor();
+			this.description = data.getDescription();
+		}
+
+		public void save() {
+			Schedules schedule = getLogic().getScheduleLogic().getSchedule(getId());
+			if(schedule==null) {
+				Statusbar.outputAlert("Schedule couldn't be saved!");
+				return;
+			}
+			// Update schedule
+			schedule.setStart(getStart());
+			schedule.setDuration(getDuration());
+			schedule.setColor(getColor());
+			schedule.setType(getType());
+			schedule.setDescription(getDescription());
+			// Persist schedule
+			getLogic().getScheduleLogic().saveSchedule(schedule);
+		}
+
 		String id;
 		public String getId() { return id; }
 
 		String type;
 		public String getType() {return type;}
 		public void setType(String type) {this.type = type;}
-		
+
 		String typeDesc;
 		public String getTypeDesc() {return typeDesc;}
-		
-		Date from;
-		public Date getFrom() {return from;}
-		public void setFrom(Date from) {this.from = from;}
+
+		Timestamp start;
+		public Timestamp getStart() {return start;}
+		public void setStart(Timestamp start) {this.start = start;}
+
+		public Date getFrom() {return start;}
+		public void setFrom(Date from) {this.start = new Timestamp(from.getTime());}
 
 		Date to;
 		public Date getTo() {return to;}
@@ -571,30 +576,21 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		public String getDescription() {return description;}
 		public void setDescription(String description) {this.description = description;}
 
-		public ScheduleItem(Date from, Date to, String color, String description,
-				String type) {
-			this.from = from;
-			this.to = to;
-			this.color = color;
-			this.description = description;
-			this.type = type;
-		}
-
 		public int getFromWeekDay() {
 			Calendar cal = Calendar.getInstance();
-			cal.setTime(from);
+			cal.setTime(getFrom());
 			return cal.get(Calendar.DAY_OF_WEEK);
 		}
 
 		public long getFromInMinutes() {
 			Calendar cal = Calendar.getInstance();
-			cal.setTime(from);
+			cal.setTime(getFrom());
 			cal.set(Calendar.MILLISECOND, 0);
 			cal.set(Calendar.SECOND, 0);
 			cal.set(Calendar.MINUTE, 0);
 			cal.set(Calendar.HOUR_OF_DAY, STARTINGHOUR);
 			Date startingHour = cal.getTime();
-			return (from.getTime() - startingHour.getTime()) / 60000;
+			return (getFrom().getTime() - startingHour.getTime()) / 60000;
 		}
 
 		public long getDurationInMinutes() {
@@ -602,11 +598,11 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		}
 
 		public long getDuration() {
-			return to.getTime() - from.getTime();
+			return to.getTime() - getFrom().getTime();
 		}
 
 		public void setDurationInMinutes(long value) {
-			to = new Date(from.getTime() + value * 60000);
+			to = new Date(getFrom().getTime() + value * 60000);
 		}
 
 		public void onScheduleItemAction(ActionEvent event) {
@@ -616,22 +612,20 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 					YESNOPopup.createInstance("Removing Schedule Item",
 							"Do you really want to remove the selected item?",
 							new YESNOPopup.IYesNoListener() {
-								public void reactOnNo() {
-								}
+								public void reactOnNo() { return; }
 
 								public void reactOnYes() {
-									Statusbar.outputMessage("Item removed!");
+									ScheduleItem scheduleItem;
 									try {
-										ScheduleItem this_ = (ScheduleItem) getClass()
-												.getDeclaredField("this$1")
-												.get(this);
-										scheduleItems.remove(this_);
-										refreshAllSchedules();
+										scheduleItem = (ScheduleItem) getClass().getDeclaredField("this$1").get(this);
+										if(getLogic().getScheduleLogic().deleteSchedule(scheduleItem.getId())) {
+											Statusbar.outputMessage("Item removed!");
+											refreshAllSchedules();
+										} else {
+											Statusbar.outputAlert("Item couldn't be removed!");
+										}
 									} catch (Exception ex) {
-										Statusbar
-												.outputError(
-														"Error removing schedule item!",
-														ex.toString());
+										Statusbar.outputAlert("Item couldn't be removed!", ex.toString());
 									}
 								}
 							});
@@ -640,20 +634,13 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 				// right size duration
 				long duration = getDurationInMinutes();
 				duration = ((duration + 7) / 15) * 15;
-				// setDurationInMinutes(duration);
-				// TODO put into logic layer
-				Schedules schedule = getDaoLayer().getSchedulesDAO().findById(id);
-				if(schedule!=null) {
-					schedule.setDuration(duration);
-					getDaoLayer().getSchedulesDAO().merge(schedule);
-				}
-				refresh();				
+				getLogic().getScheduleLogic().changeDuration(id, duration);
+				refresh();
 			} else if (event instanceof BaseActionEventFlush) {
 				selectScheduleItem(this);
 			} else if (event instanceof BaseActionEventInvoke) {
 				openInPopup();
 			}
-			refreshAgenda();
 		}
 
 		private void openInPopup() {
@@ -662,6 +649,12 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			scheduleChangePopUp.prepareCallback(
 					new ScheduleChangePopUp.IPopupCallback() {
 						public void cancel() {
+							m_popup.close();
+							refresh();
+						}
+
+						public void ok() {
+							save();
 							m_popup.close();
 							refresh();
 						}
