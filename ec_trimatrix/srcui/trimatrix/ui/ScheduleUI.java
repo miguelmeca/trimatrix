@@ -1,6 +1,7 @@
 package trimatrix.ui;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -28,6 +29,7 @@ import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 import org.eclnt.workplace.WorkpageDefaultLifecycleListener;
 
+import trimatrix.db.Schedules;
 import trimatrix.entities.IEntityData;
 import trimatrix.entities.ScheduleEntity;
 import trimatrix.reports.excel.PerformanceChart;
@@ -355,14 +357,14 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			st.setText("\n" + item.getDescription());
 			st.setBgpaint("roundedborder(0,0,100%,100%,10,10," + background
 					+ ",2);rectangle(0,0,100%,16," + background
-					+ ");write(5,0," + item.getType() + ",12," + foreground
+					+ ");write(5,0," + item.getTypeDesc() + ",12," + foreground
 					+ ",lefttop)");
 			st.setBackground(item.getColor() + "60"); // Add Transparency
 			st.setForeground(foreground);
 			st.setPopupmenu("SCHEDULEITEM");
 			st.setActionListener(expressionBase + "ScheduleUI.scheduleItems["
 					+ counter + "].onScheduleItemAction}");
-			st.setDragsend("schedule:" + counter);
+			st.setDragsend("schedule:" + item.getId());
 			// st.setFlushonselect("true");
 			st.setInvokeevent("doubleclick");
 			schedule.getChildren().add(st.createBaseComponent());
@@ -458,13 +460,13 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 				// add to list of visible items
 				ScheduleItem scheduleItem = new ScheduleItem(from, to,
 						Constants.BLUE, "Neuer Termin", "Laufen");
-				scheduleItems.add(scheduleItem);
+				scheduleItems.add(scheduleItem);				
 				refreshSchedule(day);
 				// open in popup
 				scheduleItem.openInPopup();
 			} else if (event instanceof BaseActionEventDrop) {
 				BaseActionEventDrop bae = (BaseActionEventDrop) event;
-				Date from = getLogic().getScheduleLogic().calculateBeginDate(
+				Timestamp from = getLogic().getScheduleLogic().calculateBeginDate(
 						bae.getPercentageVerticalAsFloat(), SCHEDULEMAX,
 						getBeginOfWeek(), day, STARTINGHOUR);
 				String dragInfo = bae.getDragInfo();
@@ -511,12 +513,13 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 						// open in popup
 						// scheduleItem.openInPopup();
 					} else {
-						int index = new Integer(bae.getDragInfo().substring(
-								"schedule:".length())).intValue();
-						ScheduleItem scheduleItem = scheduleItems.get(index);
-						long duration = scheduleItem.getDuration();
-						scheduleItem.setFrom(from);
-						scheduleItem.setTo(new Date(from.getTime() + duration));
+						String id = dragInfos[1];
+						// TODO put into logic layer
+						Schedules schedule = getDaoLayer().getSchedulesDAO().findById(id);
+						if(schedule!=null) {
+							schedule.setStart(from);
+							getDaoLayer().getSchedulesDAO().merge(schedule);
+						}
 						refresh();
 					}
 				}
@@ -533,16 +536,25 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 	public class ScheduleItem {
 
 		public ScheduleItem(ScheduleEntity.Data data) {
+			this.id = data.getId();
 			this.type = data.getType();
+			this.typeDesc = data.getTypeDesc();
 			this.from = data.getStart();
 			this.to = data.getEnd();
 			this.color = data.getColor();
+			this.description = data.getDescription();
 		}
+		
+		String id;
+		public String getId() { return id; }
 
 		String type;
 		public String getType() {return type;}
 		public void setType(String type) {this.type = type;}
-
+		
+		String typeDesc;
+		public String getTypeDesc() {return typeDesc;}
+		
 		Date from;
 		public Date getFrom() {return from;}
 		public void setFrom(Date from) {this.from = from;}
@@ -628,8 +640,14 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 				// right size duration
 				long duration = getDurationInMinutes();
 				duration = ((duration + 7) / 15) * 15;
-				setDurationInMinutes(duration);
-				// TODO Update entity
+				// setDurationInMinutes(duration);
+				// TODO put into logic layer
+				Schedules schedule = getDaoLayer().getSchedulesDAO().findById(id);
+				if(schedule!=null) {
+					schedule.setDuration(duration);
+					getDaoLayer().getSchedulesDAO().merge(schedule);
+				}
+				refresh();				
 			} else if (event instanceof BaseActionEventFlush) {
 				selectScheduleItem(this);
 			} else if (event instanceof BaseActionEventInvoke) {

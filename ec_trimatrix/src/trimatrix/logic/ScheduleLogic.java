@@ -27,7 +27,7 @@ public class ScheduleLogic {
 		return cal;
 	}
 
-	public Date calculateBeginDate(float percentageValue, int scheduleMax, Date beginOfWeek, int day, int startingHour) {
+	public Timestamp calculateBeginDate(float percentageValue, int scheduleMax, Date beginOfWeek, int day, int startingHour) {
 		long beginInMinutes = Math.round(percentageValue * scheduleMax / 100f);
 		// round on quarter hour
 		beginInMinutes = ((beginInMinutes + 7) / 15) * 15;
@@ -38,7 +38,7 @@ public class ScheduleLogic {
 		cal.add(Calendar.DAY_OF_WEEK, day);
 		cal.set(Calendar.HOUR_OF_DAY, hour);
 		cal.set(Calendar.MINUTE, minute);
-		return cal.getTime();
+		return new Timestamp(cal.getTimeInMillis());
 	}
 
 	public Date addDaysToDate(Date date, int day) {
