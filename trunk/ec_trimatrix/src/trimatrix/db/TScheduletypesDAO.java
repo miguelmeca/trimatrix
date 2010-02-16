@@ -15,7 +15,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * transactions or they can be augmented to handle user-managed Spring
  * transactions. Each of these methods provides additional information for how
  * to configure it for the desired type of transaction control.
- * 
+ *
  * @see trimatrix.db.TScheduletypes
  * @author MyEclipse Persistence Tools
  */
@@ -130,13 +130,12 @@ public class TScheduletypesDAO extends HibernateDaoSupport implements ITextDAO<T
 			throw re;
 		}
 	}
-	
-	@Override
+
 	public TScheduletypes findById(String key, String languageKey) {
 		return findById(new TScheduletypesId(key, languageKey));
 	}
 
 	public static TScheduletypesDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (TScheduletypesDAO) ctx.getBean("TScheduletypesDAO");
-	}	
+	}
 }

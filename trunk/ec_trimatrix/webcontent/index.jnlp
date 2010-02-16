@@ -5,51 +5,51 @@
     <information>
         <title>CaptainCasa Enterprise Client</title>
         <vendor>CaptainCasa GmbH</vendor>
-	    <icon href="eclnt/images/splash.png" kind="splash"/> 
+	    <icon href="eclnt/images/splash.png" kind="splash"/>
     </information>
-   
+
     <security>
         <all-permissions />
     </security>
-    
+
    	<resources>
-   	    <j2se version="1.6+" java-vm-args="-dsa -Xnoclassgc -Xmx256m"/>    
-   	    <jar href="eclnt/lib/eclnt.jar"/>  
-   	    
+   	    <j2se version="1.5+" java-vm-args="-dsa -Xnoclassgc -Xmx256m"/>
+   	    <jar href="eclnt/lib/eclnt.jar"/>
+
    	    <!-- ONLY REQUIRED WHEN USING BROWSER OR ACTIVEX COMPONENT! -->
    	    <!-- -->
-        <jar href="eclnt/lib/swt.jar"/>  
-        <nativelib href="eclnt/lib/swt.jar"/>  
+        <jar href="eclnt/lib/swt.jar"/>
+        <nativelib href="eclnt/lib/swt.jar"/>
         <!-- -->
-        
+
         <!-- ONLY REQUIRED WHEN USING JRVIEWER COMPONENT! (JasperReports) -->
         <!-- @@jasperbegin@@
-        <jar href="eclnt/lib/jasperreports.jar"/>  
-        <jar href="eclnt/lib/commons-beanutils.jar"/>  
-        <jar href="eclnt/lib/commons-collections.jar"/>  
-        <jar href="eclnt/lib/commons-digester.jar"/>  
-        <jar href="eclnt/lib/commons-javaflow.jar"/>  
-        <jar href="eclnt/lib/commons-logging.jar"/>  
-        <jar href="eclnt/lib/commons-logging-api.jar"/>  
+        <jar href="eclnt/lib/jasperreports.jar"/>
+        <jar href="eclnt/lib/commons-beanutils.jar"/>
+        <jar href="eclnt/lib/commons-collections.jar"/>
+        <jar href="eclnt/lib/commons-digester.jar"/>
+        <jar href="eclnt/lib/commons-javaflow.jar"/>
+        <jar href="eclnt/lib/commons-logging.jar"/>
+        <jar href="eclnt/lib/commons-logging-api.jar"/>
         @@jasperend@@ -->
         <!-- -->
-        <jar href="eclnt/lib/iText.jar"/>  
+        <jar href="eclnt/lib/iText.jar"/>
         <!-- -->
         <!-- -->
-        <jar href="eclnt/lib/poi.jar"/>  
+        <jar href="eclnt/lib/poi.jar"/>
         <!-- -->
-        
+
         <!-- ONLY REQUIRED WHEN USING PDFRENDERER COMPONENT! -->
         <!-- @@pdfrendererbegin@@
-        <jar href="eclnt/lib/PDFRenderer.jar"/>  
+        <jar href="eclnt/lib/PDFRenderer.jar"/>
         @@pdfrendererend@@ -->
-        
+
         <!-- ONLY REQUIRED WHEN USING SIMPLEHTMLEDITOR COMPONENT! -->
         <!-- @@simplehtmleditorbegin@@
-        <jar href="eclnt/lib/eclnt_simplyhtml.jar"/>  
+        <jar href="eclnt/lib/eclnt_simplyhtml.jar"/>
         @@simplehtmleditorend@@ -->
-   	</resources>   
-    
+   	</resources>
+
     <application-desc main-class="org.eclnt.client.page.PageWebStart">
 		<argument>$$codebase</argument>
 		<argument>faces/around.jsp</argument>

@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import trimatrix.entities.IEntityObject;
 
@@ -127,7 +128,7 @@ public class Schedules implements java.io.Serializable, IEntityObject {
 	public void setColor(String color) {
 		this.color = color;
 	}
-		
+
 	@Column(name = "template")
 	public Boolean getTemplate() {
 		return template;
@@ -189,6 +190,11 @@ public class Schedules implements java.io.Serializable, IEntityObject {
 
 	public void setTest(Boolean test) {
 		this.test = test;
+	}
+
+	@Transient
+	public Timestamp getEnd() {
+		return new Timestamp(getStart().getTime() + getDuration() * 60000);
 	}
 
 }
