@@ -35,6 +35,7 @@ import trimatrix.structures.SFunctionTree;
 import trimatrix.structures.SValueList;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
+import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.Role;
 
 /**
@@ -46,35 +47,36 @@ public class SQLExecutorService {
 
 	public static final String ID = "ID";
 
-	private static final String USERENTITYLISTQUERY = "UserEntityList";
-	private static final String PERSONENTITYLISTQUERY = "PersonEntityList";
-	private static final String PERSONBYROLEENTITYLISTQUERY = "PersonByRoleEntityList";
-	private static final String DOCTORENTITYLISTQUERY = "DoctorEntityList";
-	private static final String ATHLETESENTITYLISTQUERY = "AthletesEntityList";
-	private static final String ATTACHMENTENTITYLISTQUERY = "AttachmentEntityList";
-	private static final String TESTENTITYLISTQUERY = "TestEntityList";
-	private static final String COMPETITIONENTITYLISTQUERY = "CompetitionEntityList";
-	private static final String SCHEDULEENTITYLISTQUERY = "ScheduleEntityList";
-	private static final String FUNCTIONTREEQUERY = "FunctionTree";
-	private static final String LANGUAGEVALUELISTQUERY = "LanguageValueList";
-	private static final String SALUTATIONVALUELISTQUERY = "SalutationValueList";
-	private static final String LOGONLANGUAGEVALUELISTQUERY = "LogonLanguageValueList";
-	private static final String PERSONRELATIONENTITYQUERY = "PersonRelationEntityList";
-	private static final String DOCTORRELATIONENTITYQUERY = "DoctorRelationEntityList";
-	private static final String ATTACHMENTRELATIONENTITYQUERY = "AttachmentRelationEntityList";
-	private static final String COMPETITIONRELATIONENTITYQUERY = "CompetitionRelationEntityList";
-	private static final String COMPETITIONSCOUTRELATIONENTITYQUERY = "CompetitionScoutRelationEntityList";
-	private static final String RESULTENTITYLISTQUERY = "ResultEntityList";
-	private static final String RESULTTRIAENTITYLISTQUERY = "ResultTriaEntityList";
-	private static final String PERSONPERSONQUERY = "PersonPersonRelationList";
-	private static final String PERSONDOCTORQUERY = "PersonDoctorRelationList";
-	private static final String PERSONATTACHMENTQUERY = "PersonAttachmentRelationList";
-	private static final String RELTYPSVALUELISTQUERY = "RelTypsValueList";
-	private static final String COUNTRYVALUELISTQUERY = "CountryValueList";
-	private static final String CATEGORYVALUELISTQUERY = "CategoryValueList";
-	private static final String TESTTYPEVALUELISTQUERY = "TestTypeValueList";
-	private static final String COMPTYPEVALUELISTQUERY = "CompTypeValueList";
-	private static final String ENTITIESBYLABELLISTQUERY = "EntitiesByLabelList";
+	public static final String USERENTITYLISTQUERY = "UserEntityList";
+	public static final String PERSONENTITYLISTQUERY = "PersonEntityList";
+	public static final String PERSONBYROLEENTITYLISTQUERY = "PersonByRoleEntityList";
+	public static final String DOCTORENTITYLISTQUERY = "DoctorEntityList";
+	public static final String ATHLETESENTITYLISTQUERY = "AthletesEntityList";
+	public static final String ATTACHMENTENTITYLISTQUERY = "AttachmentEntityList";
+	public static final String TESTENTITYLISTQUERY = "TestEntityList";
+	public static final String COMPETITIONENTITYLISTQUERY = "CompetitionEntityList";
+	public static final String SCHEDULEENTITYLISTQUERY = "ScheduleEntityList";
+	public static final String FUNCTIONTREEQUERY = "FunctionTree";
+	public static final String LANGUAGEVALUELISTQUERY = "LanguageValueList";
+	public static final String SALUTATIONVALUELISTQUERY = "SalutationValueList";
+	public static final String LOGONLANGUAGEVALUELISTQUERY = "LogonLanguageValueList";
+	public static final String PERSONRELATIONENTITYQUERY = "PersonRelationEntityList";
+	public static final String DOCTORRELATIONENTITYQUERY = "DoctorRelationEntityList";
+	public static final String ATTACHMENTRELATIONENTITYQUERY = "AttachmentRelationEntityList";
+	public static final String COMPETITIONRELATIONENTITYQUERY = "CompetitionRelationEntityList";
+	public static final String COMPETITIONSCOUTRELATIONENTITYQUERY = "CompetitionScoutRelationEntityList";
+	public static final String RESULTENTITYLISTQUERY = "ResultEntityList";
+	public static final String RESULTTRIAENTITYLISTQUERY = "ResultTriaEntityList";
+	public static final String PERSONPERSONQUERY = "PersonPersonRelationList";
+	public static final String PERSONDOCTORQUERY = "PersonDoctorRelationList";
+	public static final String PERSONATTACHMENTQUERY = "PersonAttachmentRelationList";
+	public static final String RELTYPSVALUELISTQUERY = "RelTypsValueList";
+	public static final String COUNTRYVALUELISTQUERY = "CountryValueList";
+	public static final String CATEGORYVALUELISTQUERY = "CategoryValueList";
+	public static final String TESTTYPEVALUELISTQUERY = "TestTypeValueList";
+	public static final String COMPTYPEVALUELISTQUERY = "CompTypeValueList";
+	public static final String SCHEDULETYPEVALUELISTQUERY = "ScheduleTypeValueList";
+	public static final String ENTITIESBYLABELLISTQUERY = "EntitiesByLabelList";
 
 	private HibernateTransactionManager transactionManager;
 	private Dictionary dictionaryService;
@@ -671,9 +673,10 @@ public class SQLExecutorService {
 			datum.id = (String)line[i++];
 			datum.person = (String)line[i++];
 			datum.type = (String)line[i++];
+			datum.typeDesc = (String)line[i++];
 			datum.description = (String)line[i++];
 			datum.start = (Timestamp)line[i++];
-			datum.duration = (Integer)line[i++];
+			datum.duration = (Long)line[i++];
 			datum.color = (String)line[i++];
 			data.add(datum);
 		}
@@ -981,33 +984,8 @@ public class SQLExecutorService {
 	@SuppressWarnings("unchecked")
 	public List<SValueList> getValueList(Constants.ValueList valueList, String lang_key) {
 		List<SValueList> list = new ArrayList<SValueList>();
-		String namedQuery = null;
-		switch (valueList) {
-		case LANGUAGE:
-			namedQuery = LANGUAGEVALUELISTQUERY;
-			break;
-		case LOGONLANGUAGE:
-			namedQuery = LOGONLANGUAGEVALUELISTQUERY;
-			break;
-		case SALUTATION:
-			namedQuery = SALUTATIONVALUELISTQUERY;
-			break;
-		case RELTYPS:
-			namedQuery = RELTYPSVALUELISTQUERY;
-			break;
-		case COUNTRY:
-			namedQuery = COUNTRYVALUELISTQUERY;
-			break;
-		case CATEGORY:
-			namedQuery = CATEGORYVALUELISTQUERY;
-			break;
-		case TESTTYPE:
-			namedQuery = TESTTYPEVALUELISTQUERY;
-			break;
-		case COMPTYPE:
-			namedQuery = COMPTYPEVALUELISTQUERY;
-			break;
-		default:
+		String namedQuery = valueList.getNamedQuery();
+		if(Helper.isEmpty(namedQuery)) {
 			logger.warn("Valuelist not found: " + valueList.name());
 			return list;
 		}

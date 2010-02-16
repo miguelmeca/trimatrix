@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import trimatrix.entities.IEntityData;
 import trimatrix.relations.IRelationData;
+import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;
 
 public final class Constants {
@@ -179,7 +180,22 @@ public final class Constants {
 
 	// all value lists
 	public static enum ValueList {
-		LANGUAGE, CURRENCY, LOGONLANGUAGE, SALUTATION, RELTYPS, COUNTRY, CATEGORY, TESTTYPE, COMPTYPE, FUNCTIONS
+		LANGUAGE(SQLExecutorService.LANGUAGEVALUELISTQUERY), 
+		CURRENCY(null), 
+		LOGONLANGUAGE(SQLExecutorService.LOGONLANGUAGEVALUELISTQUERY), 
+		SALUTATION(SQLExecutorService.SALUTATIONVALUELISTQUERY), 
+		RELTYPS(SQLExecutorService.RELTYPSVALUELISTQUERY), 
+		COUNTRY(SQLExecutorService.COUNTRYVALUELISTQUERY), 
+		CATEGORY(SQLExecutorService.CATEGORYVALUELISTQUERY), 
+		TESTTYPE(SQLExecutorService.TESTTYPEVALUELISTQUERY), 
+		COMPTYPE(SQLExecutorService.COMPTYPEVALUELISTQUERY ), 
+		FUNCTIONS(null), 
+		SCHEDULETYPE(SQLExecutorService.SCHEDULETYPEVALUELISTQUERY);
+		private String namedQuery;
+		ValueList(String namedQuery) {
+			this.namedQuery = namedQuery;
+		}
+		public String getNamedQuery() { return namedQuery; }
 	}
 	// all functionnodes
 	public static enum FunctionNode {

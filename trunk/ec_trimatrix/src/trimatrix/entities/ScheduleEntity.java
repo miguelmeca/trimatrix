@@ -64,10 +64,11 @@ public class ScheduleEntity extends AEntity {
 	public static class Data implements IEntityData {
 		public String id;
 		public String type;
+		public String typeDesc;
 		public String person;
 		public String description;
 		public Timestamp start;
-		public Integer duration;
+		public Long duration;
 		public String color;
 
 		/* (non-Javadoc)
@@ -87,6 +88,10 @@ public class ScheduleEntity extends AEntity {
 			return type;
 		}
 
+		public String getTypeDesc() {
+			return typeDesc;
+		}
+		
 		public String getPerson() {
 			return person;
 		}
@@ -99,7 +104,7 @@ public class ScheduleEntity extends AEntity {
 			return start;
 		}
 
-		public Integer getDuration() {
+		public Long getDuration() {
 			return duration;
 		}
 
@@ -108,7 +113,7 @@ public class ScheduleEntity extends AEntity {
 		}
 
 		public Date getEnd() {
-			return new Date(getStart().getTime() + duration);
+			return new Date(getStart().getTime() + duration * 60000);
 		}
 
 
