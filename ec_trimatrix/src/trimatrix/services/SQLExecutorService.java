@@ -9,13 +9,17 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
+import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.HibernateTransactionManager;
 
 import trimatrix.db.DAOLayer;
+import trimatrix.db.Schedules;
 import trimatrix.entities.AttachmentEntity;
 import trimatrix.entities.CompetitionEntity;
 import trimatrix.entities.DoctorEntity;
@@ -160,6 +164,22 @@ public class SQLExecutorService {
 		}
 		session.close();
 		return data;
+	}
+	
+	public List<Schedules> getSchedules(String personId, Timestamp start, Timestamp end, Boolean template) {		
+		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		Criteria criteria = session.createCriteria(Schedules.class).setCacheable(true);
+		if(!Helper.isEmpty(personId)) criteria.add(Restrictions.eq("personId", personId));
+		if(start!=null) criteria.add(Restrictions.ge("start", start));
+		if(end!=null) criteria.add(Restrictions.le("start", end));
+		if(template!=null) criteria.add(Restrictions.eq("template", false));
+		criteria.add(Restrictions.eq("deleted", false));
+		
+		// run query
+		List<Schedules> schedules = criteria.list();
+		session.close();
+		return schedules;
 	}
 
 	public List<IEntityData> getUserEntities() {
@@ -678,6 +698,7 @@ public class SQLExecutorService {
 			datum.start = (Timestamp)line[i++];
 			datum.duration = (Long)line[i++];
 			datum.color = (String)line[i++];
+			datum.template = (Boolean)line[i++];
 			data.add(datum);
 		}
 		session.close();

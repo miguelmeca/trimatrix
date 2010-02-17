@@ -346,9 +346,11 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 					.getExpressionBase().replace("}", ".");
 			String background = item.getColor();
 			String foreground = Helper.getBlackOrWhite(background);
-
-			if (item.getFromWeekDay() != dayOfWeek)
-				continue;
+			// schedule at this day
+			if (item.getFromWeekDay() != dayOfWeek)	continue;
+			// schedule no template
+			if (item.getTemplate()) continue;
+			// build scheduleComponent
 			SCHEDULEITEMComponentTag st = new SCHEDULEITEMComponentTag();
 			st.setScheduleleft(item.getFromInMinutes() + "");
 			st.setSchedulewidth(expressionBase + "ScheduleUI.scheduleItems["
@@ -460,7 +462,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 				Schedules schedule = getLogic().getScheduleLogic().createSchedule(from, athleteID);
 				ScheduleItem scheduleItem = new ScheduleItem(schedule);
 				scheduleItems.add(scheduleItem);
-				refresh();
+				refreshSchedule(day);
 				// open in popup
 				scheduleItem.openInPopup();
 			} else if (event instanceof BaseActionEventDrop) {
@@ -512,6 +514,9 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 
 	public class ScheduleItem {
 
+		// disable constructor
+		private ScheduleItem() {}
+		
 		public ScheduleItem(ScheduleEntity.Data data) {
 			this.id = data.getId();
 			this.type = data.getType();
@@ -520,6 +525,10 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			this.to = data.getEnd();
 			this.color = data.getColor();
 			this.description = data.getDescription();
+			this.template = data.getTemplate();
+			this.test = false;
+			this.deleted = false;
+			
 		}
 
 		public ScheduleItem(Schedules data) {
@@ -529,27 +538,34 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			this.to = data.getEnd();
 			this.color = data.getColor();
 			this.description = data.getDescription();
+			this.template = data.getTemplate();
+			this.test = data.getTest();
+			this.deleted = data.getDeleted();
 		}
 
 		public void save() {
 			Schedules schedule = getLogic().getScheduleLogic().getSchedule(getId());
 			if(schedule==null) {
-				Statusbar.outputAlert("Schedule couldn't be saved!");
-				return;
+				// schedule is new first save
+				schedule = new Schedules(getId());
 			}
 			// Update schedule
 			schedule.setStart(getStart());
-			schedule.setDuration(getDuration());
+			schedule.setDuration(getDurationInMinutes());
 			schedule.setColor(getColor());
 			schedule.setType(getType());
 			schedule.setDescription(getDescription());
+			//schedule.setPersonId(athleteID);
+			schedule.setTemplate(getTemplate());
+			schedule.setTest(getTest());
+			schedule.setDeleted(getDeleted());
 			// Persist schedule
 			getLogic().getScheduleLogic().saveSchedule(schedule);
 		}
 
 		String id;
 		public String getId() { return id; }
-
+	
 		String type;
 		public String getType() {return type;}
 		public void setType(String type) {this.type = type;}
@@ -575,6 +591,18 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		String description;
 		public String getDescription() {return description;}
 		public void setDescription(String description) {this.description = description;}
+
+		Boolean template;		
+		public Boolean getTemplate() {return template;}
+		public void setTemplate(Boolean template) {this.template = template;}
+		
+		Boolean test;		
+		public Boolean getTest() {return test;}
+		public void setTest(Boolean test) {this.test = test;}
+
+		Boolean deleted;
+		public Boolean getDeleted() {return deleted;}
+		public void setDeleted(Boolean deleted) {this.deleted = deleted;}
 
 		public int getFromWeekDay() {
 			Calendar cal = Calendar.getInstance();

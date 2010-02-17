@@ -90,9 +90,10 @@ public class ScheduleLogic {
 	public Schedules createSchedule(Timestamp from, String personId) {
 		Schedules schedule = (Schedules)entityLayer.getScheduleEntity().create();
 		schedule.setStart(from);
-		schedule.setDuration(3600000L); // 1h in ms
+		schedule.setDuration(60L); // 1h in min
 		schedule.setColor(Constants.WHITE);
 		schedule.setPersonId(personId);
+		schedule.setTemplate(false);
 		return schedule;
 	}
 
