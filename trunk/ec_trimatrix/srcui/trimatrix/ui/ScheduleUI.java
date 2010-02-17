@@ -30,8 +30,6 @@ import org.eclnt.workplace.IWorkpageDispatcher;
 import org.eclnt.workplace.WorkpageDefaultLifecycleListener;
 
 import trimatrix.db.Schedules;
-import trimatrix.entities.IEntityData;
-import trimatrix.entities.ScheduleEntity;
 import trimatrix.reports.excel.PerformanceChart;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
@@ -290,10 +288,9 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 	 */
 	private void update() {
 		scheduleItems.clear();
-		List<IEntityData> data = getLogic().getScheduleLogic().getWeeksSchedule(getBeginOfWeek(), getAthleteID());
-		if(data==null) return;
-		for(IEntityData datum : data) {
-			ScheduleEntity.Data schedule = (ScheduleEntity.Data)datum;
+		List<Schedules> schedules = getLogic().getScheduleLogic().getWeeksSchedule(getBeginOfWeek(), getAthleteID());
+		if(Helper.isEmpty(schedules)) return;
+		for(Schedules schedule : schedules) {
 			scheduleItems.add(new ScheduleItem(schedule));
 		}
 	}
@@ -347,14 +344,14 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			String background = item.getColor();
 			String foreground = Helper.getBlackOrWhite(background);
 			// schedule at this day
-			if (item.getFromWeekDay() != dayOfWeek)	continue;
+			if (item.getStartWeekDay() != dayOfWeek)	continue;
 			// schedule no template
 			if (item.getTemplate()) continue;
 			// build scheduleComponent
 			SCHEDULEITEMComponentTag st = new SCHEDULEITEMComponentTag();
-			st.setScheduleleft(item.getFromInMinutes() + "");
+			st.setScheduleleft(item.getStartInMinutes() + "");
 			st.setSchedulewidth(expressionBase + "ScheduleUI.scheduleItems["
-					+ counter + "].durationInMinutes}");
+					+ counter + "].duration}");
 			st.setText("\n" + item.getDescription());
 			st.setBgpaint("roundedborder(0,0,100%,100%,10,10," + background
 					+ ",2);rectangle(0,0,100%,16," + background
@@ -514,123 +511,65 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 
 	public class ScheduleItem {
 
+		private Schedules schedule;
+
 		// disable constructor
 		private ScheduleItem() {}
-		
-		public ScheduleItem(ScheduleEntity.Data data) {
-			this.id = data.getId();
-			this.type = data.getType();
-			this.typeDesc = data.getTypeDesc();
-			this.start = data.getStart();
-			this.to = data.getEnd();
-			this.color = data.getColor();
-			this.description = data.getDescription();
-			this.template = data.getTemplate();
-			this.test = false;
-			this.deleted = false;
-			
-		}
 
-		public ScheduleItem(Schedules data) {
-			this.id = data.getId();
-			this.type = data.getType();
-			this.start = data.getStart();
-			this.to = data.getEnd();
-			this.color = data.getColor();
-			this.description = data.getDescription();
-			this.template = data.getTemplate();
-			this.test = data.getTest();
-			this.deleted = data.getDeleted();
+		public ScheduleItem(Schedules schedule) {
+			this.schedule = schedule;
 		}
 
 		public void save() {
-			Schedules schedule = getLogic().getScheduleLogic().getSchedule(getId());
-			if(schedule==null) {
-				// schedule is new first save
-				schedule = new Schedules(getId());
-			}
-			// Update schedule
-			schedule.setStart(getStart());
-			schedule.setDuration(getDurationInMinutes());
-			schedule.setColor(getColor());
-			schedule.setType(getType());
-			schedule.setDescription(getDescription());
-			//schedule.setPersonId(athleteID);
-			schedule.setTemplate(getTemplate());
-			schedule.setTest(getTest());
-			schedule.setDeleted(getDeleted());
-			// Persist schedule
-			getLogic().getScheduleLogic().saveSchedule(schedule);
+			schedule = getLogic().getScheduleLogic().saveSchedule(schedule);
 		}
 
-		String id;
-		public String getId() { return id; }
-	
-		String type;
-		public String getType() {return type;}
-		public void setType(String type) {this.type = type;}
+		public String getId() {return schedule.getId();}
 
-		String typeDesc;
-		public String getTypeDesc() {return typeDesc;}
+		public String getTypeDesc() {return schedule.getType();}
 
-		Timestamp start;
-		public Timestamp getStart() {return start;}
-		public void setStart(Timestamp start) {this.start = start;}
+		public String getType() {return schedule.getType();}
+		public void setType(String type) { schedule.setType(type); }
 
-		public Date getFrom() {return start;}
-		public void setFrom(Date from) {this.start = new Timestamp(from.getTime());}
+		public Timestamp getStart() {return schedule.getStart();}
+		public void setStart(Timestamp start) {schedule.setStart(start);}
 
-		Date to;
-		public Date getTo() {return to;}
-		public void setTo(Date to) {this.to = to;}
+		public Timestamp getEnd() {return schedule.getEnd();}
+		public void setEnd(Timestamp end) { schedule.setDuration(end.getTime() - getStart().getTime()); }
 
-		String color;
-		public String getColor() {return color;}
-		public void setColor(String color) {this.color = color;}
+		public Long getDuration() { return schedule.getDuration(); }
+		public void setDuration(Long duration) { schedule.setDuration(duration); }
 
-		String description;
-		public String getDescription() {return description;}
-		public void setDescription(String description) {this.description = description;}
+		public String getColor() {return schedule.getColor();}
+		public void setColor(String color) {schedule.setColor(color);}
 
-		Boolean template;		
-		public Boolean getTemplate() {return template;}
-		public void setTemplate(Boolean template) {this.template = template;}
-		
-		Boolean test;		
-		public Boolean getTest() {return test;}
-		public void setTest(Boolean test) {this.test = test;}
+		public String getDescription() {return schedule.getDescription();}
+		public void setDescription(String description) {schedule.setDescription(description);}
 
-		Boolean deleted;
-		public Boolean getDeleted() {return deleted;}
-		public void setDeleted(Boolean deleted) {this.deleted = deleted;}
+		public Boolean getTemplate() {return schedule.getTemplate();}
+		public void setTemplate(Boolean template) {schedule.setTemplate(template);}
 
-		public int getFromWeekDay() {
+		public Boolean getTest() {return schedule.getTest();}
+		public void setTest(Boolean test) {schedule.setTest(test);}
+
+		public Boolean getDeleted() {return schedule.getDeleted();}
+		public void setDeleted(Boolean deleted) {schedule.setDeleted(deleted);}
+
+		public int getStartWeekDay() {
 			Calendar cal = Calendar.getInstance();
-			cal.setTime(getFrom());
+			cal.setTime(getStart());
 			return cal.get(Calendar.DAY_OF_WEEK);
 		}
 
-		public long getFromInMinutes() {
+		public long getStartInMinutes() {
 			Calendar cal = Calendar.getInstance();
-			cal.setTime(getFrom());
+			cal.setTime(getStart());
 			cal.set(Calendar.MILLISECOND, 0);
 			cal.set(Calendar.SECOND, 0);
 			cal.set(Calendar.MINUTE, 0);
 			cal.set(Calendar.HOUR_OF_DAY, STARTINGHOUR);
 			Date startingHour = cal.getTime();
-			return (getFrom().getTime() - startingHour.getTime()) / 60000;
-		}
-
-		public long getDurationInMinutes() {
-			return getDuration() / 60000;
-		}
-
-		public long getDuration() {
-			return to.getTime() - getFrom().getTime();
-		}
-
-		public void setDurationInMinutes(long value) {
-			to = new Date(getFrom().getTime() + value * 60000);
+			return (getStart().getTime() - startingHour.getTime()) / 60000;
 		}
 
 		public void onScheduleItemAction(ActionEvent event) {
@@ -660,9 +599,9 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 				}
 			} else if (event instanceof BaseActionEventScheduleSizeChanged) {
 				// right size duration
-				long duration = getDurationInMinutes();
+				Long duration = getDuration();
 				duration = ((duration + 7) / 15) * 15;
-				getLogic().getScheduleLogic().changeDuration(id, duration);
+				getLogic().getScheduleLogic().changeDuration(getId(), duration);
 				refresh();
 			} else if (event instanceof BaseActionEventFlush) {
 				selectScheduleItem(this);

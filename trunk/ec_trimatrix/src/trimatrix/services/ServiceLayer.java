@@ -7,6 +7,7 @@ import trimatrix.utils.Dictionary;
 public class ServiceLayer {
 	private ValueListBindingService valueListBindingService;
 	private Dictionary dictionaryService;
+	private EncryptionService encryptionService;
 	private ResolverService resolverService;
 	private SQLExecutorService sqlExecutorService;
 	private AuthorizationService authorizationService;
@@ -20,14 +21,22 @@ public class ServiceLayer {
 			ValueListBindingService valueListBindingService) {
 		this.valueListBindingService = valueListBindingService;
 	}
-		
+
 	public Dictionary getDictionaryService() {
 		return dictionaryService;
 	}
 
 	public void setDictionaryService(Dictionary dictionaryService) {
 		this.dictionaryService = dictionaryService;
-	}	
+	}
+
+	public EncryptionService getEncryptionService() {
+		return encryptionService;
+	}
+
+	public void setEncryptionService(EncryptionService encryptionService) {
+		this.encryptionService = encryptionService;
+	}
 
 	public ResolverService getResolverService() {
 		return resolverService;
@@ -35,7 +44,7 @@ public class ServiceLayer {
 
 	public void setResolverService(ResolverService resolverService) {
 		this.resolverService = resolverService;
-	}		
+	}
 
 	public SQLExecutorService getSqlExecutorService() {
 		return sqlExecutorService;
@@ -43,7 +52,7 @@ public class ServiceLayer {
 
 	public void setSqlExecutorService(SQLExecutorService sqlExecutorService) {
 		this.sqlExecutorService = sqlExecutorService;
-	}	
+	}
 
 	public AuthorizationService getAuthorizationService() {
 		return authorizationService;

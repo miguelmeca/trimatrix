@@ -11,6 +11,9 @@
 		<property name="serviceLayer">
 			<ref bean="serviceLayer" />
 		</property>
+		<property name="entityLayer">
+			<ref bean="entityLayer" />
+		</property>
 	</bean>
 
 	<bean id="entityListLogic" class="trimatrix.logic.EntityListLogic"

@@ -327,6 +327,10 @@ public class Helper {
 		return string == null || string.trim().length() == 0;
 	}
 
+	public static boolean isEmpty(List list) {
+		return list == null || list.size() == 0;
+	}
+
 	public static Double round(Double d, int decimalPlace) {
 		// see the Javadoc about why we use a String in the constructor
 		// http://java.sun.com/j2se/1.5.0/docs/api/java/math/BigDecimal.html#BigDecimal(double)

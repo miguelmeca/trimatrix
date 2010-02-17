@@ -44,7 +44,7 @@ public class ScheduleEntity extends AEntity {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	public List<SGridMetaData> getGridMetaData() {
 		List<SGridMetaData> gridMetaData = new ArrayList<SGridMetaData>();
         gridMetaData.add(new SGridMetaData("Person", PERSON, SGridMetaData.Component.FIELD));
@@ -59,7 +59,6 @@ public class ScheduleEntity extends AEntity {
 	public static class Data implements IEntityData {
 		public String id;
 		public String type;
-		public String typeDesc;
 		public String person;
 		public String description;
 		public Timestamp start;
@@ -82,10 +81,6 @@ public class ScheduleEntity extends AEntity {
 
 		public String getType() {
 			return type;
-		}
-
-		public String getTypeDesc() {
-			return typeDesc;
 		}
 
 		public String getPerson() {
@@ -111,7 +106,7 @@ public class ScheduleEntity extends AEntity {
 		public Timestamp getEnd() {
 			return new Timestamp(getStart().getTime() + duration * 60000);
 		}
-		
+
 		public Boolean getTemplate() {
 			return template;
 		}
