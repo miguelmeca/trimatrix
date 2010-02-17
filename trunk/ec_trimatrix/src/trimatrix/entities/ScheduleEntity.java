@@ -2,7 +2,6 @@ package trimatrix.entities;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,6 +26,7 @@ public class ScheduleEntity extends AEntity {
 		// default values
 		entity.setDeleted(false);
 		entity.setTest(false);
+		entity.setTemplate(false);
 		return entity;
 	}
 
@@ -44,7 +44,7 @@ public class ScheduleEntity extends AEntity {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	public List<SGridMetaData> getGridMetaData() {
 		List<SGridMetaData> gridMetaData = new ArrayList<SGridMetaData>();
         gridMetaData.add(new SGridMetaData("Person", PERSON, SGridMetaData.Component.FIELD));
@@ -65,6 +65,7 @@ public class ScheduleEntity extends AEntity {
 		public Timestamp start;
 		public Long duration;
 		public String color;
+		public Boolean template;
 
 		/* (non-Javadoc)
 		 * @see trimatrix.entities.IEntityData#getId()
@@ -109,6 +110,10 @@ public class ScheduleEntity extends AEntity {
 
 		public Timestamp getEnd() {
 			return new Timestamp(getStart().getTime() + duration * 60000);
+		}
+		
+		public Boolean getTemplate() {
+			return template;
 		}
 
 

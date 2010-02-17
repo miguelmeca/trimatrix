@@ -343,7 +343,8 @@ SELECT
   schedules.description,
   schedules.start,
   schedules.duration,
-  schedules.color
+  schedules.color,
+  schedules.template
 FROM schedules
   LEFT OUTER JOIN persons
     ON persons.id = schedules.person_id
@@ -364,6 +365,7 @@ ORDER BY schedules.start ASC
   <return-scalar column="start" type="java.sql.Timestamp"/>
   <return-scalar column="duration" type="java.lang.Long"/>
   <return-scalar column="color" type="java.lang.String"/>
+  <return-scalar column="template" type="java.lang.Boolean"/>
 </sql-query>
 
  <sql-query cacheable="true" name="PersonRelationEntityList" read-only="true">

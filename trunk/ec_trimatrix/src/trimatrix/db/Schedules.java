@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.Version;
 
 import trimatrix.entities.IEntityObject;
 
@@ -157,6 +158,7 @@ public class Schedules implements java.io.Serializable, IEntityObject {
 	}
 
 	@Column(name = "modified_at", length = 19)
+	@Version
 	public Timestamp getModifiedAt() {
 		return this.modifiedAt;
 	}
