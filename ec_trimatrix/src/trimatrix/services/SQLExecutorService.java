@@ -165,17 +165,17 @@ public class SQLExecutorService {
 		session.close();
 		return data;
 	}
-	
-	public List<Schedules> getSchedules(String personId, Timestamp start, Timestamp end, Boolean template) {		
+
+	public List<Schedules> getSchedules(String personId, Timestamp start, Timestamp end, Boolean template) {
 		SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Criteria criteria = session.createCriteria(Schedules.class).setCacheable(true);
 		if(!Helper.isEmpty(personId)) criteria.add(Restrictions.eq("personId", personId));
 		if(start!=null) criteria.add(Restrictions.ge("start", start));
 		if(end!=null) criteria.add(Restrictions.le("start", end));
-		if(template!=null) criteria.add(Restrictions.eq("template", false));
+		if(template!=null) criteria.add(Restrictions.eq("template", template));
 		criteria.add(Restrictions.eq("deleted", false));
-		
+
 		// run query
 		List<Schedules> schedules = criteria.list();
 		session.close();
@@ -693,7 +693,6 @@ public class SQLExecutorService {
 			datum.id = (String)line[i++];
 			datum.person = (String)line[i++];
 			datum.type = (String)line[i++];
-			datum.typeDesc = (String)line[i++];
 			datum.description = (String)line[i++];
 			datum.start = (Timestamp)line[i++];
 			datum.duration = (Long)line[i++];

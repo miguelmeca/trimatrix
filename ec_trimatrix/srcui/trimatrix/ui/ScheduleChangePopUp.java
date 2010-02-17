@@ -1,6 +1,7 @@
 package trimatrix.ui;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.faces.event.ActionEvent;
@@ -36,11 +37,12 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
     public String getText() { return scheduleItem.getDescription(); }
     public void setText(String text) { scheduleItem.setDescription(text); }
 
-    public Date getFrom() { return scheduleItem.getFrom(); }
-    public void setFrom(Date from) { scheduleItem.setFrom(from); }
+    public Date getStart() { return scheduleItem.getStart(); }
+    public void setStart(Date start) { scheduleItem.setStart(new Timestamp(start.getTime())); }
 
-    public Date getTo() { return scheduleItem.getTo(); }
-    public void setTo(Date to) { scheduleItem.setTo(to); }
+    public Date getEnd() { return scheduleItem.getEnd(); }
+    public void setEnd(Date end) { scheduleItem.setEnd(new Timestamp(end.getTime())); }
+
 
     public void prepareCallback(IPopupCallback callback, ScheduleItem scheduleItem) {
     	this.callback = callback;

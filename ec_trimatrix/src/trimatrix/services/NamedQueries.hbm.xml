@@ -339,7 +339,6 @@ SELECT
   schedules.id,
   TRIM(CONCAT(persons.name_first,' ', persons.name_last)) person,
   schedules.type,
-  t_scheduletypes.description type_desc,
   schedules.description,
   schedules.start,
   schedules.duration,
@@ -360,7 +359,6 @@ ORDER BY schedules.start ASC
   <return-scalar column="id" type="java.lang.String"/>
   <return-scalar column="person" type="java.lang.String"/>
   <return-scalar column="type" type="java.lang.String"/>
-   <return-scalar column="type_desc" type="java.lang.String"/>
   <return-scalar column="description" type="java.lang.String"/>
   <return-scalar column="start" type="java.sql.Timestamp"/>
   <return-scalar column="duration" type="java.lang.Long"/>

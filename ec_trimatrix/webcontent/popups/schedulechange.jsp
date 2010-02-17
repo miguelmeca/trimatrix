@@ -15,11 +15,11 @@
 <t:row id="g_2" >
 <t:label id="g_3" text="Start" />
 <t:coldistance id="g_4" />
-<t:calendarfield id="g_5" exacttime="true" format="datetime" formatmask="short" timezone="CET" value="#{d.ScheduleChangePopUp.from}" />
+<t:calendarfield id="g_5" exacttime="true" format="datetime" formatmask="short" timezone="CET" value="#{d.ScheduleChangePopUp.start}" />
 <t:coldistance id="g_6" />
 <t:label id="g_7" text="Ende" />
 <t:coldistance id="g_8" />
-<t:calendarfield id="g_9" exacttime="true" format="datetime" formatmask="short" timezone="CET" value="#{d.ScheduleChangePopUp.to}" />
+<t:calendarfield id="g_9" exacttime="true" format="datetime" formatmask="short" timezone="CET" value="#{d.ScheduleChangePopUp.end}" />
 </t:row>
 <t:row id="g_10" >
 <t:label id="g_11" text="Farbe" width="90" />

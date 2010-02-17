@@ -70,13 +70,12 @@ public class ScheduleLogic {
 		}
 	}
 
-	public List<IEntityData> getWeeksSchedule(Date beginOfWeek, String personId) {
+	public List<Schedules> getWeeksSchedule(Date beginOfWeek, String personId) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(beginOfWeek);
 		cal.add(Calendar.DAY_OF_WEEK, 6); // Add a week
 		Date startHigh = cal.getTime();
-
-		return serviceLayer.getSqlExecutorService().getScheduleEntities(null, personId, new Timestamp(beginOfWeek.getTime()), new Timestamp(startHigh.getTime()) );
+		return serviceLayer.getSqlExecutorService().getSchedules(personId, new Timestamp(beginOfWeek.getTime()), new Timestamp(startHigh.getTime()), false);
 	}
 
 //	public Schedules getSchedule(String id) {
@@ -97,8 +96,8 @@ public class ScheduleLogic {
 		return schedule;
 	}
 
-	public void saveSchedule(Schedules schedule) {
-		entityLayer.getScheduleEntity().save(schedule);
+	public Schedules saveSchedule(Schedules schedule) {
+		return (Schedules)entityLayer.getScheduleEntity().save(schedule);
 	}
 
 	public Schedules getSchedule(String scheduleId) {

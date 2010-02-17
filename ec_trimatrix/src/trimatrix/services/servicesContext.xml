@@ -144,6 +144,9 @@
 		<property name="dictionaryService">
 			<ref bean="dictionaryService" />
 		</property>
+		<property name="encryptionService">
+			<ref bean="encryptionService" />
+		</property>
 		<property name="sqlExecutorService">
 			<ref bean="sqlExecutorService" />
 		</property>
