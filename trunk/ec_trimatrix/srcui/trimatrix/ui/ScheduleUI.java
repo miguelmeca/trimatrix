@@ -101,9 +101,9 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 	}
 
 	protected final long DURATION = 3600000; // in ms
-	protected final int STARTINGHOUR = 6;
+	protected final int STARTINGHOUR = 5;
 
-	protected final int NUMBEROFBLOCKS = 24;
+	protected final int NUMBEROFBLOCKS = 36;
 
 	public int getNumberOfBlocks() {
 		return NUMBEROFBLOCKS;
@@ -501,8 +501,8 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 							getLogic().getScheduleLogic().changeStart(id, from);
 							refresh();
 						} catch (Exception ex) {
-							Statusbar.outputAlert(ex.toString(), "Change Start failed!");	
-						}						
+							Statusbar.outputAlert(ex.toString(), "Change Start failed!");
+						}
 					}
 				}
 			}
@@ -612,8 +612,8 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 					getLogic().getScheduleLogic().changeDuration(getId(), duration);
 					refresh();
 				} catch (Exception ex) {
-					Statusbar.outputAlert(ex.toString(), "Change Duration failed!");	
-				}					
+					Statusbar.outputAlert(ex.toString(), "Change Duration failed!");
+				}
 			} else if (event instanceof BaseActionEventFlush) {
 				selectScheduleItem(this);
 			} else if (event instanceof BaseActionEventInvoke) {
@@ -631,14 +631,14 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 							refresh();
 						}
 
-						public void ok() {							
-							try { 
+						public void ok() {
+							try {
 								save();
 								m_popup.close();
 								refresh();
 							} catch (Exception ex) {
-								Statusbar.outputAlert(ex.toString(), "Save failed!");	
-							}							
+								Statusbar.outputAlert(ex.toString(), "Save failed!");
+							}
 						}
 					}, this);
 			m_popup = getWorkpage().createModalPopupInWorkpageContext();
