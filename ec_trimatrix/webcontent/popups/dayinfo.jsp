@@ -27,7 +27,7 @@
 </t:row>
 <t:row id="g_13" >
 <t:coldistance id="g_14" width="100%" />
-<t:button id="g_15" actionListener="#{d.DayInfoPopUp.onSave}" image="/images/icons/save.png" imageheight="15" rendered="#{d.EntityDetailUI.renderSaveButton}" text="#{rr.literals.save}" />
+<t:button id="g_15" actionListener="#{d.DayInfoPopUp.onSave}" image="/images/icons/save.png" imageheight="15" text="#{rr.literals.save}" />
 </t:row>
 </t:rowbodypane>
 <t:pageaddons id="g_pa"/>
