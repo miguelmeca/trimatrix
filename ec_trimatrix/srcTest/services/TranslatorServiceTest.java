@@ -8,16 +8,17 @@ import org.springframework.context.ApplicationContext;
 import trimatrix.services.TranslationService;
 import trimatrix.utils.ContextStatic;
 
-public class TranslatorServiceTest {
+public class TranslatorServiceTest {	
 
-	private ApplicationContext context = ContextStatic.getInstance();
+	private static ApplicationContext context = ContextStatic.getInstance();
+	private static TranslationService translationService = TranslationService.getFromApplicationContext(context);
+
 	
 	@Test
-	public void testGetDescriptionFromDB() {		
-		TranslationService translator = TranslationService.getFromApplicationContext(context);
-		String translate = "de";
-		String translated = translator.getDescriptionFromDB(translate, TranslationService.LANGUAGES, "de");
-		Assert.assertEquals("Deutsch", translated);
+	public void testDescription() {		
+		String translate = "run";
+		String translated = translationService.getDescription(translate, "de", TranslationService.TYPE.SCHEDULETYPES);
+		Assert.assertEquals("Laufen", translated);
 	}
 
 }

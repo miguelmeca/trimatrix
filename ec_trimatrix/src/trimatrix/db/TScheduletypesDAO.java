@@ -20,7 +20,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @author MyEclipse Persistence Tools
  */
 
-public class TScheduletypesDAO extends HibernateDaoSupport implements ITextDAO<TScheduletypes, TScheduletypesId> {
+public class TScheduletypesDAO extends HibernateDaoSupport implements ITextDAO {
 	private static final Log log = LogFactory.getLog(TScheduletypesDAO.class);
 
 	protected void initDao() {
@@ -49,7 +49,7 @@ public class TScheduletypesDAO extends HibernateDaoSupport implements ITextDAO<T
 		}
 	}
 
-	public TScheduletypes findById(trimatrix.db.TScheduletypesId id) {
+	public IText findById(trimatrix.db.TScheduletypesId id) {
 		log.debug("getting TScheduletypes instance with id: " + id);
 		try {
 			TScheduletypes instance = (TScheduletypes) getHibernateTemplate().get("trimatrix.db.TScheduletypes", id);
@@ -131,11 +131,11 @@ public class TScheduletypesDAO extends HibernateDaoSupport implements ITextDAO<T
 		}
 	}
 
-	public TScheduletypes findById(String key, String languageKey) {
+	public IText findById(String key, String languageKey) {
 		return findById(new TScheduletypesId(key, languageKey));
 	}
 
-	public static TScheduletypesDAO getFromApplicationContext(ApplicationContext ctx) {
-		return (TScheduletypesDAO) ctx.getBean("TScheduletypesDAO");
+	public static ITextDAO getFromApplicationContext(ApplicationContext ctx) {
+		return (ITextDAO) ctx.getBean("TScheduletypesDAO");
 	}
 }

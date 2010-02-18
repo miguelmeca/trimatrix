@@ -31,6 +31,7 @@ import org.eclnt.workplace.WorkpageDefaultLifecycleListener;
 
 import trimatrix.db.Schedules;
 import trimatrix.reports.excel.PerformanceChart;
+import trimatrix.services.TranslationService;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
@@ -496,8 +497,12 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 						// scheduleItem.openInPopup();
 					} else {
 						String id = dragInfos[1];
-						getLogic().getScheduleLogic().changeStart(id, from);
-						refresh();
+						try {
+							getLogic().getScheduleLogic().changeStart(id, from);
+							refresh();
+						} catch (Exception ex) {
+							Statusbar.outputAlert(ex.toString(), "Change Start failed!");	
+						}						
 					}
 				}
 			}
@@ -520,13 +525,15 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			this.schedule = schedule;
 		}
 
-		public void save() {
+		public void save() throws Exception {
 			schedule = getLogic().getScheduleLogic().saveSchedule(schedule);
 		}
 
 		public String getId() {return schedule.getId();}
 
-		public String getTypeDesc() {return schedule.getType();}
+		public String getTypeDesc() {
+			return getServiceLayer().getTranslationService().getDescription(getType(), TranslationService.TYPE.SCHEDULETYPES);
+		}
 
 		public String getType() {return schedule.getType();}
 		public void setType(String type) { schedule.setType(type); }
@@ -601,8 +608,12 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 				// right size duration
 				Long duration = getDuration();
 				duration = ((duration + 7) / 15) * 15;
-				getLogic().getScheduleLogic().changeDuration(getId(), duration);
-				refresh();
+				try {
+					getLogic().getScheduleLogic().changeDuration(getId(), duration);
+					refresh();
+				} catch (Exception ex) {
+					Statusbar.outputAlert(ex.toString(), "Change Duration failed!");	
+				}					
 			} else if (event instanceof BaseActionEventFlush) {
 				selectScheduleItem(this);
 			} else if (event instanceof BaseActionEventInvoke) {
@@ -620,10 +631,14 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 							refresh();
 						}
 
-						public void ok() {
-							save();
-							m_popup.close();
-							refresh();
+						public void ok() {							
+							try { 
+								save();
+								m_popup.close();
+								refresh();
+							} catch (Exception ex) {
+								Statusbar.outputAlert(ex.toString(), "Save failed!");	
+							}							
 						}
 					}, this);
 			m_popup = getWorkpage().createModalPopupInWorkpageContext();

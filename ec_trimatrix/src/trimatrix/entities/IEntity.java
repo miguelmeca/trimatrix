@@ -32,7 +32,7 @@ public interface IEntity {
 	public abstract IEntityObject get(String id);
 
 	public abstract IEntityObject save(IEntityObject entityObject)
-			throws DataIntegrityViolationException;
+			throws Exception;
 
 	public abstract void reload(IEntityObject entityObject);
 

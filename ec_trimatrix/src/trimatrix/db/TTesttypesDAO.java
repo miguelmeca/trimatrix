@@ -20,7 +20,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @author MyEclipse Persistence Tools
  */
 
-public class TTesttypesDAO extends HibernateDaoSupport implements ITextDAO<TTesttypes, TTesttypesId>{
+public class TTesttypesDAO extends HibernateDaoSupport implements ITextDAO {
 	private static final Log log = LogFactory.getLog(TTesttypesDAO.class);
 
 	protected void initDao() {
@@ -138,7 +138,7 @@ public class TTesttypesDAO extends HibernateDaoSupport implements ITextDAO<TTest
 		}
 	}
 
-	public static TTesttypesDAO getFromApplicationContext(ApplicationContext ctx) {
-		return (TTesttypesDAO) ctx.getBean("TTesttypesDAO");
+	public static ITextDAO getFromApplicationContext(ApplicationContext ctx) {
+		return (ITextDAO) ctx.getBean("TTesttypesDAO");
 	}
 }

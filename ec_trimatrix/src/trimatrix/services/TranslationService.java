@@ -1,30 +1,52 @@
 package trimatrix.services;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationContext;
 
-import trimatrix.db.TLanguages;
-import trimatrix.db.TLanguagesDAO;
-import trimatrix.db.TLanguagesId;
+import trimatrix.db.DAOLayer;
+import trimatrix.db.IText;
+import trimatrix.utils.Dictionary;
 
 public class TranslationService {
-	private TLanguagesDAO languagesDAO;	
+	public static final Log logger = LogFactory.getLog(TranslationService.class);
 	
-	public static final int LANGUAGES = 0;
-	public String getDescriptionFromDB(String value, int table, String language) {
-		switch (table) {
-		case LANGUAGES:
-		    TLanguages languages = languagesDAO.findById(new TLanguagesId(value, language));
-		    if(languages!=null && languages.getDescription().length() > 0) return languages.getDescription();
-			break;
+	private DAOLayer daoLayer;
+	private Dictionary dictionaryService;
+	
+	public static enum TYPE {
+		SCHEDULETYPES
+	}
+	
+	public String getDescription(String key, TYPE type ) {
+		IText text = null;
+		switch (type) {
+		case SCHEDULETYPES:
+			text = daoLayer.getTscheduletypesDAO().findById(key, dictionaryService.getLanguage());
+			break; 
 		}
-		return value;
-	}	
+		if(text==null) {
+			logger.warn("No Translation for " + type.toString() + " : " + key);
+			return key;
+		} 		
+		return text.getDescription();
+		
+	}
 	
-	public void setLanguagesDAO(TLanguagesDAO languagesDAO) {
-		this.languagesDAO = languagesDAO;
+	public String getDescription(String key, String language, TYPE type ) {
+		IText text = daoLayer.getTscheduletypesDAO().findById(key, language);
+		return text.getDescription();
 	}
 	
 	public static TranslationService getFromApplicationContext(ApplicationContext ctx) {
 		return (TranslationService) ctx.getBean("translationService");
+	}
+	
+	public void setDictionaryService(Dictionary dictionaryService) {
+		this.dictionaryService = dictionaryService;
+	}
+
+	public void setDaoLayer(DAOLayer daoLayer) {
+		this.daoLayer = daoLayer;
 	}
 }

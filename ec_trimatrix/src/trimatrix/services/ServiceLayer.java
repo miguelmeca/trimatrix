@@ -7,6 +7,7 @@ import trimatrix.utils.Dictionary;
 public class ServiceLayer {
 	private ValueListBindingService valueListBindingService;
 	private Dictionary dictionaryService;
+	private TranslationService translationService;
 	private EncryptionService encryptionService;
 	private ResolverService resolverService;
 	private SQLExecutorService sqlExecutorService;
@@ -68,9 +69,17 @@ public class ServiceLayer {
 
 	public void setMailService(MailService mailService) {
 		this.mailService = mailService;
+	}	
+
+	public TranslationService getTranslationService() {
+		return translationService;
+	}
+
+	public void setTranslationService(TranslationService translationService) {
+		this.translationService = translationService;
 	}
 
 	public static ServiceLayer getFromApplicationContext(ApplicationContext ctx) {
 		return (ServiceLayer) ctx.getBean("serviceLayer");
-	}
+	}	
 }
