@@ -21,10 +21,10 @@ public class DAOLayer {
 	private IRelationDAO<PersonsHaveDoctors> personsHaveDoctorsDAO;
 	private IRelationDAO<PersonsHaveAttachments> personsHaveAttachmentsDAO;
 	private IRelationDAO<PersonsHaveCompetitions> personsHaveCompetitionsDAO;
-	private ITextDAO<TSalutation, TSalutationId> tsalutationDAO;
-	private ITextDAO<TCategories, TCategoriesId> tcategoriesDAO;
-	private ITextDAO<TTesttypes, TTesttypesId> ttesttypesDAO;
-	private ITextDAO<TScheduletypes, TScheduletypesId> tscheduletypesDAO;
+	private ITextDAO tsalutationDAO;
+	private ITextDAO tcategoriesDAO;
+	private ITextDAO ttesttypesDAO;
+	private ITextDAO tscheduletypesDAO;
 	private ISimpleDAO<PersonsAthlete> personAthleteDAO;
 	private ISimpleDAO<TestsErgo> testsErgoDAO;
 	private ISimpleDAO<TestsTreadmill> testsTreadmillDAO;
@@ -153,31 +153,31 @@ public class DAOLayer {
 	public void setResultsTriaDAO(ISimpleDAO<ResultsTria> resultsTriaDAO) {
 		this.resultsTriaDAO = resultsTriaDAO;
 	}
-	public ITextDAO<TSalutation, TSalutationId> getTsalutationDAO() {
+	public ITextDAO getTsalutationDAO() {
 		return tsalutationDAO;
 	}
 
-	public void setTsalutationDAO(ITextDAO<TSalutation, TSalutationId> tsalutationDAO) {
+	public void setTsalutationDAO(ITextDAO tsalutationDAO) {
 		this.tsalutationDAO = tsalutationDAO;
 	}
 
-	public ITextDAO<TCategories, TCategoriesId> getTcategoriesDAO() {
+	public ITextDAO getTcategoriesDAO() {
 		return tcategoriesDAO;
 	}
-	public void setTcategoriesDAO(ITextDAO<TCategories, TCategoriesId> tcategoriesDAO) {
+	public void setTcategoriesDAO(ITextDAO tcategoriesDAO) {
 		this.tcategoriesDAO = tcategoriesDAO;
 	}
 
-	public ITextDAO<TTesttypes, TTesttypesId> getTtesttypesDAO() {
+	public ITextDAO getTtesttypesDAO() {
 		return ttesttypesDAO;
 	}
-	public void setTtesttypesDAO(ITextDAO<TTesttypes, TTesttypesId> ttesttypesDAO) {
+	public void setTtesttypesDAO(ITextDAO ttesttypesDAO) {
 		this.ttesttypesDAO = ttesttypesDAO;
 	}
-	public ITextDAO<TScheduletypes, TScheduletypesId> getTscheduletypesDAO() {
+	public ITextDAO getTscheduletypesDAO() {
 		return tscheduletypesDAO;
 	}
-	public void setTscheduletypesDAO(ITextDAO<TScheduletypes, TScheduletypesId> tscheduletypesDAO) {
+	public void setTscheduletypesDAO(ITextDAO tscheduletypesDAO) {
 		this.tscheduletypesDAO = tscheduletypesDAO;
 	}
 	public ISimpleDAO<PersonsAthlete> getPersonAthleteDAO() {

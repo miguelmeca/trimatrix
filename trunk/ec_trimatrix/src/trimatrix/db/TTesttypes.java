@@ -12,7 +12,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "t_testtypes", catalog = "trimatrix")
-public class TTesttypes implements java.io.Serializable {
+public class TTesttypes implements java.io.Serializable, IText {
 
 	// Fields
 

@@ -17,7 +17,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
   * @author MyEclipse Persistence Tools 
  */
 
-public class TCategoriesDAO extends HibernateDaoSupport implements ITextDAO<TCategories, TCategoriesId> {
+public class TCategoriesDAO extends HibernateDaoSupport implements ITextDAO {
     private static final Log log = LogFactory.getLog(TCategoriesDAO.class);
 
 
@@ -60,7 +60,7 @@ public class TCategoriesDAO extends HibernateDaoSupport implements ITextDAO<TCat
         }
     }
     
-    public TCategories findById(String key, String languageKey) {
+    public IText findById(String key, String languageKey) {
 		return findById(new TCategoriesId(key, languageKey));
 	}
         
@@ -139,7 +139,7 @@ public class TCategoriesDAO extends HibernateDaoSupport implements ITextDAO<TCat
     }
 
 	@SuppressWarnings("unchecked")
-	public static ITextDAO<TCategories, TCategoriesId> getFromApplicationContext(ApplicationContext ctx) {
-    	return (ITextDAO<TCategories, TCategoriesId>) ctx.getBean("TCategoriesDAO");
+	public static ITextDAO getFromApplicationContext(ApplicationContext ctx) {
+    	return (ITextDAO) ctx.getBean("TCategoriesDAO");
 	}
 }

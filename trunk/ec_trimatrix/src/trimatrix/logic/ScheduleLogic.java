@@ -96,7 +96,7 @@ public class ScheduleLogic {
 		return schedule;
 	}
 
-	public Schedules saveSchedule(Schedules schedule) {
+	public Schedules saveSchedule(Schedules schedule) throws Exception {
 		return (Schedules)entityLayer.getScheduleEntity().save(schedule);
 	}
 
@@ -104,7 +104,7 @@ public class ScheduleLogic {
 		return (Schedules) entityLayer.getScheduleEntity().get(scheduleId);
 	}
 
-	public void changeDuration(String scheduleId, long duration) {
+	public void changeDuration(String scheduleId, long duration) throws Exception {
 		Schedules schedule = (Schedules) entityLayer.getScheduleEntity().get(scheduleId);
 		if(schedule!=null) {
 			schedule.setDuration(duration);
@@ -112,7 +112,7 @@ public class ScheduleLogic {
 		}
 	}
 
-	public void changeStart(String scheduleId, Timestamp start) {
+	public void changeStart(String scheduleId, Timestamp start) throws Exception {
 		Schedules schedule = (Schedules) entityLayer.getScheduleEntity().get(scheduleId);
 		if(schedule!=null) {
 			schedule.setStart(start);

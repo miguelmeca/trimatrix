@@ -20,7 +20,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @author MyEclipse Persistence Tools
  */
 
-public class TSalutationDAO extends HibernateDaoSupport implements ITextDAO<TSalutation, TSalutationId> {
+public class TSalutationDAO extends HibernateDaoSupport implements ITextDAO {
 	private static final Log log = LogFactory.getLog(TSalutationDAO.class);
 
 	@Override
@@ -71,7 +71,7 @@ public class TSalutationDAO extends HibernateDaoSupport implements ITextDAO<TSal
 		}
 	}
 	
-	public TSalutation findById(String key, String languageKey) {
+	public IText findById(String key, String languageKey) {
 		return findById(new TSalutationId(key, languageKey));
 	}
 
@@ -151,8 +151,8 @@ public class TSalutationDAO extends HibernateDaoSupport implements ITextDAO<TSal
 	}
 
 	@SuppressWarnings("unchecked")
-	public static ITextDAO<TSalutation, TSalutationId> getFromApplicationContext(
+	public static ITextDAO getFromApplicationContext(
 			ApplicationContext ctx) {
-		return (ITextDAO<TSalutation, TSalutationId>) ctx.getBean("TSalutationDAO");
+		return (ITextDAO) ctx.getBean("TSalutationDAO");
 	}
 }

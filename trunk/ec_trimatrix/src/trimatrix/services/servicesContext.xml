@@ -53,9 +53,12 @@
 	<bean id="translationService" class="trimatrix.services.TranslationService"
 		abstract="false" lazy-init="default" autowire="default"
 		dependency-check="default">
-		<property name="languagesDAO">
-			<ref bean="TLanguagesDAO" />
+		<property name="dictionaryService">
+			<ref bean="dictionaryService" />
 		</property>
+		<property name="daoLayer">
+			<ref bean="daoLayer" />
+		</property>		
 	</bean>
 
 	<bean id="sqlExecutorService" class="trimatrix.services.SQLExecutorService"
@@ -143,6 +146,9 @@
 		</property>
 		<property name="dictionaryService">
 			<ref bean="dictionaryService" />
+		</property>
+		<property name="translationService">
+			<ref bean="translationService" />
 		</property>
 		<property name="encryptionService">
 			<ref bean="encryptionService" />

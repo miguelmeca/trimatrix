@@ -12,7 +12,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "t_scheduletypes", catalog = "trimatrix")
-public class TScheduletypes implements java.io.Serializable {
+public class TScheduletypes implements java.io.Serializable, IText {
 
 	// Fields
 

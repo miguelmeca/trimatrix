@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.springframework.orm.hibernate3.HibernateTransactionManager;
 
 import trimatrix.db.DAOLayer;
@@ -49,7 +50,7 @@ public abstract class AEntity implements IEntity{
 		return entity;
 	}
 
-	public IEntityObject save(IEntityObject entityObject) {
+	public IEntityObject save(IEntityObject entityObject) throws Exception {
 		// set creation data
 		Timestamp now = new java.sql.Timestamp((new java.util.Date()).getTime());
 		if(entityObject.getCreatedAt() == null) entityObject.setCreatedAt(now);
@@ -60,6 +61,7 @@ public abstract class AEntity implements IEntity{
 		//if(entityObject2!=null) entityObject.setModifiedAt(entityObject2.getModifiedAt());
 		entityObject.setModifiedBy(dictionaryService.getMyUser().getId());
 		return entitiesDAO.merge(entityObject);
+		
 	}
 
 	public boolean delete(String id) {
@@ -70,6 +72,8 @@ public abstract class AEntity implements IEntity{
 			entitiesDAO.merge(entity);
 			// no standard handling for deletion of relationtships see docu
 		} catch (Exception ex) {
+			logger.error("Deletion failed : " + ex.toString());
+			Statusbar.outputAlert(ex.toString(), "Delete");
 			return false;
 		}
 		return true;
