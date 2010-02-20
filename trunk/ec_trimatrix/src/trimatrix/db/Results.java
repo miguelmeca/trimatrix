@@ -16,6 +16,7 @@ import javax.persistence.Version;
 
 import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
+import org.hibernate.annotations.ManyToAny;
 
 import trimatrix.entities.IEntityObject;
 
@@ -47,7 +48,7 @@ public class Results implements java.io.Serializable, IEntityObject{
 	private Persons athlete;
 	private Persons scout;
 	private ResultsTria resultsTria;
-	
+
 	// Constructors
 
 	/** default constructor */
@@ -203,9 +204,9 @@ public class Results implements java.io.Serializable, IEntityObject{
 	public void setTest(Boolean test) {
 		this.test = test;
 	}
-	
+
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
-	@JoinColumn(name="competition_id")	
+	@JoinColumn(name="competition_id")
 	public Competitions getCompetition() {
 		return competition;
 	}
@@ -223,7 +224,7 @@ public class Results implements java.io.Serializable, IEntityObject{
 	public void setAthlete(Persons athlete) {
 		this.athlete = athlete;
 	}
-	
+
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
 	@JoinColumn(name="scout_id")
 	public Persons getScout() {
@@ -233,10 +234,10 @@ public class Results implements java.io.Serializable, IEntityObject{
 	public void setScout(Persons scout) {
 		this.scout = scout;
 	}
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
-    @LazyToOne(LazyToOneOption.FALSE)  
+    @LazyToOne(LazyToOneOption.FALSE)
 	public ResultsTria getResultsTria() {
 		return resultsTria;
 	}

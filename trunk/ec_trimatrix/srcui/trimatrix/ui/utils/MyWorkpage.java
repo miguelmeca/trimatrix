@@ -11,25 +11,27 @@ import trimatrix.ui.ZonesDetailUI;
 import trimatrix.utils.Constants.Mode;
 import trimatrix.utils.Constants.Page;
 
-public class MyWorkpage extends Workpage{	
+public class MyWorkpage extends Workpage{
 
 	private Object parentBean;
 	private IEntityObject entityObject;
 	private SAuthorization authorization;
-	
+
 	public MyWorkpage(IWorkpageDispatcher dispatcher, String jspPage,
 			String id, String title, String iconURL, boolean isDecorated) {
 		super(dispatcher, jspPage, id, title, iconURL, isDecorated);
 	}
-	
+
 	public MyWorkpage(IWorkpageDispatcher dispatcher, String jspPage,
-			String id, String title, String iconURL, boolean isDecorated, 
+			String id, String title, String iconURL, boolean isDecorated,
 			Object parentBean, SAuthorization authorization, IEntityObject entityObject) {
 		super(dispatcher, jspPage, id, title, iconURL, isDecorated);
-		this.parentBean = parentBean;	
+		this.parentBean = parentBean;
 		this.entityObject = entityObject;
 		this.authorization = authorization;
-	}		
+		// I don't understand why, but the WorkpageSelectorTitle has to be set explicitly?
+		setSelectorTitle(title);
+	}
 
 	public Object getParentBean() {
 		return parentBean;
@@ -56,7 +58,7 @@ public class MyWorkpage extends Workpage{
 	}
 
 	@Override
-	public boolean close() {		
+	public boolean close() {
 		boolean doClose = true;
 		if(Page.ENTITYDETAIL.getUrl().equalsIgnoreCase(getJspPage())) {
 			EntityDetailUI entityDetailUI = (EntityDetailUI) getDispatcher().getDispatchedBean(EntityDetailUI.class);
@@ -69,21 +71,21 @@ public class MyWorkpage extends Workpage{
 				doClose =  false;
 			}
 		}
-		
+
 		if(!doClose) {
 			Statusbar.outputAlert("Please save data before closing the workpage!").setLeftTopReferenceCentered();
 			return false;
 		} else return super.close();
-		
-	}	
-	
-	@Override
-	public void closeForced() {				
-		super.closeForced();		
+
 	}
-	
+
 	@Override
-	public void reactOnDisplay() {		
-		super.reactOnDisplay();		
+	public void closeForced() {
+		super.closeForced();
+	}
+
+	@Override
+	public void reactOnDisplay() {
+		super.reactOnDisplay();
 	}
 }

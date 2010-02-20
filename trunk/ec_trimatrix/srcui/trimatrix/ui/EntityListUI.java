@@ -13,16 +13,15 @@ import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoCancelListener;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.jsfserver.elements.impl.ROWDYNAMICCONTENTBinding;
+import org.eclnt.jsfserver.resources.ResourceManager;
 import org.eclnt.workplace.IWorkpage;
 import org.eclnt.workplace.IWorkpageContainer;
 import org.eclnt.workplace.IWorkpageDispatcher;
 import org.eclnt.workplace.IWorkpageProcessingEventListener;
-import org.eclnt.workplace.WorkpageDefaultLifecycleListener;
 import org.eclnt.workplace.WorkpageProcessingEvent;
 
 import trimatrix.entities.IEntityData;
 import trimatrix.logic.EntityListLogic;
-import trimatrix.reports.Report;
 import trimatrix.structures.SAuthorization;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.structures.SListVariant;
@@ -126,7 +125,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 	private void setRowDynamic() {
 		String dragKey = Constants.P_ENTITY + ":" + Constants.P_ENTITYLIST;
 		StringBuffer xml = new StringBuffer();
-		xml.append("<t:fixgrid avoidroundtrips='true' dragsend='" + dragKey + "' rowdragsend='" + dragKey + "' drawoddevenrows='true' objectbinding='#{d.EntityListUI.gridList}' persistid='gridList' cellselection='true' rowheight='20' sbvisibleamount='20' width='100%' showemptyrows='false' horizontalscrollmode='autowithresize'>");
+		xml.append("<t:fixgrid avoidroundtrips='true' rowdragsend='" + dragKey + "' drawoddevenrows='true' objectbinding='#{d.EntityListUI.gridList}' persistid='gridList' cellselection='true' rowheight='20' sbvisibleamount='20' width='100%' showemptyrows='false' horizontalscrollmode='autowithresize'>");
 		for (SGridMetaData meta : gridMetaData) {
 			// component type checkbox
 			boolean isIndividual = false;
@@ -212,7 +211,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 		final String selectedID = ((IEntityData)selectedItem.getDatum()).getId();
 		if(selectedID!=null && selectedID.length()>0) {
 			YESNOPopup popup = YESNOPopup.createInstance(
-					"Confirm deletion",
+					"Confirm deletion" + Constants.WHITESPACE + selectedItem.getDatum().toString(),
 					"Do you really want to delete the selected entity?",
 					new IYesNoCancelListener(){
 
@@ -336,8 +335,9 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 				pageId = Constants.FINAL + pageId;
 				pageMode = Mode.FINAL;
 			}
+			String title = (entity.getDescription() + Constants.WHITESPACE + datum.toString()).trim();
 			wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.getUrl(),
-					pageId, datum.toString(), null, true, entityList, authorization, null);
+					pageId, title, null, true, entityList, authorization, null);
 			wp.setParam(Constants.P_ENTITY, entity.name());
 			wp.setParam(Constants.P_MODE, pageMode.name());
 			wpc.addWorkpage(wp);

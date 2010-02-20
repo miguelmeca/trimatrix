@@ -63,6 +63,14 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 			limit.setCategory(category);
 		}
 
+		public Boolean getSwimsuit() {
+			return limit.getSwimsuit();
+		}
+
+		public void setSwimsuit(Boolean swimsuit) {
+			limit.setSwimsuit(swimsuit);
+		}
+
 		public String getCutoffSwim() {
 			return limit.getLimits()[0];
 		}

@@ -240,6 +240,7 @@ ORDER by tests.created_at DESC
 
 <sql-query cacheable="true" name="CompetitionEntityList" read-only="true">
 SELECT
+  DISTINCT
   competitions.id,
   competitions.date,
   competitions.description,
@@ -589,6 +590,7 @@ OR    1 = :p_dummy
 
 <sql-query cacheable="true" name="CompetitionRelationEntityList" read-only="true">
 SELECT
+  DISTINCT
   competitions.id,
   competitions.date,
   competitions.description,
@@ -623,6 +625,7 @@ WHERE competitions.test = :p_test
 
 <sql-query cacheable="true" name="CompetitionScoutRelationEntityList" read-only="true">
 SELECT
+  DISTINCT
   competitions.id,
   competitions.date,
   competitions.description,
@@ -703,7 +706,6 @@ ORDER BY results.created_at DESC
   results.time,
   results.comment,
   results_tria.category,
-  results_tria.swimsuit,
   results_tria.swim_split,
   results_tria.swim_position,
   results_tria.run_split,
@@ -741,7 +743,6 @@ ORDER BY results.created_at DESC
   <return-scalar column="time" type="java.lang.String"/>
   <return-scalar column="comment" type="java.lang.String"/>
   <return-scalar column="category" type="java.lang.String"/>
-  <return-scalar column="swimsuit" type="java.lang.Boolean"/>
   <return-scalar column="swim_split" type="java.lang.String"/>
   <return-scalar column="swim_position" type="java.lang.String"/>
   <return-scalar column="run_split" type="java.lang.String"/>

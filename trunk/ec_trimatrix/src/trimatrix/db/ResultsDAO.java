@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import trimatrix.entities.IEntityObject;
+import trimatrix.utils.Helper;
 
 /**
  * A data access object (DAO) providing persistence and search support for
@@ -17,7 +18,7 @@ import trimatrix.entities.IEntityObject;
  * can be augmented to handle user-managed Spring transactions. Each of these
  * methods provides additional information for how to configure it for the
  * desired type of transaction control.
- * 
+ *
  * @see trimatrix.db.Results
  * @author MyEclipse Persistence Tools
  */
@@ -63,7 +64,7 @@ public class ResultsDAO extends HibernateDaoSupport implements IEntityDAO<Result
 			throw re;
 		}
 	}
-	
+
 	public List<Results> findByExample(Results instance) {
 		log.debug("finding Results instance by example");
 		try {
@@ -141,14 +142,14 @@ public class ResultsDAO extends HibernateDaoSupport implements IEntityDAO<Result
 		String id = instance.getId();
 		log.debug("reloading Result instance with id: " + id);
 		try {
-			getHibernateTemplate().load(instance, id);			
+			getHibernateTemplate().load(instance, id);
 		} catch (RuntimeException re) {
 			log.error("load failed", re);
 			throw re;
-		}		
+		}
 	}
-	
+
 	public static IEntityDAO<Results> getFromApplicationContext(ApplicationContext ctx) {
 		return (IEntityDAO<Results>) ctx.getBean("ResultsDAO");
-	}	
+	}
 }

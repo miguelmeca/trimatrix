@@ -18,6 +18,7 @@ import trimatrix.db.Persons;
 import trimatrix.db.PersonsHaveAttachments;
 import trimatrix.db.PersonsHaveDoctors;
 import trimatrix.db.Results;
+import trimatrix.db.ResultsDAO;
 import trimatrix.entities.EntityLayer;
 import trimatrix.entities.IEntityData;
 import trimatrix.relations.PersonAttachmentRelation;
@@ -26,6 +27,7 @@ import trimatrix.relations.RelationLayer;
 import trimatrix.services.ServiceLayer;
 import trimatrix.structures.SFunctionTree;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.ValueList;
 
 public class FunctionTreeLogic {
@@ -37,16 +39,16 @@ public class FunctionTreeLogic {
 	public List<IEntityData> getMyAthletes() {
 		return entityLayer.getPersonEntity().getData(Constants.Entity.MYATHLETES, Constants.NO_FILTER);
 	}
-	
+
 	public List<IEntityData> getMyScoutedAthletes() {
 		return entityLayer.getPersonEntity().getData(Constants.Entity.MYSCOUTEDATHLETES, Constants.NO_FILTER);
 	}
-	
+
 	public Iterator<ValidValue> getCompetitionTypes() {
 		ValidValuesBinding vvbCompTypes = serviceLayer.getValueListBindingService().getVVBinding(ValueList.COMPTYPE);
-		return vvbCompTypes.getValidValues();		
+		return vvbCompTypes.getValidValues();
 	}
-	
+
 	public void setAuthority(SFunctionTree functionTree, FunctionNode node) {
 		node.setParam(Constants.CREATE, Constants.FALSE);
 		if(functionTree.create) {
@@ -61,7 +63,7 @@ public class FunctionTreeLogic {
 			node.setParam(Constants.DELETE, Constants.TRUE);
 		}
 	}
-	
+
 	public void setAuthority(FunctionNode node, boolean create, boolean  edit, boolean delete) {
 		node.setParam(Constants.CREATE, Constants.FALSE);
 		if(create) {
@@ -76,7 +78,7 @@ public class FunctionTreeLogic {
 			node.setParam(Constants.DELETE, Constants.TRUE);
 		}
 	}
-	
+
 	public void setAuthority(IWorkpage wp, boolean create, boolean  edit, boolean delete) {
 		wp.setParam(Constants.CREATE, Constants.FALSE);
 		if(create) {
@@ -91,7 +93,7 @@ public class FunctionTreeLogic {
 			wp.setParam(Constants.DELETE, Constants.TRUE);
 		}
 	}
-	
+
 	public boolean createCompetitionScout(String competitionId) {
 		CompetitionsScoutsId csId = new CompetitionsScoutsId();
 		csId.setCompetitionId(competitionId);
@@ -103,12 +105,12 @@ public class FunctionTreeLogic {
 			Statusbar.outputWarning("Competition is already in your workspace!");
 			return false;
 		} catch (Exception ex) {
-			Statusbar.outputError(ex.toString());	
+			Statusbar.outputError(ex.toString());
 			return false;
-		}		
+		}
 		return true;
 	}
-	
+
 	public boolean createPersonAttachmentRelation(String personId, String attachmentId) {
 		PersonAttachmentRelation relation = relationLayer.getPersonAttachmentRelation();
 		PersonsHaveAttachments pha = relation.create();
@@ -120,13 +122,13 @@ public class FunctionTreeLogic {
 		} catch (DataIntegrityViolationException dive) {
 			Statusbar.outputError("Relation could not be saved (Data Integrity)", dive.getRootCause().toString());
 			return false;
-		} catch (Exception ex){			
-			Statusbar.outputError("Relation could not be saved", ex.toString());			
+		} catch (Exception ex){
+			Statusbar.outputError("Relation could not be saved", ex.toString());
 			return false;
 		}
 		return true;
 	}
-	
+
 	public boolean createPersonDoctorRelation(String personId, String doctorId) {
 		PersonDoctorRelation relation = relationLayer.getPersonDoctorRelation();
 		PersonsHaveDoctors phd = relation.create();
@@ -138,25 +140,39 @@ public class FunctionTreeLogic {
 		} catch (DataIntegrityViolationException dive) {
 			Statusbar.outputError("Relation could not be saved (Data Integrity)", dive.getRootCause().toString());
 			return false;
-		} catch (Exception ex){			
-			Statusbar.outputError("Relation could not be saved", ex.toString());			
+		} catch (Exception ex){
+			Statusbar.outputError("Relation could not be saved", ex.toString());
 			return false;
 		}
 		return true;
 	}
-	
-	public Results createResultRelation(String athleteId, String competitionId) throws Exception{
+
+	public Results checkResultRelation(String athleteId, String competitionId) throws Exception {
+		// Check if combination already exists
+//		Results example = new Results();
+//		example.setCompetition((Competitions)entityLayer.getCompetitionEntity().get(competitionId));
+//		example.setScout(serviceLayer.getDictionaryService().getMyPerson());
+//		example.setAthlete((Persons)entityLayer.getPersonEntity().get(athleteId));
+//		example.setDeleted(false);
+//
+//		List<Results> results = daoLayer.getResultsDAO().findByExample(example);
+//		if(Helper.isEmpty(results)) return null;
+//		return results.get(0);
+		return serviceLayer.getSqlExecutorService().checkResultExists(competitionId, serviceLayer.getDictionaryService().getMyPerson().getId(), athleteId);
+	}
+
+	public Results createResultRelation(String athleteId, String competitionId) throws Exception {
 		Results result = entityLayer.getResultEntity().create();
 		result.setCompetition((Competitions)entityLayer.getCompetitionEntity().get(competitionId));
 		result.setScout(serviceLayer.getDictionaryService().getMyPerson());
 		result.setAthlete((Persons)entityLayer.getPersonEntity().get(athleteId));
 		return (Results)entityLayer.getResultEntity().save(result);
-	}	
-	
+	}
+
 	public String getMyPersonId() {
 		return serviceLayer.getDictionaryService().getMyPerson().getId();
 	}
-	
+
 	public void setServiceLayer(ServiceLayer serviceLayer) {
 		this.serviceLayer = serviceLayer;
 	}
@@ -166,11 +182,11 @@ public class FunctionTreeLogic {
 	}
 
 	public void setEntityLayer(EntityLayer entityLayer) {
-		this.entityLayer = entityLayer;		
+		this.entityLayer = entityLayer;
 	}
 
 	public void setRelationLayer(RelationLayer relationLayer) {
 		this.relationLayer = relationLayer;
-	}	
-	
+	}
+
 }

@@ -333,7 +333,8 @@ public final class ResultEntity extends AEntity {
 		}
 
 		public static String getColor(String time, Double percent, String cutoff) {
-			if(cutoff==null) return Constants.WHITE;
+			if(Helper.isEmpty(time)) return Constants.WHITE;
+			if(Helper.isEmpty(cutoff)) return Constants.WHITE;
 			if(cutoff.endsWith("%")) {
 				// percent logic
 				Integer cutoffPercent = null;

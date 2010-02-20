@@ -93,9 +93,9 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 					if (entity == null)
 						return;
 					// get selected item
+					if(dispatchedBean.m_gridList.getSelectedItem()==null) return;
 					final IEntityData datum = dispatchedBean.m_gridList.getSelectedItem().datum;
-					if (datum == null)
-						return;
+					if (datum == null) return;
 					// Put general competition into scouted competitions
 					if (Entity.SCOUTCOMPETITIONS.name().equalsIgnoreCase(entityName) && entity == Constants.Entity.COMPETITION) {
 						/*
@@ -132,7 +132,13 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 							public void reactOnYes() {
 								Results result = null;
 								try {
-									result = FUNCTIONTREELOGIC.createResultRelation(entityId, datum.getId());
+									// check if relation already exists
+									result = FUNCTIONTREELOGIC.checkResultRelation(entityId, datum.getId());
+									if(result==null) {
+										result = FUNCTIONTREELOGIC.createResultRelation(entityId, datum.getId());
+									} else {
+										Statusbar.outputMessage("Result already exists!");
+									}
 								} catch (Exception ex) {
 									Statusbar.outputError("Result could not be created!", ex.toString());
 								}
@@ -161,8 +167,13 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 								try {
 									// put competition in your workspace
 									FUNCTIONTREELOGIC.createCompetitionScout(datum.getId());
-									// create result
-									result = FUNCTIONTREELOGIC.createResultRelation(entityId, datum.getId());
+									//check if relation already exists
+									result = FUNCTIONTREELOGIC.checkResultRelation(entityId, datum.getId());
+									if(result==null) {
+										result = FUNCTIONTREELOGIC.createResultRelation(entityId, datum.getId());
+									} else {
+										Statusbar.outputMessage("Result already exists!");
+									}
 								} catch (Exception ex) {
 									Statusbar.outputError("Result could not be created!", ex.toString());
 								}
@@ -267,7 +278,7 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 						// authorization => coach is allowed to manually change values
 						FUNCTIONTREELOGIC.setAuthority(results_node, true, true, true);
 						// node per type of result e.g. triathlon
-						buildResultsTypeNodes(functionTree, results_node, athlete.getId());						
+						buildResultsTypeNodes(functionTree, results_node, athlete.getId());
 					}
 				} else if(functionTree.key == Constants.FunctionNode.RESULTS_SCOUT) {
 					// reset status
@@ -275,7 +286,7 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 					// node per type of result e.g. triathlon
 					buildResultsTypeNodes(functionTree, node, null);
 				}
-				
+
 			} else {
 				node = new FunctionNode(parentNode);
 			}
@@ -283,8 +294,8 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 			// build map
 			functionNodeMap.put(functionTree.node, node);
 		}
-	}	
-	
+	}
+
 	/**
 	 * Build node per type of result e.g. triathlon
 	 * @param results_node
@@ -293,7 +304,7 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 	public void buildResultsTypeNodes(SFunctionTree functionTree, FunctionNode results_node, String athleteId) {
 		Iterator<ValidValue> iterator = FUNCTIONTREELOGIC.getCompetitionTypes();
 		while(iterator.hasNext()) {
-			ValidValue value = iterator.next();			
+			ValidValue value = iterator.next();
 			Constants.Entity entity = athleteId==null ? Constants.Entity.SCOUTRESULTS : Constants.Entity.MYRESULTS;
 			String pageId = athleteId==null ? entity.name() + ":" + value.getValue() : entity.name() + ":" + value.getValue() + ":" + athleteId;
 			FunctionNode results_type_node = new FunctionNode(results_node, Constants.Page.ENTITYLIST.getUrl());
@@ -303,7 +314,7 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 			results_type_node.setText(value.getText());
 			if(athleteId!=null) results_type_node.setParam(Constants.P_PERSON, athleteId);
 			results_type_node.setParam(Constants.P_FILTER, value.getValue());
-			results_type_node.setParam(Constants.P_ENTITY, entity.name());							
+			results_type_node.setParam(Constants.P_ENTITY, entity.name());
 			// authorization => coach is allowed to manually change values
 			FUNCTIONTREELOGIC.setAuthority(functionTree, results_type_node);
 		}

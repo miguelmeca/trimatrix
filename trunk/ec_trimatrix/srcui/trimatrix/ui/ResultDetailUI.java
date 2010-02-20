@@ -31,6 +31,8 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 
 	private String cutoffSwim;
 	private String cutoffRun;
+	private Boolean swimsuit;
+	public Boolean getSwimsuit() { return swimsuit; }
 
 	private String bestSwim;
 	public String getBestSwim() { return bestSwim; }
@@ -112,7 +114,6 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 			tria.setRunSplit((String)values.get(ResultEntity.RUN_SPLIT));
 			tria.setSwimPosition((String)values.get(ResultEntity.SWIM_POSITION));
 			tria.setRunPosition((String)values.get(ResultEntity.RUN_POSITION));
-			tria.setSwimsuit((Boolean)values.get(ResultEntity.SWIMSUIT));
 		}
 	}
 
@@ -133,7 +134,7 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 			values.put(ResultEntity.RUN_SPLIT, tria.getRunSplit());
 			values.put(ResultEntity.SWIM_POSITION, tria.getSwimPosition());
 			values.put(ResultEntity.RUN_POSITION, tria.getRunPosition());
-			values.put(ResultEntity.SWIMSUIT, tria.getSwimsuit());
+			//values.put(ResultEntity.SWIMSUIT, tria.getSwimsuit());
 		}
 		// limits
     	setLimits();
@@ -319,27 +320,6 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 	}
 
 	/**
-	 * Set the color for percentage, same logic as in ResultEntity Data class
-	 * @param percent Percentage
-	 * @return	Color
-	 */
-//	private String getColor(String time) {
-//		Integer greenSeconds = Helper.calculateSeconds(green_high);
-//		Integer redSeconds = Helper.calculateSeconds(red_low);
-//		Integer seconds = Helper.calculateSeconds(time);
-//		if(seconds==null) return Constants.WHITE;
-//		// green
-//		if(greenSeconds!=null && greenSeconds>0 && seconds<greenSeconds) return Constants.GREEN;
-//		// red
-//		if(redSeconds!=null && redSeconds>0 && seconds>redSeconds) return Constants.RED;
-//		// unspecified
-//		if(green_high==null && red_low==null) return Constants.WHITE;
-//		// yellow
-//		return Constants.YELLOW;
-//	}
-
-
-	/**
 	 * Set limits, same logic as for ResultEntity there the info is set in
 	 * SQLExecutorService and Data class
 	 */
@@ -350,13 +330,14 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 		if(entityCS==null) return;
 		Map<String, Limit> limitsMap = getLogic().getCompetitionLogic().getLimitsMap(entityCS.getLimits());
 		// tria
-		if(entity.getResultsTria()!=null) {
+		if(isTria()) {
 			Limit limits = limitsMap.get((String)values.get(ResultEntity.CATEGORY_TRIA));
 			if(limits!=null) {
 				cutoffSwim = limits.getLimits()[0];
 				cutoffRun = limits.getLimits()[1];
 				bestSwim = limits.getSwim()[1];
 				bestRun = limits.getRun()[1];
+				swimsuit = limits.getSwimsuit();
 			}
 		}
 	}
