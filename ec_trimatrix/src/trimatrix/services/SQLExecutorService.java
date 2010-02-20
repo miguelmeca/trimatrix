@@ -18,6 +18,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.HibernateTransactionManager;
 
 import trimatrix.db.DAOLayer;
+import trimatrix.db.Results;
 import trimatrix.db.Schedules;
 import trimatrix.entities.AttachmentEntity;
 import trimatrix.entities.CompetitionEntity;
@@ -603,7 +604,6 @@ public class SQLExecutorService {
 			// triathlon
 			if(CompetitionEntity.TRIATHLON.equals(compType)) {
 				datum.category_tria = (String)line[i++];
-				datum.swimsuit = (Boolean)line[i++];
 				datum.swim_split = (String)line[i++];
 				datum.swim_pos = (String)line[i++];
 				datum.run_split = (String)line[i++];
@@ -618,6 +618,7 @@ public class SQLExecutorService {
 					datum.best_run_split = limit.getRun()[1];
 					datum.best_swimmer = limit.getSwim()[0];
 					datum.best_swim_split = limit.getSwim()[1];
+					datum.swimsuit = limit.getSwimsuit();
 				}
 			}
 			data.add(datum);
@@ -1067,6 +1068,20 @@ public class SQLExecutorService {
 		Query query = session.createQuery("delete TestsSwimProtocol where id.id = :p_id");
 		query.setString("p_id", id);
 		return query.executeUpdate ();
+	}
+
+	public Results checkResultExists(String competitionId, String scoutId, String athleteId) {
+		if(Helper.isEmpty(competitionId)||Helper.isEmpty(scoutId)||Helper.isEmpty(athleteId)) return null;
+		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		//TODO make a bit nicer
+		String query = "from trimatrix.db.Results as model where model.competitionId = '" + competitionId + "' and model.scoutId = '" + scoutId + "' and model.athleteId = '" + athleteId + "' and deleted = 0";
+		Results result = null;
+		try {
+			result = (Results) session.createQuery(query).iterate().next();
+		} catch (Exception ex) {}
+		session.close();
+		return result;
 	}
 
 	public void setTransactionManager(HibernateTransactionManager transactionManager) {

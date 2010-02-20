@@ -7,6 +7,8 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.math.NumberUtils;
+
 
 /**
  * DayInfos entity. @author MyEclipse Persistence Tools
@@ -19,7 +21,7 @@ import javax.persistence.Table;
 public class DayInfos  implements java.io.Serializable {
 
 
-    // Fields    
+    // Fields
 
      private DayInfosId id;
      private Integer restingHr;
@@ -35,39 +37,39 @@ public class DayInfos  implements java.io.Serializable {
     public DayInfos(DayInfosId id) {
         this.id = id;
     }
-    
+
     /** full constructor */
     public DayInfos(DayInfosId id, Integer restingHr) {
         this.id = id;
         this.restingHr = restingHr;
     }
 
-   
+
     // Property accessors
     @EmbeddedId
-    
+
     @AttributeOverrides( {
-        @AttributeOverride(name="date", column=@Column(name="date", nullable=false, length=10) ), 
+        @AttributeOverride(name="date", column=@Column(name="date", nullable=false, length=10) ),
         @AttributeOverride(name="personId", column=@Column(name="person_id", nullable=false, length=36) ) } )
 
     public DayInfosId getId() {
         return this.id;
     }
-    
+
     public void setId(DayInfosId id) {
         this.id = id;
     }
-    
+
     @Column(name="resting_hr")
 
     public Integer getRestingHr() {
         return this.restingHr;
     }
-    
+
     public void setRestingHr(Integer restingHr) {
         this.restingHr = restingHr;
     }
-   
+
 
 
 

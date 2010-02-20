@@ -58,8 +58,8 @@ public class CompetitionLogic {
 		return new Limit();
 	}
 
-	public Limit createLimit(String category, String[] limits, String[] swim, String[] run) {
-		return new Limit(category, limits, swim, run);
+	public Limit createLimit(String category, String[] limits, String[] swim, String[] run, Boolean swimsuit) {
+		return new Limit(category, limits, swim, run, swimsuit);
 	}
 
 	public void setServiceLayer(ServiceLayer serviceLayer) {

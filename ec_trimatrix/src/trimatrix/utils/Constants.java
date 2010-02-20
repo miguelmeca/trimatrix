@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import org.eclnt.jsfserver.resources.ResourceManager;
+
 import trimatrix.entities.IEntityData;
 import trimatrix.relations.IRelationData;
 import trimatrix.services.SQLExecutorService;
@@ -115,6 +117,13 @@ public final class Constants {
 			return entityInstance;
 		}
 
+		public String getDescription() {
+			String description = ResourceManager.getRuntimeInstance().readProperty(LITERALS,getBase().entityInstance);
+			if(Helper.isEmpty(description)) return Constants.EMPTY;
+			// if not found the literal definition is returned and this always starts with a bracket
+			if(description.startsWith("{")) return Constants.EMPTY;
+			return description;
+		}
 	}
 	// all relationtypes
 	public static enum Relation {

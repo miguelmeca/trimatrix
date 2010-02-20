@@ -15,14 +15,17 @@ public class Limit {
 	String[] swim = new String[2]; // Name - Time
 	@Value
 	String[] run = new String[2]; //Name - Time
+	@Value
+	Boolean swimsuit;
 
 	public Limit() { }
 
-	public Limit(String category, String[] limits, String[] swim, String[] run) {
+	public Limit(String category, String[] limits, String[] swim, String[] run, Boolean swimsuit) {
 		this.category = category;
 		if(limits!=null) this.limits = limits;
 		if(swim!=null) this.swim = swim;
 		if(run!=null) this.run = run;
+		if(swimsuit!=null) this.swimsuit = swimsuit;
 	}
 
 	public String getCategory() {return category;}
@@ -36,6 +39,9 @@ public class Limit {
 
 	public String[] getRun() {return run;}
 	public void setRun(String[] run) {this.run = run;}
+
+	public Boolean getSwimsuit() {return swimsuit;}
+	public void setSwimsuit(Boolean swimsuit) {this.swimsuit = swimsuit;}
 
 	@Override
 	public String toString() {return category + " : " + Arrays.toString(limits);}
