@@ -8,6 +8,7 @@ import trimatrix.db.DAOLayer;
 import trimatrix.db.IComplexDAO;
 import trimatrix.db.ListVariants;
 import trimatrix.db.ListVariantsId;
+import trimatrix.db.UserPreferences;
 import trimatrix.entities.IEntityData;
 import trimatrix.entities.IEntityObject;
 import trimatrix.reports.Report;
@@ -87,9 +88,25 @@ public class EntityListLogic {
 		daoLayer.getListVariantsDAO().merge(lv);
 	}
 
+	public void saveGridState(String list, String key, SListVariant data) {
+		String user_id = serviceLayer.getDictionaryService().getMyUser().getId();
+		ListVariantsId lv_id = new ListVariantsId(list, key, user_id);
+		ListVariants lv = new ListVariants(lv_id, data.columnsSequence, data.columnsWidth);
+		daoLayer.getListVariantsDAO().merge(lv);
+	}
+
 	public SListVariant loadGridState(Constants.Entity entity) {
 		String user_id = serviceLayer.getDictionaryService().getMyUser().getId();
 		ListVariantsId lv_id = new ListVariantsId(Constants.P_ENTITYLIST, entity.name(), user_id);
+		IComplexDAO<ListVariants, ListVariantsId> dao = daoLayer.getListVariantsDAO();
+		ListVariants lv = dao.findById(lv_id);
+		if (lv==null) return null;
+		return new SListVariant(lv.getColumnsSequence(), lv.getColumnsWidth());
+	}
+
+	public SListVariant loadGridState(String list, String key) {
+		String user_id = serviceLayer.getDictionaryService().getMyUser().getId();
+		ListVariantsId lv_id = new ListVariantsId(list, key, user_id);
 		IComplexDAO<ListVariants, ListVariantsId> dao = daoLayer.getListVariantsDAO();
 		ListVariants lv = dao.findById(lv_id);
 		if (lv==null) return null;
@@ -102,6 +119,12 @@ public class EntityListLogic {
 
 	public boolean isUserEqualUserLoggedOn(String userId) {
 		return userId.equals(serviceLayer.getDictionaryService().getMyUser().getId());
+	}
+
+	public int getVisibleAmount() {
+		UserPreferences preferences = serviceLayer.getDictionaryService().getMyUser().getPreferences();
+		if(preferences==null || preferences.getSbvisibleamount()<=0) return 20; // standard value
+		return preferences.getSbvisibleamount();
 	}
 
 	// ----------------------------------------------------------------------

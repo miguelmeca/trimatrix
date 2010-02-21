@@ -12,7 +12,8 @@ public final class LogicLayer {
 	private TestLogic testLogic;
 	private CompetitionLogic competitionLogic;
 	private ScheduleLogic scheduleLogic;
-	
+	private PreferencesLogic preferencesLogic;
+
 	public LogonLogic getLogonLogic() {
 		return logonLogic;
 	}
@@ -24,51 +25,59 @@ public final class LogicLayer {
 	}
 	public void setEntityListLogic(EntityListLogic entityListLogic) {
 		this.entityListLogic = entityListLogic;
-	}	
+	}
 	public FunctionTreeLogic getFunctionTreeLogic() {
 		return functionTreeLogic;
 	}
 	public void setFunctionTreeLogic(FunctionTreeLogic functionTreeLogic) {
 		this.functionTreeLogic = functionTreeLogic;
-	}	
+	}
 	public RelationListLogic getRelationListLogic() {
 		return relationListLogic;
 	}
 	public void setRelationListLogic(RelationListLogic relationListLogic) {
 		this.relationListLogic = relationListLogic;
-	}	
+	}
 	public LabelLogic getLabelLogic() {
 		return labelLogic;
 	}
 	public void setLabelLogic(LabelLogic labelLogic) {
-		this.labelLogic = labelLogic;		
-	}	
+		this.labelLogic = labelLogic;
+	}
 	public ZonesLogic getZonesLogic() {
 		return zonesLogic;
 	}
 	public void setZonesLogic(ZonesLogic zonesLogic) {
 		this.zonesLogic = zonesLogic;
-	}	
+	}
 	public TestLogic getTestLogic() {
 		return testLogic;
 	}
 	public void setTestLogic(TestLogic testLogic) {
 		this.testLogic = testLogic;
-	}	
+	}
 	public CompetitionLogic getCompetitionLogic() {
 		return competitionLogic;
 	}
 	public void setCompetitionLogic(CompetitionLogic competitionLogic) {
 		this.competitionLogic = competitionLogic;
-	}	
-	
+	}
+
 	public ScheduleLogic getScheduleLogic() {
 		return scheduleLogic;
 	}
-	
+
 	public void setScheduleLogic(ScheduleLogic scheduleLogic) {
 		this.scheduleLogic = scheduleLogic;
 	}
+
+	public PreferencesLogic getPreferencesLogic() {
+		return preferencesLogic;
+	}
+	public void setPreferencesLogic(PreferencesLogic preferencesLogic) {
+		this.preferencesLogic = preferencesLogic;
+	}
+
 	public static LogicLayer getFromApplicationContext(ApplicationContext ctx) {
 		return (LogicLayer) ctx.getBean("logicLayer");
 	}

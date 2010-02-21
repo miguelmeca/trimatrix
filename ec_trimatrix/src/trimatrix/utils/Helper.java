@@ -19,6 +19,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.math.NumberUtils;
 import org.eclnt.jsfserver.resources.ResourceManager;
 import org.eclnt.jsfserver.util.HttpSessionAccess;
 
@@ -150,6 +151,40 @@ public class Helper {
 	 */
 	public static NumberFormat getNumberFormat() {
 		return NumberFormat.getInstance(getLocale());
+	}
+
+	public static String correctTimeInput(String input) {
+		if(isEmpty(input)) return "00:00:00";
+		String output = null;
+		// short input
+		if(NumberUtils.isDigits(input)) {
+			switch (input.length()) {
+			case 1:
+				output = "00:0" + input + ":00";
+				break;
+			case 2:
+				output = "00:" + input + ":00";
+				break;
+			case 3:
+				output = "0" + input.substring(0,1) + ":" + input.substring(1,3) + ":00";
+				break;
+			case 4:
+				output = "00:" + input.substring(0,2) + ":" + input.substring(2);
+				break;
+			case 5:
+				output = "0" + input.substring(0,1) + ":" + input.substring(1,3) + ":" + input.substring(3);
+				break;
+			case 6:
+				output = input.substring(0,2) + ":" + input.substring(2,4) + ":" + input.substring(4);
+				break;
+			default:
+				output = "00:00:00";
+				break;
+			}
+		}
+		// check regex
+		if(!Pattern.compile("\\d\\d:[0-5]\\d:[0-5]\\d").matcher(output).matches()) output = "00:00:00";
+		return output;
 	}
 
 	/**

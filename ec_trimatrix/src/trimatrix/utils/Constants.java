@@ -17,6 +17,7 @@ public final class Constants {
 	public static enum Page {
 		WORKPLACE("/workplace.jsp","Workplace"),
 		ADMINPANEL("/adminpanel.jsp","Amin Konsole"),
+		PREFERENCESPANEL("/preferencespanel.jsp","Benutzereinstellungen"),
 		LOGON("/logon.jsp", "Logon"),
 		PASSWORD("/password.jsp","Passwort ändern"),
 		ENTITYLIST("/entitylist.jsp","Entitäten"),
@@ -238,6 +239,7 @@ public final class Constants {
 	public static final String CENTER = "center";
 	public static final String P_ENTITY = "entity";
 	public static final String P_ENTITYLIST = "entitylist";
+	public static final String P_LIST = "list";
 	public static final String P_PERSON = "person";
 	public static final String P_USER = "user";
 	public static final String P_LABEL= "label";

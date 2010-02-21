@@ -13,10 +13,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
 import org.hibernate.validator.Email;
 
 import trimatrix.entities.IEntityObject;
@@ -53,6 +57,7 @@ public class Users implements java.io.Serializable, IEntityObject {
 
 	private Set<KRoles> roles = new HashSet<KRoles>();
 	private Persons person;
+	private UserPreferences preferences;
 
 	// Constructors
 
@@ -227,7 +232,7 @@ public class Users implements java.io.Serializable, IEntityObject {
 		this.modifiedAt = modifiedAt;
 	}
 
-	@Column(name = "modified_by", length = 36)	
+	@Column(name = "modified_by", length = 36)
 	public String getModifiedBy() {
 		return this.modifiedBy;
 	}
@@ -272,6 +277,17 @@ public class Users implements java.io.Serializable, IEntityObject {
 
 	public void setRoles(Set<KRoles> roles) {
 		this.roles = roles;
+	}
+
+	@OneToOne(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    @LazyToOne(LazyToOneOption.FALSE)
+	public UserPreferences getPreferences() {
+		return preferences;
+	}
+
+	public void setPreferences(UserPreferences preferences) {
+		this.preferences = preferences;
 	}
 
 	@Override

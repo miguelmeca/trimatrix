@@ -1,5 +1,6 @@
 package trimatrix.logic;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -8,10 +9,9 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import trimatrix.db.Categories;
-import trimatrix.db.CategoriesDAO;
 import trimatrix.db.CompetitionsScouts;
 import trimatrix.db.DAOLayer;
+import trimatrix.db.UserPreferences;
 import trimatrix.logic.helper.Limit;
 import trimatrix.services.ServiceLayer;
 import trimatrix.utils.Helper;
@@ -30,8 +30,11 @@ public class CompetitionLogic {
 		daoLayer.getCompetitionsScoutsDAO().merge(cs);
 	}
 
-	public List<Categories> getCategories() {
-		 return daoLayer.getCategoriesDAO().findByProperty(CategoriesDAO.SCOUTID, serviceLayer.getDictionaryService().getMyPerson().getId());
+	public List<String> getCategories() {
+		UserPreferences preferences = serviceLayer.getDictionaryService().getMyUser().getPreferences();
+		if(preferences==null || Helper.isEmpty(preferences.getCompetitionCategories())) return Collections.EMPTY_LIST;
+		String[] categories = preferences.getCompetitionCategories().split(";");
+		return Arrays.asList(categories);
 	}
 
 	public String buildString(List<Limit> limits) {

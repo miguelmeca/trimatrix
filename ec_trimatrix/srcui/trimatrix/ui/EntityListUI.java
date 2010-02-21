@@ -123,9 +123,13 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 	}
 
 	private void setRowDynamic() {
+		int maxRows = ENTITYLISTLOGIC.getVisibleAmount();
 		String dragKey = Constants.P_ENTITY + ":" + Constants.P_ENTITYLIST;
 		StringBuffer xml = new StringBuffer();
-		xml.append("<t:fixgrid avoidroundtrips='true' rowdragsend='" + dragKey + "' drawoddevenrows='true' objectbinding='#{d.EntityListUI.gridList}' persistid='gridList' cellselection='true' rowheight='20' sbvisibleamount='20' width='100%' showemptyrows='false' horizontalscrollmode='autowithresize'>");
+		xml.append("<t:fixgrid width='100%' avoidroundtrips='true' rowdragsend='" + dragKey + "' drawoddevenrows='true' objectbinding='#{d.EntityListUI.gridList}' cellselection='false' rowheight='20' sbvisibleamount='" + maxRows + "' showemptyrows='false' horizontalscrollmode='autowithresize' selectorcolumn='1'>");
+		// selector column
+		//xml.append("<t:gridcol columnresizingenabled='false' searchenabled='false' sortenabled='false' width='20'><t:gridrowselector /></t:gridcol>");
+		// build dynamic columns
 		for (SGridMetaData meta : gridMetaData) {
 			// component type checkbox
 			boolean isIndividual = false;

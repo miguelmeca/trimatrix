@@ -38,7 +38,8 @@
 <t:button id="g_21" actionListener="#{d.EntityListUI.onRefresh}" image="/images/icons/refresh.png" imageheight="15" text="#{rr.literals.list_refresh}" />
 <t:coldistance id="g_22" width="100%" />
 <t:button id="g_23" actionListener="#{d.EntityListUI.gridList.onEditColumnDetails}" image="/images/icons/configure.png" imageheight="15" text="#{rr.literals.list_configure}" />
-<t:button id="g_24" actionListener="#{d.EntityListUI.saveGridState}" image="/images/icons/save.png" imageheight="15" text="#{rr.literals.save}" />
+<t:coldistance id="g_24" />
+<t:button id="g_25" actionListener="#{d.EntityListUI.saveGridState}" image="/images/icons/save.png" imageheight="15" text="#{rr.literals.save}" />
 </t:row>
 </t:pane>
 </t:row>

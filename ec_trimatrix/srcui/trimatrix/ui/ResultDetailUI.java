@@ -10,7 +10,6 @@ import org.eclnt.jsfserver.defaultscreens.ISetId;
 import org.eclnt.jsfserver.defaultscreens.IdTextSelection;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
-import trimatrix.db.Categories;
 import trimatrix.db.Competitions;
 import trimatrix.db.CompetitionsScouts;
 import trimatrix.db.Persons;
@@ -28,6 +27,8 @@ import trimatrix.utils.Constants.Entity;
 @CCGenClass (expressionBase="#{d.ResultDetailUI}")
 
 public class ResultDetailUI extends AEntityDetailUI implements Serializable {
+
+	private Map<String, Limit> limitsMap;
 
 	private String cutoffSwim;
 	private String cutoffRun;
@@ -149,6 +150,11 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 		for (String field : MANDATORY_FIELDS_TRIA) {
 			bgpaint.put(field, Constants.BGP_MANDATORY);
 		}
+	}
+
+	public void onTimeFlush(ActionEvent event) {
+		String input = (String)values.get(ResultEntity.SWIM_SPLIT);
+		values.put(ResultEntity.SWIM_SPLIT, Helper.correctTimeInput(input));
 	}
 
 	/**
@@ -289,8 +295,8 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 
 	public void onCategoryF4(ActionEvent event) {
 		IdTextSelection idts = IdTextSelection.createInstance();
-		for (Categories category : getLogic().getCompetitionLogic().getCategories()) {
-			idts.addLine(category.getId().getCategory(), "");
+		for (String category : limitsMap.keySet()) {
+			idts.addLine(category, "");
 		}
 		idts.setCallBack(new ISetId() {
 			public void setId(String id) {
@@ -328,7 +334,7 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 		if(entity.getCompetitionId()==null || entity.getScoutId()==null) return;
 		CompetitionsScouts entityCS = ENTITYLISTLOGIC.getCompetitionScouts(entity.getCompetitionId(), entity.getScoutId());
 		if(entityCS==null) return;
-		Map<String, Limit> limitsMap = getLogic().getCompetitionLogic().getLimitsMap(entityCS.getLimits());
+		limitsMap = getLogic().getCompetitionLogic().getLimitsMap(entityCS.getLimits());
 		// tria
 		if(isTria()) {
 			Limit limits = limitsMap.get((String)values.get(ResultEntity.CATEGORY_TRIA));

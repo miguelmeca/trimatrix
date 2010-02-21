@@ -14,9 +14,11 @@ import org.eclnt.jsfserver.elements.events.BaseActionEventPopupMenuItem;
 import org.eclnt.jsfserver.elements.impl.BUTTONComponent;
 import org.eclnt.jsfserver.elements.impl.OUTLOOKBARITEMComponent;
 import org.eclnt.jsfserver.elements.impl.ROWDYNAMICCONTENTBinding;
+import org.eclnt.jsfserver.resources.ResourceManager;
 import org.eclnt.workplace.IWorkpage;
 import org.eclnt.workplace.IWorkpageContainer;
 import org.eclnt.workplace.IWorkpageDispatcher;
+import org.eclnt.workplace.Workpage;
 
 import trimatrix.db.EntitiesHaveLabels;
 import trimatrix.db.Labels;
@@ -29,15 +31,15 @@ import trimatrix.utils.MessageHandler;
 @SuppressWarnings("serial")
 @CCGenClass (expressionBase="#{d.WorkplaceUI}")
 
-public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializable
-{    
+public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializable {
+	private static final String PREFERENCES = "preferences";
 	private static final String DIVIDERLOCATIONMAX = "175";
 	private static final String DIVIDERLOCATIONMIN = "0";
     //protected String m_toggleShowHideImage;
-   
+
     protected String m_dividerLocation = DIVIDERLOCATIONMAX;
-    public String getDividerLocation() { return m_dividerLocation; }      
-    
+    public String getDividerLocation() { return m_dividerLocation; }
+
     protected boolean m_renderLabels = true;
     public boolean getRenderLabels() { return m_renderLabels; }
     public void setRenderLabels(boolean value) { m_renderLabels = value; }
@@ -53,15 +55,15 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
     protected boolean m_renderAdmin = true;
     public boolean getRenderAdmin() { return m_renderAdmin; }
     public void setRenderAdmin(boolean value) { m_renderAdmin = value; }
-    
+
     protected boolean m_renderScouter = false;
     public boolean getRenderScouter() { return m_renderScouter; }
     public void setRenderScouter(boolean value) { m_renderScouter = value; }
-         
+
 	protected int m_selectedRole = 0;
     public int getSelectedRole() { return m_selectedRole; }
     public void setSelectedRole(int value) { m_selectedRole = value; }
-    
+
     private static final String DELETELABEL = "delete";
     private static final String CHANGELABEL = "change";
     public String getDeleteLabelCommand() { return DELETELABEL; }
@@ -75,14 +77,32 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
         	if (role!=null) {
         		m_selectedRole = role.getId();
         	}
-    	}    	
+    	}
+    }
+
+    /**
+     * Show preferences page
+     * @param event
+     */
+    public void onPreferences(ActionEvent event) {
+		IWorkpageDispatcher wpd = getOwningDispatcher();
+		IWorkpageContainer wpc = getWorkpageContainer();
+		IWorkpage wp = wpc.getWorkpageForId(PREFERENCES);
+		if(wp != null) {
+			wpc.switchToWorkpage(wp);
+			return;
+		}
+
+    	String title = ResourceManager.getRuntimeInstance().readProperty(Constants.LITERALS,"preferences");
+		wp = new Workpage( wpd, Constants.Page.PREFERENCESPANEL.getUrl(),PREFERENCES, title, null, true);
+		wpc.addWorkpage(wp);
     }
 
 	public WorkplaceUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
-		initialize();			
+		initialize();
 	}
-	
+
 	private void initialize() {
 		setRenderAdmin(false);
 		setRenderCoach(false);
@@ -110,35 +130,35 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 			setRenderAdmin(true);
 			m_selectedRole = Constants.Role.ADMIN.getId();
 		}
-	}	
-	
-	public String getToggleShowHideImage() 
+	}
+
+	public String getToggleShowHideImage()
     {
         if (!m_dividerLocation.equals(DIVIDERLOCATIONMIN))
             return Constants.SIDE_CONTRACT;
         else
             return Constants.SIDE_EXPAND;
     }
-	
+
 	public void onShowHideFunctions(ActionEvent event) {
 		if (m_dividerLocation.equals(DIVIDERLOCATIONMIN))
             m_dividerLocation = DIVIDERLOCATIONMAX;
         else
             m_dividerLocation = DIVIDERLOCATIONMIN;
 	}
-	
-	public String getLabelsShowHideImage() 
+
+	public String getLabelsShowHideImage()
     {
         if (!m_renderLabels)
             return Constants.SIDE_CONTRACT;
         else
             return Constants.SIDE_EXPAND;
     }
-	
+
 	public void onShowHideLabels(ActionEvent event) {
 		m_renderLabels = !m_renderLabels;
 	}
-	
+
 	public void onHandleLabels(ActionEvent event) {
 		// get label id
 		if (!(event.getSource() instanceof BUTTONComponent)) return;
@@ -148,9 +168,9 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 		// handle popupmenue
 		if (event instanceof BaseActionEventPopupMenuItem) {
 			BaseActionEventPopupMenuItem bae = (BaseActionEventPopupMenuItem)event;
-			String command = bae.getCommand();			
+			String command = bae.getCommand();
 			// delete label
-			if(DELETELABEL.equals(command)) {				
+			if(DELETELABEL.equals(command)) {
 				// check if relation to entity exist
 				final List<EntitiesHaveLabels> relations = getDaoLayer().getEntitiesHaveLabelsDAO().findByLabel(label_id);
 				// popup
@@ -161,37 +181,37 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 							}
 							public void reactOnYes() {
 								// delete all relations
-								if(relations.size() > 0) {				
+								if(relations.size() > 0) {
 									for(EntitiesHaveLabels relation:relations) {
 										getDaoLayer().getEntitiesHaveLabelsDAO().delete(relation);
 										refreshLabels();
 									}
 								}
-								// delete label		
+								// delete label
 								if(label!=null) {
 									getDaoLayer().getLabelsDAO().delete(label);
 									Statusbar.outputMessage("Delete Label " + label.getDescription());
-								}								
+								}
 							}
-					});	
+					});
 			}
 			// change label
 			if(CHANGELABEL.equals(command)) {
 				LabelChangePopUp labelChangePopUp = getLabelChangePopUp();
 				labelChangePopUp.prepareCallback(new LabelChangePopUp.IPopupCallback(){
 					public void cancel() {
-						m_popup.close();						
-					}					
+						m_popup.close();
+					}
 				});
 				if(!labelChangePopUp.setLabel(label_id)) {
 					logger.error("Label " + label_id + " not correct!");
 					return;
-				}			
-				m_popup = getWorkpage().createModalPopupInWorkpageContext();  			
-		    	m_popup.open(Constants.Page.LABELCHANGEPOPUP.getUrl(), "Label ändern",350, 175, this); 
+				}
+				m_popup = getWorkpage().createModalPopupInWorkpageContext();
+		    	m_popup.open(Constants.Page.LABELCHANGEPOPUP.getUrl(), "Label ändern",350, 175, this);
 		    	//m_popup.setUndecorated(true);
-			}		
-			
+			}
+
 		} else {
 			// Standard click navigate to search result
 			IWorkpageDispatcher wpd = getOwningDispatcher();
@@ -200,24 +220,24 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 			if(wp != null) {
 				wpc.switchToWorkpage(wp);
 				return;
-			} 
-			// Page doesn't exist, create it			
-			wp = new MyWorkpage(wpd, Constants.Page.LABELSEARCHRESULT.getUrl(), label_id, label.getDescription(), null, true);			
-			wp.setParam(Constants.P_LABEL, label_id);	
+			}
+			// Page doesn't exist, create it
+			wp = new MyWorkpage(wpd, Constants.Page.LABELSEARCHRESULT.getUrl(), label_id, label.getDescription(), null, true);
+			wp.setParam(Constants.P_LABEL, label_id);
 			wpc.addWorkpage(wp);
 		}
-	}	
-	
+	}
+
 	// ------------------------------------------------------------------------
 	// logic for label overview
-	// ------------------------------------------------------------------------	
-	
+	// ------------------------------------------------------------------------
+
 	protected ROWDYNAMICCONTENTBinding m_labels = new ROWDYNAMICCONTENTBinding();
 	public ROWDYNAMICCONTENTBinding getLabels() { setLabelRowDynamic(); return m_labels; }
     public void setLabels(ROWDYNAMICCONTENTBinding value) { m_labels = value; }
-    
+
     @Override
-	public void setLabelRowDynamic() { 		
+	public void setLabelRowDynamic() {
     	StringBuffer xml = new StringBuffer();
     	// get all labels for logged in person
 		List<Labels> labels = getLogic().getLabelLogic().getLabelsByPerson(getServiceLayer().getDictionaryService().getMyPerson().getId());
@@ -225,7 +245,7 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 		for(Labels label:labels) {
 			// get inverted color for font
 			Color background = Color.decode(label.getColor());
-			String fontColor = Helper.getBlackOrWhite(background);		
+			String fontColor = Helper.getBlackOrWhite(background);
 
 			xml.append("<t:row>");
 			xml.append("<t:button clientname='" + label.getId() + "' actionListener='#{d.WorkplaceUI.onHandleLabels}' contentareafilled='false' bgpaint='roundedrectangle(0,0,100%,100%,5,5," + label.getColor() + ")' stylevariant='WP_ISOLATEDWORKPAGE' popupmenu='LABEL' foreground ='" + fontColor + "' font='size:10;weight:bold' text='"+ label.getDescription() +"' width = '120' />");
@@ -234,10 +254,10 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 		}
 		xml.append("</t:pane>");
 		m_labels.setContentXml(xml.toString());
-	}      
-    
+	}
+
     public void checkSessionMessage(ActionEvent event) {
     	String message = MessageHandler.getSessionMessage();
-    	if(message!=null) Statusbar.outputAlert(message).setLeftTopReferenceCentered();    	
+    	if(message!=null) Statusbar.outputAlert(message).setLeftTopReferenceCentered();
     }
 }
