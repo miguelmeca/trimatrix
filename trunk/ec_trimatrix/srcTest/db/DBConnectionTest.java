@@ -41,6 +41,7 @@ import trimatrix.db.Persons;
 import trimatrix.db.PersonsAthlete;
 import trimatrix.db.PersonsHaveCompetitions;
 import trimatrix.db.PersonsHaveRelations;
+import trimatrix.db.Results;
 import trimatrix.db.RolesHaveFunctionnodes;
 import trimatrix.db.Schedules;
 import trimatrix.db.Tests;

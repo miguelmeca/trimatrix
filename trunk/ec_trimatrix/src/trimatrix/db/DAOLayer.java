@@ -37,7 +37,6 @@ public class DAOLayer {
 	private ISimpleDAO<Zones> zonesDAO;
 	private ISimpleDAO<ZonesDefinition> zonesDefinitionDAO;
 	private IViewDAO<Entities, EntitiesId> entitiesDAO;
-	private IViewDAO<Categories, CategoriesId> categoriesDAO;
 	private IComplexDAO<DayInfos, DayInfosId> dayInfosDAO;
 
 	private IEntitiesHaveLabelsDAO entitiesHaveLabelsDAO;
@@ -258,12 +257,6 @@ public class DAOLayer {
 	}
 	public void setEntitiesDAO(IViewDAO<Entities, EntitiesId> entitiesDAO) {
 		this.entitiesDAO = entitiesDAO;
-	}
-	public IViewDAO<Categories, CategoriesId> getCategoriesDAO() {
-		return categoriesDAO;
-	}
-	public void setCategoriesDAO(IViewDAO<Categories, CategoriesId> categoriesDAO) {
-		this.categoriesDAO = categoriesDAO;
 	}
 	public IComplexDAO<DayInfos, DayInfosId> getDayInfosDAO() {
 		return dayInfosDAO;

@@ -149,16 +149,14 @@ public class FunctionTreeLogic {
 
 	public Results checkResultRelation(String athleteId, String competitionId) throws Exception {
 		// Check if combination already exists
-//		Results example = new Results();
-//		example.setCompetition((Competitions)entityLayer.getCompetitionEntity().get(competitionId));
-//		example.setScout(serviceLayer.getDictionaryService().getMyPerson());
-//		example.setAthlete((Persons)entityLayer.getPersonEntity().get(athleteId));
-//		example.setDeleted(false);
-//
-//		List<Results> results = daoLayer.getResultsDAO().findByExample(example);
-//		if(Helper.isEmpty(results)) return null;
-//		return results.get(0);
-		return serviceLayer.getSqlExecutorService().checkResultExists(competitionId, serviceLayer.getDictionaryService().getMyPerson().getId(), athleteId);
+		Results example = new Results();
+		example.setCompetitionId(competitionId);
+		example.setScoutId(serviceLayer.getDictionaryService().getMyPerson().getId());
+		example.setAthleteId(athleteId);
+		example.setDeleted(false);
+		List<Results> results = daoLayer.getResultsDAO().findByExample(example);
+		if(Helper.isEmpty(results)) return null;
+		return results.get(0);
 	}
 
 	public Results createResultRelation(String athleteId, String competitionId) throws Exception {

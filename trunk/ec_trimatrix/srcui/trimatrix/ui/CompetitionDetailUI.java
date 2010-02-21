@@ -15,7 +15,6 @@ import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
-import trimatrix.db.Categories;
 import trimatrix.db.Competitions;
 import trimatrix.db.CompetitionsScouts;
 import trimatrix.db.Results;
@@ -23,12 +22,14 @@ import trimatrix.entities.CompetitionEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
 import trimatrix.logic.helper.Limit;
+import trimatrix.structures.SListVariant;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Constants.Entity;
 
 @SuppressWarnings("serial")
 @CCGenClass(expressionBase = "#{d.CompetitionDetailUI}")
 public class CompetitionDetailUI extends AEntityDetailUI implements Serializable {
+	private final static String COMPETITIONLIMITS = "COMPETITIONLIMITS";
 
 	protected FIXGRIDListBinding<GridLimitsItem> m_gridLimits = new FIXGRIDListBinding<GridLimitsItem>();
 
@@ -112,8 +113,8 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 
 	public void getCategoryF4(final GridLimitsItem item) {
 		IdTextSelection idts = IdTextSelection.createInstance();
-		for (Categories category : getLogic().getCompetitionLogic().getCategories()) {
-			idts.addLine(category.getId().getCategory(), "");
+		for (String category : getLogic().getCompetitionLogic().getCategories()) {
+			idts.addLine(category, "");
 		}
 		idts.setCallBack(new ISetId() {
 			public void setId(String id) {
@@ -241,6 +242,8 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 			for (Limit limit : limits) {
 				m_gridLimits.getItems().add(new GridLimitsItem(limit));
 			}
+			// load grid state
+			loadGridState();
 		}
 		// add bgpaint of fields
 		bgpaint.clear();
@@ -248,6 +251,18 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		for (String field : MANDATORY_FIELDS) {
 			bgpaint.put(field, Constants.BGP_MANDATORY);
 		}
+	}
+
+	public void saveGridState(ActionEvent event) {
+		SListVariant lv = new SListVariant(m_gridLimits.getColumnsequence(), m_gridLimits.getModcolumnwidths());
+		ENTITYLISTLOGIC.saveGridState(Constants.P_LIST, COMPETITIONLIMITS, lv);
+	}
+
+	private void loadGridState() {
+		SListVariant lv = ENTITYLISTLOGIC.loadGridState(Constants.P_LIST, COMPETITIONLIMITS);
+		if(lv==null) return;
+		m_gridLimits.setColumnsequence(lv.columnsSequence);
+		m_gridLimits.setModcolumnwidths(lv.columnsWidth);
 	}
 
 	/*

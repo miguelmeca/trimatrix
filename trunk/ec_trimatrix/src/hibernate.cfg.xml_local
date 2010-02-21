@@ -89,11 +89,11 @@
 		<mapping class="trimatrix.db.PersonsHaveRelations" />
 		<mapping class="trimatrix.db.PersonsHaveAttachments" />
 		<mapping class="trimatrix.db.PersonsHaveDoctors" />
-		<mapping class="trimatrix.db.Categories" />
 		<mapping class="trimatrix.db.Schedules" />
 		<mapping class="trimatrix.db.TScheduletypes" />
 		<mapping class="trimatrix.db.DayInfos" />
 		<mapping class="trimatrix.db.UsersHaveRoles" />
+		<mapping class="trimatrix.db.UserPreferences" />
 	</session-factory>
 
 </hibernate-configuration>

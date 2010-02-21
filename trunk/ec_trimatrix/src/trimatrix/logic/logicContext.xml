@@ -110,6 +110,17 @@
 		</property>
 	</bean>
 
+	<bean id="preferencesLogic" class="trimatrix.logic.PreferencesLogic"
+		abstract="false" lazy-init="default" autowire="default"
+		dependency-check="default">
+		<property name="serviceLayer">
+			<ref bean="serviceLayer" />
+		</property>
+		<property name="entityLayer">
+			<ref bean="entityLayer" />
+		</property>
+	</bean>
+
 	<bean id="logicLayer" class="trimatrix.logic.LogicLayer" abstract="false"
 		lazy-init="default" autowire="default" dependency-check="default">
 		<property name="logonLogic">
@@ -138,6 +149,9 @@
 		</property>
 		<property name="scheduleLogic">
 			<ref bean="scheduleLogic" />
+		</property>
+		<property name="preferencesLogic">
+			<ref bean="preferencesLogic" />
 		</property>
 	</bean>
 </beans>

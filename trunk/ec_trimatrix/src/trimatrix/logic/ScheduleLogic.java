@@ -12,9 +12,7 @@ import trimatrix.db.DayInfos;
 import trimatrix.db.DayInfosId;
 import trimatrix.db.Schedules;
 import trimatrix.entities.EntityLayer;
-import trimatrix.entities.IEntityData;
 import trimatrix.services.ServiceLayer;
-import trimatrix.ui.ScheduleUI.ScheduleItem;
 import trimatrix.utils.Constants;
 
 public class ScheduleLogic {
