@@ -181,6 +181,8 @@ public class Helper {
 				output = "00:00:00";
 				break;
 			}
+		} else {
+			output = input;
 		}
 		// check regex
 		if(!Pattern.compile("\\d\\d:[0-5]\\d:[0-5]\\d").matcher(output).matches()) output = "00:00:00";

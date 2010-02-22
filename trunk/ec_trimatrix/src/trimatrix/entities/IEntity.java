@@ -2,8 +2,6 @@ package trimatrix.entities;
 
 import java.util.List;
 
-import org.springframework.dao.DataIntegrityViolationException;
-
 import trimatrix.reports.Report;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;

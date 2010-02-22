@@ -18,7 +18,6 @@ import trimatrix.db.Persons;
 import trimatrix.db.PersonsHaveAttachments;
 import trimatrix.db.PersonsHaveDoctors;
 import trimatrix.db.Results;
-import trimatrix.db.ResultsDAO;
 import trimatrix.entities.EntityLayer;
 import trimatrix.entities.IEntityData;
 import trimatrix.relations.PersonAttachmentRelation;

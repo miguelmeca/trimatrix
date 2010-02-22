@@ -16,7 +16,6 @@ import javax.persistence.Version;
 
 import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
-import org.hibernate.annotations.ManyToAny;
 
 import trimatrix.entities.IEntityObject;
 

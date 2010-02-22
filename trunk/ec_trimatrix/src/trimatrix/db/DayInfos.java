@@ -7,8 +7,6 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import org.apache.commons.lang.math.NumberUtils;
-
 
 /**
  * DayInfos entity. @author MyEclipse Persistence Tools
