@@ -183,6 +183,8 @@ public final class PersonEntity extends AEntity {
 		// default values
 		entity.setDeleted(false);
 		entity.setTest(false);		
+		// default athletes profile
+		entity.setProfileAthlete(new PersonsAthlete(id));
 		return entity;
 	}	
 	

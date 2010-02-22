@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.faces.event.ActionEvent;
 
@@ -24,6 +25,7 @@ import trimatrix.exceptions.MandatoryCheckException;
 import trimatrix.logic.helper.Limit;
 import trimatrix.structures.SListVariant;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.Entity;
 
 @SuppressWarnings("serial")
@@ -77,6 +79,7 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		}
 
 		public void setCutoffSwim(String cutoffSwim) {
+			if(!Pattern.compile("(\\d\\d:[0-5]\\d:[0-5]\\d)|(\\d*%)").matcher(cutoffSwim).matches()) cutoffSwim = Helper.correctTimeInput(cutoffSwim);
 			limit.getLimits()[0] = cutoffSwim;
 		}
 
@@ -85,6 +88,7 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		}
 
 		public void setCutoffRun(String cutoffRun) {
+			if(!Pattern.compile("(\\d\\d:[0-5]\\d:[0-5]\\d)|(\\d*%)").matcher(cutoffRun).matches()) cutoffRun = Helper.correctTimeInput(cutoffRun);
 			limit.getLimits()[1] = cutoffRun;
 		}
 
@@ -95,10 +99,10 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		public void setRunAthlet(String athlet) {limit.getRun()[0] = athlet; }
 
 		public String getSwimSplit() { return limit.getSwim()[1]; }
-		public void setSwimSplit(String split) {limit.getSwim()[1] = split; }
+		public void setSwimSplit(String split) {limit.getSwim()[1] = Helper.correctTimeInput(split); }
 
 		public String getRunSplit() { return limit.getRun()[1]; }
-		public void setRunSplit(String split) {limit.getRun()[1] = split; }
+		public void setRunSplit(String split) {limit.getRun()[1] = Helper.correctTimeInput(split); }
 
 		/**
 		 * F4 Help for category fieldcombo Values are selected from view

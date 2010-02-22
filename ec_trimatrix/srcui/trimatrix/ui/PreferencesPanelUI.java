@@ -6,11 +6,9 @@ import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
-import org.eclnt.jsfserver.elements.impl.ARRAYGRIDListBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.db.UserPreferences;
-import trimatrix.ui.RelationListUI.MyARRAYGRIDItem;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 
 @CCGenClass(expressionBase = "#{d.PreferencesPanelUI}")

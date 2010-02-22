@@ -9,7 +9,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import trimatrix.entities.IEntityObject;
-import trimatrix.utils.Helper;
 
 /**
  * A data access object (DAO) providing persistence and search support for

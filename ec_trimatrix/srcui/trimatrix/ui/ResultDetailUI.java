@@ -8,6 +8,7 @@ import javax.faces.event.ActionEvent;
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.ISetId;
 import org.eclnt.jsfserver.defaultscreens.IdTextSelection;
+import org.eclnt.jsfserver.elements.impl.FIELDComponent;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.db.Competitions;
@@ -27,7 +28,10 @@ import trimatrix.utils.Constants.Entity;
 @CCGenClass (expressionBase="#{d.ResultDetailUI}")
 
 public class ResultDetailUI extends AEntityDetailUI implements Serializable {
-
+	private static final String SWIM = "swim";
+	private static final String RUN = "run";
+	private static final String OVERALL = "overall";
+	
 	private Map<String, Limit> limitsMap;
 
 	private String cutoffSwim;
@@ -153,8 +157,21 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 	}
 
 	public void onTimeFlush(ActionEvent event) {
-		String input = (String)values.get(ResultEntity.SWIM_SPLIT);
-		values.put(ResultEntity.SWIM_SPLIT, Helper.correctTimeInput(input));
+		// get clientname to separate by source
+		String clientname = (String) event.getComponent().getAttributes().get(Constants.CLIENTNAME);
+		String field;
+		if(SWIM.equalsIgnoreCase(clientname)) {
+			field = ResultEntity.SWIM_SPLIT;
+		} else if(RUN.equalsIgnoreCase(clientname)) {
+			field = ResultEntity.RUN_SPLIT;
+		} else if(OVERALL.equalsIgnoreCase(clientname)) {
+			field = ResultEntity.TIME;
+		} else {
+			return;
+		}
+		// correct input
+		String input = (String)values.get(field);
+		values.put(field, Helper.correctTimeInput(input));
 	}
 
 	/**

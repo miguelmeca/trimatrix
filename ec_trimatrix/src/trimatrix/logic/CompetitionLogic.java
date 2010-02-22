@@ -8,12 +8,10 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.eclnt.jsfserver.defaultscreens.Statusbar;
 
 import trimatrix.db.CompetitionsScouts;
 import trimatrix.db.DAOLayer;
 import trimatrix.db.UserPreferences;
-import trimatrix.db.Users;
 import trimatrix.logic.helper.Limit;
 import trimatrix.services.ServiceLayer;
 import trimatrix.utils.Helper;

@@ -39,7 +39,7 @@
 </t:row>
 <t:row id="g_23" >
 <t:label id="g_24" text="#{rr.literals.time}" width="120" />
-<t:field id="g_25" attributemacro="entityDetailMacro(ResultDetailUI,time)" maxlength="8" regex="\d\d:[0-5]\d:[0-5]\d" regexmode="1" userhint="hh:mm:ss" width="100" />
+<t:field id="g_25" actionListener="#{d.ResultDetailUI.onTimeFlush}" attributemacro="entityDetailMacro(ResultDetailUI,time)" clientname="overall" flush="true" maxlength="8" userhint="hh:mm:ss" width="100" />
 </t:row>
 <t:row id="g_26" >
 <t:label id="g_27" rowalignmenty="top" text="#{rr.literals.comment}" width="120" />
@@ -59,10 +59,10 @@
 </t:row>
 <t:row id="g_37" >
 <t:label id="g_38" text="#{rr.literals.swim_split}" width="120" />
-<t:field id="g_39" actionListener="#{d.ResultDetailUI.onTimeFlush}" align="center" attributemacro="entityDetailMacro(ResultDetailUI,swim_split)" background="#{d.ResultDetailUI.colorSwim}" flush="true" maxlength="8" userhint="hh:mm:ss" width="100" />
+<t:field id="g_39" actionListener="#{d.ResultDetailUI.onTimeFlush}" align="center" attributemacro="entityDetailMacro(ResultDetailUI,swim_split)" background="#{d.ResultDetailUI.colorSwim}" clientname="swim" flush="true" maxlength="8" userhint="hh:mm:ss" width="100" />
 <t:coldistance id="g_40" width="45" />
 <t:label id="g_41" text="#{rr.literals.run_split}" width="100" />
-<t:field id="g_42" align="center" attributemacro="entityDetailMacro(ResultDetailUI,run_split)" background="#{d.ResultDetailUI.colorRun}" flush="true" maxlength="8" regex="\d\d:[0-5]\d:[0-5]\d" regexmode="1" userhint="hh:mm:ss" width="100" />
+<t:field id="g_42" actionListener="#{d.ResultDetailUI.onTimeFlush}" align="center" attributemacro="entityDetailMacro(ResultDetailUI,run_split)" background="#{d.ResultDetailUI.colorRun}" clientname="run" flush="true" maxlength="8" userhint="hh:mm:ss" width="100" />
 </t:row>
 <t:row id="g_43" >
 <t:label id="g_44" text="#{rr.literals.ranking}" width="120" />
