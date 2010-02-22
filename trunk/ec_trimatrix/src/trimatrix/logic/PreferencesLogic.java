@@ -1,7 +1,5 @@
 package trimatrix.logic;
 
-import org.eclnt.jsfserver.defaultscreens.Statusbar;
-
 import trimatrix.db.UserPreferences;
 import trimatrix.db.Users;
 import trimatrix.entities.EntityLayer;
@@ -11,16 +9,10 @@ public class PreferencesLogic {
 	private ServiceLayer serviceLayer;
 	private EntityLayer entityLayer;
 
-	public void savePreferences(UserPreferences preferences) {
+	public void savePreferences(UserPreferences preferences) throws Exception {
 		serviceLayer.getDictionaryService().getMyUser().setPreferences(preferences);
-		try {
-			Users user = (Users)entityLayer.getUserEntity().save(serviceLayer.getDictionaryService().getMyUser());
-			serviceLayer.getDictionaryService().setMyUser(user);
-			Statusbar.outputSuccess("Preferences saved!");
-		} catch(Exception ex) {
-			Statusbar.outputAlert(ex.toString(), "Saving preferences failed!");
-			return;
-		}
+		Users user = (Users)entityLayer.getUserEntity().save(serviceLayer.getDictionaryService().getMyUser());
+		serviceLayer.getDictionaryService().setMyUser(user);		
 	}
 
 	public UserPreferences getPreferences() {

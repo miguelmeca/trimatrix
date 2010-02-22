@@ -8,10 +8,12 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
 
 import trimatrix.db.CompetitionsScouts;
 import trimatrix.db.DAOLayer;
 import trimatrix.db.UserPreferences;
+import trimatrix.db.Users;
 import trimatrix.logic.helper.Limit;
 import trimatrix.services.ServiceLayer;
 import trimatrix.utils.Helper;
@@ -25,6 +27,7 @@ public class CompetitionLogic {
 	private static final Marshaller<Limit> limitMarshaller = TwoLattes.createMarshaller(Limit.class);
 	private DAOLayer daoLayer;
 	private ServiceLayer serviceLayer;
+	private LogicLayer logicLayer;
 
 	public void saveCompetitionScouts(CompetitionsScouts cs) {
 		daoLayer.getCompetitionsScoutsDAO().merge(cs);
@@ -35,6 +38,28 @@ public class CompetitionLogic {
 		if(preferences==null || Helper.isEmpty(preferences.getCompetitionCategories())) return Collections.EMPTY_LIST;
 		String[] categories = preferences.getCompetitionCategories().split(";");
 		return Arrays.asList(categories);
+	}
+	
+	public void addCategoriesToPreferences(String newCategory) {
+		if(Helper.isEmpty(newCategory)) return;
+		UserPreferences preferences = serviceLayer.getDictionaryService().getMyUser().getPreferences();
+		if(preferences==null) return;
+		String strCategories = preferences.getCompetitionCategories();
+		if(strCategories==null) {
+			preferences.setCompetitionCategories(newCategory);
+		} else {
+			String[] categories = strCategories.split(";");
+			for(String category : categories) {
+				if(newCategory.equals(category.trim())) return;
+			}
+			// category not found append
+			preferences.setCompetitionCategories(strCategories + ";" + newCategory);
+		}				
+		try {
+			logicLayer.getPreferencesLogic().savePreferences(preferences);		
+		} catch (Exception ex) {
+			logger.warn("Error saving preferences (competition adding category)! " + ex.toString());
+		}		
 	}
 
 	public String buildString(List<Limit> limits) {
@@ -72,4 +97,8 @@ public class CompetitionLogic {
 	public void setDaoLayer(DAOLayer daoLayer) {
 		this.daoLayer = daoLayer;
 	}
+
+	public void setLogicLayer(LogicLayer logicLayer) {
+		this.logicLayer = logicLayer;
+	}	
 }

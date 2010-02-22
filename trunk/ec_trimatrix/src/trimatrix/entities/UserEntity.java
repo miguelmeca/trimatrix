@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import trimatrix.db.UserPreferences;
 import trimatrix.db.Users;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
@@ -75,7 +76,8 @@ public final class UserEntity extends AEntity {
 		entity.setLocked(false);
 		entity.setDeleted(false);
 		entity.setTest(false);
-		
+		// preferences
+		entity.setPreferences(new UserPreferences(id));		
 		return entity;
 	}
 	

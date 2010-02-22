@@ -117,8 +117,8 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 			idts.addLine(category, "");
 		}
 		idts.setCallBack(new ISetId() {
-			public void setId(String id) {
-				item.setCategory(id);
+			public void setId(String id) {				
+				item.setCategory(id);				
 			}
 		});
 		idts.setWithHeader(false);
@@ -250,6 +250,17 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		// mandatory fields
 		for (String field : MANDATORY_FIELDS) {
 			bgpaint.put(field, Constants.BGP_MANDATORY);
+		}
+	}
+	
+	
+
+	@Override
+	public void postSave() {		
+		super.postSave();
+		// append ID to Preferences
+		for(GridLimitsItem item : m_gridLimits.getItems()) {			
+			getLogic().getCompetitionLogic().addCategoriesToPreferences(item.getCategory());
 		}
 	}
 
