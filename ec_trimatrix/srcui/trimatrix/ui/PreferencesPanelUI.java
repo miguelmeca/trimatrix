@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.elements.impl.ARRAYGRIDListBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
@@ -44,7 +45,12 @@ public class PreferencesPanelUI extends MyWorkpageDispatchedBean implements Seri
 	}
 
 	public void onSave(ActionEvent event) {
-		getLogic().getPreferencesLogic().savePreferences(preferences);
-		init();
+		try {
+			getLogic().getPreferencesLogic().savePreferences(preferences);		
+			Statusbar.outputSuccess("Preferences saved!");
+		} catch(Exception ex) {
+			Statusbar.outputAlert(ex.toString(), "Saving preferences failed!");
+		}
+		init();		
 	}
 }
