@@ -29,6 +29,12 @@ public class ScheduleLogic {
 		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 		return cal;
 	}
+	
+	public int getWeekDay(Timestamp timestamp) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(timestamp);
+		return cal.get(Calendar.DAY_OF_WEEK);
+	}
 
 	public Timestamp calculateBeginDate(float percentageValue, int scheduleMax, Date beginOfWeek, int day, int startingHour) {
 		long beginInMinutes = Math.round(percentageValue * scheduleMax / 100f);
@@ -56,6 +62,12 @@ public class ScheduleLogic {
 		DayInfos dayInfos = daoLayer.getDayInfosDAO().findById(dayInfosId);
 		if(dayInfos==null) dayInfos = new DayInfos(dayInfosId);
 		return dayInfos;
+	}
+	
+	public boolean existDayInfo(String athleteId, Date date) {
+		DayInfosId dayInfosId = new DayInfosId(date, athleteId);
+		DayInfos dayInfos = daoLayer.getDayInfosDAO().findById(dayInfosId);
+		return dayInfos!=null;
 	}
 
 	public boolean saveDayInfos(DayInfos dayInfos) {

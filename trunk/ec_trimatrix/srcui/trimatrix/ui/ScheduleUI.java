@@ -7,9 +7,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.event.ActionEvent;
 
+import org.apache.commons.collections.map.HashedMap;
+import org.apache.commons.lang.math.NumberUtils;
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.bufferedcontent.BufferedContentMgr;
 import org.eclnt.jsfserver.bufferedcontent.DefaultBufferedContent;
@@ -29,6 +32,7 @@ import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 import org.eclnt.workplace.WorkpageDefaultLifecycleListener;
 
+import trimatrix.db.DayInfos;
 import trimatrix.db.Schedules;
 import trimatrix.reports.excel.PerformanceChart;
 import trimatrix.services.TranslationService;
@@ -80,13 +84,6 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			this.scheduleItem = scheduleItem;
 		}
 	}
-
-//	private void refreshAgenda() {
-//		m_gridAgenda.getItems().clear();
-//		for (ScheduleItem scheduleItem : scheduleItems) {
-//			m_gridAgenda.getItems().add(new GridAgendaItem(scheduleItem));
-//		}
-//	}
 
 	public void onCopySchedules(ActionEvent event) {
 		Statusbar.outputAlert("Copy schedule!");
@@ -285,7 +282,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 	}
 
 	/**
-	 * Load schedule entites from database
+	 * Load schedule entities from database
 	 */
 	private void update() {
 		scheduleItems.clear();
@@ -374,7 +371,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		return new SimpleDateFormat("EEEE, d. MMMM yyyy").format(new Date());
 	}
 
-	public String[] getDayInfos() {
+	public String[] getDay() {
 		String[] result = new String[7];
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(getBeginOfWeek());
@@ -386,6 +383,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		}
 		return result;
 	}
+	
 
 	public void onNextWeek(ActionEvent event) {
 		calendar.add(Calendar.DAY_OF_MONTH, 7);
@@ -506,12 +504,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 					}
 				}
 			}
-		}
-
-		public void onGetDaysInfo(ActionEvent event) {
-			// Load from DB
-			// Show Pop-Up
-		}
+		}		
 	}
 
 	public class ScheduleItem {
@@ -563,9 +556,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		public void setDeleted(Boolean deleted) {schedule.setDeleted(deleted);}
 
 		public int getStartWeekDay() {
-			Calendar cal = Calendar.getInstance();
-			cal.setTime(getStart());
-			return cal.get(Calendar.DAY_OF_WEEK);
+			return getLogic().getScheduleLogic().getWeekDay(getStart());
 		}
 
 		public long getStartInMinutes() {
@@ -647,5 +638,22 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			m_popup.open(Constants.Page.SCHEDULECHANGEPOPUP.getUrl(), "Termin",
 					400, 300, scheduleUI);
 		}
+	}
+	
+	private Map dayInfo = new DaysMap();
+	public Map getDayInfo(){ return dayInfo;};
+	
+	private class DaysMap extends HashedMap {
+		@Override
+		public Object get(Object key) {
+			// key represents days offset [0-6]
+			if(!NumberUtils.isNumber((String)key)) return null;
+			Integer day = Integer.valueOf((String)key);
+			if(day<0 || day>6) return null;
+			Date date = getLogic().getScheduleLogic().addDaysToDate(getBeginOfWeek(), day);
+			DayInfos dayInfo = getLogic().getScheduleLogic().getDayInfos(getAthleteID(), date);
+			return dayInfo.hashCode()==DayInfos.EMPTYHASH ? Constants.DAYINFO_FALSE : Constants.DAYINFO_TRUE;			
+		}
+		
 	}
 }

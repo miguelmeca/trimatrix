@@ -20,9 +20,9 @@ public class DayInfos  implements java.io.Serializable {
 
 
     // Fields
-
-     private DayInfosId id;
-     private Integer restingHr;
+     
+	private DayInfosId id;
+    private Integer restingHr;
 
 
     // Constructors
@@ -68,12 +68,16 @@ public class DayInfos  implements java.io.Serializable {
         this.restingHr = restingHr;
     }
 
-
-
-
-
-
-
+    public static int EMPTYHASH = 31;
+    
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((restingHr == null) ? 0 : restingHr.hashCode());
+		return result;
+	}
 
 
 }

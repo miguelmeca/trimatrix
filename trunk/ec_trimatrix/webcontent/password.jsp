@@ -37,7 +37,7 @@
 <t:rowdistance id="g_22" height="10" />
 <t:row id="g_23" >
 <t:coldistance id="g_24" width="50%" />
-<t:button id="g_25" actionListener="#{d.PasswordUI.onChange}" font="size:14" text="#{rr.literals.logon_changepass}" />
+<t:button id="g_25" actionListener="#{d.PasswordUI.onChange}" font="size:14" hotkey="10" text="#{rr.literals.logon_changepass}" />
 <t:coldistance id="g_26" width="50%" />
 </t:row>
 <t:rowdistance id="g_27" height="10" />
