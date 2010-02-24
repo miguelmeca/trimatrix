@@ -171,7 +171,10 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 		}
 		// correct input
 		String input = (String)values.get(field);
-		values.put(field, Helper.correctTimeInput(input));
+		String corrInput = Helper.correctTimeInput(input);
+		// if null don't write back the value
+		if(corrInput==null) return;
+		values.put(field, corrInput);
 	}
 
 	/**

@@ -153,8 +153,14 @@ public class Helper {
 		return NumberFormat.getInstance(getLocale());
 	}
 
+	/**
+	 * Correcting short time input to valid signature
+	 * If string does'nt match return null, so value is not changed
+	 * @param input	shortened input
+	 * @return	valid time string
+	 */
 	public static String correctTimeInput(String input) {
-		if(isEmpty(input)) return "00:00:00";
+		if(isEmpty(input)) return null;
 		String output = null;
 		// short input
 		if(NumberUtils.isDigits(input)) {
@@ -185,7 +191,7 @@ public class Helper {
 			output = input;
 		}
 		// check regex
-		if(!Pattern.compile("\\d\\d:[0-5]\\d:[0-5]\\d").matcher(output).matches()) output = "00:00:00";
+		if(!Pattern.compile("\\d\\d:[0-5]\\d:[0-5]\\d").matcher(output).matches()) output = null;
 		return output;
 	}
 

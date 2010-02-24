@@ -53,7 +53,7 @@
 <t:coldistance id="g_32" />
 <t:label id="g_33" bgpaint="nodisabled()" font="weight:bold" text="#{d.ScheduleUI.actualDate}" />
 <t:coldistance id="g_34" width="100%" />
-<t:filedownloadbutton id="g_35" actionListener="#{d.ScheduleUI.onCopySchedules}" fileextensions="xls" filename="performance.xls" image="/images/icons/print.png" imageheight="15" openimmediately="true" opensupported="true" text="Drucken" url="#{d.ScheduleUI.printReportUrl}" />
+<t:filedownloadbutton id="g_35" actionListener="#{d.ScheduleUI.onCopySchedules}" fileextensions="xls" filename="performance.xls" image="/images/icons/print.png" openimmediately="true" opensupported="true" text="Drucken" url="#{d.ScheduleUI.printReportUrl}" />
 </t:row>
 <t:rowdistance id="g_36" height="4" />
 <t:row id="g_37" >
@@ -67,30 +67,30 @@
 <t:row id="g_45" >
 <t:label id="g_46" align="center" font="size:12;weight:bold" text="KW" width="60" />
 <t:label id="g_47" align="center" font="size:16;weight:bold" text="Montag" width="16%" />
-<t:button id="g_48" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="0" contentareafilled="false" image="/images/icons/info_green.png" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
+<t:button id="g_48" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="0" contentareafilled="false" image="#{d.ScheduleUI.dayInfo.0}" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
 <t:label id="g_49" align="center" font="size:16;weight:bold" text="Dienstag" width="16%" />
-<t:button id="g_50" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="1" contentareafilled="false" image="/images/icons/info_blue.png" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
+<t:button id="g_50" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="1" contentareafilled="false" image="#{d.ScheduleUI.dayInfo.1}" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
 <t:label id="g_51" align="center" font="size:16;weight:bold" text="Mittwoch" width="16%" />
-<t:button id="g_52" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="2" contentareafilled="false" image="/images/icons/info_blue.png" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
+<t:button id="g_52" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="2" contentareafilled="false" image="#{d.ScheduleUI.dayInfo.2}" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
 <t:label id="g_53" align="center" font="size:16;weight:bold" text="Donnerstag" width="16%" />
-<t:button id="g_54" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="3" contentareafilled="false" image="/images/icons/info_blue.png" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
+<t:button id="g_54" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="3" contentareafilled="false" image="#{d.ScheduleUI.dayInfo.3}" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
 <t:label id="g_55" align="center" font="size:16;weight:bold" text="Freitag" width="16%" />
-<t:button id="g_56" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="4" contentareafilled="false" image="/images/icons/info_blue.png" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
+<t:button id="g_56" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="4" contentareafilled="false" image="#{d.ScheduleUI.dayInfo.4}" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
 <t:label id="g_57" align="center" font="size:16;weight:bold" text="Samstag" width="10%" />
-<t:button id="g_58" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="5" contentareafilled="false" image="/images/icons/info_blue.png" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
+<t:button id="g_58" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="5" contentareafilled="false" image="#{d.ScheduleUI.dayInfo.5}" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
 <t:label id="g_59" align="center" font="size:16;weight:bold" text="Sonntag" width="10%" />
-<t:button id="g_60" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="6" contentareafilled="false" image="/images/icons/info_blue.png" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
+<t:button id="g_60" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="6" contentareafilled="false" image="#{d.ScheduleUI.dayInfo.6}" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
 </t:row>
 <t:rowdistance id="g_61" height="5" />
 <t:row id="g_62" >
 <t:label id="g_63" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.weekNumber}" width="60" />
-<t:label id="g_64" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.dayInfos[0]}" width="16%" />
-<t:label id="g_65" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.dayInfos[1]}" width="16%" />
-<t:label id="g_66" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.dayInfos[2]}" width="16%" />
-<t:label id="g_67" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.dayInfos[3]}" width="16%" />
-<t:label id="g_68" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.dayInfos[4]}" width="16%" />
-<t:label id="g_69" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.dayInfos[5]}" width="10%" />
-<t:label id="g_70" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.dayInfos[6]}" width="10%" />
+<t:label id="g_64" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.day[0]}" width="16%" />
+<t:label id="g_65" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.day[1]}" width="16%" />
+<t:label id="g_66" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.day[2]}" width="16%" />
+<t:label id="g_67" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.day[3]}" width="16%" />
+<t:label id="g_68" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.day[4]}" width="16%" />
+<t:label id="g_69" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.day[5]}" width="10%" />
+<t:label id="g_70" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.day[6]}" width="10%" />
 </t:row>
 <t:rowdistance id="g_71" height="5" />
 </t:pane>

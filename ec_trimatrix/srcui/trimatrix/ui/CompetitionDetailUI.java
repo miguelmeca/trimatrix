@@ -78,18 +78,26 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 			return limit.getLimits()[0];
 		}
 
-		public void setCutoffSwim(String cutoffSwim) {
-			if(!Pattern.compile("(\\d\\d:[0-5]\\d:[0-5]\\d)|(\\d*%)").matcher(cutoffSwim).matches()) cutoffSwim = Helper.correctTimeInput(cutoffSwim);
-			limit.getLimits()[0] = cutoffSwim;
+		public void setCutoffSwim(String cutoff) {
+			// check pattern because its possible to enter time or percentage
+			if(!Pattern.compile("(\\d\\d:[0-5]\\d:[0-5]\\d)|(\\d*%)").matcher(cutoff).matches()) {
+				cutoff = Helper.correctTimeInput(cutoff);
+				// only set value if cutoff is not null or empty
+				if(!Helper.isEmpty(cutoff)) limit.getLimits()[0] = cutoff;
+			}	
 		}
 
 		public String getCutoffRun() {
 			return limit.getLimits()[1];
 		}
 
-		public void setCutoffRun(String cutoffRun) {
-			if(!Pattern.compile("(\\d\\d:[0-5]\\d:[0-5]\\d)|(\\d*%)").matcher(cutoffRun).matches()) cutoffRun = Helper.correctTimeInput(cutoffRun);
-			limit.getLimits()[1] = cutoffRun;
+		public void setCutoffRun(String cutoff) {
+			// check pattern because its possible to enter time or percentage
+			if(!Pattern.compile("(\\d\\d:[0-5]\\d:[0-5]\\d)|(\\d*%)").matcher(cutoff).matches()) {
+				cutoff = Helper.correctTimeInput(cutoff);
+				// only set value if cutoff is not null or empty
+				if(!Helper.isEmpty(cutoff)) limit.getLimits()[1] = cutoff;
+			}			
 		}
 
 		public String getSwimAthlet() { return limit.getSwim()[0]; }
@@ -99,10 +107,16 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		public void setRunAthlet(String athlet) {limit.getRun()[0] = athlet; }
 
 		public String getSwimSplit() { return limit.getSwim()[1]; }
-		public void setSwimSplit(String split) {limit.getSwim()[1] = Helper.correctTimeInput(split); }
+		public void setSwimSplit(String split) {
+			String corrInput = Helper.correctTimeInput(split);
+			if(!Helper.isEmpty(corrInput)) limit.getSwim()[1] = corrInput; 
+		}
 
 		public String getRunSplit() { return limit.getRun()[1]; }
-		public void setRunSplit(String split) {limit.getRun()[1] = Helper.correctTimeInput(split); }
+		public void setRunSplit(String split) {
+			String corrInput = Helper.correctTimeInput(split);
+			if(!Helper.isEmpty(corrInput)) limit.getRun()[1] = corrInput; 
+		}
 
 		/**
 		 * F4 Help for category fieldcombo Values are selected from view
