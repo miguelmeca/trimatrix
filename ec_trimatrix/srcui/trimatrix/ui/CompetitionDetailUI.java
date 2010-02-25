@@ -82,9 +82,9 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 			// check pattern because its possible to enter time or percentage
 			if(!Pattern.compile("(\\d\\d:[0-5]\\d:[0-5]\\d)|(\\d*%)").matcher(cutoff).matches()) {
 				cutoff = Helper.correctTimeInput(cutoff);
-				// only set value if cutoff is not null or empty
-				if(!Helper.isEmpty(cutoff)) limit.getLimits()[0] = cutoff;
-			}	
+			}
+			// only set value if cutoff is not null or empty
+			if(!Helper.isEmpty(cutoff)) limit.getLimits()[0] = cutoff;
 		}
 
 		public String getCutoffRun() {
@@ -95,9 +95,9 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 			// check pattern because its possible to enter time or percentage
 			if(!Pattern.compile("(\\d\\d:[0-5]\\d:[0-5]\\d)|(\\d*%)").matcher(cutoff).matches()) {
 				cutoff = Helper.correctTimeInput(cutoff);
-				// only set value if cutoff is not null or empty
-				if(!Helper.isEmpty(cutoff)) limit.getLimits()[1] = cutoff;
-			}			
+			}
+			// only set value if cutoff is not null or empty
+			if(!Helper.isEmpty(cutoff)) limit.getLimits()[1] = cutoff;
 		}
 
 		public String getSwimAthlet() { return limit.getSwim()[0]; }
@@ -109,13 +109,13 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		public String getSwimSplit() { return limit.getSwim()[1]; }
 		public void setSwimSplit(String split) {
 			String corrInput = Helper.correctTimeInput(split);
-			if(!Helper.isEmpty(corrInput)) limit.getSwim()[1] = corrInput; 
+			if(!Helper.isEmpty(corrInput)) limit.getSwim()[1] = corrInput;
 		}
 
 		public String getRunSplit() { return limit.getRun()[1]; }
 		public void setRunSplit(String split) {
 			String corrInput = Helper.correctTimeInput(split);
-			if(!Helper.isEmpty(corrInput)) limit.getRun()[1] = corrInput; 
+			if(!Helper.isEmpty(corrInput)) limit.getRun()[1] = corrInput;
 		}
 
 		/**
@@ -135,8 +135,8 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 			idts.addLine(category, "");
 		}
 		idts.setCallBack(new ISetId() {
-			public void setId(String id) {				
-				item.setCategory(id);				
+			public void setId(String id) {
+				item.setCategory(id);
 			}
 		});
 		idts.setWithHeader(false);
@@ -270,14 +270,14 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 			bgpaint.put(field, Constants.BGP_MANDATORY);
 		}
 	}
-	
-	
+
+
 
 	@Override
-	public void postSave() {		
+	public void postSave() {
 		super.postSave();
 		// append ID to Preferences
-		for(GridLimitsItem item : m_gridLimits.getItems()) {			
+		for(GridLimitsItem item : m_gridLimits.getItems()) {
 			getLogic().getCompetitionLogic().addCategoriesToPreferences(item.getCategory());
 		}
 	}
