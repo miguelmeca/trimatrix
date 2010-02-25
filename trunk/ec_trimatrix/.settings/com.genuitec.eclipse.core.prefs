@@ -1,9 +1,9 @@
-#Sat Feb 20 12:28:52 CET 2010
+#Thu Feb 25 22:29:21 CET 2010
 clsCnt=277
 eclipse.preferences.version=1
 locCnt=34704
 pkgCnt=24
 sTime=Samstag, 20. Februar 2010 12\:28 Uhr MEZ
 srcCnt=3
-validator.Checked=webcontent/MessAdmin/serverInfos.jsp,webcontent/MessAdmin/inc/js.inc
+validator.Checked=target/sonar/sonar-pom.xml,webcontent/MessAdmin/inc/js.inc,webcontent/MessAdmin/serverInfos.jsp
 validator.Unchecked=
