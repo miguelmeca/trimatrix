@@ -11,7 +11,7 @@
 <f:view>
 <h:form>
 <f:subview id="doctordetailg_sv">
-<t:rowbodypane id="g_1" rowdistance="5" >
+<t:rowbodypane id="g_1" background="#00000010" rowdistance="5" >
 <t:row id="g_2" >
 <t:label id="g_3" height="20" text="#{rr.literals.doctor_name}" width="100" />
 <t:field id="g_4" attributemacro="entityDetailMacro(DoctorDetailUI,name)" height="20" width="540" />
