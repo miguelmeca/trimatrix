@@ -11,7 +11,7 @@
 <f:view>
 <h:form>
 <f:subview id="entitylistg_sv">
-<t:rowbodypane id="g_1" rowdistance="5" >
+<t:rowbodypane id="g_1" background="#00000010" rowdistance="5" >
 <t:row id="g_2" >
 <t:pane id="g_3" rowdistance="5" width="100%" >
 <t:row id="g_4" >
