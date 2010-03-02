@@ -29,7 +29,7 @@ public class ScheduleLogic {
 		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 		return cal;
 	}
-	
+
 	public int getWeekDay(Timestamp timestamp) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(timestamp);
@@ -63,7 +63,7 @@ public class ScheduleLogic {
 		if(dayInfos==null) dayInfos = new DayInfos(dayInfosId);
 		return dayInfos;
 	}
-	
+
 	public boolean existDayInfo(String athleteId, Date date) {
 		DayInfosId dayInfosId = new DayInfosId(date, athleteId);
 		DayInfos dayInfos = daoLayer.getDayInfosDAO().findById(dayInfosId);
@@ -73,6 +73,7 @@ public class ScheduleLogic {
 	public boolean saveDayInfos(DayInfos dayInfos) {
 		try {
 			daoLayer.getDayInfosDAO().merge(dayInfos);
+			Statusbar.outputSuccess("Daten erfolgreich gespeichert!");
 			return true;
 		} catch (Exception ex) {
 			Statusbar.outputAlert("Daten konnten nicht gespeichert werden!", "Fehler", ex.toString());

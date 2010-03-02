@@ -14,6 +14,8 @@ import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 
 @CCGenClass(expressionBase = "#{d.DayInfoPopUp}")
 public class DayInfoPopUp extends MyWorkpageDispatchedBean implements Serializable {
+	private static final int WIDTH = 150; // distance for UI
+	public int getWidth() { return WIDTH; }
 
 	public DayInfoPopUp(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
@@ -63,6 +65,15 @@ public class DayInfoPopUp extends MyWorkpageDispatchedBean implements Serializab
 	public void onSave(ActionEvent event) {
 		getLogic().getScheduleLogic().saveDayInfos(dayInfos);
 		refresh();
+	}
+
+	public void onPrefill(ActionEvent event) {
+		// infos from yesterday
+		Date yesterday = getLogic().getScheduleLogic().addDaysToDate(date, -1);
+		DayInfos yesterdayInfos = getLogic().getScheduleLogic().getDayInfos(athleteId, yesterday);
+		if(yesterdayInfos==null) return;
+		// copy only defined values
+		this.dayInfos.setRestingHr(yesterdayInfos.getRestingHr());
 	}
 
 }
