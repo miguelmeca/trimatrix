@@ -10,25 +10,20 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.hibernate.SessionFactory;
 import org.hibernate.stat.Statistics;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
 
 @Aspect
 public class CacheMonitor {
    public static final Log logger = LogFactory.getLog(CacheMonitor.class);
    private final static NumberFormat NF = new DecimalFormat("0.0###");
 
-   @Autowired
    private SessionFactory sessionFactory;
+   public void setSessionFactory(SessionFactory sessionFactory) { this.sessionFactory = sessionFactory; }
 
-   @Around("execution(* trimatrix.*.*(..))")
+   @Around("execution(* trimatrix.db.*DAO.*(..)) or execution(* trimatrix.services.SQLExecutorService.*(..))")
    public Object log(ProceedingJoinPoint pjp) throws Throwable {
       if (!logger.isDebugEnabled()) {
          return pjp.proceed();
       }
-
-      if(sessionFactory==null) return pjp.proceed();
 
       Statistics statistics = sessionFactory.getStatistics();
       statistics.setStatisticsEnabled(true);

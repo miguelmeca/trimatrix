@@ -9,15 +9,12 @@
 	http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
 
-    <import resource="trimatrix/utils/utilsContext.xml"/>
     <import resource="trimatrix/db/dbContext.xml"/>
+    <import resource="trimatrix/utils/utilsContext.xml"/>
     <import resource="trimatrix/entities/entitiesContext.xml"/>
     <import resource="trimatrix/relations/relationsContext.xml"/>
     <import resource="trimatrix/services/servicesContext.xml"/>
     <import resource="trimatrix/logic/logicContext.xml"/>
-
- 	<aop:aspectj-autoproxy />
-	<bean class="trimatrix.utils.CacheMonitor" />
 
  <!--
     <bean id="d" class="trimatrix.ui.Dispatcher" scope="session">

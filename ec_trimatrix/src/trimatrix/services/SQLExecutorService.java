@@ -86,6 +86,7 @@ public class SQLExecutorService {
 	private Dictionary dictionaryService;
 	private DAOLayer daoLayer;
 	private LogicLayer logicLayer;
+	private SessionFactory sessionFactory;	   
 
 	/**
 	 * Retrieve functiontree for workplace
@@ -96,7 +97,7 @@ public class SQLExecutorService {
 	@SuppressWarnings("unchecked")
 	public List<SFunctionTree> getFunctionTree(Constants.Role role, String lang_key) {
 		List<SFunctionTree> data = new ArrayList<SFunctionTree>();
-		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		//SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Query query = session.getNamedQuery(FUNCTIONTREEQUERY);
 		query.setString("p_role_key", role.getName());
@@ -139,7 +140,7 @@ public class SQLExecutorService {
 	@SuppressWarnings("unchecked")
 	public List<IEntityData> getUserEntities(String lang_key, boolean deleted, boolean test) {
 		List<IEntityData> data = new ArrayList<IEntityData>();
-		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		//SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Query query = session.getNamedQuery(USERENTITYLISTQUERY);
 		query.setString("p_lang_key", lang_key);
@@ -167,7 +168,7 @@ public class SQLExecutorService {
 	}
 
 	public List<Schedules> getSchedules(String personId, Timestamp start, Timestamp end, Boolean template) {
-		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		//SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Criteria criteria = session.createCriteria(Schedules.class).setCacheable(true);
 		if(!Helper.isEmpty(personId)) criteria.add(Restrictions.eq("personId", personId));
@@ -197,7 +198,7 @@ public class SQLExecutorService {
 	@SuppressWarnings("unchecked")
 	public List<IEntityData> getPersonEntities(String lang_key, boolean deleted, boolean test, String queryName) {
 		List<IEntityData> data = new ArrayList<IEntityData>();
-		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		//SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Query query = session.getNamedQuery(queryName);
 		query.setString("p_lang_key", lang_key);
@@ -250,7 +251,7 @@ public class SQLExecutorService {
 	@SuppressWarnings("unchecked")
 	public List<IEntityData> getPersonByRoleEntities(String lang_key, Role role, boolean deleted, boolean test) {
 		List<IEntityData> data = new ArrayList<IEntityData>();
-		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		//SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Query query = session.getNamedQuery(PERSONBYROLEENTITYLISTQUERY);
 		query.setString("p_lang_key", lang_key);
@@ -298,7 +299,7 @@ public class SQLExecutorService {
 	@SuppressWarnings("unchecked")
 	public List<IEntityData> getDoctorEntities(String lang_key, boolean deleted, boolean test) {
 		List<IEntityData> data = new ArrayList<IEntityData>();
-		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		//SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Query query = session.getNamedQuery(DOCTORENTITYLISTQUERY);
 		query.setString("p_lang_key", lang_key);
@@ -341,7 +342,7 @@ public class SQLExecutorService {
 	@SuppressWarnings("unchecked")
 	public List<IEntityData> getAttachmentEntities(String lang_key, String parameterName, String parameterValue, boolean deleted, boolean test) {
 		List<IEntityData> data = new ArrayList<IEntityData>();
-		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		//SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Query query = session.getNamedQuery(ATTACHMENTENTITYLISTQUERY);
 		query.setString("p_lang_key", lang_key);
@@ -389,7 +390,7 @@ public class SQLExecutorService {
 	@SuppressWarnings("unchecked")
 	public List<IEntityData> getTestEntities(String lang_key, String parameterName, String parameterValue, boolean deleted, boolean test) {
 		List<IEntityData> data = new ArrayList<IEntityData>();
-		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		//SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Query query = session.getNamedQuery(TESTENTITYLISTQUERY);
 		query.setString("p_lang_key", lang_key);
@@ -451,7 +452,7 @@ public class SQLExecutorService {
 	@SuppressWarnings("unchecked")
 	public List<IEntityData> getCompetitionEntities(String lang_key, String parameterName, String parameterValue, boolean deleted, boolean test) {
 		List<IEntityData> data = new ArrayList<IEntityData>();
-		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		//SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Query query = session.getNamedQuery(COMPETITIONENTITYLISTQUERY);
 		query.setString("p_lang_key", lang_key);
@@ -494,7 +495,7 @@ public class SQLExecutorService {
 	@SuppressWarnings("unchecked")
 	public List<IEntityData> getCompetitionRelationEntities(String person_id, Constants.Relation relation, String lang_key, boolean deleted, boolean test) {
 		List<IEntityData> data = new ArrayList<IEntityData>();
-		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		//SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Query query = null;
 		if(relation == Constants.Relation.COMPETITIONSCOUT) {
@@ -555,7 +556,7 @@ public class SQLExecutorService {
 	@SuppressWarnings("unchecked")
 	public List<IEntityData> getResultEntities(String lang_key, String id, String competitionId, String scoutId, String athleteId, String compType, boolean deleted, boolean test) {
 		List<IEntityData> data = new ArrayList<IEntityData>();
-		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		//SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Query query = session.getNamedQuery(RESULTENTITYLISTQUERY);
 		if(CompetitionEntity.TRIATHLON.equals(compType)) {
@@ -660,7 +661,7 @@ public class SQLExecutorService {
 	@SuppressWarnings("unchecked")
 	public List<IEntityData> getScheduleEntities(String lang_key, String id, String personId, Timestamp startLow, Timestamp startHigh, boolean deleted, boolean test) {
 		List<IEntityData> data = new ArrayList<IEntityData>();
-		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		//SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Query query = session.getNamedQuery(SCHEDULEENTITYLISTQUERY);
 		query.setString("p_lang_key", lang_key);
@@ -736,7 +737,7 @@ public class SQLExecutorService {
 	@SuppressWarnings("unchecked")
 	public List<IEntityData> getPersonRelationEntities(String person_id, Constants.Relation relation, boolean inverse, String lang_key, boolean deleted, boolean test) {
 		List<IEntityData> data = new ArrayList<IEntityData>();
-		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		//SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Query query = session.getNamedQuery(PERSONRELATIONENTITYQUERY);
 		query.setString("p_lang_key", lang_key);
@@ -791,7 +792,7 @@ public class SQLExecutorService {
 	@SuppressWarnings("unchecked")
 	public List<IRelationData> getPersonPersonRelation(Constants.Relation relation, String lang_key) {
 		List<IRelationData> data = new ArrayList<IRelationData>();
-		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		//SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Query query = session.getNamedQuery(PERSONPERSONQUERY);
 		query.setString("p_lang_key", lang_key);
@@ -836,7 +837,7 @@ public class SQLExecutorService {
 	@SuppressWarnings("unchecked")
 	public List<IEntityData> getDoctorRelationEntities(String person_id, Constants.Relation relation, String lang_key, boolean deleted, boolean test) {
 		List<IEntityData> data = new ArrayList<IEntityData>();
-		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		//SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Query query = session.getNamedQuery(DOCTORRELATIONENTITYQUERY);
 		query.setString("p_lang_key", lang_key);
@@ -884,7 +885,7 @@ public class SQLExecutorService {
 	@SuppressWarnings("unchecked")
 	public List<IEntityData> getAttachmentRelationEntities(String person_id, Constants.Relation relation, String lang_key, boolean deleted, boolean test) {
 		List<IEntityData> data = new ArrayList<IEntityData>();
-		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		//SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Query query = session.getNamedQuery(ATTACHMENTRELATIONENTITYQUERY);
 		query.setString("p_lang_key", lang_key);
@@ -922,7 +923,7 @@ public class SQLExecutorService {
 	@SuppressWarnings("unchecked")
 	public List<IRelationData> getPersonDoctorRelation(Constants.Relation relation, String lang_key) {
 		List<IRelationData> data = new ArrayList<IRelationData>();
-		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		//SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Query query = session.getNamedQuery(PERSONDOCTORQUERY);
 		query.setString("p_lang_key", lang_key);
@@ -963,7 +964,7 @@ public class SQLExecutorService {
 	@SuppressWarnings("unchecked")
 	public List<IRelationData> getPersonAttachmentRelation(Constants.Relation relation, String lang_key) {
 		List<IRelationData> data = new ArrayList<IRelationData>();
-		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		//SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Query query = session.getNamedQuery(PERSONATTACHMENTQUERY);
 		query.setString("p_lang_key", lang_key);
@@ -1009,7 +1010,7 @@ public class SQLExecutorService {
 			logger.warn("Valuelist not found: " + valueList.name());
 			return list;
 		}
-		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		//SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Query query = session.getNamedQuery(namedQuery);
 		query.setString("p_lang_key", lang_key);
@@ -1034,7 +1035,7 @@ public class SQLExecutorService {
 	 */
 	public Map<Constants.Entity, List<String>> getEntitiesByLabelList(String labelId, boolean deleted) {
 		Map<Constants.Entity, List<String>> map = new HashMap<Constants.Entity, List<String>>();
-		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		//SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Query query = session.getNamedQuery(ENTITIESBYLABELLISTQUERY);
 		query.setString("p_label_id", labelId);
@@ -1063,7 +1064,7 @@ public class SQLExecutorService {
 	}
 
 	public int deleteAllSwimProtocols(String id) {
-		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		//SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Query query = session.createQuery("delete TestsSwimProtocol where id.id = :p_id");
 		query.setString("p_id", id);
@@ -1072,7 +1073,7 @@ public class SQLExecutorService {
 
 	public Results checkResultExists(String competitionId, String scoutId, String athleteId) {
 		if(Helper.isEmpty(competitionId)||Helper.isEmpty(scoutId)||Helper.isEmpty(athleteId)) return null;
-		SessionFactory sessionFactory = transactionManager.getSessionFactory();
+		//SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		//TODO make a bit nicer
 		String query = "from trimatrix.db.Results as model where model.competitionId = '" + competitionId + "' and model.scoutId = '" + scoutId + "' and model.athleteId = '" + athleteId + "' and deleted = 0";
@@ -1098,6 +1099,10 @@ public class SQLExecutorService {
 
 	public void setLogicLayer(LogicLayer logicLayer) {
 		this.logicLayer = logicLayer;
+	}
+	
+	public void setSessionFactory(SessionFactory sessionFactory) { 
+		this.sessionFactory = sessionFactory; 
 	}
 
 	public static SQLExecutorService getFromApplicationContext(ApplicationContext ctx) {

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib version="2.0" xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee webjsptaglibrary_2_0.xsd">
+	<tlib-version>1.0</tlib-version>
+	<short-name>trimatrixcontrols</short-name>
+	<uri>/WEB-INF/trimatrixcontrols</uri>
+	<tag>
+		<name>decspinner</name>
+		<tag-class>trimatrix.controls.DECSPINNERComponentTag</tag-class>
+		<attribute>
+			<name>id</name>
+		</attribute>
+		<attribute>
+			<name>maxvalue</name>
+		</attribute>
+		<attribute>
+			<name>minvalue</name>
+		</attribute>
+		<attribute>
+			<name>value</name>
+		</attribute>
+	</tag>
+</taglib>

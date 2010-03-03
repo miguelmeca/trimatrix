@@ -26,55 +26,63 @@
 <t:formattedfield id="g_12" align="center" format="int" maxlength="3" value="#{d.DayInfoPopUp.dayInfos.restingHr}" width="100" />
 </t:row>
 <t:row id="g_13" >
-<t:combofield id="g_14" />
+<t:label id="g_14" text="#{rr.literals.weather}" width="#{d.DayInfoPopUp.width}" />
+<t:combofield id="g_15" width="100" />
+<t:coldistance id="g_16" />
+<t:label id="g_17" text="#{rr.literals.temperature}" width="#{d.DayInfoPopUp.width}" />
+<t:spinner id="g_18" editable="true" maxvalue="60" minvalue="-30" width="50" />
 </t:row>
-<t:row id="g_15" >
-<t:label id="g_16" text="#{rr.literals.tiredness}" width="#{d.DayInfoPopUp.width}" />
-<t:spinner id="g_17" maxvalue="5" minvalue="1" />
+<t:row id="g_19" >
+<t:label id="g_20" text="#{rr.literals.weight} #{rr.literals.morning}" width="#{d.DayInfoPopUp.width}" />
+<t:label id="g_21" text="#{rr.literals.weight} #{rr.literals.evening}" width="#{d.DayInfoPopUp.width}" />
 </t:row>
-<t:row id="g_18" >
-<t:label id="g_19" text="#{rr.literals.feeling}" width="#{d.DayInfoPopUp.width}" />
-<t:spinner id="g_20" maxvalue="5" minvalue="1" />
+<t:row id="g_22" >
+<t:label id="g_23" text="#{rr.literals.tiredness}" width="#{d.DayInfoPopUp.width}" />
+<t:spinner id="g_24" editable="true" maxvalue="5" minvalue="1" />
 </t:row>
-<t:row id="g_21" >
-<t:label id="g_22" text="#{rr.literals.training_intensitsy}" width="#{d.DayInfoPopUp.width}" />
-<t:spinner id="g_23" maxvalue="5" minvalue="1" />
+<t:row id="g_25" >
+<t:label id="g_26" text="#{rr.literals.feeling}" width="#{d.DayInfoPopUp.width}" />
+<t:spinner id="g_27" editable="true" maxvalue="5" minvalue="1" />
 </t:row>
-<t:row id="g_24" >
-<t:label id="g_25" text="#{rr.literals.training_valuation}" width="#{d.DayInfoPopUp.width}" />
-<t:spinner id="g_26" maxvalue="5" minvalue="1" />
+<t:row id="g_28" >
+<t:label id="g_29" text="#{rr.literals.training_intensitsy}" width="#{d.DayInfoPopUp.width}" />
+<t:spinner id="g_30" editable="true" maxvalue="5" minvalue="1" />
 </t:row>
-<t:row id="g_27" >
-<t:checkbox id="g_28" text="#{rr.literals.restday}" />
-<t:coldistance id="g_29" />
-<t:checkbox id="g_30" text="#{rr.literals.travelday}" />
-<t:coldistance id="g_31" />
-<t:checkbox id="g_32" text="#{rr.literals.camp}" />
+<t:row id="g_31" >
+<t:label id="g_32" text="#{rr.literals.training_valuation}" width="#{d.DayInfoPopUp.width}" />
+<t:spinner id="g_33" editable="true" maxvalue="5" minvalue="1" />
 </t:row>
-<t:row id="g_33" >
-<t:checkbox id="g_34" text="#{rr.literals.illness}" width="#{d.DayInfoPopUp.width}" />
-<t:field id="g_35" width="100" />
+<t:row id="g_34" >
+<t:checkbox id="g_35" text="#{rr.literals.restday}" />
+<t:coldistance id="g_36" />
+<t:checkbox id="g_37" text="#{rr.literals.travelday}" />
+<t:coldistance id="g_38" />
+<t:checkbox id="g_39" text="#{rr.literals.camp}" />
 </t:row>
-<t:row id="g_36" >
-<t:checkbox id="g_37" text="#{rr.literals.massage}" width="#{d.DayInfoPopUp.width}" />
-<t:field id="g_38" width="100" />
+<t:row id="g_40" >
+<t:checkbox id="g_41" text="#{rr.literals.illness}" width="#{d.DayInfoPopUp.width}" />
+<t:field id="g_42" width="100" />
 </t:row>
-<t:row id="g_39" >
-<t:checkbox id="g_40" text="#{rr.literals.therapie}" width="#{d.DayInfoPopUp.width}" />
-<t:field id="g_41" width="100" />
+<t:row id="g_43" >
+<t:checkbox id="g_44" text="#{rr.literals.massage}" width="#{d.DayInfoPopUp.width}" />
+<t:field id="g_45" width="100" />
 </t:row>
-<t:row id="g_42" >
-<t:label id="g_43" rowalignmenty="top" text="#{rr.literals.comment}" width="#{d.DayInfoPopUp.width}" />
-<t:textarea id="g_44" height="60" width="200" />
+<t:row id="g_46" >
+<t:checkbox id="g_47" text="#{rr.literals.therapie}" width="#{d.DayInfoPopUp.width}" />
+<t:field id="g_48" width="100" />
 </t:row>
-<t:row id="g_45" >
-<t:label id="g_46" rowalignmenty="top" text="#{rr.literals.comment} #{rr.literals.coach}" width="#{d.DayInfoPopUp.width}" />
-<t:textarea id="g_47" height="60" width="200" />
+<t:row id="g_49" >
+<t:label id="g_50" rowalignmenty="top" text="#{rr.literals.comment}" width="#{d.DayInfoPopUp.width}" />
+<t:textarea id="g_51" height="60" width="200" />
 </t:row>
-<t:row id="g_48" >
-<t:button id="g_49" actionListener="#{d.DayInfoPopUp.onPrefill}" image="/images/icons/prefill.png" imageheight="15" text="#{rr.literals.prefill}" />
-<t:coldistance id="g_50" width="100%" />
-<t:button id="g_51" actionListener="#{d.DayInfoPopUp.onSave}" image="/images/icons/save.png" imageheight="15" text="#{rr.literals.save}" />
+<t:row id="g_52" >
+<t:label id="g_53" rowalignmenty="top" text="#{rr.literals.comment} #{rr.literals.coach}" width="#{d.DayInfoPopUp.width}" />
+<t:textarea id="g_54" height="60" width="200" />
+</t:row>
+<t:row id="g_55" >
+<t:button id="g_56" actionListener="#{d.DayInfoPopUp.onPrefill}" image="/images/icons/prefill.png" imageheight="15" text="#{rr.literals.prefill}" />
+<t:coldistance id="g_57" width="100%" />
+<t:button id="g_58" actionListener="#{d.DayInfoPopUp.onSave}" image="/images/icons/save.png" imageheight="15" text="#{rr.literals.save}" />
 </t:row>
 </t:rowbodypane>
 <t:pageaddons id="g_pa"/>

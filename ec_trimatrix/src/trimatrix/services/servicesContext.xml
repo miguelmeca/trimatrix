@@ -76,6 +76,9 @@
 		<property name="logicLayer">
 			<ref bean="logicLayer" />
 		</property>
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
 	</bean>
 
 	<bean id="authorizationService" class="trimatrix.services.AuthorizationService"

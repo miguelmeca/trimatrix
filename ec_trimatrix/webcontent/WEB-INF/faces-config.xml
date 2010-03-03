@@ -15,6 +15,11 @@
 			org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
 	</application>
 
+	<component>
+		<component-type>trimatrix.controls.DECSPINNERComponent</component-type>
+		<component-class>trimatrix.controls.DECSPINNERComponent</component-class>
+	</component>
+
 	<managed-bean>
 		<managed-bean-name>d</managed-bean-name>
 		<managed-bean-class>trimatrix.ui.Dispatcher</managed-bean-class>
