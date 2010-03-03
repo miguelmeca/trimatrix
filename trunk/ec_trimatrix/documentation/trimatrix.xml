@@ -22,11 +22,15 @@
     "rectangle(0,0,100%,100%,#F0F0F0,#C0C0C0,vertical)"
  -->
 
-<project webcontentdirectory="C:\Users\Meex\Projekte\CaptainCasa\TriMatrix/webcontent"
-         webcontentdeploydirectory="c:/EnterpriseClient/server/tomcat/webapps/trimatrix"
+<project webcontentdirectory="E:\myWorkspaces\CaptainCasa\ec_trimatrix/webcontent"
+         webcontentdeploydirectory="e:/EnterpriseClient/server/tomcat/webapps/trimatrix"
          webcontextroot="trimatrix"
-         javasourcedirectory="c:\users\meex\projekte\captaincasa\trimatrix/srcui/"
+         javasourcedirectory="E:\myWorkspaces\CaptainCasa\ec_trimatrix/srcui/"
          copywebapp="true"
          reloadwebapp="true"
          webhostport="localhost:50000">
+	<controllibraryusage prefix="tx" 
+	                     tldfilename="E:\myWorkspaces\CaptainCasa\ec_trimatrix/webcontent/WEB-INF/trimatrixcontrols.tld"
+						 controlsarrangementfilename="E:\myWorkspaces\CaptainCasa\ec_trimatrix/src/trimatrix/controls/resources/controlsarrangement.xml"
+						 uri="/WEB-INF/trimatrixcontrols" />
 </project>
