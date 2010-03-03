@@ -1,0 +1,14 @@
+<!--
+Registration of control libraries. Registration is required in case
+of own controls that are based on CaptainCasa controls. Information
+is both required at runtime and at design time.
+
+Find detailed information within the Developers' Guide.
+-->
+
+<controllibraries>
+    <controllibrary prefix="tx"
+                    tldfilename="trimatrixcontrols.tld"
+                    packagename="trimatrix.controls"
+                    uri="/WEB-INF/trimatrixcontrols"/>
+</controllibraries>

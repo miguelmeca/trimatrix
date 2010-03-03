@@ -12,12 +12,6 @@
 			<name>id</name>
 		</attribute>
 		<attribute>
-			<name>maxvalue</name>
-		</attribute>
-		<attribute>
-			<name>minvalue</name>
-		</attribute>
-		<attribute>
 			<name>value</name>
 		</attribute>
 	</tag>
