@@ -3,8 +3,10 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
 
     <bean id="dictionaryService" class="trimatrix.utils.Dictionary"
         abstract="false" lazy-init="default" autowire="default" 
@@ -12,4 +14,11 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         <!-- this next element effects the proxying of the surrounding bean -->
         <aop:scoped-proxy/>         
     </bean>
+    
+    <aop:aspectj-autoproxy />
+	<bean id="cacheMonitor" class="trimatrix.utils.CacheMonitor">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
 </beans>
