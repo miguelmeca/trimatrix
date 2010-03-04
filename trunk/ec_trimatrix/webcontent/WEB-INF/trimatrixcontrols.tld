@@ -52,15 +52,6 @@
 			<name>enabled</name>
 		</attribute>
 		<attribute>
-			<name>imageon</name>
-		</attribute>
-		<attribute>
-			<name>imageoff</name>
-		</attribute>
-		<attribute>
-			<name>imagewidth</name>
-		</attribute>
-		<attribute>
 			<name>rendered</name>
 		</attribute>
 	</tag>

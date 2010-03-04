@@ -55,12 +55,7 @@
 </t:pane>
 <t:coldistance id="g_37" width="60%" />
 </t:row>
-<t:row id="g_38" >
-<t:button id="g_39" contentareafilled="false" focusable="false" image="/images/icons/star_none.png" imagewidth="20" width="20" />
-<t:button id="g_40" contentareafilled="false" focusable="false" image="/images/icons/star_none.png" imagewidth="20" width="20" />
-<t:button id="g_41" contentareafilled="false" focusable="false" image="/images/icons/star_full.png" imageheight="20" imagewidth="20" width="20" />
-</t:row>
-<t:rowdistance id="g_42" height="50%" />
+<t:rowdistance id="g_38" height="50%" />
 </t:rowbodypane>
 <t:pageaddons id="g_pa"/>
 </f:subview>
