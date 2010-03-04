@@ -12,7 +12,56 @@
 			<name>id</name>
 		</attribute>
 		<attribute>
-			<name>value</name>
+			<name>objectbinding</name>
+		</attribute>
+		<attribute>
+			<name>enabled</name>
+		</attribute>
+		<attribute>
+			<name>width</name>
+		</attribute>
+		<attribute>
+			<name>rendered</name>
+		</attribute>
+		<attribute>
+			<name>align</name>
+		</attribute>
+		<attribute>
+			<name>bgpaint</name>
+		</attribute>
+		<attribute>
+			<name>userhint</name>
+		</attribute>
+		<attribute>
+			<name>tooltip</name>
+		</attribute>
+		<attribute>
+			<name>step</name>
+		</attribute>
+	</tag>
+	<tag>
+		<name>star</name>
+		<tag-class>trimatrix.controls.STARComponentTag</tag-class>
+		<attribute>
+			<name>id</name>
+		</attribute>
+		<attribute>
+			<name>objectbinding</name>
+		</attribute>
+		<attribute>
+			<name>enabled</name>
+		</attribute>
+		<attribute>
+			<name>imageon</name>
+		</attribute>
+		<attribute>
+			<name>imageoff</name>
+		</attribute>
+		<attribute>
+			<name>imagewidth</name>
+		</attribute>
+		<attribute>
+			<name>rendered</name>
 		</attribute>
 	</tag>
 </taglib>

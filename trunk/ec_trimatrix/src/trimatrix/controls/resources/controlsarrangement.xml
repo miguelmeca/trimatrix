@@ -1,3 +1,4 @@
 <controlsarrangement>
 	<tag name="t:row" below="tx:decspinner" />
+	<tag name="t:row" below="tx:star" />
 </controlsarrangement>
