@@ -19,6 +19,11 @@
 		<component-type>trimatrix.controls.DECSPINNERComponent</component-type>
 		<component-class>trimatrix.controls.DECSPINNERComponent</component-class>
 	</component>
+	
+	<component>
+		<component-type>trimatrix.controls.STARComponent</component-type>
+		<component-class>trimatrix.controls.STARComponent</component-class>
+	</component>
 
 	<managed-bean>
 		<managed-bean-name>d</managed-bean-name>
