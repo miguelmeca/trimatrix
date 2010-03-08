@@ -92,7 +92,7 @@
         <set attribute="bgpaint" value="rectangle(0,0,100%,100%,#706060,#302020,vertical)"/>
     </tag>
     <tag name="radiobutton" variant="default">
-        <set attribute="foreground" value="#FFFFFF"/>
+        <set attribute="foreground" value="#000000"/>
     </tag>
     <tag name="rowbodypane" variant="default">
         <set attribute="padding" value="5"/>
@@ -124,7 +124,7 @@
         <set attribute="border" value="top:1;left:0;right:0;bottom:0;color:#909090"/>
     </tag>
     <tag name="scrollpane" variant="default">
-        <set attribute="scrollbartype" value="light"/>
+        <set attribute="scrollbartype" value="dark"/>
     </tag>
     <tag name="shadowedpane" variant="default">
         <set attribute="background" value="#00000020"/>

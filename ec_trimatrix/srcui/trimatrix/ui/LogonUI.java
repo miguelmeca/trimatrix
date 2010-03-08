@@ -10,8 +10,6 @@ import org.eclnt.jsfserver.elements.events.BaseActionEventFlush;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.jsfserver.managedbean.IDispatcher;
 
-import trimatrix.controls.DecSpinner;
-import trimatrix.controls.Star;
 import trimatrix.logic.LogonLogic;
 import trimatrix.ui.utils.MyDispatchedBean;
 import trimatrix.utils.Constants;
@@ -116,16 +114,4 @@ public class LogonUI extends MyDispatchedBean implements Serializable {
 	public void setLanguage(String value) {
 		m_language = value;
 	}
-
-	private DecSpinner weight = new DecSpinner();
-
-	public DecSpinner getWeight() {
-		return weight;
-	}
-
-	private Star fitness = new Star(1);
-	public Star getFitness() {
-		return fitness;
-	}
-
 }
