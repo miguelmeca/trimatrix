@@ -6,18 +6,24 @@ import javax.faces.event.ActionEvent;
 
 public class Star {
 
-	public Star(int value) {
+	public Star(Integer value) {
 		bitSet = new BitSet();
 		setValue(value);
 	}
 
+	public Star() {
+		bitSet = new BitSet();
+		setValue(0);
+	}
+	
 	private BitSet bitSet;
 
-	public int getValue() {
+	public Integer getValue() {
 		return bitSet.length();
 	}
 
-	public void setValue(int value) {
+	public void setValue(Integer value) {
+		if(value==null) value = 0;
 		if(getValue()==value) {
 			bitSet.clear();
 		} else {

@@ -9,6 +9,8 @@ import javax.faces.event.ActionEvent;
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
+import trimatrix.controls.DecSpinner;
+import trimatrix.controls.Star;
 import trimatrix.db.DayInfos;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 
@@ -60,9 +62,56 @@ public class DayInfoPopUp extends MyWorkpageDispatchedBean implements Serializab
 	private void refresh() {
 		// get info from db, return a new empty if nothing found
 		this.dayInfos = getLogic().getScheduleLogic().getDayInfos(athleteId, date);
+		// DecSpinners
+		weightMorningDS.setValue(this.dayInfos.getWeightMorning());
+		weightEveningDS.setValue(this.dayInfos.getWeightEvening());
+		temperatureDS.setValue(this.dayInfos.getTemperature());
+		fluidsIntakeDS.setValue(this.dayInfos.getFluidsIntake());
+		ckMorningDS.setValue(this.dayInfos.getCkMorning());
+		ckLunchDS.setValue(this.dayInfos.getCkLunch());
+		ckEveningDS.setValue(this.dayInfos.getCkEvening());
+		ureaMorningDS.setValue(this.dayInfos.getUreaMorning());
+		ureaLunchDS.setValue(this.dayInfos.getUreaLunch());
+		ureaEveningDS.setValue(this.dayInfos.getUreaEvening());
+		glucoseMorningDS.setValue(this.dayInfos.getGlucoseMorning());
+		glucoseLunchDS.setValue(this.dayInfos.getGlucoseLunch());
+		glucoseEveningDS.setValue(this.dayInfos.getGlucoseEvening());
+		hbDS.setValue(this.dayInfos.getHb());
+		hktDS.setValue(this.dayInfos.getHkt());
+		
+		// Stars
+		sleepingQualityS.setValue(this.dayInfos.getSleepingQuality());
+		tirednessS.setValue(this.dayInfos.getTiredness());
+		feelingS.setValue(this.dayInfos.getFeeling());
+		trainingIntensityS.setValue(this.dayInfos.getTrainingIntensity());
+		trainingValuationS.setValue(this.dayInfos.getTrainingValuation());		
 	}
 
 	public void onSave(ActionEvent event) {
+		// get values from DecSpinners
+		dayInfos.setWeightMorning(weightMorningDS.getValue());
+		dayInfos.setWeightEvening(weightEveningDS.getValue());
+		dayInfos.setTemperature(temperatureDS.getValue());
+		dayInfos.setFluidsIntake(fluidsIntakeDS.getValue());
+		dayInfos.setCkMorning(ckMorningDS.getIntValue());
+		dayInfos.setCkLunch(ckLunchDS.getValue().intValue());
+		dayInfos.setCkEvening(ckEveningDS.getValue().intValue());
+		dayInfos.setUreaMorning(ureaMorningDS.getValue().intValue());
+		dayInfos.setUreaLunch(ureaLunchDS.getValue().intValue());
+		dayInfos.setUreaEvening(ureaEveningDS.getValue().intValue());
+		dayInfos.setGlucoseMorning(glucoseMorningDS.getValue().intValue());
+		dayInfos.setGlucoseLunch(glucoseLunchDS.getValue().intValue());
+		dayInfos.setGlucoseEvening(glucoseEveningDS.getValue().intValue());
+		dayInfos.setHb(hbDS.getValue().intValue());
+		dayInfos.setHkt(hktDS.getValue().intValue());
+		
+		// get values from Stars
+		dayInfos.setSleepingQuality(sleepingQualityS.getValue());
+		dayInfos.setTiredness(tirednessS.getValue());
+		dayInfos.setFeeling(feelingS.getValue());
+		dayInfos.setTrainingIntensity(trainingIntensityS.getValue());
+		dayInfos.setTrainingValuation(trainingValuationS.getValue());
+		
 		getLogic().getScheduleLogic().saveDayInfos(dayInfos);
 		refresh();
 	}
@@ -75,5 +124,87 @@ public class DayInfoPopUp extends MyWorkpageDispatchedBean implements Serializab
 		// copy only defined values
 		this.dayInfos.setRestingHr(yesterdayInfos.getRestingHr());
 	}
-
+	
+	// DecSpinner instances
+	private DecSpinner weightMorningDS = new DecSpinner();
+	public DecSpinner getWeightMorningDS() {return weightMorningDS;}
+	public void setWeightMorningDS(DecSpinner weightMorningDS) {this.weightMorningDS = weightMorningDS;}	
+	
+	private DecSpinner weightEveningDS = new DecSpinner();
+	public DecSpinner getWeightEveningDS() {return weightEveningDS;}
+	public void setWeightEveningDS(DecSpinner weightEveningDS) {this.weightEveningDS = weightEveningDS;}
+	
+	private DecSpinner temperatureDS = new DecSpinner();
+	public DecSpinner getTemperatureDS() {return temperatureDS;}
+	public void setTemperatureDS(DecSpinner temperatureDS) {this.temperatureDS = temperatureDS;}
+	
+	private DecSpinner fluidsIntakeDS = new DecSpinner();
+	public DecSpinner getFluidsIntakeDS() {return fluidsIntakeDS;}
+	public void setFluidsIntakeDS(DecSpinner fluidsIntakeDS) {this.fluidsIntakeDS = fluidsIntakeDS;}
+	
+	private DecSpinner ckMorningDS = new DecSpinner();
+	public DecSpinner getCkMorningDS() {return ckMorningDS;}
+	public void setCkMorningDS(DecSpinner ckMorningDS) {this.ckMorningDS = ckMorningDS;}
+	
+	private DecSpinner ckLunchDS = new DecSpinner();
+	public DecSpinner getCkLunchDS() {return ckLunchDS;}
+	public void setCkLunchDS(DecSpinner ckLunchDS) {this.ckLunchDS = ckLunchDS;}
+	
+	private DecSpinner ckEveningDS = new DecSpinner();
+	public DecSpinner getCkEveningDS() {return ckEveningDS;}
+	public void setCkEveningDS(DecSpinner ckEveningDS) {this.ckEveningDS = ckEveningDS;}
+	
+	private DecSpinner ureaMorningDS = new DecSpinner();
+	public DecSpinner getUreaMorningDS() {return ureaMorningDS;}
+	public void setUreaMorningDS(DecSpinner ureaMorningDS) {this.ureaMorningDS = ureaMorningDS;}
+	
+	private DecSpinner ureaLunchDS = new DecSpinner();
+	public DecSpinner getUreaLunchDS() {return ureaLunchDS;}
+	public void setUreaLunchDS(DecSpinner ureaLunchDS) {this.ureaLunchDS = ureaLunchDS;}
+	
+	private DecSpinner ureaEveningDS = new DecSpinner();
+	public DecSpinner getUreaEveningDS() {return ureaEveningDS;}
+	public void setUreaEveningDS(DecSpinner ureaEveningDS) {this.ureaEveningDS = ureaEveningDS;}
+	
+	private DecSpinner glucoseMorningDS = new DecSpinner();
+	public DecSpinner getGlucoseMorningDS() {return glucoseMorningDS;}
+	public void setGlucoseMorningDS(DecSpinner glucoseMorningDS) {this.glucoseMorningDS = glucoseMorningDS;}
+	
+	private DecSpinner glucoseLunchDS = new DecSpinner();
+	public DecSpinner getGlucoseLunchDS() {return glucoseLunchDS;}
+	public void setGlucoseLunchDS(DecSpinner glucoseLunchDS) {this.glucoseLunchDS = glucoseLunchDS;}
+	
+	private DecSpinner glucoseEveningDS = new DecSpinner();
+	public DecSpinner getGlucoseEveningDS() {return glucoseEveningDS;}
+	public void setGlucoseEveningDS(DecSpinner glucoseEveningDS) {this.glucoseEveningDS = glucoseEveningDS;}
+	
+	private DecSpinner hbDS = new DecSpinner();
+	public DecSpinner getHbDS() {return hbDS;}
+	public void setHbDS(DecSpinner hbDS) {this.hbDS = hbDS;}
+	
+	private DecSpinner hktDS = new DecSpinner();
+	public DecSpinner getHktDS() {return hktDS;}
+	public void setHktDS(DecSpinner hktDS) {this.hktDS = hktDS;}
+		
+	// Star instances
+	private Star sleepingQualityS = new Star();
+	public Star getSleepingQualityS() {return sleepingQualityS;}
+	public void setSleepingQualityS(Star sleepingQualityS) {this.sleepingQualityS = sleepingQualityS;}	
+	
+	private Star tirednessS = new Star();
+	public Star getTirednessS() {return tirednessS;}
+	public void setTirednessS(Star tirednessS) {this.tirednessS = tirednessS;}	
+	
+	private Star feelingS = new Star();
+	public Star getFeelingS() {return feelingS;}
+	public void setFeelingS(Star feelingS) {this.feelingS = feelingS;}	
+	
+	private Star trainingIntensityS = new Star();
+	public Star getTrainingIntensityS() {return trainingIntensityS;}
+	public void setTrainingIntensityS(Star trainingIntensityS) {this.trainingIntensityS = trainingIntensityS;}
+	
+	private Star trainingValuationS = new Star();
+	public Star getTrainingValuationS() {return trainingValuationS;}
+	public void setTrainingValuationS(Star trainingValuationS) {this.trainingValuationS = trainingValuationS;}	
+	
 }
