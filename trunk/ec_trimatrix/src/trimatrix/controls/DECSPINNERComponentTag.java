@@ -39,4 +39,8 @@ public class DECSPINNERComponentTag extends BaseComponentTag {
 		m_attributes.put("step", value);
 	}
 
+	public void setFlush(String value) {
+		m_attributes.put("flush", value);
+	}
+
 }

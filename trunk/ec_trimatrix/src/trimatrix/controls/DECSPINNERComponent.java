@@ -24,7 +24,7 @@ public class DECSPINNERComponent extends BaseActionComponent {
 	@Override
 	public void encodeBegin(FacesContext context) throws IOException {
 		if(getChildren().size() == 0) {
-			// pick component's own attributes			
+			// pick component's own attributes
 			String objectbinding = getAttributeString("objectbinding");
 			String width = getAttributeString("width");
 			String enabled = getAttributeString("enabled");
@@ -32,9 +32,10 @@ public class DECSPINNERComponent extends BaseActionComponent {
 			String align = getAttributeString("align");
 			String bgpaint = getAttributeString("bgpaint");
 			String userhint = getAttributeString("userhint");
-			String tooltip = getAttributeString("tooltip");		
+			String tooltip = getAttributeString("tooltip");
 			String step = getAttributeString("step");
-			
+			String flush = getAttributeString("flush");
+
 			if(!Helper.isEmpty(objectbinding)) objectbinding = objectbinding.replace('}', '.');
 			// create field component
 			FORMATTEDFIELDComponentTag fct = new FORMATTEDFIELDComponentTag();
@@ -47,9 +48,10 @@ public class DECSPINNERComponent extends BaseActionComponent {
 			fct.setBgpaint(bgpaint);
 			fct.setAlign(align);
 			fct.setUserhint(userhint);
-			fct.setTooltip(tooltip);	
+			fct.setTooltip(tooltip);
+			fct.setFlush(flush);
 			field = fct.createBaseComponent();
-			getChildren().add(field);				
+			getChildren().add(field);
 			// create property setter
 			BEANPROPERTYSETTERComponentTag bpsct = new BEANPROPERTYSETTERComponentTag();
 			bpsct.setId(createSubId());

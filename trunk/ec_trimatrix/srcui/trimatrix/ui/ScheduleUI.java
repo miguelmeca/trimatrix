@@ -383,7 +383,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		}
 		return result;
 	}
-	
+
 
 	public void onNextWeek(ActionEvent event) {
 		calendar.add(Calendar.DAY_OF_MONTH, 7);
@@ -437,7 +437,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		m_popup.setLeftTopReferenceCentered();
 		m_popup.setUndecorated(true);
 		m_popup.open(Constants.Page.DAYINFOPOPUP.getUrl(), "Tagesinformation",
-				400, 300, scheduleUI);
+				800, 700, scheduleUI);
 	}
 
 	public class ScheduleProcessor implements Serializable {
@@ -504,7 +504,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 					}
 				}
 			}
-		}		
+		}
 	}
 
 	public class ScheduleItem {
@@ -639,10 +639,10 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 					400, 300, scheduleUI);
 		}
 	}
-	
+
 	private Map dayInfo = new DaysMap();
 	public Map getDayInfo(){ return dayInfo;};
-	
+
 	private class DaysMap extends HashedMap {
 		@Override
 		public Object get(Object key) {
@@ -652,8 +652,8 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			if(day<0 || day>6) return null;
 			Date date = getLogic().getScheduleLogic().addDaysToDate(getBeginOfWeek(), day);
 			DayInfos dayInfo = getLogic().getScheduleLogic().getDayInfos(getAthleteID(), date);
-			return dayInfo.hashCode()==DayInfos.EMPTYHASH ? Constants.DAYINFO_FALSE : Constants.DAYINFO_TRUE;			
+			return dayInfo.hashCode()==DayInfos.EMPTYHASH ? Constants.DAYINFO_FALSE : Constants.DAYINFO_TRUE;
 		}
-		
+
 	}
 }

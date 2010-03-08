@@ -78,5 +78,7 @@
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/jcl-over-slf4j-1.5.10.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/slf4j-api-1.5.10.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/slf4j-log4j12-1.5.10.jar"/>
+	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/commons-collections-2.1.1.jar"/>
+	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/commons-logging-1.0.4.jar"/>
 	<classpathentry kind="output" path="webcontent/WEB-INF/classes"/>
 </classpath>
