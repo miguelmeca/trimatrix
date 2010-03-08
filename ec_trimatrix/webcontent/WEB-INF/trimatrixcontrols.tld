@@ -38,6 +38,9 @@
 		<attribute>
 			<name>step</name>
 		</attribute>
+		<attribute>
+			<name>flush</name>
+		</attribute>
 	</tag>
 	<tag>
 		<name>star</name>

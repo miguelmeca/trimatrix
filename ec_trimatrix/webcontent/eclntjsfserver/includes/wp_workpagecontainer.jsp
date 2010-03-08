@@ -20,7 +20,7 @@
                   <t:pane id="g_24" border="BORDER" height="100%" padding="PADDING" width="100%" >
                     <t:rowtitlebar id="g_25" rendered="#{OBJECTBINDING.currentWorkpageDecorated}" text="#{OBJECTBINDING.currentWorkpage.title}">
                       <t:icon id="g_26" rendered="#{OBJECTBINDING.currentWorkpagePopupSupported}" actionListener="#{OBJECTBINDING.onOpenCurrentPageAsModelessPopup}" image="/eclntjsfserver/images/window_popup.png" />
-                      <t:icon id="g_27" actionListener="#{OBJECTBINDING.onCloseCurrentWorkpage}" image="/eclntjsfserver/images/window_close.png" />
+                      <t:icon id="g_27" rendered="#{OBJECTBINDING.currentWorkpageCloseSupported}" actionListener="#{OBJECTBINDING.onCloseCurrentWorkpage}" image="/eclntjsfserver/images/window_close.png" />
                     </t:rowtitlebar>
                     <t:rowinclude id="g_28" contentreplacedrilldown="#{OBJECTBINDING.currentContentReplace}" page="#{OBJECTBINDING.currentJspPage}" updateoninnereventonly="#{OBJECTBINDING.updateOnInnerEventOnly}"/>
                   </t:pane>

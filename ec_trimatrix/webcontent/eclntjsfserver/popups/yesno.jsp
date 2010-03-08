@@ -31,7 +31,7 @@
 					<t:coldistance id="g_8" width="50%" />
 					<t:button id="g_9" actionListener="#{eclntdefscr.yesNoPopup.onYes}"
 						image="../images/yesnopopup_yes.png"
-						text="#{eclntdefscr.yesNoPopup.textYes}" width="80+" />
+						text="#{eclntdefscr.yesNoPopup.textYes}" width="80+" requestfocus="creation"/>
 					<t:coldistance id="g_10" />
 					<t:button id="g_11" actionListener="#{eclntdefscr.yesNoPopup.onNo}"
 						image="../images/yesnopopup_no.png"

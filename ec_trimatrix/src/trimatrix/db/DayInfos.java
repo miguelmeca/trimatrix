@@ -66,6 +66,7 @@ public class DayInfos implements java.io.Serializable {
 	private Time hbTime;
 	private Integer hkt;
 	private Time hktTime;
+	private String weather;
 
 	// Constructors
 
@@ -95,7 +96,7 @@ public class DayInfos implements java.io.Serializable {
 			Time glucoseMorningTime, Integer glucoseLunch,
 			Time glucoseLunchTime, Integer glucoseEvening,
 			Time glucoseEveningTime, Integer hb, Time hbTime, Integer hkt,
-			Time hktTime) {
+			Time hktTime, String weather) {
 		this.id = id;
 		this.restingHr = restingHr;
 		this.weightMorning = weightMorning;
@@ -145,6 +146,7 @@ public class DayInfos implements java.io.Serializable {
 		this.hbTime = hbTime;
 		this.hkt = hkt;
 		this.hktTime = hktTime;
+		this.weather = weather;
 	}
 
 	// Property accessors
@@ -592,6 +594,15 @@ public class DayInfos implements java.io.Serializable {
 		this.hktTime = hktTime;
 	}
 
+	@Column(name = "weather")
+	public String getWeather() {
+		return this.weather;
+	}
+
+	public void setWeather(String weather) {
+		this.weather = weather;
+	}
+
 	public static int EMPTYHASH = 31;
 
 	@Override
@@ -647,6 +658,7 @@ public class DayInfos implements java.io.Serializable {
 		result = prime * result	+ ((ureaMorningTime == null) ? 0 : ureaMorningTime.hashCode());
 		result = prime * result	+ ((weightEvening == null) ? 0 : weightEvening.hashCode());
 		result = prime * result	+ ((weightMorning == null) ? 0 : weightMorning.hashCode());
+		result = prime * result	+ ((weather == null) ? 0 : weather.hashCode());
 		return result;
 	}
 }
