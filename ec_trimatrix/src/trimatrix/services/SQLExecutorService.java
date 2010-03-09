@@ -1020,7 +1020,7 @@ public class SQLExecutorService {
 			int i = 0;
 			entry.key = (String)line[i++];
 			entry.description = (String)line[i++];
-			entry.description_long = (String)line[i++];
+			entry.descriptionLong = (String)line[i++];
 			list.add(entry);
 		}
 		session.close();

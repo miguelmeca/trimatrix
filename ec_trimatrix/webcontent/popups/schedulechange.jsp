@@ -38,34 +38,48 @@
 <t:row id="g_20" >
 <t:pane id="g_21" width="100%" >
 <t:row id="g_22" >
-<t:pane id="g_23" comment="run" rowdistance="5" width="100%" >
-<t:row id="g_24" >
-<t:label id="g_25" font="size:16;weight:bold" text="#{rr.literals.run}" />
+<t:pane id="g_23" comment="run" rowdistance="5" width="100%" />
 </t:row>
+<t:row id="g_24" >
+<t:foldablepane id="g_25" font="size:14;weight:bold" rowdistance="5" text="#{rr.literals.run}" width="100%" >
 <t:row id="g_26" >
-<t:fixgrid id="g_27" objectbinding="#{tobedfined}" >
+<t:fixgrid id="g_27" columndragdropenabled="false" horizontalscrollmode="autowithresize" objectbinding="#{d.ScheduleChangePopUp.gridRun}" sbvisibleamount="10" selectorcolumn="1" selectorcolumnwidth="20" showemptyrows="false" >
 <t:gridcol id="g_28" text="#{rr.literals.duration}" width="100" >
-<t:field id="g_29" width="100" />
+<t:field id="g_29" bgpaint="mandatory()" flush="true" text=".{duration}" width="100" />
 </t:gridcol>
-<t:gridcol id="g_30" text="#{rr.literals.intensity}" width="100" />
-<t:gridcol id="g_31" text="#{rr.literals.hr}" width="100" />
-<t:gridcol id="g_32" text="#{rr.literals.lactate}" width="100" />
-<t:gridcol id="g_33" text="#{rr.literals.comment}" width="100" />
+<t:gridcol id="g_30" text="#{rr.literals.intensity}" width="100" >
+<t:combobox id="g_31" bgpaint="mandatory()" flush="true" validvaluesbinding="#{d.ScheduleUI.vvbZones}" value=".{zone}" withnullitem="true" withvaluecomment="true" />
+</t:gridcol>
+<t:gridcol id="g_32" text="#{rr.literals.hr_low}" width="100" >
+<t:formattedfield id="g_33" format="int" value=".{hrLow}" />
+</t:gridcol>
+<t:gridcol id="g_34" text="#{rr.literals.hr_high}" width="100" >
+<t:formattedfield id="g_35" format="int" value=".{hrHigh}" />
+</t:gridcol>
+<t:gridcol id="g_36" text="#{rr.literals.lactate_low}" width="100" >
+<t:formattedfield id="g_37" format="double" value=".{lactateLow}" />
+</t:gridcol>
+<t:gridcol id="g_38" text="#{rr.literals.lactate_high}" width="100" >
+<t:formattedfield id="g_39" format="double" value=".{lactateHigh}" />
+</t:gridcol>
+<t:gridcol id="g_40" text="#{rr.literals.comment}" width="150" >
+<t:textarea id="g_41" text=".{comment}" />
+</t:gridcol>
 </t:fixgrid>
 </t:row>
-<t:row id="g_34" >
-<t:button id="g_35" image="/images/icons/add.png" imageheight="16" text="#{rr.literals.add}" />
-<t:coldistance id="g_36" />
-<t:button id="g_37" image="/images/icons/remove.png" imageheight="16" text="#{rr.literals.remove}" />
+<t:row id="g_42" >
+<t:button id="g_43" actionListener="#{d.ScheduleChangePopUp.onAddItem}" image="/images/icons/add.png" imageheight="16" text="#{rr.literals.add}" />
+<t:coldistance id="g_44" />
+<t:button id="g_45" actionListener="#{d.ScheduleChangePopUp.onRemoveItem}" image="/images/icons/remove.png" imageheight="16" text="#{rr.literals.remove}" />
+</t:row>
+</t:foldablepane>
 </t:row>
 </t:pane>
 </t:row>
-</t:pane>
-</t:row>
-<t:row id="g_38" >
-<t:button id="g_39" actionListener="#{d.ScheduleChangePopUp.onOk}" image="/images/icons/save.png" imageheight="15" text="#{rr.literals.save}" />
-<t:coldistance id="g_40" />
-<t:button id="g_41" actionListener="#{d.ScheduleChangePopUp.onCancel}" image="/images/icons/cancel.png" imageheight="15" text="#{rr.literals.cancel}" />
+<t:row id="g_46" >
+<t:button id="g_47" actionListener="#{d.ScheduleChangePopUp.onSave}" image="/images/icons/save.png" imageheight="15" text="#{rr.literals.save}" />
+<t:coldistance id="g_48" />
+<t:button id="g_49" actionListener="#{d.ScheduleChangePopUp.onCancel}" image="/images/icons/cancel.png" imageheight="15" text="#{rr.literals.cancel}" />
 </t:row>
 </t:rowbodypane>
 <t:pageaddons id="g_pa"/>

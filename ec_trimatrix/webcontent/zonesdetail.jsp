@@ -4,6 +4,7 @@
 <%@taglib prefix="f" uri="http://java.sun.com/jsf/core"%>
 <%@taglib prefix="h" uri="http://java.sun.com/jsf/html"%>
 
+<%@taglib prefix="tx" uri="/WEB-INF/trimatrixcontrols"%>
 <%@taglib prefix="t" uri="/WEB-INF/eclnt"%>
 
 
@@ -26,7 +27,7 @@
 <t:link id="g_12" actionListener="#{d.ZonesDetailUI.onCoachClicked}" align="left" enabled="true" focusable="true" foreground="#000000" height="20" text="#{d.ZonesDetailUI.coach}" width="200" />
 </t:row>
 <t:row id="g_13" >
-<t:label id="g_14" text="Distanz für Zeit" />
+<t:label id="g_14" text="#{rr.literals.distance_time}" />
 <t:coldistance id="g_15" />
 <t:formattedfield id="g_16" align="center" flush="true" format="int" value="#{d.ZonesDetailUI.distance}" width="60" />
 <t:coldistance id="g_17" />
@@ -34,31 +35,31 @@
 </t:row>
 <t:row id="g_19" >
 <t:fixgrid id="g_20" avoidroundtrips="true" horizontalscrollmode="autowithresize" objectbinding="#{d.ZonesDetailUI.gridZones}" sbvisibleamount="10" showemptyrows="false" >
-<t:gridcol id="g_21" align="center" searchenabled="false" sortenabled="false" text="Bereich" width="100" >
+<t:gridcol id="g_21" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.area}" width="100" >
 <t:field id="g_22" align="center" background=".{color}" enabled="false" font="size:14;weight:bold" foreground=".{foreground}" text=".{shortcut}" width="100" />
 </t:gridcol>
-<t:gridcol id="g_23" align="center" searchenabled="false" sortenabled="false" text="von HR" width="80" >
+<t:gridcol id="g_23" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.hr_low}" width="80" >
 <t:formattedfield id="g_24" align="center" enabled="#{d.ZonesDetailUI.enabled}" format="int" value=".{hrLow}" />
 </t:gridcol>
-<t:gridcol id="g_25" align="center" searchenabled="false" sortenabled="false" text="bis HR" width="80" >
+<t:gridcol id="g_25" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.hr_high}" width="80" >
 <t:formattedfield id="g_26" align="center" enabled="#{d.ZonesDetailUI.enabled}" format="int" value=".{hrHigh}" />
 </t:gridcol>
-<t:gridcol id="g_27" align="center" searchenabled="false" sortenabled="false" text="von HR %" width="80" >
+<t:gridcol id="g_27" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.hr_prct_low}" width="80" >
 <t:formattedfield id="g_28" align="center" enabled="false" format="int" value=".{hrLowPrct}" />
 </t:gridcol>
-<t:gridcol id="g_29" align="center" searchenabled="false" sortenabled="false" text="bis HR %" width="80" >
+<t:gridcol id="g_29" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.hr_prct_high}" width="80" >
 <t:formattedfield id="g_30" align="center" enabled="false" format="int" value=".{hrHighPrct}" />
 </t:gridcol>
-<t:gridcol id="g_31" align="center" searchenabled="false" sortenabled="false" text="von Geschwindigkeit" width="120" >
+<t:gridcol id="g_31" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.speed_low}" width="120" >
 <t:formattedfield id="g_32" align="center" enabled="#{d.ZonesDetailUI.enabled}" format="double" value=".{speedLow}" />
 </t:gridcol>
-<t:gridcol id="g_33" align="center" searchenabled="false" sortenabled="false" text="bis Geschwindigkeit" width="120" >
+<t:gridcol id="g_33" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.speed_high}" width="120" >
 <t:formattedfield id="g_34" align="center" enabled="#{d.ZonesDetailUI.enabled}" format="double" value=".{speedHigh}" />
 </t:gridcol>
-<t:gridcol id="g_35" align="center" searchenabled="false" sortenabled="false" text="von Zeit" width="80" >
+<t:gridcol id="g_35" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.time_low}" width="80" >
 <t:field id="g_36" align="center" enabled="false" text=".{timeLow}" />
 </t:gridcol>
-<t:gridcol id="g_37" align="center" searchenabled="false" sortenabled="false" text="bis Zeit" width="80" >
+<t:gridcol id="g_37" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.time_high}" width="80" >
 <t:field id="g_38" align="center" enabled="false" text=".{timeHigh}" />
 </t:gridcol>
 </t:fixgrid>
