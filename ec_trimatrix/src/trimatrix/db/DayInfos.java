@@ -603,8 +603,12 @@ public class DayInfos implements java.io.Serializable {
 		this.weather = weather;
 	}
 
-	public static int EMPTYHASH = 31;
+	public static int EMPTYHASH = -240540129;
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 * explicitly exclude ID!!!
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -633,7 +637,6 @@ public class DayInfos implements java.io.Serializable {
 		result = prime * result + ((hbTime == null) ? 0 : hbTime.hashCode());
 		result = prime * result + ((hkt == null) ? 0 : hkt.hashCode());
 		result = prime * result + ((hktTime == null) ? 0 : hktTime.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((illness == null) ? 0 : illness.hashCode());
 		result = prime * result	+ ((illnessText == null) ? 0 : illnessText.hashCode());
 		result = prime * result	+ ((location == null) ? 0 : location.hashCode());
@@ -659,6 +662,7 @@ public class DayInfos implements java.io.Serializable {
 		result = prime * result	+ ((weightEvening == null) ? 0 : weightEvening.hashCode());
 		result = prime * result	+ ((weightMorning == null) ? 0 : weightMorning.hashCode());
 		result = prime * result	+ ((weather == null) ? 0 : weather.hashCode());
-		return result;
+		System.out.println(result);
+		return result;		
 	}
 }

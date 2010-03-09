@@ -4,6 +4,7 @@
 <%@taglib prefix="f" uri="http://java.sun.com/jsf/core"%>
 <%@taglib prefix="h" uri="http://java.sun.com/jsf/html"%>
 
+<%@taglib prefix="tx" uri="/WEB-INF/trimatrixcontrols"%>
 <%@taglib prefix="t" uri="/WEB-INF/eclnt"%>
 
 
@@ -35,9 +36,36 @@
 <t:textarea id="g_19" height="50" text="#{d.ScheduleChangePopUp.text}" width="250" />
 </t:row>
 <t:row id="g_20" >
-<t:button id="g_21" actionListener="#{d.ScheduleChangePopUp.onOk}" text="Ok" />
-<t:coldistance id="g_22" />
-<t:button id="g_23" actionListener="#{d.ScheduleChangePopUp.onCancel}" text="Abbrechen" />
+<t:pane id="g_21" width="100%" >
+<t:row id="g_22" >
+<t:pane id="g_23" comment="run" rowdistance="5" width="100%" >
+<t:row id="g_24" >
+<t:label id="g_25" font="size:16;weight:bold" text="#{rr.literals.run}" />
+</t:row>
+<t:row id="g_26" >
+<t:fixgrid id="g_27" objectbinding="#{tobedfined}" >
+<t:gridcol id="g_28" text="#{rr.literals.duration}" width="100" >
+<t:field id="g_29" width="100" />
+</t:gridcol>
+<t:gridcol id="g_30" text="#{rr.literals.intensity}" width="100" />
+<t:gridcol id="g_31" text="#{rr.literals.hr}" width="100" />
+<t:gridcol id="g_32" text="#{rr.literals.lactate}" width="100" />
+<t:gridcol id="g_33" text="#{rr.literals.comment}" width="100" />
+</t:fixgrid>
+</t:row>
+<t:row id="g_34" >
+<t:button id="g_35" image="/images/icons/add.png" imageheight="16" text="#{rr.literals.add}" />
+<t:coldistance id="g_36" />
+<t:button id="g_37" image="/images/icons/remove.png" imageheight="16" text="#{rr.literals.remove}" />
+</t:row>
+</t:pane>
+</t:row>
+</t:pane>
+</t:row>
+<t:row id="g_38" >
+<t:button id="g_39" actionListener="#{d.ScheduleChangePopUp.onOk}" image="/images/icons/save.png" imageheight="15" text="#{rr.literals.save}" />
+<t:coldistance id="g_40" />
+<t:button id="g_41" actionListener="#{d.ScheduleChangePopUp.onCancel}" image="/images/icons/cancel.png" imageheight="15" text="#{rr.literals.cancel}" />
 </t:row>
 </t:rowbodypane>
 <t:pageaddons id="g_pa"/>

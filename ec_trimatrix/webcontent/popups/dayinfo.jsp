@@ -196,7 +196,7 @@
 </t:row>
 <t:row id="g_149" >
 <t:checkbox id="g_150" flush="true" selected="#{d.DayInfoPopUp.dayInfos.therapy}" text="#{rr.literals.therapie}" width="#{d.DayInfoPopUp.width}" />
-<t:field id="g_151" rendered="#{d.DayInfoPopUp.dayInfos.therapy==truel}" text="#{d.DayInfoPopUp.dayInfos.therapyText}" width="200" />
+<t:field id="g_151" rendered="#{d.DayInfoPopUp.dayInfos.therapy==true}" text="#{d.DayInfoPopUp.dayInfos.therapyText}" width="200" />
 </t:row>
 <t:row id="g_152" >
 <t:label id="g_153" rowalignmenty="top" text="#{rr.literals.comment}" width="#{d.DayInfoPopUp.width}" />

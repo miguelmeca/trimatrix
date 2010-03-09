@@ -71,6 +71,7 @@
         <set attribute="bgpaint" value="rectangle(0,0,100%,100%,#606070,#202030,vertical)"/>
         <set attribute="border" value="bottom:1;left:0;right:0;top:0;color:#C0C0C0"/>
         <set attribute="padding" value="bottom:1;left:0;right:0;top:0"/>
+        <set attribute="align" value="center"/>
         <set attribute="font" value="weight:bold"/>
     </tag>
     <tag name="label" variant="default">
