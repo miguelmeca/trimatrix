@@ -36,6 +36,7 @@ import trimatrix.db.DayInfos;
 import trimatrix.db.Schedules;
 import trimatrix.reports.excel.PerformanceChart;
 import trimatrix.services.TranslationService;
+import trimatrix.structures.SValueList;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
@@ -57,6 +58,10 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
     	return m_vvbAthletes;
     }
 
+    protected ValidValuesBinding vvbZones = new ValidValuesBinding();
+    public ValidValuesBinding getVvbZones() {
+    	return vvbZones;
+    }
 
 	protected FIXGRIDListBinding<GridAgendaItem> m_gridAgenda = new FIXGRIDListBinding<GridAgendaItem>();
 
@@ -293,9 +298,14 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		}
 	}
 
+	private void buildZones() {
+		vvbZones = getServiceLayer().getValueListBindingService().getVVBindingZones(getServiceLayer().getDictionaryService().getMyPerson().getId(), getAthleteID());
+	}
+
 	private void refresh() {
 		update();
 		refreshAllSchedules();
+		buildZones();
 	}
 
 	private void refreshAllSchedules() {
@@ -622,7 +632,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 							refresh();
 						}
 
-						public void ok() {
+						public void save() {
 							try {
 								save();
 								m_popup.close();

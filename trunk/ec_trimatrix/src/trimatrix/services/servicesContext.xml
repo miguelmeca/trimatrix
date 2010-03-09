@@ -58,7 +58,7 @@
 		</property>
 		<property name="daoLayer">
 			<ref bean="daoLayer" />
-		</property>		
+		</property>
 	</bean>
 
 	<bean id="sqlExecutorService" class="trimatrix.services.SQLExecutorService"
@@ -138,6 +138,9 @@
 		</property>
 		<property name="dictionaryService">
 			<ref bean="dictionaryService" />
+		</property>
+		<property name="daoLayer">
+			<ref bean="daoLayer" />
 		</property>
 	</bean>
 
