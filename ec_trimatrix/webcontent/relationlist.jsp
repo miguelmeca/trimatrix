@@ -4,6 +4,7 @@
 <%@taglib prefix="f" uri="http://java.sun.com/jsf/core"%>
 <%@taglib prefix="h" uri="http://java.sun.com/jsf/html"%>
 
+<%@taglib prefix="tx" uri="/WEB-INF/trimatrixcontrols"%>
 <%@taglib prefix="t" uri="/WEB-INF/eclnt"%>
 
 
@@ -15,9 +16,9 @@
 <t:row id="g_2" >
 <t:pane id="g_3" >
 <t:row id="g_4" >
-<t:button id="g_5" actionListener="#{d.RelationListUI.onAdd}" enabled="#{d.RelationListUI.createAllowed}" text="#{rr.literals.list_add}" />
+<t:button id="g_5" actionListener="#{d.RelationListUI.onAdd}" enabled="#{d.RelationListUI.createAllowed}" image="/images/icons/add.png" imageheight="16" text="#{rr.literals.list_add}" />
 <t:coldistance id="g_6" />
-<t:button id="g_7" actionListener="#{d.RelationListUI.onRemove}" enabled="#{d.RelationListUI.deleteAllowed}" text="#{rr.literals.list_remove}" />
+<t:button id="g_7" actionListener="#{d.RelationListUI.onRemove}" enabled="#{d.RelationListUI.deleteAllowed}" image="/images/icons/remove.png" imageheight="16" text="#{rr.literals.list_remove}" />
 <t:coldistance id="g_8" />
 <t:button id="g_9" actionListener="#{d.RelationListUI.onStandard}" enabled="#{d.RelationListUI.changeAllowed}" text="#{rr.literals.list_set_standard}" />
 </t:row>
@@ -28,7 +29,7 @@
 <t:arraygrid id="g_12" avoidroundtrips="true" columnresizingenabled="true" drawoddevenrows="true" height="100%" multiselect="false" objectbinding="#{d.RelationListUI.grid}" rowpopupmenu="ROW" sbvisibleamount="30" width="100%" />
 </t:row>
 <t:row id="g_13" >
-<t:button id="g_14" actionListener="#{d.RelationListUI.onRefresh}" text="#{rr.literals.list_refresh}" />
+<t:button id="g_14" actionListener="#{d.RelationListUI.onRefresh}" image="/images/icons/refresh.png" imageheight="16" text="#{rr.literals.list_refresh}" />
 </t:row>
 </t:rowbodypane>
 <t:popupmenu id="ROW" >
