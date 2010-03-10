@@ -9,14 +9,9 @@ import javax.faces.event.ActionEvent;
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
-import org.eclnt.jsfserver.elements.impl.FIXGRIDTreeItem;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.ui.ScheduleUI.ScheduleItem;
-import trimatrix.ui.TestDetailUI.AGridItem;
-import trimatrix.ui.TestDetailUI.GridErgoItem;
-import trimatrix.ui.TestDetailUI.GridSwimItem;
-import trimatrix.ui.TestDetailUI.GridTreadmillItem;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 
 @CCGenClass(expressionBase = "#{d.ScheduleChangePopUp}")

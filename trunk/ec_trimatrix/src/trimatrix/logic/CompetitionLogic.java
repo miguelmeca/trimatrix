@@ -37,7 +37,7 @@ public class CompetitionLogic {
 		String[] categories = preferences.getCompetitionCategories().split(";");
 		return Arrays.asList(categories);
 	}
-	
+
 	public void addCategoriesToPreferences(String newCategory) {
 		if(Helper.isEmpty(newCategory)) return;
 		UserPreferences preferences = serviceLayer.getDictionaryService().getMyUser().getPreferences();
@@ -52,12 +52,12 @@ public class CompetitionLogic {
 			}
 			// category not found append
 			preferences.setCompetitionCategories(strCategories + ";" + newCategory);
-		}				
+		}
 		try {
-			logicLayer.getPreferencesLogic().savePreferences(preferences);		
+			logicLayer.getPreferencesLogic().savePreferences(preferences);
 		} catch (Exception ex) {
 			logger.warn("Error saving preferences (competition adding category)! " + ex.toString());
-		}		
+		}
 	}
 
 	public String buildString(List<Limit> limits) {
@@ -84,8 +84,8 @@ public class CompetitionLogic {
 		return new Limit();
 	}
 
-	public Limit createLimit(String category, String[] limits, String[] swim, String[] run, Boolean swimsuit) {
-		return new Limit(category, limits, swim, run, swimsuit);
+	public Limit createLimit(String category, String[] limits, String[] swim, String[] run, String[] bike, Boolean swimsuit) {
+		return new Limit(category, limits, swim, run, bike, swimsuit);
 	}
 
 	public void setServiceLayer(ServiceLayer serviceLayer) {
@@ -98,5 +98,5 @@ public class CompetitionLogic {
 
 	public void setLogicLayer(LogicLayer logicLayer) {
 		this.logicLayer = logicLayer;
-	}	
+	}
 }

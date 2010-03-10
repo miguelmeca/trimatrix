@@ -4,6 +4,7 @@
 <%@taglib prefix="f" uri="http://java.sun.com/jsf/core"%>
 <%@taglib prefix="h" uri="http://java.sun.com/jsf/html"%>
 
+<%@taglib prefix="tx" uri="/WEB-INF/trimatrixcontrols"%>
 <%@taglib prefix="t" uri="/WEB-INF/eclnt"%>
 
 
@@ -63,34 +64,49 @@
 <t:coldistance id="g_40" width="45" />
 <t:label id="g_41" text="#{rr.literals.run_split}" width="100" />
 <t:field id="g_42" actionListener="#{d.ResultDetailUI.onTimeFlush}" align="center" attributemacro="entityDetailMacro(ResultDetailUI,run_split)" background="#{d.ResultDetailUI.colorRun}" clientname="run" flush="true" maxlength="8" userhint="hh:mm:ss" width="100" />
+<t:coldistance id="g_43" width="45" />
+<t:label id="g_44" text="#{rr.literals.bike_split}" width="100" />
+<t:field id="g_45" actionListener="#{d.ResultDetailUI.onTimeFlush}" align="center" attributemacro="entityDetailMacro(ResultDetailUI,bike_split)" background="#{d.ResultDetailUI.colorBike}" clientname="bike" flush="true" maxlength="8" userhint="hh:mm:ss" width="100" />
 </t:row>
-<t:row id="g_43" >
-<t:label id="g_44" text="#{rr.literals.ranking}" width="120" />
-<t:field id="g_45" align="center" attributemacro="entityDetailMacro(ResultDetailUI,swim_pos)" maxlength="5" regex="(DSQ|DNF|\d.*)" regexmode="1" userhint="DNF, DSQ, 1 ... 999" width="100" />
-<t:coldistance id="g_46" width="45" />
-<t:label id="g_47" text="#{rr.literals.ranking}" width="100" />
-<t:field id="g_48" align="center" attributemacro="entityDetailMacro(ResultDetailUI,run_pos)" maxlength="5" regex="(DSQ|DNF|\d.*)" regexmode="1" userhint="DNF, DSQ, 1 ... 999" width="100" />
-</t:row>
-<t:row id="g_49" >
-<t:label id="g_50" text="#{rr.literals.deficit}" width="120" />
-<t:field id="g_51" align="center" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text="#{d.ResultDetailUI.swimDeficit}" userhint="mm:ss" width="100" />
+<t:row id="g_46" >
+<t:label id="g_47" text="#{rr.literals.ranking}" width="120" />
+<t:field id="g_48" align="center" attributemacro="entityDetailMacro(ResultDetailUI,swim_pos)" maxlength="5" regex="(DSQ|DNF|\d.*)" regexmode="1" userhint="DNF, DSQ, 1 ... 999" width="100" />
+<t:coldistance id="g_49" width="45" />
+<t:label id="g_50" text="#{rr.literals.ranking}" width="100" />
+<t:field id="g_51" align="center" attributemacro="entityDetailMacro(ResultDetailUI,run_pos)" maxlength="5" regex="(DSQ|DNF|\d.*)" regexmode="1" userhint="DNF, DSQ, 1 ... 999" width="100" />
 <t:coldistance id="g_52" width="45" />
-<t:label id="g_53" text="#{rr.literals.deficit}" width="100" />
-<t:field id="g_54" align="center" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text="#{d.ResultDetailUI.runDeficit}" userhint="mm:ss" width="100" />
+<t:label id="g_53" text="#{rr.literals.ranking}" width="100" />
+<t:field id="g_54" align="center" attributemacro="entityDetailMacro(ResultDetailUI,bike_pos)" maxlength="5" regex="(DSQ|DNF|\d.*)" regexmode="1" userhint="DNF, DSQ, 1 ... 999" width="100" />
 </t:row>
 <t:row id="g_55" >
-<t:label id="g_56" text="#{rr.literals.best_split}" width="120" />
-<t:field id="g_57" align="center" enabled="false" text="#{d.ResultDetailUI.bestSwim}" width="100" />
+<t:label id="g_56" text="#{rr.literals.deficit}" width="120" />
+<t:field id="g_57" align="center" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text="#{d.ResultDetailUI.swimDeficit}" userhint="mm:ss" width="100" />
 <t:coldistance id="g_58" width="45" />
-<t:label id="g_59" text="#{rr.literals.best_split}" width="100" />
-<t:field id="g_60" align="center" enabled="false" text="#{d.ResultDetailUI.bestRun}" width="100" />
+<t:label id="g_59" text="#{rr.literals.deficit}" width="100" />
+<t:field id="g_60" align="center" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text="#{d.ResultDetailUI.runDeficit}" userhint="mm:ss" width="100" />
+<t:coldistance id="g_61" width="45" />
+<t:label id="g_62" text="#{rr.literals.deficit}" width="100" />
+<t:field id="g_63" align="center" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text="#{d.ResultDetailUI.bikeDeficit}" userhint="mm:ss" width="100" />
 </t:row>
-<t:row id="g_61" >
-<t:label id="g_62" text="#{rr.literals.deficit_percent}" width="120" />
-<t:formattedfield id="g_63" align="center" enabled="false" font="weight:bold" format="double" userhint="%" value="#{d.ResultDetailUI.percentDeficitSwim}" width="100" />
-<t:coldistance id="g_64" width="45" />
-<t:label id="g_65" text="#{rr.literals.deficit_percent}" width="100" />
-<t:formattedfield id="g_66" align="center" enabled="false" font="weight:bold" format="double" userhint="%" value="#{d.ResultDetailUI.percentDeficitRun}" width="100" />
+<t:row id="g_64" >
+<t:label id="g_65" text="#{rr.literals.best_split}" width="120" />
+<t:field id="g_66" align="center" enabled="false" text="#{d.ResultDetailUI.bestSwim}" width="100" />
+<t:coldistance id="g_67" width="45" />
+<t:label id="g_68" text="#{rr.literals.best_split}" width="100" />
+<t:field id="g_69" align="center" enabled="false" text="#{d.ResultDetailUI.bestRun}" width="100" />
+<t:coldistance id="g_70" width="45" />
+<t:label id="g_71" text="#{rr.literals.best_split}" width="100" />
+<t:field id="g_72" align="center" enabled="false" text="#{d.ResultDetailUI.bestBike}" width="100" />
+</t:row>
+<t:row id="g_73" >
+<t:label id="g_74" text="#{rr.literals.deficit_percent}" width="120" />
+<t:formattedfield id="g_75" align="center" enabled="false" font="weight:bold" format="double" userhint="%" value="#{d.ResultDetailUI.percentDeficitSwim}" width="100" />
+<t:coldistance id="g_76" width="45" />
+<t:label id="g_77" text="#{rr.literals.deficit_percent}" width="100" />
+<t:formattedfield id="g_78" align="center" enabled="false" font="weight:bold" format="double" userhint="%" value="#{d.ResultDetailUI.percentDeficitRun}" width="100" />
+<t:coldistance id="g_79" width="45" />
+<t:label id="g_80" text="#{rr.literals.deficit_percent}" width="100" />
+<t:formattedfield id="g_81" align="center" enabled="false" font="weight:bold" format="double" userhint="%" value="#{d.ResultDetailUI.percentDeficitBike}" width="100" />
 </t:row>
 </t:pane>
 </t:row>

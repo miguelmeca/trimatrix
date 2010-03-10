@@ -30,12 +30,14 @@ import trimatrix.utils.Constants.Entity;
 public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 	private static final String SWIM = "swim";
 	private static final String RUN = "run";
+	private static final String BIKE = "bike";
 	private static final String OVERALL = "overall";
-	
+
 	private Map<String, Limit> limitsMap;
 
 	private String cutoffSwim;
 	private String cutoffRun;
+	private String cutoffBike;
 	private Boolean swimsuit;
 	public Boolean getSwimsuit() { return swimsuit; }
 
@@ -45,12 +47,19 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 	private String bestRun;
 	public String getBestRun() { return bestRun; }
 
+	private String bestBike;
+	public String getBestBike() { return bestBike; }
+
     public String getColorRun() {
     	return ResultEntity.Data.getColor((String)values.get(ResultEntity.RUN_SPLIT), getPercentDeficitRun(), cutoffRun);
     }
 
     public String getColorSwim() {
     	return ResultEntity.Data.getColor((String)values.get(ResultEntity.SWIM_SPLIT), getPercentDeficitSwim(), cutoffSwim);
+    }
+
+    public String getColorBike() {
+    	return ResultEntity.Data.getColor((String)values.get(ResultEntity.BIKE_SPLIT), getPercentDeficitBike(), cutoffBike);
     }
 
 	protected final String[] MANDATORY_FIELDS_TRIA = new String[] {ResultEntity.CATEGORY_TRIA};
@@ -117,8 +126,10 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 			tria.setCategory((String)values.get(ResultEntity.CATEGORY_TRIA));
 			tria.setSwimSplit((String)values.get(ResultEntity.SWIM_SPLIT));
 			tria.setRunSplit((String)values.get(ResultEntity.RUN_SPLIT));
+			tria.setBikeSplit((String)values.get(ResultEntity.BIKE_SPLIT));
 			tria.setSwimPosition((String)values.get(ResultEntity.SWIM_POSITION));
 			tria.setRunPosition((String)values.get(ResultEntity.RUN_POSITION));
+			tria.setBikePosition((String)values.get(ResultEntity.BIKE_POSITION));
 		}
 	}
 
@@ -137,8 +148,10 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 			values.put(ResultEntity.CATEGORY_TRIA, tria.getCategory());
 			values.put(ResultEntity.SWIM_SPLIT, tria.getSwimSplit());
 			values.put(ResultEntity.RUN_SPLIT, tria.getRunSplit());
+			values.put(ResultEntity.BIKE_SPLIT, tria.getBikeSplit());
 			values.put(ResultEntity.SWIM_POSITION, tria.getSwimPosition());
 			values.put(ResultEntity.RUN_POSITION, tria.getRunPosition());
+			values.put(ResultEntity.BIKE_POSITION, tria.getBikePosition());
 			//values.put(ResultEntity.SWIMSUIT, tria.getSwimsuit());
 		}
 		// limits
@@ -164,6 +177,8 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 			field = ResultEntity.SWIM_SPLIT;
 		} else if(RUN.equalsIgnoreCase(clientname)) {
 			field = ResultEntity.RUN_SPLIT;
+		} else if(BIKE.equalsIgnoreCase(clientname)) {
+			field = ResultEntity.BIKE_SPLIT;
 		} else if(OVERALL.equalsIgnoreCase(clientname)) {
 			field = ResultEntity.TIME;
 		} else {
@@ -313,6 +328,10 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 		return Helper.getPercentageByTime(getBestRun(), getRunDeficit());
 	}
 
+	public Double getPercentDeficitBike() {
+		return Helper.getPercentageByTime(getBestBike(), getBikeDeficit());
+	}
+
 	public void onCategoryF4(ActionEvent event) {
 		IdTextSelection idts = IdTextSelection.createInstance();
 		for (String category : limitsMap.keySet()) {
@@ -364,6 +383,11 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 				bestSwim = limits.getSwim()[1];
 				bestRun = limits.getRun()[1];
 				swimsuit = limits.getSwimsuit();
+				// TODO: this was added after first release
+				if(limits.getLimits().length>2) {
+					cutoffBike = limits.getLimits()[2];
+					bestBike = limits.getBike()[1];
+				}
 			}
 		}
 	}
@@ -374,5 +398,9 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 
 	public String getRunDeficit() {
 		return Helper.calculateDuration((String)values.get(ResultEntity.RUN_SPLIT), bestRun, true, false);
+	}
+
+	public String getBikeDeficit() {
+		return Helper.calculateDuration((String)values.get(ResultEntity.BIKE_SPLIT), bestBike, true, false);
 	}
 }

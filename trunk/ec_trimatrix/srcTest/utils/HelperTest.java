@@ -53,7 +53,7 @@ public class HelperTest {
 		Assert.assertEquals("00:05:00", Helper.correctTimeInput("5"));
 		Assert.assertEquals("00:15:00", Helper.correctTimeInput("15"));
 		Assert.assertEquals("01:30:00", Helper.correctTimeInput("130"));
-		Assert.assertEquals("00:00:00", Helper.correctTimeInput("2390"));
+		Assert.assertEquals(null, Helper.correctTimeInput("2390"));
 		Assert.assertEquals("01:23:20", Helper.correctTimeInput("12320"));
 		Assert.assertEquals("10:23:20", Helper.correctTimeInput("102320"));
 	}

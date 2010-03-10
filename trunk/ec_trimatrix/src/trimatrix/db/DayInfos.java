@@ -1,6 +1,7 @@
 package trimatrix.db;
 
 import java.sql.Time;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;

@@ -100,11 +100,27 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 			if(!Helper.isEmpty(cutoff)) limit.getLimits()[1] = cutoff;
 		}
 
+		public String getCutoffBike() {
+			return limit.getLimits()[2];
+		}
+
+		public void setCutoffBike(String cutoff) {
+			// check pattern because its possible to enter time or percentage
+			if(!Pattern.compile("(\\d\\d:[0-5]\\d:[0-5]\\d)|(\\d*%)").matcher(cutoff).matches()) {
+				cutoff = Helper.correctTimeInput(cutoff);
+			}
+			// only set value if cutoff is not null or empty
+			if(!Helper.isEmpty(cutoff)) limit.getLimits()[2] = cutoff;
+		}
+
 		public String getSwimAthlet() { return limit.getSwim()[0]; }
 		public void setSwimAthlet(String athlet) {limit.getSwim()[0] = athlet; }
 
 		public String getRunAthlet() { return limit.getRun()[0]; }
 		public void setRunAthlet(String athlet) {limit.getRun()[0] = athlet; }
+
+		public String getBikeAthlet() { return limit.getBike()[0]; }
+		public void setBikeAthlet(String athlet) {limit.getBike()[0] = athlet; }
 
 		public String getSwimSplit() { return limit.getSwim()[1]; }
 		public void setSwimSplit(String split) {
@@ -116,6 +132,12 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		public void setRunSplit(String split) {
 			String corrInput = Helper.correctTimeInput(split);
 			if(!Helper.isEmpty(corrInput)) limit.getRun()[1] = corrInput;
+		}
+
+		public String getBikeSplit() { return limit.getBike()[1]; }
+		public void setBikeSplit(String split) {
+			String corrInput = Helper.correctTimeInput(split);
+			if(!Helper.isEmpty(corrInput)) limit.getBike()[1] = corrInput;
 		}
 
 		/**
