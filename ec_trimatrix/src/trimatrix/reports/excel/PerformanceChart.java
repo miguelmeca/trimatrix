@@ -77,26 +77,34 @@ public class PerformanceChart extends Report {
 		    	row2 = sheet.createRow(actualRow++);
 		    	row.setHeightInPoints(20);
 		    	row2.setHeightInPoints(20);
-		    	// position
+		    	// position		    	
 		    	cell = row.createCell(0);
 		        cell.setCellValue(item.getFinal_position());
-		        cell.setCellStyle(styles.get(Style.CELL_BOLD));
+		        cell.setCellStyle(styles.get(Style.CELL_BOLD));		
+		        cell = row2.createCell(0);
+		        cell.setCellStyle(styles.get(Style.CELL_BOLD));	
 		        sheet.addMergedRegion(CellRangeAddress.valueOf("$A$" + (actualRow-1) + ":$A$" + actualRow));
 		        // date
 		        cell = row.createCell(1);
 		        Date date = item.getDate();
 		        if(date!=null) cell.setCellValue(Helper.formatDate(date, "dd.MM.yyyy"));
 		        cell.setCellStyle(styles.get(Style.CELL));
+		        cell = row2.createCell(1);
+		        cell.setCellStyle(styles.get(Style.CELL));	
 		        sheet.addMergedRegion(CellRangeAddress.valueOf("$B$" + (actualRow-1) + ":$B$" + actualRow));
 		        // competition
 		        cell = row.createCell(2);
 		        cell.setCellValue(item.getCompetition());
 		        cell.setCellStyle(styles.get(Style.CELL));
+		        cell = row2.createCell(2);
+		        cell.setCellStyle(styles.get(Style.CELL));	
 		        sheet.addMergedRegion(CellRangeAddress.valueOf("$C$" + (actualRow-1) + ":$C$" + actualRow));
 		        // category
 		        cell = row.createCell(3);
 		        cell.setCellValue(item.getCategory_tria());
 		        cell.setCellStyle(styles.get(Style.CELL));
+		        cell = row2.createCell(3);
+		        cell.setCellStyle(styles.get(Style.CELL));	
 		        sheet.addMergedRegion(CellRangeAddress.valueOf("$D$" + (actualRow-1) + ":$D$" + actualRow));
 		        // fastest swimsplit
 		        cell = row.createCell(4);
@@ -109,6 +117,8 @@ public class PerformanceChart extends Report {
 		        cell = row.createCell(5);
 		        cell.setCellValue(item.getSwim_cutoff());
 		        cell.setCellStyle(styles.get(Style.CELL));
+		        cell = row2.createCell(5);
+		        cell.setCellStyle(styles.get(Style.CELL));	
 		        sheet.addMergedRegion(CellRangeAddress.valueOf("$F$" + (actualRow-1) + ":$F$" + actualRow));
 		        // swimsplit / position
 		        cell = row.createCell(6);
@@ -132,23 +142,27 @@ public class PerformanceChart extends Report {
 		        cell.setCellStyle(styles.get(Style.CELL));
 		        // wetsuit
 		        cell = row.createCell(8);
-		        if(item.getSwimsuit()) {
+		        if(item.getSwimsuit()==null ? false : item.getSwimsuit()) {
 		        	cell.setCellStyle(styles.get(Style.CELL_BLACK));
 		        } else {
 		        	cell.setCellStyle(styles.get(Style.CELL));
 		        }
+		        cell = row2.createCell(8);
+		        cell.setCellStyle(styles.get(Style.CELL));	
 		        sheet.addMergedRegion(CellRangeAddress.valueOf("$I$" + (actualRow-1) + ":$I$" + actualRow));
 		        // fastest runsplit
 		        cell = row.createCell(9);
 		        cell.setCellValue(item.getBest_run_split());
 		        cell.setCellStyle(styles.get(Style.CELL));
-		        cell = row2.createCell(4);
+		        cell = row2.createCell(9);
 		        cell.setCellValue(item.getBest_runner());
-		        cell.setCellStyle(styles.get(Style.CELL));
+		        cell.setCellStyle(styles.get(Style.CELL));  		     
 		        // run cutoff
 		        cell = row.createCell(10);
 		        cell.setCellValue(item.getRun_cutoff());
 		        cell.setCellStyle(styles.get(Style.CELL));
+		        cell = row2.createCell(10);
+		        cell.setCellStyle(styles.get(Style.CELL_BOLD));	
 		        sheet.addMergedRegion(CellRangeAddress.valueOf("$K$" + (actualRow-1) + ":$K$" + actualRow));
 		        // runsplit / position
 		        cell = row.createCell(11);
@@ -174,6 +188,8 @@ public class PerformanceChart extends Report {
 		        cell = row.createCell(13);
 		        cell.setCellValue(item.getComment());
 		        cell.setCellStyle(styles.get(Style.CELL));
+		        cell = row2.createCell(13);
+		        cell.setCellStyle(styles.get(Style.CELL));	
 		        sheet.addMergedRegion(CellRangeAddress.valueOf("$N$" + (actualRow-1) + ":$N$" + actualRow));
 			}
 

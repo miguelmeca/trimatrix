@@ -216,11 +216,12 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 	   	LabelPopUpUI labelPopUpUI = getLabelPopUpUI();
 	   	labelPopUpUI.setEntityID(entityId);
 	   	labelPopUpUI.initialize();
-	   	labelPopUpUI.prepareCallback(new LabelPopUpUI.IApplyingCallback(){
-			public void apply() {
+	   	labelPopUpUI.prepareCallback(new IPopUpCallback(){
+			public void ok() {
 				setLabelRowDynamic();
 				popup.close();
 			}
+			public void cancel() {}
 		});
 	   	popup.open(Constants.Page.LABELPOPUP.getUrl(), "Label", 250, 300, new DefaultModelessPopupListener(popup));
 	   	popup.setUndecorated(true);

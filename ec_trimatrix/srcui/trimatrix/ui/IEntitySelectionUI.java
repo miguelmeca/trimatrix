@@ -4,7 +4,7 @@ import javax.faces.event.ActionEvent;
 
 import trimatrix.entities.IEntityData;
 import trimatrix.ui.EntitySelectionUI.GridListItem;
-import trimatrix.ui.EntitySelectionUI.ISelectionCallback;
+import trimatrix.ui.utils.ISelectionCallback;
 import trimatrix.utils.Constants;
 
 public interface IEntitySelectionUI {

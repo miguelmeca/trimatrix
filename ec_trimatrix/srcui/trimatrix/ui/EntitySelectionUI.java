@@ -11,6 +11,7 @@ import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.entities.IEntityData;
 import trimatrix.logic.EntityListLogic;
+import trimatrix.ui.utils.ISelectionCallback;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 
 public abstract class EntitySelectionUI extends MyWorkpageDispatchedBean implements Serializable, IEntitySelectionUI
@@ -38,7 +39,7 @@ public abstract class EntitySelectionUI extends MyWorkpageDispatchedBean impleme
     		return;
     	}    	
     	Statusbar.outputMessage("Entity " + item.entity.toString() + " selected!");
-    	callback.idSelected(item.entity.getId());
+    	callback.selected(item.entity.getId());
     }
 	
 	public class GridListItem<E extends IEntityData> extends FIXGRIDItem implements java.io.Serializable
@@ -58,15 +59,10 @@ public abstract class EntitySelectionUI extends MyWorkpageDispatchedBean impleme
 		public void onRowExecute() {
 			super.onRowExecute();
 			Statusbar.outputMessage("Entity " + entity.toString() + " selected!");
-			callback.idSelected(entity.getId());
+			callback.selected(entity.getId());
 		}
     }
-    
-    public interface ISelectionCallback {
-    	public void idSelected(String id);
-    	public void cancel();
-    }
-    
+      
     protected ISelectionCallback callback;
     /* (non-Javadoc)
 	 * @see trimatrix.ui.IEntitySelectionUI#prepareCallback(trimatrix.ui.EntitySelectionUI.ISelectionCallback)

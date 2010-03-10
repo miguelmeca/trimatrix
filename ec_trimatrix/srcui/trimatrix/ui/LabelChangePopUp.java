@@ -8,6 +8,7 @@ import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.db.Labels;
+import trimatrix.ui.utils.IPopUpCallback;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 
 @CCGenClass (expressionBase="#{d.LabelChangePopUp}")
@@ -47,14 +48,10 @@ public class LabelChangePopUp extends MyWorkpageDispatchedBean implements Serial
     	setDescription(label.getDescription());
     	return true;
     }
-    
-    public interface IPopupCallback {
-    	public void cancel();
-    }
-    
-    protected IPopupCallback callback;
+  
+    protected IPopUpCallback callback;
 
-    public void prepareCallback(IPopupCallback callback) {
+    public void prepareCallback(IPopUpCallback callback) {
     	this.callback = callback;
     }
 }

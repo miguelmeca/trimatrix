@@ -262,7 +262,7 @@ WHERE competitions.test = :p_test
     AND competitions.deleted = :p_deleted
     AND (competitions.id = :p_id
           OR 0 = :p_id_on)
-ORDER by competitions.created_at DESC
+ORDER by competitions.date
   <return-scalar column="id" type="java.lang.String"/>
   <return-scalar column="date" type="java.sql.Timestamp"/>
   <return-scalar column="description" type="java.lang.String"/>
@@ -614,6 +614,7 @@ FROM competitions
         AND persons_have_competitions.person = :p_person)
 WHERE competitions.test = :p_test
     AND competitions.deleted = :p_deleted
+ORDER BY competitions.date
   <return-scalar column="id" type="java.lang.String"/>
   <return-scalar column="date" type="java.sql.Timestamp"/>
   <return-scalar column="description" type="java.lang.String"/>
@@ -648,6 +649,7 @@ FROM competitions
       AND competitions_scouts.scout_id = :p_scout)
 WHERE competitions.test = :p_test
     AND competitions.deleted = :p_deleted
+ORDER BY competitions.date    
   <return-scalar column="id" type="java.lang.String"/>
   <return-scalar column="date" type="java.sql.Timestamp"/>
   <return-scalar column="description" type="java.lang.String"/>
@@ -684,7 +686,7 @@ WHERE results.test = :p_test
           OR 0 = :p_scout_on)
     AND (results.athlete_id = :p_athlete
           OR 0 = :p_athlete_on)
-ORDER BY results.created_at DESC
+ORDER BY competitions.date
   <return-scalar column="id" type="java.lang.String"/>
   <return-scalar column="date" type="java.sql.Timestamp"/>
   <return-scalar column="competition" type="java.lang.String"/>
@@ -733,7 +735,7 @@ WHERE results.test = :p_test
           OR 0 = :p_scout_on)
     AND (results.athlete_id = :p_athlete
           OR 0 = :p_athlete_on)
-ORDER BY results.created_at DESC
+ORDER BY competitions.date
   <return-scalar column="id" type="java.lang.String"/>
   <return-scalar column="date" type="java.sql.Timestamp"/>
   <return-scalar column="competition" type="java.lang.String"/>

@@ -14,9 +14,11 @@ import org.eclnt.workplace.IWorkpageDispatcher;
 import trimatrix.controls.DecSpinner;
 import trimatrix.controls.Star;
 import trimatrix.db.DayInfos;
+import trimatrix.ui.utils.IPopUpCallback;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 
 @CCGenClass(expressionBase = "#{d.DayInfoPopUp}")
+
 public class DayInfoPopUp extends MyWorkpageDispatchedBean implements Serializable {
 	private static final Map<String, String> WEATHER = new HashMap<String, String>() {
 		//Unnamed Block.
@@ -62,15 +64,15 @@ public class DayInfoPopUp extends MyWorkpageDispatchedBean implements Serializab
 		refresh();
 	}
 
-	public interface IPopupCallback {
-		public void cancel();
-	}
+//	public interface IPopupCallback {
+//		public void cancel();
+//	}
 
-	protected IPopupCallback callback;
+	protected IPopUpCallback callback;
 	protected String athleteId;
 	protected Date date;
 
-	public void prepareCallback(IPopupCallback callback, String athleteId, Date date) {
+	public void prepareCallback(IPopUpCallback callback, String athleteId, Date date) {
 		this.callback = callback;
 		this.athleteId = athleteId;
 		this.date = date;

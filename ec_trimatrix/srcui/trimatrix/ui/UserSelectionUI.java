@@ -14,6 +14,7 @@ import org.eclnt.workplace.IWorkpageDispatcher;
 import trimatrix.entities.IEntityData;
 import trimatrix.entities.UserEntity;
 import trimatrix.logic.EntityListLogic;
+import trimatrix.ui.utils.ISelectionCallback;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
 
@@ -32,7 +33,7 @@ public class UserSelectionUI extends MyWorkpageDispatchedBean implements Seriali
     		return;
     	}    	
     	Statusbar.outputMessage("User " + item.user.getUser_name() + " selected!");
-    	callback.userSelected(item.user.getId());
+    	callback.selected(item.user.getId());
     }
 
     public UserSelectionUI(IWorkpageDispatcher dispatcher) {
@@ -77,14 +78,9 @@ public class UserSelectionUI extends MyWorkpageDispatchedBean implements Seriali
 			m_gridList.getItems().add(new GridListItem(user));
 		}
 	}
-    
-    public interface IUserSelectionCallback {
-    	public void userSelected(String id);
-    	public void cancel();
-    }
-    
-    private IUserSelectionCallback callback;
-    public void prepareCallback(IUserSelectionCallback callback) {
+
+    private ISelectionCallback callback;
+    public void prepareCallback(ISelectionCallback callback) {
     	this.callback = callback;
     }
     

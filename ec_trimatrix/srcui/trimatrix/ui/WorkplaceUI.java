@@ -22,6 +22,7 @@ import org.eclnt.workplace.Workpage;
 
 import trimatrix.db.EntitiesHaveLabels;
 import trimatrix.db.Labels;
+import trimatrix.ui.utils.IPopUpCallback;
 import trimatrix.ui.utils.MyWorkpage;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
@@ -198,10 +199,11 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 			// change label
 			if(CHANGELABEL.equals(command)) {
 				LabelChangePopUp labelChangePopUp = getLabelChangePopUp();
-				labelChangePopUp.prepareCallback(new LabelChangePopUp.IPopupCallback(){
+				labelChangePopUp.prepareCallback(new IPopUpCallback(){
 					public void cancel() {
 						m_popup.close();
 					}
+					public void ok() {}
 				});
 				if(!labelChangePopUp.setLabel(label_id)) {
 					logger.error("Label " + label_id + " not correct!");

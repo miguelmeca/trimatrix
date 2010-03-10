@@ -13,6 +13,7 @@ import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.db.Labels;
 import trimatrix.logic.LabelLogic;
+import trimatrix.ui.utils.IPopUpCallback;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
 
@@ -124,21 +125,17 @@ public class LabelPopUpUI extends MyWorkpageDispatchedBean implements Serializab
     }
     
     private void apply(Labels label) {
-    	if(LABELLOGIC.createLabelRelation(entityID, label.getId())) callback.apply();
+    	if(LABELLOGIC.createLabelRelation(entityID, label.getId())) callback.ok();
     }
     
     public void onCreate(ActionEvent event) {
     	Labels label = LABELLOGIC.createLabel(m_searchText, Constants.WHITE);
     	getWorkplaceUI().setLabelRowDynamic();
     	apply(label);
-    }
+    }    
     
-    public interface IApplyingCallback {
-    	public void apply();
-    }
-    
-    protected IApplyingCallback callback;
-    public void prepareCallback(IApplyingCallback callback) {
+    protected IPopUpCallback callback;
+    public void prepareCallback(IPopUpCallback callback) {
     	this.callback = callback;
     }
 }

@@ -22,6 +22,7 @@ import trimatrix.db.Users;
 import trimatrix.entities.UserEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
+import trimatrix.ui.utils.ISelectionCallback;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
 import trimatrix.utils.MailSender;
@@ -181,11 +182,11 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable
 	public void onPersonSearch(ActionEvent event) {
 		IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(Constants.Entity.PERSON);
 		entitySelectionUI.buildData(Entity.PERSON);
-       	entitySelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){
+       	entitySelectionUI.prepareCallback(new ISelectionCallback(){
 			public void cancel() {
 				m_popup.close();				
 			}
-			public void idSelected(String id) {
+			public void selected(String id) {
 				Persons person = (Persons)ENTITYLISTLOGIC.get(Constants.Entity.PERSON, id);
 				entity.setPerson(person);
 				setPersonDescription(entity);	
