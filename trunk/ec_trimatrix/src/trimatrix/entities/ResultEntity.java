@@ -260,7 +260,7 @@ public final class ResultEntity extends AEntity {
 			return category_tria;
 		}
 
-		public boolean getSwimsuit() {
+		public Boolean getSwimsuit() {
 			return swimsuit;
 		}
 

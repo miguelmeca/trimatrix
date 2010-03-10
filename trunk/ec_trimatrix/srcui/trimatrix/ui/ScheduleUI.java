@@ -36,12 +36,13 @@ import trimatrix.db.DayInfos;
 import trimatrix.db.Schedules;
 import trimatrix.reports.excel.PerformanceChart;
 import trimatrix.services.TranslationService;
-import trimatrix.structures.SValueList;
+import trimatrix.ui.utils.IPopUpCallback;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
 
 @CCGenClass(expressionBase = "#{d.ScheduleUI}")
+
 public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		Serializable {
 
@@ -437,11 +438,12 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		Date date = getLogic().getScheduleLogic().addDaysToDate(getBeginOfWeek(), days);
 		DayInfoPopUp dayInfoPopUp = getDayInfoPopUp();
 		dayInfoPopUp.prepareCallback(
-				new DayInfoPopUp.IPopupCallback() {
+				new IPopUpCallback() {
 					public void cancel() {
 						m_popup.close();
 						refresh();
 					}
+					public void ok() {}
 				}, athleteID, date);
 		m_popup = getWorkpage().createModalPopupInWorkpageContext();
 		m_popup.setLeftTopReferenceCentered();

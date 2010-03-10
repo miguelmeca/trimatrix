@@ -51,6 +51,7 @@ import trimatrix.exceptions.MandatoryCheckException;
 import trimatrix.logic.ZonesLogic;
 import trimatrix.logic.TestLogic.LactateSamples;
 import trimatrix.logic.helper.Split;
+import trimatrix.ui.utils.ISelectionCallback;
 import trimatrix.ui.utils.WorkpageRefreshEvent;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
@@ -73,12 +74,12 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 	public void onDoctorSearch(ActionEvent event) {
 		IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(Constants.Entity.DOCTOR);
 		entitySelectionUI.buildData(Entity.DOCTOR);
-		entitySelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback() {
+		entitySelectionUI.prepareCallback(new ISelectionCallback() {
 			public void cancel() {
 				m_popup.close();
 			}
 
-			public void idSelected(String id) {
+			public void selected(String id) {
 				Doctors doctor = (Doctors) ENTITYLISTLOGIC.get(Constants.Entity.DOCTOR, id);
 				entity.setDoctor(doctor);
 				setDoctorDescription(entity);
@@ -93,12 +94,12 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 	public void onAthleteSearch(ActionEvent event) {
 		IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(Constants.Entity.PERSON);
 		entitySelectionUI.buildData(Entity.MYATHLETES);
-		entitySelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback() {
+		entitySelectionUI.prepareCallback(new ISelectionCallback() {
 			public void cancel() {
 				m_popup.close();
 			}
 
-			public void idSelected(String id) {
+			public void selected(String id) {
 				Persons person = (Persons) ENTITYLISTLOGIC.get(Constants.Entity.PERSON, id);
 				entity.setAthlete(person);
 				setAthleteDescription(entity);

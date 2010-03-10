@@ -8,7 +8,6 @@ import javax.faces.event.ActionEvent;
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.ISetId;
 import org.eclnt.jsfserver.defaultscreens.IdTextSelection;
-import org.eclnt.jsfserver.elements.impl.FIELDComponent;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.db.Competitions;
@@ -20,6 +19,7 @@ import trimatrix.entities.ResultEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
 import trimatrix.logic.helper.Limit;
+import trimatrix.ui.utils.ISelectionCallback;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.Entity;
@@ -53,7 +53,7 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
     	return ResultEntity.Data.getColor((String)values.get(ResultEntity.SWIM_SPLIT), getPercentDeficitSwim(), cutoffSwim);
     }
 
-	protected final String[] MANDATORY_FIELDS_TRIA = new String[] {ResultEntity.CATEGORY_TRIA, ResultEntity.SWIM_SPLIT, ResultEntity.RUN_SPLIT};
+	protected final String[] MANDATORY_FIELDS_TRIA = new String[] {ResultEntity.CATEGORY_TRIA};
 
     public boolean isAdminView() {
     	return entityDetailUI.getEntity()==Entity.RESULT;
@@ -189,11 +189,11 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 		} else {
 			entitySelectionUI.buildData(Entity.SCOUTCOMPETITIONS);
 		}
-       	entitySelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){
+       	entitySelectionUI.prepareCallback(new ISelectionCallback(){
 			public void cancel() {
 				m_popup.close();
 			}
-			public void idSelected(String id) {
+			public void selected(String id) {
 				Competitions competition = (Competitions)ENTITYLISTLOGIC.get(Constants.Entity.COMPETITION, id);
 				entity.setCompetition(competition);
 				setCompetitionDescription(entity);
@@ -225,11 +225,11 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 	public void onScoutSearch(ActionEvent event) {
 		IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(Constants.Entity.PERSON);
 		entitySelectionUI.buildData(Entity.SCOUTS);
-       	entitySelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){
+       	entitySelectionUI.prepareCallback(new ISelectionCallback(){
 			public void cancel() {
 				m_popup.close();
 			}
-			public void idSelected(String id) {
+			public void selected(String id) {
 				Persons person = (Persons)ENTITYLISTLOGIC.get(Constants.Entity.PERSON, id);
 				entity.setScout(person);
 				setScoutDescription(entity);
@@ -265,11 +265,11 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 		} else {
 			entitySelectionUI.buildData(Entity.MYSCOUTEDATHLETES);
 		}
-       	entitySelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){
+       	entitySelectionUI.prepareCallback(new ISelectionCallback(){
 			public void cancel() {
 				m_popup.close();
 			}
-			public void idSelected(String id) {
+			public void selected(String id) {
 				Persons person = (Persons)ENTITYLISTLOGIC.get(Constants.Entity.PERSON, id);
 				entity.setAthlete(person);
 				setAthleteDescription(entity);

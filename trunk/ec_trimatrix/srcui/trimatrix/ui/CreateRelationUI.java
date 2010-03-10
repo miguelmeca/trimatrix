@@ -14,6 +14,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import trimatrix.entities.IEntityObject;
 import trimatrix.logic.RelationListLogic;
 import trimatrix.relations.IRelationObject;
+import trimatrix.ui.utils.IPopUpCallback;
+import trimatrix.ui.utils.ISelectionCallback;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
 
@@ -76,11 +78,11 @@ public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serial
     	Constants.Page selectionPage = entity.getSelectionPage();    	
     	IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(entity);
     	entitySelectionUI.buildData(entity);
-       	entitySelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){
+       	entitySelectionUI.prepareCallback(new ISelectionCallback(){
    			public void cancel() {
    				m_popup.close();				
    			}
-   			public void idSelected(String id) {  
+   			public void selected(String id) {  
    				partner1 = getLogic().getEntityListLogic().get(entity, id);    				
    				m_popup.close();
    			}});         	
@@ -94,11 +96,11 @@ public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serial
     	Constants.Page selectionPage = entity.getSelectionPage();    	
     	IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(entity);
     	entitySelectionUI.buildData(entity);
-       	entitySelectionUI.prepareCallback(new EntitySelectionUI.ISelectionCallback(){
+       	entitySelectionUI.prepareCallback(new ISelectionCallback(){
    			public void cancel() {
    				m_popup.close();				
    			}
-   			public void idSelected(String id) {  
+   			public void selected(String id) {  
    				partner2 = getLogic().getEntityListLogic().get(entity, id);    				
    				m_popup.close();
    			}});    	
@@ -117,14 +119,9 @@ public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serial
 
     protected boolean reltypEnabled;
     public boolean getReltypEnabled() { return reltypEnabled; }
-
-    public interface ISelectionCallback {
-    	public void cancel();
-    	public void ok();
-    }
-    
-    protected ISelectionCallback callback;
-    public void prepareCallback(ISelectionCallback callback) {
+  
+    protected IPopUpCallback callback;
+    public void prepareCallback(IPopUpCallback callback) {
     	this.callback = callback;
     }
 }

@@ -17,6 +17,7 @@ import org.eclnt.workplace.IWorkpageDispatcher;
 import trimatrix.logic.RelationListLogic;
 import trimatrix.relations.IRelationData;
 import trimatrix.structures.SAuthorization;
+import trimatrix.ui.utils.IPopUpCallback;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
 
@@ -105,7 +106,7 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 	public void onAdd(ActionEvent event) {
 		CreateRelationUI createRelationUI = getCreateRelationUI();
 		createRelationUI.setRelationType(relation);
-		createRelationUI.prepareCallback(new CreateRelationUI.ISelectionCallback(){
+		createRelationUI.prepareCallback(new IPopUpCallback(){
 			public void cancel() {
 				m_popup.close();				
 			}
