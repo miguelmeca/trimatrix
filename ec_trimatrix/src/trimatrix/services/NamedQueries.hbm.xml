@@ -649,7 +649,7 @@ FROM competitions
       AND competitions_scouts.scout_id = :p_scout)
 WHERE competitions.test = :p_test
     AND competitions.deleted = :p_deleted
-ORDER BY competitions.date    
+ORDER BY competitions.date
   <return-scalar column="id" type="java.lang.String"/>
   <return-scalar column="date" type="java.sql.Timestamp"/>
   <return-scalar column="description" type="java.lang.String"/>
@@ -712,6 +712,8 @@ ORDER BY competitions.date
   results_tria.swim_position,
   results_tria.run_split,
   results_tria.run_position,
+  results_tria.bike_split,
+  results_tria.bike_position,
   competitions_scouts.limits
 FROM results
   JOIN results_tria
@@ -749,6 +751,8 @@ ORDER BY competitions.date
   <return-scalar column="swim_position" type="java.lang.String"/>
   <return-scalar column="run_split" type="java.lang.String"/>
   <return-scalar column="run_position" type="java.lang.String"/>
+  <return-scalar column="bike_split" type="java.lang.String"/>
+  <return-scalar column="bike_position" type="java.lang.String"/>
   <return-scalar column="limits" type="java.lang.String"/>
 </sql-query>
 

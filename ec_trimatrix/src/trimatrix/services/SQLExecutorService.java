@@ -86,7 +86,7 @@ public class SQLExecutorService {
 	private Dictionary dictionaryService;
 	private DAOLayer daoLayer;
 	private LogicLayer logicLayer;
-	private SessionFactory sessionFactory;	   
+	private SessionFactory sessionFactory;
 
 	/**
 	 * Retrieve functiontree for workplace
@@ -609,6 +609,8 @@ public class SQLExecutorService {
 				datum.swim_pos = (String)line[i++];
 				datum.run_split = (String)line[i++];
 				datum.run_pos = (String)line[i++];
+				datum.bike_split = (String)line[i++];
+				datum.bike_pos = (String)line[i++];
 				// get limits
 				Map<String, Limit> limitsMap = logicLayer.getCompetitionLogic().getLimitsMap((String)line[i++]);
 				Limit limit = limitsMap.get(datum.category_tria);
@@ -620,6 +622,12 @@ public class SQLExecutorService {
 					datum.best_swimmer = limit.getSwim()[0];
 					datum.best_swim_split = limit.getSwim()[1];
 					datum.swimsuit = limit.getSwimsuit();
+					// TODO: this was added after first release
+					if(limit.getLimits().length>2) {
+						datum.bike_cutoff = limit.getLimits()[2];
+						datum.best_biker = limit.getBike()[0];
+						datum.best_bike_split = limit.getBike()[1];
+					}
 				}
 			}
 			data.add(datum);
@@ -1100,9 +1108,9 @@ public class SQLExecutorService {
 	public void setLogicLayer(LogicLayer logicLayer) {
 		this.logicLayer = logicLayer;
 	}
-	
-	public void setSessionFactory(SessionFactory sessionFactory) { 
-		this.sessionFactory = sessionFactory; 
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 
 	public static SQLExecutorService getFromApplicationContext(ApplicationContext ctx) {

@@ -18,8 +18,10 @@ public class ResultsTria implements java.io.Serializable {
 	private String category;
 	private String swimSplit;
 	private String runSplit;
+	private String bikeSplit;
 	private String swimPosition;
 	private String runPosition;
+	private String bikePosition;
 
 	// Constructors
 
@@ -34,13 +36,16 @@ public class ResultsTria implements java.io.Serializable {
 
 	/** full constructor */
 	public ResultsTria(String id, String category, String swimSplit,
-			String runSplit, String swimPosition, String runPosition) {
+			String runSplit, String bikeSplit, String swimPosition,
+			String runPosition, String bikePosition) {
 		this.id = id;
 		this.category = category;
 		this.swimSplit = swimSplit;
 		this.runSplit = runSplit;
+		this.bikeSplit = bikeSplit;
 		this.swimPosition = swimPosition;
 		this.runPosition = runPosition;
+		this.bikePosition = bikePosition;
 	}
 
 	// Property accessors
@@ -98,4 +103,24 @@ public class ResultsTria implements java.io.Serializable {
 	public void setRunPosition(String runPosition) {
 		this.runPosition = runPosition;
 	}
+
+	@Column(name = "bike_split", length = 8)
+	public String getBikeSplit() {
+		return bikeSplit;
+	}
+
+	public void setBikeSplit(String bikeSplit) {
+		this.bikeSplit = bikeSplit;
+	}
+
+	@Column(name = "bike_position", length = 5)
+	public String getBikePosition() {
+		return bikePosition;
+	}
+
+	public void setBikePosition(String bikePosition) {
+		this.bikePosition = bikePosition;
+	}
+
+
 }

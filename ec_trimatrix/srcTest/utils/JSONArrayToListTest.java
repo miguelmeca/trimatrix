@@ -20,8 +20,8 @@ public class JSONArrayToListTest {
 		// Limits
 		Marshaller<Limit> limitMarshaller = TwoLattes.createMarshaller(Limit.class);
 		List<Limit> limits = new ArrayList<Limit>(2);
-		limits.add(new Limit("W20", new String[] {"00:30", "00:40"},new String[] {"Markus", "00:35"}, new String[] {"Dany", "01:35"}, new Boolean(false)));
-		limits.add(new Limit("W30", new String[] {"01:30", "01:40"},new String[] {"Seppo", "01:00"}, new String[] {"Hannes", "01:52"}, new Boolean(true)));
+		limits.add(new Limit("W20", new String[] {"00:30", "00:40", "51:40"},new String[] {"Markus", "00:35"}, new String[] {"Dany", "01:35"}, new String[] {"Würtl", "01:55"}, new Boolean(false)));
+		limits.add(new Limit("W30", new String[] {"01:30", "01:40", "51:40"},new String[] {"Seppo", "01:00"}, new String[] {"Hannes", "01:52"}, new String[] {"Reini", "11:35"}, new Boolean(true)));
 		Json.Array array = limitMarshaller.marshallList(limits);
 		String strLimits = array.toString();
 		System.out.println(strLimits);

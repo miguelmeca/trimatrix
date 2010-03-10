@@ -10,21 +10,24 @@ public class Limit {
 	@Value
 	String category;
 	@Value
-	String[] limits = new String[2]; // LOW - HIGH
-	@Value
+	String[] limits = new String[3]; // run - swim - bike
+	@Value(optional = true)
 	String[] swim = new String[2]; // Name - Time
-	@Value
+	@Value(optional = true)
 	String[] run = new String[2]; //Name - Time
+	@Value(optional = true)
+	String[] bike = new String[2]; //Name - Time
 	@Value
 	Boolean swimsuit;
 
 	public Limit() { }
 
-	public Limit(String category, String[] limits, String[] swim, String[] run, Boolean swimsuit) {
+	public Limit(String category, String[] limits, String[] swim, String[] run, String[] bike, Boolean swimsuit) {
 		this.category = category;
 		if(limits!=null) this.limits = limits;
 		if(swim!=null) this.swim = swim;
 		if(run!=null) this.run = run;
+		if(bike!=null) this.bike = bike;
 		if(swimsuit!=null) this.swimsuit = swimsuit;
 	}
 
@@ -39,6 +42,9 @@ public class Limit {
 
 	public String[] getRun() {return run;}
 	public void setRun(String[] run) {this.run = run;}
+
+	public String[] getBike() {return bike;}
+	public void setBike(String[] bike) {this.bike = bike;}
 
 	public Boolean getSwimsuit() {return swimsuit;}
 	public void setSwimsuit(Boolean swimsuit) {this.swimsuit = swimsuit;}
