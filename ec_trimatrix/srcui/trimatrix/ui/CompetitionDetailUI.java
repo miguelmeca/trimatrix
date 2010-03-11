@@ -176,16 +176,18 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		m_gridLimits.getItems().add(new GridLimitsItem());
 	}
 
-	protected ValidValuesBinding countriesVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.COUNTRY);
-
-	public ValidValuesBinding getCountriesVvb() {
-		return countriesVvb;
-	}
-
 	protected ValidValuesBinding m_compTypesVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.COMPTYPE);
+	public ValidValuesBinding getCompTypesVvb() {return m_compTypesVvb;}
 
-	public ValidValuesBinding getCompTypesVvb() {
-		return m_compTypesVvb;
+	protected String type;
+
+	protected ValidValuesBinding m_compSubtypesVvb;
+	public ValidValuesBinding getCompSubtypesVvb() {
+		// lazy loading
+		String type = (String) values.get(CompetitionEntity.TYPE);
+		if(type==null) return null;
+		if(!type.equals(this.type)) m_compSubtypesVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.COMPSUBTYPE, type);
+		return m_compSubtypesVvb;
 	}
 
 	public boolean isMyCompetition() {
@@ -249,6 +251,7 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 	private void fillEntityProperties() {
 		entity.setDescription((String) values.get(CompetitionEntity.DESCRIPTION));
 		entity.setType((String) values.get(CompetitionEntity.TYPE));
+		entity.setSubtype((String) values.get(CompetitionEntity.SUBTYPE));
 		entity.setDate((Date) values.get(CompetitionEntity.DATE));
 		entity.setAddress((String) values.get(CompetitionEntity.ADDRESS));
 		entity.setCountryKey((String) values.get(CompetitionEntity.COUNTRY));
@@ -272,6 +275,7 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		values.clear();
 		values.put(CompetitionEntity.DESCRIPTION, entity.getDescription());
 		values.put(CompetitionEntity.TYPE, entity.getType());
+		values.put(CompetitionEntity.SUBTYPE, entity.getSubtype());
 		values.put(CompetitionEntity.DATE, entity.getDate());
 		values.put(CompetitionEntity.ADDRESS, entity.getAddress());
 		values.put(CompetitionEntity.COUNTRY, entity.getCountryKey());
@@ -292,8 +296,6 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 			bgpaint.put(field, Constants.BGP_MANDATORY);
 		}
 	}
-
-
 
 	@Override
 	public void postSave() {

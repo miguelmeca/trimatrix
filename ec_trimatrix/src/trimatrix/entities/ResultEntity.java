@@ -24,12 +24,14 @@ public final class ResultEntity extends AEntity {
     public static final String COMMENT = "comment";
     public static final String DATE = "date";
     public static final String COMPETITION = "competition";
+    public static final String TYPE = "type";
     public static final String ATHLETE = "athlete";
     public static final String SCOUT = "scout";
     public static final String FINALPOSITION = "final_position";
     public static final String TIME = "time";
 
     // Constants Triathlon
+    public static final String SUBTYPE = "subtype";
     public static final String CATEGORY_TRIA = "category_tria";
     public static final String SWIM_SPLIT = "swim_split";
     public static final String RUN_SPLIT = "run_split";
@@ -69,6 +71,8 @@ public final class ResultEntity extends AEntity {
         List<SGridMetaData> gridMetaData = new ArrayList<SGridMetaData>();
         gridMetaData.add(new SGridMetaData("#{rr.literals.date}", DATE, SGridMetaData.Component.CALENDARFIELD));
         gridMetaData.add(new SGridMetaData("#{rr.literals.competition}",COMPETITION, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData("#{rr.literals.type}", TYPE, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData("#{rr.literals.subtype}", SUBTYPE, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("#{rr.literals.scouter}", SCOUT, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("#{rr.literals.athlete}", ATHLETE, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("#{rr.literals.comment}",COMMENT, SGridMetaData.Component.FIELD));
@@ -82,6 +86,7 @@ public final class ResultEntity extends AEntity {
 		List<SGridMetaData> gridMetaData = getGridMetaData();
 		// add specific data
 		if(CompetitionEntity.TRIATHLON.equalsIgnoreCase(filter)) {
+			gridMetaData.add(new SGridMetaData("#{rr.literals.subtype}", SUBTYPE, SGridMetaData.Component.FIELD));
 			gridMetaData.add(new SGridMetaData("#{rr.literals.category}",CATEGORY_TRIA, SGridMetaData.Component.FIELD));
 			gridMetaData.add(new SGridMetaData("#{rr.literals.swimsuit}",SWIMSUIT, SGridMetaData.Component.CHECKBOX));
 
@@ -218,6 +223,8 @@ public final class ResultEntity extends AEntity {
 		public String id;
 		public Timestamp date;
 		public String competition;
+		public String type;
+		public String subtype;
 		public String scout;
 		public String athlete;
 		public String final_position;
@@ -259,6 +266,14 @@ public final class ResultEntity extends AEntity {
 
 		public String getCompetition() {
 			return competition;
+		}
+
+		public String getType() {
+			return type;
+		}
+
+		public String getSubtype() {
+			return subtype;
 		}
 
 		public String getScout() {

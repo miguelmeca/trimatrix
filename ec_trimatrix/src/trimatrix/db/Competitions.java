@@ -26,6 +26,7 @@ public class Competitions implements java.io.Serializable, IEntityObject{
 	private Date date;
 	private String description;
 	private String type;
+	private String subtype;
 	private String address;
 	private String countryKey;
 	private Timestamp createdAt;
@@ -47,13 +48,14 @@ public class Competitions implements java.io.Serializable, IEntityObject{
 	}
 
 	/** full constructor */
-	public Competitions(String id, Date date, String description, String type,
-			String address, String countryKey, Timestamp createdAt, String createdBy, 
+	public Competitions(String id, Date date, String description, String type, String subtype,
+			String address, String countryKey, Timestamp createdAt, String createdBy,
 			Timestamp modifiedAt, String modifiedBy, Boolean test, Boolean deleted) {
 		this.id = id;
 		this.date = date;
 		this.description = description;
 		this.type = type;
+		this.subtype = subtype;
 		this.address = address;
 		this.countryKey = countryKey;
 		this.createdAt = createdAt;
@@ -101,6 +103,15 @@ public class Competitions implements java.io.Serializable, IEntityObject{
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	@Column(name = "subtype", length = 10)
+	public String getSubtype() {
+		return this.subtype;
+	}
+
+	public void setSubtype(String subtype) {
+		this.subtype = subtype;
 	}
 
 	@Column(name = "address", length = 100)
@@ -175,7 +186,7 @@ public class Competitions implements java.io.Serializable, IEntityObject{
 	public void setDeleted(Boolean deleted) {
 		this.deleted = deleted;
 	}
-	
+
 	@Override
 	public String toString() {
 		// same as DB entity implementation

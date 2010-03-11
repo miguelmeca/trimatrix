@@ -79,6 +79,7 @@ public class SQLExecutorService {
 	public static final String CATEGORYVALUELISTQUERY = "CategoryValueList";
 	public static final String TESTTYPEVALUELISTQUERY = "TestTypeValueList";
 	public static final String COMPTYPEVALUELISTQUERY = "CompTypeValueList";
+	public static final String COMPSUBTYPEVALUELISTQUERY = "CompSubtypeValueList";
 	public static final String SCHEDULETYPEVALUELISTQUERY = "ScheduleTypeValueList";
 	public static final String ENTITIESBYLABELLISTQUERY = "EntitiesByLabelList";
 
@@ -473,6 +474,7 @@ public class SQLExecutorService {
 			datum.date = (Timestamp)line[i++];
 			datum.description = (String)line[i++];
 			datum.type = (String)line[i++];
+			datum.subtype = (String)line[i++];
 			datum.address = (String)line[i++];
 			datum.country = (String)line[i++];
 			datum.results = (Boolean)line[i++];
@@ -521,6 +523,7 @@ public class SQLExecutorService {
 			datum.date = (Timestamp)line[i++];
 			datum.description = (String)line[i++];
 			datum.type = (String)line[i++];
+			datum.subtype = (String)line[i++];
 			datum.address = (String)line[i++];
 			datum.country = (String)line[i++];
 			datum.results = (Boolean)line[i++];
@@ -562,7 +565,7 @@ public class SQLExecutorService {
 		if(CompetitionEntity.TRIATHLON.equals(compType)) {
 			query = session.getNamedQuery(RESULTTRIAENTITYLISTQUERY);
 		}
-		//query.setString("p_lang_key", lang_key);
+		query.setString("p_lang_key", lang_key);
 		query.setBoolean("p_deleted", deleted);
 		query.setBoolean("p_test", test);
 		// handle parameter
@@ -597,6 +600,8 @@ public class SQLExecutorService {
 			datum.id = (String)line[i++];
 			datum.date = (Timestamp)line[i++];
 			datum.competition = (String)line[i++];
+			datum.type = (String)line[i++];
+			datum.subtype = (String)line[i++];
 			datum.scout = (String)line[i++];
 			datum.athlete = (String)line[i++];
 			datum.final_position = (String)line[i++];
@@ -1011,7 +1016,7 @@ public class SQLExecutorService {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public List<SValueList> getValueList(Constants.ValueList valueList, String lang_key) {
+	public List<SValueList> getValueList(Constants.ValueList valueList, String lang_key, String parent_key) {
 		List<SValueList> list = new ArrayList<SValueList>();
 		String namedQuery = valueList.getNamedQuery();
 		if(Helper.isEmpty(namedQuery)) {
@@ -1022,6 +1027,7 @@ public class SQLExecutorService {
 		Session session = sessionFactory.openSession();
 		Query query = session.getNamedQuery(namedQuery);
 		query.setString("p_lang_key", lang_key);
+		if(!Helper.isEmpty(parent_key)) query.setString("p_parent_key", parent_key);
 		List<Object[]> result = query.list();
 		for(Object[] line : result) {
 			SValueList entry = new SValueList();
