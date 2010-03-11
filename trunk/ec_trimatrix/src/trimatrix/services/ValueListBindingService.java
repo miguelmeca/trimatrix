@@ -25,9 +25,9 @@ public class ValueListBindingService {
 	private Dictionary dictionaryService;
 	private DAOLayer daoLayer;
 
-	public ValidValuesBinding getVVBinding(Constants.ValueList valueList, String language, boolean longDescription) {
+	public ValidValuesBinding getVVBinding(Constants.ValueList valueList, String language, boolean longDescription, String parentKey) {
 		ValidValuesBinding vvb = new ValidValuesBinding();
-		List<SValueList> list = sqlExecutorService.getValueList(valueList, language);
+		List<SValueList> list = sqlExecutorService.getValueList(valueList, language, parentKey);
 		for (SValueList entry : list) {
 			if (longDescription) {
 				vvb.addValidValue(entry.key, entry.descriptionLong);
@@ -39,13 +39,13 @@ public class ValueListBindingService {
 		return vvb;
 	}
 
-	public ValidValuesBinding getVVBinding(Constants.ValueList valueList, String language) {
-		return getVVBinding(valueList,language, false);
+	public ValidValuesBinding getVVBinding(Constants.ValueList valueList, String parentKey) {
+		String language = dictionaryService.getLanguage();
+		return getVVBinding(valueList,language, false, parentKey);
 	}
 
 	public ValidValuesBinding getVVBinding(Constants.ValueList valueList) {
-		String language = dictionaryService.getLanguage();
-		ValidValuesBinding vvb = getVVBinding(valueList, language);
+		ValidValuesBinding vvb = getVVBinding(valueList, null);
 		return vvb;
 	}
 
@@ -53,6 +53,12 @@ public class ValueListBindingService {
 		Constants.ValueList valueList = Constants.ValueList.valueOf(strValueList.toUpperCase());
 		if(valueList==null) return EMPTYLIST;
 		return getVVBinding(valueList);
+	}
+
+	public ValidValuesBinding getVVBinding(String strValueList, String parentKey) {
+		Constants.ValueList valueList = Constants.ValueList.valueOf(strValueList.toUpperCase());
+		if(valueList==null) return EMPTYLIST;
+		return getVVBinding(valueList, parentKey);
 	}
 
 	public ValidValuesBinding getVVBindingZones(String coachId, String athleteId) {

@@ -8,18 +8,21 @@
 
 	<session-factory>
 		<property name="myeclipse.connection.profile">MySQL</property>
-		<!--
+
 		<property name="connection.url">jdbc:mysql://localhost/trimatrix?autoReconnect=true</property>
 		<property name="connection.username">trimatrix</property>
 		<property name="connection.password">trimatrix</property>
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-		-->
-		<property name="connection.datasource">java:comp/env/jdbc/TrimatrixDB</property>
 
-		<!-- Connection auto reconnect after long inactivity -->
+		<!--
+		<property name="connection.datasource">java:comp/env/jdbc/TrimatrixDB</property>
+		-->
+
+		<!-- Connection auto reconnect after long inactivity
         <property name="connection.autoReconnect">true</property>
         <property name="connection.autoReconnectForPools">true</property>
         <property name="connection.is-connection-validation-required">true</property>
+		-->
 
 		<property name="dialect">
 			org.hibernate.dialect.MySQLDialect
