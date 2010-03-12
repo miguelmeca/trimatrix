@@ -135,7 +135,17 @@ public final class ResultEntity extends AEntity {
 		if (entity == Constants.Entity.RESULT) {
 			return sqlExecutorService.getResultEntities();
         } else if(entity == Constants.Entity.SCOUTRESULTS) {
-        	return sqlExecutorService.getResultEntities(null, null, dictionaryService.getMyPerson().getId(), null, filter);
+        	String type = null;
+			String subtype = null;
+			// Check if subtype is submitted and relevant
+			if(filter!=null) {
+				String[] filters = filter.split(":");
+				if(filters.length==2) {
+					subtype = filters[1];
+				}
+				type = filters[0];
+			}
+        	return sqlExecutorService.getResultEntities(null, null, dictionaryService.getMyPerson().getId(), null, type, subtype);
         } else {
         	return Constants.EMPTYENTITYDATA;
         }
@@ -146,7 +156,17 @@ public final class ResultEntity extends AEntity {
 	 */
 	public List<IEntityData> getData(Constants.Entity entity, String personId, String filter) {
 		if (entity == Constants.Entity.MYRESULTS) {
-        	return sqlExecutorService.getResultEntities(null, null, dictionaryService.getMyPerson().getId(), personId, filter);
+			String type = null;
+			String subtype = null;
+			// Check if subtype is submitted and relevant
+			if(filter!=null) {
+				String[] filters = filter.split(":");
+				if(filters.length==2) {
+					subtype = filters[1];
+				}
+				type = filters[0];
+			}
+        	return sqlExecutorService.getResultEntities(null, null, dictionaryService.getMyPerson().getId(), personId, type, subtype);
         }  else {
         	return Constants.EMPTYENTITYDATA;
         }
@@ -154,7 +174,7 @@ public final class ResultEntity extends AEntity {
 
 	@Override
 	public IEntityData getData(String id) {
-		List<IEntityData> result = sqlExecutorService.getResultEntities(id, null, null, null, null);
+		List<IEntityData> result = sqlExecutorService.getResultEntities(id, null, null, null, null, null);
 		if (result.size()==0) return null;
 		return result.get(0);
 	}
@@ -194,7 +214,8 @@ public final class ResultEntity extends AEntity {
 
 	@Override
 	public Report getPrintReport(Entity entity, String filter, List<IEntityData> data) {
-		if (entity == Constants.Entity.MYRESULTS && CompetitionEntity.TRIATHLON.equals(filter)) {
+		if(Helper.isEmpty(filter)) return null;
+		if (entity == Constants.Entity.MYRESULTS && filter.startsWith(CompetitionEntity.TRIATHLON)) {
 			PerformanceChart.Data reportData = new PerformanceChart.Data();
 			for(IEntityData entityData : data) {
 				ResultEntity.Data resultData = (ResultEntity.Data)entityData;

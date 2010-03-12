@@ -770,6 +770,8 @@ WHERE results.test = :p_test
           OR 0 = :p_scout_on)
     AND (results.athlete_id = :p_athlete
           OR 0 = :p_athlete_on)
+    AND (competitions.subtype = :p_subtype
+          OR 0 = :p_subtype_on)
 ORDER BY competitions.date
   <return-scalar column="id" type="java.lang.String"/>
   <return-scalar column="date" type="java.sql.Timestamp"/>

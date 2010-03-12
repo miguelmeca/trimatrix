@@ -557,13 +557,19 @@ public class SQLExecutorService {
 	 * @return	result entities
 	 */
 	@SuppressWarnings("unchecked")
-	public List<IEntityData> getResultEntities(String lang_key, String id, String competitionId, String scoutId, String athleteId, String compType, boolean deleted, boolean test) {
+	public List<IEntityData> getResultEntities(String lang_key, String id, String competitionId, String scoutId, String athleteId, String compType, String compSubtype, boolean deleted, boolean test) {
 		List<IEntityData> data = new ArrayList<IEntityData>();
 		//SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Query query = session.getNamedQuery(RESULTENTITYLISTQUERY);
 		if(CompetitionEntity.TRIATHLON.equals(compType)) {
 			query = session.getNamedQuery(RESULTTRIAENTITYLISTQUERY);
+			query.setString("p_subtype", compSubtype);
+			if(compSubtype==null) {
+				query.setBoolean("p_subtype_on", false);
+			} else {
+				query.setBoolean("p_subtype_on", true);
+			}
 		}
 		query.setString("p_lang_key", lang_key);
 		query.setBoolean("p_deleted", deleted);
@@ -646,7 +652,7 @@ public class SQLExecutorService {
 	 * @return
 	 */
 	public List<IEntityData> getResultEntities() {
-		return getResultEntities(dictionaryService.getLanguage(), null, null, null, null, null, false, false);
+		return getResultEntities(dictionaryService.getLanguage(), null, null, null, null, null, null, false, false);
 	}
 
 	/**
@@ -657,8 +663,8 @@ public class SQLExecutorService {
 	 * @param compType	Competition Type
 	 * @return	Result entities
 	 */
-	public List<IEntityData> getResultEntities(String id, String competitionId, String scoutId, String athleteId, String compType) {
-		return getResultEntities(dictionaryService.getLanguage(), id, competitionId, scoutId, athleteId, compType, false, false);
+	public List<IEntityData> getResultEntities(String id, String competitionId, String scoutId, String athleteId, String compType, String compSubtype) {
+		return getResultEntities(dictionaryService.getLanguage(), id, competitionId, scoutId, athleteId, compType, compSubtype, false, false);
 	}
 
 	/**

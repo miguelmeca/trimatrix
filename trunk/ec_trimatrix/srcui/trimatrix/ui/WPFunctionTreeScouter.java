@@ -309,7 +309,7 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 			String pageId = athleteId==null ? entity.name() + ":" + value.getValue() : entity.name() + ":" + value.getValue() + ":" + athleteId;
 			FunctionNode results_type_node = new FunctionNode(results_node, Constants.Page.ENTITYLIST.getUrl());
 			results_type_node.setId(pageId);
-			results_type_node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
+			results_type_node.setStatus(FIXGRIDTreeItem.STATUS_OPENED);
 			results_type_node.setOpenMultipleInstances(false);
 			results_type_node.setText(value.getText());
 			if(athleteId!=null) results_type_node.setParam(Constants.P_PERSON, athleteId);
@@ -317,6 +317,31 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 			results_type_node.setParam(Constants.P_ENTITY, entity.name());
 			// authorization => coach is allowed to manually change values
 			FUNCTIONTREELOGIC.setAuthority(functionTree, results_type_node);
+			// node per subtype of result e.g. triathlon-sprint
+			buildResultsSubtypeNodes(functionTree, results_type_node, athleteId, value.getValue());
+		}
+	}
+	
+	/**
+	 * Build node per subtype of result e.g. triathlon-sprint
+	 * @param results_node
+	 */
+	public void buildResultsSubtypeNodes(SFunctionTree functionTree, FunctionNode results_type_node, String athleteId, String type) {
+		Iterator<ValidValue> iterator = FUNCTIONTREELOGIC.getCompetitionSubtypes(type);
+		while(iterator.hasNext()) {
+			ValidValue value = iterator.next();
+			Constants.Entity entity = athleteId==null ? Constants.Entity.SCOUTRESULTS : Constants.Entity.MYRESULTS;
+			String pageId = athleteId==null ? entity.name() + ":" + value.getValue() : entity.name() + ":" + type + ":" + value.getValue() + ":" + athleteId;
+			FunctionNode results_subtype_node = new FunctionNode(results_type_node, Constants.Page.ENTITYLIST.getUrl());
+			results_subtype_node.setId(pageId);
+			results_subtype_node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
+			results_subtype_node.setOpenMultipleInstances(false);
+			results_subtype_node.setText(value.getText());
+			if(athleteId!=null) results_subtype_node.setParam(Constants.P_PERSON, athleteId);
+			results_subtype_node.setParam(Constants.P_FILTER, type + ":" + value.getValue());
+			results_subtype_node.setParam(Constants.P_ENTITY, entity.name());
+			// authorization => coach is allowed to manually change values
+			FUNCTIONTREELOGIC.setAuthority(functionTree, results_subtype_node);
 		}
 	}
 }
