@@ -47,6 +47,11 @@ public class FunctionTreeLogic {
 		ValidValuesBinding vvbCompTypes = serviceLayer.getValueListBindingService().getVVBinding(ValueList.COMPTYPE);
 		return vvbCompTypes.getValidValues();
 	}
+	
+	public Iterator<ValidValue> getCompetitionSubtypes(String type) {
+		ValidValuesBinding vvbCompSubtypes = serviceLayer.getValueListBindingService().getVVBinding(ValueList.COMPSUBTYPE, type);
+		return vvbCompSubtypes.getValidValues();
+	}
 
 	public void setAuthority(SFunctionTree functionTree, FunctionNode node) {
 		node.setParam(Constants.CREATE, Constants.FALSE);
