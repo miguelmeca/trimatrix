@@ -78,5 +78,6 @@
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/jcl-over-slf4j-1.5.10.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/slf4j-api-1.5.10.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/slf4j-log4j12-1.5.10.jar"/>
+	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/jasperreports.jar"/>
 	<classpathentry kind="output" path="webcontent/WEB-INF/classes"/>
 </classpath>
