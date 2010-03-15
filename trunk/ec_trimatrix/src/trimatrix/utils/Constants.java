@@ -280,6 +280,8 @@ public final class Constants {
 	public static final String DEFAULT_ICON = PATH_MIMEICONS + "default.gif";
 	public static final String DAYINFO_TRUE = PATH_ICONS + "info_green.png";
 	public static final String DAYINFO_FALSE = PATH_ICONS + "info_blue.png";
+	public static final String ACCEPT = PATH_ICONS + "accept.png";
+	public static final String ACCEPT_LIGHT = PATH_ICONS + "accept_light.png";
 	// constants for sizes
 	public static final Integer MB_1 = new Integer(1024*1024);
 	public static final Integer KB_64 = new Integer(1024*64);
