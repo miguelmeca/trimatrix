@@ -77,12 +77,12 @@ public class PerformanceChart extends Report {
 		    	row2 = sheet.createRow(actualRow++);
 		    	row.setHeightInPoints(20);
 		    	row2.setHeightInPoints(20);
-		    	// position		    	
+		    	// position
 		    	cell = row.createCell(0);
 		        cell.setCellValue(item.getFinal_position());
-		        cell.setCellStyle(styles.get(Style.CELL_BOLD));		
+		        cell.setCellStyle(styles.get(Style.CELL_BOLD));
 		        cell = row2.createCell(0);
-		        cell.setCellStyle(styles.get(Style.CELL_BOLD));	
+		        cell.setCellStyle(styles.get(Style.CELL_BOLD));
 		        sheet.addMergedRegion(CellRangeAddress.valueOf("$A$" + (actualRow-1) + ":$A$" + actualRow));
 		        // date
 		        cell = row.createCell(1);
@@ -90,35 +90,35 @@ public class PerformanceChart extends Report {
 		        if(date!=null) cell.setCellValue(Helper.formatDate(date, "dd.MM.yyyy"));
 		        cell.setCellStyle(styles.get(Style.CELL));
 		        cell = row2.createCell(1);
-		        cell.setCellStyle(styles.get(Style.CELL));	
+		        cell.setCellStyle(styles.get(Style.CELL));
 		        sheet.addMergedRegion(CellRangeAddress.valueOf("$B$" + (actualRow-1) + ":$B$" + actualRow));
 		        // competition
 		        cell = row.createCell(2);
 		        cell.setCellValue(item.getCompetition());
 		        cell.setCellStyle(styles.get(Style.CELL));
 		        cell = row2.createCell(2);
-		        cell.setCellStyle(styles.get(Style.CELL));	
+		        cell.setCellStyle(styles.get(Style.CELL));
 		        sheet.addMergedRegion(CellRangeAddress.valueOf("$C$" + (actualRow-1) + ":$C$" + actualRow));
 		        // category
 		        cell = row.createCell(3);
 		        cell.setCellValue(item.getCategory_tria());
 		        cell.setCellStyle(styles.get(Style.CELL));
 		        cell = row2.createCell(3);
-		        cell.setCellStyle(styles.get(Style.CELL));	
+		        cell.setCellStyle(styles.get(Style.CELL));
 		        sheet.addMergedRegion(CellRangeAddress.valueOf("$D$" + (actualRow-1) + ":$D$" + actualRow));
 		        // fastest swimsplit
 		        cell = row.createCell(4);
 		        cell.setCellValue(item.getBest_swim_split());
-		        cell.setCellStyle(styles.get(Style.CELL));
+		        cell.setCellStyle(styles.get(Style.CELL_NO_WRAP));
 		        cell = row2.createCell(4);
 		        cell.setCellValue(item.getBest_swimmer());
-		        cell.setCellStyle(styles.get(Style.CELL));
+		        cell.setCellStyle(styles.get(Style.CELL_NO_WRAP));
 		        // swim cutoff
 		        cell = row.createCell(5);
 		        cell.setCellValue(item.getSwim_cutoff());
-		        cell.setCellStyle(styles.get(Style.CELL));
+		        cell.setCellStyle(styles.get(Style.CELL_NO_WRAP));
 		        cell = row2.createCell(5);
-		        cell.setCellStyle(styles.get(Style.CELL));	
+		        cell.setCellStyle(styles.get(Style.CELL_NO_WRAP));
 		        sheet.addMergedRegion(CellRangeAddress.valueOf("$F$" + (actualRow-1) + ":$F$" + actualRow));
 		        // swimsplit / position
 		        cell = row.createCell(6);
@@ -136,10 +136,10 @@ public class PerformanceChart extends Report {
 		        // behind fastest swimmer
 		        cell = row.createCell(7);
 		        cell.setCellValue(item.getSwim_def());
-		        cell.setCellStyle(styles.get(Style.CELL));
+		        cell.setCellStyle(styles.get(Style.CELL_NO_WRAP));
 		        cell = row2.createCell(7);
-		        if(item.getSwim_def_per()!=null) cell.setCellValue(Helper.round(item.getSwim_def_per(),2).toString());
-		        cell.setCellStyle(styles.get(Style.CELL));
+		        if(item.getSwim_def_per()!=null) cell.setCellValue(Helper.round(item.getSwim_def_per(),2).toString() + "%");
+		        cell.setCellStyle(styles.get(Style.CELL_NO_WRAP));
 		        // wetsuit
 		        cell = row.createCell(8);
 		        if(item.getSwimsuit()==null ? false : item.getSwimsuit()) {
@@ -148,21 +148,21 @@ public class PerformanceChart extends Report {
 		        	cell.setCellStyle(styles.get(Style.CELL));
 		        }
 		        cell = row2.createCell(8);
-		        cell.setCellStyle(styles.get(Style.CELL));	
+		        cell.setCellStyle(styles.get(Style.CELL));
 		        sheet.addMergedRegion(CellRangeAddress.valueOf("$I$" + (actualRow-1) + ":$I$" + actualRow));
 		        // fastest runsplit
 		        cell = row.createCell(9);
 		        cell.setCellValue(item.getBest_run_split());
-		        cell.setCellStyle(styles.get(Style.CELL));
+		        cell.setCellStyle(styles.get(Style.CELL_NO_WRAP));
 		        cell = row2.createCell(9);
 		        cell.setCellValue(item.getBest_runner());
-		        cell.setCellStyle(styles.get(Style.CELL));  		     
+		        cell.setCellStyle(styles.get(Style.CELL_NO_WRAP));
 		        // run cutoff
 		        cell = row.createCell(10);
 		        cell.setCellValue(item.getRun_cutoff());
-		        cell.setCellStyle(styles.get(Style.CELL));
+		        cell.setCellStyle(styles.get(Style.CELL_NO_WRAP));
 		        cell = row2.createCell(10);
-		        cell.setCellStyle(styles.get(Style.CELL_BOLD));	
+		        cell.setCellStyle(styles.get(Style.CELL_NO_WRAP));
 		        sheet.addMergedRegion(CellRangeAddress.valueOf("$K$" + (actualRow-1) + ":$K$" + actualRow));
 		        // runsplit / position
 		        cell = row.createCell(11);
@@ -180,26 +180,26 @@ public class PerformanceChart extends Report {
 		        // behind fastest runner
 		        cell = row.createCell(12);
 		        cell.setCellValue(item.getRun_def());
-		        cell.setCellStyle(styles.get(Style.CELL));
+		        cell.setCellStyle(styles.get(Style.CELL_NO_WRAP));
 		        cell = row2.createCell(12);
-		        if(item.getRun_def_per()!=null) cell.setCellValue(Helper.round(item.getRun_def_per(),2).toString());
-		        cell.setCellStyle(styles.get(Style.CELL));
+		        if(item.getRun_def_per()!=null) cell.setCellValue(Helper.round(item.getRun_def_per(),2).toString() + "%");
+		        cell.setCellStyle(styles.get(Style.CELL_NO_WRAP));
 		        // comment
 		        cell = row.createCell(13);
 		        cell.setCellValue(item.getComment());
 		        cell.setCellStyle(styles.get(Style.CELL));
 		        cell = row2.createCell(13);
-		        cell.setCellStyle(styles.get(Style.CELL));	
+		        cell.setCellStyle(styles.get(Style.CELL));
 		        sheet.addMergedRegion(CellRangeAddress.valueOf("$N$" + (actualRow-1) + ":$N$" + actualRow));
 			}
 
 		    //footer row
 		    Row footerRow = sheet.createRow(actualRow);
-		    footerRow.setHeightInPoints(20);
+		    footerRow.setHeightInPoints(30);
 		    Cell footerCell = footerRow.createCell(0);
-		    footerCell.setCellValue("DNF = Did Not Finish, WC = World Cup, CSR = Championship Race");
-		    footerCell.setCellStyle(styles.get(Style.FOOTER));
+		    footerCell.setCellValue("DNF = Did Not Finish, CSR = Championship Race, WC = World Cup,\nEC = European Cup, W-CHAMPS = World Championships");
 		    sheet.addMergedRegion(CellRangeAddress.valueOf("$A$" + (actualRow+1) + ":$N$" + (actualRow+1)));
+		    footerCell.setCellStyle(styles.get(Style.FOOTER));
 
 		    //finally set column widths, the width is measured in units of 1/256th of a character width
 		    for (int i = 0; i < titles.length; i++) {

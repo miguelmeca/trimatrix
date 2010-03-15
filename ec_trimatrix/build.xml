@@ -12,7 +12,7 @@
 		<copy file="../ec_trimatrix/webcontent/WEB-INF/web.xml_production" tofile="../ec_trimatrix/webcontent/WEB-INF/web.xml" overwrite="true"/>
 		<copy file="../ec_trimatrix/src/hibernate.cfg.xml_production" tofile="../ec_trimatrix/webcontent/WEB-INF/classes/hibernate.cfg.xml" overwrite="true"/>
 		<copy file="../ec_trimatrix/webcontent/html/googlewrapper.html_production" tofile="../ec_trimatrix/webcontent/html/googlewrapper.html" overwrite="true"/>
-		
+
 		<jar destfile="${dist}/trimatrix.war">
 			<fileset dir="../ec_trimatrix/webcontent">
 				<include name="**/**" />
@@ -25,6 +25,7 @@
 				<exclude name="**/*.xml_*" />
 				<exclude name="**/*.html_*" />
 				<exclude name="**/mysql-connector-java*" />
+				<exclude name="**/jasperreports*" />
 			</fileset>
 		</jar>
 

@@ -212,6 +212,7 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 				Competitions competition = (Competitions)ENTITYLISTLOGIC.get(Constants.Entity.COMPETITION, id);
 				entity.setCompetition(competition);
 				setCompetitionDescription(entity);
+				setLimits();
 				m_popup.close();
 			}});
     	m_popup = getWorkpage().createModalPopupInWorkpageContext();
