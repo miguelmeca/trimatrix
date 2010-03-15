@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import java.util.Map;
 
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
@@ -28,6 +30,16 @@ public class HTTestUI implements Serializable
     
     public void onSubmit(ActionEvent event) {
     	insertValues(m_speed, m_hr, m_lactat);
+    }
+    
+    public HTTestUI() {
+    	FacesContext context = FacesContext.getCurrentInstance();
+        Map<String, String> paramMap = context.getExternalContext().getRequestParameterMap();
+        System.out.println("Parameter Map - Start");
+        for(String key : paramMap.keySet()) {
+        	System.out.println(key + " : " + paramMap.get(key));
+        }
+        System.out.println("Parameter Map - Ende");
     }
     
     private void insertValues(String speed, String heartrate, String lactate) {

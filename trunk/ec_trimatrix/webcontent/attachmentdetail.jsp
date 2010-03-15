@@ -4,6 +4,7 @@
 <%@taglib prefix="f" uri="http://java.sun.com/jsf/core"%>
 <%@taglib prefix="h" uri="http://java.sun.com/jsf/html"%>
 
+<%@taglib prefix="tx" uri="/WEB-INF/trimatrixcontrols"%>
 <%@taglib prefix="t" uri="/WEB-INF/eclnt"%>
 
 
@@ -25,9 +26,9 @@
 </t:row>
 </t:pane>
 <t:coldistance id="g_11" width="20" />
-<t:fileuploadbutton id="g_12" actionListener="#{d.AttachmentDetailUI.onUploadFile}" enabled="#{d.AttachmentDetailUI.enabled}" text="#{rr.literals.upload_file}" />
+<t:fileuploadbutton id="g_12" actionListener="#{d.AttachmentDetailUI.onUploadFile}" enabled="#{d.AttachmentDetailUI.enabled}" image="/images/icons/upload.png" imageheight="16" text="#{rr.literals.upload_file}" />
 <t:coldistance id="g_13" width="20" />
-<t:filedownloadbutton id="g_14" enabled="#{d.AttachmentDetailUI.notEnabled}" filename="#{d.AttachmentDetailUI.values.filename}" opensupported="true" text="#{rr.literals.download_file}" url="#{d.AttachmentDetailUI.downloadURL}" />
+<t:filedownloadbutton id="g_14" enabled="#{d.AttachmentDetailUI.notEnabled}" filename="#{d.AttachmentDetailUI.values.filename}" image="/images/icons/download.png" imageheight="16" opensupported="true" text="#{rr.literals.download_file}" url="#{d.AttachmentDetailUI.downloadURL}" />
 </t:row>
 <t:rowdistance id="g_15" height="25" />
 <t:row id="g_16" >
