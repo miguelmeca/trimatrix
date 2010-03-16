@@ -21,6 +21,10 @@ import trimatrix.utils.Constants.Entity;
 public final class ResultEntity extends AEntity {
 
 	// Constants
+	public static final String SWIM = "swim";
+	public static final String RUN = "run";
+	public static final String BIKE = "bike";
+
     public static final String COMMENT = "comment";
     public static final String DATE = "date";
     public static final String COMPETITION = "competition";
