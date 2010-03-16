@@ -28,6 +28,7 @@ public final class Constants {
 		TESTDETAIL("/testdetail.jsp","Tests"),
 		COMPETITIONDETAIL("/competitiondetail.jsp","Wettkämpfe"),
 		RESULTDETAIL("/resultdetail.jsp","Ergebnisse"),
+		RESULTSIMPORT("/imports/results.jsp", "Import Ergebnisse"),
 		ATTACHMENTDETAIL("/attachmentdetail.jsp","Anhänge"),
 		ZONESDETAIL("/zonesdetail.jsp", "Trainingsbereiche"),
 		ZONESDEFINITION("/zonesdefinition.jsp", "Trainingsbereiche"),
@@ -216,7 +217,8 @@ public final class Constants {
 		USERS_ALL, PERSONS_ALL, DOCTORS_ALL, ATTACHMENTS_ALL, TESTS_ALL, COMPETITIONS_ALL, RESULTS_ALL,
 		RELATIONS, RELATION_COACH, RELATION_DOCTOR, RELATION_ATTACHMENT, RELATION_SCOUT,
 		TESTS_COACH, ZONES_COACH,
-		ZONES_ATHLETE, RESULTS_SCOUT
+		ZONES_ATHLETE, RESULTS_SCOUT,
+		IMPORTS, RESULTS_IMPORT
 	}
 	// all used profiles for persons
 	public static enum Profiles {
