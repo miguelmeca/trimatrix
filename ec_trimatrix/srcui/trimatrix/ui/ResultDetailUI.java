@@ -28,9 +28,7 @@ import trimatrix.utils.Constants.Entity;
 @CCGenClass (expressionBase="#{d.ResultDetailUI}")
 
 public class ResultDetailUI extends AEntityDetailUI implements Serializable {
-	private static final String SWIM = "swim";
-	private static final String RUN = "run";
-	private static final String BIKE = "bike";
+
 	private static final String OVERALL = "overall";
 
 	private Map<String, Limit> limitsMap;
@@ -173,11 +171,11 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 		// get clientname to separate by source
 		String clientname = (String) event.getComponent().getAttributes().get(Constants.CLIENTNAME);
 		String field;
-		if(SWIM.equalsIgnoreCase(clientname)) {
+		if(ResultEntity.SWIM.equalsIgnoreCase(clientname)) {
 			field = ResultEntity.SWIM_SPLIT;
-		} else if(RUN.equalsIgnoreCase(clientname)) {
+		} else if(ResultEntity.RUN.equalsIgnoreCase(clientname)) {
 			field = ResultEntity.RUN_SPLIT;
-		} else if(BIKE.equalsIgnoreCase(clientname)) {
+		} else if(ResultEntity.BIKE.equalsIgnoreCase(clientname)) {
 			field = ResultEntity.BIKE_SPLIT;
 		} else if(OVERALL.equalsIgnoreCase(clientname)) {
 			field = ResultEntity.TIME;
