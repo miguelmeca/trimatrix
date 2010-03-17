@@ -3,6 +3,9 @@ package trimatrix.ui;
 import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +41,7 @@ import trimatrix.utils.Constants.Entity;
 
 public class ResultsImportUI extends MyWorkpageDispatchedBean implements Serializable {
 	private static final Constants.Entity ENTITY = Constants.Entity.RESULT;
-	
+
     protected FIXGRIDListBinding<GridImportItem> m_gridImport = new FIXGRIDListBinding<GridImportItem>();
     public FIXGRIDListBinding<GridImportItem> getGridImport() { return m_gridImport; }
     public void setGridImport(FIXGRIDListBinding<GridImportItem> value) { m_gridImport = value; }
@@ -47,13 +50,15 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
         private String athlete;
         private PersonsAthlete scoutedAthlete;
         private int position;
+        private String time;
         private String swimSplit;
         private String runSplit;
         private String bikeSplit;
 
-        public GridImportItem(String athlete, int position, String swimSplit, String bikeSplit, String runSplit) {
+        public GridImportItem(String athlete, int position, String time, String swimSplit, String bikeSplit, String runSplit) {
             this.athlete = athlete;
             this.position = position;
+            this.time = time;
             this.swimSplit = swimSplit;
             this.bikeSplit = bikeSplit;
             this.runSplit = runSplit;
@@ -63,9 +68,12 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
         public void setAthlete(String athlete) {this.athlete = athlete;}
 
         public int getPosition() {return position;}
-        public void setPosition(int position) {this.position = position;}              
-        
-        public String getSwimSplit() {return swimSplit;}
+        public void setPosition(int position) {this.position = position;}
+
+        public String getTime() {return time;}
+		public void setTime(String time) {this.time = time;}
+
+		public String getSwimSplit() {return swimSplit;}
 		public void setSwimSplit(String swimSplit) {this.swimSplit = swimSplit;}
 
 		public String getRunSplit() {return runSplit;}
@@ -91,7 +99,7 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
             idts.setPopupWidth(120);
             idts.setPopupHeight(100);
         }
-		
+
 		public void onTimeFlush(ActionEvent event) {
 	        // get clientname to separate by source
 	        String clientname = (String) event.getComponent().getAttributes().get(Constants.CLIENTNAME);
@@ -101,6 +109,8 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 	            runSplit = Helper.correctTimeInput(runSplit);
 	        } else if(ResultEntity.BIKE.equalsIgnoreCase(clientname)) {
 	            bikeSplit = Helper.correctTimeInput(bikeSplit);
+	        } else if(ResultEntity.OVERALL.equalsIgnoreCase(clientname)) {
+	            time = Helper.correctTimeInput(time);
 	        } else {
 	            return;
 	        }
@@ -111,14 +121,12 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 
     protected final EntityListLogic ENTITYLISTLOGIC = getLogic().getEntityListLogic();
 
-    public String getMappingImage() { return Constants.ACCEPT_LIGHT; }
-
     private Competitions competition;
     public String getCompDesc() { return competition!=null ? competition.toString() : null; }
 
     private String category;
     public String getCategory() {return category;}
-    
+
     private String template;
     public String getTemplate() {return template;}
 	public void setTemplate(String template) {this.template = template;}
@@ -137,19 +145,20 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 
     private int startRow = 1;
     private int rowPosition;
+    private int rowTime;
     private int rowAthleteFirstname;
     private int rowAthleteLastname;
     private int rowSwimSplit;
     private int rowBikeSplit;
     private int rowRunSplit;
-    
+
     private boolean importBestSwim;
     private boolean importBestBike;
     private boolean importBestRun;
-    
+
     private boolean statusMapping;
     private boolean statusImportData;
-    
+
     public ResultsImportUI(IWorkpageDispatcher dispatcher) {
         super(dispatcher);
         buildScoutedAthletesData();
@@ -175,41 +184,44 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
     public void setBestRunner(String bestRunner) {this.bestRunner = bestRunner;}
 
     public String getBestRunSplit() {return bestRunSplit;}
-    public void setBestRunSplit(String bestRunSplit) {this.bestRunSplit = bestRunSplit;}  
-    
+    public void setBestRunSplit(String bestRunSplit) {this.bestRunSplit = bestRunSplit;}
+
     public int getStartRow() {return startRow;}
 	public void setStartRow(int startRow) {this.startRow = startRow;}
-	
+
 	public int getRowPosition() {return rowPosition;}
 	public void setRowPosition(int rowPosition) {this.rowPosition = rowPosition;}
-	
+
+	public int getRowTime() {return rowTime;}
+	public void setRowTime(int rowTime) {this.rowTime = rowTime;}
+
 	public int getRowAthleteFirstname() {return rowAthleteFirstname;}
 	public void setRowAthleteFirstname(int rowAthleteFirstname) {this.rowAthleteFirstname = rowAthleteFirstname;}
-	
+
 	public int getRowAthleteLastname() {return rowAthleteLastname;}
 	public void setRowAthleteLastname(int rowAthleteLastname) {this.rowAthleteLastname = rowAthleteLastname;}
-	
+
 	public int getRowSwimSplit() {return rowSwimSplit;}
 	public void setRowSwimSplit(int rowSwimSplit) {this.rowSwimSplit = rowSwimSplit;}
-	
+
 	public int getRowBikeSplit() {return rowBikeSplit;}
 	public void setRowBikeSplit(int rowBikeSplit) {this.rowBikeSplit = rowBikeSplit;}
-	
+
 	public int getRowRunSplit() {return rowRunSplit;}
-	public void setRowRunSplit(int rowRunSplit) {this.rowRunSplit = rowRunSplit;}	
-	
+	public void setRowRunSplit(int rowRunSplit) {this.rowRunSplit = rowRunSplit;}
+
 	public boolean isImportBestSwim() {return importBestSwim;}
 	public void setImportBestSwim(boolean importBestSwim) {this.importBestSwim = importBestSwim;}
-	
+
 	public boolean isImportBestBike() {return importBestBike;}
 	public void setImportBestBike(boolean importBestBike) {this.importBestBike = importBestBike;}
-	
+
 	public boolean isImportBestRun() {return importBestRun;}
 	public void setImportBestRun(boolean importBestRun) {this.importBestRun = importBestRun;}
-	
+
 	public boolean isStatusMapping() {return statusMapping;}
 	public void setStatusMapping(boolean statusMapping) {this.statusMapping = statusMapping;}
-	
+
 	public boolean isStatusImportData() {return statusImportData;}
 	public void setStatusImportData(boolean statusImportData) {this.statusImportData = statusImportData;}
 
@@ -223,25 +235,22 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
     		scoutedAthletesData.add(data);
         }
     }
-    
-    private Map<Integer, ImportTemplates> myTemplates;
-    
+
+    private Map<String, ImportTemplates> myTemplates = new HashMap<String, ImportTemplates>();
+
     public void buildTemplatesData() {
     	List<ImportTemplates> templatesList = getLogic().getImportLogic().getMyTemplates(ENTITY.toString());
     	if(Helper.isEmpty(templatesList)) return;
-    	myTemplates.clear();
-    	int i = 0;
     	for(ImportTemplates template : templatesList) {
-    		myTemplates.put(i, template);
+    		myTemplates.put(template.getId().getDescription(), template);
     	}
     }
 
     public void onSaveTemplate(ActionEvent event) {
+    	int[] mapping = { rowPosition, rowTime, rowAthleteFirstname, rowAthleteLastname, rowSwimSplit, rowBikeSplit, rowRunSplit };
+    	getLogic().getImportLogic().saveTemplate(ENTITY.toString(), template, startRow, mapping);
     	buildTemplatesData();
-    	Statusbar.outputSuccess("Template saved!");
     }
-    
-   
 
     /**
      * Call competition selection pop up
@@ -271,7 +280,7 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
     public void onCategoryF4(ActionEvent event) {
         IdTextSelection idts = IdTextSelection.createInstance();
         for (String category : getLogic().getCompetitionLogic().getCategories()) {
-            idts.addLine(category, "");
+            idts.addLine(category, Constants.EMPTY);
         }
         idts.setCallBack(new ISetId() {
             public void setId(String id) {
@@ -284,9 +293,40 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
         idts.setPopupWidth(120);
         idts.setPopupHeight(100);
     }
-    
+
     public void onTemplateF4(ActionEvent event) {
-       
+    	IdTextSelection idts = IdTextSelection.createInstance();
+     	for(ImportTemplates template : myTemplates.values()) {
+    		idts.addLine(template.getId().getDescription(), Constants.EMPTY);
+    	}
+     	idts.setCallBack(new ISetId() {
+            public void setId(String id) {
+                template = id;
+                setTemplate();
+            }
+        });
+        idts.setWithHeader(false);
+        idts.setSuppressHeadline(true);
+        idts.setRenderTextColumn(false);
+        idts.setPopupWidth(120);
+        idts.setPopupHeight(100);
+    }
+
+    private void setTemplate() {
+    	ImportTemplates templateObj = myTemplates.get(template);
+    	if(templateObj==null) return;
+    	// set Mapping
+    	startRow = templateObj.getStartingRow();
+    	String strMapping = templateObj.getMapping();
+    	strMapping = strMapping.substring(1, strMapping.length()-1);
+    	String[] mapping = strMapping.split(", ");
+    	rowPosition = Integer.valueOf(mapping[0]);
+    	rowTime = Integer.valueOf(mapping[1]);
+    	rowAthleteFirstname = Integer.valueOf(mapping[2]);
+    	rowAthleteLastname = Integer.valueOf(mapping[3]);
+    	rowSwimSplit  = Integer.valueOf(mapping[4]);
+    	rowBikeSplit = Integer.valueOf(mapping[5]);
+    	rowRunSplit = Integer.valueOf(mapping[6]);
     }
 
     public void onTimeFlush(ActionEvent event) {
@@ -324,17 +364,46 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
                 m_gridImport.getItems().clear();
                 for (int r = startRow; r < rows; r++) {
                     HSSFRow row = sheet.getRow(r);
+                    // initialize variables
+                    int position = 0;
+                    String strPosition;
+                    String lastName = Constants.EMPTY;
+                    String firstName = Constants.EMPTY;
+                    String swimSplit = "00:00:00";
+                    String bikeSplit = "00:00:00";
+                    String runSplit = "00:00:00";
+                    String time = "00:00:00";
                     if (row == null) continue;
-                    String strPosition = row.getCell(0).getStringCellValue().trim();
-                    int position = StringUtils.isNumeric(strPosition) ? Integer.valueOf(strPosition).intValue() : 0;
-                    String lastName = row.getCell(2).getStringCellValue();
-                    String firstName = row.getCell(3).getStringCellValue();
+                    if(rowPosition>0) {
+                    	strPosition = row.getCell(rowPosition).getStringCellValue().trim();
+                    	position = StringUtils.isNumeric(strPosition) ? Integer.valueOf(strPosition).intValue() : 0;
+                    }
+                    if(rowAthleteLastname>0) lastName = row.getCell(rowAthleteLastname).getStringCellValue();
+                    if(rowAthleteFirstname>0)  firstName = row.getCell(rowAthleteFirstname).getStringCellValue();
                     String athlete = firstName + Constants.WHITESPACE + lastName;
-                    String swimSplit = row.getCell(5).getStringCellValue();
-                    String bikeSplit = row.getCell(7).getStringCellValue();
-                    String runSplit = row.getCell(9).getStringCellValue();   
+                    if(rowSwimSplit>0) swimSplit = row.getCell(rowSwimSplit).getStringCellValue();
+                    if(rowBikeSplit>0) bikeSplit = row.getCell(rowBikeSplit).getStringCellValue();
+                    if(rowRunSplit>0) runSplit = row.getCell(rowRunSplit).getStringCellValue();
+                    if(rowTime>0) runSplit = row.getCell(rowTime).getStringCellValue();
                     // add to table
-                    m_gridImport.getItems().add(new GridImportItem(athlete, position, swimSplit, bikeSplit, runSplit));
+                    m_gridImport.getItems().add(new GridImportItem(athlete.trim(), position, time, swimSplit, bikeSplit, runSplit));
+                }
+                // get best values by sorting
+                List<GridImportItem> items = m_gridImport.getItems();
+                // sort for swim desc
+                if(rowSwimSplit>0) {
+                	Collections.sort(items, new Comparator<GridImportItem>() {
+    					public int compare(GridImportItem o1, GridImportItem o2) {
+    						int seconds1 = Helper.calculateSeconds(o1.getSwimSplit());
+    						int seconds2 = Helper.calculateSeconds(o2.getSwimSplit());
+    						if(seconds1==seconds2) return 0;
+    						if(seconds1<seconds2) return 1;
+    						return -1;
+    					}
+    				});
+                    bestSwimmer = items.get(0).getAthlete();
+                    bestSwimSplit = items.get(0).getSwimSplit();
+                    importBestSwim = true;
                 }
                 Statusbar.outputSuccess(m_gridImport.getItems().size() + Constants.WHITESPACE + "Items found!");
                 // set status
