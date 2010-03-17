@@ -104,6 +104,7 @@
                 <idref local="TScheduletypesDAO" />
                 <idref local="ListVariantsDAO" />
                 <idref local="LabelsDAO" />
+                <idref local="ImportTemplatesDAO" />
                 <idref local="ZonesDAO" />
                 <idref local="ZonesDefinitionDAO" />
                 <idref local="EntitiesHaveLabelsDAO" />
@@ -175,6 +176,9 @@
         </property>
         <property name="labelsDAO">
             <ref bean="LabelsDAO" />
+        </property>
+        <property name="importTemplatesDAO">
+            <ref bean="ImportTemplatesDAO" />
         </property>
         <property name="entitiesDAO">
             <ref bean="EntitiesDAO" />
@@ -450,6 +454,12 @@
 	</bean>
 	<bean id="UserPreferencesDAO"
 		class="trimatrix.db.UserPreferencesDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="ImportTemplatesDAO"
+		class="trimatrix.db.ImportTemplatesDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>

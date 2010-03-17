@@ -106,7 +106,7 @@
         <set attribute="padding" value="3"/>
     </tag>
     <tag name="rowline" variant="default">
-        <set attribute="background" value="#FFFFFF10"/>
+        <set attribute="background" value="#000000"/>
         <set attribute="height" value="1"/>
     </tag>
     <tag name="rowtitlebar" variant="default">

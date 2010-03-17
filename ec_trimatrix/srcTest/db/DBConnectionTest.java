@@ -36,6 +36,8 @@ import trimatrix.db.DayInfosId;
 import trimatrix.db.EntitiesHaveLabels;
 import trimatrix.db.EntitiesHaveLabelsId;
 import trimatrix.db.IEntityDAO;
+import trimatrix.db.ImportTemplates;
+import trimatrix.db.ImportTemplatesId;
 import trimatrix.db.KRoles;
 import trimatrix.db.Persons;
 import trimatrix.db.PersonsAthlete;
@@ -423,6 +425,20 @@ public class DBConnectionTest {
 		DayInfos dayInfos2 = daoLayer.getDayInfosDAO().findById(dayInfosId);
 		Assert.assertEquals(new Integer(42), dayInfos2.getRestingHr());
 		daoLayer.getDayInfosDAO().delete(dayInfos2);
+	}
+	
+	@Test
+	public void testImports() {
+		// Import Results
+		ImportTemplatesId id = new ImportTemplatesId("entity", "1234", "test");
+		ImportTemplates template = new ImportTemplates(id);
+		template.setStartingRow(10);
+		template.setMapping("mapping");
+		daoLayer.getImportTemplatesDAO().save(template);
+		ImportTemplates template2 = daoLayer.getImportTemplatesDAO().findById(id);
+		Assert.assertEquals(new Integer(10), template2.getStartingRow());
+		Assert.assertEquals("mapping", template2.getMapping());
+		daoLayer.getImportTemplatesDAO().delete(template2);
 	}
 
 	@After

@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.event.ActionEvent;
 
@@ -21,6 +22,7 @@ import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.db.Competitions;
+import trimatrix.db.ImportTemplates;
 import trimatrix.db.PersonsAthlete;
 import trimatrix.entities.IEntityData;
 import trimatrix.entities.PersonEntity;
@@ -35,6 +37,8 @@ import trimatrix.utils.Constants.Entity;
 @CCGenClass (expressionBase="#{d.ResultsImportUI}")
 
 public class ResultsImportUI extends MyWorkpageDispatchedBean implements Serializable {
+	private static final Constants.Entity ENTITY = Constants.Entity.RESULT;
+	
     protected FIXGRIDListBinding<GridImportItem> m_gridImport = new FIXGRIDListBinding<GridImportItem>();
     public FIXGRIDListBinding<GridImportItem> getGridImport() { return m_gridImport; }
     public void setGridImport(FIXGRIDListBinding<GridImportItem> value) { m_gridImport = value; }
@@ -43,19 +47,34 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
         private String athlete;
         private PersonsAthlete scoutedAthlete;
         private int position;
+        private String swimSplit;
+        private String runSplit;
+        private String bikeSplit;
 
-        public GridImportItem(String athlete, int position) {
+        public GridImportItem(String athlete, int position, String swimSplit, String bikeSplit, String runSplit) {
             this.athlete = athlete;
             this.position = position;
+            this.swimSplit = swimSplit;
+            this.bikeSplit = bikeSplit;
+            this.runSplit = runSplit;
         }
 
         public String getAthlete() {return athlete;}
         public void setAthlete(String athlete) {this.athlete = athlete;}
 
         public int getPosition() {return position;}
-        public void setPosition(int position) {this.position = position;}
+        public void setPosition(int position) {this.position = position;}              
+        
+        public String getSwimSplit() {return swimSplit;}
+		public void setSwimSplit(String swimSplit) {this.swimSplit = swimSplit;}
 
-        public void onScoutedAthlete(ActionEvent event) {
+		public String getRunSplit() {return runSplit;}
+		public void setRunSplit(String runSplit) {this.runSplit = runSplit;}
+
+		public String getBikeSplit() {return bikeSplit;}
+		public void setBikeSplit(String bikeSplit) {this.bikeSplit = bikeSplit;}
+
+		public void onScoutedAthleteF4(ActionEvent event) {
             IdTextSelection idts = IdTextSelection.createInstance();
             for (PersonEntity.Data data : scoutedAthletesData) {
                 idts.addLine(data.getId(), data.toString());
@@ -72,6 +91,20 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
             idts.setPopupWidth(120);
             idts.setPopupHeight(100);
         }
+		
+		public void onTimeFlush(ActionEvent event) {
+	        // get clientname to separate by source
+	        String clientname = (String) event.getComponent().getAttributes().get(Constants.CLIENTNAME);
+	        if(ResultEntity.SWIM.equalsIgnoreCase(clientname)) {
+	            swimSplit = Helper.correctTimeInput(swimSplit);
+	        } else if(ResultEntity.RUN.equalsIgnoreCase(clientname)) {
+	            runSplit = Helper.correctTimeInput(runSplit);
+	        } else if(ResultEntity.BIKE.equalsIgnoreCase(clientname)) {
+	            bikeSplit = Helper.correctTimeInput(bikeSplit);
+	        } else {
+	            return;
+	        }
+	    }
 
     }
 
@@ -85,8 +118,12 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 
     private String category;
     public String getCategory() {return category;}
+    
+    private String template;
+    public String getTemplate() {return template;}
+	public void setTemplate(String template) {this.template = template;}
 
-    private String filename;
+	private String filename;
     public String getFilename() {return filename;}
 
     private String bestSwimmer;
@@ -99,6 +136,28 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
     private String bestRunSplit;
 
     private int startRow = 1;
+    private int rowPosition;
+    private int rowAthleteFirstname;
+    private int rowAthleteLastname;
+    private int rowSwimSplit;
+    private int rowBikeSplit;
+    private int rowRunSplit;
+    
+    private boolean importBestSwim;
+    private boolean importBestBike;
+    private boolean importBestRun;
+    
+    private boolean statusMapping;
+    private boolean statusImportData;
+    
+    public ResultsImportUI(IWorkpageDispatcher dispatcher) {
+        super(dispatcher);
+        buildScoutedAthletesData();
+        buildTemplatesData();
+        // set initial status
+        statusMapping = true;
+        statusImportData = false;
+    }
 
     public String getBestSwimmer() {return bestSwimmer;}
     public void setBestSwimmer(String bestSwimmer) {this.bestSwimmer = bestSwimmer;}
@@ -116,9 +175,45 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
     public void setBestRunner(String bestRunner) {this.bestRunner = bestRunner;}
 
     public String getBestRunSplit() {return bestRunSplit;}
-    public void setBestRunSplit(String bestRunSplit) {this.bestRunSplit = bestRunSplit;}
+    public void setBestRunSplit(String bestRunSplit) {this.bestRunSplit = bestRunSplit;}  
+    
+    public int getStartRow() {return startRow;}
+	public void setStartRow(int startRow) {this.startRow = startRow;}
+	
+	public int getRowPosition() {return rowPosition;}
+	public void setRowPosition(int rowPosition) {this.rowPosition = rowPosition;}
+	
+	public int getRowAthleteFirstname() {return rowAthleteFirstname;}
+	public void setRowAthleteFirstname(int rowAthleteFirstname) {this.rowAthleteFirstname = rowAthleteFirstname;}
+	
+	public int getRowAthleteLastname() {return rowAthleteLastname;}
+	public void setRowAthleteLastname(int rowAthleteLastname) {this.rowAthleteLastname = rowAthleteLastname;}
+	
+	public int getRowSwimSplit() {return rowSwimSplit;}
+	public void setRowSwimSplit(int rowSwimSplit) {this.rowSwimSplit = rowSwimSplit;}
+	
+	public int getRowBikeSplit() {return rowBikeSplit;}
+	public void setRowBikeSplit(int rowBikeSplit) {this.rowBikeSplit = rowBikeSplit;}
+	
+	public int getRowRunSplit() {return rowRunSplit;}
+	public void setRowRunSplit(int rowRunSplit) {this.rowRunSplit = rowRunSplit;}	
+	
+	public boolean isImportBestSwim() {return importBestSwim;}
+	public void setImportBestSwim(boolean importBestSwim) {this.importBestSwim = importBestSwim;}
+	
+	public boolean isImportBestBike() {return importBestBike;}
+	public void setImportBestBike(boolean importBestBike) {this.importBestBike = importBestBike;}
+	
+	public boolean isImportBestRun() {return importBestRun;}
+	public void setImportBestRun(boolean importBestRun) {this.importBestRun = importBestRun;}
+	
+	public boolean isStatusMapping() {return statusMapping;}
+	public void setStatusMapping(boolean statusMapping) {this.statusMapping = statusMapping;}
+	
+	public boolean isStatusImportData() {return statusImportData;}
+	public void setStatusImportData(boolean statusImportData) {this.statusImportData = statusImportData;}
 
-    private List<PersonEntity.Data> scoutedAthletesData;
+	private List<PersonEntity.Data> scoutedAthletesData;
 
     private void buildScoutedAthletesData() {
     	List<IEntityData> entitiesData = getLogic().getFunctionTreeLogic().getMyScoutedAthletes();
@@ -128,11 +223,25 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
     		scoutedAthletesData.add(data);
         }
     }
-
-    public ResultsImportUI(IWorkpageDispatcher dispatcher) {
-        super(dispatcher);
-        buildScoutedAthletesData();
+    
+    private Map<Integer, ImportTemplates> myTemplates;
+    
+    public void buildTemplatesData() {
+    	List<ImportTemplates> templatesList = getLogic().getImportLogic().getMyTemplates(ENTITY.toString());
+    	if(Helper.isEmpty(templatesList)) return;
+    	myTemplates.clear();
+    	int i = 0;
+    	for(ImportTemplates template : templatesList) {
+    		myTemplates.put(i, template);
+    	}
     }
+
+    public void onSaveTemplate(ActionEvent event) {
+    	buildTemplatesData();
+    	Statusbar.outputSuccess("Template saved!");
+    }
+    
+   
 
     /**
      * Call competition selection pop up
@@ -174,6 +283,10 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
         idts.setRenderTextColumn(false);
         idts.setPopupWidth(120);
         idts.setPopupHeight(100);
+    }
+    
+    public void onTemplateF4(ActionEvent event) {
+       
     }
 
     public void onTimeFlush(ActionEvent event) {
@@ -217,10 +330,16 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
                     String lastName = row.getCell(2).getStringCellValue();
                     String firstName = row.getCell(3).getStringCellValue();
                     String athlete = firstName + Constants.WHITESPACE + lastName;
+                    String swimSplit = row.getCell(5).getStringCellValue();
+                    String bikeSplit = row.getCell(7).getStringCellValue();
+                    String runSplit = row.getCell(9).getStringCellValue();   
                     // add to table
-                    m_gridImport.getItems().add(new GridImportItem(athlete, position));
+                    m_gridImport.getItems().add(new GridImportItem(athlete, position, swimSplit, bikeSplit, runSplit));
                 }
                 Statusbar.outputSuccess(m_gridImport.getItems().size() + Constants.WHITESPACE + "Items found!");
+                // set status
+                statusMapping = false;
+                statusImportData = true;
             } catch(Exception ex) {
                 Statusbar.outputAlert("Error importing File", "Error", ex.toString());
             }

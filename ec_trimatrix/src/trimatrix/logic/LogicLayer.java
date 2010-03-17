@@ -13,6 +13,7 @@ public final class LogicLayer {
 	private CompetitionLogic competitionLogic;
 	private ScheduleLogic scheduleLogic;
 	private PreferencesLogic preferencesLogic;
+	private ImportLogic importLogic;
 
 	public LogonLogic getLogonLogic() {
 		return logonLogic;
@@ -62,22 +63,24 @@ public final class LogicLayer {
 	public void setCompetitionLogic(CompetitionLogic competitionLogic) {
 		this.competitionLogic = competitionLogic;
 	}
-
 	public ScheduleLogic getScheduleLogic() {
 		return scheduleLogic;
 	}
-
 	public void setScheduleLogic(ScheduleLogic scheduleLogic) {
 		this.scheduleLogic = scheduleLogic;
 	}
-
 	public PreferencesLogic getPreferencesLogic() {
 		return preferencesLogic;
 	}
 	public void setPreferencesLogic(PreferencesLogic preferencesLogic) {
 		this.preferencesLogic = preferencesLogic;
 	}
-
+	public ImportLogic getImportLogic() {
+		return importLogic;
+	}
+	public void setImportLogic(ImportLogic importLogic) {
+		this.importLogic = importLogic;
+	}
 	public static LogicLayer getFromApplicationContext(ApplicationContext ctx) {
 		return (LogicLayer) ctx.getBean("logicLayer");
 	}
