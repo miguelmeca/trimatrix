@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import trimatrix.utils.Constants;
+
 /**
  * PersonsAthlete entity. @author MyEclipse Persistence Tools
  */
@@ -121,5 +123,4 @@ public class PersonsAthlete implements java.io.Serializable {
 	public void setVo2Max(Integer vo2Max) {
 		this.vo2Max = vo2Max;
 	}
-
 }

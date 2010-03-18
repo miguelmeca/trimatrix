@@ -32,7 +32,7 @@ public class ImportLogic {
 			ImportTemplates template = new ImportTemplates(id);
 			template.setStartingRow(startingRow);
 			template.setMapping(strMapping);
-			daoLayer.getImportTemplatesDAO().save(template);
+			daoLayer.getImportTemplatesDAO().merge(template);
 			Statusbar.outputSuccess("Template saved!");
 			return true;
 		} catch (Exception ex) {

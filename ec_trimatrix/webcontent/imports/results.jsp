@@ -116,20 +116,23 @@
 <t:gridcol id="g_84" text="#{rr.literals.ranking}" width="50" >
 <t:formattedfield id="g_85" align="center" format="int" value=".{position}" />
 </t:gridcol>
-<t:gridcol id="g_86" text="#{rr.literals.swim_split}" width="80" >
-<t:field id="g_87" actionListener=".{onTimeFlush}" align="center" clientname="swim" flush="true" maxlength="8" text=".{swimSplit}" userhint="hh:mm:ss" width="60" />
+<t:gridcol id="g_86" text="#{rr.literals.time}" width="80" >
+<t:field id="g_87" actionListener=".{onTimeFlush}" align="center" clientname="overall" flush="true" maxlength="8" text=".{time}" userhint="hh:mm:ss" width="60" />
 </t:gridcol>
-<t:gridcol id="g_88" text="#{rr.literals.bike_split}" width="80" >
-<t:field id="g_89" actionListener=".{onTimeFlush}" align="center" clientname="bike" flush="true" maxlength="8" text=".{bikeSplit}" userhint="hh:mm:ss" width="60" />
+<t:gridcol id="g_88" text="#{rr.literals.swim_split}" width="80" >
+<t:field id="g_89" actionListener=".{onTimeFlush}" align="center" clientname="swim" flush="true" maxlength="8" text=".{swimSplit}" userhint="hh:mm:ss" width="60" />
 </t:gridcol>
-<t:gridcol id="g_90" text="#{rr.literals.run_split}" width="80" >
-<t:field id="g_91" actionListener=".{onTimeFlush}" align="center" clientname="run" flush="true" maxlength="8" text=".{runSplit}" userhint="hh:mm:ss" width="60" />
+<t:gridcol id="g_90" text="#{rr.literals.bike_split}" width="80" >
+<t:field id="g_91" actionListener=".{onTimeFlush}" align="center" clientname="bike" flush="true" maxlength="8" text=".{bikeSplit}" userhint="hh:mm:ss" width="60" />
+</t:gridcol>
+<t:gridcol id="g_92" text="#{rr.literals.run_split}" width="80" >
+<t:field id="g_93" actionListener=".{onTimeFlush}" align="center" clientname="run" flush="true" maxlength="8" text=".{runSplit}" userhint="hh:mm:ss" width="60" />
 </t:gridcol>
 </t:fixgrid>
 </t:row>
-<t:rowdistance id="g_92" />
-<t:row id="g_93" >
-<t:button id="g_94" actionListener="#{d.ResultsImportUI.onImport}" image="/images/icons/import.png" imageheight="16" text="#{rr.literals.import}" />
+<t:rowdistance id="g_94" />
+<t:row id="g_95" >
+<t:button id="g_96" actionListener="#{d.ResultsImportUI.onImport}" image="/images/icons/import.png" imageheight="16" text="#{rr.literals.import}" />
 </t:row>
 </t:foldablepane>
 </t:row>
