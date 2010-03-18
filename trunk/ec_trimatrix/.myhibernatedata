@@ -1,5 +1,5 @@
 #MyEclipse Hibernate Properties
-#Wed Mar 17 14:55:31 CET 2010
+#Thu Mar 18 12:57:47 CET 2010
 sessionFactoryName=utils.HibernateSessionFactory
 genBasicCompId=true
 profile=
@@ -15,7 +15,7 @@ keyGenerator=assigned
 libInstallFolder=WEB-INF/lib
 addLibs2Project=true
 genVersionTag=false
-sessionFactoryId=sessionFactory
+sessionFactoryId=
 basePersistenceClass=
 genAnnotations=true
 reSettingsFile=/ec_trimatrix/hibernate.reveng.xml
