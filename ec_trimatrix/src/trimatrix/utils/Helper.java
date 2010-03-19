@@ -13,6 +13,7 @@ import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -400,8 +401,8 @@ public class Helper {
 		return string == null || string.trim().length() == 0;
 	}
 
-	public static boolean isEmpty(List list) {
-		return list == null || list.size() == 0;
+	public static boolean isEmpty(Collection collection) {
+		return collection == null || collection.size() == 0;
 	}
 
 	public static Double round(Double d, int decimalPlace) {

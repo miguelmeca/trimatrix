@@ -73,6 +73,9 @@
 		<property name="daoLayer">
 			<ref bean="daoLayer" />
 		</property>
+		<property name="entityLayer">
+			<ref bean="entityLayer" />
+		</property>
 	</bean>
 
 	<bean id="zonesLogic" class="trimatrix.logic.ZonesLogic" abstract="false"
