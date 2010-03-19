@@ -1,5 +1,12 @@
 package trimatrix.ui;
 
+import static trimatrix.utils.Constants.CLIENTNAME;
+import static trimatrix.utils.Constants.EMPTY;
+import static trimatrix.utils.Constants.WHITESPACE;
+import static trimatrix.utils.Helper.calculateSeconds;
+import static trimatrix.utils.Helper.correctTimeInput;
+import static trimatrix.utils.Helper.isEmpty;
+
 import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,6 +15,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.faces.event.ActionEvent;
 
@@ -19,6 +27,8 @@ import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.ISetId;
 import org.eclnt.jsfserver.defaultscreens.IdTextSelection;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
+import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
+import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoCancelListener;
 import org.eclnt.jsfserver.elements.events.BaseActionEventUpload;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
@@ -33,14 +43,13 @@ import trimatrix.entities.ResultEntity;
 import trimatrix.logic.EntityListLogic;
 import trimatrix.ui.utils.ISelectionCallback;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
-import trimatrix.utils.Constants;
-import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.Entity;
+import trimatrix.utils.Constants.Page;
 
 @CCGenClass (expressionBase="#{d.ResultsImportUI}")
 
 public class ResultsImportUI extends MyWorkpageDispatchedBean implements Serializable {
-	private static final Constants.Entity ENTITY = Constants.Entity.RESULT;
+	private static final Entity ENTITY = Entity.RESULT;
 
     protected FIXGRIDListBinding<GridImportItem> m_gridImport = new FIXGRIDListBinding<GridImportItem>();
     public FIXGRIDListBinding<GridImportItem> getGridImport() { return m_gridImport; }
@@ -117,21 +126,20 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 
 		public void onTimeFlush(ActionEvent event) {
 	        // get clientname to separate by source
-	        String clientname = (String) event.getComponent().getAttributes().get(Constants.CLIENTNAME);
+	        String clientname = (String) event.getComponent().getAttributes().get(CLIENTNAME);
 	        if(ResultEntity.SWIM.equalsIgnoreCase(clientname)) {
-	            swimSplit = Helper.correctTimeInput(swimSplit);
+	            swimSplit = correctTimeInput(swimSplit);
 	        } else if(ResultEntity.RUN.equalsIgnoreCase(clientname)) {
-	            runSplit = Helper.correctTimeInput(runSplit);
+	            runSplit = correctTimeInput(runSplit);
 	        } else if(ResultEntity.BIKE.equalsIgnoreCase(clientname)) {
-	            bikeSplit = Helper.correctTimeInput(bikeSplit);
+	            bikeSplit = correctTimeInput(bikeSplit);
 	        } else if(ResultEntity.OVERALL.equalsIgnoreCase(clientname)) {
-	            time = Helper.correctTimeInput(time);
+	            time = correctTimeInput(time);
 	        } else {
 	            return;
 	        }
 	    }
     }
-
 
     protected final EntityListLogic ENTITYLISTLOGIC = getLogic().getEntityListLogic();
 
@@ -254,7 +262,7 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 
     public void buildTemplatesData() {
     	List<ImportTemplates> templatesList = getLogic().getImportLogic().getMyTemplates(ENTITY.toString());
-    	if(Helper.isEmpty(templatesList)) return;
+    	if(isEmpty(templatesList)) return;
     	for(ImportTemplates template : templatesList) {
     		myTemplates.put(template.getId().getDescription(), template);
     	}
@@ -271,7 +279,7 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
      * @param event
      */
     public void onCompetitionSearch(ActionEvent event) {
-        IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(Constants.Entity.COMPETITION);
+        IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(Entity.COMPETITION);
         entitySelectionUI.buildData(Entity.SCOUTCOMPETITIONS);
 
            entitySelectionUI.prepareCallback(new ISelectionCallback(){
@@ -279,12 +287,12 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
                 m_popup.close();
             }
             public void selected(String id) {
-                competition = (Competitions)ENTITYLISTLOGIC.get(Constants.Entity.COMPETITION, id);
+                competition = (Competitions)ENTITYLISTLOGIC.get(Entity.COMPETITION, id);
                 m_popup.close();
             }});
         m_popup = getWorkpage().createModalPopupInWorkpageContext();
         m_popup.setLeftTopReferenceCentered();
-        m_popup.open(Constants.Page.COMPETITIONSELECTION.getUrl(), "Wettkampfsuche", 800, 600, this);
+        m_popup.open(Page.COMPETITIONSELECTION.getUrl(), "Wettkampfsuche", 800, 600, this);
     }
 
     /**
@@ -294,7 +302,7 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
     public void onCategoryF4(ActionEvent event) {
         IdTextSelection idts = IdTextSelection.createInstance();
         for (String category : getLogic().getCompetitionLogic().getCategories()) {
-            idts.addLine(category, Constants.EMPTY);
+            idts.addLine(category, EMPTY);
         }
         idts.setCallBack(new ISetId() {
             public void setId(String id) {
@@ -311,7 +319,7 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
     public void onTemplateF4(ActionEvent event) {
     	IdTextSelection idts = IdTextSelection.createInstance();
      	for(ImportTemplates template : myTemplates.values()) {
-    		idts.addLine(template.getId().getDescription(), Constants.EMPTY);
+    		idts.addLine(template.getId().getDescription(), EMPTY);
     	}
      	idts.setCallBack(new ISetId() {
             public void setId(String id) {
@@ -345,13 +353,13 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 
     public void onTimeFlush(ActionEvent event) {
         // get clientname to separate by source
-        String clientname = (String) event.getComponent().getAttributes().get(Constants.CLIENTNAME);
+        String clientname = (String) event.getComponent().getAttributes().get(CLIENTNAME);
         if(ResultEntity.SWIM.equalsIgnoreCase(clientname)) {
-            bestSwimSplit = Helper.correctTimeInput(bestSwimSplit);
+            bestSwimSplit = correctTimeInput(bestSwimSplit);
         } else if(ResultEntity.RUN.equalsIgnoreCase(clientname)) {
-            bestRunSplit = Helper.correctTimeInput(bestRunSplit);
+            bestRunSplit = correctTimeInput(bestRunSplit);
         } else if(ResultEntity.BIKE.equalsIgnoreCase(clientname)) {
-            bestBikeSplit = Helper.correctTimeInput(bestBikeSplit);
+            bestBikeSplit = correctTimeInput(bestBikeSplit);
         } else {
             return;
         }
@@ -381,8 +389,8 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
                     // initialize variables
                     int position = 0;
                     String strPosition;
-                    String lastName = Constants.EMPTY;
-                    String firstName = Constants.EMPTY;
+                    String lastName = EMPTY;
+                    String firstName = EMPTY;
                     String swimSplit = "00:00:00";
                     String bikeSplit = "00:00:00";
                     String runSplit = "00:00:00";
@@ -394,8 +402,8 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
                     }
                     if(rowAthleteLastname>0) lastName = row.getCell(rowAthleteLastname-1).toString();
                     if(rowAthleteFirstname>0)  firstName = row.getCell(rowAthleteFirstname-1).toString();
-                    String athlete = firstName + Constants.WHITESPACE + lastName;
-                    PersonEntity.Data scoutedAthlete = scoutedAthletesData.get(athlete);                    
+                    String athlete = firstName + WHITESPACE + lastName;
+                    PersonEntity.Data scoutedAthlete = scoutedAthletesData.get(athlete);                       
                     if(rowSwimSplit>0) swimSplit = row.getCell(rowSwimSplit-1).toString();
                     if(rowBikeSplit>0) bikeSplit = row.getCell(rowBikeSplit-1).toString();
                     if(rowRunSplit>0) runSplit = row.getCell(rowRunSplit-1).toString();
@@ -403,9 +411,11 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
                     // add to table
                     m_gridImport.getItems().add(new GridImportItem(athlete.trim(), scoutedAthlete, position, time, swimSplit, bikeSplit, runSplit));
                 }
-                // get best values by sorting, filter out DNF and DSQ
+                // get best values by sorting, filter out DNF and DSQ                
                 List<GridImportItem> itemsCopy = new ArrayList<GridImportItem>();
                 for(GridImportItem item : m_gridImport.getItems()) {
+                	// mark all entries, where a scouted athlete was found
+                	if(!isEmpty(item.getScoutedAthlete())) m_gridImport.selectItem(item);
                 	if(item.getPosition()==0 || item.getTime()=="00:00:00") continue;
                 	itemsCopy.add(item);
                 }
@@ -413,8 +423,8 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
                 if(rowSwimSplit>0) {
                 	Collections.sort(itemsCopy, new Comparator<GridImportItem>() {
     					public int compare(GridImportItem o1, GridImportItem o2) {
-    						int seconds1 = Helper.calculateSeconds(o1.getSwimSplit());
-    						int seconds2 = Helper.calculateSeconds(o2.getSwimSplit());
+    						int seconds1 = calculateSeconds(o1.getSwimSplit());
+    						int seconds2 = calculateSeconds(o2.getSwimSplit());
     						if(seconds1==seconds2) return 0;
     						if(seconds1>seconds2) return 1;
     						return -1;
@@ -434,8 +444,8 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
                 if(rowBikeSplit>0) {
                 	Collections.sort(itemsCopy, new Comparator<GridImportItem>() {
     					public int compare(GridImportItem o1, GridImportItem o2) {
-    						int seconds1 = Helper.calculateSeconds(o1.getBikeSplit());
-    						int seconds2 = Helper.calculateSeconds(o2.getBikeSplit());
+    						int seconds1 = calculateSeconds(o1.getBikeSplit());
+    						int seconds2 = calculateSeconds(o2.getBikeSplit());
     						if(seconds1==seconds2) return 0;
     						if(seconds1>seconds2) return 1;
     						return -1;
@@ -455,8 +465,8 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
                 if(rowRunSplit>0) {
                 	Collections.sort(itemsCopy, new Comparator<GridImportItem>() {
     					public int compare(GridImportItem o1, GridImportItem o2) {
-    						int seconds1 = Helper.calculateSeconds(o1.getRunSplit());
-    						int seconds2 = Helper.calculateSeconds(o2.getRunSplit());
+    						int seconds1 = calculateSeconds(o1.getRunSplit());
+    						int seconds2 = calculateSeconds(o2.getRunSplit());
     						if(seconds1==seconds2) return 0;
     						if(seconds1>seconds2) return 1;
     						return -1;
@@ -471,8 +481,8 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
                     bestRunner = itemsCopy.get(0).getAthlete();
                     bestRunSplit = itemsCopy.get(0).getRunSplit();
                     importBestRun = true;
-                }
-                Statusbar.outputSuccess(m_gridImport.getItems().size() + Constants.WHITESPACE + "Items found!");
+                }   
+                Statusbar.outputSuccess(m_gridImport.getItems().size() + WHITESPACE + "Items found!");
                 // set status
                 statusMapping = false;
                 statusImportData = true;
@@ -483,6 +493,37 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
     }
 
     public void onImport(ActionEvent event) {
-
+    	// check if data to import exists / any item marked?
+    	final Set<GridImportItem> items = m_gridImport.getSelectedItems();
+    	final Competitions competition = this.competition;
+    	if(isEmpty(items)) {
+    		Statusbar.outputAlert("No data to import, or no data selected!");
+    		return;
+    	}
+    	YESNOPopup ynp = YESNOPopup.createInstance("Import Results", "Do you really want to import marked results?",
+			new IYesNoCancelListener() {
+				public void reactOnCancel() {}
+				public void reactOnNo() {}
+				public void reactOnYes() {					
+					// update competition
+					getLogic().getImportLogic().createOrUpdateCategory(competition, category, bestSwimmer, bestSwimSplit);
+					// update results
+					int success = 0;
+					int error = 0;
+					for(GridImportItem item : items) {
+						// create
+						if(getLogic().getImportLogic().createOrUpdateResult(competition, category, item)) {
+							success++;
+						} else {
+							error++;
+						}
+					}				
+					// output Result
+			    	Statusbar.outputAlert("Import done!", "Import", "Successfull : " + success + "/nErroreous   : " + error);
+			    	// Refresh WPFunctionTree
+			    	reloadFunctionTree();				
+			}
+		});
+		ynp.getModalPopup().setLeftTopReferenceCentered();    	
     }
 }
