@@ -167,7 +167,7 @@ insert  into `competitions_scouts`(`competition_id`,`scout_id`,`limits`) values 
 insert  into `competitions_scouts`(`competition_id`,`scout_id`,`limits`) values ('30c5931c-cabb-42cf-9e55-5bfe663cefa0','0b0b7658-2ddb-11de-86ae-00301bb60f17','[{\"category\":\"Elite A\",\"limits\":[\"00:35:00\",\"3%\"],\"run\":[\"Allen\",\"00:28:30\"],\"swim\":[\"Haskin\",\"00:31:00\"],\"swimsuit\":true},{\"category\":\"Elite B\",\"limits\":[\"00:36:00\",\"00:35:00\"],\"run\":[\"Test\",\"00:32:00\"],\"swim\":[\"Test\",\"00:32:20\"],\"swimsuit\":true}]');
 insert  into `competitions_scouts`(`competition_id`,`scout_id`,`limits`) values ('bb6116f8-fd51-4d05-8bfd-e0d86e228278','0b0b7658-2ddb-11de-86ae-00301bb60f17','');
 insert  into `competitions_scouts`(`competition_id`,`scout_id`,`limits`) values ('5337cdba-b2ac-42f6-bcd9-bd7825db4284','0b0b7658-2ddb-11de-86ae-00301bb60f17','');
-insert  into `competitions_scouts`(`competition_id`,`scout_id`,`limits`) values ('2e122f41-2121-4d16-94d6-f5dc328d84dc','0b0b7658-2ddb-11de-86ae-00301bb60f17','');
+insert  into `competitions_scouts`(`competition_id`,`scout_id`,`limits`) values ('2e122f41-2121-4d16-94d6-f5dc328d84dc','0b0b7658-2ddb-11de-86ae-00301bb60f17','[{\"bike\":[\"Nicole Hackett\",\"01:23:36\"],\"category\":\"Elite A\",\"limits\":[null,null,null],\"run\":[\"Rina Hill\",\"00:36:41\"],\"swim\":[\"Barbara Lindquist\",\"00:18:41\"],\"swimsuit\":null},{\"bike\":[\"Nicole Hackett\",\"01:23:36\"],\"category\":\"Elite B\",\"limits\":[null,null,null],\"run\":[null,null],\"swim\":[\"Barbara Lindquist\",\"00:18:41\"],\"swimsuit\":null}]');
 insert  into `competitions_scouts`(`competition_id`,`scout_id`,`limits`) values ('9956d670-cb98-4d78-930a-88722f68d6a2','0b0b7658-2ddb-11de-86ae-00301bb60f17','');
 insert  into `competitions_scouts`(`competition_id`,`scout_id`,`limits`) values ('a510cfbd-0f4e-4033-95f2-32f669cc964a','aa37127b-0622-483d-89c8-fe378fe63a0d','[{\"category\":\" Elite F\",\"limits\":[\"00:21:30\",\"3%\"],\"run\":[\"Dittmer\",\"00:34:18\"],\"swim\":[\"Haskins\",\"00:21:30\"],\"swimsuit\":true}]');
 insert  into `competitions_scouts`(`competition_id`,`scout_id`,`limits`) values ('ffd573fd-355c-4307-b0b9-338901210fff','aa37127b-0622-483d-89c8-fe378fe63a0d','[{\"category\":\"Elite F\",\"limits\":[\"00:21:51\",\"3%\"],\"run\":[\"Dittmer\",\"00:34:18\"],\"swim\":[\"Haskins\",\"00:21:30\"],\"swimsuit\":true}]');
@@ -374,6 +374,7 @@ CREATE TABLE `import_templates` (
 /*Data for the table `import_templates` */
 
 insert  into `import_templates`(`entity`,`person_id`,`description`,`starting_row`,`mapping`) values ('RESULT','0b0b7658-2ddb-11de-86ae-00301bb60f17','Test',1,'[1, 2, 3, 4, 5, 6]');
+insert  into `import_templates`(`entity`,`person_id`,`description`,`starting_row`,`mapping`) values ('RESULT','0b0b7658-2ddb-11de-86ae-00301bb60f17','ITU',2,'[1, 11, 4, 3, 6, 8, 10]');
 
 /*Table structure for table `k_authorizations` */
 
@@ -818,6 +819,11 @@ CREATE TABLE `k_scheduletypes` (
 
 /*Data for the table `k_scheduletypes` */
 
+insert  into `k_scheduletypes`(`key`) values ('bike');
+insert  into `k_scheduletypes`(`key`) values ('private');
+insert  into `k_scheduletypes`(`key`) values ('run');
+insert  into `k_scheduletypes`(`key`) values ('swim');
+
 /*Table structure for table `k_sex` */
 
 DROP TABLE IF EXISTS `k_sex`;
@@ -1101,18 +1107,18 @@ CREATE TABLE `results` (
 
 /*Data for the table `results` */
 
-insert  into `results`(`id`,`competition_id`,`scout_id`,`athlete_id`,`final_position`,`time`,`comment`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('42473dc1-e4f2-4408-910f-10b4e64a04c1','x96bcbd2-676d-102c-ace2-9cc3fca64c87','0b0b7658-2ddb-11de-86ae-00301bb60f17','10f52302-2ddb-11de-86ae-00301bb60f17','DSQ','01:01:25','TEst','2009-11-10 12:18:48','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-11-10 12:18:48','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
+insert  into `results`(`id`,`competition_id`,`scout_id`,`athlete_id`,`final_position`,`time`,`comment`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('42473dc1-e4f2-4408-910f-10b4e64a04c1','x96bcbd2-676d-102c-ace2-9cc3fca64c87','0b0b7658-2ddb-11de-86ae-00301bb60f17','10f52302-2ddb-11de-86ae-00301bb60f17','11','02:06:33','TEst','2009-11-10 12:18:48','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2010-03-19 18:35:58','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
 insert  into `results`(`id`,`competition_id`,`scout_id`,`athlete_id`,`final_position`,`time`,`comment`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('7fbe2262-8b66-465b-8070-8a59bb3c2d50','63df5d72-3d22-411f-affa-3c974318e790','0b0b7658-2ddb-11de-86ae-00301bb60f17','10f52302-2ddb-11de-86ae-00301bb60f17',NULL,NULL,NULL,'2009-11-11 22:33:23','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-11-10 12:18:48','e96bcbd2-676d-102c-ace2-9cc3fca64c87',1,0);
 insert  into `results`(`id`,`competition_id`,`scout_id`,`athlete_id`,`final_position`,`time`,`comment`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('89c8328f-7a18-4b35-9c5f-8275ccf4f5f4','0d1edae8-a48a-4aa2-a9db-fdebd1acc15e','0b0b7658-2ddb-11de-86ae-00301bb60f17','10f52302-2ddb-11de-86ae-00301bb60f17',NULL,NULL,NULL,'2009-11-11 23:00:54','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-11-10 12:18:48','e96bcbd2-676d-102c-ace2-9cc3fca64c87',1,0);
 insert  into `results`(`id`,`competition_id`,`scout_id`,`athlete_id`,`final_position`,`time`,`comment`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('e0729fb3-ba68-46ca-badc-21a24187953c','ba76369e-5c2b-4814-a1ca-6229a2a2fa1a','0b0b7658-2ddb-11de-86ae-00301bb60f17','10f52302-2ddb-11de-86ae-00301bb60f17','5','01:01:30','Fünfter Platz','2009-11-15 22:45:25','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-11-10 12:18:48','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
 insert  into `results`(`id`,`competition_id`,`scout_id`,`athlete_id`,`final_position`,`time`,`comment`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('14fcb1c9-b175-4026-a3ce-cbb84f431560','30c5931c-cabb-42cf-9e55-5bfe663cefa0','0b0b7658-2ddb-11de-86ae-00301bb60f17','10f52302-2ddb-11de-86ae-00301bb60f17','2','01:02:50',NULL,'2009-11-28 12:42:24','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-11-28 12:43:33','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
 insert  into `results`(`id`,`competition_id`,`scout_id`,`athlete_id`,`final_position`,`time`,`comment`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('1d72ad99-b7cd-41fd-917c-99de4c408be8','bb6116f8-fd51-4d05-8bfd-e0d86e228278','0b0b7658-2ddb-11de-86ae-00301bb60f17','10f52302-2ddb-11de-86ae-00301bb60f17','3','01:00:00','Gutes Rennen','2009-11-28 17:19:20','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-11-28 17:21:19','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
 insert  into `results`(`id`,`competition_id`,`scout_id`,`athlete_id`,`final_position`,`time`,`comment`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('43d43177-77a8-4a5a-ab27-8469b42be1a5','5337cdba-b2ac-42f6-bcd9-bd7825db4284','0b0b7658-2ddb-11de-86ae-00301bb60f17','10f52302-2ddb-11de-86ae-00301bb60f17',NULL,NULL,NULL,'2009-11-28 23:14:40','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-11-28 23:14:40','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
-insert  into `results`(`id`,`competition_id`,`scout_id`,`athlete_id`,`final_position`,`time`,`comment`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('8d261ab5-113c-4050-bf0d-cc29a3e6dd8d','2e122f41-2121-4d16-94d6-f5dc328d84dc','0b0b7658-2ddb-11de-86ae-00301bb60f17','10f52302-2ddb-11de-86ae-00301bb60f17',NULL,NULL,'Test','2009-11-28 23:26:50','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2009-11-28 23:27:21','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
+insert  into `results`(`id`,`competition_id`,`scout_id`,`athlete_id`,`final_position`,`time`,`comment`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('8d261ab5-113c-4050-bf0d-cc29a3e6dd8d','2e122f41-2121-4d16-94d6-f5dc328d84dc','0b0b7658-2ddb-11de-86ae-00301bb60f17','10f52302-2ddb-11de-86ae-00301bb60f17','11','02:06:33','Test','2009-11-28 23:26:50','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2010-03-20 10:58:41','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
 insert  into `results`(`id`,`competition_id`,`scout_id`,`athlete_id`,`final_position`,`time`,`comment`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('f659f59a-2ba2-4fc0-ada2-d3d6ffced394','9956d670-cb98-4d78-930a-88722f68d6a2','0b0b7658-2ddb-11de-86ae-00301bb60f17','10f52302-2ddb-11de-86ae-00301bb60f17','1','03:25:20','wwassssssssdsssss','2010-01-31 15:55:57','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2010-01-31 16:59:32','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
 insert  into `results`(`id`,`competition_id`,`scout_id`,`athlete_id`,`final_position`,`time`,`comment`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('8c95eae2-08e0-4616-9c1d-68976ee6f8d1','a510cfbd-0f4e-4033-95f2-32f669cc964a','aa37127b-0622-483d-89c8-fe378fe63a0d','4fe98bcf-7316-4bfa-a62e-e4fae72f8093','6','02:00:21',NULL,'2010-02-17 22:29:16','f6352d84-ae4b-4a5e-ab7b-e9a0df84e86a','2010-02-17 22:29:16','f6352d84-ae4b-4a5e-ab7b-e9a0df84e86a',0,0);
-insert  into `results`(`id`,`competition_id`,`scout_id`,`athlete_id`,`final_position`,`time`,`comment`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('e48df0e1-2cbe-42b6-aaa4-d3f170f2fcba','30c5931c-cabb-42cf-9e55-5bfe663cefa0','0b0b7658-2ddb-11de-86ae-00301bb60f17','4f155310-7113-452c-93fc-15e2aa3447ae','6',NULL,NULL,'2010-02-19 14:26:36','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2010-02-19 14:26:36','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
-insert  into `results`(`id`,`competition_id`,`scout_id`,`athlete_id`,`final_position`,`time`,`comment`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('b0d6797a-f221-4da0-bbb9-a943a0041a57','30c5931c-cabb-42cf-9e55-5bfe663cefa0','0b0b7658-2ddb-11de-86ae-00301bb60f17','c3e08b7a-562e-4988-9e64-19e7e71b7831','6','01:32:00',NULL,'2010-02-19 14:30:16','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2010-02-19 14:32:47','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
+insert  into `results`(`id`,`competition_id`,`scout_id`,`athlete_id`,`final_position`,`time`,`comment`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('e48df0e1-2cbe-42b6-aaa4-d3f170f2fcba','30c5931c-cabb-42cf-9e55-5bfe663cefa0','0b0b7658-2ddb-11de-86ae-00301bb60f17','4f155310-7113-452c-93fc-15e2aa3447ae','20','02:08:36',NULL,'2010-02-19 14:26:36','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2010-03-19 18:35:58','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
+insert  into `results`(`id`,`competition_id`,`scout_id`,`athlete_id`,`final_position`,`time`,`comment`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('b0d6797a-f221-4da0-bbb9-a943a0041a57','30c5931c-cabb-42cf-9e55-5bfe663cefa0','0b0b7658-2ddb-11de-86ae-00301bb60f17','c3e08b7a-562e-4988-9e64-19e7e71b7831','18','02:07:27',NULL,'2010-02-19 14:30:16','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2010-03-19 18:35:58','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
 insert  into `results`(`id`,`competition_id`,`scout_id`,`athlete_id`,`final_position`,`time`,`comment`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('0a2da374-945f-42b5-99fd-41b03f33ca8a','ffd573fd-355c-4307-b0b9-338901210fff','aa37127b-0622-483d-89c8-fe378fe63a0d','0b0b7658-2ddb-11de-86ae-00301bb60f17','6','02:00:21',NULL,'2010-02-19 20:01:04','f6352d84-ae4b-4a5e-ab7b-e9a0df84e86a','2010-02-19 20:01:04','f6352d84-ae4b-4a5e-ab7b-e9a0df84e86a',0,0);
 insert  into `results`(`id`,`competition_id`,`scout_id`,`athlete_id`,`final_position`,`time`,`comment`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('c4c3a8cc-863f-4f29-b16c-9d5abd60d60d','ffd573fd-355c-4307-b0b9-338901210fff','aa37127b-0622-483d-89c8-fe378fe63a0d','4c82c4b2-14b2-4437-b2eb-5370280508ab','2','02:02:11',NULL,'2010-02-19 20:31:04','f6352d84-ae4b-4a5e-ab7b-e9a0df84e86a','2010-02-19 20:33:48','f6352d84-ae4b-4a5e-ab7b-e9a0df84e86a',0,0);
 insert  into `results`(`id`,`competition_id`,`scout_id`,`athlete_id`,`final_position`,`time`,`comment`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('ab08a29c-c13e-4286-9988-273c714e1e1f','3724b912-dfff-481b-92fe-f4687aac0f1b','aa37127b-0622-483d-89c8-fe378fe63a0d','4c82c4b2-14b2-4437-b2eb-5370280508ab','6',NULL,'was injured before','2010-02-19 22:13:48','f6352d84-ae4b-4a5e-ab7b-e9a0df84e86a','2010-02-19 22:15:04','f6352d84-ae4b-4a5e-ab7b-e9a0df84e86a',0,0);
@@ -1155,6 +1161,8 @@ insert  into `results`(`id`,`competition_id`,`scout_id`,`athlete_id`,`final_posi
 insert  into `results`(`id`,`competition_id`,`scout_id`,`athlete_id`,`final_position`,`time`,`comment`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('a2df395d-ac21-437b-96c3-4d36b7990130','18033f3f-5242-4e47-ab3a-448a2d30f1df','aa37127b-0622-483d-89c8-fe378fe63a0d','7c3c4644-3345-4d03-928f-0996b7f9fc7f','6','00:57:11',NULL,'2010-03-11 14:04:49','f6352d84-ae4b-4a5e-ab7b-e9a0df84e86a','2010-03-11 14:07:36','f6352d84-ae4b-4a5e-ab7b-e9a0df84e86a',0,0);
 insert  into `results`(`id`,`competition_id`,`scout_id`,`athlete_id`,`final_position`,`time`,`comment`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('aa728072-f474-4c6e-8060-69ce36aa1d66','0e9a11ba-0a77-48c7-9abb-f3342ae88193','aa37127b-0622-483d-89c8-fe378fe63a0d','7c3c4644-3345-4d03-928f-0996b7f9fc7f','14','00:59:57',NULL,'2010-03-11 14:16:51','f6352d84-ae4b-4a5e-ab7b-e9a0df84e86a','2010-03-11 14:20:57','f6352d84-ae4b-4a5e-ab7b-e9a0df84e86a',0,0);
 insert  into `results`(`id`,`competition_id`,`scout_id`,`athlete_id`,`final_position`,`time`,`comment`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('f9b7f890-eaf1-4c7b-80f7-d29eef8f3461','2f81e8e6-4b87-433e-800e-af16702827cb','aa37127b-0622-483d-89c8-fe378fe63a0d','7c3c4644-3345-4d03-928f-0996b7f9fc7f','5','01:00:42',NULL,'2010-03-11 14:21:24','f6352d84-ae4b-4a5e-ab7b-e9a0df84e86a','2010-03-11 14:23:08','f6352d84-ae4b-4a5e-ab7b-e9a0df84e86a',0,0);
+insert  into `results`(`id`,`competition_id`,`scout_id`,`athlete_id`,`final_position`,`time`,`comment`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('b93feba5-4d18-4c4f-ad10-7ff10fc4f207','2e122f41-2121-4d16-94d6-f5dc328d84dc','0b0b7658-2ddb-11de-86ae-00301bb60f17','c3e08b7a-562e-4988-9e64-19e7e71b7831','18','02:07:27',NULL,NULL,NULL,'2010-03-20 11:17:41',NULL,0,0);
+insert  into `results`(`id`,`competition_id`,`scout_id`,`athlete_id`,`final_position`,`time`,`comment`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('d91627ce-d770-4c12-b41f-a007a1b34cbf','2e122f41-2121-4d16-94d6-f5dc328d84dc','0b0b7658-2ddb-11de-86ae-00301bb60f17','4f155310-7113-452c-93fc-15e2aa3447ae','20','02:08:36',NULL,NULL,NULL,'2010-03-20 11:17:41',NULL,0,0);
 
 /*Table structure for table `results_tria` */
 
@@ -1181,7 +1189,7 @@ insert  into `results_tria`(`id`,`category`,`swim_split`,`run_split`,`bike_split
 insert  into `results_tria`(`id`,`category`,`swim_split`,`run_split`,`bike_split`,`swim_position`,`run_position`,`bike_position`) values ('14fcb1c9-b175-4026-a3ce-cbb84f431560','Elite A','00:35:15','00:32:50',NULL,'2','5',NULL);
 insert  into `results_tria`(`id`,`category`,`swim_split`,`run_split`,`bike_split`,`swim_position`,`run_position`,`bike_position`) values ('1d72ad99-b7cd-41fd-917c-99de4c408be8','Pro W','00:32:00','00:25:00',NULL,'5','2',NULL);
 insert  into `results_tria`(`id`,`category`,`swim_split`,`run_split`,`bike_split`,`swim_position`,`run_position`,`bike_position`) values ('43d43177-77a8-4a5a-ab27-8469b42be1a5','W20','01:00:00','01:00:00',NULL,NULL,NULL,NULL);
-insert  into `results_tria`(`id`,`category`,`swim_split`,`run_split`,`bike_split`,`swim_position`,`run_position`,`bike_position`) values ('8d261ab5-113c-4050-bf0d-cc29a3e6dd8d','Pro W','01:00:00','00:30:00',NULL,NULL,NULL,NULL);
+insert  into `results_tria`(`id`,`category`,`swim_split`,`run_split`,`bike_split`,`swim_position`,`run_position`,`bike_position`) values ('8d261ab5-113c-4050-bf0d-cc29a3e6dd8d','Elite B','00:20:23','00:39:04','01:26:20','15','12','9');
 insert  into `results_tria`(`id`,`category`,`swim_split`,`run_split`,`bike_split`,`swim_position`,`run_position`,`bike_position`) values ('f659f59a-2ba2-4fc0-ada2-d3d6ffced394','Pro W','00:30:00','00:29:30',NULL,NULL,NULL,NULL);
 insert  into `results_tria`(`id`,`category`,`swim_split`,`run_split`,`bike_split`,`swim_position`,`run_position`,`bike_position`) values ('8c95eae2-08e0-4616-9c1d-68976ee6f8d1','Elite F','00:22:05','00:35:05',NULL,'14','2',NULL);
 insert  into `results_tria`(`id`,`category`,`swim_split`,`run_split`,`bike_split`,`swim_position`,`run_position`,`bike_position`) values ('e48df0e1-2cbe-42b6-aaa4-d3f170f2fcba','Pro W','01:00:00','00:45:00',NULL,'5','4',NULL);
@@ -1225,6 +1233,18 @@ insert  into `results_tria`(`id`,`category`,`swim_split`,`run_split`,`bike_split
 insert  into `results_tria`(`id`,`category`,`swim_split`,`run_split`,`bike_split`,`swim_position`,`run_position`,`bike_position`) values ('a2df395d-ac21-437b-96c3-4d36b7990130','Junior','00:08:15','00:16:19',NULL,'2','16',NULL);
 insert  into `results_tria`(`id`,`category`,`swim_split`,`run_split`,`bike_split`,`swim_position`,`run_position`,`bike_position`) values ('aa728072-f474-4c6e-8060-69ce36aa1d66','Junior','00:08:46','00:16:45',NULL,'14','21',NULL);
 insert  into `results_tria`(`id`,`category`,`swim_split`,`run_split`,`bike_split`,`swim_position`,`run_position`,`bike_position`) values ('f9b7f890-eaf1-4c7b-80f7-d29eef8f3461','Junior','00:09:13','00:17:26',NULL,'5','12',NULL);
+insert  into `results_tria`(`id`,`category`,`swim_split`,`run_split`,`bike_split`,`swim_position`,`run_position`,`bike_position`) values ('7ca1a3c7-bd3e-45b6-ad6e-f11c8d9019ca','Elite A','00:19:54','00:39:59','01:26:18','8','20','7');
+insert  into `results_tria`(`id`,`category`,`swim_split`,`run_split`,`bike_split`,`swim_position`,`run_position`,`bike_position`) values ('a5adbf72-3793-40f9-bfc8-42af2716dd66','Elite A','00:20:42','00:40:55','01:26:22','22','23','12');
+insert  into `results_tria`(`id`,`category`,`swim_split`,`run_split`,`bike_split`,`swim_position`,`run_position`,`bike_position`) values ('cceeabf8-dcb6-4fe8-8902-8805e8fecd6b','Elite A','00:19:54','00:39:59','01:26:18','8','20','7');
+insert  into `results_tria`(`id`,`category`,`swim_split`,`run_split`,`bike_split`,`swim_position`,`run_position`,`bike_position`) values ('376466e0-0628-4a2b-a942-8c600f2f5199','Elite A','00:20:42','00:40:55','01:26:22','22','23','12');
+insert  into `results_tria`(`id`,`category`,`swim_split`,`run_split`,`bike_split`,`swim_position`,`run_position`,`bike_position`) values ('65233d23-fed7-4ec0-be6c-bed64bef6326','Elite A','00:19:54','00:39:59','01:26:18','8','20','7');
+insert  into `results_tria`(`id`,`category`,`swim_split`,`run_split`,`bike_split`,`swim_position`,`run_position`,`bike_position`) values ('7d086b8b-743a-4891-9202-bf0a946cd5c8','Elite A','00:20:42','00:40:55','01:26:22','22','23','12');
+insert  into `results_tria`(`id`,`category`,`swim_split`,`run_split`,`bike_split`,`swim_position`,`run_position`,`bike_position`) values ('ca66c944-cc18-4256-aee8-3c2fd05c4fb2','Elite A','00:19:54','00:39:59','01:26:18','8','20','7');
+insert  into `results_tria`(`id`,`category`,`swim_split`,`run_split`,`bike_split`,`swim_position`,`run_position`,`bike_position`) values ('75a8ef24-e4e4-41fd-9446-b569e663a318','Elite A','00:20:42','00:40:55','01:26:22','22','23','12');
+insert  into `results_tria`(`id`,`category`,`swim_split`,`run_split`,`bike_split`,`swim_position`,`run_position`,`bike_position`) values ('41ab19a1-c8df-447e-a6f8-e95be856509d','Elite A','00:19:54','00:39:59','01:26:18','8','20','7');
+insert  into `results_tria`(`id`,`category`,`swim_split`,`run_split`,`bike_split`,`swim_position`,`run_position`,`bike_position`) values ('e8a74099-83be-47d6-8b4b-f4da6379a402','Elite A','00:20:42','00:40:55','01:26:22','22','23','12');
+insert  into `results_tria`(`id`,`category`,`swim_split`,`run_split`,`bike_split`,`swim_position`,`run_position`,`bike_position`) values ('b93feba5-4d18-4c4f-ad10-7ff10fc4f207','Elite B','00:19:54','00:39:59','01:26:18','8','20','7');
+insert  into `results_tria`(`id`,`category`,`swim_split`,`run_split`,`bike_split`,`swim_position`,`run_position`,`bike_position`) values ('d91627ce-d770-4c12-b41f-a007a1b34cbf','Elite B','00:20:42','00:40:55','01:26:22','22','23','12');
 
 /*Table structure for table `roles_have_functionnodes` */
 
@@ -1288,6 +1308,8 @@ CREATE TABLE `schedules` (
   `duration` bigint(20) DEFAULT NULL COMMENT 'Duration  in minutes',
   `color` varchar(10) DEFAULT NULL,
   `template` tinyint(1) DEFAULT '0',
+  `done` tinyint(1) DEFAULT '0',
+  `details` text,
   `created_at` datetime DEFAULT '1900-01-01 00:00:00',
   `created_by` varchar(36) DEFAULT NULL,
   `modified_at` datetime DEFAULT '1900-01-01 00:00:00',
@@ -1300,6 +1322,8 @@ CREATE TABLE `schedules` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Table for superclass of schedule items';
 
 /*Data for the table `schedules` */
+
+insert  into `schedules`(`id`,`person_id`,`type`,`description`,`start`,`duration`,`color`,`template`,`done`,`details`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('32de7bc9-913e-41f0-82f9-c7a626f0e7b2','10f52302-2ddb-11de-86ae-00301bb60f17','run','Test','2010-03-16 06:45:00',60,'#ffff33',0,NULL,'[]','2010-03-21 21:21:01','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2010-03-21 21:21:43','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
 
 /*Table structure for table `t_authorizations` */
 
@@ -2070,6 +2094,15 @@ CREATE TABLE `t_scheduletypes` (
 
 /*Data for the table `t_scheduletypes` */
 
+insert  into `t_scheduletypes`(`key`,`language_key`,`description`,`description_long`) values ('run','de','Laufeinheit','Laufeinheit');
+insert  into `t_scheduletypes`(`key`,`language_key`,`description`,`description_long`) values ('run','en','Run','Run');
+insert  into `t_scheduletypes`(`key`,`language_key`,`description`,`description_long`) values ('swim','de','Schwimmeinheit','Schwimmeinheit');
+insert  into `t_scheduletypes`(`key`,`language_key`,`description`,`description_long`) values ('swim','en','Swim','Swim');
+insert  into `t_scheduletypes`(`key`,`language_key`,`description`,`description_long`) values ('bike','de','Radeinheit','Radeinheit');
+insert  into `t_scheduletypes`(`key`,`language_key`,`description`,`description_long`) values ('bike','en','Bike','Bike');
+insert  into `t_scheduletypes`(`key`,`language_key`,`description`,`description_long`) values ('private','de','Privat','Privat');
+insert  into `t_scheduletypes`(`key`,`language_key`,`description`,`description_long`) values ('private','en','Private','Private');
+
 /*Table structure for table `t_sex` */
 
 DROP TABLE IF EXISTS `t_sex`;
@@ -2358,7 +2391,7 @@ CREATE TABLE `users` (
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`user_name`,`user_hash`,`language_key`,`currency_key`,`locked`,`initial`,`active`,`person_id`,`email`,`last_login`,`last_login_ip`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('e96bcbd2-676d-102c-ace2-9cc3fca64c87','reich','mINWXHB/fsKFpyWud2lhmFQSIMY=','de','eur',0,0,1,'0b0b7658-2ddb-11de-86ae-00301bb60f17','reich.markus@gmail.com','2010-03-17 23:13:17','10.17.7.247','1900-01-01 00:00:00','','2010-03-17 23:13:17','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
+insert  into `users`(`id`,`user_name`,`user_hash`,`language_key`,`currency_key`,`locked`,`initial`,`active`,`person_id`,`email`,`last_login`,`last_login_ip`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('e96bcbd2-676d-102c-ace2-9cc3fca64c87','reich','mINWXHB/fsKFpyWud2lhmFQSIMY=','de','eur',0,0,1,'0b0b7658-2ddb-11de-86ae-00301bb60f17','reich.markus@gmail.com','2010-03-21 22:01:27','169.254.1.10','1900-01-01 00:00:00','','2010-03-21 22:01:27','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
 insert  into `users`(`id`,`user_name`,`user_hash`,`language_key`,`currency_key`,`locked`,`initial`,`active`,`person_id`,`email`,`last_login`,`last_login_ip`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('e96bcbd2-676d-102c-ace2-9cc3fca64c88','bucher','test','en','usd',0,0,1,'10f52302-2ddb-11de-86ae-00301bb60f17','dany.bucher@gmail.com',NULL,NULL,'1900-01-01 00:00:00','','2009-06-21 17:04:39','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
 insert  into `users`(`id`,`user_name`,`user_hash`,`language_key`,`currency_key`,`locked`,`initial`,`active`,`person_id`,`email`,`last_login`,`last_login_ip`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('e96bcbd2-676d-102c-ace2-9cc3fca64c89','mach','test','de','eur',0,0,1,'7522bc7f-42cf-415c-a050-da12518a4cd3','mach.thomas@gmail.com','2009-11-28 17:36:47','169.254.1.10','1900-01-01 00:00:00','','2009-11-28 17:36:47','e96bcbd2-676d-102c-ace2-9cc3fca64c87',0,0);
 insert  into `users`(`id`,`user_name`,`user_hash`,`language_key`,`currency_key`,`locked`,`initial`,`active`,`person_id`,`email`,`last_login`,`last_login_ip`,`created_at`,`created_by`,`modified_at`,`modified_by`,`deleted`,`test`) values ('f6352d84-ae4b-4a5e-ab7b-e9a0df84e86a','diechtler','RFkrTuo2ZjyGuZS7DqmdFTCcHH0=','de',NULL,0,0,1,'aa37127b-0622-483d-89c8-fe378fe63a0d','marcel.diechtler@gmail.com','2010-03-16 21:23:09','169.254.1.10','2009-11-19 23:00:43','e96bcbd2-676d-102c-ace2-9cc3fca64c87','2010-03-16 21:23:10','f6352d84-ae4b-4a5e-ab7b-e9a0df84e86a',0,0);

@@ -15,7 +15,7 @@
 <t:rowbodypane id="g_1" rowdistance="5" >
 <t:row id="g_2" >
 <t:label id="g_3" height="20" text="#{rr.literals.competition}" width="120" />
-<t:link id="g_4" actionListener="#{d.ResultDetailUI.onCompetitionClicked}" align="left" attributemacro="entityDetailMacro(ResultDetailUI,competition)" enabled="true" focusable="true" foreground="#000000" height="20" text="#{d.ResultsImportUI.compDesc}" width="200" />
+<t:link id="g_4" actionListener="#{d.ResultsImportUI.onCompetitionClicked}" align="left" focusable="true" foreground="#000000" height="20" text="#{d.ResultsImportUI.compDesc}" width="200" />
 <t:coldistance id="g_5" />
 <t:button id="g_6" actionListener="#{d.ResultsImportUI.onCompetitionSearch}" image="/images/icons/magnifier.png" imageheight="16" text="#{rr.literals.search}" />
 </t:row>
@@ -72,7 +72,7 @@
 <t:row id="g_46" >
 <t:fileuploadbutton id="g_47" actionListener="#{d.ResultsImportUI.onUploadFile}" fileextensions="xls" image="/images/icons/upload.png" imageheight="16" text="#{rr.literals.upload_file}" />
 <t:coldistance id="g_48" />
-<t:label id="g_49" text="#{d.ResultsImportUI.filename}" />
+<t:label id="g_49" font="weight:bold" text="#{d.ResultsImportUI.filename}" />
 </t:row>
 <t:rowdistance id="g_50" />
 <t:row id="g_51" >
@@ -87,7 +87,7 @@
 <t:field id="g_60" actionListener="#{d.ResultsImportUI.onTimeFlush}" align="center" clientname="swim" flush="true" maxlength="8" text="#{d.ResultsImportUI.bestSwimSplit}" userhint="hh:mm:ss" width="60" />
 </t:row>
 <t:row id="g_61" >
-<t:checkbox id="g_62" selected="#{d.ResultsImportUI.importBestRun}" />
+<t:checkbox id="g_62" selected="#{d.ResultsImportUI.importBestBike}" />
 <t:coldistance id="g_63" />
 <t:label id="g_64" text="#{rr.literals.best_biker} / #{rr.literals.best_bike_split}" width="250" />
 <t:coldistance id="g_65" />
@@ -96,7 +96,7 @@
 <t:field id="g_68" actionListener="#{d.ResultsImportUI.onTimeFlush}" align="center" clientname="bike" flush="true" maxlength="8" text="#{d.ResultsImportUI.bestBikeSplit}" userhint="hh:mm:ss" width="60" />
 </t:row>
 <t:row id="g_69" >
-<t:checkbox id="g_70" selected="#{d.ResultsImportUI.importBestSwim}" />
+<t:checkbox id="g_70" selected="#{d.ResultsImportUI.importBestRun}" />
 <t:coldistance id="g_71" />
 <t:label id="g_72" text="#{rr.literals.best_runner} / #{rr.literals.best_run_split}" width="250" />
 <t:coldistance id="g_73" />
@@ -111,28 +111,37 @@
 <t:field id="g_81" enabled="false" text=".{athlete}" />
 </t:gridcol>
 <t:gridcol id="g_82" text="#{rr.literals.my_athlete}" width="150" >
-<t:combofield id="g_83" actionListener=".{onScoutedAthleteF4}" />
+<t:combofield id="g_83" actionListener=".{onScoutedAthleteF4}" text=".{scoutedAthlete}" />
 </t:gridcol>
 <t:gridcol id="g_84" text="#{rr.literals.ranking}" width="50" >
 <t:formattedfield id="g_85" align="center" format="int" value=".{position}" />
 </t:gridcol>
-<t:gridcol id="g_86" text="#{rr.literals.time}" width="80" >
+<t:gridcol id="g_86" comment="overall" text="#{rr.literals.time}" width="80" >
 <t:field id="g_87" actionListener=".{onTimeFlush}" align="center" clientname="overall" flush="true" maxlength="8" text=".{time}" userhint="hh:mm:ss" width="60" />
 </t:gridcol>
 <t:gridcol id="g_88" text="#{rr.literals.swim_split}" width="80" >
 <t:field id="g_89" actionListener=".{onTimeFlush}" align="center" clientname="swim" flush="true" maxlength="8" text=".{swimSplit}" userhint="hh:mm:ss" width="60" />
 </t:gridcol>
-<t:gridcol id="g_90" text="#{rr.literals.bike_split}" width="80" >
-<t:field id="g_91" actionListener=".{onTimeFlush}" align="center" clientname="bike" flush="true" maxlength="8" text=".{bikeSplit}" userhint="hh:mm:ss" width="60" />
+<t:gridcol id="g_90" text="#{rr.literals.ranking}" width="50" >
+<t:formattedfield id="g_91" align="center" format="int" value=".{swimPosition}" />
 </t:gridcol>
-<t:gridcol id="g_92" text="#{rr.literals.run_split}" width="80" >
-<t:field id="g_93" actionListener=".{onTimeFlush}" align="center" clientname="run" flush="true" maxlength="8" text=".{runSplit}" userhint="hh:mm:ss" width="60" />
+<t:gridcol id="g_92" text="#{rr.literals.bike_split}" width="80" >
+<t:field id="g_93" actionListener=".{onTimeFlush}" align="center" clientname="bike" flush="true" maxlength="8" text=".{bikeSplit}" userhint="hh:mm:ss" width="60" />
+</t:gridcol>
+<t:gridcol id="g_94" text="#{rr.literals.ranking}" width="50" >
+<t:formattedfield id="g_95" align="center" format="int" value=".{bikePosition}" />
+</t:gridcol>
+<t:gridcol id="g_96" text="#{rr.literals.run_split}" width="80" >
+<t:field id="g_97" actionListener=".{onTimeFlush}" align="center" clientname="run" flush="true" maxlength="8" text=".{runSplit}" userhint="hh:mm:ss" width="60" />
+</t:gridcol>
+<t:gridcol id="g_98" text="#{rr.literals.ranking}" width="50" >
+<t:formattedfield id="g_99" align="center" format="int" value=".{runPosition}" />
 </t:gridcol>
 </t:fixgrid>
 </t:row>
-<t:rowdistance id="g_94" />
-<t:row id="g_95" >
-<t:button id="g_96" actionListener="#{d.ResultsImportUI.onImport}" image="/images/icons/import.png" imageheight="16" text="#{rr.literals.import}" />
+<t:rowdistance id="g_100" />
+<t:row id="g_101" >
+<t:button id="g_102" actionListener="#{d.ResultsImportUI.onImport}" image="/images/icons/import.png" imageheight="16" text="#{rr.literals.import}" />
 </t:row>
 </t:foldablepane>
 </t:row>

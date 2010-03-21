@@ -308,14 +308,17 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 	}
 
 	public void onCompetitionClicked(ActionEvent event) {
+		if(entity.getCompetition()==null) return;
 		loadEntityDetailPage(Entity.COMPETITION, entity.getCompetition().getId(), entity.getCompetition().toString());
 	}
 
 	public void onAthleteClicked(ActionEvent event) {
+		if(entity.getAthlete()==null) return;
 		loadEntityDetailPage(Entity.PERSON, entity.getAthlete().getId(), entity.getAthlete().toString());
 	}
 
 	public void onScoutClicked(ActionEvent event) {
+		if(entity.getScout()==null) return;
 		loadEntityDetailPage(Entity.PERSON, entity.getScout().getId(), entity.getScout().toString());
 	}
 

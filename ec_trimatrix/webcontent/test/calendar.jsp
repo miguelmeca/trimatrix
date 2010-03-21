@@ -4,6 +4,7 @@
 <%@taglib prefix="f" uri="http://java.sun.com/jsf/core"%>
 <%@taglib prefix="h" uri="http://java.sun.com/jsf/html"%>
 
+<%@taglib prefix="tx" uri="/WEB-INF/trimatrixcontrols"%>
 <%@taglib prefix="t" uri="/WEB-INF/eclnt"%>
 
 
@@ -16,7 +17,7 @@
 <t:pane id="g_3" height="100%" rowalignmenty="top" >
 <t:rowdistance id="g_4" />
 <t:row id="g_5" >
-<t:combobox id="g_6" actionListener="#{d.ScheduleUI.onChangeAthlete}" flush="true" font="size:12;weight:bold" validvaluesbinding="#{d.ScheduleUI.vvbAthletes}" value="#{d.ScheduleUI.athleteID}" width="100%" withnullitem="false" />
+<t:combobox id="g_6" actionListener="#{d.ScheduleUI.onChangeAthlete}" flush="true" font="size:12;weight:bold" validvaluesbinding="#{helper.vvb.myathletes}" value="#{d.ScheduleUI.athleteID}" width="100%" withnullitem="false" />
 </t:row>
 <t:rowdistance id="g_7" height="10" />
 <t:row id="g_8" >
@@ -53,7 +54,7 @@
 <t:coldistance id="g_32" />
 <t:label id="g_33" bgpaint="nodisabled()" font="weight:bold" text="#{d.ScheduleUI.actualDate}" />
 <t:coldistance id="g_34" width="100%" />
-<t:filedownloadbutton id="g_35" actionListener="#{d.ScheduleUI.onCopySchedules}" fileextensions="xls" filename="performance.xls" image="/images/icons/print.png" openimmediately="true" opensupported="true" text="Drucken" url="#{d.ScheduleUI.printReportUrl}" />
+<t:filedownloadbutton id="g_35" actionListener="#{d.ScheduleUI.onCopySchedules}" fileextensions="xls" filename="performance.xls" image="/images/icons/print.png" imageheight="16" openimmediately="true" opensupported="true" text="Drucken" url="#{d.ScheduleUI.printReportUrl}" />
 </t:row>
 <t:rowdistance id="g_36" height="4" />
 <t:row id="g_37" >
@@ -152,7 +153,7 @@
 </t:tabbedpanetab>
 <t:tabbedpanetab id="g_120" bgpaint="!null" text="Agenda" >
 <t:row id="g_121" >
-<t:fixgrid id="g_122" avoidroundtrips="true" background="#FFFFFF" drawoddevenrows="true" horizontalscrollmode="autowithresize" noscrollmode="true" objectbinding="#{d.ScheduleUI.gridAgenda}" sbvisibleamount="30" showemptyrows="false" width="100%" >
+<t:fixgrid id="g_122" avoidroundtrips="true" background="#FFFFFF" drawoddevenrows="true" horizontalscrollmode="autowithresize" noscrollmode="true" objectbinding="#{d.ScheduleUI.gridAgenda}" sbvisibleamount="30" showemptyrows="false" >
 <t:gridcol id="g_123" columnresizingenabled="false" width="20" >
 <t:gridrowselector id="g_124" background=".{scheduleItem.color}" />
 </t:gridcol>

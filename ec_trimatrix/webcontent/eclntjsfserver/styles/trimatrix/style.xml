@@ -21,6 +21,9 @@
     <tag name="combofield" variant="default">
         <set attribute="background" value="#FFFFFF"/>
     </tag>
+    <tag name="spinner" variant="default">
+        <set attribute="background" value="#FFFFFF"/>
+    </tag>
     <tag name="combofield" variant="INGRID">
         <set attribute="background" value="#FFFFFF"/>
     </tag>

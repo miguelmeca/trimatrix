@@ -7,6 +7,9 @@ import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import trimatrix.db.DAOLayer;
 import trimatrix.db.Zones;
 import trimatrix.db.ZonesDefinition;
+import trimatrix.entities.EntityLayer;
+import trimatrix.entities.IEntityData;
+import trimatrix.entities.PersonEntity;
 import trimatrix.structures.SValueList;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
@@ -24,8 +27,23 @@ public class ValueListBindingService {
 	private SQLExecutorService sqlExecutorService;
 	private Dictionary dictionaryService;
 	private DAOLayer daoLayer;
+	private EntityLayer entityLayer;
+
+	private ValidValuesBinding getVVBindingMYRESULTS() {
+		ValidValuesBinding vvb = new ValidValuesBinding();
+		List<IEntityData> data = entityLayer.getPersonEntity().getData(Constants.Entity.MYATHLETES, Constants.NO_FILTER);
+		for(IEntityData date : data) {
+			vvb.addValidValue(date.getId(), date.toString());
+		}
+		return vvb;
+	}
 
 	public ValidValuesBinding getVVBinding(Constants.ValueList valueList, String language, boolean longDescription, String parentKey) {
+		// special handling
+		if(valueList==Constants.ValueList.MYATHLETES) {
+			return getVVBindingMYRESULTS();
+		}
+		// standard vvb by sql
 		ValidValuesBinding vvb = new ValidValuesBinding();
 		List<SValueList> list = sqlExecutorService.getValueList(valueList, language, parentKey);
 		for (SValueList entry : list) {
@@ -85,5 +103,9 @@ public class ValueListBindingService {
 
 	public void setDaoLayer(DAOLayer daoLayer) {
 		this.daoLayer = daoLayer;
+	}
+
+	public void setEntityLayer(EntityLayer entityLayer) {
+		this.entityLayer = entityLayer;
 	}
 }

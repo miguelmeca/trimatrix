@@ -110,6 +110,7 @@
 		<mapping class="trimatrix.db.DayInfos" />
 		<mapping class="trimatrix.db.UsersHaveRoles" />
 		<mapping class="trimatrix.db.UserPreferences" />
+		<mapping class="trimatrix.db.ImportTemplates" />
 	</session-factory>
 
 </hibernate-configuration>
