@@ -54,11 +54,6 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
     public String getAthleteID() {return athleteID;}
 	public void setAthleteID(String athleteID) {this.athleteID = athleteID;}
 
-	protected ValidValuesBinding m_vvbAthletes = new ValidValuesBinding();
-    public ValidValuesBinding getVvbAthletes() {
-    	return m_vvbAthletes;
-    }
-
     protected ValidValuesBinding vvbZones = new ValidValuesBinding();
     public ValidValuesBinding getVvbZones() {
     	return vvbZones;
@@ -279,10 +274,6 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 						BufferedContentMgr.remove(report);
 					}
 				});
-		// build vvbAthletes
-		m_vvbAthletes.clear();
-		m_vvbAthletes.addValidValue("10f52302-2ddb-11de-86ae-00301bb60f17", "Daniela Bucher");
-		m_vvbAthletes.addValidValue("0b0b7658-2ddb-11de-86ae-00301bb60f17", "Markus Reich");
 		// refresh UI
 		refresh();
 	}
@@ -530,7 +521,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			this.schedule = schedule;
 		}
 
-		public void save() throws Exception {
+		public void saveSchedule() throws Exception {
 			schedule = getLogic().getScheduleLogic().saveSchedule(schedule);
 		}
 
@@ -551,6 +542,9 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 
 		public Long getDuration() { return schedule.getDuration(); }
 		public void setDuration(Long duration) { schedule.setDuration(duration); }
+
+		public String getDetails() { return schedule.getDetails(); }
+		public void setDetails(String details) { schedule.setDetails(details); }
 
 		public String getColor() {return schedule.getColor();}
 		public void setColor(String color) {schedule.setColor(color);}
@@ -636,7 +630,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 
 						public void save() {
 							try {
-								save();
+								saveSchedule();
 								m_popup.close();
 								refresh();
 							} catch (Exception ex) {
@@ -648,7 +642,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			m_popup.setLeftTopReferenceCentered();
 			m_popup.setUndecorated(true);
 			m_popup.open(Constants.Page.SCHEDULECHANGEPOPUP.getUrl(), "Termin",
-					400, 300, scheduleUI);
+					800, 600, scheduleUI);
 		}
 	}
 

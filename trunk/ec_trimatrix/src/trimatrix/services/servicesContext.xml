@@ -142,6 +142,9 @@
 		<property name="daoLayer">
 			<ref bean="daoLayer" />
 		</property>
+		<property name="entityLayer">
+			<ref bean="entityLayer" />
+		</property>
 	</bean>
 
 	<bean id="serviceLayer" class="trimatrix.services.ServiceLayer"

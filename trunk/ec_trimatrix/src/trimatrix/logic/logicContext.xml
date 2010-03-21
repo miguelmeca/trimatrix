@@ -64,7 +64,7 @@
 			<ref bean="daoLayer" />
 		</property>
 	</bean>
-	
+
 	<bean id="importLogic" class="trimatrix.logic.ImportLogic" abstract="false"
 		lazy-init="default" autowire="default" dependency-check="default">
 		<property name="serviceLayer">
@@ -75,6 +75,9 @@
 		</property>
 		<property name="entityLayer">
 			<ref bean="entityLayer" />
+		</property>
+		<property name="logicLayer">
+			<ref bean="logicLayer" />
 		</property>
 	</bean>
 

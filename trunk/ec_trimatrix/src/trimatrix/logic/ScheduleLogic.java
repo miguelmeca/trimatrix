@@ -2,20 +2,32 @@ package trimatrix.logic;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
+
+import com.twolattes.json.Json;
+import com.twolattes.json.Marshaller;
+import com.twolattes.json.TwoLattes;
 
 import trimatrix.db.DAOLayer;
 import trimatrix.db.DayInfos;
 import trimatrix.db.DayInfosId;
 import trimatrix.db.Schedules;
 import trimatrix.entities.EntityLayer;
+import trimatrix.logic.helper.Limit;
+import trimatrix.logic.helper.ScheduleRun;
 import trimatrix.services.ServiceLayer;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Helper;
 
 public class ScheduleLogic {
+	public static final Log logger = LogFactory.getLog(ScheduleLogic.class);
+	private static final Marshaller<ScheduleRun> runMarshaller = TwoLattes.createMarshaller(ScheduleRun.class);
 	private DAOLayer daoLayer;
 	private ServiceLayer serviceLayer;
 	private EntityLayer entityLayer;
@@ -129,6 +141,16 @@ public class ScheduleLogic {
 			schedule.setStart(start);
 			entityLayer.getScheduleEntity().save(schedule);
 		}
+	}
+
+	public String buildString(List<ScheduleRun> runList) {
+		return runMarshaller.marshallList(runList).toString();
+    }
+
+	public List<ScheduleRun> getScheduleRuns(String value) {
+		if(Helper.isEmpty(value)) return Collections.EMPTY_LIST;
+		Json.Array array = (Json.Array)Json.fromString(value);
+		return runMarshaller.unmarshallList(array);
 	}
 
 	public void setServiceLayer(ServiceLayer serviceLayer) {

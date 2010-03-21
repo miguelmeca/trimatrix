@@ -93,8 +93,8 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 		public void setRunSplit(String runSplit) {this.runSplit = runSplit;}
 
 		public String getBikeSplit() {return bikeSplit;}
-		public void setBikeSplit(String bikeSplit) {this.bikeSplit = bikeSplit;}		
-			
+		public void setBikeSplit(String bikeSplit) {this.bikeSplit = bikeSplit;}
+
 		public int getSwimPosition() {return swimPosition;}
 		public void setSwimPosition(int swimPosition) {this.swimPosition = swimPosition;}
 
@@ -105,6 +105,7 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 		public void setBikePosition(int bikePosition) {this.bikePosition = bikePosition;}
 
 		public String getScoutedAthlete() { return scoutedAthlete!=null ? scoutedAthlete.toString() : null; }
+		public String getScoutedAthleteId() { return scoutedAthlete!=null ? scoutedAthlete.getId() : null; }
 
 		public void onScoutedAthleteF4(ActionEvent event) {
             IdTextSelection idts = IdTextSelection.createInstance();
@@ -295,6 +296,11 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
         m_popup.open(Page.COMPETITIONSELECTION.getUrl(), "Wettkampfsuche", 800, 600, this);
     }
 
+    public void onCompetitionClicked(ActionEvent event) {
+    	if(competition==null) return;
+		loadEntityDetailPage(Entity.COMPETITION, competition.getId(), competition.toString());
+	}
+
     /**
      * F4 Help for categories depending on competition
      * @param event
@@ -385,7 +391,7 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
                 // clear grid
                 m_gridImport.getItems().clear();
                 for (int r = startRow; r < rows; r++) {
-                    HSSFRow row = sheet.getRow(r);                    
+                    HSSFRow row = sheet.getRow(r);
                     // initialize variables
                     int position = 0;
                     String strPosition;
@@ -403,15 +409,15 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
                     if(rowAthleteLastname>0) lastName = row.getCell(rowAthleteLastname-1).toString();
                     if(rowAthleteFirstname>0)  firstName = row.getCell(rowAthleteFirstname-1).toString();
                     String athlete = firstName + WHITESPACE + lastName;
-                    PersonEntity.Data scoutedAthlete = scoutedAthletesData.get(athlete);                       
+                    PersonEntity.Data scoutedAthlete = scoutedAthletesData.get(athlete);
                     if(rowSwimSplit>0) swimSplit = row.getCell(rowSwimSplit-1).toString();
                     if(rowBikeSplit>0) bikeSplit = row.getCell(rowBikeSplit-1).toString();
                     if(rowRunSplit>0) runSplit = row.getCell(rowRunSplit-1).toString();
-                    if(rowTime>0) time = row.getCell(rowTime-1).toString();                    
+                    if(rowTime>0) time = row.getCell(rowTime-1).toString();
                     // add to table
                     m_gridImport.getItems().add(new GridImportItem(athlete.trim(), scoutedAthlete, position, time, swimSplit, bikeSplit, runSplit));
                 }
-                // get best values by sorting, filter out DNF and DSQ                
+                // get best values by sorting, filter out DNF and DSQ
                 List<GridImportItem> itemsCopy = new ArrayList<GridImportItem>();
                 for(GridImportItem item : m_gridImport.getItems()) {
                 	// mark all entries, where a scouted athlete was found
@@ -432,7 +438,7 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
     				});
                 	// set swim position
                 	int position = 1;
-                	for(GridImportItem item : itemsCopy) {                		
+                	for(GridImportItem item : itemsCopy) {
                 		item.setSwimPosition(position++);
                 	}
                 	// set best
@@ -481,7 +487,7 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
                     bestRunner = itemsCopy.get(0).getAthlete();
                     bestRunSplit = itemsCopy.get(0).getRunSplit();
                     importBestRun = true;
-                }   
+                }
                 Statusbar.outputSuccess(m_gridImport.getItems().size() + WHITESPACE + "Items found!");
                 // set status
                 statusMapping = false;
@@ -492,7 +498,20 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
         }
     }
 
+    /**
+     * Import results into DB
+     * @param event
+     */
     public void onImport(ActionEvent event) {
+    	// check preconditions
+    	if(competition==null) {
+    		Statusbar.outputAlert("You have to set a competition!");
+    		return;
+    	}
+    	if(isEmpty(category)) {
+    		Statusbar.outputAlert("You have to choose a category!");
+    		return;
+    	}
     	// check if data to import exists / any item marked?
     	final Set<GridImportItem> items = m_gridImport.getSelectedItems();
     	final Competitions competition = this.competition;
@@ -504,26 +523,37 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 			new IYesNoCancelListener() {
 				public void reactOnCancel() {}
 				public void reactOnNo() {}
-				public void reactOnYes() {					
+				public void reactOnYes() {
 					// update competition
-					getLogic().getImportLogic().createOrUpdateCategory(competition, category, bestSwimmer, bestSwimSplit);
+					if(!getLogic().getImportLogic().createOrUpdateCategory(
+							competition.getId(), category,
+							importBestSwim, bestSwimmer, bestSwimSplit,
+							importBestBike, bestBiker, bestBikeSplit,
+							importBestRun, bestRunner, bestRunSplit)) {
+						Statusbar.outputAlert("Error updating the competition details!\n");
+					}
 					// update results
 					int success = 0;
 					int error = 0;
 					for(GridImportItem item : items) {
 						// create
-						if(getLogic().getImportLogic().createOrUpdateResult(competition, category, item)) {
+						if(getLogic().getImportLogic().createOrUpdateResult(
+								competition, category,
+								item.getAthlete(), item.getScoutedAthleteId(),
+								item.getPosition(), item.getTime(),
+								item.getSwimSplit(), item.getRunSplit(), item.getBikeSplit(),
+								item.getSwimPosition(), item.getRunPosition(), item.getBikePosition())) {
 							success++;
 						} else {
 							error++;
 						}
-					}				
+					}
 					// output Result
-			    	Statusbar.outputAlert("Import done!", "Import", "Successfull : " + success + "/nErroreous   : " + error);
+			    	Statusbar.outputAlert("\nImport done!", "Import", "Successfull : " + success + "\nErroreous   : " + error);
 			    	// Refresh WPFunctionTree
-			    	reloadFunctionTree();				
+			    	reloadFunctionTree();
 			}
 		});
-		ynp.getModalPopup().setLeftTopReferenceCentered();    	
+		ynp.getModalPopup().setLeftTopReferenceCentered();
     }
 }
