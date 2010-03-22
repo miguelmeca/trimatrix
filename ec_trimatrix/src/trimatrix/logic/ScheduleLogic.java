@@ -69,6 +69,13 @@ public class ScheduleLogic {
 		return cal.getTime();
 	}
 
+	public Date addSecondsToDate(Date date, int seconds) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.add(Calendar.SECOND, seconds);
+		return cal.getTime();
+	}
+
 	public DayInfos getDayInfos(String athleteId, Date date) {
 		DayInfosId dayInfosId = new DayInfosId(date, athleteId);
 		DayInfos dayInfos = daoLayer.getDayInfosDAO().findById(dayInfosId);
@@ -133,6 +140,11 @@ public class ScheduleLogic {
 			schedule.setDuration(duration);
 			entityLayer.getScheduleEntity().save(schedule);
 		}
+	}
+
+	public int getDifference(Date dateLow, Date dateHigh) {
+		long diffMsec = dateHigh.getTime() - dateLow.getTime();
+		return (int) (Math.abs(diffMsec) / 1000);
 	}
 
 	public void changeStart(String scheduleId, Timestamp start) throws Exception {

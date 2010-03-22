@@ -19,6 +19,7 @@ import trimatrix.db.ZonesDefinition;
 import trimatrix.logic.helper.ScheduleRun;
 import trimatrix.ui.ScheduleUI.ScheduleItem;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
+import trimatrix.utils.Helper;
 
 @CCGenClass(expressionBase = "#{d.ScheduleChangePopUp}")
 public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Serializable {
@@ -57,8 +58,8 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
     public Date getStart() { return scheduleItem.getStart(); }
     public void setStart(Date start) { scheduleItem.setStart(new Timestamp(start.getTime())); }
 
-    public Date getEnd() { return scheduleItem.getEnd(); }
-    public void setEnd(Date end) { scheduleItem.setEnd(new Timestamp(end.getTime())); }
+    public String getDuration() { return Helper.calculateTime(scheduleItem.getDuration().intValue()*60, true); }
+    public void setDuration(String duration) { scheduleItem.setDuration(Helper.calculateSeconds(duration).longValue()/60); }
 
     public void prepareCallback(IPopupCallback callback, ScheduleItem scheduleItem) {
     	this.callback = callback;
@@ -167,6 +168,7 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 //	            return;
 //	        }
 			scheduleRun.setDuration(correctTimeInput(scheduleRun.getDuration()));
+			recalculateEnd();
 	    }
 
 		public void onChangeIntensity(ActionEvent event) {
@@ -180,5 +182,13 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 			scheduleRun.setHrHigh(definition.getHrHigh());
 		}
     }
+
+	private void recalculateEnd() {
+		long duration = 0;
+		for(GridRunItem item : gridRun.getItems()) {
+			duration += Helper.calculateSeconds(item.getDuration());
+		}
+		scheduleItem.setDuration(duration/60);
+	}
 
 }
