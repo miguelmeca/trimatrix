@@ -17,7 +17,7 @@
 <t:pane id="g_3" height="100%" rowalignmenty="top" >
 <t:rowdistance id="g_4" />
 <t:row id="g_5" >
-<t:combobox id="g_6" actionListener="#{d.ScheduleUI.onChangeAthlete}" flush="true" font="size:12;weight:bold" validvaluesbinding="#{helper.vvb.myathletes}" value="#{d.ScheduleUI.athleteID}" width="100%" withnullitem="false" />
+<t:combobox id="g_6" actionListener="#{d.ScheduleUI.onChangeAthlete}" flush="true" font="size:12;weight:bold" validvaluesbinding="#{helper.vvb.myathletesandme}" value="#{d.ScheduleUI.athleteID}" width="100%" withnullitem="false" />
 </t:row>
 <t:rowdistance id="g_7" height="10" />
 <t:row id="g_8" >
