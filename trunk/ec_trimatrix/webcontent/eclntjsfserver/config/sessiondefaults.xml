@@ -20,5 +20,5 @@ comes to the server side.
     style="trimatrix"
     language="de"
     country="DE"
-    takeoverclientlocalesettings="false"
+    takeoverclientlocalesettings="true"
 />

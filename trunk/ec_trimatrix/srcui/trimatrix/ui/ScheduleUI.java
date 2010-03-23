@@ -274,6 +274,8 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 						BufferedContentMgr.remove(report);
 					}
 				});
+		// set calendar to actual user
+		setAthleteID(getServiceLayer().getDictionaryService().getMyPerson().getId());
 		// refresh UI
 		refresh();
 	}

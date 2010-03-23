@@ -204,6 +204,7 @@ public final class Constants {
 		COMPSUBTYPE(SQLExecutorService.COMPSUBTYPEVALUELISTQUERY ),
 		FUNCTIONS(null),
 		MYATHLETES(null),
+		MYATHLETESANDME(null),
 		SCHEDULETYPE(SQLExecutorService.SCHEDULETYPEVALUELISTQUERY);
 		private String namedQuery;
 		ValueList(String namedQuery) {
