@@ -1,6 +1,7 @@
 package trimatrix.ui;
 
-import static trimatrix.utils.Helper.correctTimeInput;
+import static trimatrix.utils.Helper.*;
+import static trimatrix.utils.Constants.*;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -19,10 +20,11 @@ import trimatrix.db.ZonesDefinition;
 import trimatrix.logic.helper.ScheduleRun;
 import trimatrix.ui.ScheduleUI.ScheduleItem;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
-import trimatrix.utils.Helper;
 
 @CCGenClass(expressionBase = "#{d.ScheduleChangePopUp}")
 public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Serializable {
+	private static final String DURATION = "duration_";	// add underscore because it's used in grid
+	private static final String DURATIONATHLETE = "durationAthlete_"; // add underscore because it's used in grid
 
 	public ScheduleChangePopUp(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
@@ -58,8 +60,8 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
     public Date getStart() { return scheduleItem.getStart(); }
     public void setStart(Date start) { scheduleItem.setStart(new Timestamp(start.getTime())); }
 
-    public String getDuration() { return Helper.calculateTime(scheduleItem.getDuration().intValue()*60, true); }
-    public void setDuration(String duration) { scheduleItem.setDuration(Helper.calculateSeconds(duration).longValue()/60); }
+    public String getDuration() { return calculateTime(scheduleItem.getDuration().intValue()*60, true); }
+    public void setDuration(String duration) { scheduleItem.setDuration(calculateSeconds(duration).longValue()/60); }
 
     public void prepareCallback(IPopupCallback callback, ScheduleItem scheduleItem) {
     	this.callback = callback;
@@ -92,6 +94,14 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 		gridRun.getItems().remove(selected);
 	}
 
+	public boolean isPersonsSight() {
+		return scheduleItem.getPersonId().equals(getServiceLayer().getDictionaryService().getMyPerson().getId());
+	}
+
+	public boolean isCreatorsSight() {
+		return scheduleItem.getCreatorId().equals(getServiceLayer().getDictionaryService().getMyUser().getId());
+	}
+
     // ------------------------------------------------------------------------
 	// logic for run schedules
 	// ------------------------------------------------------------------------
@@ -110,64 +120,18 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 		public GridRunItem(ScheduleRun scheduleRun) {
 			this.scheduleRun = scheduleRun;
 		}
-		public String getDuration() {
-			return scheduleRun.getDuration();
-		}
-		public void setDuration(String duration) {
-			scheduleRun.setDuration(duration);
-		}
-		public String getZone() {
-			return scheduleRun.getZone();
-		}
-		public void setZone(String zone) {
-			scheduleRun.setZone(zone);
-		}
-		public Double getLactateLow() {
-			return scheduleRun.getLactateLow();
-		}
-		public void setLactateLow(Double lactateLow) {
-			scheduleRun.setLactateLow(lactateLow);
-		}
-		public Double getLactateHigh() {
-			return scheduleRun.getLactateHigh();
-		}
-		public void setLactateHigh(Double lactateHigh) {
-			scheduleRun.setLactateHigh(lactateHigh);
-		}
-		public Integer getHrLow() {
-			return scheduleRun.getHrLow();
-		}
-		public void setHrLow(Integer hrLow) {
-			scheduleRun.setHrLow(hrLow);
-		}
-		public Integer getHrHigh() {
-			return scheduleRun.getHrHigh();
-		}
-		public void setHrHigh(Integer hrHigh) {
-			scheduleRun.setHrHigh(hrHigh);
-		}
-		public String getComment() {
-			return scheduleRun.getComment();
-		}
-		public void setComment(String comment) {
-			scheduleRun.setComment(comment);
-		}
 
 		public void onTimeFlush(ActionEvent event) {
 	        // get clientname to separate by source
-//	        String clientname = (String) event.getComponent().getAttributes().get(CLIENTNAME);
-//	        if(ResultEntity.SWIM.equalsIgnoreCase(clientname)) {
-//	            swimSplit = correctTimeInput(swimSplit);
-//	        } else if(ResultEntity.RUN.equalsIgnoreCase(clientname)) {
-//	            runSplit = correctTimeInput(runSplit);
-//	        } else if(ResultEntity.BIKE.equalsIgnoreCase(clientname)) {
-//	            bikeSplit = correctTimeInput(bikeSplit);
-//	        } else if(ResultEntity.OVERALL.equalsIgnoreCase(clientname)) {
-//	            time = correctTimeInput(time);
-//	        } else {
-//	            return;
-//	        }
-			scheduleRun.setDuration(correctTimeInput(scheduleRun.getDuration()));
+	        String clientname = (String) event.getComponent().getAttributes().get(CLIENTNAME);
+	        if(isEmpty(clientname)) return;
+	        if(clientname.startsWith(DURATION)) {
+	        	scheduleRun.setDuration(correctTimeInput(scheduleRun.getDuration()));
+	        } else if(clientname.startsWith(DURATIONATHLETE)) {
+	        	scheduleRun.setDurationAthlete(correctTimeInput(scheduleRun.getDurationAthlete()));
+	        } else {
+	            return;
+	        }
 			recalculateEnd();
 	    }
 
@@ -183,10 +147,16 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 		}
     }
 
+	/**
+	 * Recalculate the duration, loop through the grid items, if
+	 * a corrected duration (by athlete) exists take this, otherwise take
+	 * the planned duration
+	 */
 	private void recalculateEnd() {
 		long duration = 0;
 		for(GridRunItem item : gridRun.getItems()) {
-			duration += Helper.calculateSeconds(item.getDuration());
+			int durationAthlete = calculateSeconds(item.getScheduleRun().getDurationAthlete());
+			duration += durationAthlete>0 ? durationAthlete : calculateSeconds(item.getScheduleRun().getDuration());
 		}
 		scheduleItem.setDuration(duration/60);
 	}

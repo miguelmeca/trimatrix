@@ -6,30 +6,24 @@ import com.twolattes.json.Value;
 @Entity
 public class ScheduleRun {
 
-    @Value
+    @Value(optional=true)
     String comment;
     @Value
     String zone;
     @Value
     String duration;
-    @Value
+    @Value(optional=true)
     Double lactateLow;
-    @Value
+    @Value(optional=true)
     Double lactateHigh;
-    @Value
+    @Value(optional=true)
     Integer hrLow;
-    @Value
+    @Value(optional=true)
     Integer hrHigh;
-    @Value
+    @Value(optional=true)
     String durationAthlete;
-    @Value
-    Double lactateLowAthlete;
-    @Value
-    Double lactateHighAthlete;
-    @Value
-    Integer hrLowAthlete;
-    @Value
-    Integer hrHighAthlete;
+    @Value(optional=true)
+    Integer hrAvgAthlete;
 
     public ScheduleRun() { }
 
@@ -107,35 +101,11 @@ public class ScheduleRun {
 		this.durationAthlete = durationAthlete;
 	}
 
-	public Double getLactateLowAthlete() {
-		return lactateLowAthlete;
+	public Integer getHrAvgAthlete() {
+		return hrAvgAthlete;
 	}
 
-	public void setLactateLowAthlete(Double lactateLowAthlete) {
-		this.lactateLowAthlete = lactateLowAthlete;
-	}
-
-	public Double getLactateHighAthlete() {
-		return lactateHighAthlete;
-	}
-
-	public void setLactateHighAthlete(Double lactateHighAthlete) {
-		this.lactateHighAthlete = lactateHighAthlete;
-	}
-
-	public Integer getHrLowAthlete() {
-		return hrLowAthlete;
-	}
-
-	public void setHrLowAthlete(Integer hrLowAthlete) {
-		this.hrLowAthlete = hrLowAthlete;
-	}
-
-	public Integer getHrHighAthlete() {
-		return hrHighAthlete;
-	}
-
-	public void setHrHighAthlete(Integer hrHighAthlete) {
-		this.hrHighAthlete = hrHighAthlete;
+	public void setHrAvgAthlete(Integer hrAvgAthlete) {
+		this.hrAvgAthlete = hrAvgAthlete;
 	}
 }
