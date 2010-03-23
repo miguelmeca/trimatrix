@@ -533,6 +533,10 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			return getServiceLayer().getTranslationService().getDescription(getType(), TranslationService.TYPE.SCHEDULETYPES);
 		}
 
+		public String getPersonId() {return schedule.getPersonId();}
+
+		public String getCreatorId() {return schedule.getCreatedBy();}
+
 		public String getType() {return schedule.getType();}
 		public void setType(String type) { schedule.setType(type); }
 
@@ -644,7 +648,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			m_popup.setLeftTopReferenceCentered();
 			m_popup.setUndecorated(true);
 			m_popup.open(Constants.Page.SCHEDULECHANGEPOPUP.getUrl(), "Termin",
-					800, 600, scheduleUI);
+					1024, 768, scheduleUI);
 		}
 	}
 
