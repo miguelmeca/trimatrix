@@ -48,6 +48,9 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
     	}
     }
 
+    public Boolean getDone() { return scheduleItem.getDone(); }
+	public void setDone(Boolean done) { scheduleItem.setDone(done); }
+    
     public String getColor() { return scheduleItem.getColor(); }
     public void setColor(String color) { scheduleItem.setColor(color); }
 
@@ -82,6 +85,15 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
     	scheduleItem.setDetails(getLogic().getScheduleLogic().buildString(runList));
     	callback.save();
     }
+    
+    /**
+     * Set unit to done, save and leave popup
+     * @param ae
+     */
+    public void onSetDone(ActionEvent ae) {
+    	setDone(true);
+    	callback.save();
+	}
 
     public void onAddItem(ActionEvent ae) {
 		GridRunItem item = new GridRunItem();
