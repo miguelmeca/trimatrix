@@ -1,14 +1,14 @@
 .classa
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     color: #FFFFC0;
     text-decoration: underline;
 }
 .classa_selected
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     color: #FFFFC0;
     text-decoration: underline;
     background-color: #FFFFE0;
@@ -16,7 +16,7 @@
 .classa_disabled
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     color: #FFFFC0;
     text-decoration: none;
 }
@@ -25,72 +25,69 @@
 {
     backgfixgound-color:#FFFFFF;
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     margin-left:0;
     margin-top:0;
     margin-right:0;
     margin-bottom:0;
     overflow:auto;
-    background-image:url(bodyback.jpg);
-    background-repeat:no-repeat;
-    background-color:#1f357e;    
 }
 
 .classbutton
 {
-    white-space: nowrap;    
+    white-space: nowrap;
 	font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     cursor:pointer;
 }
 .classbuttoninner
 {
-    white-space: nowrap;    
+    white-space: nowrap;
 	font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     cursor:pointer;
 }
 .classbuttonplain
 {
-    white-space: nowrap;    
+    white-space: nowrap;
 	font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     border-width:0;
     background-color:transparent;
     cursor:pointer;
 }
 .classbutton_selected
 {
-    white-space: nowrap;    
+    white-space: nowrap;
 	font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     cursor:pointer;
     background-color: #FFFFE0;
 }
 .classbutton_disabled
 {
-    white-space: nowrap;    
+    white-space: nowrap;
 	font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
 }
 
 .classcheckbox
 {
-    font-size:12px; 
+    font-size:12px;
     border: 1px solid #C0C0C0;
     color:#FFFFFF;
 }
 .classcheckboxlabel
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     color: #FFFFFF;
     height:1;
 }
 .classcheckbox_selected
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     border: 1px solid #C0C0C0;
     background-color: #FFFFE0;
     color:#FFFFFF;
@@ -98,7 +95,7 @@
 .classcheckbox_disabled
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     border: 1px solid #C0C0C0;
     background-color: #F0F0F0;
     color:#F0F0F0;
@@ -107,20 +104,20 @@
 .classcombobox
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     border: 1px solid #C0C0C0;
 }
 .classcombobox_selected
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     border: 1px solid #C0C0C0;
     background-color: #FFFFE0;
 }
 .classcombobox_disabled
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     border: 1px solid #C0C0C0;
     background-color: #F0F0F0;
 }
@@ -128,20 +125,20 @@
 .classfield
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     border: 1px solid #C0C0C0;
 }
 .classfield_selected
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     border: 1px solid #C0C0C0;
     background-color: #FFFFE0;
 }
 .classfield_disabled
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     border: 1px solid #C0C0C0;
     background-color: #F0F0F0;
 }
@@ -149,20 +146,20 @@
 .classfileupload
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     border: 1px solid #C0C0C0;
 }
 .classfileupload_selected
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     border: 1px solid #C0C0C0;
     background-color: #FFFFE0;
 }
 .classfileupload_disabled
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     border: 1px solid #C0C0C0;
     background-color: #F0F0F0;
 }
@@ -170,20 +167,20 @@
 .classfixgrid
 {
     background-color:#F0F0F0;
-    font-size:12px; 
+    font-size:12px;
     border:1 #C0C0C0 solid;
 }
 .classfixgridheaderlabel
 {
     background-color:#404040;
-    font-size:12px; 
+    font-size:12px;
     padding:3;
     color:#F0F0F0;
     font-weight:bold
 }
 .classfixgridbuttonprevious
 {
-    font-size:12px; 
+    font-size:12px;
     border:0;
     width:20;
     height:100%;
@@ -194,7 +191,7 @@
 }
 .classfixgridbuttonpprevious
 {
-    font-size:12px; 
+    font-size:12px;
     border:0;
     width:40;
     height:100%;
@@ -205,7 +202,7 @@
 }
 .classfixgridbuttonnext
 {
-    font-size:12px; 
+    font-size:12px;
     border:0;
     width:20;
     height:100%;
@@ -216,7 +213,7 @@
 }
 .classfixgridbuttonnnext
 {
-    font-size:12px; 
+    font-size:12px;
     border:0;
     width:40;
     height:100%;
@@ -229,67 +226,67 @@
 .classlabel
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     color: #FFFFFF;
-    white-space: nowrap;    
+    white-space: nowrap;
 }
 .classlabel_selected
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     color: #FFFFFF;
     background-color: #FFFFE0;
-    white-space: nowrap;    
+    white-space: nowrap;
 }
 .classlabel_disabled
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     color: #FFFFFF;
-    white-space: nowrap;    
+    white-space: nowrap;
 }
 
 .classlink
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     color: #FFFFC0;
     text-decoration: underline;
-    white-space: nowrap;    
+    white-space: nowrap;
 }
 .classlink_selected
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     color: #FFFFC0;
     background-color: #FFFFE0;
     text-decoration: underline;
-    white-space: nowrap;    
+    white-space: nowrap;
 }
 .classlink_disabled
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     color: #FFFFC0;
     text-decoration: none;
-    white-space: nowrap;    
+    white-space: nowrap;
 }
 
 .classpane
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
 }
 .classpane_selected
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     background-color: #FFFFE0;
 }
 .classpane_disabled
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
 }
 
 .classpopupouter
@@ -311,9 +308,6 @@
     top:200;
     width:150;
     height:150;
-    background-color:#1f357e;    
-    background-image:url(bodyback.jpg);
-    background-repeat:no-repeat;
     border: 1px solid #C0C0C0;
 }
 .classpopupinnercontent
@@ -323,26 +317,26 @@
 
 .classradiobutton
 {
-    font-size:12px; 
+    font-size:12px;
     border: 1px solid #C0C0C0;
     color:#FFFFFF;
 }
 .classradiobuttonlabel
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     color: #FFFFFF;
     height:1;
 }
 .classradiobutton_selected
 {
-    font-size:12px; 
+    font-size:12px;
     border: 1px solid #C0C0C0;
     color:#FFFFFF;
 }
 .classradiobutton_disabled
 {
-    font-size:12px; 
+    font-size:12px;
     border: 1px solid #C0C0C0;
     color:#FFFFFF;
 }
@@ -350,60 +344,60 @@
 .classrow
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
 }
 
 .classscrollpane
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     overflow:auto;
 }
 
 .classstatusbar
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     background-color:#000040;
 }
 .classstatusbartextmessage
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     color:#FFFFFF;
     text-align:left;
-    white-space: nowrap;    
+    white-space: nowrap;
 }
 .classstatusbartextsuccess
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     color:#E0FFE0;
     text-align:right;
-    white-space: nowrap;    
+    white-space: nowrap;
 }
 .classstatusbartextwarning
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     color:#FFFFE0;
     text-align:right;
-    white-space: nowrap;    
+    white-space: nowrap;
 }
 .classstatusbartexterror
 {
     font-family:Trebuchet MS;
     font-size:12px;
-    font-weight:bold; 
+    font-weight:bold;
     color:#FFC0C0;
     text-align:right;
-    white-space: nowrap;    
+    white-space: nowrap;
 }
 
 .classtable
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
 }
 
 .classsubmitblocker
@@ -423,20 +417,20 @@
 .classtextarea
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     border: 1px solid #C0C0C0;
 }
 .classtextarea_selected
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     border: 1px solid #C0C0C0;
     background-color: #FFFFE0;
 }
 .classtextarea_disabled
 {
     font-family:Trebuchet MS;
-    font-size:12px; 
+    font-size:12px;
     border: 1px solid #C0C0C0;
     background-color: #F0F0F0;
 }
@@ -448,8 +442,8 @@
 .classtitlebartext
 {
     font-family:Trebuchet MS;
-    font-size:16px; 
+    font-size:16px;
     font-weight:bold;
     color: #FFFFFF;
-    white-space: nowrap;    
-}		
+    white-space: nowrap;
+}
