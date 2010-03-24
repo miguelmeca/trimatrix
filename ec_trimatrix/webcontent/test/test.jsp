@@ -103,14 +103,16 @@
 <t:rowdistance id="g_70" />
 <t:row id="g_71" >
 <t:label id="g_72" text="Herzfrequenz" width="150" />
-<t:field id="g_73" text="#{d.TestUI.hr}" width="50" />
+<t:field id="g_73" background="#FF0000" border="noborder" focusable="false" text="#{d.TestUI.hr}" tooltip="GA 00:20:00" userhint="GA 00:20:00" width="50" />
+<t:field id="g_74" background="#0000FF" border="noborder" focusable="false" text="#{d.TestUI.hr}" width="50" />
+<t:field id="g_75" background="#00FF00" border="noborder" focusable="false" text="#{d.TestUI.hr}" width="50" />
 </t:row>
 </t:pane>
-<t:button id="g_74" actionListener="#{d.TestUI.onCalculate}" text="Berechne Werte" />
+<t:button id="g_76" actionListener="#{d.TestUI.onCalculate}" text="Berechne Werte" />
 </t:row>
-<t:rowdistance id="g_75" height="15" />
-<t:row id="g_76" >
-<t:button id="g_77" actionListener="#{d.TestUI.onRefreshDiagram}" text="Neuladen" />
+<t:rowdistance id="g_77" height="15" />
+<t:row id="g_78" >
+<t:button id="g_79" actionListener="#{d.TestUI.onRefreshDiagram}" text="Neuladen" />
 </t:row>
 </t:foldablepane>
 </t:row>

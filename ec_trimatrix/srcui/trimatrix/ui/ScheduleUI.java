@@ -34,6 +34,7 @@ import org.eclnt.workplace.WorkpageDefaultLifecycleListener;
 
 import trimatrix.db.DayInfos;
 import trimatrix.db.Schedules;
+import trimatrix.logic.helper.ScheduleRun;
 import trimatrix.reports.excel.PerformanceChart;
 import trimatrix.services.TranslationService;
 import trimatrix.ui.utils.IPopUpCallback;
@@ -46,6 +47,10 @@ import trimatrix.utils.Helper;
 public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		Serializable {
 
+	private static enum SCHEDULETYPES {
+		RUN, BIKE, SWIM, PRIVATE
+	}
+	
     public void onChangeAthlete(ActionEvent event) {
     	refresh();
     }
@@ -354,7 +359,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			st.setScheduleleft(item.getStartInMinutes() + "");
 			st.setSchedulewidth(expressionBase + "ScheduleUI.scheduleItems["
 					+ counter + "].duration}");
-			st.setText("\n" + item.getDescription());
+			st.setText("\n" + item.getSummary());
 			st.setBgpaint("roundedborder(0,0,100%,100%,10,10," + background
 					+ ",2);rectangle(0,0,100%,16," + background
 					+ ");write(5,0," + item.getTypeDesc() + ",12," + foreground
@@ -537,6 +542,9 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 
 		public String getCreatorId() {return schedule.getCreatedBy();}
 
+		public Boolean getDone() { return schedule.getDone(); }
+		public void setDone(Boolean done) { schedule.setDone(done); }
+		
 		public String getType() {return schedule.getType();}
 		public void setType(String type) { schedule.setType(type); }
 
@@ -557,6 +565,24 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 
 		public String getDescription() {return schedule.getDescription();}
 		public void setDescription(String description) {schedule.setDescription(description);}
+		
+		/**
+		 * Build summary string for schedule detail in calendar view
+		 * @return summary string
+		 */
+		public String getSummary() {
+			StringBuffer sb = new StringBuffer();
+			if(SCHEDULETYPES.RUN.toString().equalsIgnoreCase(getType())) {
+				List<ScheduleRun> runList = getLogic().getScheduleLogic().getScheduleRuns(schedule.getDetails());					
+				for(ScheduleRun run : runList) {
+					if(sb.length()>0) sb.append(Constants.NEWLINE);
+					sb.append(run.getDuration() + Constants.WHITESPACE + run.getZone());				
+				}				
+			} else {
+				sb.append(getDescription());
+			}
+			return sb.toString();
+		}
 
 		public Boolean getTemplate() {return schedule.getTemplate();}
 		public void setTemplate(Boolean template) {schedule.setTemplate(template);}
