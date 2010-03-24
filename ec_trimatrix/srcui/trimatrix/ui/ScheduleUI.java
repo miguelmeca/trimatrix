@@ -34,6 +34,7 @@ import org.eclnt.workplace.WorkpageDefaultLifecycleListener;
 
 import trimatrix.db.DayInfos;
 import trimatrix.db.Schedules;
+import trimatrix.db.ZonesDefinition;
 import trimatrix.logic.helper.ScheduleRun;
 import trimatrix.reports.excel.PerformanceChart;
 import trimatrix.services.TranslationService;
@@ -50,7 +51,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 	private static enum SCHEDULETYPES {
 		RUN, BIKE, SWIM, PRIVATE
 	}
-	
+
     public void onChangeAthlete(ActionEvent event) {
     	refresh();
     }
@@ -363,7 +364,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			st.setBgpaint("roundedborder(0,0,100%,100%,10,10," + background
 					+ ",2);rectangle(0,0,100%,16," + background
 					+ ");write(5,0," + item.getTypeDesc() + ",12," + foreground
-					+ ",lefttop)");
+					+ ",bold,lefttop)");
 			st.setBackground(item.getColor() + "60"); // Add Transparency
 			st.setForeground(foreground);
 			st.setPopupmenu("SCHEDULEITEM");
@@ -544,7 +545,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 
 		public Boolean getDone() { return schedule.getDone(); }
 		public void setDone(Boolean done) { schedule.setDone(done); }
-		
+
 		public String getType() {return schedule.getType();}
 		public void setType(String type) { schedule.setType(type); }
 
@@ -565,7 +566,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 
 		public String getDescription() {return schedule.getDescription();}
 		public void setDescription(String description) {schedule.setDescription(description);}
-		
+
 		/**
 		 * Build summary string for schedule detail in calendar view
 		 * @return summary string
@@ -573,11 +574,14 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		public String getSummary() {
 			StringBuffer sb = new StringBuffer();
 			if(SCHEDULETYPES.RUN.toString().equalsIgnoreCase(getType())) {
-				List<ScheduleRun> runList = getLogic().getScheduleLogic().getScheduleRuns(schedule.getDetails());					
+				List<ScheduleRun> runList = getLogic().getScheduleLogic().getScheduleRuns(schedule.getDetails());
 				for(ScheduleRun run : runList) {
 					if(sb.length()>0) sb.append(Constants.NEWLINE);
-					sb.append(run.getDuration() + Constants.WHITESPACE + run.getZone());				
-				}				
+					// get zone
+					ZonesDefinition definition = getDaoLayer().getZonesDefinitionDAO().findById(run.getZone());
+					if(definition==null) continue;
+					sb.append(run.getDuration() + Constants.WHITESPACE + definition.getShortcut());
+				}
 			} else {
 				sb.append(getDescription());
 			}
