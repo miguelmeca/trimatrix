@@ -79,5 +79,12 @@
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/slf4j-api-1.5.10.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/slf4j-log4j12-1.5.10.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/jasperreports.jar"/>
+	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/zcommon.jar"/>
+	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/zcommons-el.jar"/>
+	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/zhtml.jar"/>
+	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/zk.jar"/>
+	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/zkplus.jar"/>
+	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/zul.jar"/>
+	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/zweb.jar"/>
 	<classpathentry kind="output" path="webcontent/WEB-INF/classes"/>
 </classpath>

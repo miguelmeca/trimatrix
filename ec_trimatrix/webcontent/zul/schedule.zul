@@ -1,0 +1,13 @@
+<?page title="Schedule" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Schedule" border="normal" apply="trimatrix.zul.ScheduleZUL">
+	<grid>
+        <rows>
+            <row>First Name: <textbox id="firstName" forward="onChange=onFirstName"/></row>
+            <row>Last Name: <textbox id="lastName" forward="onChange=onLastName"/></row>
+            <row>Full Name: <label id="fullName"/></row>
+        </rows>
+    </grid>
+    <button label="Abschliessen" forward="onSave()" />
+</window>
+</zk>
