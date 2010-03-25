@@ -1,0 +1,5 @@
+#Thu Mar 25 22:00:51 CET 2010
+eclipse.preferences.version=1
+visualeditor.custom_web_content_path=/ec_trimatrix
+visualeditor.custom_zk_package=zk-bin-3.6.3
+visualeditor.is_use_zks_lib=true
