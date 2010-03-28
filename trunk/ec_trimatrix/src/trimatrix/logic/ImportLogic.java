@@ -83,7 +83,8 @@ public class ImportLogic {
 			result.setFinalPosition(String.valueOf(position));
 			result.setTime(time);
 			// type
-			if(CompetitionEntity.TRIATHLON.equals(competition.getType())) {
+			if(CompetitionEntity.TRIATHLON.equals(competition.getType()) ||
+			   CompetitionEntity.XTERRA.equals(competition.getType())		) {
 				ResultsTria tria = result.getResultsTria();
 				if(tria==null) {
 					tria = new ResultsTria(result.getId());

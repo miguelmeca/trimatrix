@@ -252,13 +252,13 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 				// special handling for some nodes
 				if (functionTree.key == Constants.FunctionNode.SCOUTED_OWN) {
 					// reset status
-					node.setStatus(FIXGRIDTreeItem.STATUS_OPENED);
+					node.setStatus(FIXGRIDTreeItem.STATUS_CLOSED);
 					// add athletes
 					List<IEntityData> athletes = FUNCTIONTREELOGIC.getMyScoutedAthletes();
 					for (IEntityData athlete : athletes) {
 						FunctionNode athlete_node = new DropableFunctionNode(node, Constants.Page.ENTITYDETAIL.getUrl(), Constants.P_ENTITY, functionTree.entity + ":" + athlete.getId());
 						athlete_node.setId(athlete.getId());
-						athlete_node.setStatus(FIXGRIDTreeItem.STATUS_OPENED);
+						athlete_node.setStatus(FIXGRIDTreeItem.STATUS_CLOSED);
 						athlete_node.setOpenMultipleInstances(false);
 						athlete_node.setText(athlete.toString());
 						athlete_node.setParam(Constants.P_ENTITY, Constants.Entity.MYSCOUTEDATHLETES.name());
@@ -280,7 +280,7 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 					}
 				} else if(functionTree.key == Constants.FunctionNode.RESULTS_SCOUT) {
 					// reset status
-					node.setStatus(FIXGRIDTreeItem.STATUS_OPENED);
+					node.setStatus(FIXGRIDTreeItem.STATUS_CLOSED);
 					// node per type of result e.g. triathlon
 					buildResultsTypeNodes(functionTree, node, null);
 				}
@@ -307,7 +307,7 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 			String pageId = athleteId==null ? entity.name() + ":" + value.getValue() : entity.name() + ":" + value.getValue() + ":" + athleteId;
 			FunctionNode results_type_node = new FunctionNode(results_node, Constants.Page.ENTITYLIST.getUrl());
 			results_type_node.setId(pageId);
-			results_type_node.setStatus(FIXGRIDTreeItem.STATUS_OPENED);
+			results_type_node.setStatus(FIXGRIDTreeItem.STATUS_CLOSED);
 			results_type_node.setOpenMultipleInstances(false);
 			results_type_node.setText(value.getText());
 			if(athleteId!=null) results_type_node.setParam(Constants.P_PERSON, athleteId);
@@ -319,7 +319,7 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 			buildResultsSubtypeNodes(functionTree, results_type_node, athleteId, value.getValue());
 		}
 	}
-	
+
 	/**
 	 * Build node per subtype of result e.g. triathlon-sprint
 	 * @param results_node

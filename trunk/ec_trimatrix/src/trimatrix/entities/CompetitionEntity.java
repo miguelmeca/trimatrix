@@ -29,7 +29,7 @@ public final class CompetitionEntity extends AEntity {
 
     // Comp Types
     public static final String TRIATHLON = "tria";
-
+    public static final String XTERRA = "terra";
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IUserEntity#getGridMetaData()
 	 */

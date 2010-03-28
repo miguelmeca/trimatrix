@@ -130,7 +130,7 @@
 		</property>
 	</bean>
 
-	<bean id="valueListBindigService" class="trimatrix.services.ValueListBindingService"
+	<bean id="valueListBindingService" class="trimatrix.services.ValueListBindingService"
 		abstract="false" lazy-init="default" autowire="default"
 		dependency-check="default">
 		<property name="sqlExecutorService">
@@ -147,11 +147,23 @@
 		</property>
 	</bean>
 
+
+	<bean id="defaultValueBindingService" class="trimatrix.services.DefaultValueBindingService"
+		abstract="false" lazy-init="default" autowire="default"
+		dependency-check="default">
+		<property name="dictionaryService">
+			<ref bean="dictionaryService" />
+		</property>
+		<property name="daoLayer">
+			<ref bean="daoLayer" />
+		</property>
+	</bean>
+
 	<bean id="serviceLayer" class="trimatrix.services.ServiceLayer"
 		abstract="false" lazy-init="default" autowire="default"
 		dependency-check="default">
 		<property name="valueListBindingService">
-			<ref bean="valueListBindigService" />
+			<ref bean="valueListBindingService" />
 		</property>
 		<property name="dictionaryService">
 			<ref bean="dictionaryService" />
@@ -173,6 +185,9 @@
 		</property>
 		<property name="mailService">
 			<ref bean="mailService" />
+		</property>
+		<property name="defaultValueBindingService">
+			<ref bean="defaultValueBindingService"/>
 		</property>
 	</bean>
 

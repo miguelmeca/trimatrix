@@ -13,6 +13,7 @@ public class ServiceLayer {
 	private SQLExecutorService sqlExecutorService;
 	private AuthorizationService authorizationService;
 	private MailService mailService;
+	private DefaultValueBindingService defaultValueBindingService;
 
 	public ValueListBindingService getValueListBindingService() {
 		return valueListBindingService;
@@ -69,7 +70,7 @@ public class ServiceLayer {
 
 	public void setMailService(MailService mailService) {
 		this.mailService = mailService;
-	}	
+	}
 
 	public TranslationService getTranslationService() {
 		return translationService;
@@ -79,7 +80,15 @@ public class ServiceLayer {
 		this.translationService = translationService;
 	}
 
+	public DefaultValueBindingService getDefaultValueBindingService() {
+		return defaultValueBindingService;
+	}
+
+	public void setDefaultValueBindingService(DefaultValueBindingService defaultValueBindingService) {
+		this.defaultValueBindingService = defaultValueBindingService;
+	}
+
 	public static ServiceLayer getFromApplicationContext(ApplicationContext ctx) {
 		return (ServiceLayer) ctx.getBean("serviceLayer");
-	}	
+	}
 }

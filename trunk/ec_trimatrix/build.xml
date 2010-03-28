@@ -13,6 +13,11 @@
 		<copy file="../ec_trimatrix/src/hibernate.cfg.xml_production" tofile="../ec_trimatrix/webcontent/WEB-INF/classes/hibernate.cfg.xml" overwrite="true"/>
 		<copy file="../ec_trimatrix/webcontent/html/googlewrapper.html_production" tofile="../ec_trimatrix/webcontent/html/googlewrapper.html" overwrite="true"/>
 
+		<!-- copy resource files, because sometimes out of sync -->
+		<copy todir="../ec_trimatrix/webcontent/eclnthotdeploy/classes/trimatrix/resources" overwrite="true">
+			<fileset dir="../ec_trimatrix/srcui/trimatrix/resources"/>
+		</copy>
+
 		<jar destfile="${dist}/trimatrix.war">
 			<fileset dir="../ec_trimatrix/webcontent">
 				<include name="**/**" />
@@ -26,6 +31,7 @@
 				<exclude name="**/*.html_*" />
 				<exclude name="**/mysql-connector-java*" />
 				<exclude name="**/jasperreports*" />
+				<exclude name="**/testclasses/**" />
 			</fileset>
 		</jar>
 
@@ -37,7 +43,7 @@
 	</target>
 
 	<target name="clean" depends="">
-		<!-- distverzeichnis löschen-->
+		<!-- distverzeichnis löschen -->
 		<delete quiet="yes">
 			<fileset dir="${dist}" />
 		</delete>

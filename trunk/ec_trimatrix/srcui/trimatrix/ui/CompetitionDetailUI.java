@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import javax.faces.event.ActionEvent;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.ISetId;
 import org.eclnt.jsfserver.defaultscreens.IdTextSelection;
@@ -25,8 +26,9 @@ import trimatrix.exceptions.MandatoryCheckException;
 import trimatrix.logic.helper.Limit;
 import trimatrix.structures.SListVariant;
 import trimatrix.utils.Constants;
-import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.Entity;
+
+import static trimatrix.utils.Helper.*;
 
 @SuppressWarnings("serial")
 @CCGenClass(expressionBase = "#{d.CompetitionDetailUI}")
@@ -45,72 +47,58 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 
 	public class GridLimitsItem extends FIXGRIDItem implements java.io.Serializable {
 		private Limit limit;
-
-		public Limit getLimit() {
-			return limit;
-		}
+		public Limit getLimit() {return limit;}
 
 		public GridLimitsItem() {
 			limit = getLogic().getCompetitionLogic().createLimit();
+			// check defaulting
+			String strTolerance = getServiceLayer().getDefaultValueBindingService().getDVBinding("tolerance");
+			if(!isEmpty(strTolerance) && StringUtils.isNumeric(strTolerance)) {
+				Integer tolerance = Integer.valueOf(strTolerance);
+				limit.getTolerances()[0] = tolerance;	//swim
+				limit.getTolerances()[1] = tolerance;	//run
+				limit.getTolerances()[2] = tolerance;	//bike
+			}
 		}
 
 		public GridLimitsItem(Limit limit) {
 			this.limit = limit;
 		}
 
-		public String getCategory() {
-			return limit.getCategory();
-		}
+		public String getCategory() {return limit.getCategory();}
+		public void setCategory(String category) {limit.setCategory(category);}
 
-		public void setCategory(String category) {
-			limit.setCategory(category);
-		}
+		public Boolean getSwimsuit() {return limit.getSwimsuit();}
+		public void setSwimsuit(Boolean swimsuit) {limit.setSwimsuit(swimsuit);}
 
-		public Boolean getSwimsuit() {
-			return limit.getSwimsuit();
-		}
-
-		public void setSwimsuit(Boolean swimsuit) {
-			limit.setSwimsuit(swimsuit);
-		}
-
-		public String getCutoffSwim() {
-			return limit.getLimits()[0];
-		}
-
+		public String getCutoffSwim() {return limit.getLimits()[0];}
 		public void setCutoffSwim(String cutoff) {
 			// check pattern because its possible to enter time or percentage
 			if(!Pattern.compile("(\\d\\d:[0-5]\\d:[0-5]\\d)|(\\d*%)").matcher(cutoff).matches()) {
-				cutoff = Helper.correctTimeInput(cutoff);
+				cutoff = correctTimeInput(cutoff);
 			}
 			// only set value if cutoff is not null or empty
-			if(!Helper.isEmpty(cutoff)) limit.getLimits()[0] = cutoff;
+			if(!isEmpty(cutoff)) limit.getLimits()[0] = cutoff;
 		}
 
-		public String getCutoffRun() {
-			return limit.getLimits()[1];
-		}
-
+		public String getCutoffRun() {return limit.getLimits()[1];}
 		public void setCutoffRun(String cutoff) {
 			// check pattern because its possible to enter time or percentage
 			if(!Pattern.compile("(\\d\\d:[0-5]\\d:[0-5]\\d)|(\\d*%)").matcher(cutoff).matches()) {
-				cutoff = Helper.correctTimeInput(cutoff);
+				cutoff = correctTimeInput(cutoff);
 			}
 			// only set value if cutoff is not null or empty
-			if(!Helper.isEmpty(cutoff)) limit.getLimits()[1] = cutoff;
+			if(!isEmpty(cutoff)) limit.getLimits()[1] = cutoff;
 		}
 
-		public String getCutoffBike() {
-			return limit.getLimits()[2];
-		}
-
+		public String getCutoffBike() {return limit.getLimits()[2];}
 		public void setCutoffBike(String cutoff) {
 			// check pattern because its possible to enter time or percentage
 			if(!Pattern.compile("(\\d\\d:[0-5]\\d:[0-5]\\d)|(\\d*%)").matcher(cutoff).matches()) {
-				cutoff = Helper.correctTimeInput(cutoff);
+				cutoff = correctTimeInput(cutoff);
 			}
 			// only set value if cutoff is not null or empty
-			if(!Helper.isEmpty(cutoff)) limit.getLimits()[2] = cutoff;
+			if(!isEmpty(cutoff)) limit.getLimits()[2] = cutoff;
 		}
 
 		public String getSwimAthlet() { return limit.getSwim()[0]; }
@@ -124,22 +112,36 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 
 		public String getSwimSplit() { return limit.getSwim()[1]; }
 		public void setSwimSplit(String split) {
-			String corrInput = Helper.correctTimeInput(split);
-			if(!Helper.isEmpty(corrInput)) limit.getSwim()[1] = corrInput;
+			String corrInput = correctTimeInput(split);
+			if(!isEmpty(corrInput)) limit.getSwim()[1] = corrInput;
 		}
 
 		public String getRunSplit() { return limit.getRun()[1]; }
 		public void setRunSplit(String split) {
-			String corrInput = Helper.correctTimeInput(split);
-			if(!Helper.isEmpty(corrInput)) limit.getRun()[1] = corrInput;
+			String corrInput = correctTimeInput(split);
+			if(!isEmpty(corrInput)) limit.getRun()[1] = corrInput;
 		}
 
 		public String getBikeSplit() { return limit.getBike()[1]; }
 		public void setBikeSplit(String split) {
-			String corrInput = Helper.correctTimeInput(split);
-			if(!Helper.isEmpty(corrInput)) limit.getBike()[1] = corrInput;
+			String corrInput = correctTimeInput(split);
+			if(!isEmpty(corrInput)) limit.getBike()[1] = corrInput;
 		}
 
+		public Integer getTolSwim() {return limit.getTolerances()[0];}
+		public void setTolSwim(Integer tol) {
+			limit.getTolerances()[0] = tol;
+		}
+
+		public Integer getTolRun() {return limit.getTolerances()[1];}
+		public void setTolRun(Integer tol) {
+			limit.getTolerances()[1] = tol;
+		}
+
+		public Integer getTolBike() {return limit.getTolerances()[2];}
+		public void setTolBike(Integer tol) {
+			limit.getTolerances()[2] = tol;
+		}
 		/**
 		 * F4 Help for category fieldcombo Values are selected from view
 		 * categories
@@ -148,6 +150,16 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		 */
 		public void onCategoryF4(ActionEvent event) {
 			getCategoryF4(this);
+		}
+	}
+
+	public void onChangeType(ActionEvent event) {
+		// hard wired defaulting
+		String type = (String)values.get(CompetitionEntity.TYPE);
+		if(CompetitionEntity.TRIATHLON.equals(type)) {
+			values.put(CompetitionEntity.SUBTYPE, "olympic"); //olympic distance
+		} else if(CompetitionEntity.XTERRA.equals(type)) {
+			values.put(CompetitionEntity.SUBTYPE, "short"); //shortdistance
 		}
 	}
 
@@ -185,7 +197,7 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 	public ValidValuesBinding getCompSubtypesVvb() {
 		// lazy loading
 		String type = (String) values.get(CompetitionEntity.TYPE);
-		if(type==null) return null;
+		if(isEmpty(type)) return null;
 		if(!type.equals(this.type)) m_compSubtypesVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.COMPSUBTYPE, type);
 		return m_compSubtypesVvb;
 	}
@@ -212,6 +224,9 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 
 	public CompetitionDetailUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher, new String[] { CompetitionEntity.DESCRIPTION, CompetitionEntity.TYPE, CompetitionEntity.DATE }, true);
+		// define defaults mapping
+		defaults.put(CompetitionEntity.TYPE, "comptype");
+		defaults.put(CompetitionEntity.SUBTYPE, "compsubtype");
 		// get wrapping entity detail UI bean
 		entityDetailUI = getEntityDetailUI();
 		entityDetailUI.setEntityDetailUI(this);
@@ -235,6 +250,8 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		fillMaps();
 		// set state
 		setState();
+		// set defaults
+		setDefaults();
 	}
 
 	public void validate() throws MandatoryCheckException, EmailNotValidException {
