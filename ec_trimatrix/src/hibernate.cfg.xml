@@ -114,6 +114,7 @@
 		<mapping class="trimatrix.db.UsersHaveRoles" />
 		<mapping class="trimatrix.db.UserPreferences" />
 		<mapping class="trimatrix.db.ImportTemplates" />
+		<mapping class="trimatrix.db.UserDefaults" />
 	</session-factory>
 
 </hibernate-configuration>

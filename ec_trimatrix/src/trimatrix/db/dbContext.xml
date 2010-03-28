@@ -110,6 +110,7 @@
                 <idref local="EntitiesHaveLabelsDAO" />
                 <idref local="EntitiesDAO" />
                 <idref local="DayInfosDAO" />
+                <idref local="UserDefaultsDAO" />
             </list>
         </property>
     </bean>
@@ -215,6 +216,9 @@
         </property>
         <property name="zonesDefinitionDAO">
             <ref bean="ZonesDefinitionDAO" />
+        </property>
+        <property name="userDefaultsDAO">
+            <ref bean="UserDefaultsDAO" />
         </property>
         <property name="relationDAOs">
         	<list>
@@ -454,6 +458,12 @@
 	</bean>
 	<bean id="UserPreferencesDAO"
 		class="trimatrix.db.UserPreferencesDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="UserDefaultsDAO"
+		class="trimatrix.db.UserDefaultsDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>

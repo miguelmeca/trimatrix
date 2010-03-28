@@ -1,13 +1,20 @@
 <?page title="Schedule" contentType="text/html;charset=UTF-8"?>
 <zk>
 <window title="Schedule" border="normal" apply="trimatrix.zul.ScheduleZUL">
-	<grid>
-        <rows>
-            <row>First Name: <textbox id="firstName" forward="onChange=onFirstName"/></row>
-            <row>Last Name: <textbox id="lastName" forward="onChange=onLastName"/></row>
-            <row>Full Name: <label id="fullName"/></row>
-        </rows>
-    </grid>
-    <button label="Abschliessen" forward="onSave()" />
+	<hbox height="30">
+	  <button image="../images/icons/black_prev.png"  forward="onPrevious" style="vertical-align: top;"/>
+	  <space />
+	  <datebox id="dateBox" style="vertical-align: middle;"/>
+	  <space />
+	  <button image="../images/icons/black_next.png" forward="onNext" style="vertical-align: middle;"/>
+ 	</hbox>
+ 	<radiogroup id="units" orient="vertical" forward="onCheck=onChangeUnit"/>
+	<button id="btn1" label="2"/>
+	<button id="btn2" label="4"/>
+	<button id="btn3" label="6"/>
+	<grid id="grid">
+		<columns/>
+	</grid>
+    <button label="Abschliessen" forward="onSave" />
 </window>
 </zk>

@@ -39,6 +39,7 @@ public class DAOLayer {
 	private ISimpleDAO<ZonesDefinition> zonesDefinitionDAO;
 	private IViewDAO<Entities, EntitiesId> entitiesDAO;
 	private IComplexDAO<DayInfos, DayInfosId> dayInfosDAO;
+	private ISimpleDAO<UserDefaults> userDefaultsDAO;
 
 	private IEntitiesHaveLabelsDAO entitiesHaveLabelsDAO;
 	private List<IRelationDAO<IRelationObject>> relationDAOs;
@@ -266,6 +267,12 @@ public class DAOLayer {
 	}
 	public void setDayInfosDAO(IComplexDAO<DayInfos, DayInfosId>  dayInfosDAO) {
 		this.dayInfosDAO = dayInfosDAO;
+	}
+	public ISimpleDAO<UserDefaults> getUserDefaultsDAO() {
+		return userDefaultsDAO;
+	}
+	public void setUserDefaultsDAO(ISimpleDAO<UserDefaults> userDefaultsDAO) {
+		this.userDefaultsDAO = userDefaultsDAO;
 	}
 	public IEntitiesHaveLabelsDAO getEntitiesHaveLabelsDAO() {
 		return entitiesHaveLabelsDAO;

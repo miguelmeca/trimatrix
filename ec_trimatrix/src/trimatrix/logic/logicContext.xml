@@ -138,6 +138,9 @@
 		<property name="entityLayer">
 			<ref bean="entityLayer" />
 		</property>
+		<property name="daoLayer">
+			<ref bean="daoLayer" />
+		</property>
 	</bean>
 
 	<bean id="logicLayer" class="trimatrix.logic.LogicLayer" abstract="false"

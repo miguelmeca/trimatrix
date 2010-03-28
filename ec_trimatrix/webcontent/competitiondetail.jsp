@@ -20,11 +20,11 @@
 </t:row>
 <t:row id="g_6" >
 <t:label id="g_7" text="#{rr.literals.type}" width="100" />
-<t:combobox id="g_8" attributemacro="entityDetailMacro(CompetitionDetailUI,type)" enabled="#{d.CompetitionDetailUI.typeEnabled}" flush="true" validvaluesbinding="#{d.CompetitionDetailUI.compTypesVvb}" width="200" />
+<t:combobox id="g_8" actionListener="#{d.CompetitionDetailUI.onChangeType}" attributemacro="entityDetailMacro(CompetitionDetailUI,type)" enabled="#{d.CompetitionDetailUI.typeEnabled}" flush="true" validvaluesbinding="#{d.CompetitionDetailUI.compTypesVvb}" width="200" withnullitem="true" />
 </t:row>
 <t:row id="g_9" >
 <t:label id="g_10" text="#{rr.literals.subtype}" width="100" />
-<t:combobox id="g_11" attributemacro="entityDetailMacro(CompetitionDetailUI,subtype)" enabled="#{d.CompetitionDetailUI.typeEnabled}" flush="true" validvaluesbinding="#{d.CompetitionDetailUI.compSubtypesVvb}" width="200" />
+<t:combobox id="g_11" attributemacro="entityDetailMacro(CompetitionDetailUI,subtype)" enabled="#{d.CompetitionDetailUI.typeEnabled}" flush="true" validvaluesbinding="#{d.CompetitionDetailUI.compSubtypesVvb}" width="200" withnullitem="true" />
 </t:row>
 <t:row id="g_12" >
 <t:label id="g_13" text="#{rr.literals.date}" width="100" />
@@ -55,40 +55,49 @@
 <t:gridcol id="g_32" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.cutoff_swim}" width="120" >
 <t:field id="g_33" align="center" background="#00FF00" enabled="#{d.CompetitionDetailUI.enabled}" flush="true" font="weight:bold" maxlength="8" text=".{cutoffSwim}" tooltip="#{rr.literals.swim_corridor}" userhint="hh:mm:ss / xxx% " />
 </t:gridcol>
-<t:gridcol id="g_34" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.best_swim_split}" width="130" >
-<t:field id="g_35" align="center" enabled="#{d.CompetitionDetailUI.enabled}" flush="true" maxlength="8" text=".{swimSplit}" userhint="hh:mm:ss" />
+<t:gridcol id="g_34" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.tol_swim}" width="120" >
+<t:formattedfield id="g_35" align="center" enabled="#{d.CompetitionDetailUI.enabled}" format="int" userhint="#{rr.literals.seconds}" value=".{tolSwim}" />
 </t:gridcol>
-<t:gridcol id="g_36" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.best_swimmer}" width="160" >
-<t:field id="g_37" align="center" enabled="#{d.CompetitionDetailUI.enabled}" text=".{swimAthlet}" />
+<t:gridcol id="g_36" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.best_swim_split}" width="130" >
+<t:field id="g_37" align="center" enabled="#{d.CompetitionDetailUI.enabled}" flush="true" maxlength="8" text=".{swimSplit}" userhint="hh:mm:ss" />
 </t:gridcol>
-<t:gridcol id="g_38" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.cutoff_run}" width="120" >
-<t:field id="g_39" align="center" background="#00FF00" enabled="#{d.CompetitionDetailUI.enabled}" flush="true" font="weight:bold" maxlength="8" text=".{cutoffRun}" tooltip="#{rr.literals.run_corridor}" userhint="hh:mm:ss / xxx%" />
+<t:gridcol id="g_38" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.best_swimmer}" width="160" >
+<t:field id="g_39" align="center" enabled="#{d.CompetitionDetailUI.enabled}" text=".{swimAthlet}" />
 </t:gridcol>
-<t:gridcol id="g_40" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.best_run_split}" width="130" >
-<t:field id="g_41" align="center" enabled="#{d.CompetitionDetailUI.enabled}" flush="true" maxlength="8" text=".{runSplit}" userhint="hh:mm:ss" />
+<t:gridcol id="g_40" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.cutoff_run}" width="120" >
+<t:field id="g_41" align="center" background="#00FF00" enabled="#{d.CompetitionDetailUI.enabled}" flush="true" font="weight:bold" maxlength="8" text=".{cutoffRun}" tooltip="#{rr.literals.run_corridor}" userhint="hh:mm:ss / xxx%" />
 </t:gridcol>
-<t:gridcol id="g_42" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.best_runner}" width="160" >
-<t:field id="g_43" align="center" enabled="#{d.CompetitionDetailUI.enabled}" text=".{runAthlet}" />
+<t:gridcol id="g_42" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.tol_run}" width="120" >
+<t:formattedfield id="g_43" align="center" enabled="#{d.CompetitionDetailUI.enabled}" format="int" userhint="#{rr.literals.seconds}" value=".{tolRun}" />
 </t:gridcol>
-<t:gridcol id="g_44" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.cutoff_bike}" width="120" >
-<t:field id="g_45" align="center" background="#00FF00" enabled="#{d.CompetitionDetailUI.enabled}" flush="true" font="weight:bold" maxlength="8" text=".{cutoffBike}" tooltip="#{rr.literals.bike_corridor}" userhint="hh:mm:ss / xxx%" />
+<t:gridcol id="g_44" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.best_run_split}" width="130" >
+<t:field id="g_45" align="center" enabled="#{d.CompetitionDetailUI.enabled}" flush="true" maxlength="8" text=".{runSplit}" userhint="hh:mm:ss" />
 </t:gridcol>
-<t:gridcol id="g_46" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.best_bike_split}" width="130" >
-<t:field id="g_47" align="center" enabled="#{d.CompetitionDetailUI.enabled}" flush="true" maxlength="8" text=".{bikeSplit}" userhint="hh:mm:ss" />
+<t:gridcol id="g_46" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.best_runner}" width="160" >
+<t:field id="g_47" align="center" enabled="#{d.CompetitionDetailUI.enabled}" text=".{runAthlet}" />
 </t:gridcol>
-<t:gridcol id="g_48" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.best_biker}" width="160" >
-<t:field id="g_49" align="center" enabled="#{d.CompetitionDetailUI.enabled}" text=".{bikeAthlet}" />
+<t:gridcol id="g_48" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.cutoff_bike}" width="120" >
+<t:field id="g_49" align="center" background="#00FF00" enabled="#{d.CompetitionDetailUI.enabled}" flush="true" font="weight:bold" maxlength="8" text=".{cutoffBike}" tooltip="#{rr.literals.bike_corridor}" userhint="hh:mm:ss / xxx%" />
+</t:gridcol>
+<t:gridcol id="g_50" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.tol_bike}" width="120" >
+<t:formattedfield id="g_51" align="center" enabled="#{d.CompetitionDetailUI.enabled}" format="int" userhint="#{rr.literals.seconds}" value=".{tolBike}" />
+</t:gridcol>
+<t:gridcol id="g_52" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.best_bike_split}" width="130" >
+<t:field id="g_53" align="center" enabled="#{d.CompetitionDetailUI.enabled}" flush="true" maxlength="8" text=".{bikeSplit}" userhint="hh:mm:ss" />
+</t:gridcol>
+<t:gridcol id="g_54" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.best_biker}" width="160" >
+<t:field id="g_55" align="center" enabled="#{d.CompetitionDetailUI.enabled}" text=".{bikeAthlet}" />
 </t:gridcol>
 </t:fixgrid>
 </t:row>
-<t:row id="g_50" >
-<t:button id="g_51" actionListener="#{d.CompetitionDetailUI.onAddLimit}" enabled="#{d.CompetitionDetailUI.enabled}" image="/images/icons/add.png" imageheight="16" text="#{rr.literals.list_add}" />
-<t:coldistance id="g_52" />
-<t:button id="g_53" actionListener="#{d.CompetitionDetailUI.onRemoveLimit}" enabled="#{d.CompetitionDetailUI.enabled}" image="/images/icons/remove.png" imageheight="16" text="#{rr.literals.list_remove}" />
-<t:coldistance id="g_54" width="100%" />
-<t:button id="g_55" actionListener="#{d.CompetitionDetailUI.gridLimits.onEditColumnDetails}" image="/images/icons/configure.png" imageheight="15" text="#{rr.literals.list_configure}" />
-<t:coldistance id="g_56" />
-<t:button id="g_57" actionListener="#{d.CompetitionDetailUI.saveGridState}" image="/images/icons/save.png" imageheight="15" text="#{rr.literals.save}" />
+<t:row id="g_56" >
+<t:button id="g_57" actionListener="#{d.CompetitionDetailUI.onAddLimit}" enabled="#{d.CompetitionDetailUI.enabled}" image="/images/icons/add.png" imageheight="16" text="#{rr.literals.list_add}" />
+<t:coldistance id="g_58" />
+<t:button id="g_59" actionListener="#{d.CompetitionDetailUI.onRemoveLimit}" enabled="#{d.CompetitionDetailUI.enabled}" image="/images/icons/remove.png" imageheight="16" text="#{rr.literals.list_remove}" />
+<t:coldistance id="g_60" width="100%" />
+<t:button id="g_61" actionListener="#{d.CompetitionDetailUI.gridLimits.onEditColumnDetails}" image="/images/icons/configure.png" imageheight="15" text="#{rr.literals.list_configure}" />
+<t:coldistance id="g_62" />
+<t:button id="g_63" actionListener="#{d.CompetitionDetailUI.saveGridState}" image="/images/icons/save.png" imageheight="15" text="#{rr.literals.save}" />
 </t:row>
 </t:pane>
 </t:row>

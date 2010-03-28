@@ -770,6 +770,7 @@ WHERE results.test = :p_test
           OR 0 = :p_scout_on)
     AND (results.athlete_id = :p_athlete
           OR 0 = :p_athlete_on)
+    AND competitions.type = :p_type
     AND (competitions.subtype = :p_subtype
           OR 0 = :p_subtype_on)
 ORDER BY competitions.date
@@ -793,20 +794,33 @@ ORDER BY competitions.date
   <return-scalar column="limits" type="java.lang.String"/>
 </sql-query>
 
- <sql-query cacheable="true" name="LanguageValueList"
-   read-only="true">SELECT k_languages.key, t_languages.description, t_languages.description_long
-  FROM k_languages JOIN t_languages ON k_languages.key = t_languages.key
-  WHERE t_languages.language_key = :p_lang_key<return-scalar
-   column="key" type="java.lang.String"/>
+ <sql-query cacheable="true" name="LanguageValueList" read-only="true">
+SELECT
+  k_languages.key,
+  t_languages.description,
+  t_languages.description_long
+FROM k_languages
+  JOIN t_languages
+    ON k_languages.key = t_languages.key
+WHERE t_languages.language_key = :p_lang_key
+ORDER BY t_languages.description
+  <return-scalar column="key" type="java.lang.String"/>
   <return-scalar column="description" type="java.lang.String"/>
   <return-scalar column="description_long" type="java.lang.String"/>
  </sql-query>
- <sql-query cacheable="true" name="LogonLanguageValueList"
-   read-only="true">SELECT k_languages.key, t_languages.description, t_languages.description_long
-  FROM k_languages JOIN t_languages ON k_languages.key = t_languages.key
-  WHERE t_languages.language_key = :p_lang_key
-  AND k_languages.logon = '1'<return-scalar
-   column="key" type="java.lang.String"/>
+
+ <sql-query cacheable="true" name="LogonLanguageValueList" read-only="true">
+SELECT
+  k_languages.key,
+  t_languages.description,
+  t_languages.description_long
+FROM k_languages
+  JOIN t_languages
+    ON k_languages.key = t_languages.key
+WHERE t_languages.language_key = :p_lang_key
+AND k_languages.logon = '1'
+ORDER BY t_languages.description
+  <return-scalar column="key" type="java.lang.String"/>
   <return-scalar column="description" type="java.lang.String"/>
   <return-scalar column="description_long" type="java.lang.String"/>
  </sql-query>
@@ -834,6 +848,7 @@ FROM k_countries
   JOIN t_countries
     ON k_countries.key = t_countries.key
 WHERE t_countries.language_key = :p_lang_key
+ORDER BY t_countries.description
   <return-scalar column="key" type="java.lang.String"/>
   <return-scalar column="description" type="java.lang.String"/>
   <return-scalar column="description_long" type="java.lang.String"/>
@@ -848,6 +863,7 @@ FROM k_categories
   JOIN t_categories
     ON k_categories.key = t_categories.key
 WHERE t_categories.language_key = :p_lang_key
+ORDER BY t_categories.description
   <return-scalar column="key" type="java.lang.String"/>
   <return-scalar column="description" type="java.lang.String"/>
   <return-scalar column="description_long" type="java.lang.String"/>
@@ -862,6 +878,7 @@ FROM k_testtypes
   JOIN t_testtypes
     ON k_testtypes.key = t_testtypes.key
 WHERE t_testtypes.language_key = :p_lang_key
+ORDER BY t_testtypes.description
   <return-scalar column="key" type="java.lang.String"/>
   <return-scalar column="description" type="java.lang.String"/>
   <return-scalar column="description_long" type="java.lang.String"/>
@@ -876,6 +893,7 @@ FROM k_comptypes
   JOIN t_comptypes
     ON k_comptypes.key = t_comptypes.key
 WHERE t_comptypes.language_key = :p_lang_key
+ORDER BY k_comptypes.ordinal
   <return-scalar column="key" type="java.lang.String"/>
   <return-scalar column="description" type="java.lang.String"/>
   <return-scalar column="description_long" type="java.lang.String"/>
@@ -889,8 +907,10 @@ SELECT
 FROM k_compsubtypes
   JOIN t_compsubtypes
     ON k_compsubtypes.key = t_compsubtypes.key
+   AND k_compsubtypes.key_parent = t_compsubtypes.key_parent
 WHERE t_compsubtypes.language_key = :p_lang_key
 AND k_compsubtypes.key_parent = :p_parent_key
+ORDER BY k_compsubtypes.ordinal
   <return-scalar column="key" type="java.lang.String"/>
   <return-scalar column="description" type="java.lang.String"/>
   <return-scalar column="description_long" type="java.lang.String"/>
@@ -905,15 +925,21 @@ FROM k_scheduletypes
   JOIN t_scheduletypes
     ON k_scheduletypes.key = t_scheduletypes.key
 WHERE t_scheduletypes.language_key = :p_lang_key
+ORDER BY t_scheduletypes.description
   <return-scalar column="key" type="java.lang.String"/>
   <return-scalar column="description" type="java.lang.String"/>
   <return-scalar column="description_long" type="java.lang.String"/>
 </sql-query>
 
- <sql-query cacheable="true" name="RelTypsValueList"
-   read-only="true">SELECT k_reltyps.key, t_reltyps.description_long, t_reltyps.relation_description
-  FROM k_reltyps JOIN t_reltyps ON k_reltyps.key = t_reltyps.key
-  WHERE t_reltyps.language_key = :p_lang_key
+ <sql-query cacheable="true" name="RelTypsValueList" read-only="true">
+SELECT
+  k_reltyps.key,
+  t_reltyps.description_long,
+  t_reltyps.relation_description
+FROM k_reltyps
+  JOIN t_reltyps
+    ON k_reltyps.key = t_reltyps.key
+WHERE t_reltyps.language_key = :p_lang_key
   <return-scalar column="key" type="java.lang.String"/>
   <return-scalar column="description_long" type="java.lang.String"/>
   <return-scalar column="relation_description" type="java.lang.String"/>

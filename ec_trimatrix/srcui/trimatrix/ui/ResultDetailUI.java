@@ -15,6 +15,7 @@ import trimatrix.db.CompetitionsScouts;
 import trimatrix.db.Persons;
 import trimatrix.db.Results;
 import trimatrix.db.ResultsTria;
+import trimatrix.entities.CompetitionEntity;
 import trimatrix.entities.ResultEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
@@ -36,6 +37,11 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 	private String cutoffSwim;
 	private String cutoffRun;
 	private String cutoffBike;
+
+	private Integer tolSwim;
+	private Integer tolRun;
+	private Integer tolBike;
+
 	private Boolean swimsuit;
 	public Boolean getSwimsuit() { return swimsuit; }
 
@@ -49,15 +55,15 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 	public String getBestBike() { return bestBike; }
 
     public String getColorRun() {
-    	return ResultEntity.Data.getColor((String)values.get(ResultEntity.RUN_SPLIT), getPercentDeficitRun(), cutoffRun);
+    	return ResultEntity.Data.getColor((String)values.get(ResultEntity.RUN_SPLIT), getBestRun(), cutoffRun, tolRun);
     }
 
     public String getColorSwim() {
-    	return ResultEntity.Data.getColor((String)values.get(ResultEntity.SWIM_SPLIT), getPercentDeficitSwim(), cutoffSwim);
+    	return ResultEntity.Data.getColor((String)values.get(ResultEntity.SWIM_SPLIT), getBestSwim(), cutoffSwim, tolSwim);
     }
 
     public String getColorBike() {
-    	return ResultEntity.Data.getColor((String)values.get(ResultEntity.BIKE_SPLIT), getPercentDeficitBike(), cutoffBike);
+    	return ResultEntity.Data.getColor((String)values.get(ResultEntity.BIKE_SPLIT), getBestBike(), cutoffBike, tolBike);
     }
 
 	protected final String[] MANDATORY_FIELDS_TRIA = new String[] {ResultEntity.CATEGORY_TRIA};
@@ -67,9 +73,8 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
     }
 
     public boolean isTria() {
-    	if (entity.getCompetition().getType() == null || !entity.getCompetition().getType().equals("tria"))
-			return false;
-		return true;
+    	if (entity.getCompetition().getType() == null) return false;
+    	return entity.getCompetition().getType().equals(CompetitionEntity.TRIATHLON) || entity.getCompetition().getType().equals(CompetitionEntity.XTERRA);
 	}
 
 	private Results entity;
@@ -382,12 +387,15 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 			if(limits!=null) {
 				cutoffSwim = limits.getLimits()[0];
 				cutoffRun = limits.getLimits()[1];
+				tolSwim = limits.getTolerances()[0];
+				tolRun = limits.getTolerances()[1];
 				bestSwim = limits.getSwim()[1];
 				bestRun = limits.getRun()[1];
 				swimsuit = limits.getSwimsuit();
 				// TODO: this was added after first release
 				if(limits.getLimits().length>2) {
 					cutoffBike = limits.getLimits()[2];
+					tolBike = limits.getTolerances()[2];
 					bestBike = limits.getBike()[1];
 				}
 			}

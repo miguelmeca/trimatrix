@@ -101,6 +101,7 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
+
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>/faces/*</url-pattern>
@@ -141,7 +142,6 @@
 		<servlet-name>AcroFormServlet</servlet-name>
 		<url-pattern>/servlet/AcroForm</url-pattern>
 	</servlet-mapping>
-
 	<!-- Start ZK Integration -->
 	<listener>
 		<description>Used to cleanup when a session is destroyed</description>

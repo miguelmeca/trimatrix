@@ -10,7 +10,9 @@ public class Limit {
 	@Value
 	String category;
 	@Value
-	String[] limits = new String[3]; // run - swim - bike
+	String[] limits = new String[3]; // swim - run - bike
+	@Value(optional = true)
+	Integer[] tolerances = new Integer[3]; // swim - run - bike
 	@Value(optional = true)
 	String[] swim = new String[2]; // Name - Time
 	@Value(optional = true)
@@ -22,9 +24,10 @@ public class Limit {
 
 	public Limit() { }
 
-	public Limit(String category, String[] limits, String[] swim, String[] run, String[] bike, Boolean swimsuit) {
+	public Limit(String category, String[] limits, Integer[] tolerances, String[] swim, String[] run, String[] bike, Boolean swimsuit) {
 		this.category = category;
 		if(limits!=null) this.limits = limits;
+		if(tolerances!=null) this.tolerances = tolerances;
 		if(swim!=null) this.swim = swim;
 		if(run!=null) this.run = run;
 		if(bike!=null) this.bike = bike;
@@ -36,6 +39,9 @@ public class Limit {
 
 	public String[] getLimits() {return limits;}
 	public void setLimits(String[] limits) {this.limits = limits;}
+
+	public Integer[] getTolerances() {return tolerances;}
+	public void setTolerances(Integer[] tolerances) {this.tolerances = tolerances;}
 
 	public String[] getSwim() {return swim;}
 	public void setSwim(String[] swim) {this.swim = swim;}

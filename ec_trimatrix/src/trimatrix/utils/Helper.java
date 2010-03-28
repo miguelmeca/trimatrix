@@ -133,7 +133,7 @@ public class Helper {
 
 	/**
 	 * Get actual locale from the http request
-	 * 
+	 *
 	 * @return Locale
 	 */
 	public static Locale getLocale() {
@@ -143,7 +143,7 @@ public class Helper {
 
 	/**
 	 * Get actual width of app screen from http request
-	 * 
+	 *
 	 * @return width
 	 */
 	public static int getWidth() {
@@ -163,7 +163,7 @@ public class Helper {
 	/**
 	 * Get NumberFormat object for formatting locale specific data e.g. date,
 	 * double
-	 * 
+	 *
 	 * @return NumberFormat
 	 */
 	public static NumberFormat getNumberFormat() {
@@ -173,7 +173,7 @@ public class Helper {
 	/**
 	 * Correcting short time input to valid signature If string does'nt match
 	 * return null, so value is not changed
-	 * 
+	 *
 	 * @param input
 	 *            shortened input
 	 * @return valid time string
@@ -223,7 +223,7 @@ public class Helper {
 
 	/**
 	 * Calculate duration in Format mm:ss or hh:mm:ss
-	 * 
+	 *
 	 * @param start
 	 *            startpoint in mm:ss or hh:mm:ss format
 	 * @param duration
@@ -256,7 +256,7 @@ public class Helper {
 
 	/**
 	 * Calculate percentage of a given time
-	 * 
+	 *
 	 * @param time
 	 * @param percentage
 	 * @return calculated time
@@ -292,9 +292,15 @@ public class Helper {
 		return 100d / secTime * secPart;
 	}
 
+	public static String addSeconds(String time, Integer seconds) {
+		if(seconds==null || seconds == 0) return time;
+		Integer secTime = calculateSeconds(time) + seconds;
+		return calculateTime(secTime, true);
+	}
+
 	/**
 	 * Calculate the speed in m/s
-	 * 
+	 *
 	 * @param distance
 	 *            Distance in m
 	 * @param time
@@ -310,7 +316,7 @@ public class Helper {
 
 	/**
 	 * Calculate seconds of time
-	 * 
+	 *
 	 * @param time
 	 *            Time in format mm:ss or hh:mm:ss
 	 * @return seconds
@@ -334,7 +340,7 @@ public class Helper {
 
 	/**
 	 * Calculate time of sconds
-	 * 
+	 *
 	 * @param seconds
 	 *            sconds
 	 * @param hhmmss
@@ -368,7 +374,7 @@ public class Helper {
 
 	/**
 	 * This method enables adding items to wildcard captured lists
-	 * 
+	 *
 	 * @param <E>
 	 * @param list
 	 * @param item
@@ -380,7 +386,7 @@ public class Helper {
 
 	/**
 	 * Dynamic invocation of objects
-	 * 
+	 *
 	 * @param methodName
 	 * @param obj
 	 * @param args

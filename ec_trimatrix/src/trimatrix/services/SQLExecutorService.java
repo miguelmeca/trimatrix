@@ -562,8 +562,9 @@ public class SQLExecutorService {
 		//SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Query query = session.getNamedQuery(RESULTENTITYLISTQUERY);
-		if(CompetitionEntity.TRIATHLON.equals(compType)) {
+		if(CompetitionEntity.TRIATHLON.equals(compType) || CompetitionEntity.XTERRA.equals(compType)) {
 			query = session.getNamedQuery(RESULTTRIAENTITYLISTQUERY);
+			query.setString("p_type", compType);
 			query.setString("p_subtype", compSubtype);
 			if(compSubtype==null) {
 				query.setBoolean("p_subtype_on", false);
@@ -614,7 +615,8 @@ public class SQLExecutorService {
 			datum.time = (String)line[i++];
 			datum.comment = (String)line[i++];
 			// triathlon
-			if(CompetitionEntity.TRIATHLON.equals(compType)) {
+			if(CompetitionEntity.TRIATHLON.equals(compType) ||
+		  	   CompetitionEntity.XTERRA.equals(compType)) {
 				datum.category_tria = (String)line[i++];
 				datum.swim_split = (String)line[i++];
 				datum.swim_pos = (String)line[i++];
@@ -628,6 +630,8 @@ public class SQLExecutorService {
 				if(limit!=null) {
 					datum.swim_cutoff = limit.getLimits()[0];
 					datum.run_cutoff = limit.getLimits()[1];
+					datum.swim_tol = limit.getTolerances()[0];
+					datum.run_tol = limit.getTolerances()[1];
 					datum.best_runner = limit.getRun()[0];
 					datum.best_run_split = limit.getRun()[1];
 					datum.best_swimmer = limit.getSwim()[0];
@@ -638,6 +642,7 @@ public class SQLExecutorService {
 						datum.bike_cutoff = limit.getLimits()[2];
 						datum.best_biker = limit.getBike()[0];
 						datum.best_bike_split = limit.getBike()[1];
+						datum.bike_tol = limit.getTolerances()[2];
 					}
 				}
 			}
