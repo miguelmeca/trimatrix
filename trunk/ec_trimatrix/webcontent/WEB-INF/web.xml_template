@@ -85,6 +85,11 @@
     <servlet-class>org.eclnt.jsfserver.calendar.ExtCalendarServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
+  <servlet id="LongPollingServlet">
+    <servlet-name>LongPollingServlet</servlet-name>
+    <servlet-class>org.eclnt.jsfserver.polling.LongPollingServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
   
   <servlet-mapping>
     <servlet-name>Faces Servlet</servlet-name>
@@ -129,6 +134,10 @@
   <servlet-mapping>
     <servlet-name>ExtCalendarServlet</servlet-name>
     <url-pattern>*.ccextcalendar</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LongPollingServlet</servlet-name>
+    <url-pattern>*.cclongpolling</url-pattern>
   </servlet-mapping>
   
   <mime-mapping>

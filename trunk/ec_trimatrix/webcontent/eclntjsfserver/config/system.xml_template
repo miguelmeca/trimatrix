@@ -81,14 +81,39 @@
     <!--
       *************************************************************************
       Configuration of general fixgrid attributes
-          Export format for csv and xml export
+          optional: persistence = class name of IFIXGRIDPersistence(2) implementation
+          optional: exportcharagersetcsv, exportcharactersetxml = Export format for csv and xml export
       *************************************************************************
      -->
     <!--
      <fixgrid
+        persistence="org.eclnt.jsfserver.util.fixgridpersistence.DefaultFIXGRIDPersistence"
         exportcharactersetcsv="UTF-8"
         exportcharactersetxml="UTF-8"
      />
      -->
      
+    <!--
+      *************************************************************************
+      Configuration of access to user
+          optional: name of class providing IUserAccess interface
+      *************************************************************************
+     -->
+    <!--
+     <useraccess
+        name="org.eclnt.jsfserver.util.useraccess.DefaultUserAccess"
+     />
+     -->
+     
+    <!--
+      *************************************************************************
+      List of class names of IDynamicPageProvider implementations.
+      *************************************************************************
+     -->
+    <!--
+     <dynamicpages>
+         <dynamicpageprovider name="xxxx.yyyy"/>
+     </dynamicpages>
+     />
+     -->
 </system>
