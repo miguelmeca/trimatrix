@@ -112,7 +112,13 @@
 							<t:link id="g_1000" text="#{eclnti18n.GRID_revert}"
 								actionListener="#{eclntdefscr.gridDetails.onRevertChanges}" />
 
-							<t:coldistance id="g_31" width="100%" />
+							<t:coldistance id="g_3101" width="10" />
+
+							<t:link id="g_3103" text="#{eclnti18n.GRID_backToDefault}"
+								actionListener="#{eclntdefscr.gridDetails.onBackToDefault}" />
+								
+							<t:coldistance id="g_3102" width="100%" />
+							
 							<t:button id="g_32"
 								actionListener="#{eclntdefscr.gridDetails.onApply}"
 								text="#{eclnti18n.GRID_apply}" />
