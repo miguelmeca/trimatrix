@@ -1,20 +1,23 @@
 <?page title="Schedule" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Schedule" border="normal" apply="trimatrix.zul.ScheduleZUL">
-	<hbox height="30">
-	  <button image="../images/icons/black_prev.png"  forward="onPrevious" style="vertical-align: top;"/>
-	  <space />
-	  <datebox id="dateBox" style="vertical-align: middle;"/>
-	  <space />
-	  <button image="../images/icons/black_next.png" forward="onNext" style="vertical-align: middle;"/>
- 	</hbox>
- 	<radiogroup id="units" orient="vertical" forward="onCheck=onChangeUnit"/>
-	<button id="btn1" label="2"/>
-	<button id="btn2" label="4"/>
-	<button id="btn3" label="6"/>
-	<grid id="grid">
-		<columns/>
-	</grid>
-    <button label="Abschliessen" forward="onSave" />
-</window>
+	<window title="Schedule" border="normal"
+		apply="trimatrix.zul.ScheduleZUL">
+		<vbox>
+			<hbox style="vertical-align:middle">
+				<button image="../images/icons/black_prev.png"
+					forward="onPrevious" />
+				<space />
+				<datebox id="dateBox"/>
+				<space />
+				<button image="../images/icons/black_next.png"
+					forward="onNext" />
+			</hbox>
+			<radiogroup id="units" orient="vertical"
+				forward="onCheck=onChangeUnit" />
+			<grid id="grid" >
+				<columns sizable="true" />
+			</grid>
+			<button id="btnSave" label="Abschliessen" forward="onSave" />
+		</vbox>
+	</window>
 </zk>

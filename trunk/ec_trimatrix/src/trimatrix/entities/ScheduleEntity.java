@@ -18,6 +18,7 @@ public class ScheduleEntity extends AEntity {
 	public static final String START = "start";
     public static final String DURATION = "druration";
     public static final String COLOR = "color";
+    public static final String DONE = "done";
 
 	public IEntityObject create() {
 		String id = UUID.randomUUID().toString();
@@ -53,6 +54,7 @@ public class ScheduleEntity extends AEntity {
         gridMetaData.add(new SGridMetaData("Start", START, SGridMetaData.Component.CALENDARFIELD));
         gridMetaData.add(new SGridMetaData("Dauer", DURATION, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("Farbe", COLOR, SGridMetaData.Component.CALENDARFIELD));
+        gridMetaData.add(new SGridMetaData("Erledigt", DONE, SGridMetaData.Component.CHECKBOX));
         return gridMetaData;
 	}
 
@@ -65,6 +67,7 @@ public class ScheduleEntity extends AEntity {
 		public Long duration;
 		public String color;
 		public Boolean template;
+		public Boolean done;
 
 		/* (non-Javadoc)
 		 * @see trimatrix.entities.IEntityData#getId()
@@ -109,6 +112,10 @@ public class ScheduleEntity extends AEntity {
 
 		public Boolean getTemplate() {
 			return template;
+		}
+
+		public Boolean getDone() {
+			return done;
 		}
 
 

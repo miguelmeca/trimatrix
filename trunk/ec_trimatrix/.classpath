@@ -67,7 +67,6 @@
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/jfreechart-1.0.13.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/iText-2.1.6.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/Jama.jar"/>
-	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/eclntjsfserver.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/commons-collections-3.1.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/envers-1.2.1.ga-hibernate-3.3.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/asm-2.2.3.jar"/>
@@ -86,5 +85,6 @@
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/zkplus.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/zul.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/zweb.jar"/>
+	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/eclntjsfserver.jar"/>
 	<classpathentry kind="output" path="webcontent/WEB-INF/classes"/>
 </classpath>
