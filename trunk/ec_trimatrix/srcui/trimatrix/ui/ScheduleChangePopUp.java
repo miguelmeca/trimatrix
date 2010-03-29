@@ -12,6 +12,7 @@ import java.util.List;
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
@@ -50,7 +51,7 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 
     public Boolean getDone() { return scheduleItem.getDone(); }
 	public void setDone(Boolean done) { scheduleItem.setDone(done); }
-    
+
     public String getColor() { return scheduleItem.getColor(); }
     public void setColor(String color) { scheduleItem.setColor(color); }
 
@@ -79,13 +80,27 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
     public void onSave(ActionEvent event) {
     	// build run schedule string
     	List<ScheduleRun> runList = new ArrayList<ScheduleRun>(gridRun.getItems().size());
+    	boolean failure = false;
     	for(GridRunItem item : gridRun.getItems()) {
-    		runList.add(item.getScheduleRun());
+    		ScheduleRun scheduleRun = item.getScheduleRun();
+    		// check mandatory fields
+    		if(isEmpty(scheduleRun.getDuration()) ||
+    		   isEmpty(scheduleRun.getZone())) {
+    			failure = true;
+    			break;
+    		}
+    		runList.add(scheduleRun);
     	}
+    	// exit if mandatory check fails
+    	if(failure) {
+    		Statusbar.outputAlert("Not all mandatory fields set!");
+    		return;
+    	}
+    	// save schedule
     	scheduleItem.setDetails(getLogic().getScheduleLogic().buildString(runList));
     	callback.save();
     }
-    
+
     /**
      * Set unit to done, save and leave popup
      * @param ae
