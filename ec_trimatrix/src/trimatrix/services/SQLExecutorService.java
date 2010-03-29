@@ -723,6 +723,7 @@ public class SQLExecutorService {
 			datum.duration = (Long)line[i++];
 			datum.color = (String)line[i++];
 			datum.template = (Boolean)line[i++];
+			datum.done = (Boolean)line[i++];
 			data.add(datum);
 		}
 		session.close();
