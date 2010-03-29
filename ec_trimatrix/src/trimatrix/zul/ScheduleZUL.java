@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -39,6 +40,7 @@ import trimatrix.db.DAOLayer;
 import trimatrix.db.Persons;
 import trimatrix.db.PersonsAthlete;
 import trimatrix.db.Schedules;
+import trimatrix.db.ZonesDefinition;
 import trimatrix.entities.IEntityData;
 import trimatrix.entities.ScheduleEntity;
 import trimatrix.logic.LogicLayer;
@@ -133,10 +135,10 @@ public class ScheduleZUL extends GenericAutowireComposer {
 				case RUN:
 					ScheduleRun run = (ScheduleRun)data;
 					new Label(run.getDuration()).setParent(row);
-					new Label(run.getZone()).setParent(row);
+					ZonesDefinition zonesDefinition = daoLayer.getZonesDefinitionDAO().findById(run.getZone());
+					new Label(zonesDefinition.getShortcut()).setParent(row);
 			        new Label(run.getHrLow()+"-"+run.getHrHigh()).setParent(row);
 			        final Textbox durationAthlete = new Textbox(run.getDurationAthlete());
-			        durationAthlete.setWidth("100");
 			        durationAthlete.addEventListener(Events.ON_CHANGE, new EventListener(){
 			        	   public void onEvent(Event arg0) throws Exception{
 			        		   durationAthlete.setValue(Helper.correctTimeInput(durationAthlete.getValue()));
@@ -169,25 +171,43 @@ public class ScheduleZUL extends GenericAutowireComposer {
     }
 
 	public void onSave(Event event) {
-		Radio selected = units.getSelectedItem();
 		if(selectedSchedule==null) return;
-		// get attributes
-		Row actualRow = (Row)grid.getChildren().get(units.getSelectedIndex());
-
+		int selectedUnit = units.getSelectedIndex();
+		List<ScheduleRun> scheduleRuns = logicLayer.getScheduleLogic().getScheduleRuns(selectedSchedule.getDetails());
+		// set attributes
+		Long duration = 0L;
+		for(int index = 0; index<scheduleRuns.size();index++) {
+			ScheduleRun scheduleRun = scheduleRuns.get(index);
+			Row row = (Row)grid.getRows().getChildren().get(index);
+			String athleteDuration = ((Textbox)row.getChildren().get(3)).getValue();
+			if(Helper.isEmpty(athleteDuration)) {
+				duration += Helper.calculateSeconds(scheduleRun.getDuration());
+			} else {
+				duration += Helper.calculateSeconds(athleteDuration);
+			}
+			scheduleRun.setDurationAthlete(athleteDuration);
+			Integer hrAvgAthlete = ((Intbox)row.getChildren().get(4)).getValue();
+			scheduleRun.setHrAvgAthlete(hrAvgAthlete);
+		}
+		selectedSchedule.setDuration(duration/60);	//duration is in seconds
+		selectedSchedule.setDetails(logicLayer.getScheduleLogic().buildString(scheduleRuns));
 		// load schedule
 		try {
 			selectedSchedule.setDone(true);
 			daoLayer.getSchedulesDAO().merge(selectedSchedule);
 			// message success
 			try {
-				Messagebox.show("Einheit erfolgreich gespeichert!");
+				Messagebox.show("Einheit erfolgreich gespeichert!","Info", Messagebox.OK, Messagebox.INFORMATION);
 			} catch (Exception ex) {ex.printStackTrace();}
 			// refresh schedules
 			refreshSchedules();
+			// set to actual schedule
+			units.setSelectedIndex(selectedUnit);
+			onChangeUnit(null);
 		} catch (Exception ex) {
 			// message error
 			try {
-				Messagebox.show("Fehler beim Speichern der Einheit aufgetreten!");
+				Messagebox.show("Fehler beim Speichern der Einheit aufgetreten!","Fehler", Messagebox.OK, Messagebox.ERROR);
 			} catch (Exception ex2) {ex2.printStackTrace();}
 		}
     }
@@ -216,6 +236,14 @@ public class ScheduleZUL extends GenericAutowireComposer {
 
 	private void refreshSchedules() {
 		schedules = serviceLayer.getSqlExecutorService().getScheduleEntities(locale.getLanguage(), null, athlete.getId(), getStart(), getEnd(), false, false);
+		selectedSchedule = null;
+		if(Helper.isEmpty(schedules)) {
+			grid.setVisible(false);
+			btnSave.setVisible(false);
+		} else {
+			grid.setVisible(true);
+			btnSave.setVisible(true);
+		}
 		buildUnits();
 	}
 
@@ -245,7 +273,7 @@ public class ScheduleZUL extends GenericAutowireComposer {
 	private Timestamp getStart() {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(scheduleDate);
-		cal.set(Calendar.HOUR, 0);
+		cal.set(Calendar.HOUR_OF_DAY, 0);
 		cal.set(Calendar.MINUTE, 0);
 		cal.set(Calendar.SECOND, 0);
 		cal.set(Calendar.MILLISECOND, 0);
@@ -255,7 +283,7 @@ public class ScheduleZUL extends GenericAutowireComposer {
 	private Timestamp getEnd() {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(scheduleDate);
-		cal.set(Calendar.HOUR, 23);
+		cal.set(Calendar.HOUR_OF_DAY, 23);
 		cal.set(Calendar.MINUTE, 59);
 		cal.set(Calendar.SECOND, 59);
 		cal.set(Calendar.MILLISECOND, 999);
