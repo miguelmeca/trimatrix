@@ -4,6 +4,7 @@
 <%@taglib prefix="f" uri="http://java.sun.com/jsf/core"%>
 <%@taglib prefix="h" uri="http://java.sun.com/jsf/html"%>
 
+<%@taglib prefix="tx" uri="/WEB-INF/trimatrixcontrols"%>
 <%@taglib prefix="t" uri="/WEB-INF/eclnt"%>
 
 
@@ -15,7 +16,7 @@
 <t:row id="g_2" >
 <t:pane id="g_3" height="100%" width="28" >
 <t:row id="g_4" >
-<t:icon id="g_5" actionListener="#{d.WorkplaceUI.onPreferences}" image="/images/icons/preferences.png" imageheight="25" imagewidth="25" />
+<t:icon id="g_5" actionListener="#{d.WorkplaceUI.onPreferences}" image="/images/icons/preferences.png" imageheight="22" imagewidth="22" />
 </t:row>
 <t:rowworkpagefavorites id="g_6" objectbinding="#{d.WPFavorites}" rowalignmenty="bottom" withicontext="false" />
 <t:rowdistance id="g_7" height="25" />

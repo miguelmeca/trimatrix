@@ -44,6 +44,7 @@ public final class Constants {
 		LABELCHANGEPOPUP("/popups/labelchange.jsp", "Label ändern"),
 		LABELSEARCHRESULT("/labelsearchresult.jsp", "Label Suchergebnis"),
 		SCHEDULECHANGEPOPUP("/popups/schedulechange.jsp", "Termin ändern"),
+		SCHEDULECOPYPOPUP("/popups/schedulecopy.jsp", "Termin kopieren"),
 		DAYINFOPOPUP("/popups/dayinfo.jsp", "Tagesinformation");
 		private final String url;
 		private final String description;

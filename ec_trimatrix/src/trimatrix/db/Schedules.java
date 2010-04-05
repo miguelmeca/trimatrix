@@ -2,9 +2,13 @@ package trimatrix.db;
 
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
@@ -28,6 +32,7 @@ public class Schedules implements java.io.Serializable, IEntityObject {
 	private Long duration;
 	private String color;
 	private Boolean template;
+	private String templateName;
 	private Boolean done;
 	private String details;
 	private Timestamp createdAt;
@@ -49,8 +54,8 @@ public class Schedules implements java.io.Serializable, IEntityObject {
 	}
 
 	/** full constructor */
-	public Schedules(String id, String personId, String type, String description, Timestamp start, Long duration, String color, Boolean template, Boolean done, String details,
-			Timestamp createdAt, String createdBy, Timestamp modifiedAt, String modifiedBy, Boolean deleted, Boolean test) {
+	public Schedules(String id, String personId, String type, String description, Timestamp start, Long duration, String color, Boolean template, String templateName,
+			Boolean done, String details,Timestamp createdAt, String createdBy, Timestamp modifiedAt, String modifiedBy, Boolean deleted, Boolean test) {
 		this.id = id;
 		this.personId = personId;
 		this.type = type;
@@ -59,6 +64,7 @@ public class Schedules implements java.io.Serializable, IEntityObject {
 		this.duration = duration;
 		this.color = color;
 		this.template = template;
+		this.templateName = templateName;
 		this.done = done;
 		this.details = details;
 		this.createdAt = createdAt;
@@ -141,6 +147,15 @@ public class Schedules implements java.io.Serializable, IEntityObject {
 
 	public void setTemplate(Boolean template) {
 		this.template = template;
+	}
+
+	@Column(name = "template_name", length = 100)
+	public String getTemplateName() {
+		return templateName;
+	}
+
+	public void setTemplateName(String templateName) {
+		this.templateName = templateName;
 	}
 
 	@Column(name = "done")

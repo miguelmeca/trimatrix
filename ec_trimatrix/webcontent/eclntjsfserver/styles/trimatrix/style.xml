@@ -103,6 +103,11 @@
         <set attribute="background" value="#00000010"/>
         <set attribute="border" value="bottom:0;top:0;left:0;right:0"/>
     </tag>
+    <tag name="pane" variant="popup">
+        <set attribute="padding" value="5"/>
+        <set attribute="background" value="#00000010"/>
+        <set attribute="border" value="bottom:0;top:0;left:0;right:0"/>
+    </tag>
     <tag name="rowheader" variant="default">
         <set attribute="bgpaint" value="rectangle(0,0,100%,100%,#FFFFFF20,#00000010,vertical)"/>
         <set attribute="border" value="bottom:1;color:#FFFFFF10"/>

@@ -24,30 +24,30 @@ import trimatrix.utils.Constants;
 @CCGenClass (expressionBase="#{d.RelationListUI}")
 
 public class RelationListUI extends MyWorkpageDispatchedBean implements Serializable
-{	
+{
 	private final RelationListLogic RELATIONLISTLOGIC = getLogic().getRelationListLogic();
-	
+
 	private ARRAYGRIDListBinding<MyARRAYGRIDItem> grid = new ARRAYGRIDListBinding<MyARRAYGRIDItem>();
 	public ARRAYGRIDListBinding<MyARRAYGRIDItem> getGrid() { return grid; }
-	
+
 	private Constants.Relation relation;
 	private static final int COLCOUNT = 4;
 	private static final String REMOVE = "remove";
 	private static final String ADD = "add";
 	private static final String STANDARD = "standard";
-	
+
 	// TODO put literals to constants
 	private static final String[] titles = {"Partner 1", "Beziehung", "Partner 2", "Standard"};
 	private static final String[] widths = {"100","100","100","50"};
 	private static final String[] aligns = {"center", "center", "center", "center"};
 	private static final String[] formats = {"string", "string", "string", "boolean"};
 	private static final String[] backgrounds = {"#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"};
-	
+
 	private SAuthorization authorization;
 	public boolean getCreateAllowed() { return authorization.create; }
 	public boolean getDeleteAllowed() { return authorization.delete; }
 	public boolean getChangeAllowed() { return authorization.change; }
-	
+
 	public RelationListUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
 		// get parameters from functiontree
@@ -58,20 +58,20 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 		if(create==null || !create.equals(Constants.TRUE)) create = Constants.FALSE;
 		if(change==null || !change.equals(Constants.TRUE)) change = Constants.FALSE;
 		if(delete==null || !delete.equals(Constants.TRUE)) delete = Constants.FALSE;
-		authorization = new SAuthorization(create, change, delete);	
+		authorization = new SAuthorization(create, change, delete);
 		// get entity
 		String strEntity = getWorkpage().getParam(Constants.P_ENTITY);
 		try {
 			relation = Constants.Relation.valueOf(strEntity.toUpperCase());
-		} catch (Exception ex) {			
+		} catch (Exception ex) {
 			Statusbar.outputError("No or wrong entity set", "For relation list view processing an entity has to be set by the functiontreenode!");
 			getWorkpageContainer().closeWorkpage(getWorkpage());
-		}		
+		}
 		// set up grid output
 		setMetaData();
 		buildData();
 	}
-	
+
 	private void buildData() {
 		// clear list
 		grid.getItems().clear();
@@ -85,109 +85,109 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 			values[1] = relation.getDescription();
 			values[2] = relation.getPartner2().toString();
 			values[3] = relation.getStandard().toString();
-			item.setValues(values);				
+			item.setValues(values);
 			item.setBackgrounds(backgrounds);
 			grid.getItems().add(item);
 		}
 	}
-	
+
 	private void setMetaData() {
 		grid.getItems().clear();
 		grid.setTitles(titles);
-		grid.setWidths(widths);	
+		grid.setWidths(widths);
 		grid.setAligns(aligns);
 		grid.setFormats(formats);
-	}	
-	
+	}
+
 	public void onRefresh(ActionEvent event) {
 		buildData();
 	}
-	
+
 	public void onAdd(ActionEvent event) {
 		CreateRelationUI createRelationUI = getCreateRelationUI();
 		createRelationUI.setRelationType(relation);
 		createRelationUI.prepareCallback(new IPopUpCallback(){
 			public void cancel() {
-				m_popup.close();				
+				m_popup.close();
 			}
-			public void ok() {
-				m_popup.close();	
+			public void ok(Object object) {
+				m_popup.close();
 				buildData();
 				reloadFunctionTree();
 			}
-		});		
-		m_popup = getWorkpage().createModalPopupInWorkpageContext();    
+		});
+		m_popup = getWorkpage().createModalPopupInWorkpageContext();
 		m_popup.setLeftTopReferenceCentered();
-    	m_popup.open(Constants.Page.CREATERELATION.getUrl(), "Beziehung anlegen", 400, 160, this); 
+    	m_popup.open(Constants.Page.CREATERELATION.getUrl(), "Beziehung anlegen", 400, 160, this);
 	}
-	
+
 	public void onRemove(ActionEvent event) {
-		final MyARRAYGRIDItem item = (MyARRAYGRIDItem)grid.getSelectedItem();	
+		final MyARRAYGRIDItem item = (MyARRAYGRIDItem)grid.getSelectedItem();
 		if(item==null) return;
-		deleteRelation(item);			
+		deleteRelation(item);
 	}
-	
+
 	public void onStandard(ActionEvent event) {
 		MyARRAYGRIDItem item = (MyARRAYGRIDItem)grid.getSelectedItem();
 		if(item==null) return;
 		setStandard(item);
 	}
-	
+
 	private void setStandard(MyARRAYGRIDItem item) {
 		if(RELATIONLISTLOGIC.setStandard(relation, item.getId())) {
-			onRefresh(null);	
+			onRefresh(null);
 		} else {
 			Statusbar.outputWarning("For this relation set standard is not supported!");
 		}
-		
+
 	}
-	
+
 	private void deleteRelation(final MyARRAYGRIDItem item) {
 		YESNOPopup popup = YESNOPopup.createInstance(
-				"Confirm deletion", 
-				"Do you really want to delete the selected relation?", 
+				"Confirm deletion",
+				"Do you really want to delete the selected relation?",
 				new IYesNoCancelListener(){
 
 					public void reactOnCancel() {}
 
 					public void reactOnNo() {}
 
-					public void reactOnYes() {	
-						if(RELATIONLISTLOGIC.delete(relation, item.id)) {		
-							grid.getItems().remove(item);	
-							Statusbar.outputSuccess("Relation deleted");	
+					public void reactOnYes() {
+						if(RELATIONLISTLOGIC.delete(relation, item.id)) {
+							grid.getItems().remove(item);
+							Statusbar.outputSuccess("Relation deleted");
 							reloadFunctionTree();
 						} else {
 							Statusbar.outputError("Relation could not be deleted!");
-						}								
-					}						
+						}
+					}
 				}
 		);
 		popup.getModalPopup().setLeftTopReferenceCentered();
 	}
-		
+
 	public class MyARRAYGRIDItem extends ARRAYGRIDItem {
 		private String id;
-		
+
 		private MyARRAYGRIDItem() {
 			throw new IllegalAccessError();
 		};
 		public MyARRAYGRIDItem(String id) {
 			this.id = id;
 		}
-		
+
 		@Override
 		public void onRowPopupMenuItem(BaseActionEventPopupMenuItem event) {
 			super.onRowPopupMenuItem(event);
 			// remove item
 			if(REMOVE.equalsIgnoreCase(event.getCommand())) {
 				deleteRelation(this);
-				return;				
+				return;
 			}
 			// add item
 			if(ADD.equalsIgnoreCase(event.getCommand())) {
 				onAdd(null);
-				return;				
+				return;
 			}
 			// handle standard
 			if(STANDARD.equals(event.getCommand())) {
@@ -198,6 +198,6 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 
 		public String getId() {
 			return id;
-		}		
-	}	
+		}
+	}
 }

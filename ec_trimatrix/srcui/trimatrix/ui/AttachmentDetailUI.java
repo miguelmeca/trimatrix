@@ -130,7 +130,7 @@ public class AttachmentDetailUI extends AEntityDetailUI implements Serializable 
 			// check size
 			Integer size = bae.getHexBytes().length;
 			if (size > Constants.MB_1) {
-				Statusbar.outputError("Filesize " + size
+				Statusbar.outputAlert("Filesize " + size
 						+ " is more than max. size " + Constants.MB_1
 						+ " bytes!");
 				return;

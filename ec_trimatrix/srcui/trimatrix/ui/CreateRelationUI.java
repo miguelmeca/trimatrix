@@ -23,13 +23,13 @@ import trimatrix.utils.Constants;
 
 public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serializable {
 	private final RelationListLogic RELATIONLISTLOGIC = getLogic().getRelationListLogic();
-		
+
 	private IEntityObject partner1;
     public String getPartner1() { return partner1.toString(); }
-    
+
     private IEntityObject partner2;
     public String getPartner2() { return partner2.toString(); }
-    
+
 	public CreateRelationUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
 		reltypEnabled = true;
@@ -58,14 +58,14 @@ public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serial
     	try {
     		RELATIONLISTLOGIC.save(relation, objRelation);
     		Statusbar.outputSuccess("Relation saved");
-    		callback.ok();
+    		callback.ok(null);
     	} catch (DataIntegrityViolationException dive) {
     		logger.error("Relation could not be saved (Data Integrity) : " + dive.getRootCause().toString());
-    		popup = OKPopup.createInstance("Error","Relation could not be saved (Data Integrity)");    		
-    	} catch (Exception ex){			
+    		popup = OKPopup.createInstance("Error","Relation could not be saved (Data Integrity)");
+    	} catch (Exception ex){
 			logger.error("Relation could not be saved : " + ex.toString());
-    		popup = OKPopup.createInstance("Error","Relation could not be saved");    	
-		} 	
+    		popup = OKPopup.createInstance("Error","Relation could not be saved");
+		}
     	if (popup!=null) {
     		popup.getModalPopup().setWidth(300);
     		popup.getModalPopup().setHeight(150);
@@ -75,51 +75,51 @@ public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serial
 
     public void onSelectPartner1(ActionEvent event) {
     	final Constants.Entity entity = relation.getPartner1();
-    	Constants.Page selectionPage = entity.getSelectionPage();    	
+    	Constants.Page selectionPage = entity.getSelectionPage();
     	IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(entity);
     	entitySelectionUI.buildData(entity);
        	entitySelectionUI.prepareCallback(new ISelectionCallback(){
    			public void cancel() {
-   				m_popup.close();				
-   			}
-   			public void selected(String id) {  
-   				partner1 = getLogic().getEntityListLogic().get(entity, id);    				
    				m_popup.close();
-   			}});         	
-       	m_popup = getWorkpage().createModalPopupInWorkpageContext();      
+   			}
+   			public void selected(String id) {
+   				partner1 = getLogic().getEntityListLogic().get(entity, id);
+   				m_popup.close();
+   			}});
+       	m_popup = getWorkpage().createModalPopupInWorkpageContext();
        	m_popup.setLeftTopReferenceCentered();
        	m_popup.open(selectionPage.getUrl(), selectionPage.getDescription(), 800, 600, this);
     }
-    
+
     public void onSelectPartner2(ActionEvent event) {
     	final Constants.Entity entity = relation.getPartner2();
-    	Constants.Page selectionPage = entity.getSelectionPage();    	
+    	Constants.Page selectionPage = entity.getSelectionPage();
     	IEntitySelectionUI entitySelectionUI = getEntitySelectionUI(entity);
     	entitySelectionUI.buildData(entity);
        	entitySelectionUI.prepareCallback(new ISelectionCallback(){
    			public void cancel() {
-   				m_popup.close();				
-   			}
-   			public void selected(String id) {  
-   				partner2 = getLogic().getEntityListLogic().get(entity, id);    				
    				m_popup.close();
-   			}});    	
-       	m_popup = getWorkpage().createModalPopupInWorkpageContext();    
+   			}
+   			public void selected(String id) {
+   				partner2 = getLogic().getEntityListLogic().get(entity, id);
+   				m_popup.close();
+   			}});
+       	m_popup = getWorkpage().createModalPopupInWorkpageContext();
        	m_popup.setLeftTopReferenceCentered();
        	m_popup.open(selectionPage.getUrl(), selectionPage.getDescription(), 800, 600, this);
-    }   
+    }
 
     public void setRelationType(Constants.Relation relation) {
     	this.relation = relation;
     	reltypEnabled = false;
     }
-    
+
     protected ValidValuesBinding reltypeVvb = getServiceLayer().getValueListBindingService().getVVBinding(Constants.ValueList.RELTYPS);
     public ValidValuesBinding getReltypeVvb() { return reltypeVvb; }
 
     protected boolean reltypEnabled;
     public boolean getReltypEnabled() { return reltypEnabled; }
-  
+
     protected IPopUpCallback callback;
     public void prepareCallback(IPopUpCallback callback) {
     	this.callback = callback;

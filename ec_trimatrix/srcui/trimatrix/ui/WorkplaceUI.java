@@ -203,7 +203,7 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 					public void cancel() {
 						m_popup.close();
 					}
-					public void ok() {}
+					public void ok(Object object) {}
 				});
 				if(!labelChangePopUp.setLabel(label_id)) {
 					logger.error("Label " + label_id + " not correct!");
@@ -250,7 +250,7 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 			String fontColor = Helper.getBlackOrWhite(background);
 
 			xml.append("<t:row>");
-			xml.append("<t:button clientname='" + label.getId() + "' actionListener='#{d.WorkplaceUI.onHandleLabels}' contentareafilled='false' bgpaint='roundedrectangle(0,0,100%,100%,5,5," + label.getColor() + ")' stylevariant='WP_ISOLATEDWORKPAGE' popupmenu='LABEL' foreground ='" + fontColor + "' font='size:10;weight:bold' text='"+ label.getDescription() +"' width = '120' />");
+			xml.append("<t:button clientname='" + label.getId() + "' actionListener='#{d.WorkplaceUI.onHandleLabels}' contentareafilled='false' bgpaint='roundedrectangle(0,0,100%,100%,5,5," + label.getColor() + ")' stylevariant='WP_ISOLATEDWORKPAGE' popupmenu='LABEL' foreground ='" + fontColor + "' font='size:10;weight:bold' text='"+ label.getDescription() +"' width = '140' />");
 			xml.append("</t:row>");
 			xml.append("<t:rowdistance />");
 		}
