@@ -248,7 +248,8 @@ SELECT
   t_compsubtypes.description subtype,
   competitions.address,
   t_countries.description country,
-  IF(results.id IS NULL, 0, 1) results
+  IF(results.id IS NULL, 0, 1) results,
+  IF(comeptitions.results_id IS NULL, 0, 1) resultslist
 FROM competitions
   LEFT OUTER JOIN t_comptypes
     ON t_comptypes.key = competitions.type
@@ -275,6 +276,7 @@ ORDER by competitions.date
   <return-scalar column="address" type="java.lang.String"/>
   <return-scalar column="country" type="java.lang.String"/>
   <return-scalar column="results" type="java.lang.Boolean"/>
+  <return-scalar column="resultslist" type="java.lang.Boolean"/>
 </sql-query>
 
 <sql-query cacheable="true" name="DoctorEntityList" read-only="true">
@@ -330,6 +332,7 @@ FROM attachments
     ON persons.id = attachments.owner_id
 WHERE attachments.test = :p_test
     AND attachments.deleted = :p_deleted
+    AND intern = 0
     AND ( attachments.id = :p_id OR 0 = :p_id_on )
   <return-scalar column="id" type="java.lang.String"/>
   <return-scalar column="category" type="java.lang.String"/>

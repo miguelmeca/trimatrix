@@ -26,6 +26,7 @@ public final class CompetitionEntity extends AEntity {
     public static final String ADDRESS = "address";
     public static final String COUNTRY = "country";
     public static final String RESULTS = "results";
+    public static final String RESULTSLIST = "resultslist";
 
     // Comp Types
     public static final String TRIATHLON = "tria";
@@ -42,6 +43,7 @@ public final class CompetitionEntity extends AEntity {
         gridMetaData.add(new SGridMetaData("#{rr.literals.address}", ADDRESS, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("#{rr.literals.country}", COUNTRY, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData("#{rr.literals.results}", RESULTS, SGridMetaData.Component.CHECKBOX));
+        gridMetaData.add(new SGridMetaData("#{rr.literals.results_list}", RESULTSLIST, SGridMetaData.Component.CHECKBOX));
         return gridMetaData;
     }
 
@@ -136,6 +138,7 @@ public final class CompetitionEntity extends AEntity {
 		public String address;
 		public String country;
 		public boolean results;
+		public boolean resultslist;
 
 		/* (non-Javadoc)
 		 * @see trimatrix.entities.IEntityData#getId()
@@ -176,6 +179,10 @@ public final class CompetitionEntity extends AEntity {
 
 		public boolean getResults() {
 			return results;
+		}
+
+		public boolean getResultsList() {
+			return resultslist;
 		}
 	}
 }

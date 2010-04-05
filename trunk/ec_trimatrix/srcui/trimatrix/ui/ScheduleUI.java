@@ -1,5 +1,8 @@
 package trimatrix.ui;
 
+import static trimatrix.utils.Helper.isEmpty;
+
+import java.awt.Color;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -23,8 +26,10 @@ import org.eclnt.jsfserver.elements.events.BaseActionEventFlush;
 import org.eclnt.jsfserver.elements.events.BaseActionEventInvoke;
 import org.eclnt.jsfserver.elements.events.BaseActionEventPopupMenuItem;
 import org.eclnt.jsfserver.elements.events.BaseActionEventScheduleSizeChanged;
+import org.eclnt.jsfserver.elements.impl.BUTTONComponent;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
+import org.eclnt.jsfserver.elements.impl.ROWDYNAMICCONTENTBinding;
 import org.eclnt.jsfserver.elements.impl.SCHEDULEComponent;
 import org.eclnt.jsfserver.elements.impl.SCHEDULEITEMComponentTag;
 import org.eclnt.jsfserver.elements.util.Trigger;
@@ -33,6 +38,7 @@ import org.eclnt.workplace.IWorkpageDispatcher;
 import org.eclnt.workplace.WorkpageDefaultLifecycleListener;
 
 import trimatrix.db.DayInfos;
+import trimatrix.db.Persons;
 import trimatrix.db.Schedules;
 import trimatrix.db.ZonesDefinition;
 import trimatrix.logic.helper.ScheduleRun;
@@ -54,6 +60,8 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 
     public void onChangeAthlete(ActionEvent event) {
     	refresh();
+    	// clear agenda
+    	getGridAgenda().getItems().clear();
     }
 
     protected String athleteID;
@@ -65,43 +73,8 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
     	return vvbZones;
     }
 
-	protected FIXGRIDListBinding<GridAgendaItem> m_gridAgenda = new FIXGRIDListBinding<GridAgendaItem>();
-
-	public FIXGRIDListBinding<GridAgendaItem> getGridAgenda() {
-		return m_gridAgenda;
-	}
-
-	public void setGridAgenda(FIXGRIDListBinding<GridAgendaItem> value) {
-		m_gridAgenda = value;
-	}
-
-	public class GridAgendaItem extends FIXGRIDItem implements
-			java.io.Serializable {
-		private ScheduleItem scheduleItem;
-
-		public ScheduleItem getScheduleItem() {
-			return scheduleItem;
-		}
-
-		public void setScheduleItem(ScheduleItem scheduleItem) {
-			this.scheduleItem = scheduleItem;
-		}
-
-		public GridAgendaItem(ScheduleItem scheduleItem) {
-			this.scheduleItem = scheduleItem;
-		}
-	}
-
 	public void onCopySchedules(ActionEvent event) {
 		Statusbar.outputAlert("Copy schedule!");
-	}
-
-	public void onCreateTemplate(ActionEvent event) {
-		Statusbar.outputAlert("Create template!");
-	}
-
-	public void onCreateSerie(ActionEvent event) {
-		Statusbar.outputAlert("Create series!");
 	}
 
 	protected final long DURATION = 3600000; // in ms
@@ -442,13 +415,13 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 						m_popup.close();
 						refresh();
 					}
-					public void ok() {}
+					public void ok(Object object) {}
 				}, athleteID, date);
 		m_popup = getWorkpage().createModalPopupInWorkpageContext();
 		m_popup.setLeftTopReferenceCentered();
 		m_popup.setUndecorated(true);
 		m_popup.open(Constants.Page.DAYINFOPOPUP.getUrl(), "Tagesinformation",
-				800, 700, scheduleUI);
+				0, 0, scheduleUI);
 	}
 
 	public class ScheduleProcessor implements Serializable {
@@ -471,7 +444,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 				scheduleItems.add(scheduleItem);
 				refreshSchedule(day);
 				// open in popup
-				scheduleItem.openInPopup();
+				scheduleItem.openInPopup(false);
 			} else if (event instanceof BaseActionEventDrop) {
 				BaseActionEventDrop bae = (BaseActionEventDrop) event;
 				Timestamp from = getLogic().getScheduleLogic().calculateBeginDate(
@@ -481,14 +454,14 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 				if (dragInfo.startsWith("schedule:")) {
 					String[] dragInfos = dragInfo.split(":");
 					// new or existing schedule item
-					if (dragInfos[1].startsWith("new")) {
+					if (dragInfos[1].startsWith("template")) {
 						// add to list of visible items
-						Schedules schedule = getLogic().getScheduleLogic().createSchedule(from, athleteID);
+						Schedules schedule = getLogic().getScheduleLogic().createScheduleFromTemplate(from, athleteID, dragInfos[2]);
 						ScheduleItem scheduleItem = new ScheduleItem(schedule);
 						scheduleItems.add(scheduleItem);
 						refresh();
 						// open in popup
-						scheduleItem.openInPopup();
+						scheduleItem.openInPopup(false);
 					} else if (dragInfos[1].startsWith("series")) {
 						if (dragInfos[1].equalsIgnoreCase("series_a")) {
 
@@ -533,6 +506,14 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			schedule = getLogic().getScheduleLogic().saveSchedule(schedule);
 		}
 
+		public boolean deleteSchedule() throws Exception {
+			return getLogic().getScheduleLogic().deleteSchedule(schedule.getId());
+		}
+
+		public void copySchedule() throws Exception {
+
+		}
+
 		public String getId() {return schedule.getId();}
 
 		public String getTypeDesc() {
@@ -540,6 +521,11 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		}
 
 		public String getPersonId() {return schedule.getPersonId();}
+
+		public String getPersonDesc() {
+			Persons person =  getDaoLayer().getPersonsDAO().findById(getPersonId());
+			return person==null?Constants.EMPTY:person.toString();
+		}
 
 		public String getCreatorId() {return schedule.getCreatedBy();}
 
@@ -566,6 +552,9 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 
 		public String getDescription() {return schedule.getDescription();}
 		public void setDescription(String description) {schedule.setDescription(description);}
+
+		public String getTemplateName() {return schedule.getTemplateName();}
+		public void setTemplateName(String templateName) { schedule.setTemplateName(templateName);}
 
 		/**
 		 * Build summary string for schedule detail in calendar view
@@ -617,7 +606,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 				BaseActionEventPopupMenuItem bae = (BaseActionEventPopupMenuItem) event;
 				if (bae.getCommand().equals("cmdRemove")) {
 					YESNOPopup.createInstance("Removing Schedule Item",
-							"Do you really want to remove the selected item?",
+							"Do you really want to remove the selected schedule?",
 							new YESNOPopup.IYesNoListener() {
 								public void reactOnNo() { return; }
 
@@ -626,16 +615,20 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 									try {
 										scheduleItem = (ScheduleItem) getClass().getDeclaredField("this$1").get(this);
 										if(getLogic().getScheduleLogic().deleteSchedule(scheduleItem.getId())) {
-											Statusbar.outputMessage("Item removed!");
-											refreshAllSchedules();
+											Statusbar.outputMessage("Schedule succesfully deleted!");
+											refresh();
 										} else {
-											Statusbar.outputAlert("Item couldn't be removed!");
+											Statusbar.outputAlert("Schedule couldn't be deleted!");
 										}
 									} catch (Exception ex) {
-										Statusbar.outputAlert("Item couldn't be removed!", ex.toString());
+										Statusbar.outputAlert(ex.toString(), "Deletion failed!");
 									}
 								}
 							});
+				} else if (bae.getCommand().equals("cmdEdit")) {
+					openInPopup(false);
+				} else if (bae.getCommand().equals("cmdCopy")) {
+					openCopyPopup();
 				}
 			} else if (event instanceof BaseActionEventScheduleSizeChanged) {
 				// right size duration
@@ -649,16 +642,45 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 				}
 			} else if (event instanceof BaseActionEventFlush) {
 				selectScheduleItem(this);
-			} else if (event instanceof BaseActionEventInvoke) {
-				openInPopup();
+			} else if (event instanceof BaseActionEventInvoke) {	// schedule clicked
+				openInPopup(false);
 			}
 		}
 
-		private void openInPopup() {
+		private void openCopyPopup() {
+			selectScheduleItem(this);
+			ScheduleCopyPopUp scheduleCopyPopUp = getScheduleCopyPopUp();
+			scheduleCopyPopUp.prepareCallback(new IPopUpCallback() {
+
+				@Override
+				public void ok(Object object) {
+					m_popup.close();
+					// open copied schedule
+					if(object!=null) {
+						ScheduleItem scheduleItem = new ScheduleItem((Schedules)object);
+						scheduleItem.openInPopup(false);
+					}
+					refresh();
+				}
+
+				@Override
+				public void cancel() {
+					m_popup.close();
+					refresh();
+				}
+			}, this);
+			m_popup = getWorkpage().createModalPopupInWorkpageContext();
+			m_popup.setLeftTopReferenceCentered();
+			m_popup.setUndecorated(true);
+			m_popup.open(Constants.Page.SCHEDULECOPYPOPUP.getUrl(), "Kopieren", 0, 0, scheduleUI);
+		}
+
+
+		private void openInPopup(boolean template) {
 			selectScheduleItem(this);
 			ScheduleChangePopUp scheduleChangePopUp = getScheduleChangePopUp();
 			scheduleChangePopUp.prepareCallback(
-					new ScheduleChangePopUp.IPopupCallback() {
+					new ScheduleChangePopUp.IScheduleChangePopupCallback() {
 						public void cancel() {
 							m_popup.close();
 							refresh();
@@ -673,12 +695,27 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 								Statusbar.outputAlert(ex.toString(), "Save failed!");
 							}
 						}
+
+						public void delete() {
+							try {
+								if(deleteSchedule()) {
+									Statusbar.outputSuccess("Schedule succesfully deleted!");
+								} else {
+									Statusbar.outputAlert("Schedule couldn't be deleted!");
+								}
+								m_popup.close();
+								refresh();
+							} catch (Exception ex) {
+								Statusbar.outputAlert(ex.toString(), "Deletion failed!");
+							}
+						}
 					}, this);
 			m_popup = getWorkpage().createModalPopupInWorkpageContext();
 			m_popup.setLeftTopReferenceCentered();
 			m_popup.setUndecorated(true);
-			m_popup.open(Constants.Page.SCHEDULECHANGEPOPUP.getUrl(), "Termin",
-					1024, 768, scheduleUI);
+			String title = "Termin";
+			if(template) title = "Vorlage";
+			m_popup.open(Constants.Page.SCHEDULECHANGEPOPUP.getUrl(), title, 1024, 768, scheduleUI);
 		}
 	}
 
@@ -697,5 +734,114 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			return dayInfo.hashCode()==DayInfos.EMPTYHASH ? Constants.DAYINFO_FALSE : Constants.DAYINFO_TRUE;
 		}
 
+	}
+
+	// ------------------------------------------------------------------------
+	// logic for templates view
+	// ------------------------------------------------------------------------
+
+	protected ROWDYNAMICCONTENTBinding m_Templates = new ROWDYNAMICCONTENTBinding();
+    public ROWDYNAMICCONTENTBinding getTemplates() { setTemplatesRowDynamic(); return m_Templates; }
+
+    public void setTemplatesRowDynamic() {
+    	StringBuffer xml = new StringBuffer();
+    	// get all templates for logged in person
+		List<Schedules> templates = getLogic().getScheduleLogic().getTemplates();
+		xml.append("<t:pane>");
+		for(Schedules template:templates) {
+			// get inverted color for font
+			Color background = Color.decode(template.getColor());
+			String fontColor = Helper.getBlackOrWhite(background);
+
+			xml.append("<t:row>");
+			xml.append("<t:button clientname='" + template.getId() + "' align='center' actionListener='#{d.ScheduleUI.onHandleTemplates}' dragsend='schedule:template:" + template.getId() + "' contentareafilled='false' bgpaint='roundedrectangle(0,0,100%,100%,5,5," + template.getColor() + ")' stylevariant='WP_ISOLATEDWORKPAGE' foreground ='" + fontColor + "' font='size:10;weight:bold' text='"+ template.getTemplateName() +"' width = '140' />");
+			xml.append("</t:row>");
+			xml.append("<t:rowdistance />");
+		}
+		xml.append("</t:pane>");
+		m_Templates.setContentXml(xml.toString());
+	}
+
+    public void onHandleTemplates(ActionEvent ae) {
+    	if (!(ae.getSource() instanceof BUTTONComponent)) return;
+    	// get id
+     	BUTTONComponent button =(BUTTONComponent)ae.getSource();
+    	String templateId = button.getAttributeValueAsString(Constants.CLIENTNAME);
+    	// load template
+    	Schedules template = getLogic().getScheduleLogic().getSchedule(templateId);
+		ScheduleItem templateItem = new ScheduleItem(template);
+		// open in popup
+		templateItem.openInPopup(true);
+    }
+
+    public void onCreateTemplate(ActionEvent event) {
+		// create a template
+		Schedules template = getLogic().getScheduleLogic().createTemplate(athleteID);
+		ScheduleItem templateItem = new ScheduleItem(template);
+		// open in popup
+		templateItem.openInPopup(true);
+	}
+
+    // ------------------------------------------------------------------------
+	// logic for agenda pane
+	// ------------------------------------------------------------------------
+
+    protected FIXGRIDListBinding<GridAgendaItem> m_gridAgenda = new FIXGRIDListBinding<GridAgendaItem>();
+	public FIXGRIDListBinding<GridAgendaItem> getGridAgenda() {return m_gridAgenda;}
+	public void setGridAgenda(FIXGRIDListBinding<GridAgendaItem> value) {m_gridAgenda = value;}
+
+	public class GridAgendaItem extends FIXGRIDItem implements
+			java.io.Serializable {
+		private ScheduleItem scheduleItem;
+
+		public ScheduleItem getScheduleItem() {
+			return scheduleItem;
+		}
+
+		public void setScheduleItem(ScheduleItem scheduleItem) {
+			this.scheduleItem = scheduleItem;
+		}
+
+		public GridAgendaItem(ScheduleItem scheduleItem) {
+			this.scheduleItem = scheduleItem;
+		}
+
+		@Override
+		public void onRowExecute() {
+			scheduleItem.openInPopup(false);
+		}
+	}
+
+	/* Selection criterias */
+	private String searchAthleteId = null;
+	public String getSearchAthleteId() {return searchAthleteId;}
+	public void setSearchAthleteId(String searchAthleteId) {this.searchAthleteId = searchAthleteId;}
+
+	private Date fromDate = null;
+	public Date getFromDate() {return fromDate;}
+	public void setFromDate(Date fromDate) {this.fromDate = fromDate;}
+
+	private Date toDate = null;
+	public Date getToDate() {return toDate;}
+	public void setToDate(Date toDate) {this.toDate = toDate;}
+
+	public void onClearAgendaSearch(ActionEvent ae) {
+		searchAthleteId = null;
+		fromDate = null;
+		toDate = null;
+		// clear resultset
+		getGridAgenda().getItems().clear();
+	}
+
+	public void onAgendaSearch(ActionEvent ae) {
+		getGridAgenda().getItems().clear();
+		List<Schedules> schedules = getLogic().getScheduleLogic().getSchedulesByQuery(getSearchAthleteId(), getFromDate(), getToDate());
+		if(isEmpty(schedules)) {
+			Statusbar.outputAlert("No entries found!");
+			return;
+		}
+		for(Schedules schedule : schedules) {
+			getGridAgenda().getItems().add(new GridAgendaItem(new ScheduleItem(schedule)));
+		}
 	}
 }

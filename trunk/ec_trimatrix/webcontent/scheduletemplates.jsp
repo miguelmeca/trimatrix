@@ -4,6 +4,7 @@
 <%@taglib prefix="f" uri="http://java.sun.com/jsf/core"%>
 <%@taglib prefix="h" uri="http://java.sun.com/jsf/html"%>
 
+<%@taglib prefix="tx" uri="/WEB-INF/trimatrixcontrols"%>
 <%@taglib prefix="t" uri="/WEB-INF/eclnt"%>
 
 
@@ -12,21 +13,7 @@
 <h:form>
 <f:subview id="scheduletemplatesg_sv">
 <t:rowbodypane id="g_1" rowdistance="5" >
-<t:row id="g_2" >
-<t:coldistance id="g_3" width="100%" />
-<t:button id="g_4" align="center" bgpaint="roundedrectangle(0,0,100%,100%,5,5,#0000FF80)" contentareafilled="false" dragsend="schedule:new_run" font="size:10;weight:bold" foreground="#000000" stylevariant="WP_ISOLATEDWORKPAGE" text="Laufen" width="140" />
-<t:coldistance id="g_5" width="100%" />
-</t:row>
-<t:row id="g_6" >
-<t:coldistance id="g_7" width="100%" />
-<t:button id="g_8" align="center" bgpaint="roundedrectangle(0,0,100%,100%,5,5,#00FF0080)" contentareafilled="false" dragsend="schedule:new_bike" font="size:10;weight:bold" foreground="#000000" stylevariant="WP_ISOLATEDWORKPAGE" text="Rad" width="140" />
-<t:coldistance id="g_9" width="100%" />
-</t:row>
-<t:row id="g_10" >
-<t:coldistance id="g_11" width="100%" />
-<t:button id="g_12" align="center" bgpaint="roundedrectangle(0,0,100%,100%,5,5,#FF000080)" contentareafilled="false" dragsend="schedule:new_swim" font="size:10;weight:bold" foreground="#000000" stylevariant="WP_ISOLATEDWORKPAGE" text="Schwimmen" width="140" />
-<t:coldistance id="g_13" width="100%" />
-</t:row>
+<t:rowdynamiccontent id="g_2" contentbinding="#{d.ScheduleUI.templates}" />
 </t:rowbodypane>
 <t:pageaddons id="g_pa"/>
 </f:subview>

@@ -2,9 +2,11 @@ package trimatrix.logic;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -104,8 +106,19 @@ public class ScheduleLogic {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(beginOfWeek);
 		cal.add(Calendar.DAY_OF_WEEK, 6); // Add a week
+		cal.set(Calendar.HOUR_OF_DAY, 23);
+		cal.set(Calendar.MINUTE, 59);
+		cal.set(Calendar.SECOND, 59);
 		Date startHigh = cal.getTime();
 		return serviceLayer.getSqlExecutorService().getSchedules(personId, new Timestamp(beginOfWeek.getTime()), new Timestamp(startHigh.getTime()), false);
+	}
+
+	public List<Schedules> getTemplates() {
+		Schedules example = new Schedules();
+		example.setPersonId(serviceLayer.getDictionaryService().getMyPerson().getId());
+		example.setTemplate(true);
+		example.setDeleted(false);
+		return daoLayer.getSchedulesDAO().findByExample(example);
 	}
 
 //	public Schedules getSchedule(String id) {
@@ -123,6 +136,35 @@ public class ScheduleLogic {
 		schedule.setColor(Constants.WHITE);
 		schedule.setPersonId(personId);
 		schedule.setTemplate(false);
+		return schedule;
+	}
+
+	public Schedules createScheduleFromTemplate(Timestamp from, String personId, String templateId) {
+		Schedules schedule = (Schedules)entityLayer.getScheduleEntity().get(templateId);
+		String id = UUID.randomUUID().toString();
+		schedule.setId(id);
+		schedule.setStart(from);
+		schedule.setDuration(60L); // 1h in min
+		schedule.setPersonId(personId);
+		schedule.setTemplate(false);
+		return schedule;
+	}
+
+	public Schedules createTemplate(String personId) {
+		Schedules template = (Schedules)entityLayer.getScheduleEntity().create();
+		template.setColor(Constants.WHITE);
+		template.setPersonId(personId);
+		template.setTemplate(true);
+		return template;
+	}
+
+	public Schedules copySchedule(String scheduleId, String athleteId, Timestamp from) throws Exception {
+		Schedules schedule = (Schedules)entityLayer.getScheduleEntity().get(scheduleId);
+		String id = UUID.randomUUID().toString();
+		schedule.setId(id);
+		schedule.setStart(from);
+		schedule.setPersonId(athleteId);
+		entityLayer.getScheduleEntity().save(schedule);
 		return schedule;
 	}
 
@@ -175,5 +217,9 @@ public class ScheduleLogic {
 
 	public void setEntityLayer(EntityLayer entityLayer) {
 		this.entityLayer = entityLayer;
+	}
+
+	public List<Schedules> getSchedulesByQuery(String personId, Date from, Date to) {
+		return serviceLayer.getSqlExecutorService().getSchedules(personId, from==null?null:new Timestamp(from.getTime()), to==null?null:new Timestamp(to.getTime()), false);
 	}
 }

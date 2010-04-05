@@ -16,7 +16,7 @@ public class ScheduleEntity extends AEntity {
 	public static final String TYPE = "type";
 	public static final String DESCRIPTION = "description";
 	public static final String START = "start";
-    public static final String DURATION = "druration";
+    public static final String DURATION = "duration";
     public static final String COLOR = "color";
     public static final String DONE = "done";
 

@@ -27,6 +27,7 @@ import org.eclnt.workplace.WorkpageDispatchedBean;
 
 import trimatrix.db.DAOLayer;
 import trimatrix.db.Labels;
+import trimatrix.entities.EntityLayer;
 import trimatrix.logic.LogicLayer;
 import trimatrix.relations.RelationLayer;
 import trimatrix.reports.Report;
@@ -45,6 +46,7 @@ import trimatrix.ui.LabelChangePopUp;
 import trimatrix.ui.LabelPopUpUI;
 import trimatrix.ui.PersonSelectionUI;
 import trimatrix.ui.ScheduleChangePopUp;
+import trimatrix.ui.ScheduleCopyPopUp;
 import trimatrix.ui.UserDetailUI;
 import trimatrix.ui.UserSelectionUI;
 import trimatrix.ui.WPFunctionTreeAdmin;
@@ -217,7 +219,7 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 	   	labelPopUpUI.setEntityID(entityId);
 	   	labelPopUpUI.initialize();
 	   	labelPopUpUI.prepareCallback(new IPopUpCallback(){
-			public void ok() {
+			public void ok(Object object) {
 				setLabelRowDynamic();
 				popup.close();
 			}
@@ -268,6 +270,10 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 		return getOwningDispatcher().getDaoLayer();
 	}
 
+	protected EntityLayer getEntityLayer() {
+		return getOwningDispatcher().getEntityLayer();
+	}
+
 	// ------------------------------------------------------------------------
 	// convenience access
 	// ------------------------------------------------------------------------
@@ -311,6 +317,10 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 
 	public ScheduleChangePopUp getScheduleChangePopUp() {
 		return (ScheduleChangePopUp)getOwningDispatcher().getDispatchedBean(ScheduleChangePopUp.class);
+	}
+
+	public ScheduleCopyPopUp getScheduleCopyPopUp() {
+		return (ScheduleCopyPopUp)getOwningDispatcher().getDispatchedBean(ScheduleCopyPopUp.class);
 	}
 
 	public DayInfoPopUp getDayInfoPopUp() {
