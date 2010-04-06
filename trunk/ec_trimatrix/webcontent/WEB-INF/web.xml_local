@@ -95,12 +95,21 @@
 		<servlet-class>org.eclnt.jsfserver.util.AutoCompleteServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	<servlet id="ExtCalendarServlet">
+		<servlet-name>ExtCalendarServlet</servlet-name>
+		<servlet-class>org.eclnt.jsfserver.calendar.ExtCalendarServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet id="LongPollingServlet">
+		<servlet-name>LongPollingServlet</servlet-name>
+		<servlet-class>org.eclnt.jsfserver.polling.LongPollingServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
 	<servlet id="AcroFormServlet">
 		<servlet-name>AcroFormServlet</servlet-name>
 		<servlet-class>trimatrix.utils.AcroFormServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-
 
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
@@ -139,9 +148,18 @@
 		<url-pattern>*.ccautocomplete</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
+		<servlet-name>ExtCalendarServlet</servlet-name>
+		<url-pattern>*.ccextcalendar</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>LongPollingServlet</servlet-name>
+		<url-pattern>*.cclongpolling</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>AcroFormServlet</servlet-name>
 		<url-pattern>/servlet/AcroForm</url-pattern>
 	</servlet-mapping>
+
 	<!-- Start ZK Integration -->
 	<listener>
 		<description>Used to cleanup when a session is destroyed</description>
@@ -175,7 +193,7 @@
 		<servlet-name>auEngine</servlet-name>
 		<url-pattern>/zkau/*</url-pattern>
 	</servlet-mapping>
-    <!-- End ZK Integration -->
+	<!-- End ZK Integration -->
 	<mime-mapping>
 		<extension>jnlp</extension>
 		<mime-type>application/x-java-jnlp-file</mime-type>

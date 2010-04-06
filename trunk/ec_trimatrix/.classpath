@@ -86,5 +86,7 @@
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/zul.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/zweb.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/eclntjsfserver.jar"/>
+	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/commons-collections-2.1.1.jar"/>
+	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/commons-logging-1.0.4.jar"/>
 	<classpathentry kind="output" path="webcontent/WEB-INF/classes"/>
 </classpath>

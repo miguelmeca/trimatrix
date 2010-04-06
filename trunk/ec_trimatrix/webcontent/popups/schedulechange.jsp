@@ -62,9 +62,9 @@
 <t:field id="g_40" actionListener=".{onTimeFlush}" align="center" bgpaint="mandatory()" clientname="duration" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" font="size:16" text=".{scheduleRun.duration}" width="100" />
 </t:gridcol>
 <t:gridcol id="g_41" text="#{rr.literals.intensity}" width="100" >
-<t:combobox id="g_42" actionListener=".{onChangeIntensity}" bgpaint="mandatory()" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" font="size:16" validvaluesbinding="#{d.ScheduleUI.vvbZones}" value=".{scheduleRun.zone}" withnullitem="true" withvaluecomment="true" />
+<t:combobox id="g_42" actionListener=".{onChangeIntensity}" bgpaint="mandatory()" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" font="size:16" validvaluesbinding="#{helper.vvb.myzonesdefinition}" value=".{scheduleRun.zone}" withnullitem="true" withvaluecomment="true" />
 </t:gridcol>
-<t:gridcol id="g_43" text="#{rr.literals.hr}" width="100" >
+<t:gridcol id="g_43" rendered="#{d.ScheduleChangePopUp.template==false}" text="#{rr.literals.hr}" width="100" >
 <t:pane id="g_44" width="100%" >
 <t:row id="g_45" >
 <t:formattedfield id="g_46" align="right!" bgpaint="write(5,2,#{rr.literals.from},left)" enabled="#{d.ScheduleChangePopUp.creatorsSight}" format="int" value=".{scheduleRun.hrLow}" width="100%" />

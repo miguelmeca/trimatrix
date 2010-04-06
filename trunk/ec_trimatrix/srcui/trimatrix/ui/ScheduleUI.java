@@ -68,10 +68,10 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
     public String getAthleteID() {return athleteID;}
 	public void setAthleteID(String athleteID) {this.athleteID = athleteID;}
 
-    protected ValidValuesBinding vvbZones = new ValidValuesBinding();
-    public ValidValuesBinding getVvbZones() {
-    	return vvbZones;
-    }
+//    protected ValidValuesBinding vvbZones = new ValidValuesBinding();
+//    public ValidValuesBinding getVvbZones() {
+//    	return vvbZones;
+//    }
 
 	public void onCopySchedules(ActionEvent event) {
 		Statusbar.outputAlert("Copy schedule!");
@@ -271,14 +271,14 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		}
 	}
 
-	private void buildZones() {
-		vvbZones = getServiceLayer().getValueListBindingService().getVVBindingZones(getServiceLayer().getDictionaryService().getMyPerson().getId(), getAthleteID());
-	}
+//	private void buildAthletesZones() {
+//		vvbZones = getServiceLayer().getValueListBindingService().getVVBindingZones(getServiceLayer().getDictionaryService().getMyPerson().getId(), getAthleteID());
+//	}
 
 	private void refresh() {
 		update();
 		refreshAllSchedules();
-		buildZones();
+//		buildAthletesZones();
 	}
 
 	private void refreshAllSchedules() {

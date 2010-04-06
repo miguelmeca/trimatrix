@@ -13,7 +13,7 @@
 <h:form>
 <f:subview id="zonesdetailg_sv">
 <t:row id="g_1" >
-<t:pane id="g_2" rowdistance="5" width="100%" >
+<t:pane id="g_2" padding="5" rowdistance="5" width="100%" >
 <t:row id="g_3" >
 <t:button id="g_4" actionListener="#{d.ZonesDetailUI.onEdit}" enabled="#{d.ZonesDetailUI.changeAllowed}" image="/images/icons/edit.png" imageheight="15" rendered="#{d.ZonesDetailUI.renderEditButton}" text="#{rr.literals.edit}" />
 <t:coldistance id="g_5" />
