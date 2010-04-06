@@ -45,6 +45,7 @@ import trimatrix.ui.IEntityDetailUI;
 import trimatrix.ui.LabelChangePopUp;
 import trimatrix.ui.LabelPopUpUI;
 import trimatrix.ui.PersonSelectionUI;
+import trimatrix.ui.ResultsListPopUp;
 import trimatrix.ui.ScheduleChangePopUp;
 import trimatrix.ui.ScheduleCopyPopUp;
 import trimatrix.ui.UserDetailUI;
@@ -321,6 +322,10 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 
 	public ScheduleCopyPopUp getScheduleCopyPopUp() {
 		return (ScheduleCopyPopUp)getOwningDispatcher().getDispatchedBean(ScheduleCopyPopUp.class);
+	}
+
+	public ResultsListPopUp getResultsListPopUp() {
+		return (ResultsListPopUp)getOwningDispatcher().getDispatchedBean(ResultsListPopUp.class);
 	}
 
 	public DayInfoPopUp getDayInfoPopUp() {

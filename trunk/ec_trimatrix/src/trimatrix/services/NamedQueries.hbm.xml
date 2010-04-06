@@ -249,7 +249,7 @@ SELECT
   competitions.address,
   t_countries.description country,
   IF(results.id IS NULL, 0, 1) results,
-  IF(comeptitions.results_id IS NULL, 0, 1) resultslist
+  IF(competitions.results_id IS NULL, 0, 1) resultslist
 FROM competitions
   LEFT OUTER JOIN t_comptypes
     ON t_comptypes.key = competitions.type
@@ -608,7 +608,8 @@ SELECT
   t_compsubtypes.description subtype,
   competitions.address,
   t_countries.description country,
-  IF(results.id IS NULL, 0, 1) results
+  IF(results.id IS NULL, 0, 1) results,
+  IF(competitions.results_id IS NULL, 0, 1) resultslist
 FROM competitions
   LEFT OUTER JOIN t_comptypes
     ON t_comptypes.key = competitions.type
@@ -637,6 +638,7 @@ ORDER BY competitions.date
   <return-scalar column="address" type="java.lang.String"/>
   <return-scalar column="country" type="java.lang.String"/>
   <return-scalar column="results" type="java.lang.Boolean"/>
+  <return-scalar column="resultslist" type="java.lang.Boolean"/>
 </sql-query>
 
 <sql-query cacheable="true" name="CompetitionScoutRelationEntityList" read-only="true">
@@ -649,7 +651,8 @@ SELECT
   t_compsubtypes.description subtype,
   competitions.address,
   t_countries.description country,
-  IF(results.id IS NULL, 0, 1) results
+  IF(results.id IS NULL, 0, 1) results,
+  IF(competitions.results_id IS NULL, 0, 1) resultslist
 FROM competitions
   LEFT OUTER JOIN t_comptypes
     ON t_comptypes.key = competitions.type
@@ -677,6 +680,7 @@ ORDER BY competitions.date
   <return-scalar column="address" type="java.lang.String"/>
   <return-scalar column="country" type="java.lang.String"/>
   <return-scalar column="results" type="java.lang.Boolean"/>
+  <return-scalar column="resultslist" type="java.lang.Boolean"/>
 </sql-query>
 
 <sql-query cacheable="true" name="ResultEntityList" read-only="true">

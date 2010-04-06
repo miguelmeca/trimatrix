@@ -16,7 +16,7 @@
 <t:pane id="g_2" rowdistance="5" stylevariant="popup" >
 <t:row id="g_3" >
 <t:label id="g_4" text="#{rr.literals.results_list}" width="90" />
-<t:field id="g_5" enabled="false" focusable="false" width="200" />
+<t:field id="g_5" enabled="false" focusable="false" text="#{d.ResultsListPopUp.resultList.fileName}" width="200" />
 <t:coldistance id="g_6" />
 <t:button id="g_7" actionListener="#{d.ResultsListPopUp.onDelete}" image="/images/icons/delete.png" imageheight="16" text="#{rr.literals.delete}" />
 <t:coldistance id="g_8" />
@@ -30,13 +30,11 @@
 <t:coldistance id="g_15" />
 <t:button id="g_16" actionListener="#{d.ResultsListPopUp.onCreateTemplate}" image="/images/icons/new.png" imageheight="16" text="#{rr.literals.new}" />
 <t:coldistance id="g_17" />
-<t:button id="g_18" actionListener="#{d.ResultsListPopUp.onPreview}" image="/images/icons/preview.png" imageheight="16" text="#{rr.literals.download}" />
+<t:button id="g_18" actionListener="#{d.ResultsListPopUp.onPreview}" image="/images/icons/preview.png" imageheight="16" text="#{rr.literals.preview}" />
 </t:row>
-<t:row id="g_19" comment="preview" >
-<t:arraygrid id="g_20" horizontalscrollmode="autowithresize" objectbinding="#{d.ResultsListPopUp.gridPreview}" sbvisibleamount="15" showemptyrows="false" />
-</t:row>
-<t:row id="g_21" >
-<t:button id="g_22" actionListener="#{d.ResultsListPopUp.onOk}" text="#{rr.literals.ok}" />
+<t:row id="g_19" comment="preview" />
+<t:row id="g_20" >
+<t:button id="g_21" actionListener="#{d.ResultsListPopUp.onOk}" text="#{rr.literals.ok}" />
 </t:row>
 </t:pane>
 </t:row>
