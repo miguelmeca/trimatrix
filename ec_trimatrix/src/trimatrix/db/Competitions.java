@@ -221,7 +221,7 @@ public class Competitions implements java.io.Serializable, IEntityObject{
 		this.resultsId = resultsId;
 	}
 
-	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE}, fetch = FetchType.EAGER)
 	@JoinColumn(name="results_id")
     public Attachments getResults() {
 		return results;

@@ -8,6 +8,8 @@ import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.bufferedcontent.BufferedContentMgr;
+import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
+import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoCancelListener;
 import org.eclnt.jsfserver.elements.events.BaseActionEventUpload;
 import org.eclnt.jsfserver.elements.impl.ARRAYGRIDItem;
 import org.eclnt.jsfserver.elements.impl.ARRAYGRIDListBinding;
@@ -15,6 +17,9 @@ import org.eclnt.workplace.IWorkpageDispatcher;
 import org.eclnt.workplace.WorkpageDefaultLifecycleListener;
 
 import trimatrix.db.Attachments;
+import trimatrix.db.Competitions;
+import trimatrix.db.DAOLayer;
+import trimatrix.ui.utils.IPopUpCallback;
 import trimatrix.ui.utils.MyBufferedContentForAttachment;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
@@ -24,6 +29,15 @@ import eu.medsea.mimeutil.MimeUtil;
 @CCGenClass (expressionBase="#{d.ResultsListPopUp}")
 
 public class ResultsListPopUp extends MyWorkpageDispatchedBean implements Serializable {
+	private Competitions competition;
+
+	private IPopUpCallback callback;
+	public void prepareCallback(IPopUpCallback callback, Competitions competition) {
+    	this.callback = callback;
+    	this.competition = competition;
+    	resultList = competition.getResults();
+    	init(resultList);
+    }
 
 	private MyBufferedContentForAttachment bc;
     public ResultsListPopUp(IWorkpageDispatcher dispatcher) {
@@ -36,10 +50,10 @@ public class ResultsListPopUp extends MyWorkpageDispatchedBean implements Serial
 						BufferedContentMgr.remove(bc);
 					}
 				});
-		init(resultList);
 	}
 
     public void init(Attachments attachments) {
+    	if(attachments==null) return;
 		// buffered content
 		bc = new MyBufferedContentForAttachment(attachments);
 		BufferedContentMgr.add(bc);
@@ -97,11 +111,34 @@ public class ResultsListPopUp extends MyWorkpageDispatchedBean implements Serial
 			}
 			// Content
 			resultList.setFileContent(bae.getHexBytes());
+			// initialize
+			init(resultList);
 		}
     }
 
-    public void onDelete(ActionEvent event) {}
+    public void onDelete(ActionEvent event) {
+    	if(resultList!=null) {
+    		YESNOPopup popup = YESNOPopup.createInstance(
+    				"Confirm deletion",
+    				"Do you really want to delete the result list?",
+    				new IYesNoCancelListener(){
 
-    public void onOk(ActionEvent event) {}
+    					public void reactOnCancel() {}
+
+    					public void reactOnNo() {}
+
+    					public void reactOnYes() {
+    			    		// set to null for callback
+    			    		resultList = null;
+    					}
+    				}
+    		);
+    		popup.getModalPopup().setLeftTopReferenceCentered();
+    	}
+    }
+
+    public void onOk(ActionEvent event)  {
+    	callback.ok(resultList);
+    }
 
 }

@@ -16,8 +16,6 @@
 					longpollingurl="#{eclntdefscr.observerPopup.longPollingURL}"
 					actionListener="#{eclntdefscr.observerPopup.onLongPollingAction}">
 				</t:longpolling>
-				<t:blocker id="g_blocker" blocked="true">
-				</t:blocker>
 			</t:beanprocessing>
 			<t:rowbodypane id="g_1" bgpaint="border(0,0,100%,100%,#80000080,3)"
 				padding="0">

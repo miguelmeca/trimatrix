@@ -1,5 +1,8 @@
 package trimatrix.ui;
 
+import static trimatrix.utils.Helper.correctTimeInput;
+import static trimatrix.utils.Helper.isEmpty;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,23 +15,25 @@ import org.apache.commons.lang.StringUtils;
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.ISetId;
 import org.eclnt.jsfserver.defaultscreens.IdTextSelection;
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
+import trimatrix.db.Attachments;
 import trimatrix.db.Competitions;
 import trimatrix.db.CompetitionsScouts;
+import trimatrix.db.DAOLayer;
 import trimatrix.db.Results;
 import trimatrix.entities.CompetitionEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
 import trimatrix.logic.helper.Limit;
 import trimatrix.structures.SListVariant;
+import trimatrix.ui.utils.IPopUpCallback;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Constants.Entity;
-
-import static trimatrix.utils.Helper.*;
 
 @SuppressWarnings("serial")
 @CCGenClass(expressionBase = "#{d.CompetitionDetailUI}")
@@ -221,6 +226,8 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 
 	private Competitions entity;
 	private CompetitionsScouts entityCS;
+	private Attachments resultList;
+
 
 	public CompetitionDetailUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher, new String[] { CompetitionEntity.DESCRIPTION, CompetitionEntity.TYPE, CompetitionEntity.DATE }, true);
@@ -272,6 +279,8 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		entity.setDate((Date) values.get(CompetitionEntity.DATE));
 		entity.setAddress((String) values.get(CompetitionEntity.ADDRESS));
 		entity.setCountryKey((String) values.get(CompetitionEntity.COUNTRY));
+		// result list
+		entity.setResults(resultList);
 		// create CS entity if relevant;
 		if (isMyCompetition() && entityCS == null) {
 			if (getLogic().getFunctionTreeLogic().createCompetitionScout(entity.getId()))
@@ -321,6 +330,11 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		for(GridLimitsItem item : m_gridLimits.getItems()) {
 			getLogic().getCompetitionLogic().addCategoriesToPreferences(item.getCategory());
 		}
+		// delete result list
+		if(entity.getResults()==null && !isEmpty(entity.getResultsId())) {
+			Attachments resultList = getDaoLayer().getAttachmentsDAO().findById(entity.getResultsId());
+			getDaoLayer().getAttachmentsDAO().delete(resultList);
+		}
 	}
 
 	public void saveGridState(ActionEvent event) {
@@ -341,5 +355,33 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 	@Override
 	public boolean getEnabled() {
 		return super.getEnabled() && ENTITYLISTLOGIC.isUserEqualUserLoggedOn(entity.getCreatedBy());
+	}
+
+	public void onResultList(ActionEvent ae) {
+		// open popup
+		ResultsListPopUp resultsListPopUp = getResultsListPopUp();
+		resultsListPopUp.prepareCallback(new IPopUpCallback() {
+
+			@Override
+			public void ok(Object object) {
+				resultList = (Attachments)object;
+				m_popup.close();
+			}
+
+			@Override
+			public void cancel() {}
+		}, entity);
+		m_popup = getWorkpage().createModalPopupInWorkpageContext();
+		m_popup.setLeftTopReferenceCentered();
+		m_popup.setUndecorated(true);
+		m_popup.open(Constants.Page.RESULTSLISTPOPUP.getUrl(), "Ergebnisliste", 0, 0, this);
+	}
+
+	public String getResultsListIcon() {
+		if(isEmpty(entity.getResultsId())) {
+			return Constants.ACCEPT_LIGHT;
+		} else {
+			return Constants.ACCEPT;
+		}
 	}
 }
