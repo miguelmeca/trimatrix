@@ -206,6 +206,7 @@ public final class Constants {
 		FUNCTIONS(null),
 		MYATHLETES(null),
 		MYATHLETESANDME(null),
+		MYZONESDEFINITION(null),
 		SCHEDULETYPE(SQLExecutorService.SCHEDULETYPEVALUELISTQUERY);
 		private String namedQuery;
 		ValueList(String namedQuery) {

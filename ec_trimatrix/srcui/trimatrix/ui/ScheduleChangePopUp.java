@@ -22,6 +22,7 @@ import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
+import trimatrix.db.Zones;
 import trimatrix.db.ZonesDefinition;
 import trimatrix.logic.helper.ScheduleRun;
 import trimatrix.ui.ScheduleUI.ScheduleItem;
@@ -182,6 +183,7 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 
 		public GridRunItem(ScheduleRun scheduleRun) {
 			this.scheduleRun = scheduleRun;
+			if(!isTemplate()) prefillZones();
 		}
 
 		public void onTimeFlush(ActionEvent event) {
@@ -199,14 +201,48 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 	    }
 
 		public void onChangeIntensity(ActionEvent event) {
-			// get zone
+			// set back all properties
+			scheduleRun.setLactateLow(null);
+			scheduleRun.setLactateHigh(null);
+			scheduleRun.setHrLow(null);
+			scheduleRun.setHrHigh(null);
+			// get zones definition
 			ZonesDefinition definition = getDaoLayer().getZonesDefinitionDAO().findById(scheduleRun.getZone());
 			if(definition==null) return;
-			// set parameter
+			// set definition relevant properties
 			scheduleRun.setLactateLow(definition.getLactateLow());
 			scheduleRun.setLactateHigh(definition.getLactateHigh());
-			scheduleRun.setHrLow(definition.getHrLow());
-			scheduleRun.setHrHigh(definition.getHrHigh());
+			// no handling when in template mode
+			if(isTemplate()) return;
+			// get athletes zone
+			Zones example = new Zones();
+			example.setAthleteId(scheduleItem.getPersonId());
+			example.setZonesDefinitionId(scheduleRun.getZone());
+			List<Zones> zones = getDaoLayer().getZonesDAO().findByExample(example);
+			if(isEmpty(zones)) return; // no match!
+			// normally just one match!
+			Zones zone = zones.get(0);
+			// set zone relevant properties
+			scheduleRun.setHrLow(zone.getHrLow());
+			scheduleRun.setHrHigh(zone.getHrHigh());
+			// TODO Check case where HR is calculated by max HR
+		}
+
+		private void prefillZones() {
+			// when coming from a template values are by default empty
+			if(scheduleRun.getHrLow()==null && scheduleRun.getHrHigh()==null) {
+				// get athletes zone
+				Zones example = new Zones();
+				example.setAthleteId(scheduleItem.getPersonId());
+				example.setZonesDefinitionId(scheduleRun.getZone());
+				List<Zones> zones = getDaoLayer().getZonesDAO().findByExample(example);
+				if(isEmpty(zones)) return; // no match!
+				// normally just one match!
+				Zones zone = zones.get(0);
+				// set zone relevant properties
+				scheduleRun.setHrLow(zone.getHrLow());
+				scheduleRun.setHrHigh(zone.getHrHigh());
+			}
 		}
     }
 

@@ -27,7 +27,7 @@ public class ValueListBindingService {
 	private SQLExecutorService sqlExecutorService;
 	private Dictionary dictionaryService;
 	private DAOLayer daoLayer;
-	private EntityLayer entityLayer;	
+	private EntityLayer entityLayer;
 
 	private ValidValuesBinding getVVBindingMYRESULTS() {
 		ValidValuesBinding vvb = new ValidValuesBinding();
@@ -37,21 +37,35 @@ public class ValueListBindingService {
 		}
 		return vvb;
 	}
-	
+
 	private ValidValuesBinding getVVBindingMYRESULTSANDME() {
 		ValidValuesBinding vvb = getVVBindingMYRESULTS();
 		vvb.addValidValue(dictionaryService.getMyPerson().getId(), dictionaryService.getMyPerson().toString());
 		return vvb;
 	}
 
+	private ValidValuesBinding getVVBindingMYZONESDEFINITION() {
+		ValidValuesBinding vvb = new ValidValuesBinding();
+		List<ZonesDefinition> zonesDefinitions = dictionaryService.getMyPerson().getZonesDefinition();
+		for (ZonesDefinition zonesDefinition : zonesDefinitions) {
+			vvb.addValidValue(zonesDefinition.getId(), zonesDefinition.getShortcut(), zonesDefinition.getDescription());
+		}
+		return vvb;
+	}
+
+
+
 	public ValidValuesBinding getVVBinding(Constants.ValueList valueList, String language, boolean longDescription, String parentKey) {
 		// special handling
 		if(valueList==Constants.ValueList.MYATHLETES) {
 			return getVVBindingMYRESULTS();
-		} 
+		}
 		if(valueList==Constants.ValueList.MYATHLETESANDME) {
 			return getVVBindingMYRESULTSANDME();
-		} 
+		}
+		if(valueList==Constants.ValueList.MYZONESDEFINITION) {
+			return getVVBindingMYZONESDEFINITION();
+		}
 		// standard vvb by sql
 		ValidValuesBinding vvb = new ValidValuesBinding();
 		List<SValueList> list = sqlExecutorService.getValueList(valueList, language, parentKey);
