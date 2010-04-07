@@ -10,8 +10,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 
-import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
-
 import trimatrix.db.Competitions;
 import trimatrix.db.CompetitionsScouts;
 import trimatrix.db.CompetitionsScoutsId;
@@ -25,7 +23,7 @@ import trimatrix.entities.CompetitionEntity;
 import trimatrix.entities.EntityLayer;
 import trimatrix.logic.helper.Limit;
 import trimatrix.services.ServiceLayer;
-import trimatrix.ui.ResultsImportUI;
+import trimatrix.utils.Constants.Entity;
 
 public class ImportLogic {
 	public static final Log logger = LogFactory.getLog(ImportLogic.class);
@@ -38,6 +36,13 @@ public class ImportLogic {
 		ImportTemplatesId id = new ImportTemplatesId();
 		id.setEntity(entity);
 		id.setPersonId(serviceLayer.getDictionaryService().getMyPerson().getId());
+		ImportTemplates example = new ImportTemplates(id);
+		return daoLayer.getImportTemplatesDAO().findByExample(example);
+	}
+
+	public List<ImportTemplates> getAllTemplates(String entity) {
+		ImportTemplatesId id = new ImportTemplatesId();
+		id.setEntity(entity);
 		ImportTemplates example = new ImportTemplates(id);
 		return daoLayer.getImportTemplatesDAO().findByExample(example);
 	}

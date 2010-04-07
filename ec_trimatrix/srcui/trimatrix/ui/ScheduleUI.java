@@ -34,6 +34,8 @@ import org.eclnt.jsfserver.elements.impl.SCHEDULEComponent;
 import org.eclnt.jsfserver.elements.impl.SCHEDULEITEMComponentTag;
 import org.eclnt.jsfserver.elements.util.Trigger;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
+import org.eclnt.jsfserver.util.useraccess.DefaultUserAccess;
+import org.eclnt.jsfserver.util.useraccess.UserAccessMgr;
 import org.eclnt.workplace.IWorkpageDispatcher;
 import org.eclnt.workplace.WorkpageDefaultLifecycleListener;
 
