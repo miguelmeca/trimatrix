@@ -281,6 +281,7 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		entity.setCountryKey((String) values.get(CompetitionEntity.COUNTRY));
 		// result list
 		entity.setResults(resultList);
+		if(resultList==null) entity.setResultsTemplate(null);
 		// create CS entity if relevant;
 		if (isMyCompetition() && entityCS == null) {
 			if (getLogic().getFunctionTreeLogic().createCompetitionScout(entity.getId()))

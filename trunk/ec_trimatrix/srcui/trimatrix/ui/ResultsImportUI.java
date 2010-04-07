@@ -264,6 +264,7 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
     public void buildTemplatesData() {
     	List<ImportTemplates> templatesList = getLogic().getImportLogic().getMyTemplates(ENTITY.toString());
     	if(isEmpty(templatesList)) return;
+    	myTemplates.clear();
     	for(ImportTemplates template : templatesList) {
     		myTemplates.put(template.getId().getDescription(), template);
     	}

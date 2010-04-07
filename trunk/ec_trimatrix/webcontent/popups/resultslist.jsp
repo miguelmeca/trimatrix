@@ -26,7 +26,7 @@
 </t:row>
 <t:row id="g_12" >
 <t:label id="g_13" text="#{rr.literals.template}" width="90" />
-<t:field id="g_14" enabled="false" focusable="false" width="200" />
+<t:combofield id="g_14" actionListener="#{d.ResultsListPopUp.onTemplateF4}" text="#{d.ResultsListPopUp.template}" width="200" />
 <t:coldistance id="g_15" />
 <t:button id="g_16" actionListener="#{d.ResultsListPopUp.onCreateTemplate}" image="/images/icons/new.png" imageheight="16" text="#{rr.literals.new}" />
 <t:coldistance id="g_17" />

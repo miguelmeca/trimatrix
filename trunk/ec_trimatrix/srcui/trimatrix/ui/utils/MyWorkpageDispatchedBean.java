@@ -48,6 +48,7 @@ import trimatrix.ui.PersonSelectionUI;
 import trimatrix.ui.ResultsListPopUp;
 import trimatrix.ui.ScheduleChangePopUp;
 import trimatrix.ui.ScheduleCopyPopUp;
+import trimatrix.ui.TemplateChangePopUp;
 import trimatrix.ui.UserDetailUI;
 import trimatrix.ui.UserSelectionUI;
 import trimatrix.ui.WPFunctionTreeAdmin;
@@ -326,6 +327,10 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 
 	public ResultsListPopUp getResultsListPopUp() {
 		return (ResultsListPopUp)getOwningDispatcher().getDispatchedBean(ResultsListPopUp.class);
+	}
+
+	public TemplateChangePopUp getTemplateChangePopUp() {
+		return (TemplateChangePopUp)getOwningDispatcher().getDispatchedBean(TemplateChangePopUp.class);
 	}
 
 	public DayInfoPopUp getDayInfoPopUp() {
