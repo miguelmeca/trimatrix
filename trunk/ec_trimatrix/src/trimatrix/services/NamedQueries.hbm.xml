@@ -332,7 +332,7 @@ FROM attachments
     ON persons.id = attachments.owner_id
 WHERE attachments.test = :p_test
     AND attachments.deleted = :p_deleted
-    AND intern = 0
+    AND attachments.intern = 0
     AND ( attachments.id = :p_id OR 0 = :p_id_on )
   <return-scalar column="id" type="java.lang.String"/>
   <return-scalar column="category" type="java.lang.String"/>
@@ -499,6 +499,7 @@ FROM attachments
         AND person = :p_person)
 WHERE attachments.test = :p_test
     AND attachments.deleted = :p_deleted
+    AND attachments.intern = 0
 UNION
 SELECT
   attachments.id,
@@ -517,6 +518,7 @@ FROM attachments
 WHERE attachments.owner_id = :p_person
 	AND attachments.test = :p_test
     AND attachments.deleted = :p_deleted
+    AND attachments.intern = 0
   <return-scalar column="id" type="java.lang.String"/>
   <return-scalar column="category" type="java.lang.String"/>
   <return-scalar column="description" type="java.lang.String"/>

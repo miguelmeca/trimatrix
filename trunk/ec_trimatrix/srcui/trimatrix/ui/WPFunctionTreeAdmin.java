@@ -22,15 +22,15 @@ public class WPFunctionTreeAdmin extends WorkplaceFunctionTree {
 	public static final Log logger = LogFactory.getLog(WPFunctionTreeAdmin.class);
 	private static final Constants.Role role = Constants.Role.ADMIN;
 	private FunctionTreeLogic FUNCTIONTREELOGIC = null;
-	
+
 	public WPFunctionTreeAdmin(IDispatcher owner) {
 		super(owner);
-	}	
-	
+	}
+
 	public void reload() {
 		loadFunctionTree();
 	}
-	
+
 	// TODO adapt logic
 	@Override
 	protected void loadFunctionTree() {
@@ -40,7 +40,7 @@ public class WPFunctionTreeAdmin extends WorkplaceFunctionTree {
 		}
 		// reset functiontree
 		getFtree().getRootNode().removeAllChildNodes(true);
-		
+
 		Map<Integer, FunctionNode> functionNodeMap = new HashMap<Integer, FunctionNode>();
 		SQLExecutorService sqlExecutorService = SQLExecutorService.getFromApplicationContext(Context.getInstance());
 		List<SFunctionTree> functionTreeList = sqlExecutorService.getFunctionTree(role);
@@ -50,24 +50,25 @@ public class WPFunctionTreeAdmin extends WorkplaceFunctionTree {
 		node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
 		node.setOpenMultipleInstances(false);
 		node.setText(Page.ADMINPANEL.getDescription());
-		
+
 		for (SFunctionTree functionTree : functionTreeList) {
 			node = null;
 			Constants.Page page = null;
 			// topnode?
 			if(functionTree.parent==0) {
 				node = new FunctionNode(getFtree().getRootNode());
+				node.setId(functionTree.key.name());
 			} else {
 				FunctionNode parentNode = functionNodeMap.get(functionTree.parent);
 				if(functionTree.page != null && functionTree.page.length() > 0) {
 					try {
-						page = Constants.Page.valueOf(functionTree.page);						
+						page = Constants.Page.valueOf(functionTree.page);
 					} catch (Exception ex) {
 						logger.warn(ex.toString());
 						continue;
-					}				
+					}
 					node = new FunctionNode(parentNode, page.getUrl());
-					node.setId(functionTree.entity);
+					node.setId(parentNode.getWorkpageStartInfo().getId() + ":" + functionTree.entity);
 					node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
 					node.setOpenMultipleInstances(false);
 					if(functionTree.entity != null && functionTree.entity.length() > 0) {
@@ -77,7 +78,7 @@ public class WPFunctionTreeAdmin extends WorkplaceFunctionTree {
 					FUNCTIONTREELOGIC.setAuthority(functionTree, node);
 				} else {
 					node = new FunctionNode(parentNode);
-				}							
+				}
 			}
 			node.setText(functionTree.description);
 			// build map
