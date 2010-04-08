@@ -181,7 +181,7 @@ public final class CompetitionEntity extends AEntity {
 			return results;
 		}
 
-		public boolean getResultsList() {
+		public boolean getResultslist() {
 			return resultslist;
 		}
 	}

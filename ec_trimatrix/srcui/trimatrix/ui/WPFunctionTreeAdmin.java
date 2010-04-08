@@ -68,7 +68,7 @@ public class WPFunctionTreeAdmin extends WorkplaceFunctionTree {
 						continue;
 					}
 					node = new FunctionNode(parentNode, page.getUrl());
-					node.setId(parentNode.getWorkpageStartInfo().getId() + ":" + functionTree.entity);
+					node.setId(parentNode.toString() + ":" + functionTree.entity);
 					node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
 					node.setOpenMultipleInstances(false);
 					if(functionTree.entity != null && functionTree.entity.length() > 0) {
