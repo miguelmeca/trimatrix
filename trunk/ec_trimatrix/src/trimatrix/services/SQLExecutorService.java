@@ -478,6 +478,7 @@ public class SQLExecutorService {
 			datum.address = (String)line[i++];
 			datum.country = (String)line[i++];
 			datum.results = (Boolean)line[i++];
+			datum.resultslist = (Boolean)line[i++];
 			data.add(datum);
 		}
 		session.close();
@@ -527,6 +528,7 @@ public class SQLExecutorService {
 			datum.address = (String)line[i++];
 			datum.country = (String)line[i++];
 			datum.results = (Boolean)line[i++];
+			datum.resultslist = (Boolean)line[i++];
 			data.add(datum);
 		}
 		session.close();
