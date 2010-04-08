@@ -1,6 +1,6 @@
-<!-- 
+<!--
     Project file that is required by CaptainCasa toolset.
-    
+
     Parameters, that are not listed within the template:
 
     javasourceencoding - by default the server VMs default
@@ -8,15 +8,15 @@
     within the code generator. You can override this - depending
     on the encoding that you use inside your development environment
     (e.g. the one you use in Eclipse).
-    
+
     copywebappignore - semicolon separated list of file names to
     be ignored during copying. e.g. ".svn;.cvs". The ignoring
     is done both on file and on directory level. A file is ignored
     when it contains one of the ignore strings.
-    
-    axis2home - directory of axis2 installation. This attribute is 
+
+    axis2home - directory of axis2 installation. This attribute is
     only requiered when using WSDL related functions.
-    
+
     previewbgpaint - bgpaint command that serves as background
     for the preview zone of the layout editor, e.g.
     "rectangle(0,0,100%,100%,#F0F0F0,#C0C0C0,vertical)"
@@ -27,9 +27,10 @@
          webcontextroot="trimatrix"
          javasourcedirectory="E:\myWorkspaces\CaptainCasa\ec_trimatrix/srcui/"
          copywebapp="true"
+         copywebappignore=".svn"
          reloadwebapp="true"
          webhostport="localhost:50000">
-	<controllibraryusage prefix="tx" 
+	<controllibraryusage prefix="tx"
 	                     tldfilename="E:\myWorkspaces\CaptainCasa\ec_trimatrix/webcontent/WEB-INF/trimatrixcontrols.tld"
 						 controlsarrangementfilename="E:\myWorkspaces\CaptainCasa\ec_trimatrix/src/trimatrix/controls/resources/controlsarrangement.xml"
 						 uri="/WEB-INF/trimatrixcontrols" />

@@ -107,31 +107,31 @@
 <t:label id="g_81" text="#{rr.literals.ck}" width="#{d.DayInfoPopUp.width}" />
 <tx:decspinner id="g_82" flush="true" objectbinding="#{d.DayInfoPopUp.ckMorningDS}" step="1" userhint="U/l" width="40" />
 <t:coldistance id="g_83" />
-<t:formattedfield id="g_84" align="center" format="time" rendered="#{d.DayInfoPopUp.ckMorningDS.value!=null}" value="#{d.DayInfoPopUp.dayInfos.ckMorningTime}" width="100" />
+<t:formattedfield id="g_84" align="center" format="time" rendered="#{d.DayInfoPopUp.ckMorningDS.value!=null}" timezone="CET" value="#{d.DayInfoPopUp.ckMorningTime}" width="100" />
 </t:row>
 <t:row id="g_85" >
 <t:label id="g_86" text="#{rr.literals.urea}" width="#{d.DayInfoPopUp.width}" />
 <tx:decspinner id="g_87" flush="true" objectbinding="#{d.DayInfoPopUp.ureaMorningDS}" step="1" userhint="mg/dl" width="40" />
 <t:coldistance id="g_88" />
-<t:formattedfield id="g_89" align="center" format="time" rendered="#{d.DayInfoPopUp.ureaMorningDS.value!=null}" value="#{d.DayInfoPopUp.dayInfos.ureaMorningTime}" width="100" />
+<t:formattedfield id="g_89" align="center" format="time" rendered="#{d.DayInfoPopUp.ureaMorningDS.value!=null}" value="#{d.DayInfoPopUp.ureaMorningTime}" width="100" />
 </t:row>
 <t:row id="g_90" >
 <t:label id="g_91" text="#{rr.literals.glucose}" width="#{d.DayInfoPopUp.width}" />
 <tx:decspinner id="g_92" flush="true" objectbinding="#{d.DayInfoPopUp.glucoseMorningDS}" step="1" userhint="mg/dl" width="40" />
 <t:coldistance id="g_93" />
-<t:formattedfield id="g_94" align="center" format="time" rendered="#{d.DayInfoPopUp.glucoseMorningDS.value!=null}" value="#{d.DayInfoPopUp.dayInfos.glucoseMorningTime}" width="100" />
+<t:formattedfield id="g_94" align="center" format="time" rendered="#{d.DayInfoPopUp.glucoseMorningDS.value!=null}" value="#{d.DayInfoPopUp.glucoseMorningTime}" width="100" />
 </t:row>
 <t:row id="g_95" >
 <t:label id="g_96" text="#{rr.literals.haemo}" width="#{d.DayInfoPopUp.width}" />
 <tx:decspinner id="g_97" flush="true" objectbinding="#{d.DayInfoPopUp.hbDS}" step="1" userhint="g/dl" width="40" />
 <t:coldistance id="g_98" />
-<t:formattedfield id="g_99" align="center" format="time" rendered="#{d.DayInfoPopUp.hbDS.value!=null}" value="#{d.DayInfoPopUp.dayInfos.hbTime}" width="100" />
+<t:formattedfield id="g_99" align="center" format="time" rendered="#{d.DayInfoPopUp.hbDS.value!=null}" value="#{d.DayInfoPopUp.hbTime}" width="100" />
 </t:row>
 <t:row id="g_100" >
 <t:label id="g_101" text="#{rr.literals.haema}" width="#{d.DayInfoPopUp.width}" />
 <tx:decspinner id="g_102" flush="true" objectbinding="#{d.DayInfoPopUp.hktDS}" step="1" userhint="%" width="40" />
 <t:coldistance id="g_103" />
-<t:formattedfield id="g_104" align="center" format="time" rendered="#{d.DayInfoPopUp.hktDS.value!=null}" value="#{d.DayInfoPopUp.dayInfos.hktTime}" width="100" />
+<t:formattedfield id="g_104" align="center" format="time" rendered="#{d.DayInfoPopUp.hktDS.value!=null}" value="#{d.DayInfoPopUp.hktTime}" width="100" />
 </t:row>
 </t:pane>
 </t:row>
@@ -141,19 +141,19 @@
 <t:label id="g_108" text="#{rr.literals.ck}" width="#{d.DayInfoPopUp.width}" />
 <tx:decspinner id="g_109" flush="true" objectbinding="#{d.DayInfoPopUp.ckLunchDS}" step="1" userhint="U/l" width="40" />
 <t:coldistance id="g_110" />
-<t:formattedfield id="g_111" align="center" format="time" rendered="#{d.DayInfoPopUp.ckLunchDS.value!=null}" value="#{d.DayInfoPopUp.dayInfos.ckLunchTime}" width="100" />
+<t:formattedfield id="g_111" align="center" format="time" rendered="#{d.DayInfoPopUp.ckLunchDS.value!=null}" value="#{d.DayInfoPopUp.ckLunchTime}" width="100" />
 </t:row>
 <t:row id="g_112" >
 <t:label id="g_113" text="#{rr.literals.urea}" width="#{d.DayInfoPopUp.width}" />
 <tx:decspinner id="g_114" flush="true" objectbinding="#{d.DayInfoPopUp.ureaLunchDS}" step="1" userhint="mg/dl" width="40" />
 <t:coldistance id="g_115" />
-<t:formattedfield id="g_116" align="center" format="time" rendered="#{d.DayInfoPopUp.ureaLunchDS.value!=null}" value="#{d.DayInfoPopUp.dayInfos.ureaLunchTime}" width="100" />
+<t:formattedfield id="g_116" align="center" format="time" rendered="#{d.DayInfoPopUp.ureaLunchDS.value!=null}" value="#{d.DayInfoPopUp.ureaLunchTime}" width="100" />
 </t:row>
 <t:row id="g_117" >
 <t:label id="g_118" text="#{rr.literals.glucose}" width="#{d.DayInfoPopUp.width}" />
 <tx:decspinner id="g_119" flush="true" objectbinding="#{d.DayInfoPopUp.glucoseLunchDS}" step="1" userhint="mg/dl" width="40" />
 <t:coldistance id="g_120" />
-<t:formattedfield id="g_121" align="center" format="time" rendered="#{d.DayInfoPopUp.glucoseLunchDS.value!=null}" value="#{d.DayInfoPopUp.dayInfos.glucoseLunchTime}" width="100" />
+<t:formattedfield id="g_121" align="center" format="time" rendered="#{d.DayInfoPopUp.glucoseLunchDS.value!=null}" value="#{d.DayInfoPopUp.glucoseLunchTime}" width="100" />
 </t:row>
 </t:pane>
 </t:row>
@@ -163,19 +163,19 @@
 <t:label id="g_125" text="#{rr.literals.ck}" width="#{d.DayInfoPopUp.width}" />
 <tx:decspinner id="g_126" flush="true" objectbinding="#{d.DayInfoPopUp.ckEveningDS}" step="1" userhint="U/l" width="40" />
 <t:coldistance id="g_127" />
-<t:formattedfield id="g_128" align="center" format="time" rendered="#{d.DayInfoPopUp.ckEveningDS.value!=null}" value="#{d.DayInfoPopUp.dayInfos.ckEveningTime}" width="100" />
+<t:formattedfield id="g_128" align="center" format="time" rendered="#{d.DayInfoPopUp.ckEveningDS.value!=null}" value="#{d.DayInfoPopUp.ckEveningTime}" width="100" />
 </t:row>
 <t:row id="g_129" >
 <t:label id="g_130" text="#{rr.literals.urea}" width="#{d.DayInfoPopUp.width}" />
 <tx:decspinner id="g_131" flush="true" objectbinding="#{d.DayInfoPopUp.ureaEveningDS}" step="1" userhint="mg/dl" width="40" />
 <t:coldistance id="g_132" />
-<t:formattedfield id="g_133" align="center" format="time" rendered="#{d.DayInfoPopUp.ureaEveningDS.value!=null}" value="#{d.DayInfoPopUp.dayInfos.ureaEveningTime}" width="100" />
+<t:formattedfield id="g_133" align="center" format="time" rendered="#{d.DayInfoPopUp.ureaEveningDS.value!=null}" value="#{d.DayInfoPopUp.ureaEveningTime}" width="100" />
 </t:row>
 <t:row id="g_134" >
 <t:label id="g_135" text="#{rr.literals.glucose}" width="#{d.DayInfoPopUp.width}" />
 <tx:decspinner id="g_136" flush="true" objectbinding="#{d.DayInfoPopUp.glucoseEveningDS}" step="1" userhint="mg/dl" width="40" />
 <t:coldistance id="g_137" />
-<t:formattedfield id="g_138" align="center" format="time" rendered="#{d.DayInfoPopUp.glucoseEveningDS.value!=null}" value="#{d.DayInfoPopUp.dayInfos.glucoseEveningTime}" width="100" />
+<t:formattedfield id="g_138" align="center" format="time" rendered="#{d.DayInfoPopUp.glucoseEveningDS.value!=null}" value="#{d.DayInfoPopUp.glucoseEveningTime}" width="100" />
 </t:row>
 </t:pane>
 </t:row>

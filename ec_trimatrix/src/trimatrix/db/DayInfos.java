@@ -1,6 +1,7 @@
 package trimatrix.db;
 
 import java.sql.Time;
+import java.util.Date;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -664,6 +665,6 @@ public class DayInfos implements java.io.Serializable {
 		result = prime * result	+ ((weightMorning == null) ? 0 : weightMorning.hashCode());
 		result = prime * result	+ ((weather == null) ? 0 : weather.hashCode());
 		System.out.println(result);
-		return result;		
+		return result;
 	}
 }

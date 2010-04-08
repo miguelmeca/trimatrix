@@ -1,6 +1,7 @@
 package trimatrix.ui;
 
 import java.io.Serializable;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -231,4 +232,37 @@ public class DayInfoPopUp extends MyWorkpageDispatchedBean implements Serializab
 	public Star getTrainingValuationS() {return trainingValuationS;}
 	public void setTrainingValuationS(Star trainingValuationS) {this.trainingValuationS = trainingValuationS;}
 
+	// Date time converters
+	public Date getCkMorningTime() {return dayInfos.getCkMorningTime();}
+	public void setCkMorningTime(Date date) {dayInfos.setCkMorningTime(new Time(date.getTime()));}
+
+	public Date getUreaMorningTime() {return dayInfos.getUreaMorningTime();}
+	public void setUreaMorningTime(Date date) {dayInfos.setUreaMorningTime(new Time(date.getTime()));}
+
+	public Date getGlucoseMorningTime() {return dayInfos.getGlucoseMorningTime();}
+	public void setGlucoseMorningTime(Date date) {dayInfos.setGlucoseMorningTime(new Time(date.getTime()));}
+
+	public Date getHbTime() {return dayInfos.getHbTime();}
+	public void setHbTime(Date date) {dayInfos.setHbTime(new Time(date.getTime()));}
+
+	public Date getHktTime() {return dayInfos.getHktTime();}
+	public void setHktTime(Date date) {dayInfos.setHktTime(new Time(date.getTime()));}
+
+	public Date getCkLunchTime() {return dayInfos.getCkLunchTime();}
+	public void setCkLunchTime(Date date) {dayInfos.setCkLunchTime(new Time(date.getTime()));}
+
+	public Date getUreaLunchTime() {return dayInfos.getUreaLunchTime();}
+	public void setUreaLunchTime(Date date) {dayInfos.setUreaLunchTime(new Time(date.getTime()));}
+
+	public Date getGlucoseLunchTime() {return dayInfos.getGlucoseLunchTime();}
+	public void setGlucoseLunchTime(Date date) {dayInfos.setGlucoseLunchTime(new Time(date.getTime()));}
+
+	public Date getCkEveningTime() {return dayInfos.getCkEveningTime();}
+	public void setCkEveningTime(Date date) {dayInfos.setCkEveningTime(new Time(date.getTime()));}
+
+	public Date getUreaEveningTime() {return dayInfos.getUreaEveningTime();}
+	public void setUreaEveningTime(Date date) {dayInfos.setUreaEveningTime(new Time(date.getTime()));}
+
+	public Date getGlucoseEveningTime() {return dayInfos.getGlucoseEveningTime();}
+	public void setGlucoseEveningTime(Date date) {dayInfos.setGlucoseEveningTime(new Time(date.getTime()));}
 }
