@@ -223,8 +223,8 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 			// normally just one match!
 			Zones zone = zones.get(0);
 			// set zone relevant properties
-			scheduleRun.setHrLow(zone.getHrLow());
-			scheduleRun.setHrHigh(zone.getHrHigh());
+			scheduleRun.setHrLow(zone.getHrLowRun());
+			scheduleRun.setHrHigh(zone.getHrHighRun());
 			// TODO Check case where HR is calculated by max HR
 		}
 
@@ -240,8 +240,8 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 				// normally just one match!
 				Zones zone = zones.get(0);
 				// set zone relevant properties
-				scheduleRun.setHrLow(zone.getHrLow());
-				scheduleRun.setHrHigh(zone.getHrHigh());
+				scheduleRun.setHrLow(zone.getHrLowRun());
+				scheduleRun.setHrHigh(zone.getHrHighRun());
 			}
 		}
     }

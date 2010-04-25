@@ -34,33 +34,75 @@
 <t:label id="g_18" text="m" />
 </t:row>
 <t:row id="g_19" >
-<t:fixgrid id="g_20" avoidroundtrips="true" horizontalscrollmode="autowithresize" objectbinding="#{d.ZonesDetailUI.gridZones}" sbvisibleamount="10" showemptyrows="false" >
+<t:fixgrid id="g_20" avoidroundtrips="true" headlinerowheight="20" horizontalscrollmode="autowithresize" objectbinding="#{d.ZonesDetailUI.gridZones}" rowheight="40" sbvisibleamount="10" showemptyrows="false" >
 <t:gridcol id="g_21" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.area}" width="100" >
 <t:field id="g_22" align="center" background=".{color}" enabled="false" font="size:14;weight:bold" foreground=".{foreground}" text=".{shortcut}" width="100" />
 </t:gridcol>
-<t:gridcol id="g_23" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.hr_low}" width="80" >
-<t:formattedfield id="g_24" align="center" enabled="#{d.ZonesDetailUI.enabled}" format="int" value=".{hrLow}" />
+<t:gridcol id="g_23" searchenabled="false" sortenabled="false" text="#{rr.literals.hr} #{rr.literals.run}" width="100" >
+<t:pane id="g_24" width="100%" >
+<t:row id="g_25" >
+<t:formattedfield id="g_26" align="right!" bgpaint="write(5,2,#{rr.literals.from},left)" enabled="#{d.ZonesDetailUI.enabled}" format="int" value=".{hrLowRun}" width="100%" />
+</t:row>
+<t:rowline id="g_27" />
+<t:row id="g_28" >
+<t:formattedfield id="g_29" align="right!" bgpaint="write(5,2,#{rr.literals.to},left)" enabled="#{d.ZonesDetailUI.enabled}" format="int" value=".{hrHighRun}" width="100%" />
+</t:row>
+</t:pane>
 </t:gridcol>
-<t:gridcol id="g_25" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.hr_high}" width="80" >
-<t:formattedfield id="g_26" align="center" enabled="#{d.ZonesDetailUI.enabled}" format="int" value=".{hrHigh}" />
+<t:gridcol id="g_30" searchenabled="false" sortenabled="false" text="#{rr.literals.hr} % #{rr.literals.run}" width="100" >
+<t:pane id="g_31" width="100%" >
+<t:row id="g_32" >
+<t:formattedfield id="g_33" align="right!" bgpaint="write(5,2,#{rr.literals.from},left)" enabled="false" format="int" value=".{hrLowPrctRun}" width="100%" />
+</t:row>
+<t:rowline id="g_34" />
+<t:row id="g_35" >
+<t:formattedfield id="g_36" align="right!" bgpaint="write(5,2,#{rr.literals.to},left)" enabled="false" format="int" value=".{hrHighPrctRun}" width="100%" />
+</t:row>
+</t:pane>
 </t:gridcol>
-<t:gridcol id="g_27" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.hr_prct_low}" width="80" >
-<t:formattedfield id="g_28" align="center" enabled="false" format="int" value=".{hrLowPrct}" />
+<t:gridcol id="g_37" searchenabled="false" sortenabled="false" text="#{rr.literals.hr} #{rr.literals.bike}" width="100" >
+<t:pane id="g_38" width="100%" >
+<t:row id="g_39" >
+<t:formattedfield id="g_40" align="right!" bgpaint="write(5,2,#{rr.literals.from},left)" enabled="#{d.ZonesDetailUI.enabled}" format="int" value=".{hrLowBike}" width="100%" />
+</t:row>
+<t:rowline id="g_41" />
+<t:row id="g_42" >
+<t:formattedfield id="g_43" align="right!" bgpaint="write(5,2,#{rr.literals.to},left)" enabled="#{d.ZonesDetailUI.enabled}" format="int" value=".{hrHighBike}" width="100%" />
+</t:row>
+</t:pane>
 </t:gridcol>
-<t:gridcol id="g_29" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.hr_prct_high}" width="80" >
-<t:formattedfield id="g_30" align="center" enabled="false" format="int" value=".{hrHighPrct}" />
+<t:gridcol id="g_44" searchenabled="false" sortenabled="false" text="#{rr.literals.hr} % #{rr.literals.bike}" width="100" >
+<t:pane id="g_45" width="100%" >
+<t:row id="g_46" >
+<t:formattedfield id="g_47" align="right!" bgpaint="write(5,2,#{rr.literals.from},left)" enabled="false" format="int" value=".{hrLowPrctBike}" width="100%" />
+</t:row>
+<t:rowline id="g_48" />
+<t:row id="g_49" >
+<t:formattedfield id="g_50" align="right!" bgpaint="write(5,2,#{rr.literals.to},left)" enabled="false" format="int" value=".{hrHighPrctBike}" width="100%" />
+</t:row>
+</t:pane>
 </t:gridcol>
-<t:gridcol id="g_31" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.speed_low}" width="120" >
-<t:formattedfield id="g_32" align="center" enabled="#{d.ZonesDetailUI.enabled}" format="double" value=".{speedLow}" />
+<t:gridcol id="g_51" searchenabled="false" sortenabled="false" text="#{rr.literals.speed} #{rr.literals.swim}" width="180" >
+<t:pane id="g_52" width="100%" >
+<t:row id="g_53" >
+<t:formattedfield id="g_54" align="right!" bgpaint="write(5,2,#{rr.literals.from},left)" enabled="#{d.ZonesDetailUI.enabled}" format="double" value=".{speedLowSwim}" width="100%" />
+</t:row>
+<t:rowline id="g_55" />
+<t:row id="g_56" >
+<t:formattedfield id="g_57" align="right!" bgpaint="write(5,2,#{rr.literals.to},left)" enabled="#{d.ZonesDetailUI.enabled}" format="double" value=".{speedHighSwim}" width="100%" />
+</t:row>
+</t:pane>
 </t:gridcol>
-<t:gridcol id="g_33" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.speed_high}" width="120" >
-<t:formattedfield id="g_34" align="center" enabled="#{d.ZonesDetailUI.enabled}" format="double" value=".{speedHigh}" />
-</t:gridcol>
-<t:gridcol id="g_35" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.time_low}" width="80" >
-<t:field id="g_36" align="center" enabled="false" text=".{timeLow}" />
-</t:gridcol>
-<t:gridcol id="g_37" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.time_high}" width="80" >
-<t:field id="g_38" align="center" enabled="false" text=".{timeHigh}" />
+<t:gridcol id="g_58" searchenabled="false" sortenabled="false" text="#{rr.literals.time} #{rr.literals.swim}" width="100" >
+<t:pane id="g_59" width="100%" >
+<t:row id="g_60" >
+<t:field id="g_61" align="right!" bgpaint="write(5,2,#{rr.literals.from},left)" enabled="false" text=".{timeLowSwim}" width="100%" />
+</t:row>
+<t:rowline id="g_62" />
+<t:row id="g_63" >
+<t:field id="g_64" align="right!" bgpaint="write(5,2,#{rr.literals.to},left)" enabled="false" text=".{timeHighSwim}" width="100%" />
+</t:row>
+</t:pane>
 </t:gridcol>
 </t:fixgrid>
 </t:row>

@@ -64,7 +64,7 @@ import trimatrix.utils.maths.AFunctions.IResult;
 
 @CCGenClass(expressionBase = "#{d.TestDetailUI}")
 public class TestDetailUI extends AEntityDetailUI implements Serializable {
-	
+
 	protected final String[] MANDATORY_FIELDS_SWIM = new String[] { TestEntity.DISTANCE, TestEntity.SPLITS };
 	protected final String[] MANDATORY_FIELDS_TREADMILL = new String[] { TestEntity.SPEED_INIT, TestEntity.INCLINE_INIT };
 	protected final String[] MANDATORY_FIELDS_ERGO = new String[] { TestEntity.CADENCE_LOW, TestEntity.CADENCE_HIGH, TestEntity.POWER_INIT, TestEntity.POWER_STEP };
@@ -243,6 +243,10 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		// ergo
 		if (isErgo()) {
 			TestsErgo ergo = entity.getTestsErgo();
+			if(ergo==null) {
+				ergo = new TestsErgo(entity.getId());
+				entity.setTestsErgo(ergo);
+			}
 			ergo.setPowerInit((Integer) values.get(TestEntity.POWER_INIT));
 			ergo.setPowerStep((Integer) values.get(TestEntity.POWER_STEP));
 			ergo.setCadenceLow((Integer) values.get(TestEntity.CADENCE_LOW));
@@ -252,6 +256,10 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		// treadmill
 		if (isTreadmill()) {
 			TestsTreadmill treadmill = entity.getTestsTreadmill();
+			if(treadmill==null) {
+				treadmill = new TestsTreadmill(entity.getId());
+				entity.setTestsTreadmill(treadmill);
+			}
 			treadmill.setSpeedVariable((Boolean) values.get(TestEntity.SPEED_VARIABLE));
 			treadmill.setSpeedInit((Double) values.get(TestEntity.SPEED_INIT));
 			treadmill.setSpeedStep((Double) values.get(TestEntity.SPEED_STEP));
@@ -263,6 +271,10 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		// swim
 		if (isSwim()) {
 			TestsSwim swim = entity.getTestsSwim();
+			if(swim==null) {
+				swim = new TestsSwim(entity.getId());
+				entity.setTestsSwim(swim);
+			}
 			swim.setAssistantName((String) values.get(TestEntity.ASSISTANT_NAME));
 			swim.setBaths((String) values.get(TestEntity.BATHS));
 			swim.setPool((String) values.get(TestEntity.POOL));
@@ -452,6 +464,8 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		protocol.setCreatedAt(new java.sql.Timestamp((new java.util.Date()).getTime()));
 		protocol.setCreatedBy(getServiceLayer().getDictionaryService().getMyUser().getId());
 		entity.setTestsProtocol(protocol);
+		fillEntityProperties();
+
 	}
 
 	public void onAnalysisCreate(ActionEvent event) {
@@ -460,6 +474,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		analysis.setCreatedAt(new java.sql.Timestamp((new java.util.Date()).getTime()));
 		analysis.setCreatedBy(getServiceLayer().getDictionaryService().getMyUser().getId());
 		entity.setTestsAnalysis(analysis);
+		fillEntityProperties();
 	}
 
 	// ------------------------------------------------------------------------
@@ -576,7 +591,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 	public class GridTreadmillItem extends AGridItem {
 		private Double speed;
 		private Integer incline;
-		
+
 		public GridTreadmillItem(Integer step) {
 			super(step);
 			TestsTreadmill treadmill = entity.getTestsTreadmill();
@@ -596,7 +611,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 				return treadmill.getInclineInit();
 			return treadmill.getInclineInit() + treadmill.getInclineStep() * (step - 1);
 		}
-		
+
 		@Override
 		public String getTime_total() {
 			if (step == 1) {
@@ -606,7 +621,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			AGridItem preItem = m_gridTreadmill.getItems().get(step - 2);
 			return Helper.calculateDuration(preItem.getTime_total(), getStep_time(), false, false);
 		}
-		
+
 		public boolean getLastItemEnabled() {
 			return m_gridTreadmill.getItems().size() == step && getEnabled();
 		}
@@ -614,7 +629,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 
 	public class GridErgoItem extends AGridItem {
 		private Integer power;
-		private String cadence;		
+		private String cadence;
 
 		public GridErgoItem(Integer step) {
 			super(step);
@@ -641,7 +656,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			AGridItem preItem = m_gridErgo.getItems().get(step - 2);
 			return Helper.calculateDuration(preItem.getTime_total(), getStep_time(), false, false);
 		}
-		
+
 		public boolean getLastItemEnabled() {
 			return m_gridErgo.getItems().size() == step && getEnabled();
 		}
@@ -1026,37 +1041,38 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			return;
 
 		int count_steps = grid.getItems().size();
+		if(count_steps>0) {
+			List<Double> lactates = new ArrayList<Double>();
+			List<Integer> hrs = new ArrayList<Integer>();
+			List<Integer> o2_absorptions = new ArrayList<Integer>();
+			List<Integer> co2_emissions = new ArrayList<Integer>();
+			List<Double> rqs = new ArrayList<Double>();
+			// build lists
+			for (AGridItem item : grid.getItems()) {
+				lactates.add(item.getLactate());
+				//arrayLactates[item.step-1] = item.getLactate();
+				hrs.add(item.getHr());
+				o2_absorptions.add(item.getO2_absorption());
+				co2_emissions.add(item.getCo2_emission());
+				rqs.add(item.getRq());
+			}
+			// transform lists to JSON format
+			String strLactates = new DoubleList(lactates).toString();
+			String strHrs = new IntegerList(hrs).toString();
+			String strO2_absorptions = new IntegerList(o2_absorptions).toString();
+			String strCo2_emissions = new IntegerList(co2_emissions).toString();
+			String strRqs = new DoubleList(rqs).toString();
 
-		List<Double> lactates = new ArrayList<Double>();
-		List<Integer> hrs = new ArrayList<Integer>();
-		List<Integer> o2_absorptions = new ArrayList<Integer>();
-		List<Integer> co2_emissions = new ArrayList<Integer>();
-		List<Double> rqs = new ArrayList<Double>();
-		// build lists
-		for (AGridItem item : grid.getItems()) {
-			lactates.add(item.getLactate());
-			//arrayLactates[item.step-1] = item.getLactate();
-			hrs.add(item.getHr());
-			o2_absorptions.add(item.getO2_absorption());
-			co2_emissions.add(item.getCo2_emission());
-			rqs.add(item.getRq());
+			TestsProtocol protocol = entity.getTestsProtocol();
+			// fill protocol entity
+			protocol.setCountSteps(count_steps);
+			protocol.setTimeLastStep(grid.getItems().get(grid.getItems().size()-1).step_time);
+			protocol.setLactate(strLactates);
+			protocol.setHr(strHrs);
+			protocol.setO2Absorption(strO2_absorptions);
+			protocol.setCo2Emission(strCo2_emissions);
+			protocol.setRq(strRqs);
 		}
-		// transform lists to JSON format
-		String strLactates = new DoubleList(lactates).toString();		
-		String strHrs = new IntegerList(hrs).toString();		
-		String strO2_absorptions = new IntegerList(o2_absorptions).toString();	
-		String strCo2_emissions = new IntegerList(co2_emissions).toString();	
-		String strRqs = new DoubleList(rqs).toString();
-		
-		TestsProtocol protocol = entity.getTestsProtocol();
-		// fill protocol entity
-		protocol.setCountSteps(count_steps);
-		protocol.setTimeLastStep(grid.getItems().get(grid.getItems().size()-1).step_time);
-		protocol.setLactate(strLactates);
-		protocol.setHr(strHrs);
-		protocol.setO2Absorption(strO2_absorptions);
-		protocol.setCo2Emission(strCo2_emissions);
-		protocol.setRq(strRqs);
 	}
 
 	private void buildSwimProtocolGrid() throws Exception {
@@ -1077,7 +1093,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 
 	private void buildProtocolGrid() throws Exception {
 		TestsProtocol protocol = entity.getTestsProtocol();
-	
+
 		DoubleList lactates = DoubleList.getInstance(protocol.getLactate());
 		IntegerList hrs = IntegerList.getInstance(protocol.getHr());
 		IntegerList o2_absorptions = IntegerList.getInstance(protocol.getO2Absorption());
@@ -1090,7 +1106,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			for (int i = 0; i < protocol.getCountSteps(); i++) {
 				GridTreadmillItem item = new GridTreadmillItem(i + 1);
 				item.setLactate(lactates.get(i));
-				item.setHr(hrs.get(i));				
+				item.setHr(hrs.get(i));
 				item.setO2_absorption(o2_absorptions.get(i));
 				item.setCo2_emission(co2_emissions.get(i));
 				item.setRq(rqs.get(i));
@@ -1106,7 +1122,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			for (int i = 0; i < protocol.getCountSteps(); i++) {
 				GridErgoItem item = new GridErgoItem(i + 1);
 				item.setLactate(lactates.get(i));
-				item.setHr(hrs.get(i));	
+				item.setHr(hrs.get(i));
 				item.setO2_absorption(o2_absorptions.get(i));
 				item.setCo2_emission(co2_emissions.get(i));
 				item.setRq(rqs.get(i));
@@ -1319,33 +1335,45 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 					return;
 				}
 				Double x = null;
-				Integer hr = null;
-				Double speed = null;
+				Integer hrLow = null;
+				Integer hrHigh = null;
+				Double speedLow = null;
+				Double speedHigh = null;
 				for (ZonesLogic.ZoneInfo zoneInfo : zoneInfos) {
 					ZonesDefinition definition = zoneInfo.getDefinition();
 					// create zone if empty
 					Zones zone = zoneInfo.getZone() != null ? zoneInfo.getZone() : getLogic().getZonesLogic().createZone(athleteId, zoneInfo.getDefinition().getId());
-					// calculate values, special for swim test
+					/*
+					 * calculate values, special for swim test
+					 * when swim test, just speed no hr
+					*/
 					try {
 						if (!isSwim()) {
 							// get speed or power
 							x = result.getX(definition.getLactateLow());
-							hr = (int) Math.round(trimatrix.utils.maths.Helper.getYFromMultiLinearFunction(hrs, x));
-							zone.setHrLow(hr);
+							hrLow = (int) Math.round(trimatrix.utils.maths.Helper.getYFromMultiLinearFunction(hrs, x));
 							x = result.getX(definition.getLactateHigh());
-							hr = (int) Math.round(trimatrix.utils.maths.Helper.getYFromMultiLinearFunction(hrs, x));
-							zone.setHrHigh(hr);
-							zone.setAutoHr(true);
-							zone.setTestIdSpeed(entity.getId());
+							hrHigh = (int) Math.round(trimatrix.utils.maths.Helper.getYFromMultiLinearFunction(hrs, x));
+							if(isTreadmill()) {
+								zone.setHrLowRun(hrLow);
+								zone.setHrHighRun(hrHigh);
+								zone.setAutoHrRun(true);
+								zone.setTestIdRun(entity.getId());
+							} else if(isErgo()) {
+								zone.setHrLowBike(hrLow);
+								zone.setHrHighBike(hrHigh);
+								zone.setAutoHrBike(true);
+								zone.setTestIdBike(entity.getId());
+							}
 						} else {
 							x = result.getX(definition.getLactateHigh());
-							speed = x / entity.getTestsSwim().getDistance();
-							zone.setSpeedLow(speed);
+							speedLow = x / entity.getTestsSwim().getDistance();
 							x = result.getX(definition.getLactateHigh());
-							speed = x / entity.getTestsSwim().getDistance();
-							zone.setSpeedHigh(speed);
-							zone.setAutoSpeed(true);
-							zone.setTestIdSpeed(entity.getId());
+							speedHigh = x / entity.getTestsSwim().getDistance();
+							zone.setSpeedLowSwim(speedLow);
+							zone.setSpeedHighSwim(speedHigh);
+							zone.setAutoSpeedSwim(true);
+							zone.setTestIdSwim(entity.getId());
 						}
 						getLogic().getZonesLogic().saveZone(zone);
 					} catch (Exception ex) {
@@ -1417,7 +1445,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			TestsProtocol treadmillProt = entity.getTestsProtocol();
 			int steps = treadmillProt.getCountSteps();
 			// lactates
-			DoubleList lactates = DoubleList.getInstance(treadmillProt.getLactate());			
+			DoubleList lactates = DoubleList.getInstance(treadmillProt.getLactate());
 			xyArr = new double[steps * 2];
 			// heartrate
 			IntegerList hrs = IntegerList.getInstance(treadmillProt.getHr());
@@ -1443,7 +1471,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			TestsErgo ergo = entity.getTestsErgo();
 			TestsProtocol ergoProt = entity.getTestsProtocol();
 			int steps = ergoProt.getCountSteps();
-			DoubleList lactates = DoubleList.getInstance(ergoProt.getLactate());	
+			DoubleList lactates = DoubleList.getInstance(ergoProt.getLactate());
 			xyArr = new double[steps * 2];
 			// heartrate
 			IntegerList hrs = IntegerList.getInstance(ergoProt.getHr());

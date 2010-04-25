@@ -17,7 +17,7 @@ import javax.persistence.Table;
 public class ZonesDefinition  implements java.io.Serializable {
 
 
-    // Fields    
+    // Fields
 
      private String id;
      private String coachId;
@@ -27,8 +27,10 @@ public class ZonesDefinition  implements java.io.Serializable {
      private String color;
      private Double lactateLow;
      private Double lactateHigh;
-     private Integer hrLow;
-     private Integer hrHigh;
+     private Integer hrLowRun;
+     private Integer hrHighRun;
+     private Integer hrLowBike;
+     private Integer hrHighBike;
 
 
     // Constructors
@@ -42,9 +44,11 @@ public class ZonesDefinition  implements java.io.Serializable {
         this.id = id;
         this.coachId = coachId;
     }
-    
+
     /** full constructor */
-    public ZonesDefinition(String id, String coachId, Integer sequence, String shortcut, String description, String color, Double lactateLow, Double lactateHigh, Integer hrLow, Integer hrHigh) {
+    public ZonesDefinition(String id, String coachId, Integer sequence, String shortcut, String description, String color,
+    		Double lactateLow, Double lactateHigh,
+    		Integer hrLowRun, Integer hrHighRun, Integer hrLowBike, Integer hrHighBike) {
         this.id = id;
         this.coachId = coachId;
         this.sequence = sequence;
@@ -53,119 +57,128 @@ public class ZonesDefinition  implements java.io.Serializable {
         this.color = color;
         this.lactateLow = lactateLow;
         this.lactateHigh = lactateHigh;
-        this.hrLow = hrLow;
-        this.hrHigh = hrHigh;
+        this.hrLowRun = hrLowRun;
+        this.hrHighRun = hrHighRun;
+        this.hrLowBike = hrLowBike;
+        this.hrHighBike = hrHighBike;
     }
 
-   
+
     // Property accessors
-    @Id 
-    
+    @Id
+
     @Column(name="id", unique=true, nullable=false, length=36)
 
     public String getId() {
         return this.id;
     }
-    
+
     public void setId(String id) {
         this.id = id;
     }
-    
+
     @Column(name="coach_id", nullable=false, length=36)
     public String getCoachId() {
         return this.coachId;
     }
-    
+
     public void setCoachId(String coachId) {
         this.coachId = coachId;
     }
-    
+
     @Column(name="sequence")
 
     public Integer getSequence() {
         return this.sequence;
     }
-    
+
     public void setSequence(Integer sequence) {
         this.sequence = sequence;
     }
-    
+
     @Column(name="shortcut", length=20)
 
     public String getShortcut() {
         return this.shortcut;
     }
-    
+
     public void setShortcut(String shortcut) {
         this.shortcut = shortcut;
     }
-    
+
     @Column(name="description", length=50)
 
     public String getDescription() {
         return this.description;
     }
-    
+
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
     @Column(name="color", length=10)
 
     public String getColor() {
         return this.color;
     }
-    
+
     public void setColor(String color) {
         this.color = color;
     }
-    
+
     @Column(name="lactate_low", columnDefinition="decimal")
 
     public Double getLactateLow() {
         return this.lactateLow;
     }
-    
+
     public void setLactateLow(Double lactateLow) {
         this.lactateLow = lactateLow;
     }
-    
+
     @Column(name="lactate_high", columnDefinition="decimal")
 
     public Double getLactateHigh() {
         return this.lactateHigh;
     }
-    
+
     public void setLactateHigh(Double lactateHigh) {
         this.lactateHigh = lactateHigh;
     }
-    
-    @Column(name="hr_low")
 
-    public Integer getHrLow() {
-        return this.hrLow;
+    @Column(name="hr_low_run")
+    public Integer getHrLowRun() {
+        return this.hrLowRun;
     }
-    
-    public void setHrLow(Integer hrLow) {
-        this.hrLow = hrLow;
+
+    public void setHrLowRun(Integer hrLowRun) {
+        this.hrLowRun = hrLowRun;
     }
-    
-    @Column(name="hr_high")
 
-    public Integer getHrHigh() {
-        return this.hrHigh;
+    @Column(name="hr_high_run")
+    public Integer getHrHighRun() {
+        return this.hrHighRun;
     }
-    
-    public void setHrHigh(Integer hrHigh) {
-        this.hrHigh = hrHigh;
+
+    public void setHrHighRun(Integer hrHighRun) {
+        this.hrHighRun = hrHighRun;
     }
-   
 
+    @Column(name="hr_low_bike")
+    public Integer getHrLowBike() {
+        return this.hrLowBike;
+    }
 
+    public void setHrLowBike(Integer hrLowBike) {
+        this.hrLowBike = hrLowBike;
+    }
 
+    @Column(name="hr_high_bike")
+    public Integer getHrHighBike() {
+        return this.hrHighBike;
+    }
 
-
-
-
-
+    public void setHrHighBike(Integer hrHighBike) {
+        this.hrHighBike = hrHighBike;
+    }
 }

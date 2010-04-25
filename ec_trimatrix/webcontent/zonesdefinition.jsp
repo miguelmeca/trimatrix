@@ -23,7 +23,7 @@
 </t:row>
 <t:rowline id="g_9" />
 <t:row id="g_10" >
-<t:fixgrid id="g_11" avoidroundtrips="true" cellselection="true" headlinerowheight="20" horizontalscrollmode="autowithresize" objectbinding="#{d.ZonesDefinitionUI.gridZones}" rowheight="20" sbvisibleamount="10" showemptyrows="false" >
+<t:fixgrid id="g_11" avoidroundtrips="true" cellselection="true" horizontalscrollmode="autowithresize" objectbinding="#{d.ZonesDefinitionUI.gridZones}" sbvisibleamount="10" showemptyrows="false" >
 <t:gridcol id="g_12" columnresizingenabled="false" sortenabled="false" width="20" >
 <t:gridrowselector id="g_13" />
 </t:gridcol>
@@ -42,18 +42,24 @@
 <t:gridcol id="g_22" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.lactate_high}" width="80" >
 <t:formattedfield id="g_23" enabled="#{d.ZonesDefinitionUI.changeAllowed}" format="double" value=".{zonesDefinition.lactateHigh}" />
 </t:gridcol>
-<t:gridcol id="g_24" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.hr_prct_low}" width="60" >
-<t:formattedfield id="g_25" enabled="#{d.ZonesDefinitionUI.changeAllowed}" format="int" value=".{zonesDefinition.hrLow}" />
+<t:gridcol id="g_24" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.hr_prct_low} #{rr.literals.run}" width="100" >
+<t:formattedfield id="g_25" enabled="#{d.ZonesDefinitionUI.changeAllowed}" format="int" value=".{zonesDefinition.hrLowRun}" />
 </t:gridcol>
-<t:gridcol id="g_26" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.hr_prct_high}" width="60" >
-<t:formattedfield id="g_27" enabled="#{d.ZonesDefinitionUI.changeAllowed}" format="int" value=".{zonesDefinition.hrHigh}" />
+<t:gridcol id="g_26" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.hr_prct_high} #{rr.literals.run}" width="100" >
+<t:formattedfield id="g_27" enabled="#{d.ZonesDefinitionUI.changeAllowed}" format="int" value=".{zonesDefinition.hrHighRun}" />
+</t:gridcol>
+<t:gridcol id="g_28" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.hr_prct_low} #{rr.literals.bike}" width="100" >
+<t:formattedfield id="g_29" enabled="#{d.ZonesDefinitionUI.changeAllowed}" format="int" value=".{zonesDefinition.hrLowBike}" />
+</t:gridcol>
+<t:gridcol id="g_30" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.hr_prct_high} #{rr.literals.bike}" width="100" >
+<t:formattedfield id="g_31" enabled="#{d.ZonesDefinitionUI.changeAllowed}" format="int" value=".{zonesDefinition.hrHighBike}" />
 </t:gridcol>
 </t:fixgrid>
 </t:row>
-<t:row id="g_28" >
-<t:button id="g_29" actionListener="#{d.ZonesDefinitionUI.onShiftUp}" enabled="#{d.ZonesDefinitionUI.changeAllowed}" image="/images/icons/arrow_up.png" imageheight="15" text="#{rr.literals.shift_up}" />
-<t:coldistance id="g_30" />
-<t:button id="g_31" actionListener="#{d.ZonesDefinitionUI.onShiftDown}" enabled="#{d.ZonesDefinitionUI.changeAllowed}" image="/images/icons/arrow_down.png" imageheight="15" text="#{rr.literals.shift_down}" />
+<t:row id="g_32" >
+<t:button id="g_33" actionListener="#{d.ZonesDefinitionUI.onShiftUp}" enabled="#{d.ZonesDefinitionUI.changeAllowed}" image="/images/icons/arrow_up.png" imageheight="15" text="#{rr.literals.shift_up}" />
+<t:coldistance id="g_34" />
+<t:button id="g_35" actionListener="#{d.ZonesDefinitionUI.onShiftDown}" enabled="#{d.ZonesDefinitionUI.changeAllowed}" image="/images/icons/arrow_down.png" imageheight="15" text="#{rr.literals.shift_down}" />
 </t:row>
 </t:pane>
 </t:row>

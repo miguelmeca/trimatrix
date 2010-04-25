@@ -28,20 +28,20 @@ import trimatrix.utils.Constants.Mode;
 
 @CCGenClass (expressionBase="#{d.ZonesDetailUI}")
 
-public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializable, IWorkpageProcessingEventListener {	
-	
+public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializable, IWorkpageProcessingEventListener {
+
 	private boolean changeAllowed;
 	public boolean getChangeAllowed() { return authorization.change; }
-	
+
 	protected boolean renderSaveButton;
 	public boolean getRenderSaveButton() { return renderSaveButton; }
-	
+
 	protected boolean renderEditButton;
 	public boolean getRenderEditButton() { return renderEditButton; }
-	
+
 	protected boolean renderCancelButton;
-	public boolean getRenderCancelButton() { return renderCancelButton; }	
-	
+	public boolean getRenderCancelButton() { return renderCancelButton; }
+
 	private Mode mode;
 	public Mode getMode() { return mode; }
 	private void changeMode(Constants.Mode mode) {
@@ -50,55 +50,55 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
 			renderEditButton = false;
 			renderSaveButton = true;
 			renderCancelButton = true;
-			
-		} 
+
+		}
 		if (mode == Constants.Mode.SHOW) {
 			renderEditButton = true;
 			renderSaveButton = false;
 			renderCancelButton = false;
 		}
-	}	
-	
+	}
+
 	private Integer distance = 100;
 	public Integer getDistance() { return distance; }
 	public void setDistance(Integer distance) { this.distance = distance; }
-	
+
 	public boolean isEnabled() { return mode==Mode.CHANGE; }
-	
+
 	private SAuthorization authorization = SAuthorization.NONE;
-		
+
 	public void onEdit(ActionEvent event) {	changeMode(Constants.Mode.CHANGE); }
-	
+
 	public void onCancel(ActionEvent event) {
 		changeMode(Constants.Mode.SHOW);
 		buildGrid();
 	}
-	
+
 	public void onSave(ActionEvent event) {
 	 	for(GridZonesItem item : m_gridZones.getItems()) {
 	 		item.save();
-	 	}	 	
+	 	}
 	 	changeMode(Constants.Mode.SHOW);
 	 	// refresh beans
         getWorkpage().throwWorkpageProcessingEvent(new WorkpageRefreshEvent(Entity.ZONE));
         // refresh
 		buildGrid();
 	}
-	
+
 	public void onCoachClicked(ActionEvent event) {
 		if(coach==null) return;
 		loadEntityDetailPage(Entity.PERSON, coach.getId(), coach.toString());
 	}
-	
+
 	protected FIXGRIDListBinding<GridZonesItem> m_gridZones = new FIXGRIDListBinding<GridZonesItem>();
     public FIXGRIDListBinding<GridZonesItem> getGridZones() { return m_gridZones; }
     public void setGridZones(FIXGRIDListBinding<GridZonesItem> value) { m_gridZones = value; }
-	
+
     private String personId;
     private PersonsAthlete personsAthlete;
     private Persons coach;
-    public String getCoach() { return coach!=null ? coach.toString() : null; } 
-    
+    public String getCoach() { return coach!=null ? coach.toString() : null; }
+
 	public ZonesDetailUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
 		// register listener for events
@@ -122,12 +122,12 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
         changeAllowed = true;
         buildGrid();
 	}
-		
+
     public class GridZonesItem extends FIXGRIDItem implements java.io.Serializable {
     	private ZonesDefinition definition;
     	private Zones zones;
     	private boolean dirty;
-    	
+
 		public GridZonesItem(ZonesLogic.ZoneInfo zonesInfo) {
 			this.definition = zonesInfo.getDefinition();
 			if(zonesInfo.getZone()!=null) {
@@ -141,66 +141,86 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
 		public String getColor() { return definition.getColor(); }
 		public String getForeground() { return Helper.getBlackOrWhite(getColor()); }
 		public String getShortcut() { return definition.getShortcut(); }
-		public Integer getHrLowPrct() { 
-			return personsAthlete!=null ? personsAthlete.getMaxHr() * definition.getHrLow() / 100 : null; 
+		public Integer getHrLowPrctRun() {
+			return personsAthlete!=null ? personsAthlete.getMaxHr() * definition.getHrLowRun() / 100 : null;
 		}
-		public Integer getHrHighPrct() { 
-			return personsAthlete!=null ? personsAthlete.getMaxHr() * definition.getHrHigh() / 100 : null; 
+		public Integer getHrHighPrctRun() {
+			return personsAthlete!=null ? personsAthlete.getMaxHr() * definition.getHrHighRun() / 100 : null;
 		}
-		public String getTimeLow() {
-			return Helper.calculateTime((int)(getSpeedLow() * getDistance()), false);
+		public Integer getHrLowPrctBike() {
+			return personsAthlete!=null ? personsAthlete.getMaxHr() * definition.getHrLowBike() / 100 : null;
 		}
-		public String getTimeHigh() {
-			return Helper.calculateTime((int)(getSpeedHigh() * getDistance()), false);
+		public Integer getHrHighPrctBike() {
+			return personsAthlete!=null ? personsAthlete.getMaxHr() * definition.getHrHighBike() / 100 : null;
+		}
+		public String getTimeLowSwim() {
+			return Helper.calculateTime((int)(getSpeedLowSwim() * getDistance()), false);
+		}
+		public String getTimeHighSwim() {
+			return Helper.calculateTime((int)(getSpeedHighSwim() * getDistance()), false);
 		}
 		// mutable fields
-		public Integer getHrLow() { return zones!=null ? zones.getHrLow() : null; }
-		public void setHrLow(Integer hrLow) {
+		public Integer getHrLowRun() { return zones!=null ? zones.getHrLowRun() : null; }
+		public void setHrLowRun(Integer hrLowRun) {
 			dirty = true;
-			zones.setAutoHr(false);
-			zones.setHrLow(hrLow);
+			zones.setAutoHrRun(false);
+			zones.setHrLowRun(hrLowRun);
 		}
-		public Integer getHrHigh() { return zones!=null ? zones.getHrHigh() : null; }
-		public void setHrHigh(Integer hrHigh) {
+		public Integer getHrHighRun() { return zones!=null ? zones.getHrHighRun() : null; }
+		public void setHrHighRun(Integer hrHighRun) {
 			dirty = true;
-			zones.setAutoHr(false);
-			zones.setHrHigh(hrHigh);
+			zones.setAutoHrRun(false);
+			zones.setHrHighRun(hrHighRun);
 		}
-		public Double getSpeedLow() { return zones!=null ? zones.getSpeedLow() : null; }
-		public void setSpeedLow(Double speedLow) {
+
+		public Integer getHrLowBike() { return zones!=null ? zones.getHrLowBike() : null; }
+		public void setHrLowBike(Integer hrLowBike) {
 			dirty = true;
-			zones.setAutoSpeed(false);
-			zones.setSpeedLow(speedLow);
+			zones.setAutoHrBike(false);
+			zones.setHrLowBike(hrLowBike);
 		}
-		public Double getSpeedHigh() { return zones!=null ? zones.getSpeedHigh() : null; }
-		public void setSpeedHigh(Double speedHigh) {
+		public Integer getHrHighBike() { return zones!=null ? zones.getHrHighBike() : null; }
+		public void setHrHighBike(Integer hrHighBike) {
 			dirty = true;
-			zones.setAutoSpeed(false);
-			zones.setSpeedHigh(speedHigh);
-		}			
-		
+			zones.setAutoHrBike(false);
+			zones.setHrHighBike(hrHighBike);
+		}
+
+		public Double getSpeedLowSwim() { return zones!=null ? zones.getSpeedLowSwim() : null; }
+		public void setSpeedLowSwim(Double speedLow) {
+			dirty = true;
+			zones.setAutoSpeedSwim(false);
+			zones.setSpeedLowSwim(speedLow);
+		}
+		public Double getSpeedHighSwim() { return zones!=null ? zones.getSpeedHighSwim() : null; }
+		public void setSpeedHighSwim(Double speedHighSwim) {
+			dirty = true;
+			zones.setAutoSpeedSwim(false);
+			zones.setSpeedHighSwim(speedHighSwim);
+		}
+
 		public void save() {
 			if(dirty) {
 				dirty = !getLogic().getZonesLogic().saveZone(zones);
 			}
 		}
     }
-	
+
 	private void buildGrid() {
 		m_gridZones.getItems().clear();
 		if(coach==null) return;
 		List<ZonesLogic.ZoneInfo> zonesInfos = getLogic().getZonesLogic().getAthletesZone(personId, coach);
 		for(ZonesLogic.ZoneInfo zonesInfo : zonesInfos) {
-			m_gridZones.getItems().add(new GridZonesItem(zonesInfo));			
+			m_gridZones.getItems().add(new GridZonesItem(zonesInfo));
 		}
 	}
-	
+
 	public void processEvent(WorkpageProcessingEvent event) {
 		// refresh list
 		if (event instanceof WorkpageRefreshEvent) {
 			Entity entity = ((WorkpageRefreshEvent)event).getEntity();
 			if(Entity.ZONE==entity.getBase()) buildGrid();
-		}	
-		
+		}
+
 	}
 }

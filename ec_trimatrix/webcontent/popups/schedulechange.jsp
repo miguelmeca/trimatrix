@@ -89,7 +89,7 @@
 <t:gridcol id="g_57" text="#{rr.literals.duration} (#{rr.literals.debit})" width="100" >
 <t:field id="g_58" actionListener=".{onTimeFlush}" align="center" clientname="durationAthlete" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" flush="true" font="size:16" text=".{scheduleRun.durationAthlete}" width="100" />
 </t:gridcol>
-<t:gridcol id="g_59" text="#{rr.literals.avg_hr}" width="100" >
+<t:gridcol id="g_59" text="#{rr.literals.hr_avg}" width="100" >
 <t:formattedfield id="g_60" align="center" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" font="size:16" format="int" value=".{scheduleRun.hrAvgAthlete}" />
 </t:gridcol>
 <t:gridcol id="g_61" text="#{rr.literals.comment}" width="150" >

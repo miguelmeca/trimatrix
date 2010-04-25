@@ -21,14 +21,18 @@ public class Zones implements java.io.Serializable {
 	private String id;
 	private String athleteId;
 	private String zonesDefinitionId;
-	private Integer hrLow;
-	private Integer hrHigh;
-	private Double speedLow;
-	private Double speedHigh;
-	private Boolean autoHr;
-	private Boolean autoSpeed;
-	private String testIdHr;
-	private String testIdSpeed;
+	private Integer hrLowRun;
+	private Integer hrHighRun;
+	private Integer hrLowBike;
+	private Integer hrHighBike;
+	private Double speedLowSwim;
+	private Double speedHighSwim;
+	private Boolean autoHrRun;
+	private Boolean autoHrBike;
+	private Boolean autoSpeedSwim;
+	private String testIdRun;
+	private String testIdBike;
+	private String testIdSwim;
 	private ZonesDefinition zonesDefinition;
 
 	// Constructors
@@ -46,20 +50,26 @@ public class Zones implements java.io.Serializable {
 
 	/** full constructor */
 	public Zones(String id, String athleteId, String zonesDefinitionId,
-			Integer hrLow, Integer hrHigh, Double speedLow, Double speedHigh,
-			Boolean autoHr, Boolean autoSpeed, String testIdHr,
-			String testIdSpeed) {
+			Integer hrLowRun, Integer hrHighRun,
+			Integer hrLowBike, Integer hrHighBike,
+			Double speedLowSwim, Double speedHighSwim,
+			Boolean autoHrRun, Boolean autoHrBike, Boolean autoSpeedSwim,
+			String testIdRun, String testIdBike, String testIdSwim) {
 		this.id = id;
 		this.athleteId = athleteId;
 		this.zonesDefinitionId = zonesDefinitionId;
-		this.hrLow = hrLow;
-		this.hrHigh = hrHigh;
-		this.speedLow = speedLow;
-		this.speedHigh = speedHigh;
-		this.autoHr = autoHr;
-		this.autoSpeed = autoSpeed;
-		this.testIdHr = testIdHr;
-		this.testIdSpeed = testIdSpeed;
+		this.hrLowRun = hrLowRun;
+		this.hrHighRun = hrHighRun;
+		this.hrLowBike = hrLowBike;
+		this.hrHighBike = hrHighBike;
+		this.speedLowSwim = speedLowSwim;
+		this.speedHighSwim = speedHighSwim;
+		this.autoHrRun = autoHrRun;
+		this.autoHrBike = autoHrBike;
+		this.autoSpeedSwim = autoSpeedSwim;
+		this.testIdRun = testIdRun;
+		this.testIdBike = testIdBike;
+		this.testIdSwim = testIdSwim;
 	}
 
 	// Property accessors
@@ -91,78 +101,114 @@ public class Zones implements java.io.Serializable {
 		this.zonesDefinitionId = zonesDefinitionId;
 	}
 
-	@Column(name = "hr_low")
-	public Integer getHrLow() {
-		return this.hrLow;
+	@Column(name = "hr_low_run")
+	public Integer getHrLowRun() {
+		return this.hrLowRun;
 	}
 
-	public void setHrLow(Integer hrLow) {
-		this.hrLow = hrLow;
+	public void setHrLowRun(Integer hrLowRun) {
+		this.hrLowRun = hrLowRun;
 	}
 
-	@Column(name = "hr_high")
-	public Integer getHrHigh() {
-		return this.hrHigh;
+	@Column(name = "hr_high_run")
+	public Integer getHrHighRun() {
+		return this.hrHighRun;
 	}
 
-	public void setHrHigh(Integer hrHigh) {
-		this.hrHigh = hrHigh;
+	public void setHrHighRun(Integer hrHighRun) {
+		this.hrHighRun = hrHighRun;
 	}
 
-	@Column(name = "speed_low", columnDefinition="decimal")
-	public Double getSpeedLow() {
-		return this.speedLow;
+	@Column(name = "hr_low_bike")
+	public Integer getHrLowBike() {
+		return this.hrLowBike;
 	}
 
-	public void setSpeedLow(Double speedLow) {
-		this.speedLow = speedLow;
+	public void setHrLowBike(Integer hrLowBike) {
+		this.hrLowBike = hrLowBike;
 	}
 
-	@Column(name = "speed_high", columnDefinition="decimal")
-	public Double getSpeedHigh() {
-		return this.speedHigh;
+	@Column(name = "hr_high_bike")
+	public Integer getHrHighBike() {
+		return this.hrHighBike;
 	}
 
-	public void setSpeedHigh(Double speedHigh) {
-		this.speedHigh = speedHigh;
+	public void setHrHighBike(Integer hrHighBike) {
+		this.hrHighBike = hrHighBike;
 	}
 
-	@Column(name = "auto_hr")
-	public Boolean getAutoHr() {
-		return this.autoHr;
+	@Column(name = "speed_low_swim", columnDefinition="decimal")
+	public Double getSpeedLowSwim() {
+		return this.speedLowSwim;
 	}
 
-	public void setAutoHr(Boolean autoHr) {
-		this.autoHr = autoHr;
+	public void setSpeedLowSwim(Double speedLowSwim) {
+		this.speedLowSwim = speedLowSwim;
 	}
 
-	@Column(name = "auto_speed")
-	public Boolean getAutoSpeed() {
-		return this.autoSpeed;
+	@Column(name = "speed_high_swim", columnDefinition="decimal")
+	public Double getSpeedHighSwim() {
+		return this.speedHighSwim;
 	}
 
-	public void setAutoSpeed(Boolean autoSpeed) {
-		this.autoSpeed = autoSpeed;
+	public void setSpeedHighSwim(Double speedHighSwim) {
+		this.speedHighSwim = speedHighSwim;
 	}
 
-	@Column(name = "test_id_hr", length = 36)
-	public String getTestIdHr() {
-		return this.testIdHr;
+	@Column(name = "auto_hr_run")
+	public Boolean getAutoHrRun() {
+		return this.autoHrRun;
 	}
 
-	public void setTestIdHr(String testIdHr) {
-		this.testIdHr = testIdHr;
+	public void setAutoHrRun(Boolean autoHrRun) {
+		this.autoHrRun = autoHrRun;
 	}
 
-	@Column(name = "test_id_speed", length = 36)
-	public String getTestIdSpeed() {
-		return this.testIdSpeed;
+	@Column(name = "auto_hr_bike")
+	public Boolean getAutoHrBike() {
+		return this.autoHrBike;
 	}
 
-	public void setTestIdSpeed(String testIdSpeed) {
-		this.testIdSpeed = testIdSpeed;
+	public void setAutoHrBike(Boolean autoHrBike) {
+		this.autoHrBike = autoHrBike;
 	}
-	
+
+	@Column(name = "auto_speed_swim")
+	public Boolean getAutoSpeedSwim() {
+		return this.autoSpeedSwim;
+	}
+
+	public void setAutoSpeedSwim(Boolean autoSpeedSwim) {
+		this.autoSpeedSwim = autoSpeedSwim;
+	}
+
+	@Column(name = "test_id_run", length = 36)
+	public String getTestIdRun() {
+		return this.testIdRun;
+	}
+
+	public void setTestIdRun(String testIdRun) {
+		this.testIdRun = testIdRun;
+	}
+
+	@Column(name = "test_id_bike", length = 36)
+	public String getTestIdBike() {
+		return this.testIdBike;
+	}
+
+	public void setTestIdBike(String testIdBike) {
+		this.testIdBike = testIdBike;
+	}
+
+	@Column(name = "test_id_swim", length = 36)
+	public String getTestIdSwim() {
+		return this.testIdSwim;
+	}
+
+	public void setTestIdSwim(String testIdSwim) {
+		this.testIdSwim = testIdSwim;
+	}
+
 	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
     @JoinColumn(name="zones_definition_id", insertable=false, updatable=false)
 	public ZonesDefinition getZonesDefinition() {
