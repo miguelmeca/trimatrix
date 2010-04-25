@@ -65,7 +65,7 @@ public final class Constants {
 		USER(Page.USERDETAIL, Page.USERSELECTION, "userEntity"),
 		PERSON(Page.PERSONDETAIL, Page.PERSONSELECTION, "personEntity"),
 		DOCTOR(Page.DOCTORDETAIL, Page.DOCTORSELECTION, "doctorEntity"),
-		TEST(Page.TESTDETAIL, Page.TESTSELECTION, "testEntity"),
+		TEST(Page.TESTDETAIL, Page.TESTSELECTION, "testEntity", true),
 		COMPETITION(Page.COMPETITIONDETAIL, Page.COMPETITIONSELECTION, "competitionEntity"),
 		RESULT(Page.RESULTDETAIL, null, "resultEntity"),
 		ATTACHMENT(Page.ATTACHMENTDETAIL, Page.ATTACHMENTSELECTION, "attachmentEntity"),
@@ -88,6 +88,7 @@ public final class Constants {
 		private final Page selectionPage;
 		private final boolean hasStandard;
 		private final String entityInstance;
+		private final boolean noRelation;
 
 		// constructor for base entities
 		Entity(Page detailPage, Page selectionPage, String entityInstance) {
@@ -95,16 +96,30 @@ public final class Constants {
 			this.detailPage = detailPage;
 			this.selectionPage = selectionPage;
 			this.hasStandard = false;
+			this.noRelation = false;
 			this.entityInstance = entityInstance;
 		}
 
+		Entity(Page detailPage, Page selectionPage, String entityInstance, boolean noRelation) {
+			this.baseEntity = null;
+			this.detailPage = detailPage;
+			this.selectionPage = selectionPage;
+			this.hasStandard = false;
+			this.noRelation = noRelation;
+			this.entityInstance = entityInstance;
+		}
+
+
+		// constructor for extended entities
 		Entity(Entity baseEntity, Page detailPage, Page selectionPage, boolean hasStandard) {
 			this.baseEntity = baseEntity;
 			this.detailPage = detailPage;
 			this.selectionPage = selectionPage;
 			this.hasStandard = hasStandard;
+			this.noRelation = false;
 			this.entityInstance = null;
 		}
+
 		public Entity getBase() {
 			if(baseEntity==null) return this;
 			return baseEntity;
@@ -120,6 +135,10 @@ public final class Constants {
 		}
 		public String getEntityInstance() {
 			return entityInstance;
+		}
+
+		public boolean noRelation() {
+			return noRelation;
 		}
 
 		public String getDescription() {
