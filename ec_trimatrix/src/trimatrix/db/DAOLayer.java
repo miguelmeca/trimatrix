@@ -14,6 +14,7 @@ public class DAOLayer {
 	private IEntityDAO<Tests> testsDAO;
 	private IEntityDAO<Competitions> competitionsDAO;
 	private IEntityDAO<Schedules> schedulesDAO;
+	private IComplexDAO<SchedulesDetail, SchedulesDetailId> schedulesDetailDAO;
 	private IComplexDAO<CompetitionsScouts, CompetitionsScoutsId> competitionsScoutsDAO;
 	private IEntityDAO<Results> resultsDAO;
 	private ISimpleDAO<ResultsTria> resultsTriaDAO;
@@ -147,6 +148,12 @@ public class DAOLayer {
 	}
 	public void setSchedulesDAO(IEntityDAO<Schedules> schedulesDAO) {
 		this.schedulesDAO = schedulesDAO;
+	}
+	public IComplexDAO<SchedulesDetail, SchedulesDetailId> getSchedulesDetailDAO() {
+		return schedulesDetailDAO;
+	}
+	public void setSchedulesDetailDAO(IComplexDAO<SchedulesDetail, SchedulesDetailId> schedulesDetailDAO) {
+		this.schedulesDetailDAO = schedulesDetailDAO;
 	}
 	public ISimpleDAO<ResultsTria> getResultsTriaDAO() {
 		return resultsTriaDAO;

@@ -59,10 +59,10 @@
 <t:row id="g_37" >
 <t:fixgrid id="g_38" columndragdropenabled="false" headlinerowheight="20" horizontalscrollmode="autowithresize" objectbinding="#{d.ScheduleChangePopUp.gridRun}" rowheight="40" sbvisibleamount="10" selectorcolumn="1" selectorcolumnwidth="20" showemptyrows="false" >
 <t:gridcol id="g_39" text="#{rr.literals.duration} (#{rr.literals.plan})" width="100" >
-<t:field id="g_40" actionListener=".{onTimeFlush}" align="center" bgpaint="mandatory()" clientname="duration" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" font="size:16" text=".{scheduleRun.duration}" width="100" />
+<t:field id="g_40" actionListener=".{onTimeFlush}" align="center" bgpaint="mandatory()" clientname="duration" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" font="size:16" text=".{scheduleRun.durationTarget}" width="100" />
 </t:gridcol>
 <t:gridcol id="g_41" text="#{rr.literals.intensity}" width="100" >
-<t:combobox id="g_42" actionListener=".{onChangeIntensity}" bgpaint="mandatory()" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" font="size:16" validvaluesbinding="#{helper.vvb.myzonesdefinition}" value=".{scheduleRun.zone}" withnullitem="true" withvaluecomment="true" />
+<t:combobox id="g_42" actionListener=".{onChangeIntensity}" bgpaint="mandatory()" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" font="size:16" validvaluesbinding="#{helper.vvb.myzonesdefinition}" value=".{scheduleRun.zoneId}" withnullitem="true" withvaluecomment="true" />
 </t:gridcol>
 <t:gridcol id="g_43" rendered="#{d.ScheduleChangePopUp.template==false}" text="#{rr.literals.hr}" width="100" >
 <t:pane id="g_44" width="100%" >
@@ -87,10 +87,10 @@
 </t:pane>
 </t:gridcol>
 <t:gridcol id="g_57" text="#{rr.literals.duration} (#{rr.literals.debit})" width="100" >
-<t:field id="g_58" actionListener=".{onTimeFlush}" align="center" clientname="durationAthlete" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" flush="true" font="size:16" text=".{scheduleRun.durationAthlete}" width="100" />
+<t:field id="g_58" actionListener=".{onTimeFlush}" align="center" clientname="durationAthlete" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" flush="true" font="size:16" text=".{scheduleRun.durationActual}" width="100" />
 </t:gridcol>
 <t:gridcol id="g_59" text="#{rr.literals.hr_avg}" width="100" >
-<t:formattedfield id="g_60" align="center" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" font="size:16" format="int" value=".{scheduleRun.hrAvgAthlete}" />
+<t:formattedfield id="g_60" align="center" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" font="size:16" format="int" value=".{scheduleRun.hrAvg}" />
 </t:gridcol>
 <t:gridcol id="g_61" text="#{rr.literals.comment}" width="150" >
 <t:textarea id="g_62" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" text=".{scheduleRun.comment}" />

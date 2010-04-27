@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -40,11 +39,11 @@ import trimatrix.db.DAOLayer;
 import trimatrix.db.Persons;
 import trimatrix.db.PersonsAthlete;
 import trimatrix.db.Schedules;
+import trimatrix.db.SchedulesDetail;
 import trimatrix.db.ZonesDefinition;
 import trimatrix.entities.IEntityData;
 import trimatrix.entities.ScheduleEntity;
 import trimatrix.logic.LogicLayer;
-import trimatrix.logic.helper.ScheduleRun;
 import trimatrix.services.ServiceLayer;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
@@ -133,22 +132,22 @@ public class ScheduleZUL extends GenericAutowireComposer {
 				if (data == null) return;
 				switch (type) {
 				case RUN:
-					ScheduleRun run = (ScheduleRun)data;
-					new Label(run.getDuration()).setParent(row);
-					ZonesDefinition zonesDefinition = daoLayer.getZonesDefinitionDAO().findById(run.getZone());
+					SchedulesDetail run = (SchedulesDetail)data;
+					new Label(run.getDurationTarget()).setParent(row);
+					ZonesDefinition zonesDefinition = daoLayer.getZonesDefinitionDAO().findById(run.getZoneId());
 					new Label(zonesDefinition.getShortcut()).setParent(row);
 			        new Label(run.getHrLow()+"-"+run.getHrHigh()).setParent(row);
-			        final Textbox durationAthlete = new Textbox(run.getDurationAthlete());
+			        final Textbox durationAthlete = new Textbox(run.getDurationActual());
 			        durationAthlete.addEventListener(Events.ON_CHANGE, new EventListener(){
 			        	   public void onEvent(Event arg0) throws Exception{
 			        		   durationAthlete.setValue(Helper.correctTimeInput(durationAthlete.getValue()));
 			        		}
 			        });
 			        durationAthlete.setParent(row);
-			        if(run.getHrAvgAthlete()==null) {
+			        if(run.getHrAvg()==null) {
 			        	new Intbox().setParent(row);
 			        } else {
-			        	new Intbox(run.getHrAvgAthlete()).setParent(row);
+			        	new Intbox(run.getHrAvg()).setParent(row);
 			        }
 					break;
 				}
@@ -173,24 +172,24 @@ public class ScheduleZUL extends GenericAutowireComposer {
 	public void onSave(Event event) {
 		if(selectedSchedule==null) return;
 		int selectedUnit = units.getSelectedIndex();
-		List<ScheduleRun> scheduleRuns = logicLayer.getScheduleLogic().getScheduleRuns(selectedSchedule.getDetails());
+		List<SchedulesDetail> schedulesDetails = selectedSchedule.getSchedulesDetail();
 		// set attributes
 		Long duration = 0L;
-		for(int index = 0; index<scheduleRuns.size();index++) {
-			ScheduleRun scheduleRun = scheduleRuns.get(index);
+		for(int index = 0; index<schedulesDetails.size();index++) {
+			SchedulesDetail schedulesDetail = schedulesDetails.get(index);
 			Row row = (Row)grid.getRows().getChildren().get(index);
 			String athleteDuration = ((Textbox)row.getChildren().get(3)).getValue();
 			if(Helper.isEmpty(athleteDuration)) {
-				duration += Helper.calculateSeconds(scheduleRun.getDuration());
+				duration += Helper.calculateSeconds(schedulesDetail.getDurationTarget());
 			} else {
 				duration += Helper.calculateSeconds(athleteDuration);
 			}
-			scheduleRun.setDurationAthlete(athleteDuration);
+			schedulesDetail.setDurationActual(athleteDuration);
 			Integer hrAvgAthlete = ((Intbox)row.getChildren().get(4)).getValue();
-			scheduleRun.setHrAvgAthlete(hrAvgAthlete);
+			schedulesDetail.setHrAvg(hrAvgAthlete);
 		}
 		selectedSchedule.setDuration(duration/60);	//duration is in seconds
-		selectedSchedule.setDetails(logicLayer.getScheduleLogic().buildString(scheduleRuns));
+		selectedSchedule.setSchedulesDetail(schedulesDetails);
 		// load schedule
 		try {
 			selectedSchedule.setDone(true);
@@ -217,8 +216,8 @@ public class ScheduleZUL extends GenericAutowireComposer {
         Boolean done = (Boolean)selected.getAttribute(DONE);
         selectedSchedule = daoLayer.getSchedulesDAO().findById(selected.getValue());
         // load grid
-        List<ScheduleRun> scheduleRuns = logicLayer.getScheduleLogic().getScheduleRuns(selectedSchedule.getDetails());
-        buildGrid(TYPES.RUN, scheduleRuns);
+        List<SchedulesDetail> schedulesDetails = selectedSchedule.getSchedulesDetail();
+        buildGrid(TYPES.RUN, schedulesDetails);
         // set right label for save button
         if(done) {
         	btnSave.setLabel("Ändern");

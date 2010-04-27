@@ -17,7 +17,7 @@ import trimatrix.entities.IEntityObject;
  * can be augmented to handle user-managed Spring transactions. Each of these
  * methods provides additional information for how to configure it for the
  * desired type of transaction control.
- * 
+ *
  * @see trimatrix.db.Schedules
  * @author MyEclipse Persistence Tools
  */
@@ -132,18 +132,19 @@ public class SchedulesDAO extends HibernateDaoSupport implements IEntityDAO<Sche
 			throw re;
 		}
 	}
-	
+
 	public void reload(IEntityObject instance) {
 		String id = instance.getId();
 		log.debug("reloading Schedule instance with id: " + id);
 		try {
-			getHibernateTemplate().load(instance, id);			
+			getHibernateTemplate().load(instance, id);
 		} catch (RuntimeException re) {
 			log.error("load failed", re);
 			throw re;
-		}		
+		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public static IEntityDAO<Schedules> getFromApplicationContext(ApplicationContext ctx) {
 		return (IEntityDAO<Schedules>) ctx.getBean("SchedulesDAO");
 	}
