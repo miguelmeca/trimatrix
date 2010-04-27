@@ -22,9 +22,9 @@ import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
+import trimatrix.db.SchedulesDetail;
 import trimatrix.db.Zones;
 import trimatrix.db.ZonesDefinition;
-import trimatrix.logic.helper.ScheduleRun;
 import trimatrix.ui.ScheduleUI.ScheduleItem;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 
@@ -48,10 +48,10 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 
     public void init() {
     	// build run schedules
-    	List<ScheduleRun> runList = getLogic().getScheduleLogic().getScheduleRuns(scheduleItem.getDetails());
+    	//List<ScheduleRun> runList = getLogic().getScheduleLogic().getScheduleRuns(scheduleItem.getDetails());
     	gridRun.getItems().clear();
-    	for(ScheduleRun item : runList) {
-    		gridRun.getItems().add(new GridRunItem(item));
+    	for(SchedulesDetail schedulesDetail : scheduleItem.getSchedulesDetail()) {
+    		gridRun.getItems().add(new GridRunItem(schedulesDetail));
     	}
     }
 
@@ -88,7 +88,7 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 
     public void onSave(ActionEvent event) {
     	// build run schedule string
-    	List<ScheduleRun> runList = new ArrayList<ScheduleRun>(gridRun.getItems().size());
+    	List<SchedulesDetail> schedulesDetails = new ArrayList<SchedulesDetail>(gridRun.getItems().size());
     	boolean failure = false;
     	// mandatory checks
     	if(isTemplate() && isEmpty(getTemplateName())) failure = true;
@@ -96,14 +96,14 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
     	// if necessary check subitems
     	if(!failure) {
     		for(GridRunItem item : gridRun.getItems()) {
-        		ScheduleRun scheduleRun = item.getScheduleRun();
+    			SchedulesDetail schedulesDetail = item.getScheduleRun();
         		// check mandatory fields
-        		if(isEmpty(scheduleRun.getDuration()) ||
-        		   isEmpty(scheduleRun.getZone())) {
+        		if(isEmpty(schedulesDetail.getDurationTarget()) ||
+        		   isEmpty(schedulesDetail.getZoneId())) {
         			failure = true;
         			break;
         		}
-        		runList.add(scheduleRun);
+        		schedulesDetails.add(schedulesDetail);
         	}
     	}
     	// exit if mandatory check fails
@@ -112,7 +112,8 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
     		return;
     	}
     	// save schedule
-    	scheduleItem.setDetails(getLogic().getScheduleLogic().buildString(runList));
+    	// scheduleItem.setDetails(getLogic().getScheduleLogic().buildString(runList));
+    	scheduleItem.setSchedulesDetail(schedulesDetails);
     	callback.save();
     }
 
@@ -174,14 +175,14 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 	public void setGridRun(FIXGRIDListBinding<GridRunItem> gridRun) {this.gridRun = gridRun;}
 
 	public class GridRunItem extends FIXGRIDItem implements java.io.Serializable {
-    	ScheduleRun scheduleRun;
-    	public ScheduleRun getScheduleRun() { return scheduleRun; }
+    	SchedulesDetail scheduleRun;
+    	public SchedulesDetail getScheduleRun() { return scheduleRun; }
 
     	public GridRunItem() {
-    		scheduleRun = new ScheduleRun();
+    		scheduleRun = new SchedulesDetail();
     	}
 
-		public GridRunItem(ScheduleRun scheduleRun) {
+		public GridRunItem(SchedulesDetail scheduleRun) {
 			this.scheduleRun = scheduleRun;
 			if(!isTemplate()) prefillZones();
 		}
@@ -191,9 +192,9 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 	        String clientname = (String) event.getComponent().getAttributes().get(CLIENTNAME);
 	        if(isEmpty(clientname)) return;
 	        if(clientname.startsWith(DURATION)) {
-	        	scheduleRun.setDuration(correctTimeInput(scheduleRun.getDuration()));
+	        	scheduleRun.setDurationTarget(correctTimeInput(scheduleRun.getDurationTarget()));
 	        } else if(clientname.startsWith(DURATIONATHLETE)) {
-	        	scheduleRun.setDurationAthlete(correctTimeInput(scheduleRun.getDurationAthlete()));
+	        	scheduleRun.setDurationActual(correctTimeInput(scheduleRun.getDurationActual()));
 	        } else {
 	            return;
 	        }
@@ -207,7 +208,7 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 			scheduleRun.setHrLow(null);
 			scheduleRun.setHrHigh(null);
 			// get zones definition
-			ZonesDefinition definition = getDaoLayer().getZonesDefinitionDAO().findById(scheduleRun.getZone());
+			ZonesDefinition definition = getDaoLayer().getZonesDefinitionDAO().findById(scheduleRun.getZoneId());
 			if(definition==null) return;
 			// set definition relevant properties
 			scheduleRun.setLactateLow(definition.getLactateLow());
@@ -217,7 +218,7 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 			// get athletes zone
 			Zones example = new Zones();
 			example.setAthleteId(scheduleItem.getPersonId());
-			example.setZonesDefinitionId(scheduleRun.getZone());
+			example.setZonesDefinitionId(scheduleRun.getZoneId());
 			List<Zones> zones = getDaoLayer().getZonesDAO().findByExample(example);
 			if(isEmpty(zones)) return; // no match!
 			// normally just one match!
@@ -234,7 +235,7 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 				// get athletes zone
 				Zones example = new Zones();
 				example.setAthleteId(scheduleItem.getPersonId());
-				example.setZonesDefinitionId(scheduleRun.getZone());
+				example.setZonesDefinitionId(scheduleRun.getZoneId());
 				List<Zones> zones = getDaoLayer().getZonesDAO().findByExample(example);
 				if(isEmpty(zones)) return; // no match!
 				// normally just one match!
@@ -254,8 +255,8 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 	private void recalculateEnd() {
 		long duration = 0;
 		for(GridRunItem item : gridRun.getItems()) {
-			int durationAthlete = calculateSeconds(item.getScheduleRun().getDurationAthlete());
-			duration += durationAthlete>0 ? durationAthlete : calculateSeconds(item.getScheduleRun().getDuration());
+			int durationActual = calculateSeconds(item.getScheduleRun().getDurationActual());
+			duration += durationActual>0 ? durationActual : calculateSeconds(item.getScheduleRun().getDurationActual());
 		}
 		scheduleItem.setDuration(duration/60);
 	}

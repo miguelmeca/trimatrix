@@ -11,9 +11,19 @@
 		When using this option, you don't need to edit the servers context.xml,
 		but you have to but the DB driver jar to the servers lib and can remove
 		it from the project!
-	
-		<Resource name="jdbc/TrimatrixDB" auth="Container" type="javax.sql.DataSource"
-			username="root" password="" driverClassName="com.mysql.jdbc.Driver"
-			url="jdbc:mysql://localhost/trimatrix" maxActive="8" maxIdle="4" />
-	-->	
+
+		<Resource type="javax.sql.DataSource"
+            name="jdbc/TrimatrixDB"
+            factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+            driverClassName="com.mysql.jdbc.Driver"
+            url="jdbc:mysql://localhost:3306/trimatrix"
+            username="root"
+            password=""
+            testOnBorrow="true"
+            validationQuery="SELECT 1"
+            validationInterval="30000"
+            maxActive="8"
+            maxIdle="4"
+        />
+	-->
 </Context>

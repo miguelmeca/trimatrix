@@ -45,6 +45,8 @@ import trimatrix.db.PersonsHaveCompetitions;
 import trimatrix.db.PersonsHaveRelations;
 import trimatrix.db.RolesHaveFunctionnodes;
 import trimatrix.db.Schedules;
+import trimatrix.db.SchedulesDetail;
+import trimatrix.db.SchedulesDetailId;
 import trimatrix.db.Tests;
 import trimatrix.db.TestsErgo;
 import trimatrix.db.TestsProtocol;
@@ -406,8 +408,21 @@ public class DBConnectionTest {
 		schedules.setDescription("Test");
 		schedules.setColor("#000000");
 		schedules.setTemplate(true);
+		// test details
+		SchedulesDetail schedulesDetail1 = new SchedulesDetail(new SchedulesDetailId(id,1));
+		schedulesDetail1.setComment("Test detail 1");
+		SchedulesDetail schedulesDetail2 = new SchedulesDetail(new SchedulesDetailId(id,2));
+		schedulesDetail2.setComment("Test detail 2");
+		List<SchedulesDetail> schedulesDetails = new ArrayList<SchedulesDetail>(2);
+		// wrong order to check, order by clause in definition
+		schedulesDetails.add(schedulesDetail2);
+		schedulesDetails.add(schedulesDetail1);
+		schedules.setSchedulesDetail(schedulesDetails);
 		daoLayer.getSchedulesDAO().save(schedules);
 		Schedules schedules2 = daoLayer.getSchedulesDAO().findById(id);
+		Assert.assertEquals(2, schedules2.getSchedulesDetail().size());
+		Assert.assertEquals("Test detail 1", schedules2.getSchedulesDetail().get(0).getComment());
+		Assert.assertEquals("Test detail 2", schedules2.getSchedulesDetail().get(1).getComment());
 		Assert.assertEquals("Test", schedules2.getDescription());
 		Assert.assertEquals("#000000", schedules2.getColor());
 		Assert.assertEquals(true, schedules2.getTemplate());
@@ -426,7 +441,7 @@ public class DBConnectionTest {
 		Assert.assertEquals(new Integer(42), dayInfos2.getRestingHr());
 		daoLayer.getDayInfosDAO().delete(dayInfos2);
 	}
-	
+
 	@Test
 	public void testImports() {
 		// Import Results

@@ -1,6 +1,8 @@
 package trimatrix.db;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,9 +11,12 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
+
+import org.hibernate.annotations.OrderBy;
 
 import trimatrix.entities.IEntityObject;
 
@@ -41,6 +46,9 @@ public class Schedules implements java.io.Serializable, IEntityObject {
 	private String modifiedBy;
 	private Boolean deleted;
 	private Boolean test;
+
+	// Collections
+    private List<SchedulesDetail> schedulesDetail = new ArrayList<SchedulesDetail>();
 
 	// Constructors
 
@@ -229,6 +237,16 @@ public class Schedules implements java.io.Serializable, IEntityObject {
 
 	public void setTest(Boolean test) {
 		this.test = test;
+	}
+
+	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, mappedBy = "id.id")
+    @OrderBy(clause="sequence")
+	public List<SchedulesDetail> getSchedulesDetail() {
+		return schedulesDetail;
+	}
+
+	public void setSchedulesDetail(List<SchedulesDetail> schedulesDetail) {
+		this.schedulesDetail = schedulesDetail;
 	}
 
 	@Transient

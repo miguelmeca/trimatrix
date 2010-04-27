@@ -112,6 +112,7 @@
 		<mapping class="trimatrix.db.UserPreferences" />
 		<mapping class="trimatrix.db.ImportTemplates" />
 		<mapping class="trimatrix.db.UserDefaults" />
+		<mapping class="trimatrix.db.SchedulesDetail" />
 	</session-factory>
 
 </hibernate-configuration>

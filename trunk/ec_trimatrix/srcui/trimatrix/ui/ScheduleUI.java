@@ -33,17 +33,15 @@ import org.eclnt.jsfserver.elements.impl.ROWDYNAMICCONTENTBinding;
 import org.eclnt.jsfserver.elements.impl.SCHEDULEComponent;
 import org.eclnt.jsfserver.elements.impl.SCHEDULEITEMComponentTag;
 import org.eclnt.jsfserver.elements.util.Trigger;
-import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
-import org.eclnt.jsfserver.util.useraccess.DefaultUserAccess;
-import org.eclnt.jsfserver.util.useraccess.UserAccessMgr;
 import org.eclnt.workplace.IWorkpageDispatcher;
 import org.eclnt.workplace.WorkpageDefaultLifecycleListener;
 
 import trimatrix.db.DayInfos;
 import trimatrix.db.Persons;
 import trimatrix.db.Schedules;
+import trimatrix.db.SchedulesDetail;
+import trimatrix.db.SchedulesDetailId;
 import trimatrix.db.ZonesDefinition;
-import trimatrix.logic.helper.ScheduleRun;
 import trimatrix.reports.excel.PerformanceChart;
 import trimatrix.services.TranslationService;
 import trimatrix.ui.utils.IPopUpCallback;
@@ -505,6 +503,12 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		}
 
 		public void saveSchedule() throws Exception {
+			// set ids and sequence of details
+			int sequence = 1;
+			for(SchedulesDetail schedulesDetail : schedule.getSchedulesDetail()) {
+				SchedulesDetailId id = new SchedulesDetailId(schedule.getId(), sequence++);
+				schedulesDetail.setId(id);
+			}
 			schedule = getLogic().getScheduleLogic().saveSchedule(schedule);
 		}
 
@@ -558,6 +562,9 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		public String getTemplateName() {return schedule.getTemplateName();}
 		public void setTemplateName(String templateName) { schedule.setTemplateName(templateName);}
 
+		public List<SchedulesDetail> getSchedulesDetail() {return schedule.getSchedulesDetail();}
+		public void setSchedulesDetail(List<SchedulesDetail> schedulesDetail) {schedule.setSchedulesDetail(schedulesDetail);}
+
 		/**
 		 * Build summary string for schedule detail in calendar view
 		 * @return summary string
@@ -565,13 +572,14 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		public String getSummary() {
 			StringBuffer sb = new StringBuffer();
 			if(SCHEDULETYPES.RUN.toString().equalsIgnoreCase(getType())) {
-				List<ScheduleRun> runList = getLogic().getScheduleLogic().getScheduleRuns(schedule.getDetails());
-				for(ScheduleRun run : runList) {
+				//List<ScheduleRun> runList = getLogic().getScheduleLogic().getScheduleRuns(schedule.getDetails());
+				List<SchedulesDetail> schedulesDetails = schedule.getSchedulesDetail();
+				for(SchedulesDetail schedulesDetail : schedulesDetails) {
 					if(sb.length()>0) sb.append(Constants.NEWLINE);
 					// get zone
-					ZonesDefinition definition = getDaoLayer().getZonesDefinitionDAO().findById(run.getZone());
+					ZonesDefinition definition = getDaoLayer().getZonesDefinitionDAO().findById(schedulesDetail.getZoneId());
 					if(definition==null) continue;
-					sb.append(run.getDuration() + Constants.WHITESPACE + definition.getShortcut());
+					sb.append(schedulesDetail.getDurationTarget() + Constants.WHITESPACE + definition.getShortcut());
 				}
 			} else {
 				sb.append(getDescription());

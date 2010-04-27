@@ -84,6 +84,7 @@
                 <idref local="TestsDAO" />
                 <idref local="CompetitionsDAO" />
                 <idref local="SchedulesDAO" />
+                <idref local="SchedulesDetailDAO" />
                 <idref local="CompetitionsScoutsDAO" />
                 <idref local="ResultsDAO" />
                 <idref local="ResultsTriaDAO" />
@@ -445,6 +446,11 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
+	<bean id="SchedulesDetailDAO" class="trimatrix.db.SchedulesDetailDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
 	<bean id="TScheduletypesDAO"
 		class="trimatrix.db.TScheduletypesDAO">
 		<property name="sessionFactory">
@@ -473,4 +479,5 @@
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
-	</bean></beans>
+	</bean>
+</beans>

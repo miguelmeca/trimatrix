@@ -171,7 +171,7 @@ public class SQLExecutorService {
 	public List<Schedules> getSchedules(String personId, Timestamp start, Timestamp end, Boolean template) {
 		//SessionFactory sessionFactory = transactionManager.getSessionFactory();
 		Session session = sessionFactory.openSession();
-		Criteria criteria = session.createCriteria(Schedules.class).setCacheable(true);
+		Criteria criteria = session.createCriteria(Schedules.class).setCacheable(true).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		if(!Helper.isEmpty(personId)) criteria.add(Restrictions.eq("personId", personId));
 		if(start!=null) criteria.add(Restrictions.ge("start", start));
 		if(end!=null) criteria.add(Restrictions.le("start", end));
