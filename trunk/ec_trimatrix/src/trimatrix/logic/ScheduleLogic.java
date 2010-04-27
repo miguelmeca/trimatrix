@@ -3,7 +3,9 @@ package trimatrix.logic;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.logging.Log;
@@ -23,6 +25,11 @@ public class ScheduleLogic {
 	private DAOLayer daoLayer;
 	private ServiceLayer serviceLayer;
 	private EntityLayer entityLayer;
+
+	public static final Map<String, Integer> TYPES_WITH_DETAILS = new HashMap<String, Integer>() {
+		//Unnamed Block.
+		{ put("run", new Integer(1)); put("bike", new Integer(2)); put("swim", new Integer(3));}
+	};
 
 	public Calendar getCalendar() {
 		Calendar cal = Calendar.getInstance();
@@ -181,6 +188,11 @@ public class ScheduleLogic {
 			schedule.setStart(start);
 			entityLayer.getScheduleEntity().save(schedule);
 		}
+	}
+
+	public void deleteAllSchedulesDetail(String id) {
+		int size = serviceLayer.getSqlExecutorService().deleteAllSchedulesDetail(id);
+		logger.debug(size + " : Schedule details deleted!");
 	}
 
 	public void setServiceLayer(ServiceLayer serviceLayer) {

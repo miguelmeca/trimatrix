@@ -42,6 +42,7 @@ import trimatrix.db.Schedules;
 import trimatrix.db.SchedulesDetail;
 import trimatrix.db.SchedulesDetailId;
 import trimatrix.db.ZonesDefinition;
+import trimatrix.logic.ScheduleLogic;
 import trimatrix.reports.excel.PerformanceChart;
 import trimatrix.services.TranslationService;
 import trimatrix.ui.utils.IPopUpCallback;
@@ -67,11 +68,6 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
     protected String athleteID;
     public String getAthleteID() {return athleteID;}
 	public void setAthleteID(String athleteID) {this.athleteID = athleteID;}
-
-//    protected ValidValuesBinding vvbZones = new ValidValuesBinding();
-//    public ValidValuesBinding getVvbZones() {
-//    	return vvbZones;
-//    }
 
 	public void onCopySchedules(ActionEvent event) {
 		Statusbar.outputAlert("Copy schedule!");
@@ -334,10 +330,11 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			st.setSchedulewidth(expressionBase + "ScheduleUI.scheduleItems["
 					+ counter + "].duration}");
 			st.setText("\n" + item.getSummary());
-			st.setBgpaint("roundedborder(0,0,100%,100%,10,10," + background
+			String icon = (item.getDone()==null || item.getDone()==false) ?  Constants.ACCEPT_LIGHT : Constants.ACCEPT;
+			st.setBgpaint("image(0,0,/images/icons/accept.png,lefttop);roundedborder(0,0,100%,100%,10,10," + background
 					+ ",2);rectangle(0,0,100%,16," + background
-					+ ");write(5,0," + item.getTypeDesc() + ",12," + foreground
-					+ ",bold,lefttop)");
+					+ ");write(20,0," + item.getTypeDesc() + ",12," + foreground
+					+ ",bold,lefttop);image(0,0," + icon + ",lefttop)");
 			st.setBackground(item.getColor() + "60"); // Add Transparency
 			st.setForeground(foreground);
 			st.setPopupmenu("SCHEDULEITEM");
@@ -550,9 +547,6 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		public Long getDuration() { return schedule.getDuration(); }
 		public void setDuration(Long duration) { schedule.setDuration(duration); }
 
-		public String getDetails() { return schedule.getDetails(); }
-		public void setDetails(String details) { schedule.setDetails(details); }
-
 		public String getColor() {return schedule.getColor();}
 		public void setColor(String color) {schedule.setColor(color);}
 
@@ -571,7 +565,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		 */
 		public String getSummary() {
 			StringBuffer sb = new StringBuffer();
-			if(SCHEDULETYPES.RUN.toString().equalsIgnoreCase(getType())) {
+			if(ScheduleLogic.TYPES_WITH_DETAILS.keySet().contains(getType())) {
 				//List<ScheduleRun> runList = getLogic().getScheduleLogic().getScheduleRuns(schedule.getDetails());
 				List<SchedulesDetail> schedulesDetails = schedule.getSchedulesDetail();
 				for(SchedulesDetail schedulesDetail : schedulesDetails) {

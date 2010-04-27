@@ -39,7 +39,6 @@ public class Schedules implements java.io.Serializable, IEntityObject {
 	private Boolean template;
 	private String templateName;
 	private Boolean done;
-	private String details;
 	private Timestamp createdAt;
 	private String createdBy;
 	private Timestamp modifiedAt;
@@ -63,7 +62,7 @@ public class Schedules implements java.io.Serializable, IEntityObject {
 
 	/** full constructor */
 	public Schedules(String id, String personId, String type, String description, Timestamp start, Long duration, String color, Boolean template, String templateName,
-			Boolean done, String details,Timestamp createdAt, String createdBy, Timestamp modifiedAt, String modifiedBy, Boolean deleted, Boolean test) {
+			Boolean done, Timestamp createdAt, String createdBy, Timestamp modifiedAt, String modifiedBy, Boolean deleted, Boolean test) {
 		this.id = id;
 		this.personId = personId;
 		this.type = type;
@@ -74,7 +73,6 @@ public class Schedules implements java.io.Serializable, IEntityObject {
 		this.template = template;
 		this.templateName = templateName;
 		this.done = done;
-		this.details = details;
 		this.createdAt = createdAt;
 		this.createdBy = createdBy;
 		this.modifiedAt = modifiedAt;
@@ -173,15 +171,6 @@ public class Schedules implements java.io.Serializable, IEntityObject {
 
 	public void setDone(Boolean done) {
 		this.done = done;
-	}
-
-	@Column(name = "details", columnDefinition="text")
-	public String getDetails() {
-		return details;
-	}
-
-	public void setDetails(String details) {
-		this.details = details;
 	}
 
 	@Column(name = "created_at", length = 19)
