@@ -25,6 +25,8 @@ public class SchedulesDetail implements java.io.Serializable {
 	private Integer hrAvg;
 	private Double lactateLow;
 	private Double lactateHigh;
+	private Integer cadence;
+	private Integer power;
 	private String comment;
 
 	// Constructors
@@ -40,7 +42,7 @@ public class SchedulesDetail implements java.io.Serializable {
 
 	/** full constructor */
 	public SchedulesDetail(SchedulesDetailId id, String zoneId, String durationTarget, String durationActual, Integer hrLow, Integer hrHigh, Integer hrAvg, Double lactateLow, Double lactateHigh,
-			String comment) {
+			Integer cadence, Integer power, String comment) {
 		this.id = id;
 		this.zoneId = zoneId;
 		this.durationTarget = durationTarget;
@@ -50,6 +52,8 @@ public class SchedulesDetail implements java.io.Serializable {
 		this.hrAvg = hrAvg;
 		this.lactateLow = lactateLow;
 		this.lactateHigh = lactateHigh;
+		this.cadence = cadence;
+		this.power = power;
 		this.comment = comment;
 	}
 
@@ -135,6 +139,24 @@ public class SchedulesDetail implements java.io.Serializable {
 
 	public void setLactateHigh(Double lactateHigh) {
 		this.lactateHigh = lactateHigh;
+	}
+
+	@Column(name = "cadence")
+	public Integer getCadence() {
+		return cadence;
+	}
+
+	public void setCadence(Integer cadence) {
+		this.cadence = cadence;
+	}
+
+	@Column(name = "power")
+	public Integer getPower() {
+		return power;
+	}
+
+	public void setPower(Integer power) {
+		this.power = power;
 	}
 
 	@Column(name = "comment", length = 100)
