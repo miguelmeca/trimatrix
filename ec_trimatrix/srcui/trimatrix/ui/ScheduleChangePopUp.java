@@ -188,6 +188,10 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 		return gridDetail.getItems().size()>0;
 	}
 
+	public boolean getEnableType() {
+		return isCreatorsSight() && !isDetailFilled();
+	}
+
 	/**
 	 * An ordinal number is necessary to control the fixgrid rendering in the UI directly
 	 * @return ordinal number of type, when detail not relevant 0 is returned
