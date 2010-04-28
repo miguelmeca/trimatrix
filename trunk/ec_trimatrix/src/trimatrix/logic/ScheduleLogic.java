@@ -26,9 +26,13 @@ public class ScheduleLogic {
 	private ServiceLayer serviceLayer;
 	private EntityLayer entityLayer;
 
+	public static final Integer RUN = new Integer(1);
+	public static final Integer BIKE = new Integer(2);
+	public static final Integer SWIM = new Integer(3);
+
 	public static final Map<String, Integer> TYPES_WITH_DETAILS = new HashMap<String, Integer>() {
 		//Unnamed Block.
-		{ put("run", new Integer(1)); put("bike", new Integer(2)); put("swim", new Integer(3));}
+		{ put("run", RUN); put("bike", BIKE); put("swim", SWIM);}
 	};
 
 	public Calendar getCalendar() {
@@ -193,6 +197,12 @@ public class ScheduleLogic {
 	public void deleteAllSchedulesDetail(String id) {
 		int size = serviceLayer.getSqlExecutorService().deleteAllSchedulesDetail(id);
 		logger.debug(size + " : Schedule details deleted!");
+	}
+
+	public static Integer getTypeOrd(String type) {
+		Integer ordinal = ScheduleLogic.TYPES_WITH_DETAILS.get(type);
+		if(ordinal!=null) return ordinal;
+		else return new Integer(0);
 	}
 
 	public void setServiceLayer(ServiceLayer serviceLayer) {

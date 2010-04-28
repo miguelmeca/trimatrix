@@ -171,11 +171,10 @@ public class Helper {
 	}
 
 	/**
-	 * Correcting short time input to valid signature If string does'nt match
+	 * Correcting short time input to valid signature If string doesn't match
 	 * return null, so value is not changed
 	 *
-	 * @param input
-	 *            shortened input
+	 * @param input shortened input
 	 * @return valid time string
 	 */
 	public static String correctTimeInput(String input) {
@@ -216,6 +215,41 @@ public class Helper {
 		}
 		// check regex
 		if (!Pattern.compile("\\d\\d:[0-5]\\d:[0-5]\\d").matcher(output)
+				.matches())
+			output = null;
+		return output;
+	}
+
+	public static String correctTimeInput2(String input) {
+		if (isEmpty(input))
+			return null;
+		String output = null;
+		// short input
+		if (NumberUtils.isDigits(input)) {
+			switch (input.length()) {
+			case 1:
+				output = "0" + input + ":00";
+				break;
+			case 2:
+				output = "00:" + input;
+				break;
+			case 3:
+				output = "0" + input.substring(0, 1) + ":"
+						+ input.substring(1, 3);
+				break;
+			case 4:
+				output = input.substring(0, 2) + ":"
+						+ input.substring(2);
+				break;
+			default:
+				output = "00:00";
+				break;
+			}
+		} else {
+			output = input;
+		}
+		// check regex
+		if (!Pattern.compile("\\d\\d:[0-5]\\d").matcher(output)
 				.matches())
 			output = null;
 		return output;
@@ -405,6 +439,10 @@ public class Helper {
 
 	public static boolean isEmpty(String string) {
 		return string == null || string.trim().length() == 0;
+	}
+
+	public static boolean isEmpty(Integer integer) {
+		return integer == null;
 	}
 
 	public static boolean isEmpty(Collection collection) {

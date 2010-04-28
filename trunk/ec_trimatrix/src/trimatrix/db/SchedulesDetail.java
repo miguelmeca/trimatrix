@@ -27,6 +27,12 @@ public class SchedulesDetail implements java.io.Serializable {
 	private Double lactateHigh;
 	private Integer cadence;
 	private Integer power;
+	private String unit;
+	private String description;
+	private Integer distance;
+	private String timeLow;
+	private String timeHigh;
+	private String timeAvg;
 	private String comment;
 
 	// Constructors
@@ -42,7 +48,7 @@ public class SchedulesDetail implements java.io.Serializable {
 
 	/** full constructor */
 	public SchedulesDetail(SchedulesDetailId id, String zoneId, String durationTarget, String durationActual, Integer hrLow, Integer hrHigh, Integer hrAvg, Double lactateLow, Double lactateHigh,
-			Integer cadence, Integer power, String comment) {
+			Integer cadence, Integer power, String unit, String description, Integer distance, String timeLow, String timeHigh, String timeAvg, String comment) {
 		this.id = id;
 		this.zoneId = zoneId;
 		this.durationTarget = durationTarget;
@@ -54,6 +60,12 @@ public class SchedulesDetail implements java.io.Serializable {
 		this.lactateHigh = lactateHigh;
 		this.cadence = cadence;
 		this.power = power;
+		this.unit = unit;
+		this.description = description;
+		this.distance = distance;
+		this.timeLow = timeLow;
+		this.timeHigh = timeHigh;
+		this.timeAvg = timeAvg;
 		this.comment = comment;
 	}
 
@@ -157,6 +169,60 @@ public class SchedulesDetail implements java.io.Serializable {
 
 	public void setPower(Integer power) {
 		this.power = power;
+	}
+
+	@Column(name = "unit", length = 20)
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
+	@Column(name = "description", length = 100)
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	@Column(name = "distance")
+	public Integer getDistance() {
+		return distance;
+	}
+
+	public void setDistance(Integer distance) {
+		this.distance = distance;
+	}
+
+	@Column(name = "time_low", length = 5)
+	public String getTimeLow() {
+		return timeLow;
+	}
+
+	public void setTimeLow(String timeLow) {
+		this.timeLow = timeLow;
+	}
+
+	@Column(name = "time_high", length = 5)
+	public String getTimeHigh() {
+		return timeHigh;
+	}
+
+	public void setTimeHigh(String timeHigh) {
+		this.timeHigh = timeHigh;
+	}
+
+	@Column(name = "time_avg", length = 5)
+	public String getTimeAvg() {
+		return timeAvg;
+	}
+
+	public void setTimeAvg(String timeAvg) {
+		this.timeAvg = timeAvg;
 	}
 
 	@Column(name = "comment", length = 100)
