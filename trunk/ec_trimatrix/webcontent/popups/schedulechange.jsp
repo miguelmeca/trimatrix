@@ -36,7 +36,7 @@
 </t:row>
 <t:row id="g_21" >
 <t:label id="g_22" text="#{rr.literals.type}" width="90" />
-<t:combobox id="g_23" bgpaint="mandatory()" enabled="#{d.ScheduleChangePopUp.detailFilled==false}" flush="true" validvaluesbinding="#{helper.vvb.scheduletype}" value="#{d.ScheduleChangePopUp.type}" width="120" />
+<t:combobox id="g_23" bgpaint="mandatory()" enabled="#{d.ScheduleChangePopUp.enableType}" flush="true" validvaluesbinding="#{helper.vvb.scheduletype}" value="#{d.ScheduleChangePopUp.type}" width="120" />
 </t:row>
 <t:row id="g_24" >
 <t:label id="g_25" text="#{rr.literals.description}" width="80" />
