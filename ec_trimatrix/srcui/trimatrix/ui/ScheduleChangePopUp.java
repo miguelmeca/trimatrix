@@ -9,11 +9,8 @@ import static trimatrix.utils.Helper.isEmpty;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.faces.event.ActionEvent;
 
@@ -31,11 +28,16 @@ import trimatrix.db.ZonesDefinition;
 import trimatrix.logic.ScheduleLogic;
 import trimatrix.ui.ScheduleUI.ScheduleItem;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
+import static trimatrix.utils.Helper.*;
 
 @CCGenClass(expressionBase = "#{d.ScheduleChangePopUp}")
 public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Serializable {
 	private static final String DURATION_TARGET = "durationTarget_"; // add underscore because it's used in grid
 	private static final String DURATION_ACTUAL = "durationActual_"; // add underscore because it's used in grid
+
+	private static final String TIME_LOW = "timeLow";
+	private static final String TIME_HIGH = "timeHigh";
+	private static final String TIME_AVG = "timeAvg";
 
 	private boolean isGridDirty;
 
@@ -92,6 +94,10 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
     	callback.cancel();
     }
 
+    /**
+     * Save unit incl. mandatory field checks
+     * @param event
+     */
     public void onSave(ActionEvent event) {
     	// build run schedule string
     	List<SchedulesDetail> schedulesDetails = new ArrayList<SchedulesDetail>(gridDetail.getItems().size());
@@ -104,11 +110,21 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
     		for(GridDetailItem item : gridDetail.getItems()) {
     			SchedulesDetail schedulesDetail = item.getScheduleDetail();
         		// check mandatory fields
-        		if(isEmpty(schedulesDetail.getDurationTarget()) ||
-        		   isEmpty(schedulesDetail.getZoneId())) {
-        			failure = true;
-        			break;
-        		}
+    			// swim units are differnt to bike and run!
+    			if(getTypeOrd()==ScheduleLogic.SWIM) {
+    				if(isEmpty(schedulesDetail.getUnit())     ||
+    				   isEmpty(schedulesDetail.getDistance()) ||
+    	    		   isEmpty(schedulesDetail.getZoneId()) ) {
+    					failure = true;
+    	    		    break;
+    				}
+    			} else {
+    				if(isEmpty(schedulesDetail.getDurationTarget()) ||
+    		           isEmpty(schedulesDetail.getZoneId())) {
+    		        	failure = true;
+    		        	break;
+    		        }
+    			}
         		schedulesDetails.add(schedulesDetail);
         	}
     	}
@@ -197,9 +213,7 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 	 * @return ordinal number of type, when detail not relevant 0 is returned
 	 */
 	public Integer getTypeOrd() {
-		Integer ordinal = ScheduleLogic.TYPES_WITH_DETAILS.get(getType());
-		if(ordinal!=null) return ordinal;
-		else return new Integer(0);
+		return ScheduleLogic.getTypeOrd(getType());
 	}
 
     // ------------------------------------------------------------------------
@@ -230,6 +244,12 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 	        	scheduleDetail.setDurationTarget(correctTimeInput(scheduleDetail.getDurationTarget()));
 	        } else if(clientname.startsWith(DURATION_ACTUAL)) {
 	        	scheduleDetail.setDurationActual(correctTimeInput(scheduleDetail.getDurationActual()));
+	        } else if(clientname.startsWith(TIME_LOW)) {
+	        	scheduleDetail.setTimeLow(correctTimeInput2(scheduleDetail.getTimeLow()));
+	        } else if(clientname.startsWith(TIME_HIGH)) {
+	        	scheduleDetail.setTimeHigh(correctTimeInput2(scheduleDetail.getTimeHigh()));
+	        } else if(clientname.startsWith(TIME_AVG)) {
+	        	scheduleDetail.setTimeAvg(correctTimeInput2(scheduleDetail.getTimeAvg()));
 	        } else {
 	            return;
 	        }
@@ -288,6 +308,8 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 	 * the planned duration
 	 */
 	private void recalculateEnd() {
+		// no calculation for swim units
+		if(getTypeOrd()==ScheduleLogic.SWIM) return;
 		long duration = 0;
 		for(GridDetailItem item : gridDetail.getItems()) {
 			int durationActual = calculateSeconds(item.getScheduleDetail().getDurationActual());

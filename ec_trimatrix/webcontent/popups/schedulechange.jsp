@@ -54,13 +54,13 @@
 </t:row>
 <t:row id="g_34" comment="run" rendered="#{d.ScheduleChangePopUp.typeOrd==1}" >
 <t:fixgrid id="g_35" columndragdropenabled="false" headlinerowheight="20" horizontalscrollmode="autowithresize" objectbinding="#{d.ScheduleChangePopUp.gridDetail}" rowheight="40" sbvisibleamount="10" selectorcolumn="1" selectorcolumnwidth="20" showemptyrows="false" >
-<t:gridcol id="g_36" text="#{rr.literals.duration} (#{rr.literals.plan})" width="100" >
-<t:field id="g_37" actionListener=".{onTimeFlush}" align="center" bgpaint="mandatory()" clientname="durationTarget" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" font="size:16" text=".{scheduleDetail.durationTarget}" width="100" />
+<t:gridcol id="g_36" comment="duration target" text="#{rr.literals.duration} (#{rr.literals.plan})" width="100" >
+<t:field id="g_37" actionListener=".{onTimeFlush}" align="center" bgpaint="mandatory()" clientname="durationTarget" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" font="size:16" maxlength="8" text=".{scheduleDetail.durationTarget}" width="100" />
 </t:gridcol>
-<t:gridcol id="g_38" text="#{rr.literals.intensity}" width="100" >
+<t:gridcol id="g_38" comment="intensity" text="#{rr.literals.intensity}" width="100" >
 <t:combobox id="g_39" actionListener=".{onChangeIntensity}" bgpaint="mandatory()" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" font="size:16" validvaluesbinding="#{helper.vvb.myzonesdefinition}" value=".{scheduleDetail.zoneId}" withnullitem="true" withvaluecomment="true" />
 </t:gridcol>
-<t:gridcol id="g_40" rendered="#{d.ScheduleChangePopUp.template==false}" text="#{rr.literals.hr}" width="100" >
+<t:gridcol id="g_40" comment="hr" rendered="#{d.ScheduleChangePopUp.template==false}" text="#{rr.literals.hr}" width="100" >
 <t:pane id="g_41" width="100%" >
 <t:row id="g_42" >
 <t:formattedfield id="g_43" align="right!" bgpaint="write(5,2,#{rr.literals.from},left)" enabled="#{d.ScheduleChangePopUp.creatorsSight}" format="int" value=".{scheduleDetail.hrLow}" width="100%" />
@@ -71,7 +71,7 @@
 </t:row>
 </t:pane>
 </t:gridcol>
-<t:gridcol id="g_47" text="#{rr.literals.lactate}" width="100" >
+<t:gridcol id="g_47" comment="lactate" text="#{rr.literals.lactate}" width="100" >
 <t:pane id="g_48" >
 <t:row id="g_49" >
 <t:formattedfield id="g_50" align="right!" bgpaint="write(5,2,#{rr.literals.from},left)" enabled="#{d.ScheduleChangePopUp.creatorsSight}" format="double" height="50%" value=".{scheduleDetail.lactateLow}" width="100%" />
@@ -82,26 +82,26 @@
 </t:row>
 </t:pane>
 </t:gridcol>
-<t:gridcol id="g_54" text="#{rr.literals.duration} (#{rr.literals.debit})" width="100" >
-<t:field id="g_55" actionListener=".{onTimeFlush}" align="center" clientname="durationActual" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" flush="true" font="size:16" text=".{scheduleDetail.durationActual}" width="100" />
+<t:gridcol id="g_54" comment="duration actual" text="#{rr.literals.duration} (#{rr.literals.debit})" width="100" >
+<t:field id="g_55" actionListener=".{onTimeFlush}" align="center" clientname="durationActual" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" flush="true" font="size:16" maxlength="8" text=".{scheduleDetail.durationActual}" width="100" />
 </t:gridcol>
-<t:gridcol id="g_56" text="#{rr.literals.hr_avg}" width="100" >
+<t:gridcol id="g_56" comment="avg hr" text="#{rr.literals.hr_avg}" width="100" >
 <t:formattedfield id="g_57" align="center" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" font="size:16" format="int" value=".{scheduleDetail.hrAvg}" />
 </t:gridcol>
-<t:gridcol id="g_58" text="#{rr.literals.comment}" width="150" >
+<t:gridcol id="g_58" comment="comment" text="#{rr.literals.comment}" width="150" >
 <t:textarea id="g_59" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" text=".{scheduleDetail.comment}" />
 </t:gridcol>
 </t:fixgrid>
 </t:row>
 <t:row id="g_60" comment="bike" rendered="#{d.ScheduleChangePopUp.typeOrd==2}" >
 <t:fixgrid id="g_61" columndragdropenabled="false" headlinerowheight="20" horizontalscrollmode="autowithresize" objectbinding="#{d.ScheduleChangePopUp.gridDetail}" rowheight="40" sbvisibleamount="10" selectorcolumn="1" selectorcolumnwidth="20" showemptyrows="false" >
-<t:gridcol id="g_62" text="#{rr.literals.duration} (#{rr.literals.plan})" width="100" >
-<t:field id="g_63" actionListener=".{onTimeFlush}" align="center" bgpaint="mandatory()" clientname="durationTarget" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" font="size:16" text=".{scheduleDetail.durationTarget}" width="100" />
+<t:gridcol id="g_62" comment="duration target" text="#{rr.literals.duration} (#{rr.literals.plan})" width="100" >
+<t:field id="g_63" actionListener=".{onTimeFlush}" align="center" bgpaint="mandatory()" clientname="durationTarget" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" font="size:16" maxlength="8" text=".{scheduleDetail.durationTarget}" width="100" />
 </t:gridcol>
-<t:gridcol id="g_64" text="#{rr.literals.intensity}" width="100" >
+<t:gridcol id="g_64" comment="intensity" text="#{rr.literals.intensity}" width="100" >
 <t:combobox id="g_65" actionListener=".{onChangeIntensity}" bgpaint="mandatory()" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" font="size:16" validvaluesbinding="#{helper.vvb.myzonesdefinition}" value=".{scheduleDetail.zoneId}" withnullitem="true" withvaluecomment="true" />
 </t:gridcol>
-<t:gridcol id="g_66" rendered="#{d.ScheduleChangePopUp.template==false}" text="#{rr.literals.hr}" width="100" >
+<t:gridcol id="g_66" comment="hr" rendered="#{d.ScheduleChangePopUp.template==false}" text="#{rr.literals.hr}" width="100" >
 <t:pane id="g_67" width="100%" >
 <t:row id="g_68" >
 <t:formattedfield id="g_69" align="right!" bgpaint="write(5,2,#{rr.literals.from},left)" enabled="#{d.ScheduleChangePopUp.creatorsSight}" format="int" value=".{scheduleDetail.hrLow}" width="100%" />
@@ -112,7 +112,7 @@
 </t:row>
 </t:pane>
 </t:gridcol>
-<t:gridcol id="g_73" text="#{rr.literals.lactate}" width="100" >
+<t:gridcol id="g_73" comment="lactate" text="#{rr.literals.lactate}" width="100" >
 <t:pane id="g_74" >
 <t:row id="g_75" >
 <t:formattedfield id="g_76" align="right!" bgpaint="write(5,2,#{rr.literals.from},left)" enabled="#{d.ScheduleChangePopUp.creatorsSight}" format="double" height="50%" value=".{scheduleDetail.lactateLow}" width="100%" />
@@ -123,85 +123,71 @@
 </t:row>
 </t:pane>
 </t:gridcol>
-<t:gridcol id="g_80" text="#{rr.literals.power}" width="80" >
+<t:gridcol id="g_80" comment="power" text="#{rr.literals.power}" width="80" >
 <t:formattedfield id="g_81" actionListener=".{onTimeFlush}" align="center" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" flush="true" font="size:16" format="int" value=".{scheduleDetail.power}" width="10080" />
 </t:gridcol>
-<t:gridcol id="g_82" text="#{rr.literals.cadence}" width="100" >
+<t:gridcol id="g_82" comment="cadence" text="#{rr.literals.cadence}" width="100" >
 <t:formattedfield id="g_83" actionListener=".{onTimeFlush}" align="center" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" flush="true" font="size:16" format="int" value=".{scheduleDetail.cadence}" width="100" />
 </t:gridcol>
-<t:gridcol id="g_84" text="#{rr.literals.duration} (#{rr.literals.debit})" width="100" >
-<t:field id="g_85" actionListener=".{onTimeFlush}" align="center" clientname="durationActual" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" flush="true" font="size:16" text=".{scheduleDetail.durationActual}" width="100" />
+<t:gridcol id="g_84" comment="duration actual" text="#{rr.literals.duration} (#{rr.literals.debit})" width="100" >
+<t:field id="g_85" actionListener=".{onTimeFlush}" align="center" clientname="durationActual" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" flush="true" font="size:16" maxlength="8" text=".{scheduleDetail.durationActual}" width="100" />
 </t:gridcol>
-<t:gridcol id="g_86" text="#{rr.literals.hr_avg}" width="100" >
+<t:gridcol id="g_86" comment="avg hr" text="#{rr.literals.hr_avg}" width="100" >
 <t:formattedfield id="g_87" align="center" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" font="size:16" format="int" value=".{scheduleDetail.hrAvg}" />
 </t:gridcol>
-<t:gridcol id="g_88" text="#{rr.literals.comment}" width="150" >
+<t:gridcol id="g_88" comment="comment" text="#{rr.literals.comment}" width="150" >
 <t:textarea id="g_89" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" text=".{scheduleDetail.comment}" />
 </t:gridcol>
 </t:fixgrid>
 </t:row>
 <t:row id="g_90" comment="swim" rendered="#{d.ScheduleChangePopUp.typeOrd==3}" >
 <t:fixgrid id="g_91" columndragdropenabled="false" headlinerowheight="20" horizontalscrollmode="autowithresize" objectbinding="#{d.ScheduleChangePopUp.gridDetail}" rowheight="40" sbvisibleamount="10" selectorcolumn="1" selectorcolumnwidth="20" showemptyrows="false" >
-<t:gridcol id="g_92" text="#{rr.literals.duration} (#{rr.literals.plan})" width="100" >
-<t:field id="g_93" actionListener=".{onTimeFlush}" align="center" bgpaint="mandatory()" clientname="durationTarget" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" font="size:16" text=".{scheduleDetail.durationTarget}" width="100" />
+<t:gridcol id="g_92" comment="unit" text="#{rr.literals.unit}" width="80" >
+<t:field id="g_93" actionListener=".{onTimeFlush}" align="center" bgpaint="mandatory()" enabled="#{d.ScheduleChangePopUp.creatorsSight}" font="size:16" maxlength="20" text=".{scheduleDetail.unit}" width="80" />
 </t:gridcol>
-<t:gridcol id="g_94" text="#{rr.literals.intensity}" width="100" >
-<t:combobox id="g_95" actionListener=".{onChangeIntensity}" bgpaint="mandatory()" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" font="size:16" validvaluesbinding="#{helper.vvb.myzonesdefinition}" value=".{scheduleDetail.zoneId}" withnullitem="true" withvaluecomment="true" />
+<t:gridcol id="g_94" comment="description" text="#{rr.literals.description}" width="150" >
+<t:textarea id="g_95" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" text=".{scheduleDetail.comment}" />
 </t:gridcol>
-<t:gridcol id="g_96" rendered="#{d.ScheduleChangePopUp.template==false}" text="#{rr.literals.hr}" width="100" >
-<t:pane id="g_97" width="100%" >
-<t:row id="g_98" >
-<t:formattedfield id="g_99" align="right!" bgpaint="write(5,2,#{rr.literals.from},left)" enabled="#{d.ScheduleChangePopUp.creatorsSight}" format="int" value=".{scheduleDetail.hrLow}" width="100%" />
+<t:gridcol id="g_96" comment="distance" text="#{rr.literals.distance} (m)" width="80" >
+<t:formattedfield id="g_97" align="center" bgpaint="mandatory()" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" font="size:16" format="int" value=".{scheduleDetail.distance}" width="80" />
+</t:gridcol>
+<t:gridcol id="g_98" comment="intensity" text="#{rr.literals.intensity}" width="100" >
+<t:combobox id="g_99" actionListener=".{onChangeIntensity}" bgpaint="mandatory()" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" font="size:16" validvaluesbinding="#{helper.vvb.myzonesdefinition}" value=".{scheduleDetail.zoneId}" withnullitem="true" withvaluecomment="true" />
+</t:gridcol>
+<t:gridcol id="g_100" comment="target time" text="#{rr.literals.avg_target_time}" width="100" >
+<t:pane id="g_101" width="100%" >
+<t:row id="g_102" >
+<t:field id="g_103" actionListener=".{onTimeFlush}" align="right!" bgpaint="write(5,2,#{rr.literals.from},left)" clientname="timeLow" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" maxlength="5" text=".{scheduleDetail.timeLow}" width="100%" />
 </t:row>
-<t:rowline id="g_100" />
-<t:row id="g_101" >
-<t:formattedfield id="g_102" align="right!" bgpaint="write(5,2,#{rr.literals.to},left)" enabled="#{d.ScheduleChangePopUp.creatorsSight}" format="int" value=".{scheduleDetail.hrHigh}" width="100%" />
-</t:row>
-</t:pane>
-</t:gridcol>
-<t:gridcol id="g_103" text="#{rr.literals.lactate}" width="100" >
-<t:pane id="g_104" >
+<t:rowline id="g_104" />
 <t:row id="g_105" >
-<t:formattedfield id="g_106" align="right!" bgpaint="write(5,2,#{rr.literals.from},left)" enabled="#{d.ScheduleChangePopUp.creatorsSight}" format="double" height="50%" value=".{scheduleDetail.lactateLow}" width="100%" />
-</t:row>
-<t:rowline id="g_107" />
-<t:row id="g_108" >
-<t:formattedfield id="g_109" align="right!" bgpaint="write(5,2,#{rr.literals.to},left)" enabled="#{d.ScheduleChangePopUp.creatorsSight}" format="double" height="50%" value=".{scheduleDetail.lactateHigh}" width="100%" />
+<t:field id="g_106" actionListener=".{onTimeFlush}" align="right!" bgpaint="write(5,2,#{rr.literals.to},left)" clientname="timeHigh" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" maxlength="5" text=".{scheduleDetail.timeHigh}" width="100%" />
 </t:row>
 </t:pane>
 </t:gridcol>
-<t:gridcol id="g_110" text="#{rr.literals.power}" width="80" >
-<t:formattedfield id="g_111" actionListener=".{onTimeFlush}" align="center" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" flush="true" font="size:16" format="int" value=".{scheduleDetail.power}" width="10080" />
+<t:gridcol id="g_107" comment="time avg" text="#{rr.literals.avg_target_time} (#{rr.literals.debit})" width="100" >
+<t:field id="g_108" actionListener=".{onTimeFlush}" align="center" clientname="timeAvg" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" flush="true" font="size:16" maxlength="5" text=".{scheduleDetail.timeAvg}" width="100" />
 </t:gridcol>
-<t:gridcol id="g_112" text="#{rr.literals.cadence}" width="100" >
-<t:formattedfield id="g_113" actionListener=".{onTimeFlush}" align="center" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" flush="true" font="size:16" format="int" value=".{scheduleDetail.cadence}" width="100" />
-</t:gridcol>
-<t:gridcol id="g_114" text="#{rr.literals.duration} (#{rr.literals.debit})" width="100" >
-<t:field id="g_115" actionListener=".{onTimeFlush}" align="center" clientname="durationActual" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" flush="true" font="size:16" text=".{scheduleDetail.durationActual}" width="100" />
-</t:gridcol>
-<t:gridcol id="g_116" text="#{rr.literals.hr_avg}" width="100" >
-<t:formattedfield id="g_117" align="center" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" font="size:16" format="int" value=".{scheduleDetail.hrAvg}" />
-</t:gridcol>
-<t:gridcol id="g_118" text="#{rr.literals.comment}" width="150" >
-<t:textarea id="g_119" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" text=".{scheduleDetail.comment}" />
+<t:gridcol id="g_109" comment="comment" text="#{rr.literals.comment}" width="150" >
+<t:textarea id="g_110" enabled="#{d.ScheduleChangePopUp.creatorsSight}" text=".{scheduleDetail.description}" />
 </t:gridcol>
 </t:fixgrid>
 </t:row>
-<t:row id="g_120" rendered="#{d.ScheduleChangePopUp.creatorsSight}" >
-<t:button id="g_121" actionListener="#{d.ScheduleChangePopUp.onAddItem}" image="/images/icons/add.png" imageheight="16" text="#{rr.literals.add}" />
-<t:coldistance id="g_122" />
-<t:button id="g_123" actionListener="#{d.ScheduleChangePopUp.onRemoveItem}" image="/images/icons/remove.png" imageheight="16" text="#{rr.literals.remove}" />
+<t:row id="g_111" rendered="#{d.ScheduleChangePopUp.creatorsSight}" >
+<t:button id="g_112" actionListener="#{d.ScheduleChangePopUp.onAddItem}" image="/images/icons/add.png" imageheight="16" text="#{rr.literals.add}" />
+<t:coldistance id="g_113" />
+<t:button id="g_114" actionListener="#{d.ScheduleChangePopUp.onRemoveItem}" image="/images/icons/remove.png" imageheight="16" text="#{rr.literals.remove}" />
 </t:row>
 </t:foldablepane>
 </t:row>
 </t:pane>
 </t:row>
-<t:row id="g_124" >
-<t:button id="g_125" actionListener="#{d.ScheduleChangePopUp.onSave}" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" image="/images/icons/save.png" imageheight="15" text="#{rr.literals.save}" />
-<t:coldistance id="g_126" />
-<t:button id="g_127" actionListener="#{d.ScheduleChangePopUp.onCancel}" image="/images/icons/cancel.png" imageheight="15" text="#{rr.literals.cancel}" />
-<t:coldistance id="g_128" width="100%" />
-<t:button id="g_129" actionListener="#{d.ScheduleChangePopUp.onDelete}" image="/images/icons/delete.png" imageheight="16" rendered="#{d.ScheduleChangePopUp.creatorsSight}" text="#{rr.literals.delete}" />
+<t:row id="g_115" >
+<t:button id="g_116" actionListener="#{d.ScheduleChangePopUp.onSave}" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" image="/images/icons/save.png" imageheight="15" text="#{rr.literals.save}" />
+<t:coldistance id="g_117" />
+<t:button id="g_118" actionListener="#{d.ScheduleChangePopUp.onCancel}" image="/images/icons/cancel.png" imageheight="15" text="#{rr.literals.cancel}" />
+<t:coldistance id="g_119" width="100%" />
+<t:button id="g_120" actionListener="#{d.ScheduleChangePopUp.onDelete}" image="/images/icons/delete.png" imageheight="16" rendered="#{d.ScheduleChangePopUp.creatorsSight}" text="#{rr.literals.delete}" />
 </t:row>
 </t:pane>
 </t:row>

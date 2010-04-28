@@ -566,14 +566,18 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		public String getSummary() {
 			StringBuffer sb = new StringBuffer();
 			if(ScheduleLogic.TYPES_WITH_DETAILS.keySet().contains(getType())) {
-				//List<ScheduleRun> runList = getLogic().getScheduleLogic().getScheduleRuns(schedule.getDetails());
 				List<SchedulesDetail> schedulesDetails = schedule.getSchedulesDetail();
 				for(SchedulesDetail schedulesDetail : schedulesDetails) {
 					if(sb.length()>0) sb.append(Constants.NEWLINE);
-					// get zone
 					ZonesDefinition definition = getDaoLayer().getZonesDefinitionDAO().findById(schedulesDetail.getZoneId());
 					if(definition==null) continue;
-					sb.append(schedulesDetail.getDurationTarget() + Constants.WHITESPACE + definition.getShortcut());
+					// special treatment for swim units
+					if(ScheduleLogic.getTypeOrd(getType())==ScheduleLogic.SWIM) {
+						sb.append(schedulesDetail.getUnit() + Constants.WHITESPACE + definition.getShortcut());
+					} else {
+						sb.append(schedulesDetail.getDurationTarget() + Constants.WHITESPACE + definition.getShortcut());
+					}
+
 				}
 			} else {
 				sb.append(getDescription());
