@@ -4,6 +4,7 @@
 <%@taglib prefix="f" uri="http://java.sun.com/jsf/core"%>
 <%@taglib prefix="h" uri="http://java.sun.com/jsf/html"%>
 
+<%@taglib prefix="tx" uri="/WEB-INF/trimatrixcontrols"%>
 <%@taglib prefix="t" uri="/WEB-INF/eclnt"%>
 
 
@@ -52,7 +53,7 @@
 </t:fixgrid>
 </t:row>
 <t:row id="g_31" >
-<t:button id="g_32" actionListener="#{d.AdminPanelUI.onInvalidate}" text="Session löschen" />
+<t:button id="g_32" actionListener="#{d.AdminPanelUI.onInvalidate}" text="#{rr.literals.delete_session}" />
 </t:row>
 </t:pane>
 </t:row>
@@ -74,7 +75,7 @@
 <t:label id="g_47" text="Byte" />
 </t:row>
 <t:row id="g_48" >
-<t:button id="g_49" actionListener="#{d.AdminPanelUI.onCollectGarbage}" text="Garbage Collection starten" />
+<t:button id="g_49" actionListener="#{d.AdminPanelUI.onCollectGarbage}" text="#{rr.literals.start_gc}" />
 </t:row>
 </t:pane>
 </t:row>
