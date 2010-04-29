@@ -149,7 +149,7 @@
 <t:textarea id="g_95" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" text=".{scheduleDetail.comment}" />
 </t:gridcol>
 <t:gridcol id="g_96" comment="distance" text="#{rr.literals.distance} (m)" width="80" >
-<t:formattedfield id="g_97" align="center" bgpaint="mandatory()" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" font="size:16" format="int" value=".{scheduleDetail.distance}" width="80" />
+<t:formattedfield id="g_97" actionListener=".{onChangeIntensity}" align="center" bgpaint="mandatory()" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" font="size:16" format="int" value=".{scheduleDetail.distance}" width="80" />
 </t:gridcol>
 <t:gridcol id="g_98" comment="intensity" text="#{rr.literals.intensity}" width="100" >
 <t:combobox id="g_99" actionListener=".{onChangeIntensity}" bgpaint="mandatory()" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" font="size:16" validvaluesbinding="#{helper.vvb.myzonesdefinition}" value=".{scheduleDetail.zoneId}" withnullitem="true" withvaluecomment="true" />
