@@ -28,7 +28,6 @@ import trimatrix.db.ZonesDefinition;
 import trimatrix.logic.ScheduleLogic;
 import trimatrix.ui.ScheduleUI.ScheduleItem;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
-import trimatrix.utils.Helper;
 import static trimatrix.utils.Helper.*;
 
 @CCGenClass(expressionBase = "#{d.ScheduleChangePopUp}")
@@ -256,25 +255,21 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 	        }
 			recalculateEnd();
 	    }
-		
+
 		public void onChangeIntensity(ActionEvent event) {
-			// no handling when in template mode
-			if(isTemplate()) return;
-			// no handling when zone is not defined, e.g. when called on distance change
-			if(isEmpty(scheduleDetail.getZoneId())) return;
-			// set back all relevant properties
+			// set back all properties
 			scheduleDetail.setLactateLow(null);
 			scheduleDetail.setLactateHigh(null);
 			scheduleDetail.setHrLow(null);
 			scheduleDetail.setHrHigh(null);
-			scheduleDetail.setTimeLow(null);
-			scheduleDetail.setTimeHigh(null);
 			// get zones definition
 			ZonesDefinition definition = getDaoLayer().getZonesDefinitionDAO().findById(scheduleDetail.getZoneId());
 			if(definition==null) return;
 			// set definition relevant properties
 			scheduleDetail.setLactateLow(definition.getLactateLow());
 			scheduleDetail.setLactateHigh(definition.getLactateHigh());
+			// no handling when in template mode
+			if(isTemplate()) return;
 			// get athletes zone
 			Zones example = new Zones();
 			example.setAthleteId(scheduleItem.getPersonId());
@@ -284,18 +279,9 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 			// normally just one match!
 			Zones zone = zones.get(0);
 			// set zone relevant properties
-			// special treatment for swim units
-			if(getTypeOrd()==ScheduleLogic.SWIM) {
-				// without distance no further calculation
-				if(isEmpty(scheduleDetail.getDistance())) return;
-				// calculate time
-				scheduleDetail.setTimeLow(Helper.calculateTime((int)(zone.getSpeedLowSwim() * scheduleDetail.getDistance()), false));
-				scheduleDetail.setTimeHigh(Helper.calculateTime((int)(zone.getSpeedHighSwim() * scheduleDetail.getDistance()), false));
-			} else {
-				scheduleDetail.setHrLow(zone.getHrLowRun());
-				scheduleDetail.setHrHigh(zone.getHrHighRun());
-				// TODO Check case where HR is calculated by max HR
-			}
+			scheduleDetail.setHrLow(zone.getHrLowRun());
+			scheduleDetail.setHrHigh(zone.getHrHighRun());
+			// TODO Check case where HR is calculated by max HR
 		}
 
 		private void prefillZones() {
