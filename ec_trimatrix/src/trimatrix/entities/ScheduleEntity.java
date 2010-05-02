@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import trimatrix.db.Schedules;
+import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants.Entity;
 
@@ -44,6 +45,13 @@ public class ScheduleEntity extends AEntity {
 	public List<IEntityData> getData() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public IEntityData getData(String id) {
+		List<IEntityData> result = sqlExecutorService.getScheduleEntities(id);
+		if (result.size()==0) return null;
+		return result.get(0);
 	}
 
 	public List<SGridMetaData> getGridMetaData() {

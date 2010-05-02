@@ -39,10 +39,14 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 	private static final String TIME_HIGH = "timeHigh";
 	private static final String TIME_AVG = "timeAvg";
 
+	private boolean renderButtons = true;
+	public boolean isRenderButtons() {return renderButtons;}
+	public void setRenderButtons(boolean renderButtons) {this.renderButtons = renderButtons;}
+
 	private boolean isGridDirty;
 
 	public ScheduleChangePopUp(IWorkpageDispatcher dispatcher) {
-		super(dispatcher);
+		super(dispatcher, true); // enable labeling
 	}
 
 	public interface IScheduleChangePopupCallback {
@@ -87,6 +91,8 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
     public void prepareCallback(IScheduleChangePopupCallback callback, ScheduleItem scheduleItem) {
     	this.callback = callback;
     	this.scheduleItem = scheduleItem;
+    	// manually set entity id for label handling
+    	setEntityId(scheduleItem.getId());
     	init();
     }
 

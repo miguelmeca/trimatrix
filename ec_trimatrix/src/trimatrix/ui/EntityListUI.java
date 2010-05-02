@@ -328,12 +328,36 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
             // Page doesn't exist, create it
             String pageId = datum.getId();
             Mode pageMode = Mode.SHOW;
-            // special handling for competitions
-            // because page ID has to be unique to resolve right page
-            // resolved in EntityDetailUI
-            if(entity.getBase().equals(Entity.COMPETITION)) {
-                pageId = entity.name() + "#" + pageId;
-            }
+
+            switch (entity.getBase()) {
+			case COMPETITION:
+				// special handling for competitions
+	            // because page ID has to be unique to resolve right page
+	            // resolved in EntityDetailUI
+				pageId = entity.name() + "#" + pageId;
+				break;
+			case SCHEDULE:
+				// schedules are displayed as modal popup!
+				ScheduleUI.ScheduleItem scheduleItem = getScheduleUI().createScheduleItem(datum.getId());
+				ScheduleChangePopUp scheduleChangePopUp = getScheduleChangePopUp();
+				scheduleChangePopUp.setRenderButtons(false);
+				scheduleChangePopUp.prepareCallback(
+						new ScheduleChangePopUp.IScheduleChangePopupCallback() {
+							public void cancel() {}
+
+							public void save() {}
+
+							public void delete() {}
+						}, scheduleItem);
+				m_popup = getWorkpage().createModalPopupInWorkpageContext();
+				m_popup.setLeftTopReferenceCentered();
+				m_popup.setUndecorated(true);
+				String title = "Termin";
+				m_popup.open(Constants.Page.SCHEDULECHANGEPOPUP.getUrl(), title, 1024, 768, EntityListUI.this);
+				return;
+//				Statusbar.outputAlert("Schedules not supported yet!");
+//				return;
+			}
             // if buttons are not rendered details are immutable
             if(!renderButtons) {
                 pageId = Constants.FINAL + pageId;

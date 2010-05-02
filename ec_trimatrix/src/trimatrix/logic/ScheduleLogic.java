@@ -29,6 +29,7 @@ public class ScheduleLogic {
 	public static final Integer RUN = new Integer(1);
 	public static final Integer BIKE = new Integer(2);
 	public static final Integer SWIM = new Integer(3);
+	public static final Long MS_OF_DAY = 86400000L;
 
 	public static final Map<String, Integer> TYPES_WITH_DETAILS = new HashMap<String, Integer>() {
 		//Unnamed Block.

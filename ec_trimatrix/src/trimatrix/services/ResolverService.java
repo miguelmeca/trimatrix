@@ -30,6 +30,7 @@ public final class ResolverService {
 	private IEntity testEntity;
 	private IEntity competitionEntity;
 	private IEntity resultEntity;
+	private IEntity scheduleEntity;
 	private IRelation personPersonRelation;
 	private IRelation personDoctorRelation;
 	private IRelation personAttachmentRelation;
@@ -269,6 +270,10 @@ public final class ResolverService {
 
 	public void setResultEntity(IEntity resultEntity) {
 		this.resultEntity = resultEntity;
+	}
+
+	public void setScheduleEntity(IEntity scheduleEntity) {
+		this.scheduleEntity = scheduleEntity;
 	}
 
 	public void setPersonPersonRelation(IRelation personPersonRelation) {
