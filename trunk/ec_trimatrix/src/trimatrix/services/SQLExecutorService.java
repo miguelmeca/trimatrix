@@ -751,6 +751,10 @@ public class SQLExecutorService {
 		return getScheduleEntities(dictionaryService.getLanguage(), id, personId, startLow, startHigh, false, false);
 	}
 
+	public List<IEntityData> getScheduleEntities(String id) {
+		return getScheduleEntities(dictionaryService.getLanguage(), id, null, null, null, false, false);
+	}
+
 	/**
 	 * Retrieve persons in a certain relationship
 	 * @param person_id

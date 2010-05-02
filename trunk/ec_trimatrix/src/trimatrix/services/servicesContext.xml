@@ -116,6 +116,9 @@
 		<property name="resultEntity">
 			<ref bean="resultEntity" />
 		</property>
+		<property name="scheduleEntity">
+			<ref bean="scheduleEntity" />
+		</property>
 		<property name="personPersonRelation">
 			<ref bean="personPersonRelation" />
 		</property>

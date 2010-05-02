@@ -11,6 +11,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.faces.event.ActionEvent;
 
@@ -19,6 +20,7 @@ import org.apache.commons.lang.math.NumberUtils;
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.bufferedcontent.BufferedContentMgr;
 import org.eclnt.jsfserver.bufferedcontent.DefaultBufferedContent;
+import org.eclnt.jsfserver.defaultscreens.ModelessPopup;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
 import org.eclnt.jsfserver.elements.events.BaseActionEventDrop;
@@ -32,6 +34,7 @@ import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.jsfserver.elements.impl.ROWDYNAMICCONTENTBinding;
 import org.eclnt.jsfserver.elements.impl.SCHEDULEComponent;
 import org.eclnt.jsfserver.elements.impl.SCHEDULEITEMComponentTag;
+import org.eclnt.jsfserver.elements.util.DefaultModelessPopupListener;
 import org.eclnt.jsfserver.elements.util.Trigger;
 import org.eclnt.workplace.IWorkpageDispatcher;
 import org.eclnt.workplace.WorkpageDefaultLifecycleListener;
@@ -68,10 +71,6 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
     protected String athleteID;
     public String getAthleteID() {return athleteID;}
 	public void setAthleteID(String athleteID) {this.athleteID = athleteID;}
-
-	public void onCopySchedules(ActionEvent event) {
-		Statusbar.outputAlert("Copy schedule!");
-	}
 
 	protected final long DURATION = 3600000; // in ms
 	protected final int STARTINGHOUR = 5;
@@ -124,8 +123,6 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 	public void setDate(Date date) {
 		this.date = date;
 	}
-
-	ScheduleUI scheduleUI = this;
 
 	List<ScheduleItem> scheduleItems = new ArrayList<ScheduleItem>();
 
@@ -418,7 +415,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		m_popup.setLeftTopReferenceCentered();
 		m_popup.setUndecorated(true);
 		m_popup.open(Constants.Page.DAYINFOPOPUP.getUrl(), "Tagesinformation",
-				0, 0, scheduleUI);
+				0, 0, ScheduleUI.this);
 	}
 
 	public class ScheduleProcessor implements Serializable {
@@ -580,7 +577,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 
 				}
 			} else {
-				sb.append(getDescription());
+				//sb.append(getDescription());
 			}
 			return sb.toString();
 		}
@@ -680,13 +677,14 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			m_popup = getWorkpage().createModalPopupInWorkpageContext();
 			m_popup.setLeftTopReferenceCentered();
 			m_popup.setUndecorated(true);
-			m_popup.open(Constants.Page.SCHEDULECOPYPOPUP.getUrl(), "Kopieren", 0, 0, scheduleUI);
+			m_popup.open(Constants.Page.SCHEDULECOPYPOPUP.getUrl(), "Kopieren", 0, 0, ScheduleUI.this);
 		}
 
 
 		private void openInPopup(boolean template) {
 			selectScheduleItem(this);
 			ScheduleChangePopUp scheduleChangePopUp = getScheduleChangePopUp();
+			scheduleChangePopUp.setRenderButtons(true);
 			scheduleChangePopUp.prepareCallback(
 					new ScheduleChangePopUp.IScheduleChangePopupCallback() {
 						public void cancel() {
@@ -723,7 +721,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			m_popup.setUndecorated(true);
 			String title = "Termin";
 			if(template) title = "Vorlage";
-			m_popup.open(Constants.Page.SCHEDULECHANGEPOPUP.getUrl(), title, 1024, 768, scheduleUI);
+			m_popup.open(Constants.Page.SCHEDULECHANGEPOPUP.getUrl(), title, 1024, 768, ScheduleUI.this);
 		}
 	}
 
@@ -789,6 +787,31 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		// open in popup
 		templateItem.openInPopup(true);
 	}
+
+    public void onCopySchedules(ActionEvent event) {
+		ScheduleCopyPopUp scheduleCopyPopUp = getScheduleCopyPopUp();
+		scheduleCopyPopUp.prepareCallback(new IPopUpCallback() {
+			@Override
+			public void ok(Object object) {
+				m_popup.close();
+				refresh();
+			}
+
+			@Override
+			public void cancel() {
+				m_popup.close();
+				refresh();
+			}
+		}, getAthleteID());
+		m_popup = getWorkpage().createModalPopupInWorkpageContext();
+		m_popup.setLeftTopReferenceCentered();
+		m_popup.setUndecorated(true);
+		m_popup.open(Constants.Page.SCHEDULECOPYPOPUP.getUrl(), "Kopieren", 0, 0, ScheduleUI.this);
+    }
+
+    public ScheduleItem createScheduleItem(String id) {
+    	return new ScheduleItem(getLogic().getScheduleLogic().getSchedule(id));
+    }
 
     // ------------------------------------------------------------------------
 	// logic for agenda pane

@@ -13,6 +13,7 @@ import org.eclnt.jsfserver.bufferedcontent.BufferedContentMgr;
 import org.eclnt.jsfserver.defaultscreens.ModalPopup;
 import org.eclnt.jsfserver.defaultscreens.ModelessPopup;
 import org.eclnt.jsfserver.defaultscreens.ModalPopup.IModalPopupListener;
+import org.eclnt.jsfserver.defaultscreens.ModelessPopup.IModelessPopupListener;
 import org.eclnt.jsfserver.elements.ThreadData;
 import org.eclnt.jsfserver.elements.impl.BUTTONComponent;
 import org.eclnt.jsfserver.elements.impl.ROWDYNAMICCONTENTBinding;
@@ -48,6 +49,7 @@ import trimatrix.ui.PersonSelectionUI;
 import trimatrix.ui.ResultsListPopUp;
 import trimatrix.ui.ScheduleChangePopUp;
 import trimatrix.ui.ScheduleCopyPopUp;
+import trimatrix.ui.ScheduleUI;
 import trimatrix.ui.TemplateChangePopUp;
 import trimatrix.ui.UserDetailUI;
 import trimatrix.ui.UserSelectionUI;
@@ -95,6 +97,11 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 	}
 
 	private String entityId;
+	protected void setEntityId(String entityId) {
+		this.entityId = entityId;
+		// initialize Label row
+    	if(labelingEnabled) setLabelRowDynamic();
+	}
 
 	@Override
 	public Dispatcher getOwningDispatcher() {
@@ -292,6 +299,10 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 
 	public EntityListUI getEntityListUI() {
 		return (EntityListUI) getOwningDispatcher().getDispatchedBean(EntityListUI.class);
+	}
+
+	public ScheduleUI getScheduleUI() {
+		return (ScheduleUI) getOwningDispatcher().getDispatchedBean(ScheduleUI.class);
 	}
 
 	public EntitySelectionUI getEntitySelectionUI(Constants.Entity entity) {
