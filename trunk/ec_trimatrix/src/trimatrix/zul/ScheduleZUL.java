@@ -43,7 +43,6 @@ import trimatrix.db.SchedulesDetail;
 import trimatrix.db.ZonesDefinition;
 import trimatrix.entities.IEntityData;
 import trimatrix.entities.ScheduleEntity;
-import trimatrix.logic.LogicLayer;
 import trimatrix.services.ServiceLayer;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
@@ -62,7 +61,6 @@ public class ScheduleZUL extends GenericAutowireComposer {
 	}
 	private DAOLayer daoLayer = DAOLayer.getFromApplicationContext(ctx);
 	private ServiceLayer serviceLayer = ServiceLayer.getFromApplicationContext(ctx);
-	private LogicLayer logicLayer = LogicLayer.getFromApplicationContext(ctx);
 
 	private Locale locale;
 
@@ -118,7 +116,7 @@ public class ScheduleZUL extends GenericAutowireComposer {
 		refreshSchedules();
 	}
 
-	private void buildGrid(final TYPES type, List scheduleData) {
+	private void buildGrid(final TYPES type, List<SchedulesDetail> scheduleData) {
 		// build header
 		Columns columns = grid.getColumns();
 		if (columns.getChildren() == null) return;
@@ -130,31 +128,68 @@ public class ScheduleZUL extends GenericAutowireComposer {
 		grid.setRowRenderer(new RowRenderer() {
 			public void render(Row row, Object data) throws Exception {
 				if (data == null) return;
+				SchedulesDetail detail = (SchedulesDetail)data;
 				switch (type) {
 				case RUN:
-					SchedulesDetail run = (SchedulesDetail)data;
-					new Label(run.getDurationTarget()).setParent(row);
-					ZonesDefinition zonesDefinition = daoLayer.getZonesDefinitionDAO().findById(run.getZoneId());
-					new Label(zonesDefinition.getShortcut()).setParent(row);
-			        new Label(run.getHrLow()+"-"+run.getHrHigh()).setParent(row);
-			        final Textbox durationAthlete = new Textbox(run.getDurationActual());
-			        durationAthlete.addEventListener(Events.ON_CHANGE, new EventListener(){
+					new Label(detail.getDurationTarget()).setParent(row);
+					ZonesDefinition zonesDefinitionRun = daoLayer.getZonesDefinitionDAO().findById(detail.getZoneId());
+					new Label(zonesDefinitionRun.getShortcut()).setParent(row);
+			        new Label(detail.getHrLow()+"-"+detail.getHrHigh()).setParent(row);
+			        final Textbox durationAthleteRun = new Textbox(detail.getDurationActual());
+			        durationAthleteRun.addEventListener(Events.ON_CHANGE, new EventListener(){
 			        	   public void onEvent(Event arg0) throws Exception{
-			        		   durationAthlete.setValue(Helper.correctTimeInput(durationAthlete.getValue()));
+			        		   durationAthleteRun.setValue(Helper.correctTimeInput(durationAthleteRun.getValue()));
 			        		}
 			        });
-			        durationAthlete.setParent(row);
-			        if(run.getHrAvg()==null) {
+			        durationAthleteRun.setParent(row);
+			        if(detail.getHrAvg()==null) {
 			        	new Intbox().setParent(row);
 			        } else {
-			        	new Intbox(run.getHrAvg()).setParent(row);
+			        	new Intbox(detail.getHrAvg()).setParent(row);
 			        }
+					break;
+				case BIKE:
+					new Label(detail.getDurationTarget()).setParent(row);
+					ZonesDefinition zonesDefinitionBike = daoLayer.getZonesDefinitionDAO().findById(detail.getZoneId());
+					new Label(zonesDefinitionBike.getShortcut()).setParent(row);
+			        new Label(detail.getHrLow()+"-"+detail.getHrHigh()).setParent(row);
+			        new Label(detail.getPower()==null?Constants.EMPTY:detail.getPower().toString()).setParent(row);
+			        new Label(detail.getCadence()==null?Constants.EMPTY:detail.getCadence().toString()).setParent(row);
+			        final Textbox durationAthleteBike = new Textbox(detail.getDurationActual());
+			        durationAthleteBike.addEventListener(Events.ON_CHANGE, new EventListener(){
+			        	   public void onEvent(Event arg0) throws Exception{
+			        		   durationAthleteBike.setValue(Helper.correctTimeInput(durationAthleteBike.getValue()));
+			        		}
+			        });
+			        durationAthleteBike.setParent(row);
+			        if(detail.getHrAvg()==null) {
+			        	new Intbox().setParent(row);
+			        } else {
+			        	new Intbox(detail.getHrAvg()).setParent(row);
+			        }
+					break;
+				case SWIM:
+					new Label(detail.getUnit()).setParent(row);
+					new Label(detail.getDistance()==null?Constants.EMPTY:detail.getDistance().toString()).setParent(row);
+					ZonesDefinition zonesDefinitionSwim = daoLayer.getZonesDefinitionDAO().findById(detail.getZoneId());
+					new Label(zonesDefinitionSwim.getShortcut()).setParent(row);
+			        new Label(detail.getTimeLow()+"-"+detail.getTimeHigh()).setParent(row);
+			        final Textbox timeAvgSwim = new Textbox(detail.getTimeAvg());
+			        timeAvgSwim.addEventListener(Events.ON_CHANGE, new EventListener(){
+			        	   public void onEvent(Event arg0) throws Exception{
+			        		   timeAvgSwim.setValue(Helper.correctTimeInput2(timeAvgSwim.getValue()));
+			        		}
+			        });
+			        timeAvgSwim.setParent(row);
+					break;
+				default:
 					break;
 				}
 			}
 		});
 		lmList = new ListModelList(scheduleData);
 		grid.setModel(lmList);
+		grid.setVisible(true);
 	}
 
 	public void onPrevious(Event event) {
@@ -169,27 +204,59 @@ public class ScheduleZUL extends GenericAutowireComposer {
 		dateBox.setValue(scheduleDate);
     }
 
+	public void onDate(Event event) {
+		scheduleDate = dateBox.getValue();
+		refreshSchedules();
+    }
+
 	public void onSave(Event event) {
 		if(selectedSchedule==null) return;
 		int selectedUnit = units.getSelectedIndex();
 		List<SchedulesDetail> schedulesDetails = selectedSchedule.getSchedulesDetail();
 		// set attributes
 		Long duration = 0L;
-		for(int index = 0; index<schedulesDetails.size();index++) {
-			SchedulesDetail schedulesDetail = schedulesDetails.get(index);
-			Row row = (Row)grid.getRows().getChildren().get(index);
-			String athleteDuration = ((Textbox)row.getChildren().get(3)).getValue();
-			if(Helper.isEmpty(athleteDuration)) {
-				duration += Helper.calculateSeconds(schedulesDetail.getDurationTarget());
-			} else {
-				duration += Helper.calculateSeconds(athleteDuration);
-			}
-			schedulesDetail.setDurationActual(athleteDuration);
-			Integer hrAvgAthlete = ((Intbox)row.getChildren().get(4)).getValue();
-			schedulesDetail.setHrAvg(hrAvgAthlete);
-		}
-		selectedSchedule.setDuration(duration/60);	//duration is in seconds
-		selectedSchedule.setSchedulesDetail(schedulesDetails);
+		TYPES type = null;
+        try {
+        	type = TYPES.valueOf(selectedSchedule.getType().toUpperCase());
+        } catch (Exception ex) {}  // ignore exception, because type is null checked
+        if(type!=null) {
+        	for(int index = 0; index<schedulesDetails.size();index++) {
+    			SchedulesDetail schedulesDetail = schedulesDetails.get(index);
+    			Row row = (Row)grid.getRows().getChildren().get(index);
+    			switch (type) {
+				case RUN:
+					String athleteDurationRun = ((Textbox)row.getChildren().get(3)).getValue();
+	    			if(Helper.isEmpty(athleteDurationRun)) {
+	    				duration += Helper.calculateSeconds(schedulesDetail.getDurationTarget());
+	    			} else {
+	    				duration += Helper.calculateSeconds(athleteDurationRun);
+	    			}
+	    			schedulesDetail.setDurationActual(athleteDurationRun);
+	    			Integer hrAvgAthleteRun = ((Intbox)row.getChildren().get(4)).getValue();
+	    			schedulesDetail.setHrAvg(hrAvgAthleteRun);
+					break;
+				case BIKE:
+					String athleteDurationBike = ((Textbox)row.getChildren().get(5)).getValue();
+	    			if(Helper.isEmpty(athleteDurationBike)) {
+	    				duration += Helper.calculateSeconds(schedulesDetail.getDurationTarget());
+	    			} else {
+	    				duration += Helper.calculateSeconds(athleteDurationBike);
+	    			}
+	    			schedulesDetail.setDurationActual(athleteDurationBike);
+	    			Integer hrAvgAthleteBike = ((Intbox)row.getChildren().get(6)).getValue();
+	    			schedulesDetail.setHrAvg(hrAvgAthleteBike);
+					break;
+				case SWIM:
+					String timeAvgSwim = ((Textbox)row.getChildren().get(4)).getValue();
+					schedulesDetail.setTimeAvg(timeAvgSwim);
+					break;
+				default:
+					break;
+				}
+    		}
+    		if(duration>0L) selectedSchedule.setDuration(duration/60);	//duration is in seconds
+    		selectedSchedule.setSchedulesDetail(schedulesDetails);
+        }
 		// load schedule
 		try {
 			selectedSchedule.setDone(true);
@@ -216,13 +283,24 @@ public class ScheduleZUL extends GenericAutowireComposer {
         Boolean done = (Boolean)selected.getAttribute(DONE);
         selectedSchedule = daoLayer.getSchedulesDAO().findById(selected.getValue());
         // load grid
+        grid.setVisible(false);
         List<SchedulesDetail> schedulesDetails = selectedSchedule.getSchedulesDetail();
-        buildGrid(TYPES.RUN, schedulesDetails);
+        TYPES type = null;
+        try {
+        	type = TYPES.valueOf(selectedSchedule.getType().toUpperCase());
+        } catch (Exception ex) {}  // ignore exception, because type is null checked
+        if(type!=null && schedulesDetails.size()>0) buildGrid(type, schedulesDetails);
         // set right label for save button
         if(done) {
         	btnSave.setLabel("Ändern");
         } else {
         	btnSave.setLabel("Abschliessen");
+        }
+        // when done and no details don't show button
+        if(schedulesDetails.size()==0 && done) {
+        	btnSave.setVisible(false);
+        } else {
+        	btnSave.setVisible(true);
         }
     }
 
@@ -293,6 +371,10 @@ public class ScheduleZUL extends GenericAutowireComposer {
 		switch (type) {
 		case RUN:
 			return Arrays.asList(new String[]{"Dauer", "Zone", "HF", "Dauer (Ist)", "HF (Ist)"});
+		case BIKE:
+			return Arrays.asList(new String[]{"Dauer", "Zone", "HF", "Watt", "TF", "Dauer (Ist)", "HF (Ist)"});
+		case SWIM:
+			return Arrays.asList(new String[]{"Einheit", "Distanz (m)", "Zone", "~Zielzeit", "~Zielzeit (Ist)"});
 		}
 		return Collections.EMPTY_LIST;
 	}

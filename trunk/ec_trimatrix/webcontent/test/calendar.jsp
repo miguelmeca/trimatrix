@@ -205,9 +205,9 @@
 <t:menuitem id="g_150" command="cmdAdd" text="Neu" />
 </t:popupmenu>
 <t:popupmenu id="SCHEDULEITEM" >
-<t:menuitem id="g_151" command="cmdEdit" image="/images/icons/edit.png" text="#{rr.literals.change}" />
-<t:menuitem id="g_152" command="cmdRemove" image="/images/icons/delete.png" text="#{rr.literals.delete}" />
-<t:menuitem id="g_153" command="cmdCopy" image="/images/icons/copy.png" text="#{rr.literals.copy}" />
+<t:menuitem id="g_151" command="cmdEdit" image="/resize(16,16):/images/icons/edit.png" text="#{rr.literals.change}" />
+<t:menuitem id="g_152" command="cmdRemove" image="/resize(16,16):/images/icons/delete.png" text="#{rr.literals.delete}" />
+<t:menuitem id="g_153" command="cmdCopy" image="/resize(16,16):/images/icons/copy.png" text="#{rr.literals.copy}" />
 </t:popupmenu>
 <t:pageaddons id="g_pa"/>
 </f:subview>

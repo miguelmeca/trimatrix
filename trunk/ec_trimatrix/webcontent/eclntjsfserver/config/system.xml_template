@@ -116,4 +116,18 @@
      </dynamicpages>
      />
      -->
+     
+    <!--
+      *************************************************************************
+      Encode name of jsessionid: sometimes it is required that the
+      URL encoding that includes the sessionid into the URL is done
+      not by the servlet container but by own functions. In this case by
+      default ";jsessionid=xxxx" is appended to a URL. You can change the
+      name of the word "jsessionid" corresponding to your environment.
+      *************************************************************************
+     -->
+    <!--
+     <encodenamejsessionid name="jsessionid"/>
+     />
+     -->
 </system>

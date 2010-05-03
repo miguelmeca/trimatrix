@@ -7,7 +7,7 @@
 				<button image="../images/icons/black_prev.png"
 					forward="onPrevious" />
 				<space />
-				<datebox id="dateBox"/>
+				<datebox id="dateBox" forward="onChange=onDate" />
 				<space />
 				<button image="../images/icons/black_next.png"
 					forward="onNext" />

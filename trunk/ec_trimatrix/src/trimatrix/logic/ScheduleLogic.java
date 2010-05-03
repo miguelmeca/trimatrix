@@ -16,6 +16,7 @@ import trimatrix.db.DAOLayer;
 import trimatrix.db.DayInfos;
 import trimatrix.db.DayInfosId;
 import trimatrix.db.Schedules;
+import trimatrix.db.SchedulesDetail;
 import trimatrix.entities.EntityLayer;
 import trimatrix.services.ServiceLayer;
 import trimatrix.utils.Constants;
@@ -164,6 +165,33 @@ public class ScheduleLogic {
 		schedule.setPersonId(athleteId);
 		entityLayer.getScheduleEntity().save(schedule);
 		return schedule;
+	}
+
+	public int copySchedules(String athleteId, String copyAthleteId, Timestamp from, Timestamp to, Timestamp copy) {
+		// if no to date is defined take from date
+		if(to==null) to = from;
+		// add a day to to date
+    	to = new Timestamp(to.getTime() + MS_OF_DAY);
+    	// get differnce of from and copy date
+    	long timeDiffernce = copy.getTime() - from.getTime();
+		List<Schedules> schedules = getSchedulesByQuery(athleteId, from, to);
+    	int count = 0;
+    	for(Schedules schedule : schedules) {
+    		String id = UUID.randomUUID().toString();
+    		schedule.setId(id);
+    		schedule.setPersonId(copyAthleteId);
+    		schedule.setStart(new Timestamp(schedule.getStart().getTime()+timeDiffernce));
+    		for(SchedulesDetail detail : schedule.getSchedulesDetail()) {
+    			detail.getId().setId(id);
+    		}
+    		try {
+				saveSchedule(schedule);
+				count++;
+			} catch (Exception e) {
+				continue;
+			}
+    	}
+    	return count;
 	}
 
 	public Schedules saveSchedule(Schedules schedule) throws Exception {

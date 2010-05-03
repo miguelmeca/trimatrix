@@ -85,27 +85,7 @@ public class ScheduleCopyPopUp extends MyWorkpageDispatchedBean implements Seria
             }
             callback.ok(copiedSchedule);
         } else if(isMultiCopy()) {
-        	// TODO put to logic
-        	if(getToDate()==null) setToDate(getFromDate());
-        	setToDate(new Date(getToDate().getTime() + ScheduleLogic.MS_OF_DAY));
-        	long timeDiffernce = getCopyDate().getTime() - getFromDate().getTime();
-        	List<Schedules> schedules = getLogic().getScheduleLogic().getSchedulesByQuery(athleteId, new Timestamp(getFromDate().getTime()), new Timestamp(getToDate().getTime()));
-        	int count = 0;
-        	for(Schedules schedule : schedules) {
-        		String id = UUID.randomUUID().toString();
-        		schedule.setId(id);
-        		schedule.setPersonId(getCopyAthleteId());
-        		schedule.setStart(new Timestamp(schedule.getStart().getTime()+timeDiffernce));
-        		for(SchedulesDetail detail : schedule.getSchedulesDetail()) {
-        			detail.getId().setId(id);
-        		}
-        		try {
-					getLogic().getScheduleLogic().saveSchedule(schedule);
-					count++;
-				} catch (Exception e) {
-					continue;
-				}
-        	}
+        	int count = getLogic().getScheduleLogic().copySchedules(athleteId, getCopyAthleteId(), new Timestamp(getFromDate().getTime()), new Timestamp(getToDate().getTime()), new Timestamp(getCopyDate().getTime()));
         	if(count>0) {
         		Statusbar.outputSuccess(count + " : Schedules succesfully copied!");
         	} else {

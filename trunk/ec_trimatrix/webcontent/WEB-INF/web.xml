@@ -105,9 +105,14 @@
 		<servlet-class>org.eclnt.jsfserver.polling.LongPollingServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-	<servlet id="AcroFormServlet">
-		<servlet-name>AcroFormServlet</servlet-name>
-		<servlet-class>trimatrix.utils.AcroFormServlet</servlet-class>
+<!--	<servlet id="AcroFormServlet">-->
+<!--		<servlet-name>AcroFormServlet</servlet-name>-->
+<!--		<servlet-class>trimatrix.utils.AcroFormServlet</servlet-class>-->
+<!--		<load-on-startup>1</load-on-startup>-->
+<!--	</servlet>-->
+	<servlet id="ICalServlet">
+		<servlet-name>ICalServlet</servlet-name>
+		<servlet-class>trimatrix.utils.ICalServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
@@ -155,9 +160,13 @@
 		<servlet-name>LongPollingServlet</servlet-name>
 		<url-pattern>*.cclongpolling</url-pattern>
 	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>AcroFormServlet</servlet-name>
-		<url-pattern>/servlet/AcroForm</url-pattern>
+<!--	<servlet-mapping>-->
+<!--		<servlet-name>AcroFormServlet</servlet-name>-->
+<!--		<url-pattern>/servlet/AcroForm</url-pattern>-->
+<!--	</servlet-mapping>-->
+    <servlet-mapping>
+		<servlet-name>ICalServlet</servlet-name>
+		<url-pattern>/servlet/ICal</url-pattern>
 	</servlet-mapping>
 
 	<!-- Start ZK Integration -->
