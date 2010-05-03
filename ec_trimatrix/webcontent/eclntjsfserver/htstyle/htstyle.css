@@ -360,6 +360,26 @@
     overflow:auto;
 }
 
+.classspan
+{
+    font-family:Trebuchet MS;
+    font-size:12px; 
+    color: #FFFFFF;
+}
+.classspan_selected
+{
+    font-family:Trebuchet MS;
+    font-size:12px; 
+    color: #FFFFFF;
+    background-color: #FFFFE0;
+}
+.classspan_disabled
+{
+    font-family:Trebuchet MS;
+    font-size:12px; 
+    color: #FFFFFF;
+}
+
 .classstatusbar
 {
     font-family:Trebuchet MS;

@@ -73,5 +73,10 @@ json-0.19.jar (http://code.google.com/p/jsonmarshaller)
 asm-2.2.3.jar (für json-0.19.jar)
 poi-3.6.jar (für Excel Auswertungen)
 
+iCal Integration
+ical4j-1.0-rc3.jar
+backport-util-concurrent-3.1.jar
+commons-codec-1.3.jar
+
 in der cglib-nodep-2.1_3.jar ist asm.jar und asm-attr.jar bereits enthalten
 (können aber für JSON Jar nicht verwendet werden!)

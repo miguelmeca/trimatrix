@@ -18,7 +18,10 @@
                         value="#{OBJECTBINDING.tabbedLineIndex}" 
                         width="100%" 
                         cutwidth="true"
-                        reselectable="true"/>
+                        reselectable="true"
+                        dropreceive="CCWORKPAGE"
+                        actionListener="#{OBJECTBINDING.onTabbedLineAction}" 
+                        />
         </t:row>
 <t:popupmenu id="WORKPAGETAB" >
   <t:menuitem id="g_53" command="cmdCLOSEWORKPAGE" image="/eclntjsfserver/images/window_close.png" text="#{eclnti18n.WPSEL_close}" />
