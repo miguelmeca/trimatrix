@@ -1,9 +1,7 @@
-package trimatrix.utils;
+package trimatrix.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.DateTime;
+import net.fortuna.ical4j.model.PropertyFactoryRegistry;
+import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.property.CalScale;
 import net.fortuna.ical4j.model.property.Description;
@@ -20,6 +20,14 @@ import net.fortuna.ical4j.model.property.DtEnd;
 import net.fortuna.ical4j.model.property.ProdId;
 import net.fortuna.ical4j.model.property.Uid;
 import net.fortuna.ical4j.model.property.Version;
+
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
+import trimatrix.db.Schedules;
+import trimatrix.logic.LogicLayer;
+import trimatrix.services.ServiceLayer;
+import trimatrix.utils.Helper;
 
 public class ICalServlet extends HttpServlet {
 	/**
@@ -52,27 +60,46 @@ public class ICalServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException  {
+		// get parameters
+		String personId = request.getParameter("id");
+		if(Helper.isEmpty(personId)) {
+			response.setContentType("text/html");
+			response.getWriter().println("Parameter ID is missing!");
+			return;
+		}
+
+		// access to spring context
+		WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+		LogicLayer logicLayer = LogicLayer.getFromApplicationContext(context);
+		ServiceLayer serviceLayer = ServiceLayer.getFromApplicationContext(context);
 		// build calendar
 		response.setContentType("text/calendar");
 		final Calendar calendar = new Calendar();
-		calendar.getProperties().add(new ProdId("-//Ben Fortuna//iCal4j 1.0//EN"));
+		calendar.getProperties().add(new ProdId("-//Trimatrix//Schedules 1.0//EN"));
 		calendar.getProperties().add(Version.VERSION_2_0);
 		calendar.getProperties().add(CalScale.GREGORIAN);
-		// set items
-		final List<VEvent> events = new ArrayList<VEvent>();
-		final VEvent event = new VEvent(new DateTime(), "Das ist ein Test");
-		event.getProperties().add(new DtEnd(new DateTime(new DateTime().getTime() + 8000000)));
-		event.getProperties().add(new Description("Das ist die Beschreibung"));
-		event.getProperties().add(new Uid("reich.markus@gmail.com"));
-		events.add(event);
-		calendar.getComponents().addAll(events);
+		// extensions
+
+		// select schedules from db
+		List<Schedules> schedules = logicLayer.getScheduleLogic().getSchedulesByQuery(personId, null, null);
+		// build events
+		for(Schedules schedule : schedules) {
+			//String type = serviceLayer.getTranslationService().getDescription(schedule.getType(), TranslationService.TYPE.SCHEDULETYPES);
+			String type = schedule.getType();
+			DateTime start = new DateTime(schedule.getStart().getTime());
+			DateTime end = new DateTime(start.getTime() + schedule.getDuration() * 60000);
+			VEvent event = new VEvent(start, type);
+			event.getProperties().add(new DtEnd(end));
+			event.getProperties().add(new Description(logicLayer.getScheduleLogic().getSummary(schedule)));
+			event.getProperties().add(new Uid(schedule.getId()+ "@trimatrix.com"));
+			calendar.getComponents().add(event);
+		}
 		// output data
-		final CalendarOutputter output = new CalendarOutputter();
+		final CalendarOutputter cout = new CalendarOutputter();
 		try {
-			output.output(calendar, response.getOutputStream());
-		} catch (net.fortuna.ical4j.model.ValidationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			cout.output(calendar, response.getOutputStream());
+		} catch (ValidationException ex) {
+			throw new ServletException(ex);
 		}
 	}
 

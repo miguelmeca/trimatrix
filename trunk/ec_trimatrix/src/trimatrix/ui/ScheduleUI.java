@@ -326,7 +326,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			st.setScheduleleft(item.getStartInMinutes() + "");
 			st.setSchedulewidth(expressionBase + "ScheduleUI.scheduleItems["
 					+ counter + "].duration}");
-			st.setText("\n" + item.getSummary());
+			st.setText("\n" + getLogic().getScheduleLogic().getSummary(item.schedule));
 			String icon = (item.getDone()==null || item.getDone()==false) ?  Constants.ACCEPT_LIGHT : Constants.ACCEPT;
 			st.setBgpaint("image(0,0,/images/icons/accept.png,lefttop);roundedborder(0,0,100%,100%,10,10," + background
 					+ ",2);rectangle(0,0,100%,16," + background
@@ -560,27 +560,27 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		 * Build summary string for schedule detail in calendar view
 		 * @return summary string
 		 */
-		public String getSummary() {
-			StringBuffer sb = new StringBuffer();
-			if(ScheduleLogic.TYPES_WITH_DETAILS.keySet().contains(getType())) {
-				List<SchedulesDetail> schedulesDetails = schedule.getSchedulesDetail();
-				for(SchedulesDetail schedulesDetail : schedulesDetails) {
-					if(sb.length()>0) sb.append(Constants.NEWLINE);
-					ZonesDefinition definition = getDaoLayer().getZonesDefinitionDAO().findById(schedulesDetail.getZoneId());
-					if(definition==null) continue;
-					// special treatment for swim units
-					if(ScheduleLogic.getTypeOrd(getType())==ScheduleLogic.SWIM) {
-						sb.append(schedulesDetail.getUnit() + Constants.WHITESPACE + definition.getShortcut());
-					} else {
-						sb.append(schedulesDetail.getDurationTarget() + Constants.WHITESPACE + definition.getShortcut());
-					}
-
-				}
-			} else {
-				//sb.append(getDescription());
-			}
-			return sb.toString();
-		}
+//		public String getSummary() {
+//			StringBuffer sb = new StringBuffer();
+//			if(ScheduleLogic.TYPES_WITH_DETAILS.keySet().contains(getType())) {
+//				List<SchedulesDetail> schedulesDetails = schedule.getSchedulesDetail();
+//				for(SchedulesDetail schedulesDetail : schedulesDetails) {
+//					if(sb.length()>0) sb.append(Constants.NEWLINE);
+//					ZonesDefinition definition = getDaoLayer().getZonesDefinitionDAO().findById(schedulesDetail.getZoneId());
+//					if(definition==null) continue;
+//					// special treatment for swim units
+//					if(ScheduleLogic.getTypeOrd(getType())==ScheduleLogic.SWIM) {
+//						sb.append(schedulesDetail.getUnit() + Constants.WHITESPACE + definition.getShortcut());
+//					} else {
+//						sb.append(schedulesDetail.getDurationTarget() + Constants.WHITESPACE + definition.getShortcut());
+//					}
+//
+//				}
+//			} else {
+//				//sb.append(getDescription());
+//			}
+//			return sb.toString();
+//		}
 
 		public Boolean getTemplate() {return schedule.getTemplate();}
 		public void setTemplate(Boolean template) {schedule.setTemplate(template);}

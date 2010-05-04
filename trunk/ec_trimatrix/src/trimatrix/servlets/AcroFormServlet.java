@@ -1,4 +1,4 @@
-package trimatrix.utils;
+package trimatrix.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+
+import trimatrix.utils.ServletUtils;
 
 public class AcroFormServlet extends HttpServlet {
 	/**

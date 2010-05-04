@@ -107,12 +107,12 @@
 	</servlet>
 <!--	<servlet id="AcroFormServlet">-->
 <!--		<servlet-name>AcroFormServlet</servlet-name>-->
-<!--		<servlet-class>trimatrix.utils.AcroFormServlet</servlet-class>-->
+<!--		<servlet-class>trimatrix.servlets.AcroFormServlet</servlet-class>-->
 <!--		<load-on-startup>1</load-on-startup>-->
 <!--	</servlet>-->
 	<servlet id="ICalServlet">
 		<servlet-name>ICalServlet</servlet-name>
-		<servlet-class>trimatrix.utils.ICalServlet</servlet-class>
+		<servlet-class>trimatrix.servlets.ICalServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
