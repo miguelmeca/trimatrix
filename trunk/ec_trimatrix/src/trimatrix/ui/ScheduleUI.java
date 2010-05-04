@@ -410,7 +410,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 						refresh();
 					}
 					public void ok(Object object) {}
-				}, athleteID, date);
+				}, athleteID, date, getLogic().getScheduleLogic().getDayInfo());
 		m_popup = getWorkpage().createModalPopupInWorkpageContext();
 		m_popup.setLeftTopReferenceCentered();
 		m_popup.setUndecorated(true);

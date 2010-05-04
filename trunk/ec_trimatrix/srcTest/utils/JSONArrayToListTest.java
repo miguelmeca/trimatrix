@@ -16,7 +16,7 @@ import com.twolattes.json.TwoLattes;
 public class JSONArrayToListTest {
 
 	@Test
-	public void testJSON() {
+	public void testJSONArray() {
 		// Limits
 		Marshaller<Limit> limitMarshaller = TwoLattes.createMarshaller(Limit.class);
 		List<Limit> limits = new ArrayList<Limit>(2);
