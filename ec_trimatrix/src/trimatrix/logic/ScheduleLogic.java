@@ -17,6 +17,7 @@ import trimatrix.db.DayInfos;
 import trimatrix.db.DayInfosId;
 import trimatrix.db.Schedules;
 import trimatrix.db.SchedulesDetail;
+import trimatrix.db.ZonesDefinition;
 import trimatrix.entities.EntityLayer;
 import trimatrix.services.ServiceLayer;
 import trimatrix.utils.Constants;
@@ -232,6 +233,29 @@ public class ScheduleLogic {
 		Integer ordinal = ScheduleLogic.TYPES_WITH_DETAILS.get(type);
 		if(ordinal!=null) return ordinal;
 		else return new Integer(0);
+	}
+
+	public String getSummary(Schedules schedule) {
+		StringBuffer sb = new StringBuffer();
+		String type = schedule.getType();
+		if(ScheduleLogic.TYPES_WITH_DETAILS.keySet().contains(type)) {
+			List<SchedulesDetail> schedulesDetails = schedule.getSchedulesDetail();
+			for(SchedulesDetail schedulesDetail : schedulesDetails) {
+				if(sb.length()>0) sb.append(Constants.NEWLINE);
+				ZonesDefinition definition = daoLayer.getZonesDefinitionDAO().findById(schedulesDetail.getZoneId());
+				if(definition==null) continue;
+				// special treatment for swim units
+				if(getTypeOrd(type)==ScheduleLogic.SWIM) {
+					sb.append(schedulesDetail.getUnit() + Constants.WHITESPACE + definition.getShortcut());
+				} else {
+					sb.append(schedulesDetail.getDurationTarget() + Constants.WHITESPACE + definition.getShortcut());
+				}
+
+			}
+		} else {
+			//sb.append(getDescription());
+		}
+		return sb.toString();
 	}
 
 	public void setServiceLayer(ServiceLayer serviceLayer) {
