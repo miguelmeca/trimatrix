@@ -17,6 +17,7 @@ public class UserPreferences implements java.io.Serializable {
 	private String id;
 	private Integer sbvisibleamount;
 	private String competitionCategories;
+	private String dayinfos;
 
 	// Constructors
 
@@ -30,10 +31,11 @@ public class UserPreferences implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public UserPreferences(String id, Integer sbvisibleamount, String competitionCategories) {
+	public UserPreferences(String id, Integer sbvisibleamount, String competitionCategories, String dayinfos) {
 		this.id = id;
 		this.sbvisibleamount = sbvisibleamount;
 		this.competitionCategories = competitionCategories;
+		this.dayinfos = dayinfos;
 	}
 
 	// Property accessors
@@ -65,4 +67,12 @@ public class UserPreferences implements java.io.Serializable {
 		this.competitionCategories = competitionCategories;
 	}
 
+	@Column(name = "dayinfos", columnDefinition="text")
+	public String getDayinfos() {
+		return dayinfos;
+	}
+
+	public void setDayinfos(String dayinfos) {
+		this.dayinfos = dayinfos;
+	}
 }

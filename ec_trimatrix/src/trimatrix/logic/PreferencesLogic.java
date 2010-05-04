@@ -7,18 +7,22 @@ import java.util.UUID;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
-
 import trimatrix.db.DAOLayer;
 import trimatrix.db.UserDefaults;
 import trimatrix.db.UserPreferences;
 import trimatrix.db.Users;
-import trimatrix.db.ZonesDefinition;
 import trimatrix.entities.EntityLayer;
+import trimatrix.logic.helper.DayInfo;
 import trimatrix.services.ServiceLayer;
+import trimatrix.utils.Helper;
+
+import com.twolattes.json.Json;
+import com.twolattes.json.Marshaller;
+import com.twolattes.json.TwoLattes;
 
 public class PreferencesLogic {
 	public static final Log logger = LogFactory.getLog(PreferencesLogic.class);
+	public static final Marshaller<DayInfo> dayInfoMarshaller = TwoLattes.createMarshaller(DayInfo.class);
 	private ServiceLayer serviceLayer;
 	private DAOLayer daoLayer;
 	private EntityLayer entityLayer;
@@ -68,6 +72,15 @@ public class PreferencesLogic {
 		return true;
 	}
 
+	public DayInfo getDayInfo(String dayInfoString) {
+		if(Helper.isEmpty(dayInfoString)) return new DayInfo();
+		Json.Object dayInfoObject = (Json.Object)Json.fromString(dayInfoString);
+		return dayInfoMarshaller.unmarshall(dayInfoObject);
+	}
+
+	public String getDayInfoString(DayInfo dayInfo) {
+		return dayInfoMarshaller.marshall(dayInfo).toString();
+	}
 
 	public void setServiceLayer(ServiceLayer serviceLayer) {
 		this.serviceLayer = serviceLayer;

@@ -17,8 +17,10 @@ import trimatrix.db.DayInfos;
 import trimatrix.db.DayInfosId;
 import trimatrix.db.Schedules;
 import trimatrix.db.SchedulesDetail;
+import trimatrix.db.UserPreferences;
 import trimatrix.db.ZonesDefinition;
 import trimatrix.entities.EntityLayer;
+import trimatrix.logic.helper.DayInfo;
 import trimatrix.services.ServiceLayer;
 import trimatrix.utils.Constants;
 
@@ -27,6 +29,7 @@ public class ScheduleLogic {
 	private DAOLayer daoLayer;
 	private ServiceLayer serviceLayer;
 	private EntityLayer entityLayer;
+	private LogicLayer logicLayer;
 
 	public static final Integer RUN = new Integer(1);
 	public static final Integer BIKE = new Integer(2);
@@ -258,6 +261,11 @@ public class ScheduleLogic {
 		return sb.toString();
 	}
 
+	public DayInfo getDayInfo() {
+		UserPreferences preferences = serviceLayer.getDictionaryService().getMyUser().getPreferences();
+		return logicLayer.getPreferencesLogic().getDayInfo(preferences.getDayinfos());
+	}
+
 	public void setServiceLayer(ServiceLayer serviceLayer) {
 		this.serviceLayer = serviceLayer;
 	}
@@ -268,6 +276,10 @@ public class ScheduleLogic {
 
 	public void setEntityLayer(EntityLayer entityLayer) {
 		this.entityLayer = entityLayer;
+	}
+
+	public void setLogicLayer(LogicLayer logicLayer) {
+		this.logicLayer = logicLayer;
 	}
 
 	public List<Schedules> getSchedulesByQuery(String personId, Date from, Date to) {

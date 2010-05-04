@@ -24,11 +24,11 @@
 <t:coldistance id="g_10" width="100%" />
 </t:row>
 <t:rowline id="g_11" />
-<t:row id="g_12" >
+<t:row id="g_12" rendered="#{d.DayInfoPopUp.dayInfo.restingHr}" >
 <t:label id="g_13" text="#{rr.literals.hr_rest}" width="#{d.DayInfoPopUp.width}" />
 <t:formattedfield id="g_14" align="center" format="int" maxlength="3" value="#{d.DayInfoPopUp.dayInfos.restingHr}" width="100" />
 </t:row>
-<t:row id="g_15" >
+<t:row id="g_15" rendered="#{d.DayInfoPopUp.dayInfo.weather}" >
 <t:label id="g_16" text="#{rr.literals.weather}" width="#{d.DayInfoPopUp.width}" />
 <t:combobox id="g_17" flush="true" value="#{d.DayInfoPopUp.dayInfos.weather}" width="100" withnullitem="false" withvaluecomment="true" >
 <t:comboboxitem id="g_18" image="/images/icons/weather_sun.png" text="#{rr.literals.sun}" value="sun" />
@@ -45,7 +45,7 @@
 <t:coldistance id="g_28" />
 <tx:decspinner id="g_29" objectbinding="#{d.DayInfoPopUp.temperatureDS}" step="0.5" userhint="#{rr.literals.degree}" width="40" />
 </t:row>
-<t:row id="g_30" >
+<t:row id="g_30" rendered="#{d.DayInfoPopUp.dayInfo.location}" >
 <t:label id="g_31" text="#{rr.literals.city}" width="#{d.DayInfoPopUp.width}" />
 <t:field id="g_32" text="#{d.DayInfoPopUp.dayInfos.location}" width="100" />
 <t:coldistance id="g_33" />
@@ -53,7 +53,7 @@
 <t:coldistance id="g_35" />
 <t:formattedfield id="g_36" align="center" format="int" maxlength="5" value="#{d.DayInfoPopUp.dayInfos.altitude}" width="60" />
 </t:row>
-<t:row id="g_37" >
+<t:row id="g_37" rendered="#{d.DayInfoPopUp.dayInfo.weight}" >
 <t:label id="g_38" text="#{rr.literals.weight} #{rr.literals.morning}" width="#{d.DayInfoPopUp.width}" />
 <tx:decspinner id="g_39" objectbinding="#{d.DayInfoPopUp.weightMorningDS}" step="0.1" userhint="kg" width="40" />
 <t:coldistance id="g_40" width="35" />
@@ -61,18 +61,18 @@
 <t:coldistance id="g_42" />
 <tx:decspinner id="g_43" objectbinding="#{d.DayInfoPopUp.weightEveningDS}" step="0.1" userhint="kg" width="40" />
 </t:row>
-<t:row id="g_44" >
+<t:row id="g_44" rendered="#{d.DayInfoPopUp.dayInfo.dinners}" >
 <t:label id="g_45" rowalignmenty="top" text="#{rr.literals.dinners} #{rr.literals.to} 12:00" width="#{d.DayInfoPopUp.width}" />
 <t:textarea id="g_46" height="40" rowalignmenty="top" text="#{d.DayInfoPopUp.dayInfos.dinnersLunch}" width="200" />
 <t:coldistance id="g_47" />
 <t:label id="g_48" rowalignmenty="top" text="#{rr.literals.dinners} #{rr.literals.to} 22:00" width="#{d.DayInfoPopUp.width}" />
 <t:textarea id="g_49" height="40" text="#{d.DayInfoPopUp.dayInfos.dinnersEvening}" width="200" />
 </t:row>
-<t:row id="g_50" >
+<t:row id="g_50" rendered="#{d.DayInfoPopUp.dayInfo.fluids}" >
 <t:label id="g_51" text="#{rr.literals.fluids_intake}" width="#{d.DayInfoPopUp.width}" />
 <tx:decspinner id="g_52" objectbinding="#{d.DayInfoPopUp.fluidsIntakeDS}" step="0.1" userhint="l" width="40" />
 </t:row>
-<t:row id="g_53" >
+<t:row id="g_53" rendered="#{d.DayInfoPopUp.dayInfo.sleep}" >
 <t:label id="g_54" text="#{rr.literals.sleeping_quality}" width="#{d.DayInfoPopUp.width}" />
 <tx:star id="g_55" objectbinding="#{d.DayInfoPopUp.sleepingQualityS}" />
 <t:coldistance id="g_56" />
@@ -80,21 +80,23 @@
 <t:coldistance id="g_58" />
 <t:formattedfield id="g_59" format="double" userhint="h" value="#{d.DayInfoPopUp.dayInfos.sleepingHours}" width="50" />
 </t:row>
-<t:row id="g_60" >
+<t:row id="g_60" rendered="#{d.DayInfoPopUp.dayInfo.tiredness}" >
 <t:label id="g_61" text="#{rr.literals.tiredness}" width="#{d.DayInfoPopUp.width}" />
 <tx:star id="g_62" objectbinding="#{d.DayInfoPopUp.tirednessS}" />
-<t:coldistance id="g_63" width="50" />
+</t:row>
+<t:row id="g_63" rendered="#{d.DayInfoPopUp.dayInfo.feeling}" >
 <t:label id="g_64" text="#{rr.literals.feeling}" width="#{d.DayInfoPopUp.width}" />
 <tx:star id="g_65" objectbinding="#{d.DayInfoPopUp.feelingS}" />
 </t:row>
-<t:row id="g_66" >
+<t:row id="g_66" rendered="#{d.DayInfoPopUp.dayInfo.intensity}" >
 <t:label id="g_67" text="#{rr.literals.training_intensity}" width="#{d.DayInfoPopUp.width}" />
 <tx:star id="g_68" objectbinding="#{d.DayInfoPopUp.trainingIntensityS}" />
-<t:coldistance id="g_69" width="50" />
+</t:row>
+<t:row id="g_69" rendered="#{d.DayInfoPopUp.dayInfo.valuation}" >
 <t:label id="g_70" text="#{rr.literals.training_valuation}" width="#{d.DayInfoPopUp.width}" />
 <tx:star id="g_71" objectbinding="#{d.DayInfoPopUp.trainingValuationS}" />
 </t:row>
-<t:row id="g_72" >
+<t:row id="g_72" rendered="#{d.DayInfoPopUp.dayInfo.laboratory}" >
 <t:pane id="g_73" border="#808080" padding="2" >
 <t:row id="g_74" >
 <t:radiobutton id="g_75" flush="true" group="daytime" isdefault="true" refvalue="0" text="#{rr.literals.morning}" value="#{d.DayInfoPopUp.rbgDayTime}" />
@@ -181,26 +183,26 @@
 </t:row>
 </t:pane>
 </t:row>
-<t:row id="g_139" >
+<t:row id="g_139" rendered="#{d.DayInfoPopUp.dayInfo.days}" >
 <t:checkbox id="g_140" selected="#{d.DayInfoPopUp.dayInfos.restday}" text="#{rr.literals.restday}" />
 <t:coldistance id="g_141" />
 <t:checkbox id="g_142" selected="#{d.DayInfoPopUp.dayInfos.travelday}" text="#{rr.literals.travelday}" />
 <t:coldistance id="g_143" />
 <t:checkbox id="g_144" selected="#{d.DayInfoPopUp.dayInfos.camp}" text="#{rr.literals.camp}" />
 </t:row>
-<t:row id="g_145" >
+<t:row id="g_145" rendered="#{d.DayInfoPopUp.dayInfo.illness}" >
 <t:checkbox id="g_146" flush="true" selected="#{d.DayInfoPopUp.dayInfos.illness}" text="#{rr.literals.illness}" width="#{d.DayInfoPopUp.width}" />
 <t:field id="g_147" rendered="#{d.DayInfoPopUp.dayInfos.illness==true}" text="#{d.DayInfoPopUp.dayInfos.illnessText}" width="200" />
 </t:row>
-<t:row id="g_148" >
+<t:row id="g_148" rendered="#{d.DayInfoPopUp.dayInfo.massage}" >
 <t:checkbox id="g_149" flush="true" selected="#{d.DayInfoPopUp.dayInfos.massage}" text="#{rr.literals.massage}" width="#{d.DayInfoPopUp.width}" />
 <t:field id="g_150" rendered="#{d.DayInfoPopUp.dayInfos.massage==true}" text="#{d.DayInfoPopUp.dayInfos.massageText}" width="200" />
 </t:row>
-<t:row id="g_151" >
+<t:row id="g_151" rendered="#{d.DayInfoPopUp.dayInfo.therapy}" >
 <t:checkbox id="g_152" flush="true" selected="#{d.DayInfoPopUp.dayInfos.therapy}" text="#{rr.literals.therapie}" width="#{d.DayInfoPopUp.width}" />
 <t:field id="g_153" rendered="#{d.DayInfoPopUp.dayInfos.therapy==true}" text="#{d.DayInfoPopUp.dayInfos.therapyText}" width="200" />
 </t:row>
-<t:row id="g_154" >
+<t:row id="g_154" rendered="#{d.DayInfoPopUp.dayInfo.comments}" >
 <t:label id="g_155" rowalignmenty="top" text="#{rr.literals.comment}" width="#{d.DayInfoPopUp.width}" />
 <t:textarea id="g_156" height="60" text="#{d.DayInfoPopUp.dayInfos.comment}" width="200" />
 <t:coldistance id="g_157" />

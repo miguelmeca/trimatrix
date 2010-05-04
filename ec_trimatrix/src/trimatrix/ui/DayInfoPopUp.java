@@ -15,6 +15,7 @@ import org.eclnt.workplace.IWorkpageDispatcher;
 import trimatrix.controls.DecSpinner;
 import trimatrix.controls.Star;
 import trimatrix.db.DayInfos;
+import trimatrix.logic.helper.DayInfo;
 import trimatrix.ui.utils.IPopUpCallback;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 
@@ -32,10 +33,11 @@ public class DayInfoPopUp extends MyWorkpageDispatchedBean implements Serializab
 			put("snow", "/images/icons/weather_snow.png");
 		}
 	};
+	public String getWeatherImage() {return WEATHER.get(this.dayInfos.getWeather());}
 
-	public String getWeatherImage() {
-		return WEATHER.get(this.dayInfos.getWeather());
-	}
+	private DayInfo dayInfo;
+	public DayInfo getDayInfo() {return dayInfo;}
+	public void setDayInfo(DayInfo dayInfo) {this.dayInfo = dayInfo;}
 
 	private static final int WIDTH = 150; // distance for UI
 	public int getWidth() { return WIDTH; }
@@ -73,10 +75,11 @@ public class DayInfoPopUp extends MyWorkpageDispatchedBean implements Serializab
 	protected String athleteId;
 	protected Date date;
 
-	public void prepareCallback(IPopUpCallback callback, String athleteId, Date date) {
+	public void prepareCallback(IPopUpCallback callback, String athleteId, Date date, DayInfo dayInfo) {
 		this.callback = callback;
 		this.athleteId = athleteId;
 		this.date = date;
+		this.dayInfo = dayInfo;
 		refresh();
 	}
 

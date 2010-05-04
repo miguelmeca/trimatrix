@@ -15,11 +15,16 @@ import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.db.UserDefaults;
 import trimatrix.db.UserPreferences;
+import trimatrix.logic.helper.DayInfo;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 
 @CCGenClass(expressionBase = "#{d.PreferencesPanelUI}")
 public class PreferencesPanelUI extends MyWorkpageDispatchedBean implements Serializable {
     private Set<String> deletedDefaultIds = new HashSet<String>();
+
+    private DayInfo dayInfo;
+	public DayInfo getDayInfo() {return dayInfo;}
+	public void setDayInfo(DayInfo dayInfo) {this.dayInfo = dayInfo;}
 
 	protected FIXGRIDListBinding<GridDefaultsItem> m_gridDefaults = new FIXGRIDListBinding<GridDefaultsItem>();
     public FIXGRIDListBinding<GridDefaultsItem> getGridDefaults() { return m_gridDefaults; }
@@ -83,12 +88,15 @@ public class PreferencesPanelUI extends MyWorkpageDispatchedBean implements Seri
 
 	private void init() {
 		preferences = getLogic().getPreferencesLogic().getPreferences();
+		dayInfo = getLogic().getPreferencesLogic().getDayInfo(preferences.getDayinfos());
 		// defaults
 		buildGrid();
 	}
 
 	public void onSave(ActionEvent event) {
 		try {
+			// set dayinfos
+			preferences.setDayinfos(getLogic().getPreferencesLogic().getDayInfoString(dayInfo));
 			// save preferences
 			getLogic().getPreferencesLogic().savePreferences(preferences);
 			// delete marked defaults
@@ -103,4 +111,7 @@ public class PreferencesPanelUI extends MyWorkpageDispatchedBean implements Seri
 		}
 		init();
 	}
+
+
+
 }
