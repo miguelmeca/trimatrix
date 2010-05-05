@@ -43,10 +43,10 @@ public class ResultsListPopUp extends MyWorkpageDispatchedBean implements Serial
 	private Competitions competition;
 
 	private IPopUpCallback callback;
-	public void prepareCallback(IPopUpCallback callback, Competitions competition) {
+	public void prepareCallback(IPopUpCallback callback, Competitions competition, Attachments resultList) {
     	this.callback = callback;
     	this.competition = competition;
-    	resultList = competition.getResults();
+    	this.resultList = resultList;
     	init(resultList);
     }
 
@@ -143,6 +143,7 @@ public class ResultsListPopUp extends MyWorkpageDispatchedBean implements Serial
     					public void reactOnYes() {
     			    		// set to null for callback
     			    		resultList = null;
+    			    		competition.setResultsTemplate(null);
     					}
     				}
     		);

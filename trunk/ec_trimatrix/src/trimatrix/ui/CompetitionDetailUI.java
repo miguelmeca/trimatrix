@@ -259,6 +259,8 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		setState();
 		// set defaults
 		setDefaults();
+		// set result list
+		resultList = entity.getResults();
 	}
 
 	public void validate() throws MandatoryCheckException, EmailNotValidException {
@@ -371,15 +373,15 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 
 			@Override
 			public void cancel() {}
-		}, entity);
+		}, entity, resultList);
 		m_popup = getWorkpage().createModalPopupInWorkpageContext();
 		m_popup.setLeftTopReferenceCentered();
 		m_popup.setUndecorated(true);
-		m_popup.open(Constants.Page.RESULTSLISTPOPUP.getUrl(), "Ergebnisliste", 0, 0, this);
+		m_popup.open(Constants.Page.RESULTSLISTPOPUP.getUrl(), "Ergebnisliste", 520, 155, this);
 	}
 
 	public String getResultsListIcon() {
-		if(isEmpty(entity.getResultsId())) {
+		if(resultList==null) {
 			return Constants.ACCEPT_LIGHT;
 		} else {
 			return Constants.ACCEPT;
