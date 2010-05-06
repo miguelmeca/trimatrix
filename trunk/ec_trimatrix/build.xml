@@ -14,9 +14,11 @@
 		<copy file="../ec_trimatrix/webcontent/html/googlewrapper.html_production" tofile="../ec_trimatrix/webcontent/html/googlewrapper.html" overwrite="true"/>
 
 		<!-- copy resource files, because sometimes out of sync -->
+		<!--
 		<copy todir="../ec_trimatrix/webcontent/eclnthotdeploy/classes/trimatrix/resources" overwrite="true">
 			<fileset dir="../ec_trimatrix/srcui/trimatrix/resources"/>
 		</copy>
+		-->
 
 		<jar destfile="${dist}/trimatrix.war">
 			<fileset dir="../ec_trimatrix/webcontent">
