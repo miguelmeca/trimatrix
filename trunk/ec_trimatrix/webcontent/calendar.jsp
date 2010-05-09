@@ -11,13 +11,13 @@
 <!-- ========== CONTENT BEGIN ========== -->
 <f:view>
 <h:form>
-<f:subview id="test_calendarg_sv">
+<f:subview id="calendarg_sv">
 <t:rowbodypane id="g_1" >
 <t:row id="g_2" >
 <t:pane id="g_3" height="100%" rowalignmenty="top" >
 <t:rowdistance id="g_4" />
 <t:row id="g_5" >
-<t:combobox id="g_6" actionListener="#{d.ScheduleUI.onChangeAthlete}" flush="true" font="size:12;weight:bold" validvaluesbinding="#{helper.vvb.myathletesandme}" value="#{d.ScheduleUI.athleteID}" width="100%" withnullitem="false" />
+<t:combobox id="g_6" actionListener="#{d.ScheduleUI.onChangeAthlete}" enabled="#{d.ScheduleUI.trainer}" flush="true" focusable="#{d.ScheduleUI.trainer}" font="size:12;weight:bold" validvaluesbinding="#{helper.vvb.myathletesandme}" value="#{d.ScheduleUI.athleteID}" width="100%" withnullitem="false" />
 </t:row>
 <t:rowdistance id="g_7" height="10" />
 <t:row id="g_8" >
@@ -39,7 +39,7 @@
 <t:row id="g_19" />
 <t:rowdistance id="g_20" height="10" />
 <t:row id="g_21" >
-<t:foldablepopupinclude id="g_22" height="100%" page="../scheduletemplates.jsp" popupwidth="200" text="#{rr.literals.templates}" width="100%" />
+<t:foldablepopupinclude id="g_22" height="100%" page="scheduletemplates.jsp" popupwidth="200" text="#{rr.literals.templates}" width="100%" />
 </t:row>
 </t:pane>
 <t:coldistance id="g_23" />
@@ -65,31 +65,31 @@
 <t:pane id="g_42" bgpaint="rectangle(0,0,100%,100%,#80808060,#80808000,vertical)" border="top:1;left:1;right:1;color:#C0C0C0" width="100%" >
 <t:row id="g_43" >
 <t:label id="g_44" align="center" font="size:12;weight:bold" text="KW" width="60" />
-<t:label id="g_45" align="center" font="size:16;weight:bold" text="Montag" width="16%" />
+<t:label id="g_45" align="center" font="size:16;weight:bold" text="Montag" width="100%" />
 <t:button id="g_46" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="0" contentareafilled="false" image="#{d.ScheduleUI.dayInfo.0}" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
-<t:label id="g_47" align="center" font="size:16;weight:bold" text="Dienstag" width="16%" />
+<t:label id="g_47" align="center" font="size:16;weight:bold" text="Dienstag" width="100%" />
 <t:button id="g_48" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="1" contentareafilled="false" image="#{d.ScheduleUI.dayInfo.1}" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
-<t:label id="g_49" align="center" font="size:16;weight:bold" text="Mittwoch" width="16%" />
+<t:label id="g_49" align="center" font="size:16;weight:bold" text="Mittwoch" width="100%" />
 <t:button id="g_50" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="2" contentareafilled="false" image="#{d.ScheduleUI.dayInfo.2}" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
-<t:label id="g_51" align="center" font="size:16;weight:bold" text="Donnerstag" width="16%" />
+<t:label id="g_51" align="center" font="size:16;weight:bold" text="Donnerstag" width="100%" />
 <t:button id="g_52" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="3" contentareafilled="false" image="#{d.ScheduleUI.dayInfo.3}" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
-<t:label id="g_53" align="center" font="size:16;weight:bold" text="Freitag" width="16%" />
+<t:label id="g_53" align="center" font="size:16;weight:bold" text="Freitag" width="100%" />
 <t:button id="g_54" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="4" contentareafilled="false" image="#{d.ScheduleUI.dayInfo.4}" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
-<t:label id="g_55" align="center" font="size:16;weight:bold" text="Samstag" width="10%" />
+<t:label id="g_55" align="center" font="size:16;weight:bold" text="Samstag" width="100%" />
 <t:button id="g_56" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="5" contentareafilled="false" image="#{d.ScheduleUI.dayInfo.5}" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
-<t:label id="g_57" align="center" font="size:16;weight:bold" text="Sonntag" width="10%" />
+<t:label id="g_57" align="center" font="size:16;weight:bold" text="Sonntag" width="100%" />
 <t:button id="g_58" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="6" contentareafilled="false" image="#{d.ScheduleUI.dayInfo.6}" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
 </t:row>
 <t:rowdistance id="g_59" height="5" />
 <t:row id="g_60" >
 <t:label id="g_61" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.weekNumber}" width="60" />
-<t:label id="g_62" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.day[0]}" width="16%" />
-<t:label id="g_63" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.day[1]}" width="16%" />
-<t:label id="g_64" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.day[2]}" width="16%" />
-<t:label id="g_65" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.day[3]}" width="16%" />
-<t:label id="g_66" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.day[4]}" width="16%" />
-<t:label id="g_67" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.day[5]}" width="10%" />
-<t:label id="g_68" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.day[6]}" width="10%" />
+<t:label id="g_62" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.day[0]}" width="100%" />
+<t:label id="g_63" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.day[1]}" width="100%" />
+<t:label id="g_64" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.day[2]}" width="100%" />
+<t:label id="g_65" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.day[3]}" width="100%" />
+<t:label id="g_66" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.day[4]}" width="100%" />
+<t:label id="g_67" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.day[5]}" width="100%" />
+<t:label id="g_68" align="center" font="size:12;weight:bold" text="#{d.ScheduleUI.day[6]}" width="100%" />
 </t:row>
 <t:rowdistance id="g_69" height="5" />
 </t:pane>
@@ -136,13 +136,13 @@
 <t:scheduleitem id="g_109" align="right!" font="size:12;weight:bold" resizingenabled="false" scheduleleft="34" schedulewidth="1" text="22:00" />
 <t:scheduleitem id="g_110" scheduleleft="35" schedulewidth="1" />
 </t:schedule>
-<t:schedule id="g_111" attributemacro="scheduleMacro(0)" width="16%" />
-<t:schedule id="g_112" attributemacro="scheduleMacro(1)" width="16%" />
-<t:schedule id="g_113" attributemacro="scheduleMacro(2)" width="16%" />
-<t:schedule id="g_114" attributemacro="scheduleMacro(3)" width="16%" />
-<t:schedule id="g_115" attributemacro="scheduleMacro(4)" width="16%" />
-<t:schedule id="g_116" attributemacro="scheduleMacro(5)" width="10%" />
-<t:schedule id="g_117" attributemacro="scheduleMacro(6)" width="10%" />
+<t:schedule id="g_111" attributemacro="scheduleMacro(0)" width="100%" />
+<t:schedule id="g_112" attributemacro="scheduleMacro(1)" width="100%" />
+<t:schedule id="g_113" attributemacro="scheduleMacro(2)" width="100%" />
+<t:schedule id="g_114" attributemacro="scheduleMacro(3)" width="100%" />
+<t:schedule id="g_115" attributemacro="scheduleMacro(4)" width="100%" />
+<t:schedule id="g_116" attributemacro="scheduleMacro(5)" width="100%" />
+<t:schedule id="g_117" attributemacro="scheduleMacro(6)" width="100%" />
 </t:row>
 </t:pane>
 </t:row>

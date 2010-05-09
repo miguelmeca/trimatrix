@@ -47,7 +47,9 @@ public final class Constants {
 		SCHEDULECOPYPOPUP("/popups/schedulecopy.jsp", "Termin kopieren"),
 		TEMPLATECHANGEPOPUP("/popups/templatechange.jsp", "Vorlage ändern"),
 		RESULTSLISTPOPUP("/popups/resultslist.jsp", "Ergebnisliste"),
-		DAYINFOPOPUP("/popups/dayinfo.jsp", "Tagesinformation");
+		DAYINFOPOPUP("/popups/dayinfo.jsp", "Tagesinformation"),
+		CALENDAR("/calendar.jsp", "Kalendar"),
+		REPORTS("/reports.jsp", "Auswertungen");
 		private final String url;
 		private final String description;
 		Page(String url, String description) {

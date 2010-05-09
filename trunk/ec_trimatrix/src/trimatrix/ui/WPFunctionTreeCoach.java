@@ -23,6 +23,7 @@ import trimatrix.structures.SFunctionTree;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Context;
 import trimatrix.utils.Helper;
+import trimatrix.utils.Constants.Page;
 
 @SuppressWarnings("serial")
 public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
@@ -157,12 +158,20 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 					continue;
 				}
 				node = new FunctionNode(parentNode, page.getUrl());
-				node.setId(functionTree.entity);
-				node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
-				node.setOpenMultipleInstances(false);
-				if(functionTree.entity != null && functionTree.entity.length() > 0) {
-					node.setParam(Constants.P_ENTITY, functionTree.entity);
-				}
+				// special handling if no entity is defined
+			    if(Helper.isEmpty(functionTree.entity)) {
+			    	node.setId(functionTree.page);
+					node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
+					node.setOpenMultipleInstances(false);
+			    } else {
+			    	node.setId(functionTree.entity);
+					node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
+					node.setOpenMultipleInstances(false);
+					if(functionTree.entity != null && functionTree.entity.length() > 0) {
+						node.setParam(Constants.P_ENTITY, functionTree.entity);
+					}
+			    }
+
 				// authorization
 				FUNCTIONTREELOGIC.setAuthority(functionTree, node);
 				// special handling for some nodes

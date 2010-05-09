@@ -244,7 +244,7 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 				node.setId(functionTree.entity);
 				node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
 				node.setOpenMultipleInstances(false);
-				if (functionTree.entity != null && functionTree.entity.length() > 0) {
+				if (!Helper.isEmpty(functionTree.entity)) {
 					node.setParam(Constants.P_ENTITY, functionTree.entity);
 				}
 				// authorization

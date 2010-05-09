@@ -1,0 +1,1949 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jasperPrint PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperprint.dtd">
+
+<jasperPrint name="Unnamed" pageWidth="595" pageHeight="842">
+	<page>
+		<image scaleImage="RetainShape" hAlign="Center" vAlign="Middle">
+			<reportElement x="24" y="34" width="548" height="680"/>
+			<graphicElement pen="None" fill="Solid"/>
+			<imageSource isEmbedded="true">
+				<![CDATA[R0lGODlh9AH0AZEAAMzMzP///////wAAACH5BAUUAAIALAAAAAD0AfQBAAL/lI+py+0Po5y02ouz
+3rz7D4biSJbmiabqyrbuC8fyTNf2jef6zvf+DwwKh8Si8YhMKpfMpvMJjUqn1Kr1is1qt9yu9wsO
+i8fksvmMTqvX7Lb7DY/L5/S6/Y7P6/f8vv8PGCg4SFhoeIiYqLjI2Oj4CBkpOUlZaXmJmam5ydnp
++QkaKjpKWmp6ipqqusra6voKGys7S1tre4ubq7vL2+v7CxwsPExcbHyMnKy8zNzs/AwdLT1NXW19
+jZ2tvc3d7f0NHi4+Tl5ufo6err7O3u7+Dh8vP09fb3+Pn6+/z9/v/w8woMCBBAsaPIgwocKFDBs6
+fAgxosSJ8QBQPAfA4kVy/xk1bgzX0ePHbiEzjvRW0uTJbSlVrrzWsuNLmDFdzpRWU+ZNnDlt7mTW
+M+RPZ0GFDl1W1OhRZEmVLiXW1OlTYVF9Tg1WVeRVYFm3Qq3qdVjXsFijki1r9uwvsGrXpm3biy3c
+XXLn6qprF9fbvHr3TrDK9xNeCCUDj/LroKbhUIgXBF3sqTECyZApSc4KuPKkpo4x69RsifMBzy1B
+V0pLWrFpSalbS13NyLVsrbATzZ5dO/Zt2bkX7ebd2/Zv0sF9DxddvNHxnMk3L3/dHNLy6JpuU49M
+/Dpjyto7Pe6eKib4Vp9HMB9vCjl67GPXV0/t/hLu+Jat05f++76j5/oVPf/P3B8g/wEYYB8DElhg
+HgeWl6CBCyLYIB0PMhghHhNSWGEdrY3GXYZvZKeAeh7O4dkDRY1oR3smfoeiHIMlxmKLH3YYYk8y
+xkFjjTbeOOOJFvjIIxtJYQBkkGoMeQGSRh4ZIwVKLolGkU5KCaUZTf71ZJVlUBmBiFqScSVhXn4p
+BpcwjkkmGGE2oGKaY6ypY45uZpFlnHLOiUWdBsCH55bIudanlRfSFqiaFxYq6IOIJjrgomcs6Oij
+jWIZaRX/TQlhpUhMhyV0mjYxXKeFfSrFbqKmRGqpwHW5Y6pQbCiBnq4ugRmmZs6qxJ0CtInrE6rZ
+qmuvXPAprKTEFvvmqsj/GgrosmHM5+wX0EbbBbSEUkvFgdhmq+i2vh7qLRODZhpuD+NiWC4Q53rK
+5rXpprDuqKyS+y4I8cq7Irv1ihCqneedie++JZjaLpx7/irwwM3m26q/qCZsAqzz/puArBB7AGKs
+FE+G5sUd1FpBaQBb7PEGL7KqMa8lf0wyxhmv7HLDJCwMc8zinTBtzRwgPLN9OrMcsHk+/ww0vRkQ
+TPQH6No7dNIYo4C000NELXUQVFf9w9VYm9v01lzn7DUPWoedw9hk32D22TWkrfYMbLcdw9twvyD3
+3C3UnaTdSXattLt6M4D3j0v/XTHfNhsNd+Ahi0x4Z2D3fXPjhSsbgsF6/1NeueV2S3wqu7f+/bKY
+MnO4seQHn8xw6bvybDrpLRccZuStOyy74HU+PDvgmotOpb65r846kV4iLnnwR/vl966/A+/73h3r
+uHzQh+8ufeODT1796c8zf/3mnWevsvbZL4+96txzOTr55ceO1+fRq9ym+7mXGKLrG8vf+rGO35/+
++/rvXzvz+Y9zAGSc+Lo3O8PZz4DnUx/sCEg7CjVvgJjjGOuIZ7p+6c54Dnzg4w6Iuw5OTGu7EyEI
+A3gl/JnwfLU7Ib5et0IWhnB9pdleDGU4vvzccGQMLGDodkjDCX4QiAscnwV/SMQj9tCDqEsiDun1
+PycqcYYbpJ8Uq9jCKf+G74oufE0FuahFbYExdWIcIw/5Y8YRciqNalQcG59oRY29sYvBmiAQv+hB
+NuIRiwiMIc3a2EcTQpCMVExiFM+4RCLGEZBZVGQTfdi/O9owiCUUIQzDeElLRpKPW9yhADkJMi42
+kolIlKQdi1hKRwYSjo9UJbAGCUYoKjCW31vkHFP2x1syspO6BCUvexnBVgKTksEaZi7/cktYzmuO
+hxzhG1NJSD2G0naFdKItcZlIQwoTkka84TaD2c0VfhOTo/TkJInJQXNmkpXp9OM52flJd8Jwj/J0
+3yzrCSc3kq8x+lTfvVYpznslc10f8+egEoPI5G1uQmfyJUDJBqkHovP/lIlbow9RGc8M7lEx10zg
+Ro9j0GNilJ4LFSkdSdq2IY5UpXMz6URd2lJovlSZJR3nSWFa0WLelKYxXSc5+1k1n64UqEHdZEIt
+qtFyHhWNHq0m7/5YybM5lZA/jCpEH7pTNGV0ocLTocM6qFBuipSi3rxUZ3QnxYjiUptqJaMpu4XI
+sjKUqhjsKXCMykpNTqud8HTg1bI5030aLpxDrSvW0vZQoXqNpcpbETixujWcTuyxhi1qRxfnRRWq
+7bKvtIpiI2tThz5WsJ+daDD9qtmlShCwSeXrLqk41aayFpu9g2xNyerQ0lX2tmF9amhJ21u6vhOs
+wVVtaee3s3sOM6up/9UlUc343DFGN5bKXe50RVldY2YXmNe9YnfTut1efhe8KF0uc117VmY2U6y7
+nR9nZ9re/P2ysLHFZyVlGlAVlpe4eD3vVvWq1J/+9nfohadOCVxf+s4XwMVlKnk7O17vQTi80i2j
+eeFq3bZqV8Pi5dNx1Qm//1K3if0dsQ1F7F05Iay478ttgk9IOmtiSFc3IyyCMzNcFuoYxIDJ8YEv
+B1ufDtiuQRPykFPKMyMfWar8i+p7iyczza4Xyk0uMU8JJ6XX7TenUf4chTeb5dtFWGci+ieLudxl
+gvK3f+fKrwAP6uZ2YliQ1HOwfV8s4B9j2clflm2AFdxcCs7WwIEGrplSxwzk9HkVuk1adBrj1WE4
+R3rOzqX0pO2cYUxfGKnmBXSO1dtnUEu204T+M6n9i1tST/PUtTQ1q0lp21fbSda0rrWtb43rXOt6
+17zuta9/DexgC3vYxC62sY+N7GQre9nMbraznw3taEt72tSutrWvje1sa3vb3O62t78N7nCLe9zk
+Lre5z43udKt73exut7vfDe94yxsiBQAAOw==]]>
+			</imageSource>
+		</image>
+		<rectangle radius="0">
+			<reportElement x="305" y="197" width="60" height="30"/>
+			<graphicElement pen="1Point" fill="Solid"/>
+		</rectangle>
+		<image scaleImage="RetainShape" hAlign="Left" vAlign="Top">
+			<reportElement x="32" y="35" width="85" height="76"/>
+			<graphicElement pen="None" fill="Solid"/>
+			<imageSource isEmbedded="true">
+				<![CDATA[R0lGODlhXABUAKIAANspHuNfNP7pAPG4CglKjv////XBqauSbyH5BAEAAAUALAAAAABcAFQAAAP/
+WLrc/jDKSau9zYRtDP5geB1AaQ6dJ67sZQhDGQwBMAjCFnRt7xcaHO2GK8JMAM5v6arZjNDigOYM
+4FLMbAZJjHphU6Fsp9L2NKbZdx11pnfmlQE5ZtulNJOQHB/RTzgzXXdeYThvPH0RbnREVYKEbFRI
+ZGWKCn9JXYwlg5GFeVY5HJZaczKdUplJgRuGn1BEMYilPiQlsZxcYm+esEKzaVpVUVOcokd/oq+w
+eZRaqZJDe6vLY8xsurUtQb851bLKyMW8SNssL954VZurAEWQeTfBMlp76kZd9JmOyoGoAbTIwwdK
+lyZqf+DlOZDl1BOCa4xF+1bNSI1zK269g9jM/2AaIyWGyeD4S+IfTzSgTSTZjM64IhhFOPTFcsAB
+AgQOeOFEU8stmrBu6jRyEyfOoRY11WgjYNhLb0VxSjFK1dfDHLGSCCQZlUARqkLV1WDIJB22ZkfD
+RMVxoChSizQvNszDsW1RAVTzHs0HCErILMTqGu2qNyc8SlkDZukLESxhveVGJiW7ZCZXsGCnDP63
+K2nMEBrVRT1gE2yRtgKi9kNSDIBIVkELD8gL4zFSl14oL5EB9Mvswjkx60U6awNsKJ9BzHmaevQg
+x8KP5iVtUU0OlE3n5i48VHXq6FLt+up9SHFZIUaAS/0uffCUrm8jFtKaBcaG0+qHAtd5E+9mSf8r
+/aObD2g8RFhbhqX2m2lrhSUJI57IxURoOJiGnlu0wbAZeYex5pdrgEm2IAFdHAidUbDgxpd5u0nW
+FX7TqcchX4jxNeAZfb3I1nCPkQgLT8Uk9wGF7O1VIWTweVMFLl68hgxhp5X2H0QH3ZcPDip5Mh2M
+VHFEw5XVCYmBBr4ciOCWLK0hYWVf9OjYjJHEwNxf530JhZsJ1uQGSvQxEYoX6qWZzEeTNcTYnWim
+CaRnWRDZJnWCcqYHFDW8dlCkhKiYD4s/ZMIcpqrUiFxDx0jhCqgdTnGVEWJ+0MGpkl6DqZXXUZrd
+Ja9WFCl5cl6SQYGXJgMrQXZSCsCNviqQAkL/LsGZy0rBtKqIBrroY102dITaZ7IVvEqrM7J6oek3
+yHJrQQf7iKotQFdIay4EuabRjg7VuPsuBR0Q5xES5d5b2b4y2OuvTNRSIvDAZ2jQL8IMN+zwwxBH
+LPG5iQBRMQNYSJCxsgJfDK+0DpXgwVgP1MCpAySYd4q9azKgRMsaj+EEGsiaPEHKC6ys3AHbyGUA
+zxbYrAAHJKMBh8kme3AA0j/3qXPOSCuL9A6kVFFgAEsfnTQQVhcgMse58owKAFcHXMLSSeCs7NcL
+IK2V22RfNEYSVl+0JNlzB/S1Q8ahrTTdWq2cgslqA8G24QGdcsvIcR8bMA9yyU12AUufUkkBgDYX
+3PfeqJAlMiNYO3242ib/ZTfZwAYUueMgLoB2PYt3MDfaDKWcOUCUpy36sSngvPLZK1+UQvCTSz4y
+1r2bLg7vY5cNONaE786v26rTgYblNj/SeBIi5+26DgpXzrUSWeswvg5Us4h+1eYD0db17CtBbdZK
+g38+HBMPrfvkWiQAADs=]]>
+			</imageSource>
+		</image>
+		<text textHeight="20.698242" lineSpacingFactor="1.1499023" leadingOffset="-3.5200195">
+			<reportElement x="140" y="77" width="267" height="22"/>
+			<font fontName="Arial" size="18"/>
+			<textContent><![CDATA[Rechnungsanlage]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="43" y="132" width="261" height="12"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Geis Industrie-Service GmbH    Duisburger Str. 45   D-90451 Nürnberg]]></textContent>
+		</text>
+		<text textHeight="45.996094" lineSpacingFactor="1.1499023" leadingOffset="-1.9555664">
+			<reportElement x="43" y="152" width="122" height="51"/>
+			<font fontName="Arial" size="10"/>
+			<textContent><![CDATA[Royal Appliance
+Itterpark 9
+
+40724 Hilden]]></textContent>
+		</text>
+		<text textHeight="10.349121" lineSpacingFactor="1.1499023" leadingOffset="-1.7600098">
+			<reportElement x="38" y="246" width="50" height="16"/>
+			<font fontName="Arial" size="9" isBold="true"/>
+			<textContent><![CDATA[Ver-Dat.]]></textContent>
+		</text>
+		<text textHeight="10.349121" lineSpacingFactor="1.1499023" leadingOffset="-1.7600098">
+			<reportElement x="88" y="246" width="50" height="16"/>
+			<font fontName="Arial" size="9" isBold="true"/>
+			<textContent><![CDATA[Ver-Art]]></textContent>
+		</text>
+		<text textHeight="10.349121" lineSpacingFactor="1.1499023" leadingOffset="-1.7600098">
+			<reportElement x="138" y="246" width="55" height="16"/>
+			<font fontName="Arial" size="9" isBold="true"/>
+			<textContent><![CDATA[LS-Nr.]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="10.349121" lineSpacingFactor="1.1499023" leadingOffset="-1.7600098">
+			<reportElement x="418" y="246" width="30" height="16"/>
+			<font fontName="Arial" size="9" isBold="true"/>
+			<textContent><![CDATA[Stk.]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="10.349121" lineSpacingFactor="1.1499023" leadingOffset="-1.7600098">
+			<reportElement x="448" y="246" width="30" height="16"/>
+			<font fontName="Arial" size="9" isBold="true"/>
+			<textContent><![CDATA[Kt.]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="10.349121" lineSpacingFactor="1.1499023" leadingOffset="-1.7600098">
+			<reportElement x="478" y="246" width="30" height="16"/>
+			<font fontName="Arial" size="9" isBold="true"/>
+			<textContent><![CDATA[Pal.]]></textContent>
+		</text>
+		<text textHeight="10.349121" lineSpacingFactor="1.1499023" leadingOffset="-1.7600098">
+			<reportElement x="343" y="246" width="75" height="16"/>
+			<font fontName="Arial" size="9" isBold="true"/>
+			<textContent><![CDATA[Art-Nr.]]></textContent>
+		</text>
+		<text textHeight="10.349121" lineSpacingFactor="1.1499023" leadingOffset="-1.7600098">
+			<reportElement x="193" y="246" width="150" height="16"/>
+			<font fontName="Arial" size="9" isBold="true"/>
+			<textContent><![CDATA[Empfänger]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="10.349121" lineSpacingFactor="1.1499023" leadingOffset="-1.7600098">
+			<reportElement x="508" y="246" width="50" height="16"/>
+			<font fontName="Arial" size="9" isBold="true"/>
+			<textContent><![CDATA[Kosten]]></textContent>
+		</text>
+		<rectangle radius="0">
+			<reportElement x="463" y="197" width="100" height="30"/>
+			<graphicElement pen="1Point" fill="Solid"/>
+		</rectangle>
+		<text textHeight="6.899414" lineSpacingFactor="1.1499023" leadingOffset="-1.1733398">
+			<reportElement x="468" y="199" width="90" height="8"/>
+			<font fontName="Arial" size="6"/>
+			<textContent><![CDATA[Datum]]></textContent>
+		</text>
+		<text textHeight="12.578125" lineSpacingFactor="1.2578125" leadingOffset="-2.1972656">
+			<reportElement x="468" y="211" width="90" height="13"/>
+			<textContent><![CDATA[20.07.2006]]></textContent>
+		</text>
+		<line>
+			<reportElement x="463" y="208" width="100" height="1"/>
+			<graphicElement pen="1Point" fill="Solid"/>
+		</line>
+		<rectangle radius="0">
+			<reportElement x="364" y="197" width="100" height="30"/>
+			<graphicElement pen="1Point" fill="Solid"/>
+		</rectangle>
+		<line>
+			<reportElement x="364" y="208" width="100" height="1"/>
+			<graphicElement pen="1Point" fill="Solid"/>
+		</line>
+		<text textHeight="6.899414" lineSpacingFactor="1.1499023" leadingOffset="-1.1733398">
+			<reportElement x="369" y="199" width="90" height="8"/>
+			<font fontName="Arial" size="6"/>
+			<textContent><![CDATA[Rechnungs-Nr.]]></textContent>
+		</text>
+		<text textHeight="12.578125" lineSpacingFactor="1.2578125" leadingOffset="-2.1972656">
+			<reportElement x="369" y="211" width="90" height="13"/>
+			<textContent><![CDATA[TEST]]></textContent>
+		</text>
+		<text textHeight="6.899414" lineSpacingFactor="1.1499023" leadingOffset="-1.1733398">
+			<reportElement x="310" y="199" width="53" height="8"/>
+			<font fontName="Arial" size="6"/>
+			<textContent><![CDATA[Seite]]></textContent>
+		</text>
+		<line>
+			<reportElement x="305" y="208" width="60" height="1"/>
+			<graphicElement pen="1Point" fill="Solid"/>
+		</line>
+		<text textHeight="12.578125" lineSpacingFactor="1.2578125" leadingOffset="-2.1972656">
+			<reportElement x="310" y="211" width="53" height="13"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="11.499023" lineSpacingFactor="1.1499023" leadingOffset="-1.9555664">
+			<reportElement x="140" y="99" width="410" height="12"/>
+			<font fontName="Arial"/>
+			<textContent><![CDATA[Lagerausgang vom 10.07.2006 bis 10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="265" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="265" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="265" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[171981]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="265" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[4]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="265" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="265" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="265" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[8180]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="265" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="265" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="276" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="276" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="276" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[171976]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="276" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[4]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="276" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="276" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="276" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[8180]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="276" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="276" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="287" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="287" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="287" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[171980]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="287" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[8]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="287" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[2]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="287" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="287" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[8180]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="287" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="287" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="298" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="298" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="298" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[171977]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="298" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[8]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="298" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[2]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="298" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="298" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[8180]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="298" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="298" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="309" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="309" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="309" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[171984]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="309" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[4]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="309" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="309" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="309" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[8180]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="309" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="309" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="320" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="320" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="320" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[171975]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="320" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[4]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="320" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="320" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="320" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[8180]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="320" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="320" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="331" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="331" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="331" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[171979]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="331" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[4]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="331" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="331" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="331" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[8180]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="331" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="331" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="342" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="342" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="342" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[171978]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="342" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[4]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="342" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="342" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="342" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[8180]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="342" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="342" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="353" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="353" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="353" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[171982]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="353" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[4]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="353" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="353" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="353" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[8180]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="353" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="353" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="364" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="364" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="364" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[171983]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="364" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[4]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="364" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="364" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="364" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[8180]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="364" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="364" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="375" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="375" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="375" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[639683]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="375" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[4]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="375" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[4]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="375" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="375" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[M3050-1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="375" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="375" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="386" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="386" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="386" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[636578]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="386" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[4]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="386" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[4]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="386" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="386" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[M1884-8]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="386" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="386" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="397" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="397" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="397" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[637465]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="397" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[6]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="397" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[6]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="397" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="397" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[M1884-8]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="397" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="397" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="408" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="408" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="408" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[640462]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="408" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[3]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="408" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[3]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="408" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="408" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[M1882-2]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="408" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="408" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="419" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="419" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="419" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[638028]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="419" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[2]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="419" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[2]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="419" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="419" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[M1882-6]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="419" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="419" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="430" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="430" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="430" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[637461]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="430" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="430" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="430" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="430" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[M1883-8]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="430" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="430" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="441" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="441" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="441" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[637461]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="441" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[2]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="441" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[2]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="441" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="441" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[M3060]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="441" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="441" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="452" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="452" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="452" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[632228]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="452" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[5]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="452" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[5]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="452" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="452" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[M2884]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="452" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="452" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="463" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="463" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="463" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[638592]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="463" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[2]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="463" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[2]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="463" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="463" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[M1884-7]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="463" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="463" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="474" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="474" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="474" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[638590]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="474" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[5]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="474" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[5]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="474" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="474" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[M1565-2]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="474" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="474" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="485" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="485" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="485" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[172288]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="485" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="485" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="485" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="485" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1063]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="485" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="485" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="496" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="496" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="496" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[172370]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="496" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="496" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="496" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="496" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[M2884-1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="496" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="496" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="507" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="507" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="507" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[172357]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="507" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[8]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="507" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[8]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="507" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="507" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[M2884-1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="507" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="507" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="518" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="518" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="518" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[172364]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="518" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[24]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="518" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[6]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="518" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="518" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1009]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="518" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="518" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="529" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="529" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="529" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[172359]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="529" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[24]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="529" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="529" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="529" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[4015]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="529" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="529" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="540" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="540" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="540" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[172359]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="540" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[50]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="540" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="540" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="540" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[4011]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="540" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="540" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="551" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="551" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="551" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[172369]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="551" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[20]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="551" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[2]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="551" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="551" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1063]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="551" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="551" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="562" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="562" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="562" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[172369]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="562" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[20]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="562" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[2]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="562" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="562" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1056]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="562" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="562" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="573" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="573" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="573" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[172367]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="573" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[20]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="573" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[2]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="573" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="573" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1063]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="573" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="573" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="584" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="584" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="584" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[172368]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="584" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="584" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="584" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="584" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1056]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="584" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="584" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="595" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="595" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="595" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[172368]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="595" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="595" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="595" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="595" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1063]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="595" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="595" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="606" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="606" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="606" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[640273]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="606" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[5]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="606" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="606" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="606" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1885001]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="606" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="606" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="617" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="617" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="617" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[640273]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="617" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[5]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="617" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="617" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="617" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1882022]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="617" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="617" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="628" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="628" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="628" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[640273]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="628" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[5]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="628" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="628" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="628" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1888001]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="628" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="628" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="639" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="639" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="639" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[640155]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="639" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="639" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="639" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="639" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[M1892]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="639" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="639" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="650" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="650" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="650" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[640155]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="650" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="650" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="650" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="650" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[M1892]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="650" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="650" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="661" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="661" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="661" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[627782]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="661" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[4]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="661" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[4]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="661" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="661" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[M2889-4]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="661" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="661" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="38" y="672" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[10.07.2006]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="88" y="672" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[DPD]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="138" y="672" width="55" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[638292]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="418" y="672" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[3]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="448" y="672" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[3]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="478" y="672" width="30" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[1]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="343" y="672" width="75" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[M1888-0]]></textContent>
+		</text>
+		<text textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="193" y="672" width="150" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[Kunde xyz]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="9.199219" lineSpacingFactor="1.1499023" leadingOffset="-1.5644531">
+			<reportElement x="508" y="672" width="50" height="11"/>
+			<font fontName="Arial" size="8"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textHeight="12.648926" lineSpacingFactor="1.1499023" leadingOffset="-2.151123">
+			<reportElement x="283" y="793" width="103" height="15"/>
+			<font fontName="Arial" size="11" isBold="true"/>
+			<textContent><![CDATA[Rechnungsbetrag]]></textContent>
+		</text>
+		<text textHeight="11.499023" lineSpacingFactor="1.1499023" leadingOffset="-1.9555664">
+			<reportElement x="283" y="767" width="80" height="12"/>
+			<font fontName="Arial"/>
+			<textContent><![CDATA[Summe Netto]]></textContent>
+		</text>
+		<text textHeight="11.499023" lineSpacingFactor="1.1499023" leadingOffset="-1.9555664">
+			<reportElement x="283" y="779" width="80" height="12"/>
+			<font fontName="Arial"/>
+			<textContent><![CDATA[MwSt.]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="11.499023" lineSpacingFactor="1.1499023" leadingOffset="-1.9555664">
+			<reportElement x="363" y="779" width="90" height="12"/>
+			<font fontName="Arial"/>
+			<textContent><![CDATA[16,00%]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="11.499023" lineSpacingFactor="1.1499023" leadingOffset="-1.9555664">
+			<reportElement x="453" y="793" width="90" height="12"/>
+			<font fontName="Arial"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="11.499023" lineSpacingFactor="1.1499023" leadingOffset="-1.9555664">
+			<reportElement x="453" y="779" width="90" height="12"/>
+			<font fontName="Arial"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<text textAlignment="Right" textHeight="11.499023" lineSpacingFactor="1.1499023" leadingOffset="-1.9555664">
+			<reportElement x="453" y="767" width="90" height="12"/>
+			<font fontName="Arial"/>
+			<textContent><![CDATA[0,00 €]]></textContent>
+		</text>
+		<line>
+			<reportElement x="283" y="792" width="260" height="1"/>
+			<graphicElement pen="1Point" fill="Solid"/>
+		</line>
+	</page>
+</jasperPrint>
