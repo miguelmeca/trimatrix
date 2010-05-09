@@ -28,6 +28,7 @@ import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
 import trimatrix.utils.MessageHandler;
+import trimatrix.utils.Constants.Page;
 
 @SuppressWarnings("serial")
 @CCGenClass (expressionBase="#{d.WorkplaceUI}")
@@ -130,6 +131,20 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 		if(roles.contains(Constants.Role.ADMIN.getName())) {
 			setRenderAdmin(true);
 			m_selectedRole = Constants.Role.ADMIN.getId();
+		}
+		// set initial screen
+		// when athlete or trainer start with calendar
+		if(getRenderCoach()||getRenderAthlete()) {
+			IWorkpageDispatcher wpd = getOwningDispatcher();
+			IWorkpageContainer wpc = getWorkpageContainer();
+			IWorkpage wp = wpc.getWorkpageForId(Page.CALENDAR.name());
+			if(wp != null) {
+				wpc.switchToWorkpage(wp);
+				return;
+			}
+	    	String title = ResourceManager.getRuntimeInstance().readProperty(Constants.LITERALS,"calendar");
+			wp = new Workpage( wpd, Constants.Page.CALENDAR.getUrl(),Page.CALENDAR.name(), title, null, true);
+			wpc.addWorkpage(wp);
 		}
 	}
 

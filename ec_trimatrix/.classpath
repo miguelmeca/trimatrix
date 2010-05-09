@@ -59,7 +59,7 @@
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/jstl.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/xercesImpl-2.8.1.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/mail.jar"/>
-	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/dbunit-2.4.4.jar"/>
+	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/dbunit-2.4.4.jar" sourcepath="C:/Users/reich/.m2/repository/org/dbunit/dbunit/2.4.4/dbunit-2.4.4-sources.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Apache Tomcat 6"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/mime-util-1.3.2.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/jcommon-1.0.16.jar"/>
@@ -84,7 +84,7 @@
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/zkplus.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/zul.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/zweb.jar"/>
-	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/eclntjsfserver.jar"/>
+	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/eclntjsfserver.jar" sourcepath="E:/myRepository/cc/eclntjsfserver.src.zip"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/commons-collections-2.1.1.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/commons-logging-1.0.4.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/ical4j-1.0-rc3.jar"/>

@@ -11,7 +11,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.faces.event.ActionEvent;
 
@@ -20,7 +19,6 @@ import org.apache.commons.lang.math.NumberUtils;
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.bufferedcontent.BufferedContentMgr;
 import org.eclnt.jsfserver.bufferedcontent.DefaultBufferedContent;
-import org.eclnt.jsfserver.defaultscreens.ModelessPopup;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
 import org.eclnt.jsfserver.elements.events.BaseActionEventDrop;
@@ -34,7 +32,6 @@ import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.jsfserver.elements.impl.ROWDYNAMICCONTENTBinding;
 import org.eclnt.jsfserver.elements.impl.SCHEDULEComponent;
 import org.eclnt.jsfserver.elements.impl.SCHEDULEITEMComponentTag;
-import org.eclnt.jsfserver.elements.util.DefaultModelessPopupListener;
 import org.eclnt.jsfserver.elements.util.Trigger;
 import org.eclnt.workplace.IWorkpageDispatcher;
 import org.eclnt.workplace.WorkpageDefaultLifecycleListener;
@@ -44,8 +41,6 @@ import trimatrix.db.Persons;
 import trimatrix.db.Schedules;
 import trimatrix.db.SchedulesDetail;
 import trimatrix.db.SchedulesDetailId;
-import trimatrix.db.ZonesDefinition;
-import trimatrix.logic.ScheduleLogic;
 import trimatrix.reports.excel.PerformanceChart;
 import trimatrix.services.TranslationService;
 import trimatrix.ui.utils.IPopUpCallback;
@@ -66,6 +61,10 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
     	refresh();
     	// clear agenda
     	getGridAgenda().getItems().clear();
+    }
+
+    public boolean isTrainer() {
+    	return getServiceLayer().getDictionaryService().getMyRoles().contains(Constants.Role.COACH.getName());
     }
 
     protected String athleteID;
@@ -875,4 +874,21 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			getGridAgenda().getItems().add(new GridAgendaItem(new ScheduleItem(schedule)));
 		}
 	}
+
+	// ------------------------------------------------------------------------
+	// logic for reporting
+	// ------------------------------------------------------------------------
+
+	String reportUrl;
+	public String getReportUrl() {return reportUrl;}
+	public void setReportUrl(String reportUrl) {this.reportUrl = reportUrl;}
+
+	String browserUrl = "http://localhost:50000/birt/frameset?__report=test.rptdesign&sample=my+parameter";
+	public String getBrowserUrl() {return browserUrl;}
+	public void setBrowserUrl(String browserUrl) {this.browserUrl = browserUrl;}
+
+	public void onLoadReport(ActionEvent ae) {
+		setBrowserUrl(reportUrl);
+	}
+
 }
