@@ -52,7 +52,7 @@
 <t:coldistance id="g_30" />
 <t:label id="g_31" bgpaint="nodisabled()" font="weight:bold" text="#{d.ScheduleUI.actualDate}" />
 <t:coldistance id="g_32" width="100%" />
-<t:filedownloadbutton id="g_33" actionListener="#{d.ScheduleUI.onCopySchedules}" fileextensions="xls" filename="performance.xls" image="/images/icons/print.png" imageheight="16" openimmediately="true" opensupported="true" text="Drucken" url="#{d.ScheduleUI.printReportUrl}" />
+<t:button id="g_33" actionListener="#{d.ScheduleUI.onPrintReport}" image="/images/icons/print.png" imageheight="16" text="#{rr.literals.print}" />
 </t:row>
 <t:rowdistance id="g_34" height="4" />
 <t:row id="g_35" >
@@ -209,6 +209,9 @@
 <t:menuitem id="g_152" command="cmdRemove" image="/resize(16,16):/images/icons/delete.png" text="#{rr.literals.delete}" />
 <t:menuitem id="g_153" command="cmdCopy" image="/resize(16,16):/images/icons/copy.png" text="#{rr.literals.copy}" />
 </t:popupmenu>
+<t:beanprocessing id="g_154" >
+<t:filedownload id="g_155" fileextensions="#{d.ScheduleUI.printReportExtension}" filename="#{d.ScheduleUI.printReportFilename}" openimmediately="true" opensupported="true" trigger="#{d.ScheduleUI.downloadTrigger}" url="#{d.ScheduleUI.printReportUrl}" />
+</t:beanprocessing>
 <t:pageaddons id="g_pa"/>
 </f:subview>
 </h:form>

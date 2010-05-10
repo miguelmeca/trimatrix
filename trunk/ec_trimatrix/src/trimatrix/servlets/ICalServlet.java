@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.DateTime;
-import net.fortuna.ical4j.model.PropertyFactoryRegistry;
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.property.CalScale;

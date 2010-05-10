@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import trimatrix.utils.Constants;
-
 /**
  * PersonsAthlete entity. @author MyEclipse Persistence Tools
  */

@@ -18,7 +18,6 @@ import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang.math.NumberUtils;
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.bufferedcontent.BufferedContentMgr;
-import org.eclnt.jsfserver.bufferedcontent.DefaultBufferedContent;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
 import org.eclnt.jsfserver.elements.events.BaseActionEventDrop;
@@ -41,6 +40,7 @@ import trimatrix.db.Persons;
 import trimatrix.db.Schedules;
 import trimatrix.db.SchedulesDetail;
 import trimatrix.db.SchedulesDetailId;
+import trimatrix.reports.excel.CalendarOverview;
 import trimatrix.reports.excel.PerformanceChart;
 import trimatrix.services.TranslationService;
 import trimatrix.ui.utils.IPopUpCallback;
@@ -96,11 +96,6 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 
 	public String getAnimationType() {
 		return animationType;
-	}
-
-	private DefaultBufferedContent report;
-	public String getPrintReportUrl() {
-		return report==null ? null : report.getURL();
 	}
 
 	Calendar calendar;
@@ -878,17 +873,14 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 	// ------------------------------------------------------------------------
 	// logic for reporting
 	// ------------------------------------------------------------------------
+	private Trigger downloadTrigger = new Trigger();
+	public Trigger getDownloadTrigger() {return downloadTrigger;}
 
-	String reportUrl;
-	public String getReportUrl() {return reportUrl;}
-	public void setReportUrl(String reportUrl) {this.reportUrl = reportUrl;}
-
-	String browserUrl = "http://localhost:50000/birt/frameset?__report=test.rptdesign&sample=my+parameter";
-	public String getBrowserUrl() {return browserUrl;}
-	public void setBrowserUrl(String browserUrl) {this.browserUrl = browserUrl;}
-
-	public void onLoadReport(ActionEvent ae) {
-		setBrowserUrl(reportUrl);
-	}
-
+	public void onPrintReport(ActionEvent ae) {
+        // Print report
+        if(report!=null) BufferedContentMgr.remove(report);
+        report = new CalendarOverview();
+        if(report!=null) BufferedContentMgr.add(report);
+        downloadTrigger.trigger();
+    }
 }

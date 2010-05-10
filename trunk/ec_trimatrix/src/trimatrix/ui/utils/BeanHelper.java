@@ -1,18 +1,11 @@
 package trimatrix.ui.utils;
 
-import static trimatrix.utils.Constants.EMPTY;
-
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.faces.event.ActionEvent;
-
-import org.eclnt.jsfserver.defaultscreens.ISetId;
-import org.eclnt.jsfserver.defaultscreens.IdTextSelection;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 
-import trimatrix.db.ImportTemplates;
 import trimatrix.services.ServiceLayer;
 import trimatrix.utils.Context;
 

@@ -23,7 +23,6 @@ import trimatrix.entities.CompetitionEntity;
 import trimatrix.entities.EntityLayer;
 import trimatrix.logic.helper.Limit;
 import trimatrix.services.ServiceLayer;
-import trimatrix.utils.Constants.Entity;
 
 public class ImportLogic {
 	public static final Log logger = LogFactory.getLog(ImportLogic.class);

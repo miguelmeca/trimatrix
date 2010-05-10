@@ -16,7 +16,6 @@ import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.db.ZonesDefinition;
 import trimatrix.structures.SAuthorization;
-import trimatrix.ui.PreferencesPanelUI.GridDefaultsItem;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.ui.utils.WorkpageRefreshEvent;
 import trimatrix.utils.Constants;

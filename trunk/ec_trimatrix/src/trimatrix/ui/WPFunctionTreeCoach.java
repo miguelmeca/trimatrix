@@ -23,7 +23,6 @@ import trimatrix.structures.SFunctionTree;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Context;
 import trimatrix.utils.Helper;
-import trimatrix.utils.Constants.Page;
 
 @SuppressWarnings("serial")
 public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
