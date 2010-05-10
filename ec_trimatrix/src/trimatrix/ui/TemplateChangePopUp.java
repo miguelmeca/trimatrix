@@ -10,8 +10,7 @@ import org.eclnt.workplace.IWorkpageDispatcher;
 import trimatrix.db.ImportTemplates;
 import trimatrix.ui.utils.IPopUpCallback;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
-
-import static trimatrix.utils.Constants.*;
+import trimatrix.utils.Constants.Entity;
 
 @CCGenClass (expressionBase="#{d.TemplateChangePopUp}")
 

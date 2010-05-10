@@ -5,8 +5,6 @@ import static trimatrix.utils.Helper.isEmpty;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
-import java.util.UUID;
 
 import javax.faces.event.ActionEvent;
 
@@ -15,8 +13,6 @@ import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.workplace.IWorkpageDispatcher;
 
 import trimatrix.db.Schedules;
-import trimatrix.db.SchedulesDetail;
-import trimatrix.logic.ScheduleLogic;
 import trimatrix.ui.ScheduleUI.ScheduleItem;
 import trimatrix.ui.utils.IPopUpCallback;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;

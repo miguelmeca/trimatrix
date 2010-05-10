@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.UUID;
 
 import trimatrix.db.Schedules;
-import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants.Entity;
 

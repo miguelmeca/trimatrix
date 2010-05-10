@@ -4,6 +4,7 @@ import static trimatrix.utils.Constants.CLIENTNAME;
 import static trimatrix.utils.Helper.calculateSeconds;
 import static trimatrix.utils.Helper.calculateTime;
 import static trimatrix.utils.Helper.correctTimeInput;
+import static trimatrix.utils.Helper.correctTimeInput2;
 import static trimatrix.utils.Helper.isEmpty;
 
 import java.io.Serializable;
@@ -28,7 +29,6 @@ import trimatrix.db.ZonesDefinition;
 import trimatrix.logic.ScheduleLogic;
 import trimatrix.ui.ScheduleUI.ScheduleItem;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
-import static trimatrix.utils.Helper.*;
 
 @CCGenClass(expressionBase = "#{d.ScheduleChangePopUp}")
 public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Serializable {
