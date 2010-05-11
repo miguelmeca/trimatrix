@@ -1,5 +1,6 @@
 package trimatrix.reports.excel;
 
+import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,6 +8,9 @@ import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFColor;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  * Calls that holds all relevant styles for ecxel reports in a static way
@@ -18,6 +22,16 @@ public class Styles {
 	public static enum Style {
 		TITLE, FOOTER, HEADER,
 		CELL, CELL_NO_WRAP, CELL_BOLD, CELL_RED, CELL_GREEN, CELL_BLACK
+	}
+
+	private static Map<Color, XSSFCellStyle> colorStyleMap = new HashMap<Color, XSSFCellStyle>();
+	public static XSSFCellStyle getStyleForColor(XSSFWorkbook wb, Color color) {
+		if(colorStyleMap.containsKey(color)) return colorStyleMap.get(color);
+		XSSFCellStyle style = wb.createCellStyle();
+	    style.setFillForegroundColor(new XSSFColor(color));
+	    style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+	    colorStyleMap.put(color, style);
+	    return style;
 	}
 
 	public static Map<Style, CellStyle> createStyles(Workbook wb){
