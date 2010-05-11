@@ -48,7 +48,7 @@
 <t:button id="g_26" actionListener="#{d.ScheduleUI.onPreviousWeek}" align="center" contentareafilled="false" image="/images/icons/black_prev.png" />
 <t:button id="g_27" actionListener="#{d.ScheduleUI.onNextWeek}" align="center" contentareafilled="false" image="/images/icons/black_next.png" />
 <t:coldistance id="g_28" />
-<t:button id="g_29" actionListener="#{d.ScheduleUI.onMoveToday}" align="center" font="weight:bold" rowalignmenty="center" text="Heute" />
+<t:button id="g_29" actionListener="#{d.ScheduleUI.onMoveToday}" align="center" font="weight:bold" rowalignmenty="center" text="#{rr.literals.today}" />
 <t:coldistance id="g_30" />
 <t:label id="g_31" bgpaint="nodisabled()" font="weight:bold" text="#{d.ScheduleUI.actualDate}" />
 <t:coldistance id="g_32" width="100%" />
@@ -57,27 +57,27 @@
 <t:rowdistance id="g_34" height="4" />
 <t:row id="g_35" >
 <t:tabbedpane id="g_36" font="weight:bold" height="100%" transparent="true" width="100%" >
-<t:tabbedpanetab id="g_37" padding="0" text="Woche" >
+<t:tabbedpanetab id="g_37" padding="0" text="#{rr.literals.week}" >
 <t:row id="g_38" >
 <t:pane id="g_39" height="100%" padding="0" width="100%" >
 <t:captureanimator id="g_40" animationtype="#{d.ScheduleUI.animationType}" trigger="#{d.ScheduleUI.animationTrigger}" />
 <t:row id="g_41" >
 <t:pane id="g_42" bgpaint="rectangle(0,0,100%,100%,#80808060,#80808000,vertical)" border="top:1;left:1;right:1;color:#C0C0C0" width="100%" >
 <t:row id="g_43" >
-<t:label id="g_44" align="center" font="size:12;weight:bold" text="KW" width="60" />
-<t:label id="g_45" align="center" font="size:16;weight:bold" text="Montag" width="100%" />
+<t:label id="g_44" align="center" font="size:12;weight:bold" text="#{rr.literals.cw}" width="60" />
+<t:label id="g_45" align="center" font="size:16;weight:bold" text="#{rr.literals.monday}" width="100%" />
 <t:button id="g_46" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="0" contentareafilled="false" image="#{d.ScheduleUI.dayInfo.0}" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
-<t:label id="g_47" align="center" font="size:16;weight:bold" text="Dienstag" width="100%" />
+<t:label id="g_47" align="center" font="size:16;weight:bold" text="#{rr.literals.tuesday}" width="100%" />
 <t:button id="g_48" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="1" contentareafilled="false" image="#{d.ScheduleUI.dayInfo.1}" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
-<t:label id="g_49" align="center" font="size:16;weight:bold" text="Mittwoch" width="100%" />
+<t:label id="g_49" align="center" font="size:16;weight:bold" text="#{rr.literals.wednesday}" width="100%" />
 <t:button id="g_50" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="2" contentareafilled="false" image="#{d.ScheduleUI.dayInfo.2}" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
-<t:label id="g_51" align="center" font="size:16;weight:bold" text="Donnerstag" width="100%" />
+<t:label id="g_51" align="center" font="size:16;weight:bold" text="#{rr.literals.thursday}" width="100%" />
 <t:button id="g_52" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="3" contentareafilled="false" image="#{d.ScheduleUI.dayInfo.3}" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
-<t:label id="g_53" align="center" font="size:16;weight:bold" text="Freitag" width="100%" />
+<t:label id="g_53" align="center" font="size:16;weight:bold" text="#{rr.literals.friday}" width="100%" />
 <t:button id="g_54" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="4" contentareafilled="false" image="#{d.ScheduleUI.dayInfo.4}" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
-<t:label id="g_55" align="center" font="size:16;weight:bold" text="Samstag" width="100%" />
+<t:label id="g_55" align="center" font="size:16;weight:bold" text="#{rr.literals.saturday}" width="100%" />
 <t:button id="g_56" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="5" contentareafilled="false" image="#{d.ScheduleUI.dayInfo.5}" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
-<t:label id="g_57" align="center" font="size:16;weight:bold" text="Sonntag" width="100%" />
+<t:label id="g_57" align="center" font="size:16;weight:bold" text="#{rr.literals.sunday}" width="100%" />
 <t:button id="g_58" actionListener="#{d.ScheduleUI.onDayInfo}" clientname="6" contentareafilled="false" image="#{d.ScheduleUI.dayInfo.6}" imageheight="15" imagewidth="15" rowalignmenty="top" width="15" />
 </t:row>
 <t:rowdistance id="g_59" height="5" />
@@ -149,7 +149,7 @@
 </t:pane>
 </t:row>
 </t:tabbedpanetab>
-<t:tabbedpanetab id="g_118" bgpaint="!null" rowdistance="5" text="Agenda" >
+<t:tabbedpanetab id="g_118" bgpaint="!null" rowdistance="5" text="#{rr.literals.agenda}" >
 <t:row id="g_119" >
 <t:foldablepane id="g_120" opened="true" rowdistance="5" text="#{rr.literals.selection}" width="100%" >
 <t:row id="g_121" >
