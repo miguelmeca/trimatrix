@@ -71,13 +71,16 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
     public String getAthleteID() {return athleteID;}
 	public void setAthleteID(String athleteID) {this.athleteID = athleteID;}
 
-	protected final long DURATION = 3600000; // in ms
-	protected final int STARTINGHOUR = 5;
+	protected static final long DURATION = 3600000; // in ms
+	protected static final int STARTINGHOUR = 5;
+	protected static final int NUMBEROFBLOCKS = 36;
 
-	protected final int NUMBEROFBLOCKS = 36;
-
-	public int getNumberOfBlocks() {
+	public static int getNumberOfBlocks() {
 		return NUMBEROFBLOCKS;
+	}
+
+	public static int getStartingHour() {
+		return STARTINGHOUR;
 	}
 
 	protected final int SCHEDULEMAX = NUMBEROFBLOCKS * 30; // 30 minutes blocks
@@ -305,7 +308,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		schedule.getChildren().clear();
 		int dayOfWeek = DAYSOFWEEK[day];
 		int counter = -1;
-		for (ScheduleItem item : scheduleItems) {
+		for (ScheduleItem item : getScheduleItems()) {
 			counter++;
 			String expressionBase = getWorkpage().getDispatcher()
 					.getExpressionBase().replace("}", ".");
@@ -879,7 +882,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 	public void onPrintReport(ActionEvent ae) {
         // Print report
         if(report!=null) BufferedContentMgr.remove(report);
-        report = new CalendarOverview();
+        report = new CalendarOverview(getWeekNumber(), getDay(), getScheduleItems());
         if(report!=null) BufferedContentMgr.add(report);
         downloadTrigger.trigger();
     }
