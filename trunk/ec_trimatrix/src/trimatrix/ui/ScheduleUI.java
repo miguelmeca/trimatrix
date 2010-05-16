@@ -72,14 +72,14 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 	public void setAthleteID(String athleteID) {this.athleteID = athleteID;}
 
 	protected static final long DURATION = 3600000; // in ms
-	protected static final int STARTINGHOUR = 5;
-	protected static final int NUMBEROFBLOCKS = 36;
+	public static final int STARTINGHOUR = 5;
+	public static final int NUMBEROFBLOCKS = 36;
 
-	public static int getNumberOfBlocks() {
+	public int getNumberOfBlocks() {
 		return NUMBEROFBLOCKS;
 	}
 
-	public static int getStartingHour() {
+	public int getStartingHour() {
 		return STARTINGHOUR;
 	}
 
@@ -453,22 +453,16 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 						refresh();
 						// open in popup
 						scheduleItem.openInPopup(false);
-					} else if (dragInfos[1].startsWith("series")) {
-						if (dragInfos[1].equalsIgnoreCase("series_a")) {
-
-						} else if (dragInfos[1].equalsIgnoreCase("series_b")) {
-
-						} else {
-
-						}
-						// add to list of visible items
-						// ScheduleItem scheduleItem = new ScheduleItem(from,
-						// to, color, "Neuer Termin",type);
-						// scheduleItems.add(scheduleItem);
-						// refreshSchedule(day);
-						// open in popup
-						// scheduleItem.openInPopup();
 					} else {
+						// check for intersection
+						for(ScheduleItem item : scheduleItems) {
+							// schedule at this day
+							if(item.getStartWeekDay() != DAYSOFWEEK[day]) continue;
+							if((from.after(item.getStart()) && from.before(item.getEnd())) || from.equals(item.getStart()) ) {
+								Statusbar.outputAlert("No intersection allowed!");
+								return;
+							}
+						}
 						String id = dragInfos[1];
 						try {
 							getLogic().getScheduleLogic().changeStart(id, from);
@@ -882,7 +876,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 	public void onPrintReport(ActionEvent ae) {
         // Print report
         if(report!=null) BufferedContentMgr.remove(report);
-        report = new CalendarOverview(getWeekNumber(), getDay(), getScheduleItems());
+        report = new CalendarOverview(getServiceLayer(), getDaoLayer(), getServiceLayer().getDictionaryService().getLanguage(), getWeekNumber(), getDay(), getScheduleItems());
         if(report!=null) BufferedContentMgr.add(report);
         downloadTrigger.trigger();
     }

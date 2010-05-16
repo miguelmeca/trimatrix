@@ -65,7 +65,7 @@
 </t:row>
 <t:row id="g_45" >
 <t:label id="g_46" text="#{rr.literals.time_step}" width="150" />
-<t:field id="g_47" attributemacro="entityDetailMacro(TestDetailUI,treadmill_step_time)" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" userhint="mm:ss" width="50" />
+<t:field id="g_47" actionListener="#{d.TestDetailUI.onTimeFlush}" attributemacro="entityDetailMacro(TestDetailUI,treadmill_step_time)" clientname="treadmill_step_time" flush="true" maxlength="5" userhint="mm:ss" width="50" />
 </t:row>
 </t:pane>
 </t:row>
@@ -87,7 +87,7 @@
 </t:row>
 <t:row id="g_62" >
 <t:label id="g_63" text="#{rr.literals.time_step}" width="150" />
-<t:field id="g_64" attributemacro="entityDetailMacro(TestDetailUI,ergo_step_time)" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" userhint="mm:ss" width="50" />
+<t:field id="g_64" actionListener="#{d.TestDetailUI.onTimeFlush}" attributemacro="entityDetailMacro(TestDetailUI,ergo_step_time)" clientname="ergo_step_time" flush="true" maxlength="5" userhint="mm:ss" width="50" />
 </t:row>
 </t:pane>
 </t:row>
@@ -162,7 +162,7 @@
 <t:formattedfield id="g_116" enabled="false" format="int" value=".{incline}" />
 </t:gridcol>
 <t:gridcol id="g_117" align="center" sortenabled="false" text="#{rr.literals.time_step}" width="75" >
-<t:field id="g_118" enabled=".{lastItemEnabled}" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{step_time}" userhint="mm:ss" />
+<t:field id="g_118" actionListener=".{onChangeItem}" clientname="step_time" enabled=".{lastItemEnabled}" flush="true" maxlength="5" text=".{step_time}" userhint="mm:ss" />
 </t:gridcol>
 <t:gridcol id="g_119" align="center" sortenabled="false" text="#{rr.literals.total_time}" width="75" >
 <t:field id="g_120" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{time_total}" userhint="mm:ss" />
@@ -227,7 +227,7 @@
 <t:field id="g_161" enabled="false" text=".{cadence}" />
 </t:gridcol>
 <t:gridcol id="g_162" align="center" sortenabled="false" text="#{rr.literals.time_step}" width="75" >
-<t:field id="g_163" enabled=".{lastItemEnabled}" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{step_time}" userhint="mm:ss" />
+<t:field id="g_163" actionListener=".{onChangeItem}" clientname="step_time" enabled=".{lastItemEnabled}" flush="true" maxlength="5" text=".{step_time}" userhint="mm:ss" />
 </t:gridcol>
 <t:gridcol id="g_164" align="center" sortenabled="false" text="#{rr.literals.total_time}" width="75" >
 <t:field id="g_165" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{time_total}" userhint="mm:ss" />
@@ -309,7 +309,7 @@
 <t:formattedfield id="g_217" enabled="false" format="double" value=".{targetSpeed}" />
 </t:gridcol>
 <t:gridcol id="g_218" align="center" sortenabled="false" text="#{rr.literals.time}" width="60" >
-<t:field id="g_219" actionListener=".{onChangeItem}" bgpaint=".{bgpaint}" enabled=".{enabled}" flush="true" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{time}" userhint="mm:ss" />
+<t:field id="g_219" actionListener=".{onChangeItem}" bgpaint=".{bgpaint}" clientname="time" enabled=".{enabled}" flush="true" maxlength="5" text=".{time}" userhint="mm:ss" />
 </t:gridcol>
 <t:gridcol id="g_220" align="center" sortenabled="false" text="m/s" width="50" >
 <t:formattedfield id="g_221" enabled="false" format="double" value=".{speed}" />

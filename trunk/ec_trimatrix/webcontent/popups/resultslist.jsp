@@ -21,8 +21,8 @@
 <t:button id="g_7" actionListener="#{d.ResultsListPopUp.onDelete}" image="/images/icons/delete.png" imageheight="16" rendered="#{d.ResultsListPopUp.resultList!=null}" text="#{rr.literals.delete}" />
 <t:coldistance id="g_8" rendered="#{d.ResultsListPopUp.resultList==null}" />
 <t:fileuploadbutton id="g_9" actionListener="#{d.ResultsListPopUp.onUpload}" fileextensions="xls" image="/images/icons/upload.png" imageheight="16" rendered="#{d.ResultsListPopUp.resultList==null}" text="#{rr.literals.upload}" />
-<t:coldistance id="g_10" />
-<t:filedownloadbutton id="g_11" filename="#{d.ResultsListPopUp.resultList.fileName}" image="/images/icons/download.png" imageheight="16" rendered="#{d.ResultsListPopUp.resultList!=null}" text="#{rr.literals.download}" url="#{d.ResultsListPopUp.downloadURL}" />
+<t:filedownloadbutton id="g_10" filename="#{d.ResultsListPopUp.resultList.fileName}" image="/images/icons/download.png" imageheight="16" localfilemode="dark" openimmediately="true" opensupported="true" rendered="#{d.ResultsListPopUp.resultList!=null}" text="#{rr.literals.download}" url="#{d.ResultsListPopUp.downloadURL}" />
+<t:coldistance id="g_11" />
 </t:row>
 <t:row id="g_12" >
 <t:label id="g_13" text="#{rr.literals.template}" width="90" />

@@ -14,8 +14,8 @@
 <f:subview id="imports_resultsg_sv">
 <t:rowbodypane id="g_1" rowdistance="5" >
 <t:row id="g_2" >
-<t:tabbedpane id="g_3" >
-<t:tabbedpanetab id="g_4" text="#{rr.literals.competition}" >
+<t:tabbedpane id="g_3" height="100%" width="100%" >
+<t:tabbedpanetab id="g_4" rowdistance="5" text="#{rr.literals.competition}" >
 <t:row id="g_5" >
 <t:label id="g_6" height="20" text="#{rr.literals.competition}" width="120" />
 <t:link id="g_7" actionListener="#{d.ResultsImportUI.onCompetitionClicked}" align="left" focusable="true" foreground="#000000" height="20" text="#{d.ResultsImportUI.compDesc}" width="200" />
@@ -149,7 +149,60 @@
 </t:foldablepane>
 </t:row>
 </t:tabbedpanetab>
-<t:tabbedpanetab id="g_106" text="#{rr.literals.athlete}" />
+<t:tabbedpanetab id="g_106" rowdistance="5" text="#{rr.literals.athlete}" >
+<t:row id="g_107" >
+<t:label id="g_108" height="20" text="#{rr.literals.athlete}" width="120" />
+<t:link id="g_109" actionListener="#{d.ResultsImportUI.onCompetitionClicked}" align="left" focusable="true" foreground="#000000" height="20" text="#{d.ResultsImportUI.athleteDescription}" width="200" />
+<t:coldistance id="g_110" />
+<t:button id="g_111" actionListener="#{d.ResultsImportUI.onAthleteSearch}" image="/images/icons/magnifier.png" imageheight="16" text="#{rr.literals.search}" />
+</t:row>
+<t:row id="g_112" >
+<t:label id="g_113" text="#{rr.literals.category}" width="120" />
+<t:combofield id="g_114" actionListener="#{d.ResultsImportUI.onCategoryF4}" flush="true" maxlength="10" text="#{d.ResultsImportUI.category}" width="100" />
+</t:row>
+<t:row id="g_115" >
+<t:button id="g_116" actionListener="#{d.ResultsImportUI.onLoadAthlete}" text="#{rr.literals.load_data}" />
+</t:row>
+<t:row id="g_117" >
+<t:foldablepane id="g_118" opened="#{d.ResultsImportUI.statusImportAthleteData}" text="#{rr.literals.import_data}" width="100%" >
+<t:row id="g_119" >
+<t:fixgrid id="g_120" horizontalscrollmode="autowithresize" multiselect="true" multiselectmode="1" objectbinding="#{d.ResultsImportUI.gridImportAthlete}" sbvisibleamount="25" selectorcolumn="1" selectorcolumnimagefalse="/images/icons/checkbox_false.png" selectorcolumnimagetrue="/images/icons/checkbox_true.png" showemptyrows="false" >
+<t:gridcol id="g_121" text="#{rr.literals.competition}" width="150" >
+<t:field id="g_122" enabled="false" text=".{competitionDesc}" />
+</t:gridcol>
+<t:gridcol id="g_123" text="#{rr.literals.ranking}" width="50" >
+<t:formattedfield id="g_124" align="center" format="int" value=".{position}" />
+</t:gridcol>
+<t:gridcol id="g_125" comment="overall" text="#{rr.literals.time}" width="80" >
+<t:field id="g_126" actionListener=".{onTimeFlush}" align="center" clientname="overall" flush="true" maxlength="8" text=".{time}" userhint="hh:mm:ss" width="60" />
+</t:gridcol>
+<t:gridcol id="g_127" text="#{rr.literals.swim_split}" width="80" >
+<t:field id="g_128" actionListener=".{onTimeFlush}" align="center" clientname="swim" flush="true" maxlength="8" text=".{swimSplit}" userhint="hh:mm:ss" width="60" />
+</t:gridcol>
+<t:gridcol id="g_129" text="#{rr.literals.ranking}" width="50" >
+<t:formattedfield id="g_130" align="center" format="int" value=".{swimPosition}" />
+</t:gridcol>
+<t:gridcol id="g_131" text="#{rr.literals.bike_split}" width="80" >
+<t:field id="g_132" actionListener=".{onTimeFlush}" align="center" clientname="bike" flush="true" maxlength="8" text=".{bikeSplit}" userhint="hh:mm:ss" width="60" />
+</t:gridcol>
+<t:gridcol id="g_133" text="#{rr.literals.ranking}" width="50" >
+<t:formattedfield id="g_134" align="center" format="int" value=".{bikePosition}" />
+</t:gridcol>
+<t:gridcol id="g_135" text="#{rr.literals.run_split}" width="80" >
+<t:field id="g_136" actionListener=".{onTimeFlush}" align="center" clientname="run" flush="true" maxlength="8" text=".{runSplit}" userhint="hh:mm:ss" width="60" />
+</t:gridcol>
+<t:gridcol id="g_137" text="#{rr.literals.ranking}" width="50" >
+<t:formattedfield id="g_138" align="center" format="int" value=".{runPosition}" />
+</t:gridcol>
+</t:fixgrid>
+</t:row>
+<t:rowdistance id="g_139" />
+<t:row id="g_140" >
+<t:button id="g_141" actionListener="#{d.ResultsImportUI.onImportAthlete}" image="/images/icons/import.png" imageheight="16" text="#{rr.literals.import}" />
+</t:row>
+</t:foldablepane>
+</t:row>
+</t:tabbedpanetab>
 </t:tabbedpane>
 </t:row>
 </t:rowbodypane>

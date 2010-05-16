@@ -256,7 +256,7 @@ public class ScheduleLogic {
 
 			}
 		} else {
-			sb.append(schedule.getDescription());
+			if(schedule.getDescription()!=null) sb.append(schedule.getDescription());
 		}
 		return sb.toString();
 	}
