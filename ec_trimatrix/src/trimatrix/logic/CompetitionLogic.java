@@ -1,5 +1,6 @@
 package trimatrix.logic;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -9,7 +10,9 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import trimatrix.db.Competitions;
 import trimatrix.db.CompetitionsScouts;
+import trimatrix.db.CompetitionsScoutsId;
 import trimatrix.db.DAOLayer;
 import trimatrix.db.UserPreferences;
 import trimatrix.logic.helper.Limit;
@@ -29,6 +32,24 @@ public class CompetitionLogic {
 
 	public void saveCompetitionScouts(CompetitionsScouts cs) {
 		daoLayer.getCompetitionsScoutsDAO().merge(cs);
+	}
+
+	public List<Competitions> getMyComeptitionsWithResults() {
+		List<Competitions> competitions = new ArrayList<Competitions>();
+		CompetitionsScouts competitionsScout = new CompetitionsScouts();
+		CompetitionsScoutsId competitionsScoutId = new CompetitionsScoutsId();
+		competitionsScoutId.setScoutId(serviceLayer.getDictionaryService().getMyUser().getId());
+		competitionsScout.setId(competitionsScoutId);
+		List<CompetitionsScouts> competitionsScouts = daoLayer.getCompetitionsScoutsDAO().findByExample(competitionsScout);
+		for(CompetitionsScouts _competitionsScout : competitionsScouts) {
+			String competitionId = _competitionsScout.getId().getCompetitionId();
+			Competitions competition = daoLayer.getCompetitionsDAO().findById(competitionId);
+			// check properties
+			if(competition.getDeleted() || competition.getResults()==null || Helper.isEmpty(competition.getResultsTemplate())) continue;
+			// conditions ok add to resultset
+			competitions.add(competition);
+		}
+		return competitions;
 	}
 
 	public List<String> getCategories() {

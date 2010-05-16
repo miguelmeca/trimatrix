@@ -45,6 +45,7 @@ import trimatrix.db.TestsSwimProtocolId;
 import trimatrix.db.TestsTreadmill;
 import trimatrix.db.Zones;
 import trimatrix.db.ZonesDefinition;
+import trimatrix.entities.ResultEntity;
 import trimatrix.entities.TestEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
@@ -113,6 +114,25 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 
 	public void onTypeChange(ActionEvent event) {
 		entity.setType((String) values.get(TestEntity.TYPE));
+	}
+
+	public void onTimeFlush(ActionEvent event) {
+		// get clientname to separate by source
+		String clientname = (String) event.getComponent().getAttributes().get(Constants.CLIENTNAME);
+		String field;
+		if(TestEntity.TREADMILL_STEP_TIME.equalsIgnoreCase(clientname)) {
+			field = TestEntity.TREADMILL_STEP_TIME;
+		} else if(TestEntity.ERGO_STEP_TIME.equalsIgnoreCase(clientname)) {
+			field = TestEntity.ERGO_STEP_TIME;
+		} else {
+			return;
+		}
+		// correct input
+		String input = (String)values.get(field);
+		String corrInput = Helper.correctTimeInput2(input);
+		// if null don't write back the value
+		if(corrInput==null) return;
+		values.put(field, corrInput);
 	}
 
 	private Tests entity;
@@ -586,6 +606,19 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			this.rq = rq;
 		}
 
+		public void onChangeItem(ActionEvent event) {
+			// get clientname to separate by source
+			String clientname = (String) event.getComponent().getAttributes().get(Constants.CLIENTNAME);
+			if(clientname!=null && clientname.startsWith("step_time_")) {
+				// correct input
+				String corrInput = Helper.correctTimeInput2(getStep_time());
+				// if null don't write back the value
+				if(corrInput!=null) {
+					setStep_time(corrInput);
+				}
+			}
+		}
+
 	}
 
 	public class GridTreadmillItem extends AGridItem {
@@ -872,7 +905,17 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			new GridSwimItem(this, step);
 		}
 
-		public void onChangeItem(ActionEvent ae) {
+		public void onChangeItem(ActionEvent event) {
+			// get clientname to separate by source
+			String clientname = (String) event.getComponent().getAttributes().get(Constants.CLIENTNAME);
+			if(clientname!=null && clientname.startsWith("time_")) {
+				// correct input
+				String corrInput = Helper.correctTimeInput2(getTime());
+				// if null don't write back the value
+				if(corrInput!=null) {
+					setTime(corrInput);
+				}
+			}
 			// if(!topNode)
 			// m_gridSwim.ensureItemToBeDisplayed((GridSwimItem)getParentNode());
 		}

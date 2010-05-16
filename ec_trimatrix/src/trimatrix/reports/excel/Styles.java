@@ -10,7 +10,10 @@ import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
+import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import trimatrix.utils.Helper;
 
 /**
  * Calls that holds all relevant styles for ecxel reports in a static way
@@ -25,14 +28,50 @@ public class Styles {
 	}
 
 	private static Map<Color, XSSFCellStyle> colorStyleMap = new HashMap<Color, XSSFCellStyle>();
-	public static XSSFCellStyle getStyleForColor(XSSFWorkbook wb, Color color) {
-		if(colorStyleMap.containsKey(color)) return colorStyleMap.get(color);
+	public static void resetStyles() {
+		colorStyleMap.clear();
+		headerStyle = null;
+		headerBoldStyle = null;
+	}
+	public static XSSFCellStyle getStyleForColor(XSSFWorkbook wb, String strColor) {
+		Color background = Color.decode(strColor);
+		Color foreground = Color.decode(Helper.getBlackOrWhite(background));
+		if(colorStyleMap.containsKey(background)) return colorStyleMap.get(background);
 		XSSFCellStyle style = wb.createCellStyle();
-	    style.setFillForegroundColor(new XSSFColor(color));
+		XSSFFont font = wb.createFont();
+		font.setBold(true);
+		font.setColor(new XSSFColor(foreground));
+	    style.setFillForegroundColor(new XSSFColor(background));
 	    style.setFillPattern(CellStyle.SOLID_FOREGROUND);
-	    colorStyleMap.put(color, style);
+	    style.setAlignment(XSSFCellStyle.ALIGN_CENTER);
+	    style.setFont(font);
+	    colorStyleMap.put(background, style);
 	    return style;
 	}
+	private static XSSFCellStyle headerStyle;
+	public static XSSFCellStyle getHeaderStyle(XSSFWorkbook wb) {
+		if(headerStyle!=null) return headerStyle;
+		XSSFCellStyle style = wb.createCellStyle();
+		style.setFillForegroundColor(new XSSFColor(Color.LIGHT_GRAY));
+	    style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+	    style.setAlignment(XSSFCellStyle.ALIGN_CENTER);
+	    headerStyle = style;
+	    return style;
+	}
+	private static XSSFCellStyle headerBoldStyle;
+	public static XSSFCellStyle getHeaderBoldStyle(XSSFWorkbook wb) {
+		if(headerBoldStyle!=null) return headerBoldStyle;
+		XSSFCellStyle style = wb.createCellStyle();
+		XSSFFont font = wb.createFont();
+		font.setBold(true);
+		style.setFillForegroundColor(new XSSFColor(Color.LIGHT_GRAY));
+	    style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+	    style.setAlignment(XSSFCellStyle.ALIGN_CENTER);
+	    style.setFont(font);
+	    headerBoldStyle = style;
+	    return style;
+	}
+
 
 	public static Map<Style, CellStyle> createStyles(Workbook wb){
         Map<Style, CellStyle> styles = new HashMap<Style, CellStyle>();

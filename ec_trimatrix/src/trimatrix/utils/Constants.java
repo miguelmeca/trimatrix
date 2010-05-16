@@ -263,6 +263,7 @@ public final class Constants {
 
 	public static final String NULL = "null";
 	public static final String EMPTY = "";
+	public static final String EMPTYTIME = "00:00:00";
 	public static final String WHITESPACE = " ";
 	public static final String NEWLINE = "\n";
 	public static final String TRUE = "true";
