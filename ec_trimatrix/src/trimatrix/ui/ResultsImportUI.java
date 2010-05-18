@@ -914,15 +914,15 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 				PersonEntity.Data scoutedAthlete = scoutedAthletesData.get(athlete);
 				if (rowSwimSplit > 0) {
 					swimSplit = row.getCell(rowSwimSplit - 1).toString();
-					swimSplits.add(swimSplit);
+					if (position > 0 && !Constants.EMPTYTIME.equals(time)) swimSplits.add(swimSplit);
 				}
 				if (rowBikeSplit > 0) {
 					bikeSplit = row.getCell(rowBikeSplit - 1).toString();
-					bikeSplits.add(bikeSplit);
+					if (position > 0 && !Constants.EMPTYTIME.equals(time)) bikeSplits.add(bikeSplit);
 				}
 				if (rowRunSplit > 0) {
 					runSplit = row.getCell(rowRunSplit - 1).toString();
-					runSplits.add(runSplit);
+					if (position > 0 && !Constants.EMPTYTIME.equals(time)) runSplits.add(runSplit);
 				}
 				if (rowTime > 0)
 					time = row.getCell(rowTime - 1).toString();
