@@ -166,7 +166,7 @@
 <!--	</servlet-mapping>-->
     <servlet-mapping>
 		<servlet-name>ICalServlet</servlet-name>
-		<url-pattern>*.ics</url-pattern>
+		<url-pattern>/servlet/ICal</url-pattern>
 	</servlet-mapping>
 
 	<!-- Start ZK Integration -->
