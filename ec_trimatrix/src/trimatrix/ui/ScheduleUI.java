@@ -342,7 +342,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 	}
 
 	public String getActualDate() {
-		return new SimpleDateFormat("EEEE, d. MMMM yyyy").format(new Date());
+		return Helper.formatDate(new Date(), "EEEE, d. MMMM yyyy");
 	}
 
 	public String[] getDay() {
