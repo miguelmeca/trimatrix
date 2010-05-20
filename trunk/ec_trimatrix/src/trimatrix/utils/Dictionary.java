@@ -11,7 +11,7 @@ import trimatrix.db.Persons;
 import trimatrix.db.Users;
 
 public class Dictionary {
-	
+
 	// actual user logged on
 	private Users myUser;
 	// actual role
@@ -33,7 +33,7 @@ public class Dictionary {
 
 	public void setMyUser(Users myUser) {
 		this.myUser = myUser;
-	}	
+	}
 
 	public Persons getMyPerson() {
 		if(myUser==null) {
@@ -45,12 +45,12 @@ public class Dictionary {
 
 	public List<String> getMyRoles() {
 		return myRoles;
-	}	
+	}
 
 	public void setMyRoles(List<String> myRoles) {
 		this.myRoles = myRoles;
-	}	
-	
+	}
+
 	public static Dictionary getFromApplicationContext(ApplicationContext ctx) {
 		return (Dictionary) ctx.getBean("dictionaryService");
 	}

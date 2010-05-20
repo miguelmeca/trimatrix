@@ -137,8 +137,17 @@ public class Helper {
 	 * @return Locale
 	 */
 	public static Locale getLocale() {
-		return new Locale(HttpSessionAccess.getCurrentRequest().getHeader(
-				Constants.ECLNT_LANGUAGE));
+		return new Locale(HttpSessionAccess.getCurrentRequest().getHeader(Constants.ECLNT_LANGUAGE));
+	}
+
+	public static String getLanguage() {
+		Locale locale = FacesContext.getCurrentInstance().getViewRoot()
+				.getLocale();
+		return locale.getLanguage();
+	}
+
+	public static void setLanguage(Locale locale) {
+		FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
 	}
 
 	/**
