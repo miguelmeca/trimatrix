@@ -467,7 +467,7 @@ public class Helper {
 	}
 
 	public static String formatDate(Date date, String format) {
-		SimpleDateFormat sd = new SimpleDateFormat(format);
+		SimpleDateFormat sd = new SimpleDateFormat(format, FacesContext.getCurrentInstance().getViewRoot().getLocale());
 		return sd.format(date);
 	}
 
