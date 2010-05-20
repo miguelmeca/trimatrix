@@ -73,6 +73,7 @@ public class ICalServlet extends HttpServlet {
 		ServiceLayer serviceLayer = ServiceLayer.getFromApplicationContext(context);
 		// build calendar
 		response.setContentType("text/calendar");
+		response.setHeader("Content-Disposition", "inline; filename=trimatrix.ics;");
 		final Calendar calendar = new Calendar();
 		calendar.getProperties().add(new ProdId("-//Trimatrix//Schedules 1.0//EN"));
 		calendar.getProperties().add(Version.VERSION_2_0);
@@ -81,6 +82,12 @@ public class ICalServlet extends HttpServlet {
 
 		// select schedules from db
 		List<Schedules> schedules = logicLayer.getScheduleLogic().getSchedulesByQuery(personId, null, null);
+		if(Helper.isEmpty(schedules)) {
+			response.setContentType("text/html");
+			response.getWriter().println("No schedules found!");
+			return;
+		}
+
 		// build events
 		for(Schedules schedule : schedules) {
 			//String type = serviceLayer.getTranslationService().getDescription(schedule.getType(), TranslationService.TYPE.SCHEDULETYPES);
