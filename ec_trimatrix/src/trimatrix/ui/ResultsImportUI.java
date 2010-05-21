@@ -44,8 +44,6 @@ import trimatrix.utils.Constants;
 import trimatrix.utils.Constants.Entity;
 import trimatrix.utils.Constants.Page;
 
-import com.google.common.collect.ImmutableSortedSet;
-
 @CCGenClass(expressionBase = "#{d.ResultsImportUI}")
 public class ResultsImportUI extends MyWorkpageDispatchedBean implements Serializable {
 	private static enum TYPE {

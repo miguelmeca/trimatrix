@@ -3,7 +3,9 @@ package trimatrix.reports.excel;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.ClientAnchor;
 import org.apache.poi.ss.usermodel.Comment;
 import org.apache.poi.ss.usermodel.CreationHelper;
@@ -13,7 +15,6 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.eclnt.jsfserver.defaultscreens.Statusbar;
 
 import trimatrix.db.DAOLayer;
 import trimatrix.db.SchedulesDetail;
@@ -38,14 +39,14 @@ public class CalendarOverview extends Report {
     private static final int hours = ScheduleUI.NUMBEROFBLOCKS / 2;
     private static final int cols = 8;
     private static final int startingHour = ScheduleUI.STARTINGHOUR;
-    private String language;
+    private Locale locale;
 
     private String time[] = new String[hours];
 
-    public CalendarOverview(ServiceLayer serviceLayer, DAOLayer daoLayer, String language, Integer weekNumber, String[] day, List<ScheduleItem> scheduleItems) {
+    public CalendarOverview(ServiceLayer serviceLayer, DAOLayer daoLayer, Locale locale, Integer weekNumber, String[] day, List<ScheduleItem> scheduleItems) {
         this.serviceLayer = serviceLayer;
         this.daoLayer = daoLayer;
-        this.language = language;
+        this.locale = locale;
         header2[0] = weekNumber.toString();
         header2[1] = day[0];
         header2[2] = day[1];
@@ -148,7 +149,7 @@ public class CalendarOverview extends Report {
                     y =  start + 1;
                     x = (int) (item.getStartInMinutes() / 30) + 2;
                     // String type = item.getType();
-                    String type = serviceLayer.getTranslationService().getDescription(item.getType(), language, TranslationService.TYPE.SCHEDULETYPES);
+                    String type = serviceLayer.getTranslationService().getDescription(item.getType(), locale.getLanguage(), TranslationService.TYPE.SCHEDULETYPES);
                     String done = "(X)";
                     if(item.getDone()==null ||item.getDone()==false) done = "( )";
                     scheduleMatrix[x][y].setCellValue(done + " " + type);
@@ -171,7 +172,7 @@ public class CalendarOverview extends Report {
                     // write details
                     XSSFRow rowDetail = sheet.createRow(detailsRow);
                     XSSFCell detail0 = rowDetail.createCell(0);
-                    detail0.setCellValue(Helper.formatDate(item.getStart(), "dd.MM. hh:mm"));
+                    detail0.setCellValue(Helper.formatDate(item.getStart(), "dd.MM. hh:mm", locale));
                     XSSFCell detail1 = rowDetail.createCell(1);
                     detail1.setCellValue(Helper.calculateTime((int)(item.getDuration()*60), true));
                     XSSFCell detail2 = rowDetail.createCell(2);
@@ -275,7 +276,7 @@ public class CalendarOverview extends Report {
             wb.write(out);
             return out.toByteArray();
         } catch (Exception ex) {
-            Statusbar.outputError("Error creating calendar overview!", ex.toString());
+        	Logger.getRootLogger().error("Error creating calendar overview!");
         } finally {
             try {
                 out.close();

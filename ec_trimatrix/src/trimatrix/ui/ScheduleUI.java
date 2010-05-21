@@ -5,7 +5,6 @@ import static trimatrix.utils.Helper.isEmpty;
 import java.awt.Color;
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -876,7 +875,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 	public void onPrintReport(ActionEvent ae) {
         // Print report
         if(report!=null) BufferedContentMgr.remove(report);
-        report = new CalendarOverview(getServiceLayer(), getDaoLayer(), getServiceLayer().getDictionaryService().getLanguage(), getWeekNumber(), getDay(), getScheduleItems());
+        report = new CalendarOverview(getServiceLayer(), getDaoLayer(), Helper.getLocale(), getWeekNumber(), getDay(), getScheduleItems());
         if(report!=null) BufferedContentMgr.add(report);
         downloadTrigger.trigger();
     }

@@ -140,13 +140,17 @@ public class Helper {
 		return new Locale(HttpSessionAccess.getCurrentRequest().getHeader(Constants.ECLNT_LANGUAGE));
 	}
 
-	public static String getLanguage() {
+	/**
+	 * This method only works in managed beans, in not bound instances it throws a NPE
+	 * @return Language which is set on server side
+	 */
+	public static String getLanguageServer() {
 		Locale locale = FacesContext.getCurrentInstance().getViewRoot()
 				.getLocale();
 		return locale.getLanguage();
 	}
 
-	public static void setLanguage(Locale locale) {
+	public static void setLanguageServer(Locale locale) {
 		FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
 	}
 
@@ -468,6 +472,11 @@ public class Helper {
 
 	public static String formatDate(Date date, String format) {
 		SimpleDateFormat sd = new SimpleDateFormat(format, FacesContext.getCurrentInstance().getViewRoot().getLocale());
+		return sd.format(date);
+	}
+
+	public static String formatDate(Date date, String format, Locale locale) {
+		SimpleDateFormat sd = new SimpleDateFormat(format, locale);
 		return sd.format(date);
 	}
 

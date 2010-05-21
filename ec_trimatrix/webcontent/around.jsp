@@ -4,6 +4,7 @@
 <%@taglib prefix="f" uri="http://java.sun.com/jsf/core"%>
 <%@taglib prefix="h" uri="http://java.sun.com/jsf/html"%>
 
+<%@taglib prefix="tx" uri="/WEB-INF/trimatrixcontrols"%>
 <%@taglib prefix="t" uri="/WEB-INF/eclnt"%>
 
 
@@ -17,6 +18,9 @@
 </t:pane>
 </t:row>
 <t:rowstatusbar id="g_4" />
+<t:beanprocessing id="g_5" >
+<t:clientconfig id="g_6" language="#{d.LogonUI.language}" />
+</t:beanprocessing>
 <t:pageaddons id="g_pa"/>
 </f:subview>
 </h:form>
