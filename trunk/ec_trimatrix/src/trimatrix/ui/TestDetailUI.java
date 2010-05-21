@@ -45,7 +45,6 @@ import trimatrix.db.TestsSwimProtocolId;
 import trimatrix.db.TestsTreadmill;
 import trimatrix.db.Zones;
 import trimatrix.db.ZonesDefinition;
-import trimatrix.entities.ResultEntity;
 import trimatrix.entities.TestEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;

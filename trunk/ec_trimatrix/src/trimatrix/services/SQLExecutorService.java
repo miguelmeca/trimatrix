@@ -129,7 +129,7 @@ public class SQLExecutorService {
 	}
 
 	public List<SFunctionTree> getFunctionTree(Constants.Role role) {
-		return getFunctionTree(role, dictionaryService.getLanguage());
+		return getFunctionTree(role, Helper.getLanguageServer());
 	}
 
 	/**
@@ -185,7 +185,7 @@ public class SQLExecutorService {
 	}
 
 	public List<IEntityData> getUserEntities() {
-		return getUserEntities(dictionaryService.getLanguage(), false, false);
+		return getUserEntities(Helper.getLanguageServer(), false, false);
 	}
 
 	/**
@@ -233,11 +233,11 @@ public class SQLExecutorService {
 	}
 
 	public List<IEntityData> getPersonEntities() {
-		return getPersonEntities(dictionaryService.getLanguage(), false, false, PERSONENTITYLISTQUERY);
+		return getPersonEntities(Helper.getLanguageServer(), false, false, PERSONENTITYLISTQUERY);
 	}
 
 	public List<IEntityData> getAthleteEntities() {
-		return getPersonEntities(dictionaryService.getLanguage(), false, false, ATHLETESENTITYLISTQUERY);
+		return getPersonEntities(Helper.getLanguageServer(), false, false, ATHLETESENTITYLISTQUERY);
 	}
 
 
@@ -287,7 +287,7 @@ public class SQLExecutorService {
 	}
 
 	public List<IEntityData> getPersonByRoleEntities(Role role) {
-		return getPersonByRoleEntities(dictionaryService.getLanguage(), role, false, false);
+		return getPersonByRoleEntities(Helper.getLanguageServer(), role, false, false);
 	}
 
 	/**
@@ -330,7 +330,7 @@ public class SQLExecutorService {
 	}
 
 	public List<IEntityData> getDoctorEntities() {
-		return getDoctorEntities(dictionaryService.getLanguage(), false, false);
+		return getDoctorEntities(Helper.getLanguageServer(), false, false);
 	}
 
 	/**
@@ -374,11 +374,11 @@ public class SQLExecutorService {
 	}
 
 	public List<IEntityData> getAttachmentEntities() {
-		return getAttachmentEntities(dictionaryService.getLanguage(), null, null, false, false);
+		return getAttachmentEntities(Helper.getLanguageServer(), null, null, false, false);
 	}
 
 	public List<IEntityData> getAttachmentEntities(String parameterName, String parameterValue) {
-		return getAttachmentEntities(dictionaryService.getLanguage(), parameterName, parameterValue, false, false);
+		return getAttachmentEntities(Helper.getLanguageServer(), parameterName, parameterValue, false, false);
 	}
 
 	/**
@@ -436,11 +436,11 @@ public class SQLExecutorService {
 	}
 
 	public List<IEntityData> getTestEntities() {
-		return getTestEntities(dictionaryService.getLanguage(), null, null, false, false);
+		return getTestEntities(Helper.getLanguageServer(), null, null, false, false);
 	}
 
 	public List<IEntityData> getTestEntities(String parameterName, String parameterValue) {
-		return getTestEntities(dictionaryService.getLanguage(), parameterName, parameterValue, false, false);
+		return getTestEntities(Helper.getLanguageServer(), parameterName, parameterValue, false, false);
 	}
 
 	/**
@@ -536,15 +536,15 @@ public class SQLExecutorService {
 	}
 
 	public List<IEntityData> getCompetitionRelationEntities(String person_id, Constants.Relation relation) {
-		return getCompetitionRelationEntities(person_id, relation, dictionaryService.getLanguage(), false, false);
+		return getCompetitionRelationEntities(person_id, relation, Helper.getLanguageServer(), false, false);
 	}
 
 	public List<IEntityData> getCompetitionEntities() {
-		return getCompetitionEntities(dictionaryService.getLanguage(), null, null, false, false);
+		return getCompetitionEntities(Helper.getLanguageServer(), null, null, false, false);
 	}
 
 	public List<IEntityData> getCompetitionEntities(String parameterName, String parameterValue) {
-		return getCompetitionEntities(dictionaryService.getLanguage(), parameterName, parameterValue, false, false);
+		return getCompetitionEntities(Helper.getLanguageServer(), parameterName, parameterValue, false, false);
 	}
 
 
@@ -659,7 +659,7 @@ public class SQLExecutorService {
 	 * @return
 	 */
 	public List<IEntityData> getResultEntities() {
-		return getResultEntities(dictionaryService.getLanguage(), null, null, null, null, null, null, false, false);
+		return getResultEntities(Helper.getLanguageServer(), null, null, null, null, null, null, false, false);
 	}
 
 	/**
@@ -671,7 +671,7 @@ public class SQLExecutorService {
 	 * @return	Result entities
 	 */
 	public List<IEntityData> getResultEntities(String id, String competitionId, String scoutId, String athleteId, String compType, String compSubtype) {
-		return getResultEntities(dictionaryService.getLanguage(), id, competitionId, scoutId, athleteId, compType, compSubtype, false, false);
+		return getResultEntities(Helper.getLanguageServer(), id, competitionId, scoutId, athleteId, compType, compSubtype, false, false);
 	}
 
 	/**
@@ -737,7 +737,7 @@ public class SQLExecutorService {
 	 * @return
 	 */
 	public List<IEntityData> getScheduleEntities() {
-		return getScheduleEntities(dictionaryService.getLanguage(), null, null, null, null, false, false);
+		return getScheduleEntities(Helper.getLanguageServer(), null, null, null, null, false, false);
 	}
 
 	/**
@@ -748,11 +748,11 @@ public class SQLExecutorService {
 	 * @return
 	 */
 	public List<IEntityData> getScheduleEntities(String id, String personId, Timestamp startLow, Timestamp startHigh) {
-		return getScheduleEntities(dictionaryService.getLanguage(), id, personId, startLow, startHigh, false, false);
+		return getScheduleEntities(Helper.getLanguageServer(), id, personId, startLow, startHigh, false, false);
 	}
 
 	public List<IEntityData> getScheduleEntities(String id) {
-		return getScheduleEntities(dictionaryService.getLanguage(), id, null, null, null, false, false);
+		return getScheduleEntities(Helper.getLanguageServer(), id, null, null, null, false, false);
 	}
 
 	/**
@@ -811,7 +811,7 @@ public class SQLExecutorService {
 	}
 
 	public List<IEntityData> getPersonRelationEntities(String person_id, Constants.Relation relation, boolean inverse) {
-		return getPersonRelationEntities(person_id, relation, inverse, dictionaryService.getLanguage(), false, false);
+		return getPersonRelationEntities(person_id, relation, inverse, Helper.getLanguageServer(), false, false);
 	}
 
 	/**
@@ -852,7 +852,7 @@ public class SQLExecutorService {
 	}
 
 	public List<IRelationData> getPersonPersonRelation(Constants.Relation relation) {
-		return getPersonPersonRelation(relation, dictionaryService.getLanguage());
+		return getPersonPersonRelation(relation, Helper.getLanguageServer());
 	}
 
 	/**
@@ -901,7 +901,7 @@ public class SQLExecutorService {
 	}
 
 	public List<IEntityData> getDoctorRelationEntities(String person_id, Constants.Relation relation) {
-		return getDoctorRelationEntities(person_id, relation, dictionaryService.getLanguage(), false, false);
+		return getDoctorRelationEntities(person_id, relation, Helper.getLanguageServer(), false, false);
 	}
 
 	/**
@@ -942,7 +942,7 @@ public class SQLExecutorService {
 	}
 
 	public List<IEntityData> getAttachmentRelationEntities(String person_id, Constants.Relation relation) {
-		return getAttachmentRelationEntities(person_id, relation, dictionaryService.getLanguage(), false, false);
+		return getAttachmentRelationEntities(person_id, relation, Helper.getLanguageServer(), false, false);
 	}
 
 	/**
@@ -983,7 +983,7 @@ public class SQLExecutorService {
 	}
 
 	public List<IRelationData> getPersonDoctorRelation(Constants.Relation relation) {
-		return getPersonDoctorRelation(relation, dictionaryService.getLanguage());
+		return getPersonDoctorRelation(relation, Helper.getLanguageServer());
 	}
 
 	/**
@@ -1024,7 +1024,7 @@ public class SQLExecutorService {
 	}
 
 	public List<IRelationData> getPersonAttachmentRelation(Constants.Relation relation) {
-		return getPersonAttachmentRelation(relation, dictionaryService.getLanguage());
+		return getPersonAttachmentRelation(relation, Helper.getLanguageServer());
 	}
 
 	/**

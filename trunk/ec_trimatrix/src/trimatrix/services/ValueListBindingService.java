@@ -12,6 +12,7 @@ import trimatrix.entities.IEntityData;
 import trimatrix.structures.SValueList;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
+import trimatrix.utils.Helper;
 
 public class ValueListBindingService {
 	// constant vvbs
@@ -80,7 +81,7 @@ public class ValueListBindingService {
 	}
 
 	public ValidValuesBinding getVVBinding(Constants.ValueList valueList, String parentKey) {
-		String language = dictionaryService.getLanguage();
+		String language = Helper.getLanguageServer();
 		return getVVBinding(valueList,language, false, parentKey);
 	}
 

@@ -1,9 +1,6 @@
 package trimatrix.utils;
 
 import java.util.List;
-import java.util.Locale;
-
-import javax.faces.context.FacesContext;
 
 import org.springframework.context.ApplicationContext;
 
@@ -17,15 +14,15 @@ public class Dictionary {
 	// actual role
 	private List<String> myRoles;
 
-	public String getLanguage() {
-		Locale locale = FacesContext.getCurrentInstance().getViewRoot()
-				.getLocale();
-		return locale.getLanguage();
-	}
-
-	public void setLanguage(Locale locale) {
-		FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
-	}
+//	public String getLanguage() {
+//		Locale locale = FacesContext.getCurrentInstance().getViewRoot()
+//				.getLocale();
+//		return locale.getLanguage();
+//	}
+//
+//	public void setLanguage(Locale locale) {
+//		FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
+//	}
 
 	public Users getMyUser() {
 		return myUser;
