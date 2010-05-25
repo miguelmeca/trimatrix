@@ -172,7 +172,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
         		// set title of workpage
         		getWorkpage().setTitle(entityObject.toString());
         	} catch (NullPointerException npe) {
-        		Statusbar.outputAlert("Entity doesn't exist!", Helper.getLiteral("warn"), "Maybe the entity is marked as deleted!");
+        		Statusbar.outputAlert(Helper.getMessages("entity_not_exist"), Helper.getLiteral("warn"), Helper.getMessages("entity_deleted"));
             	// TODO close workpage or switch to another
         	}
 			break;
@@ -209,7 +209,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 						boolean isDeleted = ENTITYLISTLOGIC.delete(entity, id);
 						if(isDeleted) {
 							entityDetailUI.postDelete(true);
-							Statusbar.outputSuccess("Entity deleted");
+							Statusbar.outputSuccess(Helper.getMessages("delete_success"));
 							refreshParent();
 							// refresh beans
 					        getWorkpage().throwWorkpageProcessingEvent(new WorkpageRefreshEvent(entity));
@@ -217,7 +217,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 					        getWorkpageContainer().closeWorkpage(getWorkpage());
 						} else {
 							entityDetailUI.postDelete(false);
-							Statusbar.outputError("Entity could not be deleted!");
+							Statusbar.outputError(Helper.getMessages("delete_failure"));
 						}
 					}
 				}
@@ -233,7 +233,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 			entityObject = ENTITYLISTLOGIC.save(entity, entityObject);
 			entityDetailUI.postSave();
 			getWorkpage().setTitle(entityObject.toString());
-			Statusbar.outputSuccess("Entity saved");
+			Statusbar.outputSuccess(Helper.getMessages("save_success"));
 			//refreshParent();
 			// unlock entity
 			LockManager.unlockEntity(id);
@@ -243,13 +243,13 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 	        getWorkpage().throwWorkpageProcessingEvent(new WorkpageRefreshEvent(entity));
 
 		} catch (MandatoryCheckException mce) {
-			Statusbar.outputAlert("Not all mandatory fields filled", "Value for field " + mce.getField() + " missing!" ).setLeftTopReferenceCentered();
+			Statusbar.outputAlert(Helper.getMessages("mandatory"), Helper.getLiteral("warn"), String.format(Helper.getMessages("field_missing"), mce.getField()) ).setLeftTopReferenceCentered();
 		} catch (EmailNotValidException env) {
-			Statusbar.outputAlert("Email is not valid", "The email address " + env.getEmail() + " is not valid!" ).setLeftTopReferenceCentered();
+			Statusbar.outputAlert(Helper.getMessages("email_invalid"), Helper.getLiteral("error"), String.format(Helper.getMessages("email_invalid_detail"),env.getEmail())).setLeftTopReferenceCentered();
 		} catch (DataIntegrityViolationException dive) {
-			Statusbar.outputAlert("Entity could not be saved (Data Integrity)", dive.getRootCause().toString()).setLeftTopReferenceCentered();
+			Statusbar.outputAlert(Helper.getMessages("save_failure"), Helper.getLiteral("error"), dive.getRootCause().toString()).setLeftTopReferenceCentered();
 		} catch (Exception ex){
-			Statusbar.outputAlert(ex.toString(), "Entity could not be saved").setLeftTopReferenceCentered();
+			Statusbar.outputAlert(Helper.getMessages("save_failure"), Helper.getLiteral("error"), ex.toString()).setLeftTopReferenceCentered();
 		}
 	}
 
@@ -259,10 +259,10 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 		try {
 			LockManager.lockEntry(id);
 		} catch (EntityLockedException ele) {
-			Statusbar.outputAlert("Entity locked by " + ele.getUser(), "Lockmanager").setLeftTopReferenceCentered();
+			Statusbar.outputAlert(Helper.getMessages("entity_lock"), Helper.getLiteral("warn"), String.format(Helper.getMessages("entity_lock_detail"), ele.getUser())).setLeftTopReferenceCentered();
 			return;
 		} catch (Exception ex) {
-			Statusbar.outputAlert("The entity couldn't be locked!\n" + ex.toString(), "Lockmanager").setLeftTopReferenceCentered();
+			Statusbar.outputAlert(Helper.getMessages("entity_lock"), Helper.getLiteral("warn"), ex.toString()).setLeftTopReferenceCentered();
 			return;
 		}
 		changeMode(Constants.Mode.CHANGE);
@@ -355,8 +355,6 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 			authorization = authorization.NONE;
 		}
 	}
-
-
 
 	public void setEntityDetailPage(String value) {
 		m_entityDetailPage = value;

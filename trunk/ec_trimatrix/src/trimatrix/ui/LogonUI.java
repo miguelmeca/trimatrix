@@ -1,7 +1,9 @@
 package trimatrix.ui;
 
 import java.io.Serializable;
+import java.util.Locale;
 
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
@@ -9,7 +11,6 @@ import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.elements.events.BaseActionEventFlush;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.jsfserver.managedbean.IDispatcher;
-import org.eclnt.jsfserver.util.HttpSessionAccess;
 
 import trimatrix.logic.LogonLogic;
 import trimatrix.ui.utils.MyDispatchedBean;
@@ -28,22 +29,7 @@ public class LogonUI extends MyDispatchedBean implements Serializable {
 	}
 
 	public void onLogon(ActionEvent event) {
-		if (m_user == null || m_password == null) {
-			Statusbar.outputError("Not all mandatory fields filled!");
-			return;
-		}
-		// logon
-		try {
-			if (!LOGONLOGIC.logon(m_user, m_password)) {
-				Statusbar.outputError("Logon not successful!");
-				return;
-			}
-		} catch (Exception ex) {
-			Statusbar.outputAlert(ex.toString(), "Error occured!")
-					.setLeftTopReferenceCentered();
-			return;
-		}
-
+		if(!checkFields()) return;
 		// check if locked
 		if (LOGONLOGIC.isUserLocked()) {
 			Statusbar.outputError("User is locked!");
@@ -58,22 +44,26 @@ public class LogonUI extends MyDispatchedBean implements Serializable {
 	}
 
 	public void onPasswordChange(ActionEvent event) {
+		if(!checkFields()) return;
+		// logon succesfull
+		getAroundUI().setContentPage(Constants.Page.PASSWORD.getUrl());
+	}
+
+	private boolean checkFields() {
 		if (m_user == null || m_password == null) {
-			Statusbar.outputError("Not all mandatory fields filled!");
-			return;
+			Statusbar.outputWarning(Helper.getMessages("mandatory"));
+			return false;
 		}
 		try {
 			if (!LOGONLOGIC.logon(m_user, m_password)) {
-				Statusbar.outputError("Logon not successful!");
-				return;
+				Statusbar.outputAlert(Helper.getMessages("logon_failure"));
+				return false;
 			}
 		} catch (Exception ex) {
-			Statusbar.outputAlert(ex.toString(), "Error occured!")
-					.setLeftTopReferenceCentered();
-			return;
+			Statusbar.outputAlert(Helper.getMessages("error_occured"), Helper.getLiteral("error"), ex.toString()).setLeftTopReferenceCentered();
+			return false;
 		}
-		// logon succesfull
-		getAroundUI().setContentPage(Constants.Page.PASSWORD.getUrl());
+		return true;
 	}
 
 	public void onLanguage(ActionEvent event) {

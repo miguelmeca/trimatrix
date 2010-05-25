@@ -21,6 +21,7 @@ import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
 import trimatrix.ui.utils.MyBufferedContentForAttachment;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Helper;
 import eu.medsea.mimeutil.MimeType;
 import eu.medsea.mimeutil.MimeUtil;
 
@@ -130,9 +131,7 @@ public class AttachmentDetailUI extends AEntityDetailUI implements Serializable 
 			// check size
 			Integer size = bae.getHexBytes().length;
 			if (size > Constants.MB_1) {
-				Statusbar.outputAlert("Filesize " + size
-						+ " is more than max. size " + Constants.MB_1
-						+ " bytes!");
+				Statusbar.outputAlert(String.format(Helper.getMessages("file_size"), size, Constants.MB_1), Helper.getLiteral("error"));
 				return;
 			}
 			// filename without directory structure

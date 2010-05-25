@@ -29,6 +29,7 @@ import trimatrix.db.ZonesDefinition;
 import trimatrix.logic.ScheduleLogic;
 import trimatrix.ui.ScheduleUI.ScheduleItem;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
+import trimatrix.utils.Helper;
 
 @CCGenClass(expressionBase = "#{d.ScheduleChangePopUp}")
 public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Serializable {
@@ -136,7 +137,7 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
     	}
     	// exit if mandatory check fails
     	if(failure) {
-    		Statusbar.outputAlert("Not all mandatory fields set!");
+    		Statusbar.outputAlert(Helper.getMessages("mandatory"), Helper.getLiteral("warn"));
     		return;
     	}
     	// save schedule

@@ -11,8 +11,7 @@
 		<managed-bean-scope>session</managed-bean-scope> </managed-bean>
 	-->
 	<application>
-		<variable-resolver>
-			org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
+		<variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
 	</application>
 
 	<component>

@@ -14,6 +14,7 @@ import trimatrix.db.Labels;
 import trimatrix.structures.SAuthorization;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Helper;
 
 @CCGenClass (expressionBase="#{d.LabelSearchResultUI}")
 
@@ -22,14 +23,14 @@ public class LabelSearchResultUI extends MyWorkpageDispatchedBean implements Ser
     protected ROWDYNAMICCONTENTBinding m_result = new ROWDYNAMICCONTENTBinding();
     public ROWDYNAMICCONTENTBinding getResult() { return m_result; }
     public void setResult(ROWDYNAMICCONTENTBinding value) { m_result = value; }
-    
+
     private Labels label;
     private Map<String, EntityListUI> entityLists;
 
     public LabelSearchResultUI(IWorkpageDispatcher dispatcher) {
-		super(dispatcher);	
+		super(dispatcher);
 		// get label id
-		String labelId = getWorkpage().getParam(Constants.P_LABEL);	
+		String labelId = getWorkpage().getParam(Constants.P_LABEL);
 		// get label
 		label = getDaoLayer().getLabelsDAO().findById(labelId);
 		// set title
@@ -38,10 +39,10 @@ public class LabelSearchResultUI extends MyWorkpageDispatchedBean implements Ser
 		Map<Constants.Entity, List<String>> entityMap = getServiceLayer().getSqlExecutorService().getEntitiesByLabelList(labelId);
 		// is label assigned?
 		if (entityMap.size()==0) {
-			Statusbar.outputWarning("Label not assigned to an entity!");
+			Statusbar.outputWarning(Helper.getMessages("label_not_assigned"));
 		}
 		// build dynamic lists per entity type
-		entityLists = new HashMap<String, EntityListUI>();		
+		entityLists = new HashMap<String, EntityListUI>();
 		for (Constants.Entity entity : entityMap.keySet()) {
 			// set authorization for entities detail
 			SAuthorization authorization = new SAuthorization(Constants.TRUE, Constants.TRUE, Constants.TRUE);
@@ -51,8 +52,8 @@ public class LabelSearchResultUI extends MyWorkpageDispatchedBean implements Ser
 		// build dynamic result
 		setResultRowDynamic();
 	}
-    
-    public void setResultRowDynamic() { 		
+
+    public void setResultRowDynamic() {
     	StringBuffer xml = new StringBuffer();
  		xml.append("<t:scrollpane width='100%' height='100%' background='" + label.getColor() + "30'>");
 		for(String entityName : entityLists.keySet()) {
@@ -66,8 +67,8 @@ public class LabelSearchResultUI extends MyWorkpageDispatchedBean implements Ser
 		xml.append("</t:scrollpane>");
 		m_result.setContentXml(xml.toString());
 	}
-    
+
 	public Map<String, EntityListUI> getEntityLists() {
 		return entityLists;
-	}    
+	}
 }
