@@ -34,6 +34,11 @@ public class Helper {
 				Constants.LITERALS, property);
 	}
 
+	public static String getMessages(String property) {
+		return ResourceManager.getRuntimeInstance().readProperty(
+				Constants.MESSAGES, property);
+	}
+
 	public static boolean isFileInWebRoot(String filename) {
 		FacesContext context = FacesContext.getCurrentInstance();
 		ServletContext sc = (ServletContext) context.getExternalContext()

@@ -16,6 +16,7 @@ import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
+import trimatrix.utils.Helper;
 
 public abstract class AEntity implements IEntity{
 	public static final Log logger = LogFactory.getLog(AEntity.class);
@@ -61,7 +62,7 @@ public abstract class AEntity implements IEntity{
 		//if(entityObject2!=null) entityObject.setModifiedAt(entityObject2.getModifiedAt());
 		entityObject.setModifiedBy(dictionaryService.getMyUser().getId());
 		return entitiesDAO.merge(entityObject);
-		
+
 	}
 
 	public boolean delete(String id) {
@@ -73,7 +74,7 @@ public abstract class AEntity implements IEntity{
 			// no standard handling for deletion of relationtships see docu
 		} catch (Exception ex) {
 			logger.error("Deletion failed : " + ex.toString());
-			Statusbar.outputAlert(ex.toString(), "Delete");
+			Statusbar.outputAlert(ex.toString(), Helper.getLiteral("delete"));
 			return false;
 		}
 		return true;

@@ -10,6 +10,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 
+import sun.security.action.GetLongAction;
 import trimatrix.db.Competitions;
 import trimatrix.db.CompetitionsScouts;
 import trimatrix.db.CompetitionsScoutsId;
@@ -23,6 +24,7 @@ import trimatrix.entities.CompetitionEntity;
 import trimatrix.entities.EntityLayer;
 import trimatrix.logic.helper.Limit;
 import trimatrix.services.ServiceLayer;
+import trimatrix.utils.Helper;
 
 public class ImportLogic {
 	public static final Log logger = LogFactory.getLog(ImportLogic.class);
@@ -54,10 +56,10 @@ public class ImportLogic {
 			template.setStartingRow(startingRow);
 			template.setMapping(strMapping);
 			daoLayer.getImportTemplatesDAO().merge(template);
-			Statusbar.outputSuccess("Template saved!");
+			Statusbar.outputSuccess(Helper.getMessages("template_success"));
 			return true;
 		} catch (Exception ex) {
-			Statusbar.outputAlert("Template not saved!", "Error", ex.toString());
+			Statusbar.outputAlert(Helper.getMessages("template_failure"), Helper.getLiteral("error"), ex.toString());
 			return false;
 		}
 	}
@@ -103,10 +105,10 @@ public class ImportLogic {
 				tria.setCategory(category);
 			}
 			daoLayer.getResultsDAO().merge(result);
-			Statusbar.outputAlert("Result for athlete " + athlete + " imported!");
+			Statusbar.outputAlert(String.format(Helper.getMessages("result_import"), athlete), Helper.getLiteral("info"));
 			return true;
 		} catch (Exception ex) {
-			Statusbar.outputAlert("Result for athlete " + athlete + " not imported!", "Error", ex.toString());
+			Statusbar.outputAlert(String.format(Helper.getMessages("result_import_failure"), athlete), Helper.getLiteral("error"), ex.toString());
 			return false;
 		}
 	}
@@ -149,7 +151,7 @@ public class ImportLogic {
 			daoLayer.getCompetitionsScoutsDAO().merge(compScout);
 			return true;
 		} catch (Exception ex) {
-			Statusbar.outputAlert("Update for category " + category + " failed");
+			Statusbar.outputAlert(String.format(Helper.getMessages("category_update"),category), Helper.getLiteral("error"));
 			return false;
 		}
 	}

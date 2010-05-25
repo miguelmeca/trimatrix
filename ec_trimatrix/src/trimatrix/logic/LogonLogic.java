@@ -57,7 +57,7 @@ public class LogonLogic {
 		serviceLayer.getDictionaryService().setMyUser((Users)entityLayer.getUserEntity().save(user));
 		UserTracker.addUser(username);
 		// check logon message is active
-		if(MessageHandler.isShowLogonMessage()) Statusbar.outputAlert(MessageHandler.getLogonMessage()).setLeftTopReferenceCentered();
+		if(MessageHandler.isShowLogonMessage()) Statusbar.outputAlert(MessageHandler.getLogonMessage(),Helper.getLiteral("info")).setLeftTopReferenceCentered();
 		return true;
 	}
 

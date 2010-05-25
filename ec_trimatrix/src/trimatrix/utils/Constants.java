@@ -342,6 +342,7 @@ public final class Constants {
 
 	// Resources
 	public static final String LITERALS = "literals";
+	public static final String MESSAGES = "messages";
 
 	// Fonts
 	public static final Font FONT_SS_PLAIN_9 = new Font("SansSerif", Font.PLAIN, 9);

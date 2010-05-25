@@ -8,6 +8,7 @@ import trimatrix.entities.IEntityObject;
 import trimatrix.structures.SAuthorization;
 import trimatrix.ui.EntityDetailUI;
 import trimatrix.ui.ZonesDetailUI;
+import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.Mode;
 import trimatrix.utils.Constants.Page;
 
@@ -73,7 +74,7 @@ public class MyWorkpage extends Workpage{
 		}
 
 		if(!doClose) {
-			Statusbar.outputAlert("Please save data before closing the workpage!").setLeftTopReferenceCentered();
+			Statusbar.outputAlert(Helper.getMessages("save_data"), Helper.getLiteral("info")).setLeftTopReferenceCentered();
 			return false;
 		} else return super.close();
 

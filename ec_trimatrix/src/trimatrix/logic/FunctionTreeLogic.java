@@ -47,7 +47,7 @@ public class FunctionTreeLogic {
 		ValidValuesBinding vvbCompTypes = serviceLayer.getValueListBindingService().getVVBinding(ValueList.COMPTYPE);
 		return vvbCompTypes.getValidValues();
 	}
-	
+
 	public Iterator<ValidValue> getCompetitionSubtypes(String type) {
 		ValidValuesBinding vvbCompSubtypes = serviceLayer.getValueListBindingService().getVVBinding(ValueList.COMPSUBTYPE, type);
 		return vvbCompSubtypes.getValidValues();
@@ -106,10 +106,10 @@ public class FunctionTreeLogic {
 		try {
 			daoLayer.getCompetitionsScoutsDAO().merge(cs);
 		} catch (DataIntegrityViolationException dive) {
-			Statusbar.outputWarning("Competition is already in your workspace!");
+			Statusbar.outputWarning(Helper.getMessages("comp_workspace"));
 			return false;
 		} catch (Exception ex) {
-			Statusbar.outputError(ex.toString());
+			Statusbar.outputError(Helper.getMessages("comp_workspace_failure"), ex.toString());
 			return false;
 		}
 		return true;
@@ -124,10 +124,10 @@ public class FunctionTreeLogic {
 		try {
 			relation.save(pha);
 		} catch (DataIntegrityViolationException dive) {
-			Statusbar.outputError("Relation could not be saved (Data Integrity)", dive.getRootCause().toString());
+			Statusbar.outputError(Helper.getMessages("relation_save_failure"), dive.getRootCause().toString());
 			return false;
 		} catch (Exception ex){
-			Statusbar.outputError("Relation could not be saved", ex.toString());
+			Statusbar.outputError(Helper.getMessages("relation_save_failure"), ex.toString());
 			return false;
 		}
 		return true;
@@ -142,10 +142,10 @@ public class FunctionTreeLogic {
 		try {
 			relation.save(phd);
 		} catch (DataIntegrityViolationException dive) {
-			Statusbar.outputError("Relation could not be saved (Data Integrity)", dive.getRootCause().toString());
+			Statusbar.outputError(Helper.getMessages("relation_save_failure"), dive.getRootCause().toString());
 			return false;
 		} catch (Exception ex){
-			Statusbar.outputError("Relation could not be saved", ex.toString());
+			Statusbar.outputError(Helper.getMessages("relation_save_failure"), ex.toString());
 			return false;
 		}
 		return true;

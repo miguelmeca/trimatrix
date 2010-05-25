@@ -23,6 +23,7 @@ import trimatrix.ui.utils.MyWorkpage;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.ui.utils.WorkpageRefreshEvent;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Helper;
 import trimatrix.utils.LockManager;
 
 @SuppressWarnings("serial")
@@ -83,7 +84,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
         try {
         	entity = Constants.Entity.valueOf(strEntity.toUpperCase());
         } catch (Exception ex) {
-        	Statusbar.outputError("No or wrong entity set", "For list view processing an entity has to be set by the functiontreenode!");
+        	Statusbar.outputAlert(Helper.getMessages("entity_wrong"), Helper.getLiteral("error"), Helper.getMessages("entity_wrong_detail"));
         	getWorkpageContainer().closeWorkpage(getWorkpage());
         }
         // a instance of MyWorkpage
@@ -128,7 +129,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
     			LockManager.lockEntry(id);
     		} catch (Exception ex) {
     			// this should never happen!
-    			Statusbar.outputAlert("The entity couldn't be locked!\n" + ex.toString(), "Lockmanager").setLeftTopReferenceCentered();
+    			Statusbar.outputAlert(Helper.getMessages("entity_lock"), Helper.getLiteral("warn"), ex.toString()).setLeftTopReferenceCentered();
     		}
     		getWorkpage().setId(id);
 			break;
@@ -141,7 +142,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
     			LockManager.lockEntry(id);
     		} catch (Exception ex) {
     			// this should never happen!
-    			Statusbar.outputAlert("The entity couldn't be locked!\n" + ex.toString(), "Lockmanager").setLeftTopReferenceCentered();
+    			Statusbar.outputAlert(Helper.getMessages("entity_lock"), Helper.getLiteral("warn"), ex.toString()).setLeftTopReferenceCentered();
     		}
     		break;
 		default:
@@ -171,7 +172,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
         		// set title of workpage
         		getWorkpage().setTitle(entityObject.toString());
         	} catch (NullPointerException npe) {
-        		Statusbar.outputError("Entity doesn't exist!", "Maybe the entity is marked as deleted!");
+        		Statusbar.outputAlert("Entity doesn't exist!", Helper.getLiteral("warn"), "Maybe the entity is marked as deleted!");
             	// TODO close workpage or switch to another
         	}
 			break;

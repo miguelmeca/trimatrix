@@ -23,6 +23,7 @@ import trimatrix.entities.EntityLayer;
 import trimatrix.logic.helper.DayInfo;
 import trimatrix.services.ServiceLayer;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Helper;
 
 public class ScheduleLogic {
 	public static final Log logger = LogFactory.getLog(ScheduleLogic.class);
@@ -101,10 +102,10 @@ public class ScheduleLogic {
 	public boolean saveDayInfos(DayInfos dayInfos) {
 		try {
 			daoLayer.getDayInfosDAO().merge(dayInfos);
-			Statusbar.outputSuccess("Daten erfolgreich gespeichert!");
+			Statusbar.outputSuccess(Helper.getMessages("save_success"));
 			return true;
 		} catch (Exception ex) {
-			Statusbar.outputAlert("Daten konnten nicht gespeichert werden!", "Fehler", ex.toString());
+			Statusbar.outputAlert(Helper.getMessages("save_failure"), Helper.getLiteral("error"), ex.toString());
 			return false;
 		}
 	}
