@@ -20,6 +20,7 @@ import trimatrix.db.Zones;
 import trimatrix.db.ZonesDefinition;
 import trimatrix.services.ServiceLayer;
 import trimatrix.structures.SAuthorization;
+import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.AuthorityObject;
 import trimatrix.utils.Constants.Relation;
 
@@ -31,7 +32,7 @@ public class ZonesLogic {
 	public boolean deleteZones(Set<String> deletedIds) {
 		try {
 			for(String id : deletedIds) {
-				daoLayer.getZonesDefinitionDAO().delete(daoLayer.getZonesDefinitionDAO().findById(id));					
+				daoLayer.getZonesDefinitionDAO().delete(daoLayer.getZonesDefinitionDAO().findById(id));
 			}
 		} catch (Exception ex) {
 			logger.error("Error deleting zones : " + ex.toString());
@@ -39,21 +40,21 @@ public class ZonesLogic {
 		}
 		return true;
 	}
-	
+
 	public boolean updateZones(List<ZonesDefinition> zonesDefinitions) {
 		try {
 			for (ZonesDefinition zone : zonesDefinitions) {
 				daoLayer.getZonesDefinitionDAO().merge(zone);
 			}
 			// update zones add global MyPerson instance to be consistent
-			serviceLayer.getDictionaryService().getMyPerson().setZonesDefinition(zonesDefinitions);			
+			serviceLayer.getDictionaryService().getMyPerson().setZonesDefinition(zonesDefinitions);
 		} catch (Exception ex) {
 			logger.error("Error changing zones : " + ex.toString());
 			return false;
-		}		
+		}
 		return true;
 	}
-	
+
 	public Persons getStandardCoach(String athleteId) {
 		// get coach of athlete
 		Map<String, Object> properties = new HashMap<String, Object>();
@@ -64,13 +65,13 @@ public class ZonesLogic {
 		String coachId = phrs.get(0).getPartner2();
 		return daoLayer.getPersonsDAO().findById(coachId);
 	}
-	
+
 	public List<ZoneInfo> getAthletesZone(String athleteId, Persons coach) {
-		List<ZoneInfo> result = new ArrayList<ZoneInfo>();		
+		List<ZoneInfo> result = new ArrayList<ZoneInfo>();
 		// get zones definition
-		List<ZonesDefinition> zonesDefinitions = coach.getZonesDefinition();   	
+		List<ZonesDefinition> zonesDefinitions = coach.getZonesDefinition();
 		for(ZonesDefinition zonesDefinition : zonesDefinitions) {
-			// read athletes detail			
+			// read athletes detail
 			Zones example = new Zones();
 			example.setAthleteId(athleteId);
 			example.setZonesDefinitionId(zonesDefinition.getId());
@@ -81,49 +82,49 @@ public class ZonesLogic {
 				result.add(new ZoneInfo(zonesDefinition,zones.get(0)));
 			}
 		}
-		return result;	
+		return result;
 	}
-	
+
 	public List<ZoneInfo> getAthletesZone(String athleteId) {
 		Persons coach = getStandardCoach(athleteId);
-		return coach!=null ? getAthletesZone(athleteId, coach) : new ArrayList<ZoneInfo>();	
+		return coach!=null ? getAthletesZone(athleteId, coach) : new ArrayList<ZoneInfo>();
 	}
-	
+
 	public Zones createZone(String athleteId, String zonesDefinitionId) {
 		String id = UUID.randomUUID().toString();
 		return new Zones(id, athleteId, zonesDefinitionId);
 	}
-	
+
 	public boolean saveZone(Zones zone) {
 		try {
 			daoLayer.getZonesDAO().merge(zone);
 			return true;
 		} catch (Exception ex) {
-			Statusbar.outputError("Zone couldn't be saved!", ex.toString());
+			Statusbar.outputAlert(Helper.getMessages("save_failure"), Helper.getLiteral("error"), ex.toString());
 			return false;
 		}
 	}
-	
+
 	public SAuthorization getAuthorization(String coachId) {
 		return serviceLayer.getAuthorizationService().getAuthorization(AuthorityObject.ZONES, coachId);
 	}
-	
+
 	public PersonsAthlete getPersonsAthlete(String personId) {
 		return daoLayer.getPersonAthleteDAO().findById(personId);
 	}
-	
+
 	public void setServiceLayer(ServiceLayer serviceLayer) {
 		this.serviceLayer = serviceLayer;
 	}
-	
+
 	public void setDaoLayer(DAOLayer daoLayer) {
 		this.daoLayer = daoLayer;
-	}	
-	
+	}
+
 	public class ZoneInfo {
 		private ZonesDefinition definition;
 		private Zones zone;
-		
+
 		private ZoneInfo() { }
 
 		public ZoneInfo(ZonesDefinition definition, Zones zone) {
@@ -137,6 +138,6 @@ public class ZonesLogic {
 
 		public Zones getZone() {
 			return zone;
-		}		
+		}
 	}
 }

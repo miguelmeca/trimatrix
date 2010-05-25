@@ -15,35 +15,36 @@ import trimatrix.db.PersonsAthlete;
 import trimatrix.db.Users;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.Role;
 
 public final class PersonEntity extends AEntity {
-	// Constants	 
+	// Constants
 	public static final String SALUTATION = "salutation";
 	public static final String NAME_FIRST = "name_first";
-    public static final String NAME_LAST = "name_last";  
+    public static final String NAME_LAST = "name_last";
     public static final String EMAIL = "email";
     public static final String SEX = "sex";
     public static final String BIRTHDATE = "birthdate";
     public static final String STREET = "street";
-    public static final String HOUSENUMBER = "housenumber";  
-    public static final String POSTCODE = "postcode"; 
-    public static final String CITY = "city"; 
-    public static final String STATE = "state"; 
-    public static final String COUNTRY = "country"; 
+    public static final String HOUSENUMBER = "housenumber";
+    public static final String POSTCODE = "postcode";
+    public static final String CITY = "city";
+    public static final String STATE = "state";
+    public static final String COUNTRY = "country";
     public static final String HOMEPAGE = "homepage";
     public static final String TELEPHONE = "telephone";
     public static final String MOBILE = "mobile";
     public static final String FAX = "fax";
-    
+
     public static final String HEIGHT = "height";
 	public static final String HEIGHT_UNIT = "height_unit";
-    public static final String WEIGHT = "weight";  
+    public static final String WEIGHT = "weight";
     public static final String WEIGHT_UNIT = "weight_unit";
     public static final String MAX_HR = "max_hr";
     public static final String RESTING_HR = "resting_hr";
-    public static final String VO2_MAX = "vo2_max";    
- 	
+    public static final String VO2_MAX = "vo2_max";
+
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IUserEntity#getGridMetaData()
 	 */
@@ -67,14 +68,14 @@ public final class PersonEntity extends AEntity {
         gridMetaData.add(new SGridMetaData("Fax", FAX, SGridMetaData.Component.FIELD));
         return gridMetaData;
     }
-	
+
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#getData()
 	 */
 	public List<IEntityData> getData() {
 		return sqlExecutorService.getPersonEntities();
 	}
-		
+
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#getData(trimatrix.utils.Constants.Entity)
 	 */
@@ -93,9 +94,9 @@ public final class PersonEntity extends AEntity {
         	return sqlExecutorService.getAthleteEntities();
         } else {
         	return Constants.EMPTYENTITYDATA;
-        }		
+        }
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#getData(trimatrix.utils.Constants.Entity, java.lang.String)
 	 */
@@ -104,15 +105,15 @@ public final class PersonEntity extends AEntity {
         	return sqlExecutorService.getPersonRelationEntities(personId, Constants.Relation.COACH, true);
         } else {
         	return Constants.EMPTYENTITYDATA;
-        }		
+        }
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#delete(java.lang.String)
 	 */
 	@Override
 	public boolean delete(final String id) {
-		// all in one transaction		
+		// all in one transaction
 		final TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
 		Boolean result = (Boolean)transactionTemplate.execute(new TransactionCallback() {
 			public Object doInTransaction(TransactionStatus status) {
@@ -129,65 +130,65 @@ public final class PersonEntity extends AEntity {
 						for(Users user : users) {
 							user.setPerson(null);
 							daoLayer.getUsersDAO().merge(user);
-						}	
-						Statusbar.outputSuccess("Successfully deleted entity incl. " + deleted + " relations!");
+						}
+						Statusbar.outputSuccess(String.format(Helper.getMessages("del_entity_success"), deleted));
 					} else {
-						Statusbar.outputAlert("Do delete this object you have to be admin or the creator of this object!").setLeftTopReferenceCentered();
+						Statusbar.outputAlert(Helper.getMessages("del_entity_admin")).setLeftTopReferenceCentered();
 						return false;
-					}								
+					}
 				} catch (Exception ex) {
 					status.setRollbackOnly();
 					return false;
-				}				
+				}
 				logger.info("PersonEntity : Deletion of person successful => " + id );
 				return true;
 			}
-			
-		});		
+
+		});
 		return result;
 	}
-	
+
 	public boolean deleteProfile(String id, Constants.Profiles profile) {
 		switch (profile) {
 		case ATHLETE:
 			PersonsAthlete athlete = daoLayer.getPersonAthleteDAO().findById(id);
 			if(athlete==null) {
-				logger.warn("PersonAthlete : Profil athlete not found => " + id );		
+				logger.warn("PersonAthlete : Profil athlete not found => " + id );
 				return false;
-			} 
-			daoLayer.getPersonAthleteDAO().delete(athlete);		
+			}
+			daoLayer.getPersonAthleteDAO().delete(athlete);
 			logger.info("PersonAthlete : Deletion of profil athlete successful => " + id );
 			break;
-		}		
+		}
 		return true;
 	}
-	
+
 	public boolean createProfile(String id, Constants.Profiles profile) {
 		switch (profile) {
 		case ATHLETE:
 			PersonsAthlete athlete = new PersonsAthlete(id);
-			daoLayer.getPersonAthleteDAO().save(athlete);		
+			daoLayer.getPersonAthleteDAO().save(athlete);
 			logger.info("PersonAthlete : Creation of profil athlete successful => " + id );
 			break;
-		}		
+		}
 		return true;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#create()
 	 */
-	public Persons create() {		
+	public Persons create() {
 		String id = UUID.randomUUID().toString();
 		Persons entity = new Persons();
 		entity.setId(id);
 		// default values
 		entity.setDeleted(false);
-		entity.setTest(false);		
+		entity.setTest(false);
 		// default athletes profile
 		entity.setProfileAthlete(new PersonsAthlete(id));
 		return entity;
-	}	
-	
+	}
+
 	public static class Data implements IEntityData {
 		public String id;
 		public String salutation;
@@ -207,24 +208,24 @@ public final class PersonEntity extends AEntity {
 		public String fax;
 		public Timestamp birthdate;
 		public Boolean standard;
-		
+
 		/* (non-Javadoc)
 		 * @see trimatrix.entities.IEntityData#getId()
 		 */
 		public String getId() {
 			return id;
 		}
-		
+
 		@Override
 		public String toString() {
 			// same as DB entity implementation
 			return (name_first + " " + name_last).replace(Constants.NULL, Constants.EMPTY).trim();
 		}
-		
+
 		public String getSalutation() {
 			return salutation;
 		}
-			
+
 		public String getName_first() {
 			return name_first;
 		}
@@ -260,7 +261,7 @@ public final class PersonEntity extends AEntity {
 		public String getCountry() {
 			return country;
 		}
-		
+
 		public String getEmail() {
 			return email;
 		}
@@ -283,8 +284,8 @@ public final class PersonEntity extends AEntity {
 
 		public Timestamp getBirthdate() {
 			return birthdate;
-		}		
-		
+		}
+
 		public Boolean getStandard() {
 			return standard;
 		}

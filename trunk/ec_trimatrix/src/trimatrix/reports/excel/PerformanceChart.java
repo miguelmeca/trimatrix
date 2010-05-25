@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -213,7 +214,7 @@ public class PerformanceChart extends Report {
 			wb.write(out);
 			return out.toByteArray();
 		} catch (Exception ex) {
-			Statusbar.outputError("Error creating performance chart!", ex.toString());
+			Logger.getRootLogger().error("Performance Chart: " + ex.toString());
 		} finally {
 			try {
 				out.close();

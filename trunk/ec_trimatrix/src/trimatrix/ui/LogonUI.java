@@ -9,6 +9,7 @@ import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.elements.events.BaseActionEventFlush;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.jsfserver.managedbean.IDispatcher;
+import org.eclnt.jsfserver.util.HttpSessionAccess;
 
 import trimatrix.logic.LogonLogic;
 import trimatrix.ui.utils.MyDispatchedBean;
@@ -79,6 +80,7 @@ public class LogonUI extends MyDispatchedBean implements Serializable {
 		if (event instanceof BaseActionEventFlush) {
 			LOGONLOGIC.changeLanguage(m_language);
 		}
+		//HttpSessionAccess.reloadClient();
 	}
 
 	public ValidValuesBinding getLanguageVvb() {

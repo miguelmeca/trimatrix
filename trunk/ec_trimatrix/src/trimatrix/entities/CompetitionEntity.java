@@ -14,6 +14,7 @@ import trimatrix.db.Competitions;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.Relation;
 
 public final class CompetitionEntity extends AEntity {
@@ -100,9 +101,9 @@ public final class CompetitionEntity extends AEntity {
 						entity.setDeleted(true);
 						entitiesDAO.merge(entity);
 						int deleted = daoLayer.deleteRelationsByPartner(id);
-						Statusbar.outputSuccess("Successfully deleted entity incl. " + deleted + " relations!");
+						Statusbar.outputSuccess(String.format(Helper.getMessages("del_entity_success"), deleted));
 					} else {
-						Statusbar.outputAlert("Do delete this object you have to be admin or the creator of this object!").setLeftTopReferenceCentered();
+						Statusbar.outputAlert(Helper.getMessages("del_entity_admin")).setLeftTopReferenceCentered();
 						return false;
 					}
 				} catch (Exception ex) {

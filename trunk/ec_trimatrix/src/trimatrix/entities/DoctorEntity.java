@@ -12,36 +12,37 @@ import org.springframework.transaction.support.TransactionTemplate;
 import trimatrix.db.Doctors;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.Entity;
 
 public class DoctorEntity extends AEntity {
-	// Constants	 
+	// Constants
 	public static final String NAME = "name";
 	public static final String STREET = "street";
-    public static final String HOUSENUMBER = "housenumber";  
-    public static final String POSTCODE = "postcode"; 
-    public static final String CITY = "city"; 
-    public static final String STATE = "state"; 
-    public static final String COUNTRY = "country"; 
+    public static final String HOUSENUMBER = "housenumber";
+    public static final String POSTCODE = "postcode";
+    public static final String CITY = "city";
+    public static final String STATE = "state";
+    public static final String COUNTRY = "country";
     public static final String EMAIL = "email";
     public static final String HOMEPAGE = "homepage";
     public static final String TELEPHONE = "telephone";
     public static final String MOBILE = "mobile";
     public static final String FAX = "fax";
-    
+
 	public IEntityObject create() {
 		String id = UUID.randomUUID().toString();
 		Doctors entity = new Doctors();
 		entity.setId(id);
 		// default values
 		entity.setDeleted(false);
-		entity.setTest(false);		
+		entity.setTest(false);
 		return entity;
 	}
 
 	@Override
 	public boolean delete(final String id) {
-		// all in one transaction		
+		// all in one transaction
 		final TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
 		Boolean result = (Boolean)transactionTemplate.execute(new TransactionCallback() {
 			public Object doInTransaction(TransactionStatus status) {
@@ -53,20 +54,20 @@ public class DoctorEntity extends AEntity {
 						entity.setDeleted(true);
 						entitiesDAO.merge(entity);
 						int deleted = daoLayer.deleteRelationsByPartner(id);
-						Statusbar.outputSuccess("Successfully deleted entity incl. " + deleted + " relations!");
+						Statusbar.outputSuccess(String.format(Helper.getMessages("del_entity_success"), deleted));
 					} else {
-						Statusbar.outputAlert("Do delete this object you have to be admin or the creator of this object!").setLeftTopReferenceCentered();
+						Statusbar.outputAlert(Helper.getMessages("del_entity_admin")).setLeftTopReferenceCentered();
 						return false;
-					}					
+					}
 				} catch (Exception ex) {
 					status.setRollbackOnly();
 					return false;
-				}				
+				}
 				logger.info("DoctorEntity : Deletion of doctor successful => " + id );
 				return true;
-			}			
-		});		
-		return result;		
+			}
+		});
+		return result;
 	}
 
 	public List<IEntityData> getData(Entity entity, String personId, String filter) {
@@ -76,7 +77,7 @@ public class DoctorEntity extends AEntity {
         	return Constants.EMPTYENTITYDATA;
         }
 	}
-	
+
 	public List<IEntityData> getData(Entity entity, String filter) {
 		if (entity == Constants.Entity.DOCTOR) {
         	return sqlExecutorService.getDoctorEntities();
@@ -85,7 +86,7 @@ public class DoctorEntity extends AEntity {
         } else {
         	return Constants.EMPTYENTITYDATA;
         }
-	}	
+	}
 
 	public List<IEntityData> getData() {
 		return sqlExecutorService.getDoctorEntities();
@@ -107,7 +108,7 @@ public class DoctorEntity extends AEntity {
         gridMetaData.add(new SGridMetaData("Fax", FAX, SGridMetaData.Component.FIELD));
         return gridMetaData;
 	}
-	
+
 	public static class Data implements IEntityData {
 		public String id;
 		public String name;
@@ -123,20 +124,20 @@ public class DoctorEntity extends AEntity {
 		public String mobile;
 		public String fax;
 		public Boolean standard;
-		
+
 		/* (non-Javadoc)
 		 * @see trimatrix.entities.IEntityData#getId()
 		 */
 		public String getId() {
 			return id;
 		}
-		
+
 		@Override
 		public String toString() {
 			// same as DB entity implementation
 			return name.replace(Constants.NULL, Constants.EMPTY).trim();
 		}
-		
+
 		public String getName() {
 			return name;
 		}
@@ -183,10 +184,10 @@ public class DoctorEntity extends AEntity {
 
 		public String getFax() {
 			return fax;
-		}		
-		
+		}
+
 		public Boolean getStandard() {
 			return standard;
 		}
-	}	
+	}
 }

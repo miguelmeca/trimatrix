@@ -18,6 +18,7 @@ import trimatrix.ui.utils.IPopUpCallback;
 import trimatrix.ui.utils.ISelectionCallback;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Helper;
 
 @CCGenClass (expressionBase="#{d.CreateRelationUI}")
 
@@ -46,7 +47,7 @@ public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serial
     	OKPopup popup = null;
     	// check mandatory fields
     	if(partner1==null || partner2==null || relation==null){
-    		Statusbar.outputAlert("Not all mandatory fields filled!").setLeftTopReferenceCentered();
+    		Statusbar.outputAlert(Helper.getMessages("mandatory"), Helper.getLiteral("warn")).setLeftTopReferenceCentered();
     		return;
     	}
     	// save prepare
@@ -57,14 +58,14 @@ public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serial
     	// save
     	try {
     		RELATIONLISTLOGIC.save(relation, objRelation);
-    		Statusbar.outputSuccess("Relation saved");
+    		Statusbar.outputSuccess(Helper.getMessages("save_success"));
     		callback.ok(null);
     	} catch (DataIntegrityViolationException dive) {
     		logger.error("Relation could not be saved (Data Integrity) : " + dive.getRootCause().toString());
-    		popup = OKPopup.createInstance("Error","Relation could not be saved (Data Integrity)");
+    		popup = OKPopup.createInstance(Helper.getLiteral("error"),Helper.getMessages("relation_save_failure"));
     	} catch (Exception ex){
 			logger.error("Relation could not be saved : " + ex.toString());
-    		popup = OKPopup.createInstance("Error","Relation could not be saved");
+    		popup = OKPopup.createInstance(Helper.getLiteral("error"),Helper.getMessages("relation_save_failure"));
 		}
     	if (popup!=null) {
     		popup.getModalPopup().setWidth(300);

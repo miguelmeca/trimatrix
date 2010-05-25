@@ -1082,7 +1082,7 @@ public class SQLExecutorService {
 				// add id
 				map.get(entity).add(entityId);
 			} catch (Exception ex) {
-				Statusbar.outputError("No or wrong entity", "For list view processing an entity has to be set!");
+				Statusbar.outputAlert(Helper.getMessages("entity_wrong"), Helper.getLiteral("error"), Helper.getMessages("entity_wrong_detail"));
 				continue;
 			}
 
