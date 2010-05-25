@@ -11,6 +11,7 @@ import org.eclnt.jsfserver.managedbean.IDispatcher;
 import trimatrix.logic.LogonLogic;
 import trimatrix.ui.utils.MyDispatchedBean;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Helper;
 
 @SuppressWarnings("serial")
 @CCGenClass (expressionBase="#{d.PasswordUI}")
@@ -18,7 +19,7 @@ import trimatrix.utils.Constants;
 public class PasswordUI extends MyDispatchedBean implements Serializable
 {
 	private final LogonLogic LOGONLOGIC = getLogic().getLogonLogic();
-		
+
 	public PasswordUI(IDispatcher dispatcher) {
 		super(dispatcher);
 	}
@@ -33,13 +34,13 @@ public class PasswordUI extends MyDispatchedBean implements Serializable
 
     public void onChange(ActionEvent event) {
     	if(!m_newPassword.equals(m_newPassword2)) {
-    		Statusbar.outputError("Passwords not the same!");
+    		Statusbar.outputAlert(Helper.getMessages("passwords_different"), Helper.getLiteral("warn"));
     		return;
     	}
     	try {
 			LOGONLOGIC.changePassword(m_newPassword);
 		} catch (Exception ex) {
-			Statusbar.outputError("Password couldn't be changed!", ex.toString());
+			Statusbar.outputAlert(Helper.getMessages("password_change_failure"), Helper.getLiteral("error"), ex.toString());
 			return;
 		}
     	// Change succesfull

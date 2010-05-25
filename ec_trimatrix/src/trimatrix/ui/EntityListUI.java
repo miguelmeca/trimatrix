@@ -28,6 +28,7 @@ import trimatrix.ui.utils.MyWorkpage;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.ui.utils.WorkpageRefreshEvent;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.Entity;
 import trimatrix.utils.Constants.Mode;
 
@@ -72,7 +73,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
         try {
             entity = Constants.Entity.valueOf(strEntity.toUpperCase());
         } catch (Exception ex) {
-            Statusbar.outputError("No or wrong entity set", "For list view processing an entity has to be set by the functiontreenode!");
+            Statusbar.outputError(Helper.getMessages("entity_wrong"));
             getWorkpageContainer().closeWorkpage(getWorkpage());
         }
         // get entity id
@@ -208,14 +209,14 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
     public void onDelete(ActionEvent event) {
         final GridListItem selectedItem = m_gridList.getSelectedItem();
         if(selectedItem == null) {
-            Statusbar.outputMessage("No entity selected!");
+            Statusbar.outputMessage(Helper.getMessages("no_entry_selected"));
             return;
         }
         final String selectedID = ((IEntityData)selectedItem.getDatum()).getId();
         if(selectedID!=null && selectedID.length()>0) {
             YESNOPopup popup = YESNOPopup.createInstance(
-                    "Confirm deletion" + Constants.WHITESPACE + selectedItem.getDatum().toString(),
-                    "Do you really want to delete the selected entity?",
+                    String.format(Helper.getMessages("confirm_delete_detail"), selectedItem.getDatum().toString()),
+                    Helper.getMessages("confirm_delete"),
                     new IYesNoCancelListener(){
 
                         public void reactOnCancel() {}
@@ -227,18 +228,18 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
                             // special treatment for base entities that are not allowed to be in a relation e.g. TESTS
                             if(personId==null || entity.getBase().noRelation()) {
                                 if(ENTITYLISTLOGIC.delete(entity, selectedID)) {
-                                    Statusbar.outputSuccess("Entity successfully deleted!");
+                                    Statusbar.outputSuccess(Helper.getMessages("delete_success"));
                                     m_gridList.getItems().remove(selectedItem);
                                     return;
                                 }
                             } else {	// other person entities
                                 if(ENTITYLISTLOGIC.delete(entity, selectedID, personId)) {
-                                    Statusbar.outputSuccess("Relation successfully deleted!");
+                                    Statusbar.outputSuccess(Helper.getMessages("relation_delete_success"));
                                     m_gridList.getItems().remove(selectedItem);
                                     return;
                                 }
                             }
-                            Statusbar.outputError("Entity/Relation could not be deleted!");
+                            Statusbar.outputAlert(Helper.getMessages("delete_failure"), Helper.getLiteral("error"));
                         }
                     }
             );
@@ -355,8 +356,6 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 				String title = "Termin";
 				m_popup.open(Constants.Page.SCHEDULECHANGEPOPUP.getUrl(), title, 1024, 768, EntityListUI.this);
 				return;
-//				Statusbar.outputAlert("Schedules not supported yet!");
-//				return;
 			}
             // if buttons are not rendered details are immutable
             if(!renderButtons) {

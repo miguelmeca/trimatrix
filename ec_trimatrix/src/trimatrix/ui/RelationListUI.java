@@ -20,6 +20,7 @@ import trimatrix.structures.SAuthorization;
 import trimatrix.ui.utils.IPopUpCallback;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Helper;
 
 @CCGenClass (expressionBase="#{d.RelationListUI}")
 
@@ -64,7 +65,7 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 		try {
 			relation = Constants.Relation.valueOf(strEntity.toUpperCase());
 		} catch (Exception ex) {
-			Statusbar.outputError("No or wrong entity set", "For relation list view processing an entity has to be set by the functiontreenode!");
+			Statusbar.outputError(Helper.getMessages("entity_wrong"));
 			getWorkpageContainer().closeWorkpage(getWorkpage());
 		}
 		// set up grid output
@@ -118,7 +119,7 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 		});
 		m_popup = getWorkpage().createModalPopupInWorkpageContext();
 		m_popup.setLeftTopReferenceCentered();
-    	m_popup.open(Constants.Page.CREATERELATION.getUrl(), "Beziehung anlegen", 400, 160, this);
+    	m_popup.open(Constants.Page.CREATERELATION.getUrl(), Helper.getLiteral("create_relation"), 400, 160, this);
 	}
 
 	public void onRemove(ActionEvent event) {
@@ -137,15 +138,15 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 		if(RELATIONLISTLOGIC.setStandard(relation, item.getId())) {
 			onRefresh(null);
 		} else {
-			Statusbar.outputWarning("For this relation set standard is not supported!");
+			Statusbar.outputWarning(Helper.getMessages("relation_no_standard"));
 		}
 
 	}
 
 	private void deleteRelation(final MyARRAYGRIDItem item) {
 		YESNOPopup popup = YESNOPopup.createInstance(
-				"Confirm deletion",
-				"Do you really want to delete the selected relation?",
+				String.format(Helper.getMessages("confirm_delete_detail"),  item.getId()),
+                Helper.getMessages("confirm_delete"),
 				new IYesNoCancelListener(){
 
 					public void reactOnCancel() {}
@@ -155,10 +156,10 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 					public void reactOnYes() {
 						if(RELATIONLISTLOGIC.delete(relation, item.id)) {
 							grid.getItems().remove(item);
-							Statusbar.outputSuccess("Relation deleted");
+							Statusbar.outputSuccess(Helper.getMessages("relation_delete_success"));
 							reloadFunctionTree();
 						} else {
-							Statusbar.outputError("Relation could not be deleted!");
+							Statusbar.outputAlert(Helper.getMessages("relation_delete_failure"), Helper.getLiteral("error"));
 						}
 					}
 				}

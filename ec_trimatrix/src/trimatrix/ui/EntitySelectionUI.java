@@ -13,16 +13,17 @@ import trimatrix.entities.IEntityData;
 import trimatrix.logic.EntityListLogic;
 import trimatrix.ui.utils.ISelectionCallback;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
+import trimatrix.utils.Helper;
 
 public abstract class EntitySelectionUI extends MyWorkpageDispatchedBean implements Serializable, IEntitySelectionUI
 {
 	protected final EntityListLogic ENTITYLISTLOGIC = getLogic().getEntityListLogic();
-    protected List<IEntityData> gridData;	
-    
+    protected List<IEntityData> gridData;
+
 	public EntitySelectionUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
-	}	
-	
+	}
+
 	/* (non-Javadoc)
 	 * @see trimatrix.ui.IEntitySelectionUI#onCancel(javax.faces.event.ActionEvent)
 	 */
@@ -35,39 +36,39 @@ public abstract class EntitySelectionUI extends MyWorkpageDispatchedBean impleme
 	 */
     public void onSelect(GridListItem<? extends IEntityData> item) {
     	if (item == null) {
-    		Statusbar.outputMessage("No entity selected!");
+    		Statusbar.outputMessage(Helper.getMessages("no_entry_selected"));
     		return;
-    	}    	
-    	Statusbar.outputMessage("Entity " + item.entity.toString() + " selected!");
+    	}
+    	//Statusbar.outputMessage("Entity " + item.entity.toString() + " selected!");
     	callback.selected(item.entity.getId());
     }
-	
+
 	public class GridListItem<E extends IEntityData> extends FIXGRIDItem implements java.io.Serializable
     {
     	protected E entity;
-    	
+
     	public GridListItem(E entity) {
 			super();
 			this.entity = entity;
 		}
-    	
-    	    	
+
+
         public E getEntity() {return entity;}
 		public void setEntity(E entity) {this.entity = entity;}
 
 		@Override
 		public void onRowExecute() {
 			super.onRowExecute();
-			Statusbar.outputMessage("Entity " + entity.toString() + " selected!");
+			//Statusbar.outputMessage("Entity " + entity.toString() + " selected!");
 			callback.selected(entity.getId());
 		}
     }
-      
+
     protected ISelectionCallback callback;
     /* (non-Javadoc)
 	 * @see trimatrix.ui.IEntitySelectionUI#prepareCallback(trimatrix.ui.EntitySelectionUI.ISelectionCallback)
 	 */
     public void prepareCallback(ISelectionCallback callback) {
     	this.callback = callback;
-    } 
+    }
 }

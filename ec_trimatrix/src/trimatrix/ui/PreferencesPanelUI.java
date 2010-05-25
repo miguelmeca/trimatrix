@@ -17,6 +17,7 @@ import trimatrix.db.UserDefaults;
 import trimatrix.db.UserPreferences;
 import trimatrix.logic.helper.DayInfo;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
+import trimatrix.utils.Helper;
 
 @CCGenClass(expressionBase = "#{d.PreferencesPanelUI}")
 public class PreferencesPanelUI extends MyWorkpageDispatchedBean implements Serializable {
@@ -105,9 +106,9 @@ public class PreferencesPanelUI extends MyWorkpageDispatchedBean implements Seri
 			for(GridDefaultsItem item : m_gridDefaults.getItems()) {
 				getLogic().getPreferencesLogic().updateDefault(item.getUserDefaults());
 			}
-			Statusbar.outputSuccess("Preferences saved!");
+			Statusbar.outputSuccess(Helper.getMessages("save_success"));
 		} catch(Exception ex) {
-			Statusbar.outputAlert(ex.toString(), "Saving preferences failed!");
+			Statusbar.outputAlert(Helper.getMessages("save_failure"), Helper.getLiteral("error"), ex.toString());
 		}
 		init();
 	}
