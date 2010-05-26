@@ -488,7 +488,7 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 		});
 		m_popup = getWorkpage().createModalPopupInWorkpageContext();
 		m_popup.setLeftTopReferenceCentered();
-		m_popup.open(Page.COMPETITIONSELECTION.getUrl(), "Wettkampfsuche", 800, 600, this);
+		m_popup.open(Page.COMPETITIONSELECTION.getUrl(), Helper.getLiteral("competition_search"), 800, 600, this);
 	}
 
 	public void onCompetitionClicked(ActionEvent event) {
@@ -781,7 +781,7 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 		});
 		m_popup = getWorkpage().createModalPopupInWorkpageContext();
 		m_popup.setLeftTopReferenceCentered();
-		m_popup.open(Constants.Page.PERSONSELECTION.getUrl(), "Athletensuche", 800, 600, this);
+		m_popup.open(Constants.Page.PERSONSELECTION.getUrl(), Helper.getLiteral("athlete_search"), 800, 600, this);
 	}
 
 	public void onLoadAthlete(ActionEvent event) {

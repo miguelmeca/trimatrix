@@ -34,13 +34,13 @@ public class PasswordUI extends MyDispatchedBean implements Serializable
 
     public void onChange(ActionEvent event) {
     	if(!m_newPassword.equals(m_newPassword2)) {
-    		Statusbar.outputAlert(Helper.getMessages("passwords_different"), Helper.getLiteral("warn"));
+    		Statusbar.outputAlert(Helper.getMessages("passwords_different"), Helper.getLiteral("warn")).setLeftTopReferenceCentered();
     		return;
     	}
     	try {
 			LOGONLOGIC.changePassword(m_newPassword);
 		} catch (Exception ex) {
-			Statusbar.outputAlert(Helper.getMessages("password_change_failure"), Helper.getLiteral("error"), ex.toString());
+			Statusbar.outputAlert(Helper.getMessages("password_change_failure"), Helper.getLiteral("error"), ex.toString()).setLeftTopReferenceCentered();
 			return;
 		}
     	// Change succesfull

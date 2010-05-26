@@ -137,7 +137,7 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
     	}
     	// exit if mandatory check fails
     	if(failure) {
-    		Statusbar.outputAlert(Helper.getMessages("mandatory"), Helper.getLiteral("warn"));
+    		Statusbar.outputAlert(Helper.getMessages("mandatory"), Helper.getLiteral("warn")).setLeftTopReferenceCentered();
     		return;
     	}
     	// save schedule
@@ -152,8 +152,8 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 
     public void onDelete(ActionEvent ae) {
     	YESNOPopup popup = YESNOPopup.createInstance(
-				"Confirm deletion",
-				"Do you really want to delete this schedule?",
+    			Helper.getMessages("delete_data"),
+                Helper.getMessages("confirm_delete"),
 				new IYesNoCancelListener(){
 
 					public void reactOnCancel() {}

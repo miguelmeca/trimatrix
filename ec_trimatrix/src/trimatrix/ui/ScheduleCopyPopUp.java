@@ -16,6 +16,7 @@ import trimatrix.db.Schedules;
 import trimatrix.ui.ScheduleUI.ScheduleItem;
 import trimatrix.ui.utils.IPopUpCallback;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
+import trimatrix.utils.Helper;
 
 @CCGenClass (expressionBase="#{d.ScheduleCopyPopUp}")
 
@@ -75,17 +76,17 @@ public class ScheduleCopyPopUp extends MyWorkpageDispatchedBean implements Seria
         	Schedules copiedSchedule = null;
             try {
                 copiedSchedule = getLogic().getScheduleLogic().copySchedule(scheduleItem.getId(), getCopyAthleteId(), new Timestamp(getCopyDate().getTime()));
-                Statusbar.outputSuccess("Schedule was succesfully copied!");
+                Statusbar.outputSuccess(Helper.getMessages("schedule_copy_success"));
             } catch (Exception ex) {
-                Statusbar.outputAlert(ex.toString(),"Copy failed!");
+                Statusbar.outputAlert(Helper.getMessages("schedule_copy_failure"),Helper.getLiteral("error"), ex.toString()).setLeftTopReferenceCentered();
             }
             callback.ok(copiedSchedule);
         } else if(isMultiCopy()) {
         	int count = getLogic().getScheduleLogic().copySchedules(athleteId, getCopyAthleteId(), new Timestamp(getFromDate().getTime()), new Timestamp(getToDate().getTime()), new Timestamp(getCopyDate().getTime()));
         	if(count>0) {
-        		Statusbar.outputSuccess(count + " : Schedules succesfully copied!");
+        		Statusbar.outputSuccess(String.format(Helper.getMessages("schedule_copy"),count));
         	} else {
-        		Statusbar.outputAlert("No schedules copied!");
+        		Statusbar.outputAlert(Helper.getMessages("schedule_no_copy"), Helper.getLiteral("info")).setLeftTopReferenceCentered();
         	}
         	callback.ok(null);
         }
@@ -93,17 +94,17 @@ public class ScheduleCopyPopUp extends MyWorkpageDispatchedBean implements Seria
 
     private boolean checkMandatory() {
         if(isEmpty(getCopyAthleteId())) {
-            Statusbar.outputAlert("No athlete selected!");
+            Statusbar.outputAlert(Helper.getMessages("athlete_missing"), Helper.getLiteral("warn")).setLeftTopReferenceCentered();
             return false;
         }
         if(getCopyDate()==null) {
-            Statusbar.outputAlert("Target date is empty!");
+        	Statusbar.outputAlert(Helper.getMessages("target_date_missing"), Helper.getLiteral("warn")).setLeftTopReferenceCentered();
             return false;
         }
         // special check for multi
         if(isMultiCopy()) {
             if(getFromDate()==null) {
-            	Statusbar.outputAlert("Source date is empty!");
+            	Statusbar.outputAlert(Helper.getMessages("source_date_missing"), Helper.getLiteral("warn")).setLeftTopReferenceCentered();
                 return false;
             }
         }

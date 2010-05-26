@@ -393,7 +393,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		try {
 			days = Integer.valueOf((String)ae.getComponent().getAttributes().get(Constants.CLIENTNAME));
 		} catch (Exception ex) {
-			Statusbar.outputError("Tag konnte nicht ermittelt werden!", ex.toString());
+			Statusbar.outputError(Helper.getMessages("day_not_found"), ex.toString());
 			return;
 		}
 
@@ -410,7 +410,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		m_popup = getWorkpage().createModalPopupInWorkpageContext();
 		m_popup.setLeftTopReferenceCentered();
 		m_popup.setUndecorated(true);
-		m_popup.open(Constants.Page.DAYINFOPOPUP.getUrl(), "Tagesinformation",
+		m_popup.open(Constants.Page.DAYINFOPOPUP.getUrl(), Helper.getLiteral("day_info"),
 				0, 0, ScheduleUI.this);
 	}
 
@@ -458,7 +458,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 							// schedule at this day
 							if(item.getStartWeekDay() != DAYSOFWEEK[day]) continue;
 							if((from.after(item.getStart()) && from.before(item.getEnd())) || from.equals(item.getStart()) ) {
-								Statusbar.outputAlert("No intersection allowed!");
+								Statusbar.outputAlert(Helper.getMessages("schedule_intersection"), Helper.getLiteral("warn")).setLeftTopReferenceCentered();
 								return;
 							}
 						}
@@ -467,7 +467,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 							getLogic().getScheduleLogic().changeStart(id, from);
 							refresh();
 						} catch (Exception ex) {
-							Statusbar.outputAlert(ex.toString(), "Change Start failed!");
+							Statusbar.outputAlert(Helper.getMessages("start_change_failure"), Helper.getLiteral("error"), ex.toString()).setLeftTopReferenceCentered();
 						}
 					}
 				}
@@ -600,8 +600,8 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			if (event instanceof BaseActionEventPopupMenuItem) {
 				BaseActionEventPopupMenuItem bae = (BaseActionEventPopupMenuItem) event;
 				if (bae.getCommand().equals("cmdRemove")) {
-					YESNOPopup.createInstance("Removing Schedule Item",
-							"Do you really want to remove the selected schedule?",
+					YESNOPopup.createInstance(Helper.getMessages("delete_data"),
+		                    Helper.getMessages("confirm_delete"),
 							new YESNOPopup.IYesNoListener() {
 								public void reactOnNo() { return; }
 
@@ -610,13 +610,13 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 									try {
 										scheduleItem = (ScheduleItem) getClass().getDeclaredField("this$1").get(this);
 										if(getLogic().getScheduleLogic().deleteSchedule(scheduleItem.getId())) {
-											Statusbar.outputMessage("Schedule succesfully deleted!");
+											Statusbar.outputSuccess(Helper.getMessages("delete_success"));
 											refresh();
 										} else {
-											Statusbar.outputAlert("Schedule couldn't be deleted!");
+											Statusbar.outputAlert(Helper.getMessages("delete_failure"), Helper.getLiteral("error")).setLeftTopReferenceCentered();
 										}
 									} catch (Exception ex) {
-										Statusbar.outputAlert(ex.toString(), "Deletion failed!");
+										Statusbar.outputAlert(Helper.getMessages("delete_failure"), Helper.getLiteral("error"), ex.toString()).setLeftTopReferenceCentered();
 									}
 								}
 							});
@@ -633,7 +633,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 					getLogic().getScheduleLogic().changeDuration(getId(), duration);
 					refresh();
 				} catch (Exception ex) {
-					Statusbar.outputAlert(ex.toString(), "Change Duration failed!");
+					Statusbar.outputAlert(Helper.getMessages("duration_change_failure"), Helper.getLiteral("error"), ex.toString()).setLeftTopReferenceCentered();
 				}
 			} else if (event instanceof BaseActionEventFlush) {
 				selectScheduleItem(this);
@@ -667,7 +667,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			m_popup = getWorkpage().createModalPopupInWorkpageContext();
 			m_popup.setLeftTopReferenceCentered();
 			m_popup.setUndecorated(true);
-			m_popup.open(Constants.Page.SCHEDULECOPYPOPUP.getUrl(), "Kopieren", 0, 0, ScheduleUI.this);
+			m_popup.open(Constants.Page.SCHEDULECOPYPOPUP.getUrl(), Helper.getLiteral("copy"), 0, 0, ScheduleUI.this);
 		}
 
 
@@ -688,29 +688,29 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 								m_popup.close();
 								refresh();
 							} catch (Exception ex) {
-								Statusbar.outputAlert(ex.toString(), "Save failed!");
+								Statusbar.outputAlert(Helper.getMessages("save_failure"), Helper.getLiteral("error"), ex.toString()).setLeftTopReferenceCentered();
 							}
 						}
 
 						public void delete() {
 							try {
 								if(deleteSchedule()) {
-									Statusbar.outputSuccess("Schedule succesfully deleted!");
+									Statusbar.outputSuccess(Helper.getMessages("delete_success"));
 								} else {
-									Statusbar.outputAlert("Schedule couldn't be deleted!");
+									Statusbar.outputAlert(Helper.getMessages("delete_failure"), Helper.getLiteral("error")).setLeftTopReferenceCentered();
 								}
 								m_popup.close();
 								refresh();
 							} catch (Exception ex) {
-								Statusbar.outputAlert(ex.toString(), "Deletion failed!");
+								Statusbar.outputAlert(Helper.getMessages("delete_failure"), Helper.getLiteral("error"), ex.toString()).setLeftTopReferenceCentered();
 							}
 						}
 					}, this);
 			m_popup = getWorkpage().createModalPopupInWorkpageContext();
 			m_popup.setLeftTopReferenceCentered();
 			m_popup.setUndecorated(true);
-			String title = "Termin";
-			if(template) title = "Vorlage";
+			String title = Helper.getLiteral("schedule");
+			if(template) title = Helper.getLiteral("template");
 			m_popup.open(Constants.Page.SCHEDULECHANGEPOPUP.getUrl(), title, 1024, 768, ScheduleUI.this);
 		}
 	}
@@ -796,7 +796,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		m_popup = getWorkpage().createModalPopupInWorkpageContext();
 		m_popup.setLeftTopReferenceCentered();
 		m_popup.setUndecorated(true);
-		m_popup.open(Constants.Page.SCHEDULECOPYPOPUP.getUrl(), "Kopieren", 0, 0, ScheduleUI.this);
+		m_popup.open(Constants.Page.SCHEDULECOPYPOPUP.getUrl(), Helper.getLiteral("copy"), 0, 0, ScheduleUI.this);
     }
 
     public ScheduleItem createScheduleItem(String id) {
@@ -858,7 +858,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		getGridAgenda().getItems().clear();
 		List<Schedules> schedules = getLogic().getScheduleLogic().getSchedulesByQuery(getSearchAthleteId(), getFromDate(), getToDate());
 		if(isEmpty(schedules)) {
-			Statusbar.outputAlert("No entries found!");
+			Statusbar.outputAlert(Helper.getMessages("no_entry_found"), Helper.getLiteral("info")).setLeftTopReferenceCentered();
 			return;
 		}
 		for(Schedules schedule : schedules) {

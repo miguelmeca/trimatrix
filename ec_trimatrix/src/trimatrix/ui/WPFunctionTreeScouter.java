@@ -102,7 +102,7 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 						 * Create CompetitionScout entity and open the page so
 						 * the Scouter could add certain relevant data
 						 */
-						YESNOPopup ynp = YESNOPopup.createInstance("Create relation", "Do you really want to put the competition " + datum.toString() + " to your competitions?",
+						YESNOPopup ynp = YESNOPopup.createInstance(Helper.getMessages("create_relation"), String.format(Helper.getMessages("confirm_competitions_overtake"), datum.toString()),
 								new IYesNoCancelListener() {
 									public void reactOnCancel() {}
 
@@ -123,7 +123,7 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 								});
 						ynp.getModalPopup().setLeftTopReferenceCentered();
 					} else if (Entity.MYSCOUTEDATHLETES.name().equalsIgnoreCase(entityName) && entity == Constants.Entity.SCOUTCOMPETITIONS && entityId != null) {
-						YESNOPopup ynp = YESNOPopup.createInstance("Create result", "Do you really want to create a result?", new IYesNoCancelListener() {
+						YESNOPopup ynp = YESNOPopup.createInstance(Helper.getMessages("create_result"), Helper.getMessages("confirm_result_create"), new IYesNoCancelListener() {
 
 							public void reactOnCancel() {}
 
@@ -137,10 +137,10 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 									if(result==null) {
 										result = FUNCTIONTREELOGIC.createResultRelation(entityId, datum.getId());
 									} else {
-										Statusbar.outputMessage("Result already exists!");
+										Statusbar.outputAlert(Helper.getMessages("result_exist"), Helper.getLiteral("info")).setLeftTopReferenceCentered();
 									}
 								} catch (Exception ex) {
-									Statusbar.outputError("Result could not be created!", ex.toString());
+									Statusbar.outputAlert(Helper.getMessages("result_create_failure"), Helper.getLiteral("error"), ex.toString()).setLeftTopReferenceCentered();
 								}
 								if (result == null)
 									return;
@@ -156,7 +156,7 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 						});
 						ynp.getModalPopup().setLeftTopReferenceCentered();
 					} else if (Entity.MYSCOUTEDATHLETES.name().equalsIgnoreCase(entityName) && entity == Constants.Entity.COMPETITION && entityId != null) {
-						YESNOPopup ynp = YESNOPopup.createInstance("Create relation and result", "Do you really want to create a result?", new IYesNoCancelListener() {
+						YESNOPopup ynp = YESNOPopup.createInstance(Helper.getMessages("create_relation_result"), Helper.getMessages("confirm_relation_result_create"), new IYesNoCancelListener() {
 
 							public void reactOnCancel() {}
 
@@ -172,10 +172,10 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 									if(result==null) {
 										result = FUNCTIONTREELOGIC.createResultRelation(entityId, datum.getId());
 									} else {
-										Statusbar.outputMessage("Result already exists!");
+										Statusbar.outputAlert(Helper.getMessages("result_exist"), Helper.getLiteral("warn")).setLeftTopReferenceCentered();
 									}
 								} catch (Exception ex) {
-									Statusbar.outputError("Result could not be created!", ex.toString());
+									Statusbar.outputAlert(Helper.getMessages("result_create_failure"), Helper.getLiteral("error"), ex.toString()).setLeftTopReferenceCentered();
 								}
 								if (result == null)
 									return;

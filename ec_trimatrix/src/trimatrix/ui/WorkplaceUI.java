@@ -14,7 +14,6 @@ import org.eclnt.jsfserver.elements.events.BaseActionEventPopupMenuItem;
 import org.eclnt.jsfserver.elements.impl.BUTTONComponent;
 import org.eclnt.jsfserver.elements.impl.OUTLOOKBARITEMComponent;
 import org.eclnt.jsfserver.elements.impl.ROWDYNAMICCONTENTBinding;
-import org.eclnt.jsfserver.resources.ResourceManager;
 import org.eclnt.workplace.IWorkpage;
 import org.eclnt.workplace.IWorkpageContainer;
 import org.eclnt.workplace.IWorkpageDispatcher;
@@ -94,9 +93,7 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 			wpc.switchToWorkpage(wp);
 			return;
 		}
-
-    	String title = ResourceManager.getRuntimeInstance().readProperty(Constants.LITERALS,"preferences");
-		wp = new Workpage( wpd, Constants.Page.PREFERENCESPANEL.getUrl(),PREFERENCES, title, null, true);
+		wp = new Workpage( wpd, Constants.Page.PREFERENCESPANEL.getUrl(),PREFERENCES, Helper.getLiteral("preferences"), null, true);
 		wpc.addWorkpage(wp);
     }
 
@@ -142,8 +139,7 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 				wpc.switchToWorkpage(wp);
 				return;
 			}
-	    	String title = ResourceManager.getRuntimeInstance().readProperty(Constants.LITERALS,"calendar");
-			wp = new Workpage( wpd, Constants.Page.CALENDAR.getUrl(),Page.CALENDAR.name(), title, null, true);
+			wp = new Workpage( wpd, Constants.Page.CALENDAR.getUrl(),Page.CALENDAR.name(), Helper.getLiteral("calendar"), null, true);
 			wpc.addWorkpage(wp);
 		}
 	}
@@ -190,7 +186,7 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 				// check if relation to entity exist
 				final List<EntitiesHaveLabels> relations = getDaoLayer().getEntitiesHaveLabelsDAO().findByLabel(label_id);
 				// popup
-				YESNOPopup.createInstance ( "Delete label", "For label " + label.getDescription() + " there exist " + relations.size() + " relations to entities, sure to delete label?",
+				YESNOPopup.createInstance(Helper.getMessages("delete_label"), String.format(Helper.getMessages("confirm_label_delete"), label.getDescription(), relations.size()),
 						new IYesNoListener() {
 							public void reactOnNo()	{
 								return;
@@ -206,7 +202,7 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 								// delete label
 								if(label!=null) {
 									getDaoLayer().getLabelsDAO().delete(label);
-									Statusbar.outputMessage("Delete Label " + label.getDescription());
+									Statusbar.outputSuccess("delete_success");
 								}
 							}
 					});
@@ -225,8 +221,7 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 					return;
 				}
 				m_popup = getWorkpage().createModalPopupInWorkpageContext();
-		    	m_popup.open(Constants.Page.LABELCHANGEPOPUP.getUrl(), "Label ändern",350, 175, this);
-		    	//m_popup.setUndecorated(true);
+		    	m_popup.open(Constants.Page.LABELCHANGEPOPUP.getUrl(), Helper.getLiteral("change_label"),350, 175, this);
 			}
 
 		} else {

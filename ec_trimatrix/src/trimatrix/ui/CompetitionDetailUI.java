@@ -31,6 +31,7 @@ import trimatrix.logic.helper.Limit;
 import trimatrix.structures.SListVariant;
 import trimatrix.ui.utils.IPopUpCallback;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.Entity;
 
 @SuppressWarnings("serial")
@@ -375,7 +376,7 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		m_popup = getWorkpage().createModalPopupInWorkpageContext();
 		m_popup.setLeftTopReferenceCentered();
 		m_popup.setUndecorated(true);
-		m_popup.open(Constants.Page.RESULTSLISTPOPUP.getUrl(), "Ergebnisliste", 520, 155, this);
+		m_popup.open(Constants.Page.RESULTSLISTPOPUP.getUrl(), Helper.getLiteral("resultlist"), 520, 155, this);
 	}
 
 	public String getResultsListIcon() {

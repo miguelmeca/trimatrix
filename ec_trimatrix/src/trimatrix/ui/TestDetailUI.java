@@ -1343,7 +1343,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 	}
 
 	public int getMaxWidth() {
-		Statusbar.outputMessage("Actual width: " + Helper.getWidth());
+		//Statusbar.outputMessage("Actual width: " + Helper.getWidth());
 		return Helper.getWidth();
 	}
 
@@ -1362,10 +1362,10 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 
 	public void onSetZones(ActionEvent event) {
 		if (result == null) {
-			Statusbar.outputAlert("You have to refresh, for initialization!").setLeftTopReferenceCentered();
+			Statusbar.outputAlert(Helper.getMessages("refresh_for_init"), Helper.getLiteral("info")).setLeftTopReferenceCentered();
 			return;
 		}
-		YESNOPopup popup = YESNOPopup.createInstance("Write data to training zones", "Do you really want to write/overwrite the training zones?", new IYesNoCancelListener() {
+		YESNOPopup popup = YESNOPopup.createInstance(Helper.getMessages("write_zone"), Helper.getMessages("confirm_write_zone"), new IYesNoCancelListener() {
 			public void reactOnCancel() {}
 			public void reactOnNo() {}
 			public void reactOnYes() {
@@ -1373,7 +1373,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 				String athleteId = entity.getAthlete().getId();
 				List<ZonesLogic.ZoneInfo> zoneInfos = getLogic().getZonesLogic().getAthletesZone(athleteId);
 				if (zoneInfos.size() == 0) {
-					Statusbar.outputAlert("The athlete has no coach with zones defined!").setLeftTopReferenceCentered();
+					Statusbar.outputAlert(Helper.getMessages("athlete_no_coach_zone"), Helper.getLiteral("info")).setLeftTopReferenceCentered();
 					return;
 				}
 				Double x = null;
@@ -1419,7 +1419,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 						}
 						getLogic().getZonesLogic().saveZone(zone);
 					} catch (Exception ex) {
-						Statusbar.outputError("Error occured writing back the zone " + definition.getShortcut() + "!", ex.toString());
+						Statusbar.outputAlert(String.format(Helper.getMessages("writing_back_zone_failure"), definition.getShortcut()), Helper.getLiteral("error"), ex.toString()).setLeftTopReferenceCentered();
 						continue;
 					}
 				}
@@ -1446,7 +1446,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			if (hrs != null)
 				m_hr = (int) Math.round(trimatrix.utils.maths.Helper.getYFromMultiLinearFunction(hrs, m_valueX));
 		} catch (Exception ex) {
-			Statusbar.outputError("Problem to get calculate heartrate value!", ex.toString());
+			Statusbar.outputAlert(Helper.getMessages("problem_hr_value"), Helper.getLiteral("error"), ex.toString()).setLeftTopReferenceCentered();
 		}
 	}
 
@@ -1570,11 +1570,11 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 				PolynomialFunctions function = new PolynomialFunctions(xyArr, m_degree);
 				return function.getResult();
 			} catch (Exception ex) {
-				Statusbar.outputError("Problem computing result for polnomial function", ex.toString());
+				Statusbar.outputAlert(Helper.getMessages("problem_poly_value"), Helper.getLiteral("error"), ex.toString()).setLeftTopReferenceCentered();
 				return null;
 			}
 		}
-		Statusbar.outputError("Type of function does not exist!");
+		Statusbar.outputAlert(Helper.getMessages("type_function_error"), Helper.getLiteral("error")).setLeftTopReferenceCentered();
 		return null;
 	}
 
@@ -1655,7 +1655,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			bos.close();
 			diagram = bos.toByteArray();
 		} catch (Exception ex) {
-			Statusbar.outputError("Error creating diagram!", ex.toString());
+			Statusbar.outputAlert(Helper.getMessages("problem_diagram"), Helper.getLiteral("error"), ex.toString()).setLeftTopReferenceCentered();
 			return null;
 		}
 		return diagram;

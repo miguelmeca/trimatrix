@@ -200,7 +200,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
         IWorkpageDispatcher wpd = getOwningDispatcher();
         IWorkpageContainer wpc = getWorkpageContainer();
         IWorkpage wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.getUrl(),
-                null, "New entity", null, true, entityList, authorization, null);
+                null, Helper.getLiteral("new_entity"), null, true, entityList, authorization, null);
         wp.setParam(Constants.P_ENTITY, entity.name());
         wp.setParam(Constants.P_MODE, Constants.Mode.NEW.name());
         wpc.addWorkpage(wp);
@@ -239,7 +239,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
                                     return;
                                 }
                             }
-                            Statusbar.outputAlert(Helper.getMessages("delete_failure"), Helper.getLiteral("error"));
+                            Statusbar.outputAlert(Helper.getMessages("delete_failure"), Helper.getLiteral("error")).setLeftTopReferenceCentered();
                         }
                     }
             );
@@ -353,8 +353,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 				m_popup = getWorkpage().createModalPopupInWorkpageContext();
 				m_popup.setLeftTopReferenceCentered();
 				m_popup.setUndecorated(true);
-				String title = "Termin";
-				m_popup.open(Constants.Page.SCHEDULECHANGEPOPUP.getUrl(), title, 1024, 768, EntityListUI.this);
+				m_popup.open(Constants.Page.SCHEDULECHANGEPOPUP.getUrl(), Helper.getLiteral("schedule"), 1024, 768, EntityListUI.this);
 				return;
 			}
             // if buttons are not rendered details are immutable

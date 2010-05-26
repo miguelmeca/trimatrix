@@ -5,12 +5,10 @@ import java.util.List;
 import java.util.UUID;
 
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
-import org.eclnt.jsfserver.resources.ResourceManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import sun.security.action.GetLongAction;
 import trimatrix.db.Attachments;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;

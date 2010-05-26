@@ -74,8 +74,8 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 
                 	if (entity.getBase()==Constants.Entity.ATTACHMENT) {
                 		YESNOPopup ynp = YESNOPopup.createInstance(
-                				"Create relation",
-                				"Do you really want to create a relation between " + getText() + " and " + datum.toString() + "?",
+                				Helper.getMessages("create_relation"),
+                				String.format(Helper.getMessages("confirm_create_relation"), getText(), datum.toString()),
                 				new IYesNoCancelListener(){
 
                 					public void reactOnCancel() {}
@@ -90,8 +90,8 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
                 		ynp.getModalPopup().setLeftTopReferenceCentered();
                 	} else if (entity.getBase()==Constants.Entity.DOCTOR) {
                 		YESNOPopup ynp = YESNOPopup.createInstance(
-                				"Create relation",
-                				"Do you really want to create a relation between " + getText() + " and " + datum.toString() + "?",
+                				Helper.getMessages("create_relation"),
+                				String.format(Helper.getMessages("confirm_create_relation"), getText(), datum.toString()),
                 				new IYesNoCancelListener(){
 
                 					public void reactOnCancel() {}
