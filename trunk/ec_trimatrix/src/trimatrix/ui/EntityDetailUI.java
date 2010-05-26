@@ -84,7 +84,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
         try {
         	entity = Constants.Entity.valueOf(strEntity.toUpperCase());
         } catch (Exception ex) {
-        	Statusbar.outputAlert(Helper.getMessages("entity_wrong"), Helper.getLiteral("error"), Helper.getMessages("entity_wrong_detail"));
+        	Statusbar.outputAlert(Helper.getMessages("entity_wrong"), Helper.getLiteral("error"), Helper.getMessages("entity_wrong_detail")).setLeftTopReferenceCentered();
         	getWorkpageContainer().closeWorkpage(getWorkpage());
         }
         // a instance of MyWorkpage
@@ -172,7 +172,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
         		// set title of workpage
         		getWorkpage().setTitle(entityObject.toString());
         	} catch (NullPointerException npe) {
-        		Statusbar.outputAlert(Helper.getMessages("entity_not_exist"), Helper.getLiteral("warn"), Helper.getMessages("entity_deleted"));
+        		Statusbar.outputAlert(Helper.getMessages("entity_not_exist"), Helper.getLiteral("warn"), Helper.getMessages("entity_deleted")).setLeftTopReferenceCentered();
             	// TODO close workpage or switch to another
         	}
 			break;
@@ -197,8 +197,8 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 
 	public void onDelete(ActionEvent event) {
 		YESNOPopup popup = YESNOPopup.createInstance(
-				"Confirm deletion",
-				"Do you really want to delete the selected entity?",
+				String.format(Helper.getMessages("confirm_delete_detail"), entity.getDescription()),
+                Helper.getMessages("confirm_delete"),
 				new IYesNoCancelListener(){
 
 					public void reactOnCancel() {}
@@ -309,7 +309,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 			IWorkpageContainer wpc = getWorkpageContainer();
 
 			IWorkpage wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.getUrl(),
-					newEntity.getId(),"Copy of " + entityObject.toString(), null, true, parentBean, authorization, newEntity );
+					newEntity.getId(),String.format(Helper.getLiteral("copy_of"), entityObject.toString()), null, true, parentBean, authorization, newEntity );
 			wp.setParam(Constants.P_ENTITY, entity.name());
 			wp.setParam(Constants.P_MODE, Constants.Mode.COPY.name());
 			wpc.addWorkpage(wp);

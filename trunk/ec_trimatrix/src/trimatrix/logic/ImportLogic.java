@@ -10,7 +10,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 
-import sun.security.action.GetLongAction;
 import trimatrix.db.Competitions;
 import trimatrix.db.CompetitionsScouts;
 import trimatrix.db.CompetitionsScoutsId;
@@ -59,7 +58,7 @@ public class ImportLogic {
 			Statusbar.outputSuccess(Helper.getMessages("template_success"));
 			return true;
 		} catch (Exception ex) {
-			Statusbar.outputAlert(Helper.getMessages("template_failure"), Helper.getLiteral("error"), ex.toString());
+			Statusbar.outputAlert(Helper.getMessages("template_failure"), Helper.getLiteral("error"), ex.toString()).setLeftTopReferenceCentered();
 			return false;
 		}
 	}
@@ -105,10 +104,10 @@ public class ImportLogic {
 				tria.setCategory(category);
 			}
 			daoLayer.getResultsDAO().merge(result);
-			Statusbar.outputAlert(String.format(Helper.getMessages("result_import"), athlete), Helper.getLiteral("info"));
+			Statusbar.outputAlert(String.format(Helper.getMessages("result_import"), athlete), Helper.getLiteral("info")).setLeftTopReferenceCentered();
 			return true;
 		} catch (Exception ex) {
-			Statusbar.outputAlert(String.format(Helper.getMessages("result_import_failure"), athlete), Helper.getLiteral("error"), ex.toString());
+			Statusbar.outputAlert(String.format(Helper.getMessages("result_import_failure"), athlete), Helper.getLiteral("error"), ex.toString()).setLeftTopReferenceCentered();
 			return false;
 		}
 	}
@@ -151,7 +150,7 @@ public class ImportLogic {
 			daoLayer.getCompetitionsScoutsDAO().merge(compScout);
 			return true;
 		} catch (Exception ex) {
-			Statusbar.outputAlert(String.format(Helper.getMessages("category_update"),category), Helper.getLiteral("error"));
+			Statusbar.outputAlert(String.format(Helper.getMessages("category_update"),category), Helper.getLiteral("error")).setLeftTopReferenceCentered();
 			return false;
 		}
 	}

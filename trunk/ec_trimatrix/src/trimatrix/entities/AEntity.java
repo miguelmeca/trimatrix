@@ -74,7 +74,7 @@ public abstract class AEntity implements IEntity{
 			// no standard handling for deletion of relationtships see docu
 		} catch (Exception ex) {
 			logger.error("Deletion failed : " + ex.toString());
-			Statusbar.outputAlert(ex.toString(), Helper.getLiteral("delete"));
+			Statusbar.outputAlert(Helper.getLiteral("delete"), Helper.getLiteral("error"), ex.toString()).setLeftTopReferenceCentered();
 			return false;
 		}
 		return true;

@@ -108,7 +108,7 @@ public class PreferencesPanelUI extends MyWorkpageDispatchedBean implements Seri
 			}
 			Statusbar.outputSuccess(Helper.getMessages("save_success"));
 		} catch(Exception ex) {
-			Statusbar.outputAlert(Helper.getMessages("save_failure"), Helper.getLiteral("error"), ex.toString());
+			Statusbar.outputAlert(Helper.getMessages("save_failure"), Helper.getLiteral("error"), ex.toString()).setLeftTopReferenceCentered();
 		}
 		init();
 	}

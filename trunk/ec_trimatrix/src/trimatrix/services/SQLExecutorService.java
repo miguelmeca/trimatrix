@@ -1082,7 +1082,7 @@ public class SQLExecutorService {
 				// add id
 				map.get(entity).add(entityId);
 			} catch (Exception ex) {
-				Statusbar.outputAlert(Helper.getMessages("entity_wrong"), Helper.getLiteral("error"), Helper.getMessages("entity_wrong_detail"));
+				Statusbar.outputAlert(Helper.getMessages("entity_wrong"), Helper.getLiteral("error"), Helper.getMessages("entity_wrong_detail")).setLeftTopReferenceCentered();
 				continue;
 			}
 

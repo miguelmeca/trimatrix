@@ -663,7 +663,7 @@ public class DayInfos implements java.io.Serializable {
 		result = prime * result	+ ((weightEvening == null) ? 0 : weightEvening.hashCode());
 		result = prime * result	+ ((weightMorning == null) ? 0 : weightMorning.hashCode());
 		result = prime * result	+ ((weather == null) ? 0 : weather.hashCode());
-		System.out.println(result);
+		//System.out.println(result);
 		return result;
 	}
 }

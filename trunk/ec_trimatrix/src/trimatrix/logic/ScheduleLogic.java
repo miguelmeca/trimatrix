@@ -105,7 +105,7 @@ public class ScheduleLogic {
 			Statusbar.outputSuccess(Helper.getMessages("save_success"));
 			return true;
 		} catch (Exception ex) {
-			Statusbar.outputAlert(Helper.getMessages("save_failure"), Helper.getLiteral("error"), ex.toString());
+			Statusbar.outputAlert(Helper.getMessages("save_failure"), Helper.getLiteral("error"), ex.toString()).setLeftTopReferenceCentered();
 			return false;
 		}
 	}

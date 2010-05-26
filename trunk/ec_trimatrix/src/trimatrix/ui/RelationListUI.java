@@ -159,7 +159,7 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 							Statusbar.outputSuccess(Helper.getMessages("relation_delete_success"));
 							reloadFunctionTree();
 						} else {
-							Statusbar.outputAlert(Helper.getMessages("relation_delete_failure"), Helper.getLiteral("error"));
+							Statusbar.outputAlert(Helper.getMessages("relation_delete_failure"), Helper.getLiteral("error")).setLeftTopReferenceCentered();
 						}
 					}
 				}

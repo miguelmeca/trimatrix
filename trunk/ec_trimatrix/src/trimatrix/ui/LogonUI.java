@@ -1,9 +1,7 @@
 package trimatrix.ui;
 
 import java.io.Serializable;
-import java.util.Locale;
 
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
@@ -32,7 +30,7 @@ public class LogonUI extends MyDispatchedBean implements Serializable {
 		if(!checkFields()) return;
 		// check if locked
 		if (LOGONLOGIC.isUserLocked()) {
-			Statusbar.outputError("User is locked!");
+			Statusbar.outputAlert(Helper.getMessages("user_locked"), Helper.getLiteral("warn")).setLeftTopReferenceCentered();
 			return;
 		}
 		// logon successful
@@ -56,7 +54,7 @@ public class LogonUI extends MyDispatchedBean implements Serializable {
 		}
 		try {
 			if (!LOGONLOGIC.logon(m_user, m_password)) {
-				Statusbar.outputAlert(Helper.getMessages("logon_failure"));
+				Statusbar.outputAlert(Helper.getMessages("logon_failure"), Helper.getLiteral("error")).setLeftTopReferenceCentered();
 				return false;
 			}
 		} catch (Exception ex) {

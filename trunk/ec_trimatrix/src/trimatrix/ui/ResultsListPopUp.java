@@ -31,6 +31,7 @@ import trimatrix.ui.utils.IPopUpCallback;
 import trimatrix.ui.utils.MyBufferedContentForAttachment;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.Entity;
 import eu.medsea.mimeutil.MimeType;
 import eu.medsea.mimeutil.MimeUtil;
@@ -132,8 +133,8 @@ public class ResultsListPopUp extends MyWorkpageDispatchedBean implements Serial
     public void onDelete(ActionEvent event) {
     	if(resultList!=null) {
     		YESNOPopup popup = YESNOPopup.createInstance(
-    				"Confirm deletion",
-    				"Do you really want to delete the result list?",
+    				Helper.getMessages("delete_data"),
+                    Helper.getMessages("confirm_delete"),
     				new IYesNoCancelListener(){
 
     					public void reactOnCancel() {}

@@ -131,7 +131,7 @@ public class AttachmentDetailUI extends AEntityDetailUI implements Serializable 
 			// check size
 			Integer size = bae.getHexBytes().length;
 			if (size > Constants.MB_1) {
-				Statusbar.outputAlert(String.format(Helper.getMessages("file_size"), size, Constants.MB_1), Helper.getLiteral("error"));
+				Statusbar.outputAlert(String.format(Helper.getMessages("file_size"), size, Constants.MB_1), Helper.getLiteral("error")).setLeftTopReferenceCentered();
 				return;
 			}
 			// filename without directory structure

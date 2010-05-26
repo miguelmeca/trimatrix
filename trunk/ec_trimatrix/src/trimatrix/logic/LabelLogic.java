@@ -36,7 +36,7 @@ public class LabelLogic {
 			daoLayer.getEntitiesHaveLabelsDAO().save(new EntitiesHaveLabels(id));
 			return true;
 		} catch(ConstraintViolationException cve) {
-			Statusbar.outputAlert(Helper.getMessages("label_assigned"), Helper.getLiteral("error"), cve.toString());
+			Statusbar.outputAlert(Helper.getMessages("label_assigned"), Helper.getLiteral("error"), cve.toString()).setLeftTopReferenceCentered();
 			return false;
 		} catch(Exception ex) {
 			logger.error("Error saving relation entity " + entity_id + " and label " + label_id );
