@@ -1,6 +1,6 @@
 <!--
 Defaults which are used for the Enterprise Client JSF Server sessions.
-    
+
 style: (optional) style of the styles directory which is applied by default.
 The styles directory is the /eclntjsfserver/styles directory.
 
@@ -16,9 +16,9 @@ the server side locale settings. This does not only happen the first time
 the session is created, but is regularly done with every request that
 comes to the server side.
 -->
-<sessiondefaults 
+<sessiondefaults
     style="trimatrix"
     language="de"
     country="DE"
-    takeoverclientlocalesettings="true"
+    takeoverclientlocalesettings="false"
 />

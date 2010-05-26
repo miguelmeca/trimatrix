@@ -107,7 +107,7 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
 		// get entity
         personId = getWorkpage().getParam(Constants.P_PERSON);
         if(personId==null || personId.length()==0) {
-        	Statusbar.outputError("No or wrong entity set", "For list view processing an entity has to be set by the functiontreenode!");
+        	Statusbar.outputAlert(Helper.getMessages("entity_wrong"), Helper.getLiteral("error"), Helper.getMessages("entity_wrong_detail"));
         	getWorkpageContainer().closeWorkpage(getWorkpage());
         }
         // get athlete info

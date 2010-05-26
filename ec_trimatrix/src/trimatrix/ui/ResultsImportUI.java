@@ -41,6 +41,7 @@ import trimatrix.logic.EntityListLogic;
 import trimatrix.ui.utils.ISelectionCallback;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.Entity;
 import trimatrix.utils.Constants.Page;
 
@@ -577,7 +578,7 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 			m_gridImport.getItems().clear();
 			// read excel
 			if(!readResultExcel(bae.getHexBytes(), TYPE.COMPETITION, null)) {
-				Statusbar.outputAlert("Error importing File", "Error");
+				Statusbar.outputAlert(Helper.getMessages("file_import_failure"), Helper.getLiteral("error")).setLeftTopReferenceCentered();
 			}
 		}
 	}
@@ -590,21 +591,21 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 	public void onImport(ActionEvent event) {
 		// check preconditions
 		if (competition == null) {
-			Statusbar.outputAlert("You have to set a competition!");
+			Statusbar.outputAlert(Helper.getMessages("competition_missing"), Helper.getLiteral("warn")).setLeftTopReferenceCentered();
 			return;
 		}
 		if (isEmpty(category)) {
-			Statusbar.outputAlert("You have to choose a category!");
+			Statusbar.outputAlert(Helper.getMessages("category_missing"), Helper.getLiteral("warn")).setLeftTopReferenceCentered();
 			return;
 		}
 		// check if data to import exists / any item marked?
 		final Set<GridImportItem> items = m_gridImport.getSelectedItems();
 		final Competitions competition = this.competition;
 		if (isEmpty(items)) {
-			Statusbar.outputAlert("No data to import, or no data selected!");
+			Statusbar.outputAlert(Helper.getMessages("import_no_data"), Helper.getLiteral("warn")).setLeftTopReferenceCentered();
 			return;
 		}
-		YESNOPopup ynp = YESNOPopup.createInstance("Import Results", "Do you really want to import marked results?", new IYesNoCancelListener() {
+		YESNOPopup ynp = YESNOPopup.createInstance(Helper.getLiteral("import"), Helper.getMessages("result_import_confirm"), new IYesNoCancelListener() {
 			public void reactOnCancel() {
 			}
 
@@ -615,7 +616,7 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 				// update competition
 				if (!getLogic().getImportLogic().createOrUpdateCategory(competition.getId(), category, importBestSwim, bestSwimmer, bestSwimSplit, importBestBike, bestBiker, bestBikeSplit,
 						importBestRun, bestRunner, bestRunSplit)) {
-					Statusbar.outputAlert("Error updating the competition details!\n");
+					Statusbar.outputAlert(Helper.getMessages("competition_update_failure"), Helper.getLiteral("error")).setLeftTopReferenceCentered();
 				}
 				// update results
 				int success = 0;
@@ -630,7 +631,7 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 					}
 				}
 				// output Result
-				Statusbar.outputAlert("\nImport done!", "Import", "Successfull : " + success + "\nErroreous   : " + error);
+				Statusbar.outputAlert("\n" + Helper.getMessages("import_done"), Helper.getLiteral("info"), String.format(Helper.getMessages("success_failure"), success, error)).setLeftTopReferenceCentered();
 				// Refresh WPFunctionTree
 				reloadFunctionTree();
 			}
@@ -786,7 +787,7 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 	public void onLoadAthlete(ActionEvent event) {
 		// check preconditions
 		if (athlete == null) {
-			Statusbar.outputError("No athlete selected!");
+			Statusbar.outputAlert(Helper.getMessages("athlete_missing"), Helper.getLiteral("warn")).setLeftTopReferenceCentered();
 			return;
 		}
 		// initialize grid
@@ -819,7 +820,7 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 				continue;
 			}
 		}
-		Statusbar.outputAlert(m_gridImportAthlete.getItems().size() + Constants.WHITESPACE + "Items found!");
+		Statusbar.outputAlert(String.format(Helper.getMessages("items_found"), m_gridImportAthlete.getItems().size()), Helper.getLiteral("info")).setLeftTopReferenceCentered();
 		if(m_gridImportAthlete.getItems().size()>0) {
 			statusImportData = true;
 		} else {
@@ -830,16 +831,16 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 	public void onImportAthlete(ActionEvent event) {
 		// check preconditions
 		if (isEmpty(category)) {
-			Statusbar.outputAlert("You have to choose a category!");
+			Statusbar.outputAlert(Helper.getMessages("category_missing"), Helper.getLiteral("warn")).setLeftTopReferenceCentered();
 			return;
 		}
 		// check if data to import exists / any item marked?
 		final Set<GridImportAthleteItem> items = m_gridImportAthlete.getSelectedItems();
 		if (isEmpty(items)) {
-			Statusbar.outputAlert("No data to import, or no data selected!");
+			Statusbar.outputAlert(Helper.getMessages("import_no_data"), Helper.getLiteral("warn")).setLeftTopReferenceCentered();
 			return;
 		}
-		YESNOPopup ynp = YESNOPopup.createInstance("Import Results", "Do you really want to import marked results?", new IYesNoCancelListener() {
+		YESNOPopup ynp = YESNOPopup.createInstance(Helper.getLiteral("import"), Helper.getMessages("result_import_confirm"), new IYesNoCancelListener() {
 			public void reactOnCancel() {
 			}
 
@@ -860,7 +861,7 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 					}
 				}
 				// output Result
-				Statusbar.outputAlert("\nImport done!", "Import", "Successfull : " + success + "\nErroreous   : " + error);
+				Statusbar.outputAlert("\n" + Helper.getMessages("import_done"), Helper.getLiteral("info"), String.format(Helper.getMessages("success_failure"), success, error)).setLeftTopReferenceCentered();
 				// Refresh WPFunctionTree
 				reloadFunctionTree();
 			}
@@ -1029,7 +1030,7 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 				// set status
 				statusMapping = false;
 				statusImportData = true;
-				Statusbar.outputSuccess(m_gridImport.getItems().size() + Constants.WHITESPACE + "Items found!");
+				//Statusbar.outputAlert(String.format(Helper.getMessages("items_found"), m_gridImport.getItems().size()), Helper.getLiteral("info")).setLeftTopReferenceCentered();
 			}
 			return true;
 		} catch (Exception ex) {
