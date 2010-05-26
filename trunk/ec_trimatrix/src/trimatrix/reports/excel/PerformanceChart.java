@@ -16,7 +16,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
-import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.resources.ResourceManager;
 
 import trimatrix.entities.ResultEntity;
