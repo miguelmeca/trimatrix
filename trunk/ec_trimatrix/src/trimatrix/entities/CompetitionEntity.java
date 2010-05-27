@@ -37,14 +37,14 @@ public final class CompetitionEntity extends AEntity {
 	 */
 	public List<SGridMetaData> getGridMetaData() {
         List<SGridMetaData> gridMetaData = new ArrayList<SGridMetaData>();
-        gridMetaData.add(new SGridMetaData("#{rr.literals.date}", DATE, SGridMetaData.Component.CALENDARFIELD));
-        gridMetaData.add(new SGridMetaData("#{rr.literals.description}", DESCRIPTION, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("#{rr.literals.type}", TYPE, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("#{rr.literals.subtype}", SUBTYPE, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("#{rr.literals.address}", ADDRESS, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("#{rr.literals.country}", COUNTRY, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("#{rr.literals.results}", RESULTS, SGridMetaData.Component.CHECKBOX));
-        gridMetaData.add(new SGridMetaData("#{rr.literals.results_list}", RESULTSLIST, SGridMetaData.Component.CHECKBOX));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("date"), DATE, SGridMetaData.Component.CALENDARFIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("description"), DESCRIPTION, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("type"), TYPE, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("subtype"), SUBTYPE, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("address"), ADDRESS, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("country"), COUNTRY, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("results"), RESULTS, SGridMetaData.Component.CHECKBOX));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("results_list"), RESULTSLIST, SGridMetaData.Component.CHECKBOX));
         return gridMetaData;
     }
 

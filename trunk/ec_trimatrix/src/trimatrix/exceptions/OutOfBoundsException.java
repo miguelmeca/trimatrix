@@ -1,14 +1,16 @@
 package trimatrix.exceptions;
 
+import trimatrix.utils.Helper;
+
 public class OutOfBoundsException extends Exception {
 	double low;
 	double high;
 	double value;
-	
+
 	@Override
 	public String getMessage() {
 		Object[] args = {value, low, high};
-		return  String.format("Value %s is not in range [%s,%s]", args);
+		return  String.format(Helper.getMessages("out_of_bound"), args);
 	}
 
 	public OutOfBoundsException(double low, double high, double value) {

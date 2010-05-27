@@ -9,6 +9,7 @@ import trimatrix.db.UserPreferences;
 import trimatrix.db.Users;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
+import trimatrix.utils.Helper;
 
 public final class UserEntity extends AEntity {
 	// Constants
@@ -19,54 +20,54 @@ public final class UserEntity extends AEntity {
 	public static final String PERSON = "person";
 	public static final String ACTIVE = "active";
 	public static final String INITIAL = "initial";
-	public static final String LOCKED = "locked";	
+	public static final String LOCKED = "locked";
 	public static final String LASTLOGON = "last_login";
-	public static final String LASTLOGONIP = "last_login_ip";	
-	
+	public static final String LASTLOGONIP = "last_login_ip";
+
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IUserEntity#getGridMetaData()
 	 */
 	public List<SGridMetaData> getGridMetaData() {
-        List<SGridMetaData> gridMetaData = new ArrayList<SGridMetaData>();        
+        List<SGridMetaData> gridMetaData = new ArrayList<SGridMetaData>();
         gridMetaData.add(new SGridMetaData("Benutzername", USER_NAME, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("Email", EMAIL, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("Sprache", LANGUAGE, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("Währung", CURRENCY, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("Person", PERSON, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("gesperrt", LOCKED, SGridMetaData.Component.CHECKBOX));
-        gridMetaData.add(new SGridMetaData("initial", INITIAL, SGridMetaData.Component.CHECKBOX));
-        gridMetaData.add(new SGridMetaData("aktiv", ACTIVE, SGridMetaData.Component.CHECKBOX));
-        gridMetaData.add(new SGridMetaData("Letzter Logon", LASTLOGON, SGridMetaData.Component.FORMATED_DATETIME));
-        gridMetaData.add(new SGridMetaData("IP letzter Logon", LASTLOGONIP, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("email"), EMAIL, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("language"), LANGUAGE, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("currency"), CURRENCY, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("person"), PERSON, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("locked"), LOCKED, SGridMetaData.Component.CHECKBOX));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("initial"), INITIAL, SGridMetaData.Component.CHECKBOX));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("active"), ACTIVE, SGridMetaData.Component.CHECKBOX));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("last_logon"), LASTLOGON, SGridMetaData.Component.FORMATED_DATETIME));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("last_logon_ip"), LASTLOGONIP, SGridMetaData.Component.FIELD));
         return gridMetaData;
-    }	
-	
+    }
+
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#getData(trimatrix.utils.Constants.Entity)
 	 */
 	public List<IEntityData> getData(Constants.Entity entity, String filter) {
 		return getData();
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#getData(trimatrix.utils.Constants.Entity, java.lang.String)
 	 */
 	public List<IEntityData> getData(Constants.Entity entity, String personId, String filter) {
 		return getData();
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#getData()
 	 */
 	public List<IEntityData> getData() {
 		return sqlExecutorService.getUserEntities();
 	}
-	
-	
+
+
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#create()
 	 */
-	public Users create() {		
+	public Users create() {
 		String id = UUID.randomUUID().toString();
 		Users entity = new Users();
 		entity.setId(id);
@@ -77,10 +78,10 @@ public final class UserEntity extends AEntity {
 		entity.setDeleted(false);
 		entity.setTest(false);
 		// preferences
-		entity.setPreferences(new UserPreferences(id));		
+		entity.setPreferences(new UserPreferences(id));
 		return entity;
 	}
-	
+
 	public static class Data implements IEntityData {
 		public String id;
 		public String user_name;
@@ -90,17 +91,17 @@ public final class UserEntity extends AEntity {
 		public String person;
 		public boolean locked;
 		public boolean initial;
-		public boolean active;		
+		public boolean active;
 		public Timestamp last_login;
 		public String last_login_ip;
-		
+
 		/* (non-Javadoc)
 		 * @see trimatrix.entities.IEntityData#getId()
 		 */
 		public String getId() {
 			return id;
 		}
-		
+
 		@Override
 		public String toString() {
 			// same as DB entity implementation
@@ -110,7 +111,7 @@ public final class UserEntity extends AEntity {
 		public String getUser_name() {
 			return user_name;
 		}
-		
+
 		public String getPerson() {
 			return person;
 		}
@@ -122,7 +123,7 @@ public final class UserEntity extends AEntity {
 		public String getCurrency() {
 			return currency;
 		}
-		
+
 		public String getEmail() {
 			return email;
 		}
@@ -145,6 +146,6 @@ public final class UserEntity extends AEntity {
 
 		public String getLast_login_ip() {
 			return last_login_ip;
-		}		
-	}	
+		}
+	}
 }

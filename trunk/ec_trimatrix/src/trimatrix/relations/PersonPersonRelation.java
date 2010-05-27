@@ -7,14 +7,16 @@ import java.util.UUID;
 import trimatrix.db.Persons;
 import trimatrix.db.PersonsHaveRelations;
 import trimatrix.structures.SGridMetaData;
+import trimatrix.utils.Constants;
+import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.Relation;
 
 public class PersonPersonRelation extends ARelation {
-	// Constants	 
+	// Constants
 	public static final String PARTNER1 = "partner1";
 	public static final String RELTYP   = "reltyp";
-    public static final String PARTNER2 = "partner2"; 
-    
+    public static final String PARTNER2 = "partner2";
+
 	public boolean delete(String partner1, String partner2) {
 		boolean result = true;
 		// find relevant entities
@@ -27,36 +29,36 @@ public class PersonPersonRelation extends ARelation {
 				result = false;
 			}
 		}
-		return result;		
+		return result;
 	}
 
-	public PersonsHaveRelations create() {		
+	public PersonsHaveRelations create() {
 		String id = UUID.randomUUID().toString();
 		PersonsHaveRelations relation = new PersonsHaveRelations();
 		relation.setId(id);
 		// default values
-		relation.setStandard(false);		
+		relation.setStandard(false);
 		return relation;
 	}
-	
+
 	public List<SGridMetaData> getGridMetaData() {
 		List<SGridMetaData> gridMetaData = new ArrayList<SGridMetaData>();
-        gridMetaData.add(new SGridMetaData("Partner 1", PARTNER1, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("Beziehung", RELTYP, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("Partner 2", PARTNER2, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("partner") + Constants.WHITESPACE + "1", PARTNER1, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("relation"), RELTYP, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("partner") + Constants.WHITESPACE + "2", PARTNER2, SGridMetaData.Component.FIELD));
         return gridMetaData;
 	}
 
 	public void save(IRelationObject relationObject) {
 		PersonsHaveRelations relation = (PersonsHaveRelations)relationObject;
-		relationsDAO.merge(relation);		
+		relationsDAO.merge(relation);
 	}
-	
+
 	public void reload(IRelationObject relationObject) {
 		PersonsHaveRelations relation = (PersonsHaveRelations)relationObject;
 		relationsDAO.reload(relation);
-	}	
-	
+	}
+
 	public List<IRelationData> getData() {
 		// TODO Auto-generated method stub
 		return null;
@@ -65,7 +67,7 @@ public class PersonPersonRelation extends ARelation {
 	public List<IRelationData> getData(Relation relation) {
 		return sqlExecutorService.getPersonPersonRelation(relation);
 	}
-	
+
 	public static class Data implements IRelationData {
 		public String  id;
 		public Persons partner1;
@@ -73,11 +75,11 @@ public class PersonPersonRelation extends ARelation {
 		public Boolean standard;
 		public String  reltyp;
 		public String  description;
-		public String  description_inverse;		
+		public String  description_inverse;
 
 		public String getId() {
 			return id;
-		}		
+		}
 
 		public Persons getPartner1() {
 			return partner1;
@@ -98,7 +100,7 @@ public class PersonPersonRelation extends ARelation {
 		public String getDescription_inverse() {
 			return description_inverse;
 		}
-		
+
 		public String getReltyp() {
 			return reltyp;
 		}
@@ -107,6 +109,6 @@ public class PersonPersonRelation extends ARelation {
 		public String toString() {
 			// same as DB relation implementation
 			return (partner1 + " " + description + " " + partner2);
-		}	
-	}	
+		}
+	}
 }

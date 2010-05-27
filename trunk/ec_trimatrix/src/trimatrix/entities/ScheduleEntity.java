@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import trimatrix.db.Schedules;
 import trimatrix.structures.SGridMetaData;
+import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.Entity;
 
 public class ScheduleEntity extends AEntity {
@@ -55,13 +56,13 @@ public class ScheduleEntity extends AEntity {
 
 	public List<SGridMetaData> getGridMetaData() {
 		List<SGridMetaData> gridMetaData = new ArrayList<SGridMetaData>();
-        gridMetaData.add(new SGridMetaData("Person", PERSON, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("Typ", TYPE, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("Beschreibung", DESCRIPTION, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("Start", START, SGridMetaData.Component.CALENDARFIELD));
-        gridMetaData.add(new SGridMetaData("Dauer", DURATION, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("Farbe", COLOR, SGridMetaData.Component.CALENDARFIELD));
-        gridMetaData.add(new SGridMetaData("Erledigt", DONE, SGridMetaData.Component.CHECKBOX));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("person"), PERSON, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("type"), TYPE, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("descrition"), DESCRIPTION, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("start"), START, SGridMetaData.Component.CALENDARFIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("duration"), DURATION, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("color"), COLOR, SGridMetaData.Component.CALENDARFIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("done"), DONE, SGridMetaData.Component.CHECKBOX));
         return gridMetaData;
 	}
 

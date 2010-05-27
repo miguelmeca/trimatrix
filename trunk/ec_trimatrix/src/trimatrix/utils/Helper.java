@@ -30,13 +30,15 @@ import org.eclnt.jsfserver.util.HttpSessionAccess;
 
 public class Helper {
 	public static String getLiteral(String property) {
-		return ResourceManager.getRuntimeInstance().readProperty(
+		String value = ResourceManager.getRuntimeInstance().readProperty(
 				Constants.LITERALS, property);
+		return isEmpty(value)?property:value;
 	}
 
 	public static String getMessages(String property) {
-		return ResourceManager.getRuntimeInstance().readProperty(
+		String value = ResourceManager.getRuntimeInstance().readProperty(
 				Constants.MESSAGES, property);
+		return isEmpty(value)?property:value;
 	}
 
 	public static boolean isFileInWebRoot(String filename) {
@@ -97,8 +99,7 @@ public class Helper {
 
 		// Ensure all the bytes have been read in
 		if (offset < bytes.length) {
-			throw new IOException("Could not completely read file "
-					+ file.getName());
+			throw new IOException(String.format(Helper.getMessages("read_file_failure"), file.getName()));
 		}
 
 		// Close the input stream and return bytes

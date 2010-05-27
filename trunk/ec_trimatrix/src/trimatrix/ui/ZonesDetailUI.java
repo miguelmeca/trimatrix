@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.faces.event.ActionEvent;
 
+import org.apache.log4j.Logger;
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
@@ -107,7 +108,8 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
 		// get entity
         personId = getWorkpage().getParam(Constants.P_PERSON);
         if(personId==null || personId.length()==0) {
-        	Statusbar.outputAlert(Helper.getMessages("entity_wrong"), Helper.getLiteral("error"), Helper.getMessages("entity_wrong_detail")).setLeftTopReferenceCentered();
+        	//Statusbar.outputAlert(Helper.getMessages("entity_wrong"), Helper.getLiteral("error"), Helper.getMessages("entity_wrong_detail")).setLeftTopReferenceCentered();
+        	Logger.getRootLogger().error(Helper.getMessages("entity_wrong"));
         	getWorkpageContainer().closeWorkpage(getWorkpage());
         }
         // get athlete info

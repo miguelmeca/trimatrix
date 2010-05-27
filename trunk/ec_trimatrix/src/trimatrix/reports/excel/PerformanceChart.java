@@ -16,7 +16,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
-import org.eclnt.jsfserver.resources.ResourceManager;
 
 import trimatrix.entities.ResultEntity;
 import trimatrix.reports.Report;
@@ -26,8 +25,8 @@ import trimatrix.utils.Helper;
 
 public class PerformanceChart extends Report {
 	private static final String[] titles = {
-        "Final Position","Date","Competition","Category","Fastest swimsplit","Swim cutoff","Swimsplit/Position", "Behind fastest swimmer","Wetsuit",
-        "Fastest runsplit","Run cutoff", "Runsplit/Position", "Behind fastest runner","Comment"};
+		Helper.getLiteral("ranking"),Helper.getLiteral("date"),Helper.getLiteral("competition"),Helper.getLiteral("category"),Helper.getLiteral("best_swim_split"),Helper.getLiteral("cutoff_swim"),Helper.getLiteral("swim_split_position"), Helper.getLiteral("deficit_swim"),Helper.getLiteral("swimsuit"),
+        Helper.getLiteral("best_run_split"),Helper.getLiteral("cutoff_run"), Helper.getLiteral("run_split_position"), Helper.getLiteral("deficit_run"),Helper.getLiteral("comment")};
 
 	private Data data;
 
@@ -46,7 +45,7 @@ public class PerformanceChart extends Report {
 			Workbook wb = new HSSFWorkbook();
 			Map<Styles.Style, CellStyle> styles = Styles.createStyles(wb);
 
-			Sheet sheet = wb.createSheet("Performance Chart");
+			Sheet sheet = wb.createSheet(Helper.getLiteral("performance_chart"));
 			PrintSetup printSetup = sheet.getPrintSetup();
 			printSetup.setLandscape(true);
 
@@ -54,7 +53,7 @@ public class PerformanceChart extends Report {
 			Row titleRow = sheet.createRow(0);
 			titleRow.setHeightInPoints(45);
 			Cell titleCell = titleRow.createCell(0);
-			titleCell.setCellValue(ResourceManager.getRuntimeInstance().readProperty(Constants.LITERALS, "performance_chart") + Constants.WHITESPACE + data.name);
+			titleCell.setCellValue(Helper.getLiteral("performance_chart") + Constants.WHITESPACE + data.name);
 			titleCell.setCellStyle(styles.get(Style.TITLE));
 			sheet.addMergedRegion(CellRangeAddress.valueOf("$A$1:$N$1"));
 
@@ -197,7 +196,7 @@ public class PerformanceChart extends Report {
 		    Row footerRow = sheet.createRow(actualRow);
 		    footerRow.setHeightInPoints(30);
 		    Cell footerCell = footerRow.createCell(0);
-		    footerCell.setCellValue("DNF = Did Not Finish, CSR = Championship Race, WC = World Cup,\nEC = European Cup, W-CHAMPS = World Championships");
+		    footerCell.setCellValue(Helper.getMessages("performance_chart_footer"));
 		    sheet.addMergedRegion(CellRangeAddress.valueOf("$A$" + (actualRow+1) + ":$N$" + (actualRow+1)));
 		    footerCell.setCellStyle(styles.get(Style.FOOTER));
 

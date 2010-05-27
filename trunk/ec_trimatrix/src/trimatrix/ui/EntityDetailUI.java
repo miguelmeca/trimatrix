@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.faces.event.ActionEvent;
 
+import org.apache.log4j.Logger;
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
@@ -84,7 +85,8 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
         try {
         	entity = Constants.Entity.valueOf(strEntity.toUpperCase());
         } catch (Exception ex) {
-        	Statusbar.outputAlert(Helper.getMessages("entity_wrong"), Helper.getLiteral("error"), Helper.getMessages("entity_wrong_detail")).setLeftTopReferenceCentered();
+        	//Statusbar.outputAlert(Helper.getMessages("entity_wrong"), Helper.getLiteral("error"), Helper.getMessages("entity_wrong_detail")).setLeftTopReferenceCentered();
+        	Logger.getRootLogger().error(Helper.getMessages("entity_wrong"));
         	getWorkpageContainer().closeWorkpage(getWorkpage());
         }
         // a instance of MyWorkpage

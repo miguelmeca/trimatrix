@@ -144,7 +144,7 @@ public final class Constants {
 		}
 
 		public String getDescription() {
-			String description = ResourceManager.getRuntimeInstance().readProperty(LITERALS,getBase().entityInstance);
+			String description = Helper.getLiteral(getBase().entityInstance);
 			if(Helper.isEmpty(description)) return Constants.EMPTY;
 			// if not found the literal definition is returned and this always starts with a bracket
 			if(description.startsWith("{")) return Constants.EMPTY;

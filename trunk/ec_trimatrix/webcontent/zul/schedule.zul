@@ -1,6 +1,6 @@
 <?page title="Schedule" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window title="Schedule" border="normal"
+	<window title="Trimatrix" border="normal"
 		apply="trimatrix.zul.ScheduleZUL">
 		<vbox>
 			<hbox style="vertical-align:middle">
