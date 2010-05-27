@@ -69,14 +69,14 @@ public final class TestEntity extends AEntity {
 	 */
 	public List<SGridMetaData> getGridMetaData() {
         List<SGridMetaData> gridMetaData = new ArrayList<SGridMetaData>();
-        gridMetaData.add(new SGridMetaData("Testdatum", DATE, SGridMetaData.Component.CALENDARFIELD));
-        gridMetaData.add(new SGridMetaData("Typ", TYPE, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("Person", PERSON, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("Arzt", DOCTOR, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("Trainer", COACH, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("Beschreibung", DESCRIPTION, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("#{rr.literals.protocol}", PROTOCOL, SGridMetaData.Component.CHECKBOX));
-        gridMetaData.add(new SGridMetaData("#{rr.literals.analyzed}", ANALYZED, SGridMetaData.Component.CHECKBOX));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("test_date"), DATE, SGridMetaData.Component.CALENDARFIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("type"), TYPE, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("person"), PERSON, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("doctor"), DOCTOR, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("coach"), COACH, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("description"), DESCRIPTION, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("protocol"), PROTOCOL, SGridMetaData.Component.CHECKBOX));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("analyzed"), ANALYZED, SGridMetaData.Component.CHECKBOX));
         return gridMetaData;
     }
 

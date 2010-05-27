@@ -202,7 +202,7 @@
 </t:row>
 </t:rowbodypane>
 <t:popupmenu id="SCHEDULE" >
-<t:menuitem id="g_150" command="cmdAdd" text="Neu" />
+<t:menuitem id="g_150" command="cmdAdd" text="#{rr.literals.new}" />
 </t:popupmenu>
 <t:popupmenu id="SCHEDULEITEM" >
 <t:menuitem id="g_151" command="cmdEdit" image="/resize(16,16):/images/icons/edit.png" text="#{rr.literals.change}" />

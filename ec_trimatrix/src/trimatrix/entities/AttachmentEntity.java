@@ -100,12 +100,12 @@ public class AttachmentEntity extends AEntity {
 	public List<SGridMetaData> getGridMetaData() {
 		List<SGridMetaData> gridMetaData = new ArrayList<SGridMetaData>();
 		gridMetaData.add(new SGridMetaData(Constants.EMPTY, ICON, "25", SGridMetaData.Component.ICON));
-        gridMetaData.add(new SGridMetaData("Beschreibung", DESCRIPTION, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("Kategorie", CATEGORY, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("Eigentümer", OWNER, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("MIME Typ", MIMETYPE, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("Dateiname", FILENAME, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("Dateigröße", FILESIZE, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("description"), DESCRIPTION, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("category"), CATEGORY, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("owner"), OWNER, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("mime_type"), MIMETYPE, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("file_name"), FILENAME, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("file_size"), FILESIZE, SGridMetaData.Component.FIELD));
         return gridMetaData;
 	}
 

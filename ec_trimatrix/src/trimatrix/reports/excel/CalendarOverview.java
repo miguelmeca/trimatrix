@@ -24,6 +24,7 @@ import trimatrix.services.ServiceLayer;
 import trimatrix.services.TranslationService;
 import trimatrix.ui.ScheduleUI;
 import trimatrix.ui.ScheduleUI.ScheduleItem;
+import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
 
 public class CalendarOverview extends Report {
@@ -32,7 +33,7 @@ public class CalendarOverview extends Report {
     private String header[] = { Helper.getLiteral("cw"), Helper.getLiteral("monday"), Helper.getLiteral("tuesday"), Helper.getLiteral("wednesday"), Helper.getLiteral("thursday"),
             Helper.getLiteral("friday"), Helper.getLiteral("saturday"), Helper.getLiteral("sunday") };
     private String header2[] = new String[8];
-    private String detailHeader[] = {"Start", "Dauer", "Typ", "Beschreibung", "", ""};
+    private String detailHeader[] = {Helper.getLiteral("start"), Helper.getLiteral("duration"), Helper.getLiteral("type"), Helper.getLiteral("description"), Constants.EMPTY, Constants.EMPTY};
     private List<ScheduleItem> scheduleItems;
 
     private static final int rows = 5 + ScheduleUI.NUMBEROFBLOCKS;
@@ -119,11 +120,11 @@ public class CalendarOverview extends Report {
 
             // set sum rows
             scheduleMatrix[37][0].setCellStyle(Styles.getHeaderStyle(wb));
-            scheduleMatrix[38][0].setCellValue("Schwimmen");
+            scheduleMatrix[38][0].setCellValue(Helper.getLiteral("swim"));
             scheduleMatrix[38][0].setCellStyle(Styles.getHeaderStyle(wb));
-            scheduleMatrix[39][0].setCellValue("Rad");
+            scheduleMatrix[39][0].setCellValue(Helper.getLiteral("bike"));
             scheduleMatrix[39][0].setCellStyle(Styles.getHeaderStyle(wb));
-            scheduleMatrix[40][0].setCellValue("Laufen");
+            scheduleMatrix[40][0].setCellValue(Helper.getLiteral("run"));
             scheduleMatrix[40][0].setCellStyle(Styles.getHeaderStyle(wb));
 
             // set details header
@@ -189,32 +190,32 @@ public class CalendarOverview extends Report {
                             XSSFCell scheduleDetail1 = rowScheduleDetail.createCell(1);
                             if("swim".equals(item.getType())) {
                                 scheduleDetail1.setCellValue(scheduleDetail.getDistance() + "m");
-                                scheduleDetail1.setCellComment(createComment("Distanz"));
+                                scheduleDetail1.setCellComment(createComment(Helper.getLiteral("distance")));
                             } else {
                                 scheduleDetail1.setCellValue(scheduleDetail.getDurationTarget());
-                                scheduleDetail1.setCellComment(createComment("Dauer"));
+                                scheduleDetail1.setCellComment(createComment(Helper.getLiteral("duration")));
                             }
                             XSSFCell scheduleDetail2 = rowScheduleDetail.createCell(2);
                             scheduleDetail2.setCellValue(zonesDefinition.getShortcut());
                             scheduleDetail2.setCellStyle(Styles.getStyleForColor(wb, zonesDefinition.getColor()));
-                            scheduleDetail2.setCellComment(createComment("Intensität"));
+                            scheduleDetail2.setCellComment(createComment(Helper.getLiteral("intensity")));
                             XSSFCell scheduleDetail3 = rowScheduleDetail.createCell(3);
                             XSSFCell scheduleDetail4 = rowScheduleDetail.createCell(4);
                             if("bike".equals(item.getType())) {
                                 scheduleDetail3.setCellValue(scheduleDetail.getPower() + "/" + scheduleDetail.getCadence());
-                                scheduleDetail3.setCellComment(createComment("Watt / Trittfrequenz"));
+                                scheduleDetail3.setCellComment(createComment(Helper.getLiteral("power") + " / " + Helper.getLiteral("cadence")));
                             } else if("run".equals(item.getType())) {
                                 scheduleDetail3.setCellValue(scheduleDetail.getHrLow() + "-" + scheduleDetail.getHrHigh());
-                                scheduleDetail3.setCellComment(createComment("Pulsbereich"));
+                                scheduleDetail3.setCellComment(createComment(Helper.getLiteral("hr_zone")));
                             } else if("swim".equals(item.getType())) {
                                 scheduleDetail3.setCellValue(scheduleDetail.getDescription());
-                                scheduleDetail3.setCellComment(createComment("Beschreibung"));
+                                scheduleDetail3.setCellComment(createComment(Helper.getLiteral("description")));
                                 scheduleDetail4.setCellValue(scheduleDetail.getTimeLow() + "-" + scheduleDetail.getTimeHigh());
-                                scheduleDetail4.setCellComment(createComment("Zeitbereich"));
+                                scheduleDetail4.setCellComment(createComment(Helper.getLiteral("time_zone")));
                             }
                             XSSFCell scheduleDetail5 = rowScheduleDetail.createCell(5);
                             scheduleDetail5.setCellValue(scheduleDetail.getComment());
-                            scheduleDetail5.setCellComment(createComment("Kommentar"));
+                            scheduleDetail5.setCellComment(createComment(Helper.getLiteral("comment")));
                             detailsRow++;
                         }
                     }

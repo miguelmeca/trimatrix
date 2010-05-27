@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -63,6 +64,8 @@ public class ScheduleZUL extends GenericAutowireComposer {
 	private ServiceLayer serviceLayer = ServiceLayer.getFromApplicationContext(ctx);
 
 	private Locale locale;
+	private ResourceBundle literals;
+	private ResourceBundle messages;
 
     private Datebox dateBox;
     private Radiogroup units;
@@ -88,6 +91,8 @@ public class ScheduleZUL extends GenericAutowireComposer {
 		Window window = (Window)comp;
 		// get locale from request for I18N
 		locale = RequestContexts.getCurrent().getRequest().getLocale();
+		literals = ResourceBundle.getBundle("trimatrix.resources.literals", locale);
+		messages = ResourceBundle.getBundle("trimatrix.resources.messages", locale);
 		// check if id is passed
 		if(param.containsKey(ID)) {
 			String[] ids = (String[])param.get(ID);
@@ -104,12 +109,12 @@ public class ScheduleZUL extends GenericAutowireComposer {
 		// when no athlete set leave app
 		if(athlete==null) {
 			//Executions.forward("/zul/timeout.zul");
-			Clients.evalJavaScript("alert('Wrong ID!')");
+			Clients.evalJavaScript("alert(" + messages.getString("wrong_user_id") + ")");
 			window.onClose();
 			return;
 		}
 		// set title
-		window.setTitle("Trainingseinheit " + athlete.toString());
+		window.setTitle(literals.getString("training_units") + Constants.WHITESPACE + athlete.toString());
 		// get schedules for today
 		dateBox.setValue(scheduleDate);
 		// get schedules
@@ -263,7 +268,7 @@ public class ScheduleZUL extends GenericAutowireComposer {
 			daoLayer.getSchedulesDAO().merge(selectedSchedule);
 			// message success
 			try {
-				Messagebox.show("Einheit erfolgreich gespeichert!","Info", Messagebox.OK, Messagebox.INFORMATION);
+				Messagebox.show(messages.getString("save_success"),literals.getString("info"), Messagebox.OK, Messagebox.INFORMATION);
 			} catch (Exception ex) {ex.printStackTrace();}
 			// refresh schedules
 			refreshSchedules();
@@ -273,7 +278,7 @@ public class ScheduleZUL extends GenericAutowireComposer {
 		} catch (Exception ex) {
 			// message error
 			try {
-				Messagebox.show("Fehler beim Speichern der Einheit aufgetreten!","Fehler", Messagebox.OK, Messagebox.ERROR);
+				Messagebox.show(messages.getString("save_failure"),literals.getString("error"), Messagebox.OK, Messagebox.ERROR);
 			} catch (Exception ex2) {ex2.printStackTrace();}
 		}
     }
@@ -292,9 +297,9 @@ public class ScheduleZUL extends GenericAutowireComposer {
         if(type!=null && schedulesDetails.size()>0) buildGrid(type, schedulesDetails);
         // set right label for save button
         if(done) {
-        	btnSave.setLabel("Ändern");
+        	btnSave.setLabel(literals.getString("change"));
         } else {
-        	btnSave.setLabel("Abschliessen");
+        	btnSave.setLabel(literals.getString("finish"));
         }
         // when done and no details don't show button
         if(schedulesDetails.size()==0 && done) {
@@ -370,11 +375,11 @@ public class ScheduleZUL extends GenericAutowireComposer {
 	private List<String> createHeader(TYPES type) {
 		switch (type) {
 		case RUN:
-			return Arrays.asList(new String[]{"Dauer", "Zone", "HF", "Dauer (Ist)", "HF (Ist)"});
+			return Arrays.asList(new String[]{literals.getString("duration"), literals.getString("zone"), literals.getString("hr"), literals.getString("duration") + " (" + literals.getString("debit") + ")", literals.getString("hr") + " (" + literals.getString("debit") + ")"});
 		case BIKE:
-			return Arrays.asList(new String[]{"Dauer", "Zone", "HF", "Watt", "TF", "Dauer (Ist)", "HF (Ist)"});
+			return Arrays.asList(new String[]{literals.getString("duration"), literals.getString("zone"), literals.getString("hr"), literals.getString("power"), literals.getString("tf"), literals.getString("duration") + " (" + literals.getString("debit") + ")", literals.getString("hr") + " (" + literals.getString("debit") + ")"});
 		case SWIM:
-			return Arrays.asList(new String[]{"Einheit", "Distanz (m)", "Zone", "~Zielzeit", "~Zielzeit (Ist)"});
+			return Arrays.asList(new String[]{literals.getString("unit"), "Distanz (m)", literals.getString("zone"), "~" + literals.getString("target_time"), "~" + literals.getString("target_time") + " (" + literals.getString("debit") + ")"});
 		}
 		return Collections.EMPTY_LIST;
 	}

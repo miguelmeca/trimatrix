@@ -29,7 +29,7 @@
 <t:combofield id="g_14" actionListener="#{d.ResultsListPopUp.onTemplateF4}" text="#{d.ResultsListPopUp.template}" width="200" />
 </t:row>
 <t:row id="g_15" >
-<t:textpane id="g_16" align="center" background="#00000015" font="size:12;weight:bold" text="To create or test a template go to menu Import =&gt; Results" width="100%" />
+<t:textpane id="g_16" align="center" background="#00000015" font="size:12;weight:bold" text="#{rr.literals.create_test_template}" width="100%" />
 </t:row>
 <t:row id="g_17" >
 <t:button id="g_18" actionListener="#{d.ResultsListPopUp.onOk}" text="#{rr.literals.ok}" />

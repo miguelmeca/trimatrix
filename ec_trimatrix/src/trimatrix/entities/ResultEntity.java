@@ -77,15 +77,15 @@ public final class ResultEntity extends AEntity {
      */
     public List<SGridMetaData> getGridMetaData() {
         List<SGridMetaData> gridMetaData = new ArrayList<SGridMetaData>();
-        gridMetaData.add(new SGridMetaData("#{rr.literals.date}", DATE, SGridMetaData.Component.CALENDARFIELD));
-        gridMetaData.add(new SGridMetaData("#{rr.literals.competition}",COMPETITION, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("#{rr.literals.type}", TYPE, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("#{rr.literals.subtype}", SUBTYPE, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("#{rr.literals.scouter}", SCOUT, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("#{rr.literals.athlete}", ATHLETE, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("#{rr.literals.comment}",COMMENT, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("#{rr.literals.ranking}",FINALPOSITION, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData("#{rr.literals.time}",TIME, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("date"), DATE, SGridMetaData.Component.CALENDARFIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("competition"),COMPETITION, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("type"), TYPE, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("subtype"), SUBTYPE, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("scouter"), SCOUT, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("athlete"), ATHLETE, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("comment"),COMMENT, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("ranking"),FINALPOSITION, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("time"),TIME, SGridMetaData.Component.FIELD));
         return gridMetaData;
     }
 
@@ -96,36 +96,36 @@ public final class ResultEntity extends AEntity {
         // add specific data
         if(filter.startsWith(CompetitionEntity.TRIATHLON) ||
            filter.startsWith(CompetitionEntity.XTERRA)) {
-            gridMetaData.add(new SGridMetaData("#{rr.literals.subtype}", SUBTYPE, SGridMetaData.Component.FIELD));
-            gridMetaData.add(new SGridMetaData("#{rr.literals.category}",CATEGORY_TRIA, SGridMetaData.Component.FIELD));
-            gridMetaData.add(new SGridMetaData("#{rr.literals.swimsuit}",SWIMSUIT, SGridMetaData.Component.CHECKBOX));
+            gridMetaData.add(new SGridMetaData(Helper.getLiteral("subtype"), SUBTYPE, SGridMetaData.Component.FIELD));
+            gridMetaData.add(new SGridMetaData(Helper.getLiteral("category"),CATEGORY_TRIA, SGridMetaData.Component.FIELD));
+            gridMetaData.add(new SGridMetaData(Helper.getLiteral("swimsuit"),SWIMSUIT, SGridMetaData.Component.CHECKBOX));
 
-            gridMetaData.add(new SGridMetaData("#{rr.literals.best_swim_split}",BEST_SWIM_SPLIT, SGridMetaData.Component.FIELD));
-            gridMetaData.add(new SGridMetaData("#{rr.literals.best_swimmer}",BEST_SWIMMER, SGridMetaData.Component.FIELD));
-            gridMetaData.add(new SGridMetaData("#{rr.literals.cutoff_swim}",SWIM_CUTOFF, SGridMetaData.Component.FIELD));
-            gridMetaData.add(new SGridMetaData("#{rr.literals.swim_split}",SWIM_COLOR, META_SWIM));
-            gridMetaData.add(new SGridMetaData("#{rr.literals.swim_split}",SWIM_TOLERANCE, SGridMetaData.Component.FIELD));
-            gridMetaData.add(new SGridMetaData("#{rr.literals.ranking_swim}",SWIM_POSITION, SGridMetaData.Component.FIELD));
-            gridMetaData.add(new SGridMetaData("#{rr.literals.deficit_swim}",SWIM_DEFICIT, SGridMetaData.Component.FIELD));
-            gridMetaData.add(new SGridMetaData("#{rr.literals.deficit_percent}",SWIM_DEFICIT_PER, SGridMetaData.Component.FORMATED_DOUBLE));
+            gridMetaData.add(new SGridMetaData(Helper.getLiteral("best_swim_split"),BEST_SWIM_SPLIT, SGridMetaData.Component.FIELD));
+            gridMetaData.add(new SGridMetaData(Helper.getLiteral("best_swimmer"),BEST_SWIMMER, SGridMetaData.Component.FIELD));
+            gridMetaData.add(new SGridMetaData(Helper.getLiteral("cutoff_swim"),SWIM_CUTOFF, SGridMetaData.Component.FIELD));
+            gridMetaData.add(new SGridMetaData(Helper.getLiteral("swim_split"),SWIM_COLOR, META_SWIM));
+            gridMetaData.add(new SGridMetaData(Helper.getLiteral("swim_split"),SWIM_TOLERANCE, SGridMetaData.Component.FIELD));
+            gridMetaData.add(new SGridMetaData(Helper.getLiteral("ranking_swim"),SWIM_POSITION, SGridMetaData.Component.FIELD));
+            gridMetaData.add(new SGridMetaData(Helper.getLiteral("deficit_swim"),SWIM_DEFICIT, SGridMetaData.Component.FIELD));
+            gridMetaData.add(new SGridMetaData(Helper.getLiteral("deficit_percent"),SWIM_DEFICIT_PER, SGridMetaData.Component.FORMATED_DOUBLE));
 
-            gridMetaData.add(new SGridMetaData("#{rr.literals.best_run_split}",BEST_RUN_SPLIT, SGridMetaData.Component.FIELD));
-            gridMetaData.add(new SGridMetaData("#{rr.literals.best_runner}",BEST_RUNNER, SGridMetaData.Component.FIELD));
-            gridMetaData.add(new SGridMetaData("#{rr.literals.cutoff_run}",RUN_CUTOFF, SGridMetaData.Component.FIELD));
-            gridMetaData.add(new SGridMetaData("#{rr.literals.run_split}",RUN_COLOR, META_RUN));
-            gridMetaData.add(new SGridMetaData("#{rr.literals.run_split}",RUN_TOLERANCE, SGridMetaData.Component.FIELD));
-            gridMetaData.add(new SGridMetaData("#{rr.literals.ranking_run}",RUN_POSITION, SGridMetaData.Component.FIELD));
-            gridMetaData.add(new SGridMetaData("#{rr.literals.deficit_run}",RUN_DEFICIT, SGridMetaData.Component.FIELD));
-            gridMetaData.add(new SGridMetaData("#{rr.literals.deficit_percent}",RUN_DEFICIT_PER, SGridMetaData.Component.FORMATED_DOUBLE));
+            gridMetaData.add(new SGridMetaData(Helper.getLiteral("best_run_split"),BEST_RUN_SPLIT, SGridMetaData.Component.FIELD));
+            gridMetaData.add(new SGridMetaData(Helper.getLiteral("best_runner"),BEST_RUNNER, SGridMetaData.Component.FIELD));
+            gridMetaData.add(new SGridMetaData(Helper.getLiteral("cutoff_run"),RUN_CUTOFF, SGridMetaData.Component.FIELD));
+            gridMetaData.add(new SGridMetaData(Helper.getLiteral("run_split"),RUN_COLOR, META_RUN));
+            gridMetaData.add(new SGridMetaData(Helper.getLiteral("run_split"),RUN_TOLERANCE, SGridMetaData.Component.FIELD));
+            gridMetaData.add(new SGridMetaData(Helper.getLiteral("ranking_run"),RUN_POSITION, SGridMetaData.Component.FIELD));
+            gridMetaData.add(new SGridMetaData(Helper.getLiteral("deficit_run"),RUN_DEFICIT, SGridMetaData.Component.FIELD));
+            gridMetaData.add(new SGridMetaData(Helper.getLiteral("deficit_percent"),RUN_DEFICIT_PER, SGridMetaData.Component.FORMATED_DOUBLE));
 
-            gridMetaData.add(new SGridMetaData("#{rr.literals.best_bike_split}",BEST_BIKE_SPLIT, SGridMetaData.Component.FIELD));
-            gridMetaData.add(new SGridMetaData("#{rr.literals.best_biker}",BEST_BIKER, SGridMetaData.Component.FIELD));
-            gridMetaData.add(new SGridMetaData("#{rr.literals.cutoff_bike}",BIKE_CUTOFF, SGridMetaData.Component.FIELD));
-            gridMetaData.add(new SGridMetaData("#{rr.literals.bike_split}",BIKE_COLOR, META_BIKE));
-            gridMetaData.add(new SGridMetaData("#{rr.literals.bike_split}",BIKE_TOLERANCE, SGridMetaData.Component.FIELD));
-            gridMetaData.add(new SGridMetaData("#{rr.literals.ranking_bike}",BIKE_POSITION, SGridMetaData.Component.FIELD));
-            gridMetaData.add(new SGridMetaData("#{rr.literals.deficit_bike}",BIKE_DEFICIT, SGridMetaData.Component.FIELD));
-            gridMetaData.add(new SGridMetaData("#{rr.literals.deficit_percent}",BIKE_DEFICIT_PER, SGridMetaData.Component.FORMATED_DOUBLE));
+            gridMetaData.add(new SGridMetaData(Helper.getLiteral("best_bike_split"),BEST_BIKE_SPLIT, SGridMetaData.Component.FIELD));
+            gridMetaData.add(new SGridMetaData(Helper.getLiteral("best_biker"),BEST_BIKER, SGridMetaData.Component.FIELD));
+            gridMetaData.add(new SGridMetaData(Helper.getLiteral("cutoff_bike"),BIKE_CUTOFF, SGridMetaData.Component.FIELD));
+            gridMetaData.add(new SGridMetaData(Helper.getLiteral("bike_split"),BIKE_COLOR, META_BIKE));
+            gridMetaData.add(new SGridMetaData(Helper.getLiteral("bike_split"),BIKE_TOLERANCE, SGridMetaData.Component.FIELD));
+            gridMetaData.add(new SGridMetaData(Helper.getLiteral("ranking_bike"),BIKE_POSITION, SGridMetaData.Component.FIELD));
+            gridMetaData.add(new SGridMetaData(Helper.getLiteral("deficit_bike"),BIKE_DEFICIT, SGridMetaData.Component.FIELD));
+            gridMetaData.add(new SGridMetaData(Helper.getLiteral("deficit_percent"),BIKE_DEFICIT_PER, SGridMetaData.Component.FORMATED_DOUBLE));
         }
         return gridMetaData;
     }
