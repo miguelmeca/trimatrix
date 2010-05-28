@@ -86,3 +86,7 @@ xmlbeans-2.3.0.jar
 poi-ooxml-schemas-3.6.jar
 poi-ooxml-3.6.jar
 poi-3.6.jar
+
+Problem mit Probe Log File wird nicht angezeigt!
+jcl-over-slf4j-1.5.10.jar
+commons-logging.jar nicht deployen!!

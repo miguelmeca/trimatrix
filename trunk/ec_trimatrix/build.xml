@@ -34,6 +34,8 @@
 				<exclude name="**/mysql-connector-java*" />
 				<exclude name="**/jasperreports*" />
 				<exclude name="**/testclasses/**" />
+				<exclude name="**/envers*" />
+				<exclude name="**/commons-logging*" /> <!-- needs to be remove for probe monitoring -->
 			</fileset>
 		</jar>
 

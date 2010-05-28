@@ -1,0 +1,1 @@
+CC I18N Tool Scenario ID 680607 (literals), 380689 (messages)
