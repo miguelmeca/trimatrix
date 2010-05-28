@@ -21,6 +21,7 @@ import trimatrix.db.Entities;
 import trimatrix.db.EntitiesDAO;
 import trimatrix.structures.SUserInfo;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
+import trimatrix.utils.Helper;
 import trimatrix.utils.LockManager;
 import trimatrix.utils.MessageHandler;
 import trimatrix.utils.UserTracker;
@@ -36,8 +37,8 @@ public class AdminPanelUI extends MyWorkpageDispatchedBean implements Serializab
     	private String id;
     	private String entity;
     	private String sessionId;
-    	private String user;    	
-    	
+    	private String user;
+
 		public GridLockedEntitiesItem(String id, String entity,
 				 String sessionId, String user) {
 			this.id = id;
@@ -56,8 +57,8 @@ public class AdminPanelUI extends MyWorkpageDispatchedBean implements Serializab
 		}
 		public String getUser() {
 			return user;
-		}    	
-		
+		}
+
 		private void unlock() {
 			LockManager.unlockEntity(id);
 		}
@@ -66,7 +67,7 @@ public class AdminPanelUI extends MyWorkpageDispatchedBean implements Serializab
     public void onUnlockEntity(ActionEvent event) {
     	GridLockedEntitiesItem selected = m_gridLockedEntities.getSelectedItem();
     	if(selected!=null) {
-    		selected.unlock();    		
+    		selected.unlock();
     	}
     }
 
@@ -75,12 +76,12 @@ public class AdminPanelUI extends MyWorkpageDispatchedBean implements Serializab
     public void setSessionMessage(String value) { m_sessionMessage = value; }
 
     protected ValidValuesBinding m_vvbSessionIds = new ValidValuesBinding();
-    public ValidValuesBinding getVvbSessionIds() { 
+    public ValidValuesBinding getVvbSessionIds() {
     	m_vvbSessionIds.clear();
     	for(GridLoggedInUsersItem item : m_gridLoggedInUsers.getItems()) {
     		m_vvbSessionIds.addValidValue(item.getSessionID(), item.getUserName());
     	}
-    	return m_vvbSessionIds; 
+    	return m_vvbSessionIds;
     }
     public void setVvbSessionIds(ValidValuesBinding value) { m_vvbSessionIds = value; }
 
@@ -100,7 +101,7 @@ public class AdminPanelUI extends MyWorkpageDispatchedBean implements Serializab
     public boolean getShowLogonMessage() { return MessageHandler.isShowLogonMessage(); }
     public void setShowLogonMessage(boolean value) { MessageHandler.setShowLogonMessage(value); }
 
-    
+
     protected FIXGRIDListBinding<GridLoggedInUsersItem> m_gridLoggedInUsers = new FIXGRIDListBinding<GridLoggedInUsersItem>();
     public FIXGRIDListBinding<GridLoggedInUsersItem> getGridLoggedInUsers() { return m_gridLoggedInUsers; }
     public void setGridLoggedInUsers(FIXGRIDListBinding<GridLoggedInUsersItem> value) { m_gridLoggedInUsers = value; }
@@ -118,26 +119,26 @@ public class AdminPanelUI extends MyWorkpageDispatchedBean implements Serializab
 		public String getUserName() {
 			return userName;
 		}
-		
+
 		public Date getCreationTime() {
 			return new Date(session.getCreationTime());
 		}
-		
+
 		public Date getLastAccessedTime() {
 			return new Date(session.getLastAccessedTime());
 		}
-		
+
 		public String getClientIP() {
 			return clientIP;
 		}
 		public String getSessionID() {
 			return session.getId();
-		}   	
-		
+		}
+
 		public boolean getMessage() {
 			return MessageHandler.isSessionMessageSet(session.getId());
 		}
-		
+
 		public void invalidate() {
 			session.invalidate();
 			//UserTracker.deleteUser(session);
@@ -153,19 +154,19 @@ public class AdminPanelUI extends MyWorkpageDispatchedBean implements Serializab
 	public void onRefresh(ActionEvent event) {
 		buildGrid();
 	}
-	
+
 	public void onRefreshLocks(ActionEvent event) {
 		buildLockedEntitiesGrid();
 	}
-	
-	public void onRestart(ActionEvent event) 
+
+	public void onRestart(ActionEvent event)
     {
         HttpSessionAccess.getCurrentHttpSession().invalidate();
     }
 
-    public void onRestartSoft(ActionEvent event) 
+    public void onRestartSoft(ActionEvent event)
     {
-        getWorkpageContainer().closeAllWorkpages(false,new Runnable() 
+        getWorkpageContainer().closeAllWorkpages(false,new Runnable()
         {
             public void run()
             {
@@ -173,23 +174,23 @@ public class AdminPanelUI extends MyWorkpageDispatchedBean implements Serializab
             }
         });
     }
-    
+
     public void onInvalidate(ActionEvent event) {
     	GridLoggedInUsersItem selected = m_gridLoggedInUsers.getSelectedItem();
     	if(selected!=null) {
     		try {
     			selected.invalidate();
 			} catch (Exception ex) {
-				Statusbar.outputMessage("Session already invalidated!");				
+				Statusbar.outputMessage(Helper.getMessages("session_invalidate"));
 			} finally {
 				UserTracker.deleteUser(selected.session.getId());
 				buildGrid();
-			}    		
+			}
     	}
     }
 
     public int getCountUsers() { return UserTracker.getLoggedInusers(); }
-    
+
     private void buildGrid() {
     	m_gridLoggedInUsers.getItems().clear();
     	Set<Entry<String, SUserInfo>> loggedInUserSet = UserTracker.getLoggedInUserMap().entrySet();
@@ -197,33 +198,33 @@ public class AdminPanelUI extends MyWorkpageDispatchedBean implements Serializab
     		m_gridLoggedInUsers.getItems().add(new GridLoggedInUsersItem(entry.getValue().user,entry.getValue().clientIP, entry.getValue().session));
     	}
     }
-    
+
     private void buildLockedEntitiesGrid() {
     	m_gridLockedEntities.getItems().clear();
     	for(Entry<String, String> lock : LockManager.getEntityLockMap().entrySet()) {
     		List<Entities> entities = getDaoLayer().getEntitiesDAO().findByProperty(EntitiesDAO.ID, lock.getKey());
     		String entity = null;
-    		if(entities!=null && entities.size()>0) entity = entities.get(0).getId().getEntity();  
+    		if(entities!=null && entities.size()>0) entity = entities.get(0).getId().getEntity();
     		SUserInfo userInfo = UserTracker.getUserInfo(lock.getValue());
     		String user = null;
     		if(userInfo!=null) user = userInfo.user;
     		GridLockedEntitiesItem item = new GridLockedEntitiesItem(lock.getKey(),entity, lock.getValue(),user);
     		m_gridLockedEntities.getItems().add(item);
     	}
-    	
-    }
-    
-    public long getAvailableMemory() 
-    { 
-        return Runtime.getRuntime().freeMemory(); 
+
     }
 
-    public long getUsedMemory() 
-    { 
+    public long getAvailableMemory()
+    {
+        return Runtime.getRuntime().freeMemory();
+    }
+
+    public long getUsedMemory()
+    {
         return Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
     }
 
-    public void onCollectGarbage(ActionEvent event) 
+    public void onCollectGarbage(ActionEvent event)
     {
         System.gc();
     }

@@ -72,7 +72,6 @@
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/json-0.19.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/spring-context-support.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/poi-3.6-20091214.jar" sourcepath="C:/Users/reich/.m2/repository/org/apache/poi/poi/3.6/poi-3.6-sources.jar"/>
-	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/google-collect-1.0.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/jcl-over-slf4j-1.5.10.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/slf4j-api-1.5.10.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/slf4j-log4j12-1.5.10.jar"/>
