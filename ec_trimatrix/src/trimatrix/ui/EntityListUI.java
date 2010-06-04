@@ -2,6 +2,7 @@ package trimatrix.ui;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.event.ActionEvent;
 
@@ -232,12 +233,14 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
                                 if(ENTITYLISTLOGIC.delete(entity, selectedID)) {
                                     Statusbar.outputSuccess(Helper.getMessages("delete_success"));
                                     m_gridList.getItems().remove(selectedItem);
+                                    closeWorkpages(selectedID);
                                     return;
                                 }
                             } else {	// other person entities
                                 if(ENTITYLISTLOGIC.delete(entity, selectedID, personId)) {
                                     Statusbar.outputSuccess(Helper.getMessages("relation_delete_success"));
                                     m_gridList.getItems().remove(selectedItem);
+                                    closeWorkpages(selectedID);
                                     return;
                                 }
                             }
@@ -247,6 +250,11 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
             );
             popup.getModalPopup().setLeftTopReferenceCentered();
         }
+    }
+
+    private void closeWorkpages(String id) {
+    	IWorkpage workpage = getWorkpageContainer().getWorkpageForId(id);
+    	if(workpage!=null) getWorkpageContainer().closeWorkpage(workpage);
     }
 
     // common build method
