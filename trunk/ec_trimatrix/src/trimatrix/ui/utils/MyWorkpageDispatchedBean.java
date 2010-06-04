@@ -101,6 +101,7 @@ public class MyWorkpageDispatchedBean extends WorkpageDispatchedBean implements 
 		// initialize Label row
     	if(labelingEnabled) setLabelRowDynamic();
 	}
+	public String getEntityId() { return entityId; }
 
 	@Override
 	public Dispatcher getOwningDispatcher() {

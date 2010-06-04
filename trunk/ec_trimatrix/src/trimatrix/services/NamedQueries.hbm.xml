@@ -39,7 +39,7 @@ WHERE users.test = :p_test
   <return-scalar column="last_login_ip" type="java.lang.String"/>
 </sql-query>
 
-<sql-query cacheable="true" name="PersonEntityList" read-only="true">
+<sql-query cacheable="false" name="PersonEntityList" read-only="true">
 SELECT
   persons.id,
   t_salutation.description salutation,
@@ -89,7 +89,7 @@ WHERE persons.test = :p_test
   <return-scalar column="fax" type="java.lang.String"/>
 </sql-query>
 
-<sql-query cacheable="true" name="PersonByRoleEntityList" read-only="true">
+<sql-query cacheable="false" name="PersonByRoleEntityList" read-only="true">
 SELECT DISTINCT
   persons.id,
   t_salutation.description salutation,
@@ -144,7 +144,7 @@ WHERE persons.test = :p_test
   <return-scalar column="fax" type="java.lang.String"/>
 </sql-query>
 
-<sql-query cacheable="true" name="AthletesEntityList" read-only="true">
+<sql-query cacheable="false" name="AthletesEntityList" read-only="true">
 SELECT
   persons.id,
   t_salutation.description salutation,
@@ -196,7 +196,7 @@ WHERE persons.test = :p_test
   <return-scalar column="fax" type="java.lang.String"/>
 </sql-query>
 
-<sql-query cacheable="true" name="TestEntityList" read-only="true">
+<sql-query cacheable="false" name="TestEntityList" read-only="true">
 SELECT
   tests.id,
   TRIM(CONCAT(persons.name_first,' ', persons.name_last)) person,
@@ -238,7 +238,7 @@ ORDER by tests.created_at DESC
   <return-scalar column="analyzed" type="java.lang.Boolean"/>
 </sql-query>
 
-<sql-query cacheable="true" name="CompetitionEntityList" read-only="true">
+<sql-query cacheable="false" name="CompetitionEntityList" read-only="true">
 SELECT
   DISTINCT
   competitions.id,
@@ -279,7 +279,7 @@ ORDER by competitions.date
   <return-scalar column="resultslist" type="java.lang.Boolean"/>
 </sql-query>
 
-<sql-query cacheable="true" name="DoctorEntityList" read-only="true">
+<sql-query cacheable="false" name="DoctorEntityList" read-only="true">
 SELECT
   doctors.id,
   doctors.name,
@@ -315,7 +315,7 @@ WHERE doctors.test = :p_test
   <return-scalar column="fax" type="java.lang.String"/>
 </sql-query>
 
-<sql-query cacheable="true" name="AttachmentEntityList" read-only="true">
+<sql-query cacheable="false" name="AttachmentEntityList" read-only="true">
 SELECT
   attachments.id,
   t_categories.description category,
@@ -343,7 +343,7 @@ WHERE attachments.test = :p_test
   <return-scalar column="file_size" type="java.lang.Integer"/>
 </sql-query>
 
-<sql-query cacheable="true" name="ScheduleEntityList" read-only="true">
+<sql-query cacheable="false" name="ScheduleEntityList" read-only="true">
 SELECT
   schedules.id,
   TRIM(CONCAT(persons.name_first,' ', persons.name_last)) person,
@@ -377,7 +377,7 @@ ORDER BY schedules.start ASC
   <return-scalar column="done" type="java.lang.Boolean"/>
 </sql-query>
 
- <sql-query cacheable="true" name="PersonRelationEntityList" read-only="true">
+ <sql-query cacheable="false" name="PersonRelationEntityList" read-only="true">
  SELECT
   persons.id,
   t_salutation.description salutation,
@@ -436,7 +436,7 @@ WHERE persons.test = :p_test
   <return-scalar column="standard" type="java.lang.Boolean"/>
 </sql-query>
 
-<sql-query cacheable="true" name="DoctorRelationEntityList" read-only="true">
+<sql-query cacheable="false" name="DoctorRelationEntityList" read-only="true">
 SELECT
   doctors.id,
   doctors.name,
@@ -478,7 +478,7 @@ WHERE doctors.test = :p_test
   <return-scalar column="standard" type="java.lang.Boolean"/>
 </sql-query>
 
-<sql-query cacheable="true" name="AttachmentRelationEntityList" read-only="true">
+<sql-query cacheable="false" name="AttachmentRelationEntityList" read-only="true">
 SELECT
   attachments.id,
   t_categories.description category,
@@ -528,7 +528,7 @@ WHERE attachments.owner_id = :p_person
   <return-scalar column="file_size" type="java.lang.Integer"/>
 </sql-query>
 
-<sql-query cacheable="true" name="PersonPersonRelationList" read-only="true">
+<sql-query cacheable="false" name="PersonPersonRelationList" read-only="true">
 SELECT
   phr.id,
   phr.partner1,
@@ -552,7 +552,7 @@ OR    1 = :p_dummy
   <return-scalar column="partner2" type="java.lang.String"/>
 </sql-query>
 
-<sql-query cacheable="true" name="PersonDoctorRelationList" read-only="true">
+<sql-query cacheable="false" name="PersonDoctorRelationList" read-only="true">
 SELECT
   phd.id,
   phd.person,
@@ -576,7 +576,7 @@ OR    1 = :p_dummy
   <return-scalar column="doctor" type="java.lang.String"/>
 </sql-query>
 
-<sql-query cacheable="true" name="PersonAttachmentRelationList" read-only="true">
+<sql-query cacheable="false" name="PersonAttachmentRelationList" read-only="true">
 SELECT
   pha.id,
   pha.person,
@@ -600,7 +600,7 @@ OR    1 = :p_dummy
   <return-scalar column="attachment" type="java.lang.String"/>
 </sql-query>
 
-<sql-query cacheable="true" name="CompetitionRelationEntityList" read-only="true">
+<sql-query cacheable="false" name="CompetitionRelationEntityList" read-only="true">
 SELECT
   DISTINCT
   competitions.id,
@@ -643,7 +643,7 @@ ORDER BY competitions.date
   <return-scalar column="resultslist" type="java.lang.Boolean"/>
 </sql-query>
 
-<sql-query cacheable="true" name="CompetitionScoutRelationEntityList" read-only="true">
+<sql-query cacheable="false" name="CompetitionScoutRelationEntityList" read-only="true">
 SELECT
   DISTINCT
   competitions.id,
@@ -685,7 +685,7 @@ ORDER BY competitions.date
   <return-scalar column="resultslist" type="java.lang.Boolean"/>
 </sql-query>
 
-<sql-query cacheable="true" name="ResultEntityList" read-only="true">
+<sql-query cacheable="false" name="ResultEntityList" read-only="true">
  SELECT
   results.id,
   competitions.date,
@@ -733,7 +733,7 @@ ORDER BY competitions.date
   <return-scalar column="comment" type="java.lang.String"/>
 </sql-query>
 
-<sql-query cacheable="true" name="ResultTriaEntityList" read-only="true">
+<sql-query cacheable="false" name="ResultTriaEntityList" read-only="true">
  SELECT
   results.id,
   competitions.date,
@@ -895,7 +895,7 @@ ORDER BY t_testtypes.description
   <return-scalar column="description_long" type="java.lang.String"/>
 </sql-query>
 
- <sql-query cacheable="true" name="CompTypeValueList" read-only="true">
+ <sql-query cacheable="false" name="CompTypeValueList" read-only="true">
 SELECT
   k_comptypes.key,
   t_comptypes.description,
@@ -942,7 +942,7 @@ ORDER BY t_scheduletypes.description
   <return-scalar column="description_long" type="java.lang.String"/>
 </sql-query>
 
- <sql-query cacheable="true" name="RelTypsValueList" read-only="true">
+ <sql-query cacheable="false" name="RelTypsValueList" read-only="true">
 SELECT
   k_reltyps.key,
   t_reltyps.description_long,

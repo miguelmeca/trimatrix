@@ -14,7 +14,7 @@ public class ReportsUI implements Serializable
     	setBrowserUrl(getReportUrl());
     }
 
-    protected String m_browserUrl = "http://localhost:50000/birt/frameset?__report=test.rptdesign&sample=my+parameter";
+    protected String m_browserUrl = "http://localhost:50000/birt/frameset?__report=schedules.rptdesign";
     public String getBrowserUrl() { return m_browserUrl; }
     public void setBrowserUrl(String value) { m_browserUrl = value; }
 
