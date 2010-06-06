@@ -270,7 +270,7 @@
 <t:rowdistance id="g_189" height="15" />
 <t:row id="g_190" >
 <t:label id="g_191" text="#{rr.literals.max_performance} #{d.TestDetailUI.values.distance} m  " width="120" />
-<t:field id="g_192" attributemacro="entityDetailMacro(TestDetailUI,performance_max)" flush="true" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" tooltip="mm:ss" userhint="mm:ss" width="50" />
+<t:field id="g_192" actionListener="#{d.TestDetailUI.onChangeMaxPerformance}" attributemacro="entityDetailMacro(TestDetailUI,performance_max)" flush="true" maxlength="9" tooltip="mm:ss,zzz" userhint="mm:ss,zzz" width="65" />
 <t:coldistance id="g_193" />
 <t:label id="g_194" text="#{rr.literals.speed}" width="90" />
 <t:formattedfield id="g_195" enabled="false" format="double" tooltip="m/s" userhint="m/s" value="#{d.TestDetailUI.maxSpeed}" width="50" />
@@ -302,14 +302,14 @@
 <t:gridcol id="g_212" align="center" sortenabled="false" text="#{rr.literals.intensity}" width="60" >
 <t:formattedfield id="g_213" bgpaint=".{bgPaintTop}" enabled=".{enabledAndTopNode}" flush="true" format="int" maxlength="3" userhint="max. 100%" value=".{intensity}" />
 </t:gridcol>
-<t:gridcol id="g_214" align="center" sortenabled="false" text="#{rr.literals.target_time}" width="60" >
+<t:gridcol id="g_214" align="center" sortenabled="false" text="#{rr.literals.target_time}" width="65" >
 <t:field id="g_215" enabled="false" maxlength="5" regex="\d\d:[0-5]\d" regexmode="1" text=".{targetTime}" userhint="mm:ss" />
 </t:gridcol>
 <t:gridcol id="g_216" align="center" sortenabled="false" text="m/s" width="50" >
 <t:formattedfield id="g_217" enabled="false" format="double" value=".{targetSpeed}" />
 </t:gridcol>
-<t:gridcol id="g_218" align="center" sortenabled="false" text="#{rr.literals.time}" width="60" >
-<t:field id="g_219" actionListener=".{onChangeItem}" bgpaint=".{bgpaint}" clientname="time" enabled=".{enabled}" flush="true" maxlength="5" text=".{time}" userhint="mm:ss" />
+<t:gridcol id="g_218" align="center" sortenabled="false" text="#{rr.literals.time}" width="65" >
+<t:field id="g_219" actionListener=".{onChangeItem}" bgpaint=".{bgpaint}" clientname="time" enabled=".{enabled}" flush="true" maxlength="9" text=".{time}" userhint="mm:ss,zzz" />
 </t:gridcol>
 <t:gridcol id="g_220" align="center" sortenabled="false" text="m/s" width="50" >
 <t:formattedfield id="g_221" enabled="false" format="double" value=".{speed}" />
@@ -428,44 +428,40 @@
 <t:label id="g_297" text="#{rr.literals.correlation}" width="100" />
 <t:field id="g_298" enabled="false" text="#{d.TestDetailUI.correlation}" width="200" />
 </t:row>
-<t:rowdistance id="g_299" />
+<t:rowdistance id="g_299" height="10" />
 <t:row id="g_300" >
 <t:heximage id="g_301" align="center" border="#808080" height="#{d.TestDetailUI.height}" hexdata="#{d.TestDetailUI.diagram}" rowalignmenty="center" valign="center" width="#{d.TestDetailUI.width}" />
 </t:row>
 <t:rowdistance id="g_302" />
-<t:rowdistance id="g_303" />
-<t:row id="g_304" >
-<t:label id="g_305" text="#{rr.literals.function}" width="100" />
-<t:combobox id="g_306" actionListener="#{d.TestDetailUI.resetResult}" flush="true" validvaluesbinding="#{d.TestDetailUI.functionsVvb}" value="#{d.TestDetailUI.function}" width="200" />
+<t:row id="g_303" >
+<t:label id="g_304" text="#{rr.literals.function}" width="100" />
+<t:combobox id="g_305" actionListener="#{d.TestDetailUI.resetResult}" flush="true" validvaluesbinding="#{d.TestDetailUI.functionsVvb}" value="#{d.TestDetailUI.function}" width="200" />
 </t:row>
-<t:rowdistance id="g_307" />
-<t:row id="g_308" >
-<t:label id="g_309" text="#{rr.literals.offset}" width="100" />
-<t:formattedfield id="g_310" actionListener="#{d.TestDetailUI.resetResult}" flush="true" format="double" value="#{d.TestDetailUI.offset}" width="50" />
+<t:rowdistance id="g_306" />
+<t:row id="g_307" >
+<t:label id="g_308" text="#{rr.literals.offset}" width="100" />
+<t:formattedfield id="g_309" actionListener="#{d.TestDetailUI.resetResult}" flush="true" format="double" value="#{d.TestDetailUI.offset}" width="50" />
 </t:row>
-<t:row id="g_311" >
-<t:label id="g_312" text="#{rr.literals.degree}" width="100" />
-<t:spinner id="g_313" actionListener="#{d.TestDetailUI.resetResult}" flush="true" maxvalue="6" minvalue="0" value="#{d.TestDetailUI.degree}" width="50" />
+<t:row id="g_310" >
+<t:label id="g_311" text="#{rr.literals.degree}" width="100" />
+<t:spinner id="g_312" actionListener="#{d.TestDetailUI.resetResult}" flush="true" maxvalue="6" minvalue="0" value="#{d.TestDetailUI.degree}" width="50" />
 </t:row>
-<t:rowdistance id="g_314" />
-<t:row id="g_315" >
-<t:label id="g_316" text="x" width="100" />
-<t:formattedfield id="g_317" actionListener="#{d.TestDetailUI.onChangeXY}" clientname="x" flush="true" format="double" value="#{d.TestDetailUI.valueX}" width="50" />
+<t:rowdistance id="g_313" />
+<t:row id="g_314" >
+<t:label id="g_315" text="x" width="100" />
+<t:formattedfield id="g_316" actionListener="#{d.TestDetailUI.onChangeXY}" clientname="x" flush="true" format="double" value="#{d.TestDetailUI.valueX}" width="50" />
 </t:row>
-<t:rowdistance id="g_318" />
-<t:row id="g_319" >
-<t:label id="g_320" text="y" width="100" />
-<t:formattedfield id="g_321" actionListener="#{d.TestDetailUI.onChangeXY}" clientname="y" flush="true" format="double" value="#{d.TestDetailUI.valueY}" width="50" />
+<t:rowdistance id="g_317" />
+<t:row id="g_318" >
+<t:label id="g_319" text="y" width="100" />
+<t:formattedfield id="g_320" actionListener="#{d.TestDetailUI.onChangeXY}" clientname="y" flush="true" format="double" value="#{d.TestDetailUI.valueY}" width="50" />
 </t:row>
-<t:rowdistance id="g_322" />
-<t:row id="g_323" >
-<t:label id="g_324" text="hr" width="100" />
-<t:formattedfield id="g_325" enabled="false" format="int" value="#{d.TestDetailUI.hr}" width="50" />
+<t:rowdistance id="g_321" />
+<t:row id="g_322" >
+<t:label id="g_323" text="hr" width="100" />
+<t:formattedfield id="g_324" enabled="false" format="int" value="#{d.TestDetailUI.hr}" width="50" />
 </t:row>
-<t:rowdistance id="g_326" />
-<t:row id="g_327" >
-<t:field id="g_328" text="#{d.TestDetailUI.maxWidth}" width="100" />
-</t:row>
+<t:rowdistance id="g_325" />
 </t:pane>
 </t:row>
 </t:tabbedpanetab>

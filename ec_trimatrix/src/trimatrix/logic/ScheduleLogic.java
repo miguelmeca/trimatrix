@@ -240,26 +240,28 @@ public class ScheduleLogic {
 	}
 
 	public String getSummary(Schedules schedule) {
-		StringBuffer sb = new StringBuffer();
-		String type = schedule.getType();
-		if(ScheduleLogic.TYPES_WITH_DETAILS.keySet().contains(type)) {
-			List<SchedulesDetail> schedulesDetails = schedule.getSchedulesDetail();
-			for(SchedulesDetail schedulesDetail : schedulesDetails) {
-				if(sb.length()>0) sb.append(Constants.NEWLINE);
-				ZonesDefinition definition = daoLayer.getZonesDefinitionDAO().findById(schedulesDetail.getZoneId());
-				if(definition==null) continue;
-				// special treatment for swim units
-				if(getTypeOrd(type)==ScheduleLogic.SWIM) {
-					sb.append(schedulesDetail.getUnit() + Constants.WHITESPACE + definition.getShortcut());
-				} else {
-					sb.append(schedulesDetail.getDurationTarget() + Constants.WHITESPACE + definition.getShortcut());
-				}
-
-			}
-		} else {
-			if(schedule.getDescription()!=null) sb.append(schedule.getDescription());
-		}
-		return sb.toString();
+		// old logic with printing out details!
+//		StringBuffer sb = new StringBuffer();
+//		String type = schedule.getType();
+//		if(ScheduleLogic.TYPES_WITH_DETAILS.keySet().contains(type)) {
+//			List<SchedulesDetail> schedulesDetails = schedule.getSchedulesDetail();
+//			for(SchedulesDetail schedulesDetail : schedulesDetails) {
+//				if(sb.length()>0) sb.append(Constants.NEWLINE);
+//				ZonesDefinition definition = daoLayer.getZonesDefinitionDAO().findById(schedulesDetail.getZoneId());
+//				if(definition==null) continue;
+//				// special treatment for swim units
+//				if(getTypeOrd(type)==ScheduleLogic.SWIM) {
+//					sb.append(schedulesDetail.getUnit() + Constants.WHITESPACE + definition.getShortcut());
+//				} else {
+//					sb.append(schedulesDetail.getDurationTarget() + Constants.WHITESPACE + definition.getShortcut());
+//				}
+//
+//			}
+//		} else {
+//			if(schedule.getDescription()!=null) sb.append(schedule.getDescription());
+//		}
+//		return sb.toString();
+		return schedule.getDescription()!=null?schedule.getDescription():Constants.EMPTY;
 	}
 
 	public DayInfo getDayInfo() {

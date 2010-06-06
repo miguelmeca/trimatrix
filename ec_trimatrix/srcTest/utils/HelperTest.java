@@ -56,5 +56,15 @@ public class HelperTest {
 		Assert.assertEquals(null, Helper.correctTimeInput("2390"));
 		Assert.assertEquals("01:23:20", Helper.correctTimeInput("12320"));
 		Assert.assertEquals("10:23:20", Helper.correctTimeInput("102320"));
+		Assert.assertEquals("10:23:20,95", Helper.correctTimeInput("102320,95"));
+		Assert.assertEquals("00:20,915", Helper.correctTimeInput2("20,915"));
+		Assert.assertEquals("23:20,95", Helper.correctTimeInput2("2320,95"));
+	}
+
+	@Test
+	public void testRest() {
+		Assert.assertEquals("5", Helper.removeTrailingZeros("500"));
+		Assert.assertEquals("0", Helper.removeTrailingZeros("00"));
+		Assert.assertEquals("0", Helper.removeTrailingZeros("0"));
 	}
 }

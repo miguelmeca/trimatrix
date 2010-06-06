@@ -796,8 +796,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		public String getTargetTime() {
 			if (isTopNode()) {
 				String maxPerformance = (String) values.get(TestEntity.PERFORMANCE_MAX);
-				if (maxPerformance == null)
-					return null;
+				if (maxPerformance == null)	return null;
 				return (Helper.getTimeByPercentage(maxPerformance, 200 - intensity));
 			} else {
 				return ((GridSwimItem) this.getParentNode()).getTargetTime();
@@ -1067,6 +1066,15 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		// set steps for analyze method
 		entity.getTestsProtocol().setCountSteps(m_gridSwim.getRootNode().getChildNodes().size());
 		swim.setSteps(protocols);
+	}
+
+	public void onChangeMaxPerformance(ActionEvent event) {
+		// correct input
+		String corrInput = Helper.correctTimeInput2((String)values.get(TestEntity.PERFORMANCE_MAX));
+		// if null don't write back the value
+		if(corrInput!=null) {
+			values.put(TestEntity.PERFORMANCE_MAX, corrInput);
+		}
 	}
 
 	private void fillProtocol() {
@@ -1376,6 +1384,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 					Statusbar.outputAlert(Helper.getMessages("athlete_no_coach_zone"), Helper.getLiteral("info")).setLeftTopReferenceCentered();
 					return;
 				}
+				boolean error = false;
 				Double x = null;
 				Integer hrLow = null;
 				Integer hrHigh = null;
@@ -1408,7 +1417,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 								zone.setTestIdBike(entity.getId());
 							}
 						} else {
-							x = result.getX(definition.getLactateHigh());
+							x = result.getX(definition.getLactateLow());
 							speedLow = x / entity.getTestsSwim().getDistance();
 							x = result.getX(definition.getLactateHigh());
 							speedHigh = x / entity.getTestsSwim().getDistance();
@@ -1420,11 +1429,13 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 						getLogic().getZonesLogic().saveZone(zone);
 					} catch (Exception ex) {
 						Statusbar.outputAlert(String.format(Helper.getMessages("writing_back_zone_failure"), definition.getShortcut()), Helper.getLiteral("error"), ex.toString()).setLeftTopReferenceCentered();
+						error = false;
 						continue;
 					}
 				}
 				// refresh beans
 		        getWorkpage().throwWorkpageProcessingEvent(new WorkpageRefreshEvent(Entity.ZONE));
+		        if(!error) Statusbar.outputSuccess(Helper.getMessages("writing_back_zone_success"));
 			}
 		});
 		popup.getModalPopup().setLeftTopReferenceCentered();
@@ -1552,7 +1563,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 					// xyArr[2 * i] =
 					// Helper.calculateMeterPerSecond(swim.getDistance(),
 					// protocol.getTime());
-					xyArr[2 * i] = Helper.calculateSeconds(protocol.getTime());
+					xyArr[2 * i] = Helper.calculateSeconds2(protocol.getTime());
 					// y value
 					xyArr[2 * i + 1] = getLogic().getTestLogic().createLactateSamples(protocol.getLactate()).getSingleDoubleValue();
 					i++;

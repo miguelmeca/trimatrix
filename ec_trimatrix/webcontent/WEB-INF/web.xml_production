@@ -4,6 +4,12 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="2.5">
 	<display-name>Trimatrix Training Portal</display-name>
+
+	<context-param>
+		<param-name>trimatrix.url</param-name>
+		<param-value>http://cardassia.secitec.net/trimatrix</param-value>
+	</context-param>
+
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>

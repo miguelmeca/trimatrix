@@ -269,6 +269,10 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 			scheduleDetail.setLactateHigh(null);
 			scheduleDetail.setHrLow(null);
 			scheduleDetail.setHrHigh(null);
+			scheduleDetail.setTimeLow(null);
+			scheduleDetail.setTimeHigh(null);
+			// check
+			if(isEmpty(scheduleDetail.getZoneId())) return;
 			// get zones definition
 			ZonesDefinition definition = getDaoLayer().getZonesDefinitionDAO().findById(scheduleDetail.getZoneId());
 			if(definition==null) return;
@@ -288,6 +292,9 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 			// set zone relevant properties
 			scheduleDetail.setHrLow(zone.getHrLowRun());
 			scheduleDetail.setHrHigh(zone.getHrHighRun());
+			// swim logic
+			scheduleDetail.setTimeLow(calculateTime((int)(zone.getSpeedLowSwim() * getScheduleDetail().getDistance()), false));
+			scheduleDetail.setTimeHigh(calculateTime((int)(zone.getSpeedHighSwim() * getScheduleDetail().getDistance()), false));
 			// TODO Check case where HR is calculated by max HR
 		}
 

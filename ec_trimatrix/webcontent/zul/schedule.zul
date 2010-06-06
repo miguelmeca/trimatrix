@@ -1,9 +1,9 @@
 <?page title="Schedule" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window title="Trimatrix" border="normal"
+	<window title="Trimatrix" border="normal" width="400px" height="600px"
 		apply="trimatrix.zul.ScheduleZUL">
 		<vbox>
-			<hbox style="vertical-align:middle">
+			<hbox style="vertical-align:middle;text-align:center">
 				<button image="../images/icons/black_prev.png"
 					forward="onPrevious" />
 				<space />

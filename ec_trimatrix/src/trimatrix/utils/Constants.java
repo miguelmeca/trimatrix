@@ -263,6 +263,7 @@ public final class Constants {
 
 	public static final String NULL = "null";
 	public static final String EMPTY = "";
+	public static final String COMMA = ",";
 	public static final String EMPTYTIME = "00:00:00";
 	public static final String WHITESPACE = " ";
 	public static final String NEWLINE = "\n";
@@ -293,7 +294,7 @@ public final class Constants {
 	// constants for file extension
 	public static final String GIF_EXTENSION = "gif";
 	// constants for templates
-	public static final String TEMPLATE_NEWPASSWORD = "/templates/mail/password.template";
+	public static final String TEMPLATE_NEWPASSWORD = "mail/password";
 	// constants for paths
 	public static final String PATH_MIMEICONS = "/images/mimeicons/";
 	public static final String PATH_ICONS = "/images/icons/";
@@ -364,7 +365,7 @@ public final class Constants {
 	public static final int MAXWORKPAGES = 10;
 
 	// Server url
-	public static final String TRIMATRIXURL = "http://cardassia.secitec.net/trimatrix";
+	//public static final String TRIMATRIXURL = "http://cardassia.secitec.net/trimatrix";
 
 	// Animation type
 	public static final String HIDETOLEFT = "hidetoleft";

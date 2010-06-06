@@ -244,6 +244,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 				});
 		// set calendar to actual user
 		setAthleteID(getServiceLayer().getDictionaryService().getMyPerson().getId());
+		setSearchAthleteId(getAthleteID());
 		// refresh UI
 		refresh();
 	}
@@ -879,4 +880,18 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
         if(report!=null) BufferedContentMgr.add(report);
         downloadTrigger.trigger();
     }
+
+	// ------------------------------------------------------------------------
+	// logic for mobile
+	// ------------------------------------------------------------------------
+	private Trigger browserTrigger = new Trigger();
+	public Trigger getBrowserTrigger() { return browserTrigger; }
+
+	private String mobileUrl;
+	public String getMobileUrl() { return mobileUrl; }
+
+	public void onMobile(ActionEvent ae) {
+		mobileUrl = Helper.getTrimatrixUrl() + "/zul/schedule.zul?id=" + getAthleteID();
+		browserTrigger.trigger();
+	}
 }

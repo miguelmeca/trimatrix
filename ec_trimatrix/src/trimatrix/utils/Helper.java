@@ -20,6 +20,7 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -50,15 +51,26 @@ public class Helper {
 		return file.exists();
 	}
 
-	public static String readFileAsString(String filePath) throws Exception {
+	public static String getTemplate(String templateName) throws Exception {
 		FacesContext context = FacesContext.getCurrentInstance();
 		ServletContext sc = (ServletContext) context.getExternalContext()
 				.getContext();
-		filePath = sc.getRealPath(filePath);
-		byte[] buffer = new byte[(int) new File(filePath).length()];
-		FileInputStream f = new FileInputStream(filePath);
+		String filename = "/templates/" + templateName + "_" + getLanguageServer() + ".template";
+		File file = new File(sc.getRealPath(filename));
+		if(!file.exists()) {
+			filename = "/templates/" + templateName + ".template";
+			file = new File(sc.getRealPath(filename));
+		}
+		byte[] buffer = new byte[(int) file.length()];
+		FileInputStream f = new FileInputStream(file);
 		f.read(buffer);
 		return new String(buffer);
+	}
+
+	public static String getTrimatrixUrl() {
+		//return "http://cardassia.secitec.net/trimatrix";
+		ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
+		return ectx.getInitParameter("trimatrix.url");
 	}
 
 	public static boolean isEmailValid(String email) {
@@ -200,6 +212,13 @@ public class Helper {
 		if (isEmpty(input))
 			return null;
 		String output = null;
+		Integer msecs = null;
+		// check if there are msecs
+		if(input.contains(Constants.COMMA)) {
+			String[] splitStr = input.split(Constants.COMMA);
+			input = splitStr[0];
+			if(NumberUtils.isDigits(splitStr[1])) msecs = Integer.valueOf(splitStr[1]);
+		}
 		// short input
 		if (NumberUtils.isDigits(input)) {
 			switch (input.length()) {
@@ -233,9 +252,8 @@ public class Helper {
 			output = input;
 		}
 		// check regex
-		if (!Pattern.compile("\\d\\d:[0-5]\\d:[0-5]\\d").matcher(output)
-				.matches())
-			output = null;
+		if (!Pattern.compile("\\d\\d:[0-5]\\d:[0-5]\\d").matcher(output).matches())	output = null;
+		if(msecs!=null) output = output + Constants.COMMA + msecs.toString();
 		return output;
 	}
 
@@ -243,6 +261,13 @@ public class Helper {
 		if (isEmpty(input))
 			return null;
 		String output = null;
+		Integer msecs = null;
+		// check if there are msecs
+		if(input.contains(Constants.COMMA)) {
+			String[] splitStr = input.split(Constants.COMMA);
+			input = splitStr[0];
+			if(NumberUtils.isDigits(splitStr[1])) msecs = Integer.valueOf(splitStr[1]);
+		}
 		// short input
 		if (NumberUtils.isDigits(input)) {
 			switch (input.length()) {
@@ -268,9 +293,8 @@ public class Helper {
 			output = input;
 		}
 		// check regex
-		if (!Pattern.compile("\\d\\d:[0-5]\\d").matcher(output)
-				.matches())
-			output = null;
+		if (!Pattern.compile("\\d\\d:[0-5]\\d").matcher(output).matches()) output = null;
+		if(msecs!=null) output = output + Constants.COMMA + msecs.toString();
 		return output;
 	}
 
@@ -289,7 +313,7 @@ public class Helper {
 			return duration;
 		if (start != null && duration == null)
 			return start;
-		// convert to seconds
+		// convert to seconds with msec
 		Integer secStart = calculateSeconds(start);
 		if (secStart == null)
 			return null;
@@ -316,6 +340,22 @@ public class Helper {
 	 */
 	public static String getTimeByPercentage(String time, Integer percentage) {
 		boolean hhmmss;
+		Double msecs = 0d;
+		// check if there are msecs
+		if(time.contains(Constants.COMMA)) {
+			String[] splitStr = time.split(Constants.COMMA);
+			time = splitStr[0];
+			if(NumberUtils.isDigits(splitStr[1])) {
+				msecs = Double.valueOf(splitStr[1]);
+				if(msecs<10) {
+					msecs = msecs / 10;
+				} else if(msecs<100) {
+					msecs = msecs / 100;
+				} else {
+					msecs = msecs / 1000;
+				}
+			}
+		}
 		switch (time.length()) {
 		case 5: // mm:ss
 			if (percentage == 0)
@@ -330,9 +370,8 @@ public class Helper {
 		default:
 			return null;
 		}
-		if (percentage == 100)
-			return time;
-		int secTime = calculateSeconds(time);
+		if (percentage == 100) return time;
+		double secTime = calculateSeconds(time) + msecs;
 		double seconds = (secTime / 100d) * percentage;
 		return calculateTime((int) seconds, hhmmss);
 	}
@@ -361,9 +400,24 @@ public class Helper {
 	 * @return Speed m/s
 	 */
 	public static Double calculateMeterPerSecond(Integer distance, String time) {
-		Double secTime = (double) calculateSeconds(time);
-		if (secTime == null || secTime == 0)
-			return null;
+		Double msecs = 0d;
+		// check if there are msecs
+		if(time.contains(Constants.COMMA)) {
+			String[] splitStr = time.split(Constants.COMMA);
+			time = splitStr[0];
+			if(NumberUtils.isDigits(splitStr[1])) {
+				msecs = Double.valueOf(splitStr[1]);
+				if(msecs<10) {
+					msecs = msecs / 10;
+				} else if(msecs<100) {
+					msecs = msecs / 100;
+				} else {
+					msecs = msecs / 1000;
+				}
+			}
+		}
+		Double secTime = (double) calculateSeconds(time) + msecs;
+		if (secTime == null || secTime == 0d) return null;
 		return distance / secTime;
 	}
 
@@ -391,11 +445,43 @@ public class Helper {
 		return 0;
 	}
 
+	public static Double calculateSeconds2(String time) {
+		if (time == null) return 0d;
+		Double msecs = 0d;
+		// check if there are msecs
+		if(time.contains(Constants.COMMA)) {
+			String[] splitStr = time.split(Constants.COMMA);
+			time = splitStr[0];
+			if(NumberUtils.isDigits(splitStr[1])) {
+				msecs = Double.valueOf(splitStr[1]);
+				if(msecs<10) {
+					msecs = msecs / 10;
+				} else if(msecs<100) {
+					msecs = msecs / 100;
+				} else {
+					msecs = msecs / 1000;
+				}
+			}
+		}
+		String[] arrTime = time.split(":");
+		// mm:ss
+		if (arrTime.length == 2)
+			return Double.valueOf(arrTime[0]) * 60
+					+ Double.valueOf(arrTime[1]) + msecs;
+		// mm:hh:ss
+		if (arrTime.length == 3)
+			return Double.valueOf(arrTime[0]) * 3600
+					+ Double.valueOf(arrTime[1]) * 60
+					+ Double.valueOf(arrTime[2]) + msecs;
+		// wrong
+		return 0d;
+	}
+
 	/**
 	 * Calculate time of sconds
 	 *
 	 * @param seconds
-	 *            sconds
+	 *            seconds
 	 * @param hhmmss
 	 *            use long format hh:mm:ss
 	 * @return time
@@ -424,6 +510,55 @@ public class Helper {
 		}
 
 	}
+
+	public static String calculateTime(Double seconds, boolean hhmmss) {
+		if (seconds == null || seconds == 0d) {
+			if (hhmmss) {
+				return "00:00:00";
+			} else {
+				return "00:00";
+			}
+		}
+		String output = null;
+		Integer secondsOnly = seconds.intValue();
+		Double msecs = seconds - secondsOnly;
+		Integer msecsInt = (int)(msecs * 1000);
+		String msecsStr = removeTrailingZeros(msecsInt.toString());
+		Integer hour = secondsOnly / 3600;
+		secondsOnly = secondsOnly % 3600;
+		Integer minute = secondsOnly / 60;
+		Integer second = secondsOnly % 60;
+		if (hhmmss) {
+			if (hour > 99)
+				hour = 99; // hour max. 99
+			output = String.format("%02d:%02d:%02d", hour, minute, second);
+		} else {
+			minute += hour * 60;
+			if (minute > 99)
+				minute = 99; // minute max. 99
+			output = String.format("%02d:%02d", minute, second);
+		}
+		if(!isEmpty(msecsStr)) output += Constants.COMMA + msecsStr;
+		return output;
+
+	}
+
+	/**
+	 * Calculate time of sconds
+	 *
+	 * @param seconds
+	 *            seconds
+	 * @param msecs
+	 *            msecs
+	 * @param hhmmss
+	 *            use long format hh:mm:ss
+	 * @return time
+	 */
+	public static String calculateTime(Integer seconds, Integer msecs, boolean hhmmss) {
+		String time = calculateTime(seconds, hhmmss);
+		return time + Constants.COMMA + msecs.toString();
+	}
+
 
 	/**
 	 * This method enables adding items to wildcard captured lists
@@ -460,8 +595,12 @@ public class Helper {
 		return string == null || string.trim().length() == 0;
 	}
 
-	public static boolean isEmpty(Integer integer) {
-		return integer == null;
+	public static boolean isEmpty(Integer value) {
+		return value == null;
+	}
+
+	public static boolean isEmpty(Double value) {
+		return value == null;
 	}
 
 	public static boolean isEmpty(Collection collection) {
@@ -503,6 +642,14 @@ public class Helper {
 		}
 		return null;
 	}
+
+	public static String removeTrailingZeros(String value) {
+		while(value.endsWith("0") && value.length()>1) {
+			value = value.substring(0, value.length()-2);
+		}
+		return value;
+	}
+
 	// public static final Log logger = LogFactory.getLog("trimatrix");
 	// CLog.L logger
 	// public static Logger logger = Logger.getLogger("trimatrix");
