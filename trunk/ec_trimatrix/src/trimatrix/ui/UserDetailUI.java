@@ -222,12 +222,12 @@ public class UserDetailUI extends AEntityDetailUI implements Serializable
 							ENTITYLISTLOGIC.save(Constants.Entity.USER, entity);
 							String receiver = entity.getEmail();
 							// get template
-							String message = Helper.readFileAsString(Constants.TEMPLATE_NEWPASSWORD);
+							String message = Helper.getTemplate(Constants.TEMPLATE_NEWPASSWORD);
 							// replace variables
 							message = message.replace("%name%", entity.getPerson().toString());
 							message = message.replace("%user%", entity.getUserName());
 							message = message.replace("%pass%", password);
-							message = message.replace("%url%", Constants.TRIMATRIXURL);
+							message = message.replace("%url%", Helper.getTrimatrixUrl());
 							//String message = "Hello Trimatrix User, \n a new password " + password + " is generated for your user " + entity.getUserName() + ". \n\n regards your Trimatrix Team";
 							MailSender.postMail(new String[] {receiver}, Helper.getMessages("welcome"), message, Constants.TYPE_TEXTHTML, null);
 							Statusbar.outputSuccess(String.format(Helper.getMessages("password_send_success"), receiver));

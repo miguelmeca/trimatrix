@@ -51,7 +51,7 @@
 <t:row id="g_31" >
 <t:foldablepane id="g_32" comment="details" font="size:14;weight:bold" rendered="#{d.ScheduleChangePopUp.detailRelevant}" rowdistance="5" text="#{rr.literals.details}" width="100%" >
 <t:row id="g_33" rendered="#{d.ScheduleChangePopUp.personsSight}" >
-<t:button id="g_34" actionListener="#{d.ScheduleChangePopUp.onSetDone}" image="/images/icons/accept.png" imageheight="16" text="#{rr.literals.unit_passed}" />
+<t:button id="g_34" actionListener="#{d.ScheduleChangePopUp.onSetDone}" image="/images/icons/accept.png" imageheight="16" rendered="#{d.ScheduleChangePopUp.template==false}" text="#{rr.literals.unit_passed}" />
 </t:row>
 <t:row id="g_35" comment="run" rendered="#{d.ScheduleChangePopUp.typeOrd==1}" >
 <t:fixgrid id="g_36" columndragdropenabled="false" headlinerowheight="20" horizontalscrollmode="autowithresize" objectbinding="#{d.ScheduleChangePopUp.gridDetail}" rowheight="40" sbvisibleamount="10" selectorcolumn="1" selectorcolumnwidth="20" showemptyrows="false" >

@@ -156,10 +156,10 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
 			return personsAthlete!=null ? personsAthlete.getMaxHr() * definition.getHrHighBike() / 100 : null;
 		}
 		public String getTimeLowSwim() {
-			return Helper.calculateTime((int)(getSpeedLowSwim() * getDistance()), false);
+			return Helper.calculateTime(getSpeedLowSwim() * getDistance(), false);
 		}
 		public String getTimeHighSwim() {
-			return Helper.calculateTime((int)(getSpeedHighSwim() * getDistance()), false);
+			return Helper.calculateTime(getSpeedHighSwim() * getDistance(), false);
 		}
 		// mutable fields
 		public Integer getHrLowRun() { return zones!=null ? zones.getHrLowRun() : null; }

@@ -123,7 +123,7 @@ public class EntityListLogic {
 
 	public int getVisibleAmount() {
 		UserPreferences preferences = serviceLayer.getDictionaryService().getMyUser().getPreferences();
-		if(preferences==null || preferences.getSbvisibleamount()<=0) return 20; // standard value
+		if(preferences==null || preferences.getSbvisibleamount()<=0) return 25; // standard value
 		return preferences.getSbvisibleamount();
 	}
 

@@ -78,7 +78,10 @@ public final class UserEntity extends AEntity {
 		entity.setDeleted(false);
 		entity.setTest(false);
 		// preferences
-		entity.setPreferences(new UserPreferences(id));
+		UserPreferences userPreferences = new UserPreferences(id);
+		// if no default value set, than no rows are shown!
+		userPreferences.setSbvisibleamount(25);
+		entity.setPreferences(userPreferences);
 		return entity;
 	}
 
