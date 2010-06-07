@@ -116,6 +116,7 @@
 		<mapping class="trimatrix.db.ImportTemplates" />
 		<mapping class="trimatrix.db.UserDefaults" />
 		<mapping class="trimatrix.db.SchedulesDetail" />
+		<mapping class="trimatrix.db.ZonesSwim" />
 	</session-factory>
 
 </hibernate-configuration>

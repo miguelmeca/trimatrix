@@ -57,6 +57,8 @@ import trimatrix.db.TestsTreadmill;
 import trimatrix.db.Users;
 import trimatrix.db.Zones;
 import trimatrix.db.ZonesDefinition;
+import trimatrix.db.ZonesSwim;
+import trimatrix.db.ZonesSwimId;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SFunctionTree;
 import trimatrix.utils.Constants;
@@ -360,7 +362,17 @@ public class DBConnectionTest {
 		daoLayer.getZonesDAO().save(zones);
 		Zones zones2 = daoLayer.getZonesDAO().findById(id2);
 		Assert.assertEquals("123456ABCDEFG", zones2.getAthleteId());
+		// swim zones
+		ZonesSwimId zonesSwimId = new ZonesSwimId(100, zones.getAthleteId(), zones.getZonesDefinitionId());
+		ZonesSwim zonesSwim = new ZonesSwim(zonesSwimId);
+		zonesSwim.setTimeLow("00:25,50");
+		zonesSwim.setTimeHigh("01:25");
+		daoLayer.getZonesSwimDAO().save(zonesSwim);
+		ZonesSwim zonesSwim2 = daoLayer.getZonesSwimDAO().findById(zonesSwimId);
+		Assert.assertEquals("00:25,50", zonesSwim2.getTimeLow());
+		Assert.assertEquals("01:25", zonesSwim2.getTimeHigh());
 		// delete
+		daoLayer.getZonesSwimDAO().delete(zonesSwim);
 		daoLayer.getZonesDAO().delete(zones);
 		daoLayer.getZonesDefinitionDAO().delete(definition2);
 	}
