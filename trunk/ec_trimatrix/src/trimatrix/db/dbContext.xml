@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
 	<!-- LobHandler for JDBC drivers -->
 	<bean id="defaultLobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler"
@@ -13,31 +13,23 @@
 		<property name="lobHandler" ref="defaultLobHandler"></property>
 		<property name="configLocation" value="classpath:hibernate.cfg.xml"></property>
 		<property name="entityInterceptor">
-    		<bean class="trimatrix.utils.MySqlTimestampFixInterceptor"/>
-  		</property>
-		<!-- Activate Revision
-		<property name="eventListeners">
-			<map>
-			<entry key="post-update">
-				<bean class="org.hibernate.envers.event.AuditEventListener" />
-			</entry>
-			<entry key="post-insert">
-				<bean class="org.hibernate.envers.event.AuditEventListener" />
-			</entry>
-			<entry key="post-delete">
-				<bean class="org.hibernate.envers.event.AuditEventListener" />
-			</entry>
-			<entry key="pre-collection-update">
-				<bean class="org.hibernate.envers.event.AuditEventListener" />
-			</entry>
-			<entry key="pre-collection-remove">
-				<bean class="org.hibernate.envers.event.AuditEventListener" />
-			</entry>
-			<entry key="post-collection-recreate">
-				<bean class="org.hibernate.envers.event.AuditEventListener" />
-			</entry>
-			</map>
+			<bean class="trimatrix.utils.MySqlTimestampFixInterceptor" />
 		</property>
+		<!--
+			Activate Revision <property name="eventListeners"> <map> <entry
+			key="post-update"> <bean
+			class="org.hibernate.envers.event.AuditEventListener" /> </entry>
+			<entry key="post-insert"> <bean
+			class="org.hibernate.envers.event.AuditEventListener" /> </entry>
+			<entry key="post-delete"> <bean
+			class="org.hibernate.envers.event.AuditEventListener" /> </entry>
+			<entry key="pre-collection-update"> <bean
+			class="org.hibernate.envers.event.AuditEventListener" /> </entry>
+			<entry key="pre-collection-remove"> <bean
+			class="org.hibernate.envers.event.AuditEventListener" /> </entry>
+			<entry key="post-collection-recreate"> <bean
+			class="org.hibernate.envers.event.AuditEventListener" /> </entry>
+			</map> </property>
 		-->
 	</bean>
 
@@ -50,186 +42,189 @@
 	</bean>
 
 	<bean id="transactionAttributeSource"
-        class="org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource">
-        <property name="nameMap">
-            <map>
-                <entry key="merge" value="PROPAGATION_REQUIRED" />
-                <entry key="save" value="PROPAGATION_REQUIRED" />
-                <entry key="delete" value="PROPAGATION_REQUIRED" />
-                <entry key="attach*" value="PROPAGATION_REQUIRED" />
-            </map>
-        </property>
-    </bean>
+		class="org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource">
+		<property name="nameMap">
+			<map>
+				<entry key="merge" value="PROPAGATION_REQUIRED" />
+				<entry key="save" value="PROPAGATION_REQUIRED" />
+				<entry key="delete" value="PROPAGATION_REQUIRED" />
+				<entry key="attach*" value="PROPAGATION_REQUIRED" />
+			</map>
+		</property>
+	</bean>
 
-    <bean id="transactionInterceptor"
-        class="org.springframework.transaction.interceptor.TransactionInterceptor">
-        <property name="transactionManager" ref="transactionManager" />
-        <property name="transactionAttributeSource" ref="transactionAttributeSource" />
-    </bean>
+	<bean id="transactionInterceptor"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributeSource" ref="transactionAttributeSource" />
+	</bean>
 
-    <bean id="autoProxyCreator"
-        class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
-        <property name="proxyTargetClass" value="false" />
-        <property name="interceptorNames">
-            <list>
-                <idref local="transactionInterceptor" />
-            </list>
-        </property>
-        <property name="beanNames">
-            <list>
-                <idref local="UsersDAO" />
-                <idref local="PersonsDAO" />
-                <idref local="DoctorsDAO" />
-                <idref local="AttachmentsDAO" />
-                <idref local="TestsDAO" />
-                <idref local="CompetitionsDAO" />
-                <idref local="SchedulesDAO" />
-                <idref local="SchedulesDetailDAO" />
-                <idref local="CompetitionsScoutsDAO" />
-                <idref local="ResultsDAO" />
-                <idref local="ResultsTriaDAO" />
-                <idref local="PersonsHaveRelationsDAO" />
-                <idref local="PersonsHaveDoctorsDAO" />
-                <idref local="PersonsHaveAttachmentsDAO" />
-                <idref local="PersonsHaveCompetitionsDAO" />
-                <idref local="PersonsAthleteDAO" />
-                <idref local="TestsErgoDAO" />
-                <idref local="TestsTreadmillDAO" />
-                <idref local="TestsSwimDAO" />
-                <idref local="TestsProtocolDAO" />
-                <idref local="TestsAnalysisDAO" />
-                <idref local="TestsSwimProtocolDAO" />
-                <idref local="TSalutationDAO" />
-                <idref local="TCategoriesDAO" />
-                <idref local="TTesttypesDAO" />
-                <idref local="TScheduletypesDAO" />
-                <idref local="ListVariantsDAO" />
-                <idref local="LabelsDAO" />
-                <idref local="ImportTemplatesDAO" />
-                <idref local="ZonesDAO" />
-                <idref local="ZonesDefinitionDAO" />
-                <idref local="EntitiesHaveLabelsDAO" />
-                <idref local="EntitiesDAO" />
-                <idref local="DayInfosDAO" />
-                <idref local="UserDefaultsDAO" />
-            </list>
-        </property>
-    </bean>
+	<bean id="autoProxyCreator"
+		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="proxyTargetClass" value="false" />
+		<property name="interceptorNames">
+			<list>
+				<idref local="transactionInterceptor" />
+			</list>
+		</property>
+		<property name="beanNames">
+			<list>
+				<idref local="UsersDAO" />
+				<idref local="PersonsDAO" />
+				<idref local="DoctorsDAO" />
+				<idref local="AttachmentsDAO" />
+				<idref local="TestsDAO" />
+				<idref local="CompetitionsDAO" />
+				<idref local="SchedulesDAO" />
+				<idref local="SchedulesDetailDAO" />
+				<idref local="CompetitionsScoutsDAO" />
+				<idref local="ResultsDAO" />
+				<idref local="ResultsTriaDAO" />
+				<idref local="PersonsHaveRelationsDAO" />
+				<idref local="PersonsHaveDoctorsDAO" />
+				<idref local="PersonsHaveAttachmentsDAO" />
+				<idref local="PersonsHaveCompetitionsDAO" />
+				<idref local="PersonsAthleteDAO" />
+				<idref local="TestsErgoDAO" />
+				<idref local="TestsTreadmillDAO" />
+				<idref local="TestsSwimDAO" />
+				<idref local="TestsProtocolDAO" />
+				<idref local="TestsAnalysisDAO" />
+				<idref local="TestsSwimProtocolDAO" />
+				<idref local="TSalutationDAO" />
+				<idref local="TCategoriesDAO" />
+				<idref local="TTesttypesDAO" />
+				<idref local="TScheduletypesDAO" />
+				<idref local="ListVariantsDAO" />
+				<idref local="ZonesSwimDAO" />
+				<idref local="LabelsDAO" />
+				<idref local="ImportTemplatesDAO" />
+				<idref local="ZonesDAO" />
+				<idref local="ZonesDefinitionDAO" />
+				<idref local="EntitiesHaveLabelsDAO" />
+				<idref local="EntitiesDAO" />
+				<idref local="DayInfosDAO" />
+				<idref local="UserDefaultsDAO" />
+			</list>
+		</property>
+	</bean>
 
-    <bean id="daoLayer" class="trimatrix.db.DAOLayer"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">
-        <property name="usersDAO">
-            <ref bean="UsersDAO" />
-        </property>
-        <property name="personsDAO">
-            <ref bean="PersonsDAO" />
-        </property>
-        <property name="doctorsDAO">
-            <ref bean="DoctorsDAO" />
-        </property>
-        <property name="attachmentsDAO">
-            <ref bean="AttachmentsDAO" />
-        </property>
-        <property name="testsDAO">
-            <ref bean="TestsDAO" />
-        </property>
-        <property name="competitionsDAO">
-            <ref bean="CompetitionsDAO" />
-        </property>
-        <property name="schedulesDAO">
-            <ref bean="SchedulesDAO" />
-        </property>
-        <property name="competitionsScoutsDAO">
-            <ref bean="CompetitionsScoutsDAO" />
-        </property>
-        <property name="resultsDAO">
-            <ref bean="ResultsDAO" />
-        </property>
-        <property name="resultsTriaDAO">
-            <ref bean="ResultsTriaDAO" />
-        </property>
-        <property name="personsHaveRelationsDAO">
-            <ref bean="PersonsHaveRelationsDAO" />
-        </property>
-        <property name="personsHaveDoctorsDAO">
-            <ref bean="PersonsHaveDoctorsDAO" />
-        </property>
-        <property name="personsHaveAttachmentsDAO">
-            <ref bean="PersonsHaveAttachmentsDAO" />
-        </property>
-        <property name="personsHaveCompetitionsDAO">
-            <ref bean="PersonsHaveCompetitionsDAO" />
-        </property>
-        <property name="tsalutationDAO">
-            <ref bean="TSalutationDAO" />
-        </property>
-        <property name="tcategoriesDAO">
-            <ref bean="TCategoriesDAO" />
-        </property>
-        <property name="ttesttypesDAO">
-            <ref bean="TTesttypesDAO" />
-        </property>
-        <property name="tscheduletypesDAO">
-            <ref bean="TScheduletypesDAO" />
-        </property>
-        <property name="listVariantsDAO">
-            <ref bean="ListVariantsDAO" />
-        </property>
-        <property name="labelsDAO">
-            <ref bean="LabelsDAO" />
-        </property>
-        <property name="importTemplatesDAO">
-            <ref bean="ImportTemplatesDAO" />
-        </property>
-        <property name="entitiesDAO">
-            <ref bean="EntitiesDAO" />
-        </property>
-        <property name="dayInfosDAO">
-            <ref bean="DayInfosDAO" />
-        </property>
-        <property name="entitiesHaveLabelsDAO">
-            <ref bean="EntitiesHaveLabelsDAO" />
-        </property>
-        <property name="personAthleteDAO">
-            <ref bean="PersonsAthleteDAO" />
-        </property>
-        <property name="testsErgoDAO">
-            <ref bean="TestsErgoDAO" />
-        </property>
-        <property name="testsTreadmillDAO">
-            <ref bean="TestsTreadmillDAO" />
-        </property>
-        <property name="testsSwimDAO">
-            <ref bean="TestsSwimDAO" />
-        </property>
-        <property name="testsProtocolDAO">
-            <ref bean="TestsProtocolDAO" />
-        </property>
-        <property name="testsAnalysisDAO">
-            <ref bean="TestsAnalysisDAO" />
-        </property>
-        <property name="testsSwimProtocolDAO">
-            <ref bean="TestsSwimProtocolDAO" />
-        </property>
-        <property name="zonesDAO">
-            <ref bean="ZonesDAO" />
-        </property>
-        <property name="zonesDefinitionDAO">
-            <ref bean="ZonesDefinitionDAO" />
-        </property>
-        <property name="userDefaultsDAO">
-            <ref bean="UserDefaultsDAO" />
-        </property>
-        <property name="relationDAOs">
-        	<list>
-        		<ref bean="PersonsHaveRelationsDAO" />
-        		<ref bean="PersonsHaveDoctorsDAO" />
-        		<ref bean="PersonsHaveAttachmentsDAO" />
-        		<ref bean="PersonsHaveCompetitionsDAO" />
-        	</list>
-        </property>
-    </bean>
+	<bean id="daoLayer" class="trimatrix.db.DAOLayer" abstract="false"
+		lazy-init="default" autowire="default" dependency-check="default">
+		<property name="usersDAO">
+			<ref bean="UsersDAO" />
+		</property>
+		<property name="personsDAO">
+			<ref bean="PersonsDAO" />
+		</property>
+		<property name="doctorsDAO">
+			<ref bean="DoctorsDAO" />
+		</property>
+		<property name="attachmentsDAO">
+			<ref bean="AttachmentsDAO" />
+		</property>
+		<property name="testsDAO">
+			<ref bean="TestsDAO" />
+		</property>
+		<property name="competitionsDAO">
+			<ref bean="CompetitionsDAO" />
+		</property>
+		<property name="schedulesDAO">
+			<ref bean="SchedulesDAO" />
+		</property>
+		<property name="competitionsScoutsDAO">
+			<ref bean="CompetitionsScoutsDAO" />
+		</property>
+		<property name="resultsDAO">
+			<ref bean="ResultsDAO" />
+		</property>
+		<property name="resultsTriaDAO">
+			<ref bean="ResultsTriaDAO" />
+		</property>
+		<property name="personsHaveRelationsDAO">
+			<ref bean="PersonsHaveRelationsDAO" />
+		</property>
+		<property name="personsHaveDoctorsDAO">
+			<ref bean="PersonsHaveDoctorsDAO" />
+		</property>
+		<property name="personsHaveAttachmentsDAO">
+			<ref bean="PersonsHaveAttachmentsDAO" />
+		</property>
+		<property name="personsHaveCompetitionsDAO">
+			<ref bean="PersonsHaveCompetitionsDAO" />
+		</property>
+		<property name="tsalutationDAO">
+			<ref bean="TSalutationDAO" />
+		</property>
+		<property name="tcategoriesDAO">
+			<ref bean="TCategoriesDAO" />
+		</property>
+		<property name="ttesttypesDAO">
+			<ref bean="TTesttypesDAO" />
+		</property>
+		<property name="tscheduletypesDAO">
+			<ref bean="TScheduletypesDAO" />
+		</property>
+		<property name="listVariantsDAO">
+			<ref bean="ListVariantsDAO" />
+		</property>
+		<property name="zonesSwimDAO">
+			<ref bean="ZonesSwimDAO" />
+		</property>
+		<property name="labelsDAO">
+			<ref bean="LabelsDAO" />
+		</property>
+		<property name="importTemplatesDAO">
+			<ref bean="ImportTemplatesDAO" />
+		</property>
+		<property name="entitiesDAO">
+			<ref bean="EntitiesDAO" />
+		</property>
+		<property name="dayInfosDAO">
+			<ref bean="DayInfosDAO" />
+		</property>
+		<property name="entitiesHaveLabelsDAO">
+			<ref bean="EntitiesHaveLabelsDAO" />
+		</property>
+		<property name="personAthleteDAO">
+			<ref bean="PersonsAthleteDAO" />
+		</property>
+		<property name="testsErgoDAO">
+			<ref bean="TestsErgoDAO" />
+		</property>
+		<property name="testsTreadmillDAO">
+			<ref bean="TestsTreadmillDAO" />
+		</property>
+		<property name="testsSwimDAO">
+			<ref bean="TestsSwimDAO" />
+		</property>
+		<property name="testsProtocolDAO">
+			<ref bean="TestsProtocolDAO" />
+		</property>
+		<property name="testsAnalysisDAO">
+			<ref bean="TestsAnalysisDAO" />
+		</property>
+		<property name="testsSwimProtocolDAO">
+			<ref bean="TestsSwimProtocolDAO" />
+		</property>
+		<property name="zonesDAO">
+			<ref bean="ZonesDAO" />
+		</property>
+		<property name="zonesDefinitionDAO">
+			<ref bean="ZonesDefinitionDAO" />
+		</property>
+		<property name="userDefaultsDAO">
+			<ref bean="UserDefaultsDAO" />
+		</property>
+		<property name="relationDAOs">
+			<list>
+				<ref bean="PersonsHaveRelationsDAO" />
+				<ref bean="PersonsHaveDoctorsDAO" />
+				<ref bean="PersonsHaveAttachmentsDAO" />
+				<ref bean="PersonsHaveCompetitionsDAO" />
+			</list>
+		</property>
+	</bean>
 
 	<bean id="UsersDAO" class="trimatrix.db.UsersDAO">
 		<property name="sessionFactory">
@@ -262,8 +257,7 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="TAuthorizationsDAO"
-		class="trimatrix.db.TAuthorizationsDAO">
+	<bean id="TAuthorizationsDAO" class="trimatrix.db.TAuthorizationsDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
@@ -283,26 +277,22 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="TFunctionnodesDAO"
-		class="trimatrix.db.TFunctionnodesDAO">
+	<bean id="TFunctionnodesDAO" class="trimatrix.db.TFunctionnodesDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="UsersHaveRolesDAO"
-		class="trimatrix.db.UsersHaveRolesDAO">
+	<bean id="UsersHaveRolesDAO" class="trimatrix.db.UsersHaveRolesDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="RolesHaveFunctionnodesDAO"
-		class="trimatrix.db.RolesHaveFunctionnodesDAO">
+	<bean id="RolesHaveFunctionnodesDAO" class="trimatrix.db.RolesHaveFunctionnodesDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="PersonsHaveRelationsDAO"
-		class="trimatrix.db.PersonsHaveRelationsDAO">
+	<bean id="PersonsHaveRelationsDAO" class="trimatrix.db.PersonsHaveRelationsDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
@@ -312,8 +302,7 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="PersonsHaveDoctorsDAO"
-		class="trimatrix.db.PersonsHaveDoctorsDAO">
+	<bean id="PersonsHaveDoctorsDAO" class="trimatrix.db.PersonsHaveDoctorsDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
@@ -323,8 +312,7 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="PersonsHaveAttachmentsDAO"
-		class="trimatrix.db.PersonsHaveAttachmentsDAO">
+	<bean id="PersonsHaveAttachmentsDAO" class="trimatrix.db.PersonsHaveAttachmentsDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
@@ -334,8 +322,7 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="EntitiesHaveLabelsDAO"
-		class="trimatrix.db.EntitiesHaveLabelsDAO">
+	<bean id="EntitiesHaveLabelsDAO" class="trimatrix.db.EntitiesHaveLabelsDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
@@ -355,14 +342,12 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="PersonsAthleteDAO"
-		class="trimatrix.db.PersonsAthleteDAO">
+	<bean id="PersonsAthleteDAO" class="trimatrix.db.PersonsAthleteDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="TestsTreadmillDAO"
-		class="trimatrix.db.TestsTreadmillDAO">
+	<bean id="TestsTreadmillDAO" class="trimatrix.db.TestsTreadmillDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
@@ -392,8 +377,7 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="TestsSwimProtocolDAO"
-		class="trimatrix.db.TestsSwimProtocolDAO">
+	<bean id="TestsSwimProtocolDAO" class="trimatrix.db.TestsSwimProtocolDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
@@ -403,8 +387,7 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="ZonesDefinitionDAO"
-		class="trimatrix.db.ZonesDefinitionDAO">
+	<bean id="ZonesDefinitionDAO" class="trimatrix.db.ZonesDefinitionDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
@@ -419,14 +402,12 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="PersonsHaveCompetitionsDAO"
-		class="trimatrix.db.PersonsHaveCompetitionsDAO">
+	<bean id="PersonsHaveCompetitionsDAO" class="trimatrix.db.PersonsHaveCompetitionsDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="CompetitionsScoutsDAO"
-		class="trimatrix.db.CompetitionsScoutsDAO">
+	<bean id="CompetitionsScoutsDAO" class="trimatrix.db.CompetitionsScoutsDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
@@ -451,8 +432,7 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="TScheduletypesDAO"
-		class="trimatrix.db.TScheduletypesDAO">
+	<bean id="TScheduletypesDAO" class="trimatrix.db.TScheduletypesDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
@@ -462,20 +442,22 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="UserPreferencesDAO"
-		class="trimatrix.db.UserPreferencesDAO">
+	<bean id="UserPreferencesDAO" class="trimatrix.db.UserPreferencesDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="UserDefaultsDAO"
-		class="trimatrix.db.UserDefaultsDAO">
+	<bean id="UserDefaultsDAO" class="trimatrix.db.UserDefaultsDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="ImportTemplatesDAO"
-		class="trimatrix.db.ImportTemplatesDAO">
+	<bean id="ImportTemplatesDAO" class="trimatrix.db.ImportTemplatesDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="ZonesSwimDAO" class="trimatrix.db.ZonesSwimDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
