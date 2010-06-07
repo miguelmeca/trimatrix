@@ -1,7 +1,5 @@
 package trimatrix.ui;
 
-import static trimatrix.utils.Helper.calculateSeconds;
-import static trimatrix.utils.Helper.correctTimeInput;
 import static trimatrix.utils.Helper.isEmpty;
 
 import java.io.ByteArrayInputStream;
@@ -42,6 +40,7 @@ import trimatrix.ui.utils.ISelectionCallback;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
+import trimatrix.utils.HelperTime;
 import trimatrix.utils.Constants.Entity;
 import trimatrix.utils.Constants.Page;
 
@@ -187,13 +186,13 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 			// get clientname to separate by source
 			String clientname = (String) event.getComponent().getAttributes().get(Constants.CLIENTNAME);
 			if (ResultEntity.SWIM.equalsIgnoreCase(clientname)) {
-				swimSplit = correctTimeInput(swimSplit);
+				swimSplit = HelperTime.correctTimeInput(swimSplit);
 			} else if (ResultEntity.RUN.equalsIgnoreCase(clientname)) {
-				runSplit = correctTimeInput(runSplit);
+				runSplit = HelperTime.correctTimeInput(runSplit);
 			} else if (ResultEntity.BIKE.equalsIgnoreCase(clientname)) {
-				bikeSplit = correctTimeInput(bikeSplit);
+				bikeSplit = HelperTime.correctTimeInput(bikeSplit);
 			} else if (ResultEntity.OVERALL.equalsIgnoreCase(clientname)) {
-				time = correctTimeInput(time);
+				time = HelperTime.correctTimeInput(time);
 			} else {
 				return;
 			}
@@ -559,11 +558,11 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 		// get clientname to separate by source
 		String clientname = (String) event.getComponent().getAttributes().get(Constants.CLIENTNAME);
 		if (ResultEntity.SWIM.equalsIgnoreCase(clientname)) {
-			bestSwimSplit = correctTimeInput(bestSwimSplit);
+			bestSwimSplit = HelperTime.correctTimeInput(bestSwimSplit);
 		} else if (ResultEntity.RUN.equalsIgnoreCase(clientname)) {
-			bestRunSplit = correctTimeInput(bestRunSplit);
+			bestRunSplit = HelperTime.correctTimeInput(bestRunSplit);
 		} else if (ResultEntity.BIKE.equalsIgnoreCase(clientname)) {
-			bestBikeSplit = correctTimeInput(bestBikeSplit);
+			bestBikeSplit = HelperTime.correctTimeInput(bestBikeSplit);
 		} else {
 			return;
 		}
@@ -748,13 +747,13 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 			// get clientname to separate by source
 			String clientname = (String) event.getComponent().getAttributes().get(Constants.CLIENTNAME);
 			if (ResultEntity.SWIM.equalsIgnoreCase(clientname)) {
-				swimSplit = correctTimeInput(swimSplit);
+				swimSplit = HelperTime.correctTimeInput(swimSplit);
 			} else if (ResultEntity.RUN.equalsIgnoreCase(clientname)) {
-				runSplit = correctTimeInput(runSplit);
+				runSplit = HelperTime.correctTimeInput(runSplit);
 			} else if (ResultEntity.BIKE.equalsIgnoreCase(clientname)) {
-				bikeSplit = correctTimeInput(bikeSplit);
+				bikeSplit = HelperTime.correctTimeInput(bikeSplit);
 			} else if (ResultEntity.OVERALL.equalsIgnoreCase(clientname)) {
-				time = correctTimeInput(time);
+				time = HelperTime.correctTimeInput(time);
 			} else {
 				return;
 			}
@@ -962,8 +961,8 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 				if (rowSwimSplit > 0) {
 					Collections.sort(itemsCopy, new Comparator<GridImportItem>() {
 						public int compare(GridImportItem o1, GridImportItem o2) {
-							int seconds1 = calculateSeconds(o1.getSwimSplit());
-							int seconds2 = calculateSeconds(o2.getSwimSplit());
+							int seconds1 = HelperTime.calculateSeconds(o1.getSwimSplit());
+							int seconds2 = HelperTime.calculateSeconds(o2.getSwimSplit());
 							if (seconds1 == seconds2)
 								return 0;
 							if (seconds1 > seconds2)
@@ -985,8 +984,8 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 				if (rowBikeSplit > 0) {
 					Collections.sort(itemsCopy, new Comparator<GridImportItem>() {
 						public int compare(GridImportItem o1, GridImportItem o2) {
-							int seconds1 = calculateSeconds(o1.getBikeSplit());
-							int seconds2 = calculateSeconds(o2.getBikeSplit());
+							int seconds1 = HelperTime.calculateSeconds(o1.getBikeSplit());
+							int seconds2 = HelperTime.calculateSeconds(o2.getBikeSplit());
 							if (seconds1 == seconds2)
 								return 0;
 							if (seconds1 > seconds2)
@@ -1008,8 +1007,8 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 				if (rowRunSplit > 0) {
 					Collections.sort(itemsCopy, new Comparator<GridImportItem>() {
 						public int compare(GridImportItem o1, GridImportItem o2) {
-							int seconds1 = calculateSeconds(o1.getRunSplit());
-							int seconds2 = calculateSeconds(o2.getRunSplit());
+							int seconds1 = HelperTime.calculateSeconds(o1.getRunSplit());
+							int seconds2 = HelperTime.calculateSeconds(o2.getRunSplit());
 							if (seconds1 == seconds2)
 								return 0;
 							if (seconds1 > seconds2)

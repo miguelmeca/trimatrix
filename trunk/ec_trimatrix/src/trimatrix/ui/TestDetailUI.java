@@ -55,6 +55,7 @@ import trimatrix.ui.utils.ISelectionCallback;
 import trimatrix.ui.utils.WorkpageRefreshEvent;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
+import trimatrix.utils.HelperTime;
 import trimatrix.utils.Constants.Entity;
 import trimatrix.utils.json.DoubleList;
 import trimatrix.utils.json.IntegerList;
@@ -128,7 +129,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		}
 		// correct input
 		String input = (String)values.get(field);
-		String corrInput = Helper.correctTimeInput2(input);
+		String corrInput = HelperTime.correctTimeInputShort(input);
 		// if null don't write back the value
 		if(corrInput==null) return;
 		values.put(field, corrInput);
@@ -506,7 +507,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		Integer distance = (Integer) values.get(TestEntity.DISTANCE);
 		if (maxPerformance == null || distance == null)
 			return 0d;
-		return Helper.calculateMeterPerSecond(distance, maxPerformance);
+		return HelperTime.calculateMeterPerSecond(distance, maxPerformance);
 	}
 
 	protected FIXGRIDListBinding<GridTreadmillItem> m_gridTreadmill = new FIXGRIDListBinding<GridTreadmillItem>();
@@ -610,7 +611,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			String clientname = (String) event.getComponent().getAttributes().get(Constants.CLIENTNAME);
 			if(clientname!=null && clientname.startsWith("step_time_")) {
 				// correct input
-				String corrInput = Helper.correctTimeInput2(getStep_time());
+				String corrInput = HelperTime.correctTimeInputShort(getStep_time());
 				// if null don't write back the value
 				if(corrInput!=null) {
 					setStep_time(corrInput);
@@ -651,7 +652,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			}
 			// get previous step
 			AGridItem preItem = m_gridTreadmill.getItems().get(step - 2);
-			return Helper.calculateDuration(preItem.getTime_total(), getStep_time(), false, false);
+			return HelperTime.calculateDuration(preItem.getTime_total(), getStep_time(), false, false);
 		}
 
 		public boolean getLastItemEnabled() {
@@ -686,7 +687,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			}
 			// get previous step
 			AGridItem preItem = m_gridErgo.getItems().get(step - 2);
-			return Helper.calculateDuration(preItem.getTime_total(), getStep_time(), false, false);
+			return HelperTime.calculateDuration(preItem.getTime_total(), getStep_time(), false, false);
 		}
 
 		public boolean getLastItemEnabled() {
@@ -797,7 +798,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			if (isTopNode()) {
 				String maxPerformance = (String) values.get(TestEntity.PERFORMANCE_MAX);
 				if (maxPerformance == null)	return null;
-				return (Helper.getTimeByPercentage(maxPerformance, 200 - intensity));
+				return (HelperTime.getTimeByPercentage(maxPerformance, 200 - intensity));
 			} else {
 				return ((GridSwimItem) this.getParentNode()).getTargetTime();
 			}
@@ -807,14 +808,14 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			Integer distance = (Integer) values.get(TestEntity.DISTANCE);
 			if (distance == null)
 				return 0d;
-			return Helper.calculateMeterPerSecond(distance, getTime());
+			return HelperTime.calculateMeterPerSecond(distance, getTime());
 		}
 
 		public Double getTargetSpeed() {
 			Integer distance = (Integer) values.get(TestEntity.DISTANCE);
 			if (distance == null)
 				return 0d;
-			return Helper.calculateMeterPerSecond(distance, getTargetTime());
+			return HelperTime.calculateMeterPerSecond(distance, getTargetTime());
 		}
 
 		public String getTime() {
@@ -908,7 +909,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			String clientname = (String) event.getComponent().getAttributes().get(Constants.CLIENTNAME);
 			if(clientname!=null && clientname.startsWith("time_")) {
 				// correct input
-				String corrInput = Helper.correctTimeInput2(getTime());
+				String corrInput = HelperTime.correctTimeInputShort(getTime(), true);
 				// if null don't write back the value
 				if(corrInput!=null) {
 					setTime(corrInput);
@@ -1070,7 +1071,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 
 	public void onChangeMaxPerformance(ActionEvent event) {
 		// correct input
-		String corrInput = Helper.correctTimeInput2((String)values.get(TestEntity.PERFORMANCE_MAX));
+		String corrInput = HelperTime.correctTimeInputShort((String)values.get(TestEntity.PERFORMANCE_MAX), true);
 		// if null don't write back the value
 		if(corrInput!=null) {
 			values.put(TestEntity.PERFORMANCE_MAX, corrInput);
@@ -1563,7 +1564,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 					// xyArr[2 * i] =
 					// Helper.calculateMeterPerSecond(swim.getDistance(),
 					// protocol.getTime());
-					xyArr[2 * i] = Helper.calculateSeconds2(protocol.getTime());
+					xyArr[2 * i] = HelperTime.calculateSecondsMsecs(protocol.getTime());
 					// y value
 					xyArr[2 * i + 1] = getLogic().getTestLogic().createLactateSamples(protocol.getLactate()).getSingleDoubleValue();
 					i++;

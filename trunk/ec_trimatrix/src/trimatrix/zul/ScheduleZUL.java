@@ -47,6 +47,7 @@ import trimatrix.entities.ScheduleEntity;
 import trimatrix.services.ServiceLayer;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
+import trimatrix.utils.HelperTime;
 
 public class ScheduleZUL extends GenericAutowireComposer {
 	private static final String ID = "id";
@@ -143,7 +144,7 @@ public class ScheduleZUL extends GenericAutowireComposer {
 			        final Textbox durationAthleteRun = new Textbox(detail.getDurationActual());
 			        durationAthleteRun.addEventListener(Events.ON_CHANGE, new EventListener(){
 			        	   public void onEvent(Event arg0) throws Exception{
-			        		   durationAthleteRun.setValue(Helper.correctTimeInput(durationAthleteRun.getValue()));
+			        		   durationAthleteRun.setValue(HelperTime.correctTimeInput(durationAthleteRun.getValue()));
 			        		}
 			        });
 			        durationAthleteRun.setParent(row);
@@ -163,7 +164,7 @@ public class ScheduleZUL extends GenericAutowireComposer {
 			        final Textbox durationAthleteBike = new Textbox(detail.getDurationActual());
 			        durationAthleteBike.addEventListener(Events.ON_CHANGE, new EventListener(){
 			        	   public void onEvent(Event arg0) throws Exception{
-			        		   durationAthleteBike.setValue(Helper.correctTimeInput(durationAthleteBike.getValue()));
+			        		   durationAthleteBike.setValue(HelperTime.correctTimeInput(durationAthleteBike.getValue()));
 			        		}
 			        });
 			        durationAthleteBike.setParent(row);
@@ -182,7 +183,7 @@ public class ScheduleZUL extends GenericAutowireComposer {
 			        final Textbox timeAvgSwim = new Textbox(detail.getTimeAvg());
 			        timeAvgSwim.addEventListener(Events.ON_CHANGE, new EventListener(){
 			        	   public void onEvent(Event arg0) throws Exception{
-			        		   timeAvgSwim.setValue(Helper.correctTimeInput2(timeAvgSwim.getValue()));
+			        		   timeAvgSwim.setValue(HelperTime.correctTimeInputShort(timeAvgSwim.getValue()));
 			        		}
 			        });
 			        timeAvgSwim.setParent(row);
@@ -232,9 +233,9 @@ public class ScheduleZUL extends GenericAutowireComposer {
 				case RUN:
 					String athleteDurationRun = ((Textbox)row.getChildren().get(3)).getValue();
 	    			if(Helper.isEmpty(athleteDurationRun)) {
-	    				duration += Helper.calculateSeconds(schedulesDetail.getDurationTarget());
+	    				duration += HelperTime.calculateSeconds(schedulesDetail.getDurationTarget());
 	    			} else {
-	    				duration += Helper.calculateSeconds(athleteDurationRun);
+	    				duration += HelperTime.calculateSeconds(athleteDurationRun);
 	    			}
 	    			schedulesDetail.setDurationActual(athleteDurationRun);
 	    			Integer hrAvgAthleteRun = ((Intbox)row.getChildren().get(4)).getValue();
@@ -243,9 +244,9 @@ public class ScheduleZUL extends GenericAutowireComposer {
 				case BIKE:
 					String athleteDurationBike = ((Textbox)row.getChildren().get(5)).getValue();
 	    			if(Helper.isEmpty(athleteDurationBike)) {
-	    				duration += Helper.calculateSeconds(schedulesDetail.getDurationTarget());
+	    				duration += HelperTime.calculateSeconds(schedulesDetail.getDurationTarget());
 	    			} else {
-	    				duration += Helper.calculateSeconds(athleteDurationBike);
+	    				duration += HelperTime.calculateSeconds(athleteDurationBike);
 	    			}
 	    			schedulesDetail.setDurationActual(athleteDurationBike);
 	    			Integer hrAvgAthleteBike = ((Intbox)row.getChildren().get(6)).getValue();

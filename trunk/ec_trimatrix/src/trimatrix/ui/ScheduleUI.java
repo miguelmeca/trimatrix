@@ -687,9 +687,10 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 							try {
 								saveSchedule();
 								m_popup.close();
-								refresh();
 							} catch (Exception ex) {
 								Statusbar.outputAlert(Helper.getMessages("save_failure"), Helper.getLiteral("error"), ex.toString()).setLeftTopReferenceCentered();
+							} finally {
+								refresh();
 							}
 						}
 

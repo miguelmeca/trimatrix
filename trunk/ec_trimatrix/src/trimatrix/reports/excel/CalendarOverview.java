@@ -26,6 +26,7 @@ import trimatrix.ui.ScheduleUI;
 import trimatrix.ui.ScheduleUI.ScheduleItem;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
+import trimatrix.utils.HelperTime;
 
 public class CalendarOverview extends Report {
     private ServiceLayer serviceLayer;
@@ -175,7 +176,7 @@ public class CalendarOverview extends Report {
                     XSSFCell detail0 = rowDetail.createCell(0);
                     detail0.setCellValue(Helper.formatDate(item.getStart(), "dd.MM. hh:mm", locale));
                     XSSFCell detail1 = rowDetail.createCell(1);
-                    detail1.setCellValue(Helper.calculateTime((int)(item.getDuration()*60), true));
+                    detail1.setCellValue(HelperTime.calculateTime((int)(item.getDuration()*60), true));
                     XSSFCell detail2 = rowDetail.createCell(2);
                     detail2.setCellValue(type);
                     XSSFCell detail3 = rowDetail.createCell(3);
@@ -224,18 +225,18 @@ public class CalendarOverview extends Report {
             }
             // write summation
             for(int i=0;i<7;i++) {
-            	scheduleMatrix[38][i+1].setCellValue(Helper.calculateTime((int)(sumSwim[i]), true));
+            	scheduleMatrix[38][i+1].setCellValue(HelperTime.calculateTime((int)(sumSwim[i]), true));
             	scheduleMatrix[38][i+1].setCellStyle(Styles.getHeaderStyle(wb));
-            	scheduleMatrix[39][i+1].setCellValue(Helper.calculateTime((int)(sumBike[i]), true));
+            	scheduleMatrix[39][i+1].setCellValue(HelperTime.calculateTime((int)(sumBike[i]), true));
             	scheduleMatrix[39][i+1].setCellStyle(Styles.getHeaderStyle(wb));
-            	scheduleMatrix[40][i+1].setCellValue(Helper.calculateTime((int)(sumRun[i]), true));
+            	scheduleMatrix[40][i+1].setCellValue(HelperTime.calculateTime((int)(sumRun[i]), true));
             	scheduleMatrix[40][i+1].setCellStyle(Styles.getHeaderStyle(wb));
             }
-            scheduleMatrix[38][cols].setCellValue(Helper.calculateTime((int)(sumSwimTotal), true));
+            scheduleMatrix[38][cols].setCellValue(HelperTime.calculateTime((int)(sumSwimTotal), true));
             scheduleMatrix[38][cols].setCellStyle(Styles.getHeaderBoldStyle(wb));
-            scheduleMatrix[39][cols].setCellValue(Helper.calculateTime((int)(sumBikeTotal), true));
+            scheduleMatrix[39][cols].setCellValue(HelperTime.calculateTime((int)(sumBikeTotal), true));
             scheduleMatrix[39][cols].setCellStyle(Styles.getHeaderBoldStyle(wb));
-            scheduleMatrix[40][cols].setCellValue(Helper.calculateTime((int)(sumRunTotal), true));
+            scheduleMatrix[40][cols].setCellValue(HelperTime.calculateTime((int)(sumRunTotal), true));
             scheduleMatrix[40][cols].setCellStyle(Styles.getHeaderBoldStyle(wb));
 
             // set border

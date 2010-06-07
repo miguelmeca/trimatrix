@@ -28,10 +28,10 @@
 <t:row id="g_12" >
 <t:pane id="g_13" rowdistance="5" width="100%" >
 <t:row id="g_14" >
-<t:button id="g_15" actionListener="#{d.ScheduleUI.onCopySchedules}" image="/images/icons/copy.png" imageheight="16" text="#{rr.literals.copy}" width="100%" />
+<t:button id="g_15" actionListener="#{d.ScheduleUI.onCopySchedules}" image="/images/icons/copy.png" imageheight="15" text="#{rr.literals.copy}" width="100%" />
 </t:row>
 <t:row id="g_16" >
-<t:button id="g_17" actionListener="#{d.ScheduleUI.onCreateTemplate}" image="/images/icons/template.png" imageheight="16" text="#{rr.literals.create_template}" width="100%" />
+<t:button id="g_17" actionListener="#{d.ScheduleUI.onCreateTemplate}" image="/images/icons/template.png" imageheight="15" text="#{rr.literals.create_template}" width="100%" />
 </t:row>
 </t:pane>
 </t:row>
@@ -52,9 +52,9 @@
 <t:coldistance id="g_30" />
 <t:label id="g_31" bgpaint="nodisabled()" font="weight:bold" text="#{d.ScheduleUI.actualDate}" />
 <t:coldistance id="g_32" width="100%" />
-<t:button id="g_33" actionListener="#{d.ScheduleUI.onMobile}" image="/images/icons/mobile.png" imageheight="16" text="#{rr.literals.mobile_link}" />
+<t:button id="g_33" actionListener="#{d.ScheduleUI.onMobile}" image="/images/icons/mobile.png" imageheight="15" text="#{rr.literals.mobile_link}" />
 <t:coldistance id="g_34" />
-<t:button id="g_35" actionListener="#{d.ScheduleUI.onPrintReport}" image="/images/icons/print.png" imageheight="16" text="#{rr.literals.print}" />
+<t:button id="g_35" actionListener="#{d.ScheduleUI.onPrintReport}" image="/images/icons/print.png" imageheight="15" text="#{rr.literals.print}" />
 </t:row>
 <t:rowdistance id="g_36" height="4" />
 <t:row id="g_37" >
@@ -166,9 +166,9 @@
 <t:calendarfield id="g_131" flush="true" fromdate="#{d.ScheduleUI.fromDate}" timezone="CET" value="#{d.ScheduleUI.toDate}" width="90" />
 </t:row>
 <t:row id="g_132" >
-<t:button id="g_133" actionListener="#{d.ScheduleUI.onAgendaSearch}" image="/images/icons/magnifier.png" imageheight="16" text="#{rr.literals.search}" />
+<t:button id="g_133" actionListener="#{d.ScheduleUI.onAgendaSearch}" image="/images/icons/magnifier.png" imageheight="15" text="#{rr.literals.search}" />
 <t:coldistance id="g_134" />
-<t:button id="g_135" actionListener="#{d.ScheduleUI.onClearAgendaSearch}" image="/images/icons/delete.png" imageheight="16" text="#{rr.literals.clear}" />
+<t:button id="g_135" actionListener="#{d.ScheduleUI.onClearAgendaSearch}" image="/images/icons/delete.png" imageheight="15" text="#{rr.literals.clear}" />
 </t:row>
 </t:foldablepane>
 </t:row>
@@ -207,9 +207,9 @@
 <t:menuitem id="g_152" command="cmdAdd" text="#{rr.literals.new}" />
 </t:popupmenu>
 <t:popupmenu id="SCHEDULEITEM" >
-<t:menuitem id="g_153" command="cmdEdit" image="/resize(16,16):/images/icons/edit.png" text="#{rr.literals.change}" />
-<t:menuitem id="g_154" command="cmdRemove" image="/resize(16,16):/images/icons/delete.png" text="#{rr.literals.delete}" />
-<t:menuitem id="g_155" command="cmdCopy" image="/resize(16,16):/images/icons/copy.png" text="#{rr.literals.copy}" />
+<t:menuitem id="g_153" command="cmdEdit" image="/resize(15,15):/images/icons/edit.png" text="#{rr.literals.change}" />
+<t:menuitem id="g_154" command="cmdRemove" image="/resize(15,15):/images/icons/delete.png" text="#{rr.literals.delete}" />
+<t:menuitem id="g_155" command="cmdCopy" image="/resize(15,15):/images/icons/copy.png" text="#{rr.literals.copy}" />
 </t:popupmenu>
 <t:beanprocessing id="g_156" >
 <t:filedownload id="g_157" fileextensions="#{d.ScheduleUI.printReportExtension}" filename="#{d.ScheduleUI.printReportFilename}" openimmediately="true" opensupported="true" trigger="#{d.ScheduleUI.downloadTrigger}" url="#{d.ScheduleUI.printReportUrl}" />

@@ -74,9 +74,9 @@
 </t:pane>
 </t:row>
 <t:row id="g_40" >
-<t:button id="g_41" actionListener="#{d.ScheduleCopyPopUp.onCopy}" image="/images/icons/copy.png" imageheight="16" text="#{rr.literals.copy}" />
+<t:button id="g_41" actionListener="#{d.ScheduleCopyPopUp.onCopy}" image="/images/icons/copy.png" imageheight="15" text="#{rr.literals.copy}" />
 <t:coldistance id="g_42" />
-<t:button id="g_43" actionListener="#{d.ScheduleCopyPopUp.onCancel}" image="/images/icons/cancel.png" imageheight="16" text="#{rr.literals.cancel}" />
+<t:button id="g_43" actionListener="#{d.ScheduleCopyPopUp.onCancel}" image="/images/icons/cancel.png" imageheight="15" text="#{rr.literals.cancel}" />
 </t:row>
 </t:pane>
 </t:row>

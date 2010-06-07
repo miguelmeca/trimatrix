@@ -51,7 +51,7 @@
 <t:row id="g_31" >
 <t:foldablepane id="g_32" comment="details" font="size:14;weight:bold" rendered="#{d.ScheduleChangePopUp.detailRelevant}" rowdistance="5" text="#{rr.literals.details}" width="100%" >
 <t:row id="g_33" rendered="#{d.ScheduleChangePopUp.personsSight}" >
-<t:button id="g_34" actionListener="#{d.ScheduleChangePopUp.onSetDone}" image="/images/icons/accept.png" imageheight="16" rendered="#{d.ScheduleChangePopUp.template==false}" text="#{rr.literals.unit_passed}" />
+<t:button id="g_34" actionListener="#{d.ScheduleChangePopUp.onSetDone}" image="/images/icons/done.png" imageheight="15" rendered="#{d.ScheduleChangePopUp.template==false}" text="#{rr.literals.unit_passed}" />
 </t:row>
 <t:row id="g_35" comment="run" rendered="#{d.ScheduleChangePopUp.typeOrd==1}" >
 <t:fixgrid id="g_36" columndragdropenabled="false" headlinerowheight="20" horizontalscrollmode="autowithresize" objectbinding="#{d.ScheduleChangePopUp.gridDetail}" rowheight="40" sbvisibleamount="10" selectorcolumn="1" selectorcolumnwidth="20" showemptyrows="false" >
@@ -158,16 +158,16 @@
 <t:gridcol id="g_101" comment="target time" text="#{rr.literals.avg_target_time}" width="100" >
 <t:pane id="g_102" width="100%" >
 <t:row id="g_103" >
-<t:field id="g_104" actionListener=".{onTimeFlush}" align="right!" bgpaint="write(5,2,#{rr.literals.from},left)" clientname="timeLow" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" maxlength="5" text=".{scheduleDetail.timeLow}" width="100%" />
+<t:field id="g_104" actionListener=".{onTimeFlush}" align="right!" bgpaint="write(5,2,#{rr.literals.from},left)" clientname="timeLowSwim" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" maxlength="9" text=".{scheduleDetail.timeLow}" width="100%" />
 </t:row>
 <t:rowline id="g_105" />
 <t:row id="g_106" >
-<t:field id="g_107" actionListener=".{onTimeFlush}" align="right!" bgpaint="write(5,2,#{rr.literals.to},left)" clientname="timeHigh" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" maxlength="5" text=".{scheduleDetail.timeHigh}" width="100%" />
+<t:field id="g_107" actionListener=".{onTimeFlush}" align="right!" bgpaint="write(5,2,#{rr.literals.to},left)" clientname="timeHighSwim" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" maxlength="9" text=".{scheduleDetail.timeHigh}" width="100%" />
 </t:row>
 </t:pane>
 </t:gridcol>
 <t:gridcol id="g_108" comment="time avg" text="#{rr.literals.avg_target_time} (#{rr.literals.debit})" width="100" >
-<t:field id="g_109" actionListener=".{onTimeFlush}" align="center" clientname="timeAvg" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" flush="true" font="size:16" maxlength="5" text=".{scheduleDetail.timeAvg}" width="100" />
+<t:field id="g_109" actionListener=".{onTimeFlush}" align="center" clientname="timeAvgSwim" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" flush="true" font="size:16" maxlength="9" text=".{scheduleDetail.timeAvg}" tooltip="mm:ss,zzz" userhint="mm:ss,zzz" width="100" />
 </t:gridcol>
 <t:gridcol id="g_110" comment="comment" text="#{rr.literals.comment}" width="150" >
 <t:textarea id="g_111" enabled="#{d.ScheduleChangePopUp.creatorsSight}" text=".{scheduleDetail.description}" />
@@ -175,9 +175,9 @@
 </t:fixgrid>
 </t:row>
 <t:row id="g_112" rendered="#{d.ScheduleChangePopUp.creatorsSight}" >
-<t:button id="g_113" actionListener="#{d.ScheduleChangePopUp.onAddItem}" image="/images/icons/add.png" imageheight="16" text="#{rr.literals.add}" />
+<t:button id="g_113" actionListener="#{d.ScheduleChangePopUp.onAddItem}" image="/images/icons/add.png" imageheight="15" text="#{rr.literals.add}" />
 <t:coldistance id="g_114" />
-<t:button id="g_115" actionListener="#{d.ScheduleChangePopUp.onRemoveItem}" image="/images/icons/remove.png" imageheight="16" text="#{rr.literals.remove}" />
+<t:button id="g_115" actionListener="#{d.ScheduleChangePopUp.onRemoveItem}" image="/images/icons/remove.png" imageheight="15" text="#{rr.literals.remove}" />
 </t:row>
 </t:foldablepane>
 </t:row>
@@ -187,8 +187,7 @@
 <t:button id="g_117" actionListener="#{d.ScheduleChangePopUp.onSave}" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" image="/images/icons/save.png" imageheight="15" text="#{rr.literals.save}" />
 <t:coldistance id="g_118" />
 <t:button id="g_119" actionListener="#{d.ScheduleChangePopUp.onCancel}" image="/images/icons/cancel.png" imageheight="15" text="#{rr.literals.cancel}" />
-<t:coldistance id="g_120" width="100%" />
-<t:button id="g_121" actionListener="#{d.ScheduleChangePopUp.onDelete}" image="/images/icons/delete.png" imageheight="16" rendered="#{d.ScheduleChangePopUp.creatorsSight}" text="#{rr.literals.delete}" />
+<t:coldistance id="g_120" widthimageheight="15"utton id="g_121" actionListener="#{d.ScheduleChangePopUp.onDelete}" image="/images/icons/delete.png" imageheight="15" rendered="#{d.ScheduleChangePopUp.creatorsSight}" text="#{rr.literals.delete}" />
 </t:row>
 </t:pane>
 </t:row>

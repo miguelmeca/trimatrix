@@ -16,6 +16,7 @@ import trimatrix.reports.excel.PerformanceChart;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
+import trimatrix.utils.HelperTime;
 import trimatrix.utils.Constants.Entity;
 
 public final class ResultEntity extends AEntity {
@@ -346,7 +347,7 @@ public final class ResultEntity extends AEntity {
         }
 
         public String getSwim_def() {
-            return Helper.calculateDuration(swim_split, best_swim_split, true, false);
+            return HelperTime.calculateDuration(swim_split, best_swim_split, true, false);
         }
 
         public String getBest_swim_split() {
@@ -362,7 +363,7 @@ public final class ResultEntity extends AEntity {
         }
 
         public String getRun_def() {
-            return Helper.calculateDuration(run_split, best_run_split, true, false);
+            return HelperTime.calculateDuration(run_split, best_run_split, true, false);
         }
 
         public String getBest_run_split() {
@@ -378,7 +379,7 @@ public final class ResultEntity extends AEntity {
         }
 
         public String getBike_def() {
-            return Helper.calculateDuration(bike_split, best_bike_split, true, false);
+            return HelperTime.calculateDuration(bike_split, best_bike_split, true, false);
         }
 
         public String getBest_bike_split() {
@@ -386,15 +387,15 @@ public final class ResultEntity extends AEntity {
         }
 
         public Double getSwim_def_per() {
-            return Helper.getPercentageByTime(best_swim_split, getSwim_def());
+            return HelperTime.getPercentageByTime(best_swim_split, getSwim_def());
         }
 
         public Double getRun_def_per() {
-            return Helper.getPercentageByTime(best_run_split, getRun_def());
+            return HelperTime.getPercentageByTime(best_run_split, getRun_def());
         }
 
         public Double getBike_def_per() {
-            return Helper.getPercentageByTime(best_bike_split, getBike_def());
+            return HelperTime.getPercentageByTime(best_bike_split, getBike_def());
         }
 
         public String getSwim_color() {
@@ -453,9 +454,9 @@ public final class ResultEntity extends AEntity {
             if(Helper.isEmpty(time) || Helper.isEmpty(cutoff) || Helper.isEmpty(best)) return Constants.WHITE;
             // calculate deficit
             if(cutoff.endsWith("%")) {
-            	String deficit = Helper.calculateDuration(time, best, true, true);
-            	Double tolPercent = Helper.getPercentageByTime(best, Helper.addSeconds(deficit, tolerance * -1));
-            	Double percent = Helper.getPercentageByTime(best, deficit);
+            	String deficit = HelperTime.calculateDuration(time, best, true, true);
+            	Double tolPercent = HelperTime.getPercentageByTime(best, HelperTime.addSeconds(deficit, tolerance * -1));
+            	Double percent = HelperTime.getPercentageByTime(best, deficit);
                 // percent logic
                 Integer cutoffPercent = null;
                 try {
@@ -470,9 +471,9 @@ public final class ResultEntity extends AEntity {
                 return Constants.RED;
             } else {
                 // time logic
-                Integer cutoffSeconds = Helper.calculateSeconds(cutoff);
+                Integer cutoffSeconds = HelperTime.calculateSeconds(cutoff);
                 if(cutoffSeconds==null || cutoffSeconds==0) return Constants.WHITE;
-                Integer seconds = Helper.calculateSeconds(time);
+                Integer seconds = HelperTime.calculateSeconds(time);
                 if(seconds==null || seconds==0) return Constants.WHITE;
                 // green
                 if(seconds<=cutoffSeconds) return Constants.GREEN;

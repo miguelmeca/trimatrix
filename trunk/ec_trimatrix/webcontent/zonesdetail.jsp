@@ -33,81 +33,84 @@
 <t:coldistance id="g_17" />
 <t:label id="g_18" text="m" />
 <t:coldistance id="g_19" />
-<t:button id="g_20" image="/images/icons/refresh.png" imageheight="15" text="#{rr.literals.list_refresh}" />
+<t:button id="g_20" actionListener="#{d.ZonesDetailUI.onAddIndividualZone}" image="/images/icons/add.png" imageheight="15" text="#{rr.literals.add}" />
+<t:coldistance id="g_21" />
+<t:button id="g_22" actionListener="#{d.ZonesDetailUI.onRefresh}" image="/images/icons/refresh.png" imageheight="15" text="#{rr.literals.list_refresh}" />
 </t:row>
-<t:row id="g_21" >
-<t:fixgrid id="g_22" avoidroundtrips="true" headlinerowheight="20" horizontalscrollmode="autowithresize" objectbinding="#{d.ZonesDetailUI.gridZones}" rowheight="40" sbvisibleamount="10" showemptyrows="false" >
-<t:gridcol id="g_23" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.area}" width="100" >
-<t:field id="g_24" align="center" background=".{color}" enabled="false" font="size:14;weight:bold" foreground=".{foreground}" text=".{shortcut}" width="100" />
+<t:row id="g_23" >
+<t:fixgrid id="g_24" avoidroundtrips="true" headlinerowheight="20" horizontalscrollmode="autowithresize" objectbinding="#{d.ZonesDetailUI.gridZones}" rowheight="40" sbvisibleamount="10" showemptyrows="false" >
+<t:gridcol id="g_25" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.area}" width="100" >
+<t:field id="g_26" align="center" background=".{color}" enabled="false" font="size:14;weight:bold" foreground=".{foreground}" text=".{shortcut}" width="100" />
 </t:gridcol>
-<t:gridcol id="g_25" searchenabled="false" sortenabled="false" text="#{rr.literals.hr} #{rr.literals.run}" width="100" >
-<t:pane id="g_26" width="100%" >
-<t:row id="g_27" >
-<t:formattedfield id="g_28" align="right!" bgpaint="write(5,2,#{rr.literals.from},left)" enabled="#{d.ZonesDetailUI.enabled}" format="int" value=".{hrLowRun}" width="100%" />
+<t:gridcol id="g_27" searchenabled="false" sortenabled="false" text="#{rr.literals.hr} #{rr.literals.run}" width="100" >
+<t:pane id="g_28" width="100%" >
+<t:row id="g_29" >
+<t:formattedfield id="g_30" align="right!" bgpaint="write(5,2,#{rr.literals.from},left)" enabled="#{d.ZonesDetailUI.enabled}" format="int" value=".{hrLowRun}" width="100%" />
 </t:row>
-<t:rowline id="g_29" />
-<t:row id="g_30" >
-<t:formattedfield id="g_31" align="right!" bgpaint="write(5,2,#{rr.literals.to},left)" enabled="#{d.ZonesDetailUI.enabled}" format="int" value=".{hrHighRun}" width="100%" />
+<t:rowline id="g_31" />
+<t:row id="g_32" >
+<t:formattedfield id="g_33" align="right!" bgpaint="write(5,2,#{rr.literals.to},left)" enabled="#{d.ZonesDetailUI.enabled}" format="int" value=".{hrHighRun}" width="100%" />
 </t:row>
 </t:pane>
 </t:gridcol>
-<t:gridcol id="g_32" searchenabled="false" sortenabled="false" text="#{rr.literals.hr} % #{rr.literals.run}" width="100" >
-<t:pane id="g_33" width="100%" >
-<t:row id="g_34" >
-<t:formattedfield id="g_35" align="right!" bgpaint="write(5,2,#{rr.literals.from},left)" enabled="false" format="int" value=".{hrLowPrctRun}" width="100%" />
+<t:gridcol id="g_34" searchenabled="false" sortenabled="false" text="#{rr.literals.hr} % #{rr.literals.run}" width="100" >
+<t:pane id="g_35" width="100%" >
+<t:row id="g_36" >
+<t:formattedfield id="g_37" align="right!" bgpaint="write(5,2,#{rr.literals.from},left)" enabled="false" format="int" value=".{hrLowPrctRun}" width="100%" />
 </t:row>
-<t:rowline id="g_36" />
-<t:row id="g_37" >
-<t:formattedfield id="g_38" align="right!" bgpaint="write(5,2,#{rr.literals.to},left)" enabled="false" format="int" value=".{hrHighPrctRun}" width="100%" />
-</t:row>
-</t:pane>
-</t:gridcol>
-<t:gridcol id="g_39" searchenabled="false" sortenabled="false" text="#{rr.literals.hr} #{rr.literals.bike}" width="100" >
-<t:pane id="g_40" width="100%" >
-<t:row id="g_41" >
-<t:formattedfield id="g_42" align="right!" bgpaint="write(5,2,#{rr.literals.from},left)" enabled="#{d.ZonesDetailUI.enabled}" format="int" value=".{hrLowBike}" width="100%" />
-</t:row>
-<t:rowline id="g_43" />
-<t:row id="g_44" >
-<t:formattedfield id="g_45" align="right!" bgpaint="write(5,2,#{rr.literals.to},left)" enabled="#{d.ZonesDetailUI.enabled}" format="int" value=".{hrHighBike}" width="100%" />
+<t:rowline id="g_38" />
+<t:row id="g_39" >
+<t:formattedfield id="g_40" align="right!" bgpaint="write(5,2,#{rr.literals.to},left)" enabled="false" format="int" value=".{hrHighPrctRun}" width="100%" />
 </t:row>
 </t:pane>
 </t:gridcol>
-<t:gridcol id="g_46" searchenabled="false" sortenabled="false" text="#{rr.literals.hr} % #{rr.literals.bike}" width="100" >
-<t:pane id="g_47" width="100%" >
-<t:row id="g_48" >
-<t:formattedfield id="g_49" align="right!" bgpaint="write(5,2,#{rr.literals.from},left)" enabled="false" format="int" value=".{hrLowPrctBike}" width="100%" />
+<t:gridcol id="g_41" searchenabled="false" sortenabled="false" text="#{rr.literals.hr} #{rr.literals.bike}" width="100" >
+<t:pane id="g_42" width="100%" >
+<t:row id="g_43" >
+<t:formattedfield id="g_44" align="right!" bgpaint="write(5,2,#{rr.literals.from},left)" enabled="#{d.ZonesDetailUI.enabled}" format="int" value=".{hrLowBike}" width="100%" />
 </t:row>
-<t:rowline id="g_50" />
-<t:row id="g_51" >
-<t:formattedfield id="g_52" align="right!" bgpaint="write(5,2,#{rr.literals.to},left)" enabled="false" format="int" value=".{hrHighPrctBike}" width="100%" />
-</t:row>
-</t:pane>
-</t:gridcol>
-<t:gridcol id="g_53" searchenabled="false" sortenabled="false" text="#{rr.literals.speed} #{rr.literals.swim}" width="180" >
-<t:pane id="g_54" width="100%" >
-<t:row id="g_55" >
-<t:formattedfield id="g_56" align="right!" bgpaint="write(5,2,#{rr.literals.from},left)" enabled="#{d.ZonesDetailUI.enabled}" format="double" value=".{speedLowSwim}" width="100%" />
-</t:row>
-<t:rowline id="g_57" />
-<t:row id="g_58" >
-<t:formattedfield id="g_59" align="right!" bgpaint="write(5,2,#{rr.literals.to},left)" enabled="#{d.ZonesDetailUI.enabled}" format="double" value=".{speedHighSwim}" width="100%" />
+<t:rowline id="g_45" />
+<t:row id="g_46" >
+<t:formattedfield id="g_47" align="right!" bgpaint="write(5,2,#{rr.literals.to},left)" enabled="#{d.ZonesDetailUI.enabled}" format="int" value=".{hrHighBike}" width="100%" />
 </t:row>
 </t:pane>
 </t:gridcol>
-<t:gridcol id="g_60" searchenabled="false" sortenabled="false" text="#{rr.literals.time} #{rr.literals.swim}" width="100" >
-<t:pane id="g_61" width="100%" >
-<t:row id="g_62" >
-<t:field id="g_63" align="right!" bgpaint="write(5,2,#{rr.literals.from},left)" enabled="false" text=".{timeLowSwim}" width="100%" />
+<t:gridcol id="g_48" searchenabled="false" sortenabled="false" text="#{rr.literals.hr} % #{rr.literals.bike}" width="100" >
+<t:pane id="g_49" width="100%" >
+<t:row id="g_50" >
+<t:formattedfield id="g_51" align="right!" bgpaint="write(5,2,#{rr.literals.from},left)" enabled="false" format="int" value=".{hrLowPrctBike}" width="100%" />
 </t:row>
-<t:rowline id="g_64" />
-<t:row id="g_65" >
-<t:field id="g_66" align="right!" bgpaint="write(5,2,#{rr.literals.to},left)" enabled="false" text=".{timeHighSwim}" width="100%" />
+<t:rowline id="g_52" />
+<t:row id="g_53" >
+<t:formattedfield id="g_54" align="right!" bgpaint="write(5,2,#{rr.literals.to},left)" enabled="false" format="int" value=".{hrHighPrctBike}" width="100%" />
+</t:row>
+</t:pane>
+</t:gridcol>
+<t:gridcol id="g_55" searchenabled="false" sortenabled="false" text="#{rr.literals.speed} #{rr.literals.swim}" width="180" >
+<t:pane id="g_56" width="100%" >
+<t:row id="g_57" >
+<t:formattedfield id="g_58" align="right!" bgpaint="write(5,2,#{rr.literals.from},left)" enabled="#{d.ZonesDetailUI.enabled}" format="double" value=".{speedLowSwim}" width="100%" />
+</t:row>
+<t:rowline id="g_59" />
+<t:row id="g_60" >
+<t:formattedfield id="g_61" align="right!" bgpaint="write(5,2,#{rr.literals.to},left)" enabled="#{d.ZonesDetailUI.enabled}" format="double" value=".{speedHighSwim}" width="100%" />
+</t:row>
+</t:pane>
+</t:gridcol>
+<t:gridcol id="g_62" searchenabled="false" sortenabled="false" text="#{rr.literals.time} #{rr.literals.swim}" width="100" >
+<t:pane id="g_63" width="100%" >
+<t:row id="g_64" >
+<t:field id="g_65" align="right!" bgpaint="write(5,2,#{rr.literals.from},left)" enabled="false" text=".{timeLowSwim}" width="100%" />
+</t:row>
+<t:rowline id="g_66" />
+<t:row id="g_67" >
+<t:field id="g_68" align="right!" bgpaint="write(5,2,#{rr.literals.to},left)" enabled="false" text=".{timeHighSwim}" width="100%" />
 </t:row>
 </t:pane>
 </t:gridcol>
 </t:fixgrid>
 </t:row>
+<t:rowdynamiccontent id="g_69" contentbinding="#{d.ZonesDetailUI.individualSwimZones}" />
 </t:pane>
 </t:row>
 <t:pageaddons id="g_pa"/>
