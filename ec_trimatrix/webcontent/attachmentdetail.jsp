@@ -26,9 +26,9 @@
 </t:row>
 </t:pane>
 <t:coldistance id="g_11" width="20" />
-<t:fileuploadbutton id="g_12" actionListener="#{d.AttachmentDetailUI.onUploadFile}" enabled="#{d.AttachmentDetailUI.enabled}" image="/images/icons/upload.png" imageheight="16" text="#{rr.literals.upload_file}" />
+<t:fileuploadbutton id="g_12" actionListener="#{d.AttachmentDetailUI.onUploadFile}" enabled="#{d.AttachmentDetailUI.enabled}" image="/images/icons/upload.png" imageheight="15" text="#{rr.literals.upload_file}" />
 <t:coldistance id="g_13" width="20" />
-<t:filedownloadbutton id="g_14" enabled="#{d.AttachmentDetailUI.notEnabled}" filename="#{d.AttachmentDetailUI.values.filename}" image="/images/icons/download.png" imageheight="16" opensupported="true" text="#{rr.literals.download_file}" url="#{d.AttachmentDetailUI.downloadURL}" />
+<t:filedownloadbutton id="g_14" enabled="#{d.AttachmentDetailUI.notEnabled}" filename="#{d.AttachmentDetailUI.values.filename}" image="/images/icons/download.png" imageheight="15" opensupported="true" text="#{rr.literals.download_file}" url="#{d.AttachmentDetailUI.downloadURL}" />
 </t:row>
 <t:rowdistance id="g_15" height="25" />
 <t:row id="g_16" >

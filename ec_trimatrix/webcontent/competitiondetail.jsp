@@ -93,9 +93,9 @@
 </t:fixgrid>
 </t:row>
 <t:row id="g_58" >
-<t:button id="g_59" actionListener="#{d.CompetitionDetailUI.onAddLimit}" enabled="#{d.CompetitionDetailUI.enabled}" image="/images/icons/add.png" imageheight="16" text="#{rr.literals.list_add}" />
+<t:button id="g_59" actionListener="#{d.CompetitionDetailUI.onAddLimit}" enabled="#{d.CompetitionDetailUI.enabled}" image="/images/icons/add.png" imageheight="15" text="#{rr.literals.list_add}" />
 <t:coldistance id="g_60" />
-<t:button id="g_61" actionListener="#{d.CompetitionDetailUI.onRemoveLimit}" enabled="#{d.CompetitionDetailUI.enabled}" image="/images/icons/remove.png" imageheight="16" text="#{rr.literals.list_remove}" />
+<t:button id="g_61" actionListener="#{d.CompetitionDetailUI.onRemoveLimit}" enabled="#{d.CompetitionDetailUI.enabled}" image="/images/icons/remove.png" imageheight="15" text="#{rr.literals.list_remove}" />
 <t:coldistance id="g_62" width="100%" />
 <t:button id="g_63" actionListener="#{d.CompetitionDetailUI.gridLimits.onEditColumnDetails}" image="/images/icons/configure.png" imageheight="15" text="#{rr.literals.list_configure}" />
 <t:coldistance id="g_64" />

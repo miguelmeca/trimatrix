@@ -7,7 +7,7 @@ import javax.faces.event.ActionEvent;
 
 import org.apache.log4j.Logger;
 import org.eclnt.editor.annotations.CCGenClass;
-import org.eclnt.jsfserver.defaultscreens.Statusbar;
+import org.eclnt.jsfserver.elements.impl.DYNAMICCONTENTBinding;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.workplace.IWorkpageDispatcher;
@@ -24,14 +24,25 @@ import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.ui.utils.WorkpageRefreshEvent;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
+import trimatrix.utils.HelperTime;
 import trimatrix.utils.Constants.Entity;
 import trimatrix.utils.Constants.Mode;
 
 @CCGenClass (expressionBase="#{d.ZonesDetailUI}")
 
 public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializable, IWorkpageProcessingEventListener {
+    protected DYNAMICCONTENTBinding m_individualSwimZones = new DYNAMICCONTENTBinding();
+    public DYNAMICCONTENTBinding getIndividualSwimZones() { return m_individualSwimZones; }
+    public void setIndividualSwimZones(DYNAMICCONTENTBinding value) { m_individualSwimZones = value; }
 
-	private boolean changeAllowed;
+    public void setIndividualSwimZonesDynamic() {
+    	StringBuffer xml = new StringBuffer();
+ 		xml.append("<t:scrollpane width='100%' height='100%'>");
+		xml.append("</t:scrollpane>");
+		m_individualSwimZones.setContentXml(xml.toString());
+	}
+
+
 	public boolean getChangeAllowed() { return authorization.change; }
 
 	protected boolean renderSaveButton;
@@ -91,6 +102,14 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
 		loadEntityDetailPage(Entity.PERSON, coach.getId(), coach.toString());
 	}
 
+	public void onRefresh(ActionEvent event) {
+		setIndividualSwimZonesDynamic();
+	}
+
+	public void onAddIndividualZone(ActionEvent event) {
+
+	}
+
 	protected FIXGRIDListBinding<GridZonesItem> m_gridZones = new FIXGRIDListBinding<GridZonesItem>();
     public FIXGRIDListBinding<GridZonesItem> getGridZones() { return m_gridZones; }
     public void setGridZones(FIXGRIDListBinding<GridZonesItem> value) { m_gridZones = value; }
@@ -120,9 +139,8 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
         if(coach!=null) authorization = getLogic().getZonesLogic().getAuthorization(coach.getId());
         // set to show
         changeMode(Constants.Mode.SHOW);
-		// set authorization
-        changeAllowed = true;
         buildGrid();
+        setIndividualSwimZonesDynamic();
 	}
 
     public class GridZonesItem extends FIXGRIDItem implements java.io.Serializable {
@@ -156,10 +174,10 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
 			return personsAthlete!=null ? personsAthlete.getMaxHr() * definition.getHrHighBike() / 100 : null;
 		}
 		public String getTimeLowSwim() {
-			return Helper.calculateTime(getSpeedLowSwim() * getDistance(), false);
+			return HelperTime.calculateTime(getSpeedLowSwim() * getDistance(), false);
 		}
 		public String getTimeHighSwim() {
-			return Helper.calculateTime(getSpeedHighSwim() * getDistance(), false);
+			return HelperTime.calculateTime(getSpeedHighSwim() * getDistance(), false);
 		}
 		// mutable fields
 		public Integer getHrLowRun() { return zones!=null ? zones.getHrLowRun() : null; }

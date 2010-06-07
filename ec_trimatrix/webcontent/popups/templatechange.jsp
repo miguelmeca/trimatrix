@@ -59,9 +59,9 @@
 </t:pane>
 </t:row>
 <t:row id="g_37" >
-<t:button id="g_38" actionListener="#{d.ResultsImportUI.onSaveTemplate}" image="/images/icons/save.png" imageheight="16" text="#{rr.literals.save}" />
+<t:button id="g_38" actionListener="#{d.ResultsImportUI.onSaveTemplate}" image="/images/icons/save.png" imageheight="15" text="#{rr.literals.save}" />
 <t:coldistance id="g_39" />
-<t:button id="g_40" actionListener="#{d.ResultsImportUI.onSaveTemplate}" image="/images/icons/cancel.png" imageheight="16" text="#{rr.literals.cancel}" />
+<t:button id="g_40" actionListener="#{d.ResultsImportUI.onSaveTemplate}" image="/images/icons/cancel.png" imageheight="15" text="#{rr.literals.cancel}" />
 </t:row>
 </t:pane>
 </t:row>

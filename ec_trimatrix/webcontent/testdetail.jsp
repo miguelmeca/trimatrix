@@ -186,9 +186,9 @@
 </t:row>
 <t:rowdistance id="g_131" />
 <t:row id="g_132" >
-<t:button id="g_133" actionListener="#{d.TestDetailUI.onAddItem}" enabled="#{d.TestDetailUI.enabled}" image="/images/icons/add.png" imageheight="16" text="#{rr.literals.add}" />
+<t:button id="g_133" actionListener="#{d.TestDetailUI.onAddItem}" enabled="#{d.TestDetailUI.enabled}" image="/images/icons/add.png" imageheight="15" text="#{rr.literals.add}" />
 <t:coldistance id="g_134" />
-<t:button id="g_135" actionListener="#{d.TestDetailUI.onRemoveItem}" enabled="#{d.TestDetailUI.enabled}" image="/images/icons/remove.png" imageheight="16" text="#{rr.literals.remove}" />
+<t:button id="g_135" actionListener="#{d.TestDetailUI.onRemoveItem}" enabled="#{d.TestDetailUI.enabled}" image="/images/icons/remove.png" imageheight="15" text="#{rr.literals.remove}" />
 </t:row>
 </t:pane>
 </t:row>
@@ -251,9 +251,9 @@
 </t:row>
 <t:rowdistance id="g_176" />
 <t:row id="g_177" >
-<t:button id="g_178" actionListener="#{d.TestDetailUI.onAddItem}" enabled="#{d.TestDetailUI.enabled}" image="/images/icons/add.png" imageheight="16" text="#{rr.literals.add}" />
+<t:button id="g_178" actionListener="#{d.TestDetailUI.onAddItem}" enabled="#{d.TestDetailUI.enabled}" image="/images/icons/add.png" imageheight="15" text="#{rr.literals.add}" />
 <t:coldistance id="g_179" />
-<t:button id="g_180" actionListener="#{d.TestDetailUI.onRemoveItem}" enabled="#{d.TestDetailUI.enabled}" image="/images/icons/remove.png" imageheight="16" text="#{rr.literals.remove}" />
+<t:button id="g_180" actionListener="#{d.TestDetailUI.onRemoveItem}" enabled="#{d.TestDetailUI.enabled}" image="/images/icons/remove.png" imageheight="15" text="#{rr.literals.remove}" />
 </t:row>
 </t:pane>
 </t:row>
@@ -391,9 +391,9 @@
 </t:row>
 <t:rowdistance id="g_268" />
 <t:row id="g_269" >
-<t:button id="g_270" actionListener="#{d.TestDetailUI.onAddItem}" enabled="#{d.TestDetailUI.enabled}" image="/images/icons/add.png" imageheight="16" text="#{rr.literals.add}" />
+<t:button id="g_270" actionListener="#{d.TestDetailUI.onAddItem}" enabled="#{d.TestDetailUI.enabled}" image="/images/icons/add.png" imageheight="15" text="#{rr.literals.add}" />
 <t:coldistance id="g_271" />
-<t:button id="g_272" actionListener="#{d.TestDetailUI.onRemoveItem}" enabled="#{d.TestDetailUI.enabled}" image="/images/icons/remove.png" imageheight="16" text="#{rr.literals.remove}" />
+<t:button id="g_272" actionListener="#{d.TestDetailUI.onRemoveItem}" enabled="#{d.TestDetailUI.enabled}" image="/images/icons/remove.png" imageheight="15" text="#{rr.literals.remove}" />
 </t:row>
 </t:pane>
 </t:row>

@@ -1,10 +1,6 @@
 package trimatrix.ui;
 
 import static trimatrix.utils.Constants.CLIENTNAME;
-import static trimatrix.utils.Helper.calculateSeconds;
-import static trimatrix.utils.Helper.calculateTime;
-import static trimatrix.utils.Helper.correctTimeInput;
-import static trimatrix.utils.Helper.correctTimeInput2;
 import static trimatrix.utils.Helper.isEmpty;
 
 import java.io.Serializable;
@@ -30,15 +26,16 @@ import trimatrix.logic.ScheduleLogic;
 import trimatrix.ui.ScheduleUI.ScheduleItem;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Helper;
+import trimatrix.utils.HelperTime;
 
 @CCGenClass(expressionBase = "#{d.ScheduleChangePopUp}")
 public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Serializable {
 	private static final String DURATION_TARGET = "durationTarget_"; // add underscore because it's used in grid
 	private static final String DURATION_ACTUAL = "durationActual_"; // add underscore because it's used in grid
 
-	private static final String TIME_LOW = "timeLow";
-	private static final String TIME_HIGH = "timeHigh";
-	private static final String TIME_AVG = "timeAvg";
+	private static final String TIME_LOW_SWIM = "timeLowSwim";
+	private static final String TIME_HIGH_SWIM = "timeHighSwim";
+	private static final String TIME_AVG_SWIM = "timeAvgSwim";
 
 	private boolean renderButtons = true;
 	public boolean isRenderButtons() {return renderButtons;}
@@ -83,8 +80,8 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
     public Date getStart() { return scheduleItem.getStart(); }
     public void setStart(Date start) { scheduleItem.setStart(new Timestamp(start.getTime())); }
 
-    public String getDuration() { return calculateTime(scheduleItem.getDuration().intValue()*60, true); }
-    public void setDuration(String duration) { scheduleItem.setDuration(calculateSeconds(duration).longValue()/60); }
+    public String getDuration() { return HelperTime.calculateTime(scheduleItem.getDuration().intValue()*60, true); }
+    public void setDuration(String duration) { scheduleItem.setDuration(HelperTime.calculateSeconds(duration).longValue()/60); }
 
     public String getTemplateName() { return scheduleItem.getTemplateName(); }
     public void setTemplateName(String templateName) { scheduleItem.setTemplateName(templateName); }
@@ -248,15 +245,15 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 	        String clientname = (String) event.getComponent().getAttributes().get(CLIENTNAME);
 	        if(isEmpty(clientname)) return;
 	        if(clientname.startsWith(DURATION_TARGET)) {
-	        	scheduleDetail.setDurationTarget(correctTimeInput(scheduleDetail.getDurationTarget()));
+	        	scheduleDetail.setDurationTarget(HelperTime.correctTimeInput(scheduleDetail.getDurationTarget()));
 	        } else if(clientname.startsWith(DURATION_ACTUAL)) {
-	        	scheduleDetail.setDurationActual(correctTimeInput(scheduleDetail.getDurationActual()));
-	        } else if(clientname.startsWith(TIME_LOW)) {
-	        	scheduleDetail.setTimeLow(correctTimeInput2(scheduleDetail.getTimeLow()));
-	        } else if(clientname.startsWith(TIME_HIGH)) {
-	        	scheduleDetail.setTimeHigh(correctTimeInput2(scheduleDetail.getTimeHigh()));
-	        } else if(clientname.startsWith(TIME_AVG)) {
-	        	scheduleDetail.setTimeAvg(correctTimeInput2(scheduleDetail.getTimeAvg()));
+	        	scheduleDetail.setDurationActual(HelperTime.correctTimeInput(scheduleDetail.getDurationActual()));
+	        } else if(clientname.startsWith(TIME_LOW_SWIM)) {
+	        	scheduleDetail.setTimeLow(HelperTime.correctTimeInputShort(scheduleDetail.getTimeLow(), true));
+	        } else if(clientname.startsWith(TIME_HIGH_SWIM)) {
+	        	scheduleDetail.setTimeHigh(HelperTime.correctTimeInputShort(scheduleDetail.getTimeHigh(), true));
+	        } else if(clientname.startsWith(TIME_AVG_SWIM)) {
+	        	scheduleDetail.setTimeAvg(HelperTime.correctTimeInputShort(scheduleDetail.getTimeAvg(), true));
 	        } else {
 	            return;
 	        }
@@ -293,8 +290,11 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 			scheduleDetail.setHrLow(zone.getHrLowRun());
 			scheduleDetail.setHrHigh(zone.getHrHighRun());
 			// swim logic
-			scheduleDetail.setTimeLow(calculateTime((int)(zone.getSpeedLowSwim() * getScheduleDetail().getDistance()), false));
-			scheduleDetail.setTimeHigh(calculateTime((int)(zone.getSpeedHighSwim() * getScheduleDetail().getDistance()), false));
+			Integer distance = getScheduleDetail().getDistance();
+			if(distance!=null) {
+				scheduleDetail.setTimeLow(HelperTime.calculateTime(zone.getSpeedLowSwim() * distance, false));
+				scheduleDetail.setTimeHigh(HelperTime.calculateTime(zone.getSpeedHighSwim() * distance, false));
+			}
 			// TODO Check case where HR is calculated by max HR
 		}
 
@@ -326,8 +326,8 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 		if(getTypeOrd()==ScheduleLogic.SWIM) return;
 		long duration = 0;
 		for(GridDetailItem item : gridDetail.getItems()) {
-			int durationActual = calculateSeconds(item.getScheduleDetail().getDurationActual());
-			duration += durationActual>0 ? durationActual : calculateSeconds(item.getScheduleDetail().getDurationTarget());
+			double durationActual = HelperTime.calculateSecondsMsecs(item.getScheduleDetail().getDurationActual());
+			duration += durationActual>0 ? durationActual : HelperTime.calculateSecondsMsecs(item.getScheduleDetail().getDurationTarget());
 		}
 		scheduleItem.setDuration(duration/60);
 	}

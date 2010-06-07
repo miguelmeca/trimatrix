@@ -1,6 +1,5 @@
 package trimatrix.ui;
 
-import static trimatrix.utils.Helper.correctTimeInput;
 import static trimatrix.utils.Helper.isEmpty;
 
 import java.io.Serializable;
@@ -32,6 +31,7 @@ import trimatrix.structures.SListVariant;
 import trimatrix.ui.utils.IPopUpCallback;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
+import trimatrix.utils.HelperTime;
 import trimatrix.utils.Constants.Entity;
 
 @SuppressWarnings("serial")
@@ -79,7 +79,7 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		public void setCutoffSwim(String cutoff) {
 			// check pattern because its possible to enter time or percentage
 			if(!Pattern.compile("(\\d\\d:[0-5]\\d:[0-5]\\d)|(\\d*%)").matcher(cutoff).matches()) {
-				cutoff = correctTimeInput(cutoff);
+				cutoff = HelperTime.correctTimeInput(cutoff);
 			}
 			// only set value if cutoff is not null or empty
 			if(!isEmpty(cutoff)) limit.getLimits()[0] = cutoff;
@@ -89,7 +89,7 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		public void setCutoffRun(String cutoff) {
 			// check pattern because its possible to enter time or percentage
 			if(!Pattern.compile("(\\d\\d:[0-5]\\d:[0-5]\\d)|(\\d*%)").matcher(cutoff).matches()) {
-				cutoff = correctTimeInput(cutoff);
+				cutoff = HelperTime.correctTimeInput(cutoff);
 			}
 			// only set value if cutoff is not null or empty
 			if(!isEmpty(cutoff)) limit.getLimits()[1] = cutoff;
@@ -99,7 +99,7 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		public void setCutoffBike(String cutoff) {
 			// check pattern because its possible to enter time or percentage
 			if(!Pattern.compile("(\\d\\d:[0-5]\\d:[0-5]\\d)|(\\d*%)").matcher(cutoff).matches()) {
-				cutoff = correctTimeInput(cutoff);
+				cutoff = HelperTime.correctTimeInput(cutoff);
 			}
 			// only set value if cutoff is not null or empty
 			if(!isEmpty(cutoff)) limit.getLimits()[2] = cutoff;
@@ -116,19 +116,19 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 
 		public String getSwimSplit() { return limit.getSwim()[1]; }
 		public void setSwimSplit(String split) {
-			String corrInput = correctTimeInput(split);
+			String corrInput = HelperTime.correctTimeInput(split);
 			if(!isEmpty(corrInput)) limit.getSwim()[1] = corrInput;
 		}
 
 		public String getRunSplit() { return limit.getRun()[1]; }
 		public void setRunSplit(String split) {
-			String corrInput = correctTimeInput(split);
+			String corrInput = HelperTime.correctTimeInput(split);
 			if(!isEmpty(corrInput)) limit.getRun()[1] = corrInput;
 		}
 
 		public String getBikeSplit() { return limit.getBike()[1]; }
 		public void setBikeSplit(String split) {
-			String corrInput = correctTimeInput(split);
+			String corrInput = HelperTime.correctTimeInput(split);
 			if(!isEmpty(corrInput)) limit.getBike()[1] = corrInput;
 		}
 

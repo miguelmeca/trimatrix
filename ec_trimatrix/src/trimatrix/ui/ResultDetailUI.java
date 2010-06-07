@@ -23,6 +23,7 @@ import trimatrix.logic.helper.Limit;
 import trimatrix.ui.utils.ISelectionCallback;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
+import trimatrix.utils.HelperTime;
 import trimatrix.utils.Constants.Entity;
 
 @SuppressWarnings("serial")
@@ -189,7 +190,7 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 		}
 		// correct input
 		String input = (String)values.get(field);
-		String corrInput = Helper.correctTimeInput(input);
+		String corrInput = HelperTime.correctTimeInput(input);
 		// if null don't write back the value
 		if(corrInput==null) return;
 		values.put(field, corrInput);
@@ -328,15 +329,15 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 	}
 
 	public Double getPercentDeficitSwim() {
-		return Helper.getPercentageByTime(getBestSwim(), getSwimDeficit());
+		return HelperTime.getPercentageByTime(getBestSwim(), getSwimDeficit());
 	}
 
 	public Double getPercentDeficitRun() {
-		return Helper.getPercentageByTime(getBestRun(), getRunDeficit());
+		return HelperTime.getPercentageByTime(getBestRun(), getRunDeficit());
 	}
 
 	public Double getPercentDeficitBike() {
-		return Helper.getPercentageByTime(getBestBike(), getBikeDeficit());
+		return HelperTime.getPercentageByTime(getBestBike(), getBikeDeficit());
 	}
 
 	public void onCategoryF4(ActionEvent event) {
@@ -403,14 +404,14 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 	}
 
 	public String getSwimDeficit() {
-		return Helper.calculateDuration((String)values.get(ResultEntity.SWIM_SPLIT), bestSwim, true, false);
+		return HelperTime.calculateDuration((String)values.get(ResultEntity.SWIM_SPLIT), bestSwim, true, false);
 	}
 
 	public String getRunDeficit() {
-		return Helper.calculateDuration((String)values.get(ResultEntity.RUN_SPLIT), bestRun, true, false);
+		return HelperTime.calculateDuration((String)values.get(ResultEntity.RUN_SPLIT), bestRun, true, false);
 	}
 
 	public String getBikeDeficit() {
-		return Helper.calculateDuration((String)values.get(ResultEntity.BIKE_SPLIT), bestBike, true, false);
+		return HelperTime.calculateDuration((String)values.get(ResultEntity.BIKE_SPLIT), bestBike, true, false);
 	}
 }

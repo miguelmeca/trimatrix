@@ -51,9 +51,9 @@
 </t:fixgrid>
 </t:row>
 <t:row id="g_29" >
-<t:button id="g_30" actionListener="#{d.PreferencesPanelUI.onAddDefaultItem}" image="/images/icons/add.png" imageheight="16" text="#{rr.literals.list_add}" />
+<t:button id="g_30" actionListener="#{d.PreferencesPanelUI.onAddDefaultItem}" image="/images/icons/add.png" imageheight="15" text="#{rr.literals.list_add}" />
 <t:coldistance id="g_31" />
-<t:button id="g_32" actionListener="#{d.PreferencesPanelUI.onRemoveDefaultItem}" image="/images/icons/remove.png" imageheight="16" text="#{rr.literals.list_remove}" />
+<t:button id="g_32" actionListener="#{d.PreferencesPanelUI.onRemoveDefaultItem}" image="/images/icons/remove.png" imageheight="15" text="#{rr.literals.list_remove}" />
 </t:row>
 </t:pane>
 </t:row>
