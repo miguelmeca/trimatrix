@@ -1,9 +1,12 @@
 package trimatrix.ui;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.event.ActionEvent;
+import javax.persistence.Column;
 
 import org.apache.log4j.Logger;
 import org.eclnt.editor.annotations.CCGenClass;
@@ -18,7 +21,10 @@ import trimatrix.db.Persons;
 import trimatrix.db.PersonsAthlete;
 import trimatrix.db.Zones;
 import trimatrix.db.ZonesDefinition;
+import trimatrix.db.ZonesSwim;
+import trimatrix.db.ZonesSwimId;
 import trimatrix.logic.ZonesLogic;
+import trimatrix.logic.ZonesLogic.IndividualSwimZoneInfo;
 import trimatrix.structures.SAuthorization;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.ui.utils.WorkpageRefreshEvent;
@@ -31,17 +37,6 @@ import trimatrix.utils.Constants.Mode;
 @CCGenClass (expressionBase="#{d.ZonesDetailUI}")
 
 public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializable, IWorkpageProcessingEventListener {
-    protected DYNAMICCONTENTBinding m_individualSwimZones = new DYNAMICCONTENTBinding();
-    public DYNAMICCONTENTBinding getIndividualSwimZones() { return m_individualSwimZones; }
-    public void setIndividualSwimZones(DYNAMICCONTENTBinding value) { m_individualSwimZones = value; }
-
-    public void setIndividualSwimZonesDynamic() {
-    	StringBuffer xml = new StringBuffer();
- 		xml.append("<t:scrollpane width='100%' height='100%'>");
-		xml.append("</t:scrollpane>");
-		m_individualSwimZones.setContentXml(xml.toString());
-	}
-
 
 	public boolean getChangeAllowed() { return authorization.change; }
 
@@ -83,18 +78,23 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
 
 	public void onCancel(ActionEvent event) {
 		changeMode(Constants.Mode.SHOW);
-		buildGrid();
+		buildGrids();
 	}
 
 	public void onSave(ActionEvent event) {
 	 	for(GridZonesItem item : m_gridZones.getItems()) {
 	 		item.save();
 	 	}
+	 	for(String distance : getIndividualSwimZonesMap().keySet()) {
+    		for(IndividualSwimZonesItem item : getIndividualSwimZonesMap().get(distance).getItems()) {
+    			item.save();
+    		}
+    	}
 	 	changeMode(Constants.Mode.SHOW);
 	 	// refresh beans
         getWorkpage().throwWorkpageProcessingEvent(new WorkpageRefreshEvent(Entity.ZONE));
         // refresh
-		buildGrid();
+		buildGrids();
 	}
 
 	public void onCoachClicked(ActionEvent event) {
@@ -103,11 +103,21 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
 	}
 
 	public void onRefresh(ActionEvent event) {
-		setIndividualSwimZonesDynamic();
+		buildGrids();
 	}
 
 	public void onAddIndividualZone(ActionEvent event) {
-
+		if(getDistance()==null || getDistance()==0) return;
+		if(getIndividualSwimZonesMap().containsKey(getDistance().toString())) return;
+		FIXGRIDListBinding<IndividualSwimZonesItem> gridIndividualSwimZones = new FIXGRIDListBinding<IndividualSwimZonesItem>();
+		for(GridZonesItem item : getGridZones().getItems()) {
+			ZonesSwimId zonesSwimId = new ZonesSwimId(distance, personId, item.getZonesDefinition().getId());
+			ZonesSwim zonesSwim = new ZonesSwim(zonesSwimId, item.getTimeLowSwim(), item.getTimeHighSwim());
+    		IndividualSwimZoneInfo zone = getLogic().getZonesLogic().createIndividualSwimZoneInfo(item.getZonesDefinition(),zonesSwim, getDistance());
+    		gridIndividualSwimZones.getItems().add(new IndividualSwimZonesItem(zone, true));
+		}
+		individualSwimZonesMap.put(getDistance().toString(), gridIndividualSwimZones);
+		setIndividualSwimZonesDynamic();
 	}
 
 	protected FIXGRIDListBinding<GridZonesItem> m_gridZones = new FIXGRIDListBinding<GridZonesItem>();
@@ -139,12 +149,13 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
         if(coach!=null) authorization = getLogic().getZonesLogic().getAuthorization(coach.getId());
         // set to show
         changeMode(Constants.Mode.SHOW);
-        buildGrid();
+        buildGrids();
         setIndividualSwimZonesDynamic();
 	}
 
     public class GridZonesItem extends FIXGRIDItem implements java.io.Serializable {
     	private ZonesDefinition definition;
+    	public ZonesDefinition getZonesDefinition() { return definition; }
     	private Zones zones;
     	private boolean dirty;
 
@@ -161,6 +172,7 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
 		public String getColor() { return definition.getColor(); }
 		public String getForeground() { return Helper.getBlackOrWhite(getColor()); }
 		public String getShortcut() { return definition.getShortcut(); }
+
 		public Integer getHrLowPrctRun() {
 			return personsAthlete!=null ? personsAthlete.getMaxHr() * definition.getHrLowRun() / 100 : null;
 		}
@@ -226,20 +238,96 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
 		}
     }
 
-	private void buildGrid() {
+	private void buildGrids() {
 		m_gridZones.getItems().clear();
 		if(coach==null) return;
 		List<ZonesLogic.ZoneInfo> zonesInfos = getLogic().getZonesLogic().getAthletesZone(personId, coach);
 		for(ZonesLogic.ZoneInfo zonesInfo : zonesInfos) {
 			m_gridZones.getItems().add(new GridZonesItem(zonesInfo));
 		}
+		setIndividualSwimZonesDynamic();
 	}
+
+	// ------------------------------------------------------------------------
+	// individual zones logic
+	// ------------------------------------------------------------------------
+	protected DYNAMICCONTENTBinding m_individualSwimZones = new DYNAMICCONTENTBinding();
+    public DYNAMICCONTENTBinding getIndividualSwimZones() { return m_individualSwimZones; }
+
+    private void setIndividualSwimZonesDynamic() {
+     	StringBuffer xml = new StringBuffer();
+    	for(String distance : individualSwimZonesMap.keySet()) {
+
+    	}
+    	m_individualSwimZones.setContentXml(xml.toString());
+	}
+
+    protected Map<String, FIXGRIDListBinding<IndividualSwimZonesItem>> individualSwimZonesMap = new HashMap<String, FIXGRIDListBinding<IndividualSwimZonesItem>>();
+    public Map<String, FIXGRIDListBinding<IndividualSwimZonesItem>> getIndividualSwimZonesMap() {return individualSwimZonesMap;}
+
+    private void setIndividualSwimZonesMap() {
+    	individualSwimZonesMap.clear();
+    	Map<Integer, List<IndividualSwimZoneInfo>> individualSwimZoneInfoMap = getLogic().getZonesLogic().getIndividualSwimZones(personId, coach);
+    	for(Integer distance : individualSwimZoneInfoMap.keySet()) {
+    		FIXGRIDListBinding<IndividualSwimZonesItem> gridIndividualSwimZones = new FIXGRIDListBinding<IndividualSwimZonesItem>();
+    		for(IndividualSwimZoneInfo zone : individualSwimZoneInfoMap.get(distance)) {
+    			gridIndividualSwimZones.getItems().add(new IndividualSwimZonesItem(zone, false));
+    		}
+    		individualSwimZonesMap.put(distance.toString(), gridIndividualSwimZones);
+    	}
+    }
+
+	public class IndividualSwimZonesItem extends FIXGRIDItem implements java.io.Serializable {
+    	private ZonesDefinition definition;
+    	private ZonesSwim zonesSwim;
+    	private Integer distance;
+    	private boolean dirty;
+
+    	public IndividualSwimZonesItem(ZonesLogic.IndividualSwimZoneInfo individualSwimZoneInfo, boolean dirty) {
+    		this.definition = individualSwimZoneInfo.getDefinition();
+    		this.distance = individualSwimZoneInfo.getDistance();
+    		if(individualSwimZoneInfo.getZonesSwim()!=null) {
+    			this.zonesSwim = individualSwimZoneInfo.getZonesSwim();
+			} else {
+				this.zonesSwim = getLogic().getZonesLogic().createZonesSwim(distance, personId, definition.getId());
+			}
+    		dirty = this.dirty;
+    	}
+    	// immutable fields
+		public String getColor() { return definition.getColor(); }
+		public String getForeground() { return Helper.getBlackOrWhite(getColor()); }
+		public String getShortcut() { return definition.getShortcut(); }
+
+    	public String getTimeLow() {
+    		return zonesSwim.getTimeLow();
+    	}
+
+    	public void setTimeLow(String timeLow) {
+    		dirty = true;
+    		zonesSwim.setTimeLow(HelperTime.correctTimeInput(timeLow, true));
+    	}
+
+    	public String getTimeHigh() {
+    		return zonesSwim.getTimeHigh();
+    	}
+
+    	public void setTimeHigh(String timeHigh) {
+    		dirty = true;
+    		zonesSwim.setTimeHigh(HelperTime.correctTimeInput(timeHigh, true));
+    	}
+
+    	public void save() {
+			if(dirty) {
+				dirty = !getLogic().getZonesLogic().saveIndividualSwimZone(zonesSwim);
+			}
+		}
+    }
 
 	public void processEvent(WorkpageProcessingEvent event) {
 		// refresh list
 		if (event instanceof WorkpageRefreshEvent) {
 			Entity entity = ((WorkpageRefreshEvent)event).getEntity();
-			if(Entity.ZONE==entity.getBase()) buildGrid();
+			if(Entity.ZONE==entity.getBase()) buildGrids();
 		}
 
 	}

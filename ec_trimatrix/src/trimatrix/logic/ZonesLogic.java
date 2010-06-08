@@ -87,8 +87,8 @@ public class ZonesLogic {
 		return result;
 	}
 
-	public Map<Integer, List<ZonesSwim>> getIndividualSwimZones(String athleteId, Persons coach) {
-		Map<Integer, List<ZonesSwim>> result = new HashMap<Integer, List<ZonesSwim>>();
+	public Map<Integer, List<IndividualSwimZoneInfo>> getIndividualSwimZones(String athleteId, Persons coach) {
+		Map<Integer, List<IndividualSwimZoneInfo>> result = new HashMap<Integer, List<IndividualSwimZoneInfo>>();
 		List<ZonesDefinition> zonesDefinitions = coach.getZonesDefinition();
 		ZonesSwimId exampleId = new ZonesSwimId();
 		exampleId.setAthleteId(athleteId);
@@ -107,9 +107,24 @@ public class ZonesLogic {
 		return new Zones(id, athleteId, zonesDefinitionId);
 	}
 
+	public ZonesSwim createZonesSwim(Integer distance, String athleteId, String zonesDefinitionId) {
+		ZonesSwimId id = new ZonesSwimId(distance, athleteId, zonesDefinitionId);
+		return new ZonesSwim(id);
+	}
+
 	public boolean saveZone(Zones zone) {
 		try {
 			daoLayer.getZonesDAO().merge(zone);
+			return true;
+		} catch (Exception ex) {
+			Statusbar.outputAlert(Helper.getMessages("save_failure"), Helper.getLiteral("error"), ex.toString()).setLeftTopReferenceCentered();
+			return false;
+		}
+	}
+
+	public boolean saveIndividualSwimZone(ZonesSwim zonesSwim) {
+		try {
+			daoLayer.getZonesSwimDAO().merge(zonesSwim);
 			return true;
 		} catch (Exception ex) {
 			Statusbar.outputAlert(Helper.getMessages("save_failure"), Helper.getLiteral("error"), ex.toString()).setLeftTopReferenceCentered();
@@ -150,6 +165,36 @@ public class ZonesLogic {
 
 		public Zones getZone() {
 			return zone;
+		}
+	}
+
+	public IndividualSwimZoneInfo createIndividualSwimZoneInfo(ZonesDefinition definition, ZonesSwim zonesSwim, Integer distance) {
+		return new IndividualSwimZoneInfo(definition, zonesSwim, distance);
+	}
+
+	public class IndividualSwimZoneInfo {
+		private ZonesDefinition definition;
+		private ZonesSwim zonesSwim;
+		private Integer distance;
+
+		private IndividualSwimZoneInfo() { }
+
+		public IndividualSwimZoneInfo(ZonesDefinition definition, ZonesSwim zonesSwim, Integer distance) {
+			this.definition = definition;
+			this.zonesSwim = zonesSwim;
+			this.distance = distance;
+		}
+
+		public ZonesDefinition getDefinition() {
+			return definition;
+		}
+
+		public ZonesSwim getZonesSwim() {
+			return zonesSwim;
+		}
+
+		public Integer getDistance() {
+			return distance;
 		}
 	}
 }
