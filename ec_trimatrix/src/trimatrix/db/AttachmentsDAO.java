@@ -12,11 +12,11 @@ import trimatrix.entities.IEntityObject;
 
 /**
  	* A data access object (DAO) providing persistence and search support for Attachments entities.
- 			* Transaction control of the save(), update() and delete() operations 
-		can directly support Spring container-managed transactions or they can be augmented	to handle user-managed Spring transactions. 
-		Each of these methods provides additional information for how to configure it for the desired type of transaction control. 	
+ 			* Transaction control of the save(), update() and delete() operations
+		can directly support Spring container-managed transactions or they can be augmented	to handle user-managed Spring transactions.
+		Each of these methods provides additional information for how to configure it for the desired type of transaction control.
 	 * @see trimatrix.db.Attachments
-  * @author MyEclipse Persistence Tools 
+  * @author MyEclipse Persistence Tools
  */
 
 /**
@@ -31,7 +31,7 @@ public class AttachmentsDAO extends HibernateDaoSupport implements IEntityDAO<At
 	protected void initDao() {
 		//do nothing
 	}
-    
+
     /* (non-Javadoc)
      * @see trimatrix.db.IDAO#save(java.lang.Object)
      */
@@ -45,7 +45,7 @@ public class AttachmentsDAO extends HibernateDaoSupport implements IEntityDAO<At
             throw re;
         }
     }
-    
+
 	/* (non-Javadoc)
 	 * @see trimatrix.db.IDAO#delete(java.lang.Object)
 	 */
@@ -59,7 +59,7 @@ public class AttachmentsDAO extends HibernateDaoSupport implements IEntityDAO<At
             throw re;
         }
     }
-    
+
     /* (non-Javadoc)
      * @see trimatrix.db.IDAO#findById(java.lang.String)
      */
@@ -74,7 +74,7 @@ public class AttachmentsDAO extends HibernateDaoSupport implements IEntityDAO<At
             throw re;
         }
     }
-    
+
     /* (non-Javadoc)
      * @see trimatrix.db.IDAO#findByExample(java.lang.Object)
      */
@@ -89,8 +89,8 @@ public class AttachmentsDAO extends HibernateDaoSupport implements IEntityDAO<At
             log.error("find by example failed", re);
             throw re;
         }
-    }    
-    
+    }
+
     /* (non-Javadoc)
      * @see trimatrix.db.IDAO#findByProperty(java.lang.String, java.lang.Object)
      */
@@ -99,7 +99,7 @@ public class AttachmentsDAO extends HibernateDaoSupport implements IEntityDAO<At
       log.debug("finding Attachments instance with property: " + propertyName
             + ", value: " + value);
       try {
-         String queryString = "from Attachments as model where model." 
+         String queryString = "from Attachments as model where model."
          						+ propertyName + "= ?";
 		 return getHibernateTemplate().find(queryString, value);
       } catch (RuntimeException re) {
@@ -122,7 +122,7 @@ public class AttachmentsDAO extends HibernateDaoSupport implements IEntityDAO<At
 			throw re;
 		}
 	}
-	
+
     /* (non-Javadoc)
      * @see trimatrix.db.IDAO#merge(java.lang.Object)
      */
@@ -151,7 +151,7 @@ public class AttachmentsDAO extends HibernateDaoSupport implements IEntityDAO<At
             log.error("attach failed", re);
             throw re;
         }
-    }    
+    }
 
     /* (non-Javadoc)
      * @see trimatrix.db.IDAO#attachClean(java.lang.Object)
@@ -166,7 +166,7 @@ public class AttachmentsDAO extends HibernateDaoSupport implements IEntityDAO<At
             throw re;
         }
     }
-	
+
 	/* (non-Javadoc)
 	 * @see trimatrix.db.IDAO#reload(java.lang.Object)
 	 */
@@ -174,13 +174,13 @@ public class AttachmentsDAO extends HibernateDaoSupport implements IEntityDAO<At
 		String id = attachments.getId();
 		log.debug("reloading Attachment instance with id: " + id);
 		try {
-			getHibernateTemplate().load(attachments, id);			
+			getHibernateTemplate().load(attachments, id);
 		} catch (RuntimeException re) {
 			log.error("load failed", re);
 			throw re;
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public static IEntityDAO<Attachments> getFromApplicationContext(ApplicationContext ctx) {
     	return (IEntityDAO<Attachments>) ctx.getBean("AttachmentsDAO");

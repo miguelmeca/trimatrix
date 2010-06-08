@@ -35,8 +35,7 @@
 	</bean>
 
 	<bean id="mailService" class="trimatrix.services.MailService"
-		abstract="false" lazy-init="default" autowire="default"
-		dependency-check="default">
+		abstract="false" lazy-init="default" autowire="default">
 		<property name="mailSender">
 			<ref bean="mailSender" />
 		</property>
@@ -46,13 +45,11 @@
 	</bean>
 
 	<bean id="encryptionService" class="trimatrix.services.EncryptionService"
-		abstract="false" lazy-init="default" autowire="default"
-		dependency-check="default">
+		abstract="false" lazy-init="default" autowire="default">
 	</bean>
 
 	<bean id="translationService" class="trimatrix.services.TranslationService"
-		abstract="false" lazy-init="default" autowire="default"
-		dependency-check="default">
+		abstract="false" lazy-init="default" autowire="default">
 		<property name="dictionaryService">
 			<ref bean="dictionaryService" />
 		</property>
@@ -62,8 +59,7 @@
 	</bean>
 
 	<bean id="sqlExecutorService" class="trimatrix.services.SQLExecutorService"
-		abstract="false" lazy-init="default" autowire="default"
-		dependency-check="default">
+		abstract="false" lazy-init="default" autowire="default">
 		<property name="transactionManager">
 			<ref bean="transactionManager" />
 		</property>
@@ -82,8 +78,7 @@
 	</bean>
 
 	<bean id="authorizationService" class="trimatrix.services.AuthorizationService"
-		abstract="false" lazy-init="default" autowire="default"
-		dependency-check="default">
+		abstract="false" lazy-init="default" autowire="default">
 		<property name="dictionaryService">
 			<ref bean="dictionaryService" />
 		</property>
@@ -93,8 +88,7 @@
 	</bean>
 
 	<bean id="resolverService" class="trimatrix.services.ResolverService"
-		abstract="false" lazy-init="default" autowire="default"
-		dependency-check="default">
+		abstract="false" lazy-init="default" autowire="default">
 		<property name="userEntity">
 			<ref bean="userEntity" />
 		</property>
@@ -134,8 +128,7 @@
 	</bean>
 
 	<bean id="valueListBindingService" class="trimatrix.services.ValueListBindingService"
-		abstract="false" lazy-init="default" autowire="default"
-		dependency-check="default">
+		abstract="false" lazy-init="default" autowire="default">
 		<property name="sqlExecutorService">
 			<ref bean="sqlExecutorService" />
 		</property>
@@ -152,8 +145,7 @@
 
 
 	<bean id="defaultValueBindingService" class="trimatrix.services.DefaultValueBindingService"
-		abstract="false" lazy-init="default" autowire="default"
-		dependency-check="default">
+		abstract="false" lazy-init="default" autowire="default">
 		<property name="dictionaryService">
 			<ref bean="dictionaryService" />
 		</property>
@@ -163,8 +155,7 @@
 	</bean>
 
 	<bean id="serviceLayer" class="trimatrix.services.ServiceLayer"
-		abstract="false" lazy-init="default" autowire="default"
-		dependency-check="default">
+		abstract="false" lazy-init="default" autowire="default">
 		<property name="valueListBindingService">
 			<ref bean="valueListBindingService" />
 		</property>
