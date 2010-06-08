@@ -4,8 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="userEntity" class="trimatrix.entities.UserEntity"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">
+        abstract="false" lazy-init="default" autowire="default">
         <property name="sqlExecutorService">
             <ref bean="sqlExecutorService" />
         </property>
@@ -18,8 +17,7 @@
     </bean>
 
     <bean id="personEntity" class="trimatrix.entities.PersonEntity"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">
+        abstract="false" lazy-init="default" autowire="default">
         <property name="sqlExecutorService">
             <ref bean="sqlExecutorService" />
         </property>
@@ -38,8 +36,7 @@
     </bean>
 
     <bean id="doctorEntity" class="trimatrix.entities.DoctorEntity"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">
+        abstract="false" lazy-init="default" autowire="default">
         <property name="sqlExecutorService">
             <ref bean="sqlExecutorService" />
         </property>
@@ -58,8 +55,7 @@
     </bean>
 
     <bean id="attachmentEntity" class="trimatrix.entities.AttachmentEntity"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">
+        abstract="false" lazy-init="default" autowire="default">
         <property name="sqlExecutorService">
             <ref bean="sqlExecutorService" />
         </property>
@@ -78,8 +74,7 @@
     </bean>
 
     <bean id="testEntity" class="trimatrix.entities.TestEntity"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">
+        abstract="false" lazy-init="default" autowire="default">
         <property name="sqlExecutorService">
             <ref bean="sqlExecutorService" />
         </property>
@@ -98,8 +93,7 @@
     </bean>
 
     <bean id="competitionEntity" class="trimatrix.entities.CompetitionEntity"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">
+        abstract="false" lazy-init="default" autowire="default">
         <property name="sqlExecutorService">
             <ref bean="sqlExecutorService" />
         </property>
@@ -118,8 +112,7 @@
     </bean>
 
     <bean id="resultEntity" class="trimatrix.entities.ResultEntity"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">
+        abstract="false" lazy-init="default" autowire="default">
         <property name="sqlExecutorService">
             <ref bean="sqlExecutorService" />
         </property>
@@ -138,8 +131,7 @@
     </bean>
 
     <bean id="scheduleEntity" class="trimatrix.entities.ScheduleEntity"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">
+        abstract="false" lazy-init="default" autowire="default">
         <property name="sqlExecutorService">
             <ref bean="sqlExecutorService" />
         </property>
@@ -158,8 +150,7 @@
     </bean>
 
     <bean id="entityLayer" class="trimatrix.entities.EntityLayer"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">
+        abstract="false" lazy-init="default" autowire="default">
         <property name="userEntity">
             <ref bean="userEntity" />
         </property>

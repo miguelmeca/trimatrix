@@ -18,6 +18,8 @@ import trimatrix.db.PersonsHaveRelations;
 import trimatrix.db.PersonsHaveRelationsDAO;
 import trimatrix.db.Zones;
 import trimatrix.db.ZonesDefinition;
+import trimatrix.db.ZonesSwim;
+import trimatrix.db.ZonesSwimId;
 import trimatrix.services.ServiceLayer;
 import trimatrix.structures.SAuthorization;
 import trimatrix.utils.Helper;
@@ -82,6 +84,16 @@ public class ZonesLogic {
 				result.add(new ZoneInfo(zonesDefinition,zones.get(0)));
 			}
 		}
+		return result;
+	}
+
+	public Map<Integer, List<ZonesSwim>> getIndividualSwimZones(String athleteId, Persons coach) {
+		Map<Integer, List<ZonesSwim>> result = new HashMap<Integer, List<ZonesSwim>>();
+		List<ZonesDefinition> zonesDefinitions = coach.getZonesDefinition();
+		ZonesSwimId exampleId = new ZonesSwimId();
+		exampleId.setAthleteId(athleteId);
+		ZonesSwim example = new ZonesSwim(exampleId);
+		List<ZonesSwim> zonesSwims = daoLayer.getZonesSwimDAO().findByExample(example);
 		return result;
 	}
 

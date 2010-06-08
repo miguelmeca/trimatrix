@@ -4,8 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="personPersonRelation" class="trimatrix.relations.PersonPersonRelation"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">
+        abstract="false" lazy-init="default" autowire="default">
         <property name="sqlExecutorService">
             <ref bean="sqlExecutorService" />
         </property>
@@ -15,11 +14,10 @@
         <property name="relationsDAO">
             <ref bean="PersonsHaveRelationsDAO" />
         </property>
-    </bean>   
-    
+    </bean>
+
     <bean id="personDoctorRelation" class="trimatrix.relations.PersonDoctorRelation"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">
+        abstract="false" lazy-init="default" autowire="default">
         <property name="sqlExecutorService">
             <ref bean="sqlExecutorService" />
         </property>
@@ -29,11 +27,10 @@
         <property name="relationsDAO">
             <ref bean="PersonsHaveDoctorsDAO" />
         </property>
-    </bean>  
-    
+    </bean>
+
     <bean id="personAttachmentRelation" class="trimatrix.relations.PersonAttachmentRelation"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">
+        abstract="false" lazy-init="default" autowire="default">
         <property name="sqlExecutorService">
             <ref bean="sqlExecutorService" />
         </property>
@@ -43,11 +40,10 @@
         <property name="relationsDAO">
             <ref bean="PersonsHaveAttachmentsDAO" />
         </property>
-    </bean>  
-    
+    </bean>
+
     <bean id="personCompetitionRelation" class="trimatrix.relations.PersonCompetitionRelation"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">
+        abstract="false" lazy-init="default" autowire="default">
         <property name="sqlExecutorService">
             <ref bean="sqlExecutorService" />
         </property>
@@ -57,11 +53,10 @@
         <property name="relationsDAO">
             <ref bean="PersonsHaveCompetitionsDAO" />
         </property>
-    </bean>  
-    
+    </bean>
+
     <bean id="relationLayer" class="trimatrix.relations.RelationLayer"
-        abstract="false" lazy-init="default" autowire="default"
-        dependency-check="default">
+        abstract="false" lazy-init="default" autowire="default">
         <property name="personPersonRelation">
             <ref bean="personPersonRelation" />
         </property>

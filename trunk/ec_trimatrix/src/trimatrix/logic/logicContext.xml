@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="logonLogic" class="trimatrix.logic.LogonLogic" abstract="false"
-		lazy-init="default" autowire="default" dependency-check="default">
+		lazy-init="default" autowire="default">
 		<property name="daoLayer">
 			<ref bean="daoLayer" />
 		</property>
@@ -17,8 +17,7 @@
 	</bean>
 
 	<bean id="entityListLogic" class="trimatrix.logic.EntityListLogic"
-		abstract="false" lazy-init="default" autowire="default"
-		dependency-check="default">
+		abstract="false" lazy-init="default" autowire="default">
 		<property name="serviceLayer">
 			<ref bean="serviceLayer" />
 		</property>
@@ -28,8 +27,7 @@
 	</bean>
 
 	<bean id="functionTreeLogic" class="trimatrix.logic.FunctionTreeLogic"
-		abstract="false" lazy-init="default" autowire="default"
-		dependency-check="default">
+		abstract="false" lazy-init="default" autowire="default">
 		<property name="entityLayer">
 			<ref bean="entityLayer" />
 		</property>
@@ -45,8 +43,7 @@
 	</bean>
 
 	<bean id="relationListLogic" class="trimatrix.logic.RelationListLogic"
-		abstract="false" lazy-init="default" autowire="default"
-		dependency-check="default">
+		abstract="false" lazy-init="default" autowire="default">
 		<property name="daoLayer">
 			<ref bean="daoLayer" />
 		</property>
@@ -56,7 +53,7 @@
 	</bean>
 
 	<bean id="labelLogic" class="trimatrix.logic.LabelLogic" abstract="false"
-		lazy-init="default" autowire="default" dependency-check="default">
+		lazy-init="default" autowire="default">
 		<property name="serviceLayer">
 			<ref bean="serviceLayer" />
 		</property>
@@ -66,7 +63,7 @@
 	</bean>
 
 	<bean id="importLogic" class="trimatrix.logic.ImportLogic" abstract="false"
-		lazy-init="default" autowire="default" dependency-check="default">
+		lazy-init="default" autowire="default">
 		<property name="serviceLayer">
 			<ref bean="serviceLayer" />
 		</property>
@@ -82,7 +79,7 @@
 	</bean>
 
 	<bean id="zonesLogic" class="trimatrix.logic.ZonesLogic" abstract="false"
-		lazy-init="default" autowire="default" dependency-check="default">
+		lazy-init="default" autowire="default">
 		<property name="serviceLayer">
 			<ref bean="serviceLayer" />
 		</property>
@@ -92,7 +89,7 @@
 	</bean>
 
 	<bean id="testLogic" class="trimatrix.logic.TestLogic" abstract="false"
-		lazy-init="default" autowire="default" dependency-check="default">
+		lazy-init="default" autowire="default">
 		<property name="serviceLayer">
 			<ref bean="serviceLayer" />
 		</property>
@@ -102,8 +99,7 @@
 	</bean>
 
 	<bean id="competitionLogic" class="trimatrix.logic.CompetitionLogic"
-		abstract="false" lazy-init="default" autowire="default"
-		dependency-check="default">
+		abstract="false" lazy-init="default" autowire="default">
 		<property name="serviceLayer">
 			<ref bean="serviceLayer" />
 		</property>
@@ -116,8 +112,7 @@
 	</bean>
 
 	<bean id="scheduleLogic" class="trimatrix.logic.ScheduleLogic"
-		abstract="false" lazy-init="default" autowire="default"
-		dependency-check="default">
+		abstract="false" lazy-init="default" autowire="default">
 		<property name="serviceLayer">
 			<ref bean="serviceLayer" />
 		</property>
@@ -133,8 +128,7 @@
 	</bean>
 
 	<bean id="preferencesLogic" class="trimatrix.logic.PreferencesLogic"
-		abstract="false" lazy-init="default" autowire="default"
-		dependency-check="default">
+		abstract="false" lazy-init="default" autowire="default">
 		<property name="serviceLayer">
 			<ref bean="serviceLayer" />
 		</property>
@@ -147,7 +141,7 @@
 	</bean>
 
 	<bean id="logicLayer" class="trimatrix.logic.LogicLayer" abstract="false"
-		lazy-init="default" autowire="default" dependency-check="default">
+		lazy-init="default" autowire="default">
 		<property name="logonLogic">
 			<ref bean="logonLogic" />
 		</property>
