@@ -34,10 +34,22 @@ public class ZonesLogic {
 	public boolean deleteZones(Set<String> deletedIds) {
 		try {
 			for(String id : deletedIds) {
-				daoLayer.getZonesDefinitionDAO().delete(daoLayer.getZonesDefinitionDAO().findById(id));
+				ZonesDefinition zone = daoLayer.getZonesDefinitionDAO().findById(id);
+				daoLayer.getZonesDefinitionDAO().delete(zone);
 			}
 		} catch (Exception ex) {
 			logger.error("Error deleting zones : " + ex.toString());
+			return false;
+		}
+		return true;
+	}
+
+	public boolean deleteZonesSwim(ZonesSwimId id) {
+		try {
+			ZonesSwim zonesSwim = daoLayer.getZonesSwimDAO().findById(id);
+			if(zonesSwim!=null) daoLayer.getZonesSwimDAO().delete(zonesSwim);
+		} catch (Exception ex) {
+			logger.error("Error deleting individual swim zone " + id.getDistance() + " " + id.getZonesDefinitionId() + " : " + ex.toString());
 			return false;
 		}
 		return true;
