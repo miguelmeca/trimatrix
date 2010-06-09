@@ -33,7 +33,7 @@
 <t:coldistance id="g_17" />
 <t:label id="g_18" text="m" />
 <t:coldistance id="g_19" />
-<t:button id="g_20" actionListener="#{d.ZonesDetailUI.onAddIndividualZone}" image="/images/icons/add.png" imageheight="15" text="#{rr.literals.add}" />
+<t:button id="g_20" actionListener="#{d.ZonesDetailUI.onAddIndividualZone}" enabled="#{d.ZonesDetailUI.enabled}" image="/images/icons/add.png" imageheight="15" text="#{rr.literals.add}" />
 <t:coldistance id="g_21" />
 <t:button id="g_22" actionListener="#{d.ZonesDetailUI.onRefresh}" image="/images/icons/refresh.png" imageheight="15" text="#{rr.literals.list_refresh}" />
 </t:row>
@@ -118,26 +118,6 @@
 </t:row>
 <t:rowdistance id="g_75" />
 <t:rowdynamiccontent id="g_76" contentbinding="#{d.ZonesDetailUI.individualSwimZones}" />
-<t:row id="g_77" >
-<t:foldablepane id="g_78" rowdistance="5" text="#{rr.literals.individual_swim_zones}" >
-<t:row id="g_79" >
-<t:fixgrid id="g_80" avoidroundtrips="true" horizontalscrollmode="autowithresize" objectbinding="#{d.ZonesDetailUI.gridZones}" sbvisibleamount="10" showemptyrows="false" >
-<t:gridcol id="g_81" align="center" searchenabled="false" sortenabled="false" text="#{rr.literals.area}" width="100" >
-<t:field id="g_82" align="center" background=".{color}" enabled="false" font="size:14;weight:bold" foreground=".{foreground}" text=".{shortcut}" width="100" />
-</t:gridcol>
-<t:gridcol id="g_83" searchenabled="false" sortenabled="false" text="#{rr.literals.time_low}" width="100" >
-<t:field id="g_84" align="right!" enabled="true" text=".{timeLowSwim}" width="100%" />
-</t:gridcol>
-<t:gridcol id="g_85" searchenabled="false" sortenabled="false" text="#{rr.literals.time_high}" width="100" >
-<t:field id="g_86" align="right!" enabled="true" text=".{timeLowSwim}" width="100%" />
-</t:gridcol>
-</t:fixgrid>
-</t:row>
-<t:row id="g_87" >
-<t:button id="g_88" image="/images/icons/delete.png" imageheight="15" text="#{rr.literals.delete}" />
-</t:row>
-</t:foldablepane>
-</t:row>
 </t:pane>
 </t:row>
 <t:pageaddons id="g_pa"/>
