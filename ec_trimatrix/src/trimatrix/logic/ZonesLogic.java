@@ -19,6 +19,7 @@ import trimatrix.db.PersonsHaveRelationsDAO;
 import trimatrix.db.Zones;
 import trimatrix.db.ZonesDefinition;
 import trimatrix.db.ZonesSwim;
+import trimatrix.db.ZonesSwimDAO;
 import trimatrix.db.ZonesSwimId;
 import trimatrix.services.ServiceLayer;
 import trimatrix.structures.SAuthorization;
@@ -101,11 +102,40 @@ public class ZonesLogic {
 
 	public Map<Integer, List<IndividualSwimZoneInfo>> getIndividualSwimZones(String athleteId, Persons coach) {
 		Map<Integer, List<IndividualSwimZoneInfo>> result = new HashMap<Integer, List<IndividualSwimZoneInfo>>();
+		Map<String, ZonesDefinition> definitionMap = new HashMap<String, ZonesDefinition>();
 		List<ZonesDefinition> zonesDefinitions = coach.getZonesDefinition();
+		for(ZonesDefinition definition : zonesDefinitions) {
+			definitionMap.put(definition.getId(), definition);
+		}
 		ZonesSwimId exampleId = new ZonesSwimId();
 		exampleId.setAthleteId(athleteId);
 		ZonesSwim example = new ZonesSwim(exampleId);
 		List<ZonesSwim> zonesSwims = daoLayer.getZonesSwimDAO().findByExample(example);
+		for(ZonesSwim zonesSwim : zonesSwims) {
+			Integer distance = zonesSwim.getId().getDistance();
+			ZonesDefinition definition = definitionMap.get(zonesSwim.getId().getZonesDefinitionId());
+			IndividualSwimZoneInfo info = new IndividualSwimZoneInfo(definition, zonesSwim, distance);
+			// algorithm for sorting!
+			if(!result.containsKey(distance)) {
+				result.put(distance, new ArrayList<IndividualSwimZoneInfo>());
+				result.get(distance).add(info);
+			} else {
+				int size = result.get(distance).size();
+				for(int i=0;i<size;i++) {
+					Integer sequence = result.get(distance).get(i).getDefinition().getSequence();
+					Integer sequenceNew = definition.getSequence();
+					if(sequenceNew<sequence) {
+						result.get(distance).add(i, info);
+						break;
+					}
+					if(i==size-1) {
+						result.get(distance).add(size, info);
+						break;
+					}
+				}
+			}
+
+		}
 		return result;
 	}
 
