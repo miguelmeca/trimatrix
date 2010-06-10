@@ -8,6 +8,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import trimatrix.db.DAOLayer;
+import trimatrix.db.Persons;
 import trimatrix.db.UserDefaults;
 import trimatrix.db.UserPreferences;
 import trimatrix.db.Users;
@@ -37,6 +38,14 @@ public class PreferencesLogic {
 		UserPreferences preferences = serviceLayer.getDictionaryService().getMyUser().getPreferences();
 		if(preferences==null) preferences = new UserPreferences(serviceLayer.getDictionaryService().getMyUser().getId());
 		return preferences;
+	}
+
+	public UserPreferences getPreferences(String personId) {
+		List<Users> users = daoLayer.getUsersDAO().findByProperty("personId", personId);
+		if(Helper.isEmpty(users)) return null;
+		UserPreferences userPreferences = users.get(0).getPreferences();
+		if(userPreferences==null) logger.error("PreferencesLogic->getPreferences: there's no UserPreference object for user " + users.get(0).toString());
+		return userPreferences;
 	}
 
 	public UserDefaults createUserDefault() {
