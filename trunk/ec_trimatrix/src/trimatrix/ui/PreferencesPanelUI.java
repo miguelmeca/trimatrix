@@ -17,15 +17,36 @@ import trimatrix.db.UserDefaults;
 import trimatrix.db.UserPreferences;
 import trimatrix.logic.helper.DayInfo;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
+import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
 
 @CCGenClass(expressionBase = "#{d.PreferencesPanelUI}")
 public class PreferencesPanelUI extends MyWorkpageDispatchedBean implements Serializable {
     private Set<String> deletedDefaultIds = new HashSet<String>();
 
-    private DayInfo dayInfo;
-	public DayInfo getDayInfo() {return dayInfo;}
-	public void setDayInfo(DayInfo dayInfo) {this.dayInfo = dayInfo;}
+    protected DayInfo dayInfo;
+	public DayInfo getDayInfo() {
+		return dayInfo;
+	}
+	public void setDayInfo(DayInfo dayInfo) {
+		this.dayInfo = dayInfo;
+	}
+
+	public void onChangeAthlete(ActionEvent event) {
+		preferencesAthlete = getLogic().getPreferencesLogic().getPreferences(athleteID);
+		dayInfo = null;
+		if(preferencesAthlete!=null) {
+			dayInfo = getLogic().getPreferencesLogic().getDayInfo(preferencesAthlete.getDayinfos());
+		}
+    }
+
+    public boolean isTrainer() {
+    	return getServiceLayer().getDictionaryService().getMyRoles().contains(Constants.Role.COACH.getName());
+    }
+
+    protected String athleteID;
+    public String getAthleteID() {return athleteID;}
+	public void setAthleteID(String athleteID) {this.athleteID = athleteID;}
 
 	protected FIXGRIDListBinding<GridDefaultsItem> m_gridDefaults = new FIXGRIDListBinding<GridDefaultsItem>();
     public FIXGRIDListBinding<GridDefaultsItem> getGridDefaults() { return m_gridDefaults; }
@@ -64,6 +85,7 @@ public class PreferencesPanelUI extends MyWorkpageDispatchedBean implements Seri
     }
 
 	private UserPreferences preferences;
+	private UserPreferences preferencesAthlete;
 
 	public int getSbvisibleamount() {
 		return preferences.getSbvisibleamount();
@@ -83,21 +105,31 @@ public class PreferencesPanelUI extends MyWorkpageDispatchedBean implements Seri
 
 	public PreferencesPanelUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
+		// set dayInfo dropdown to actual user
+		setAthleteID(getServiceLayer().getDictionaryService().getMyPerson().getId());
 		// init data
 		init();
 	}
 
 	private void init() {
 		preferences = getLogic().getPreferencesLogic().getPreferences();
-		dayInfo = getLogic().getPreferencesLogic().getDayInfo(preferences.getDayinfos());
+		preferencesAthlete = getLogic().getPreferencesLogic().getPreferences(getAthleteID());
+		onChangeAthlete(null);
 		// defaults
 		buildGrid();
 	}
 
 	public void onSave(ActionEvent event) {
 		try {
-			// set dayinfos
-			preferences.setDayinfos(getLogic().getPreferencesLogic().getDayInfoString(dayInfo));
+			// save dayinfos
+			if(dayInfo!=null) {
+				if(!getAthleteID().equals(getServiceLayer().getDictionaryService().getMyPerson().getId())) {
+					preferencesAthlete.setDayinfos(getLogic().getPreferencesLogic().getDayInfoString(dayInfo));
+					getLogic().getPreferencesLogic().savePreferences(preferencesAthlete);
+				} else {
+					preferences.setDayinfos(getLogic().getPreferencesLogic().getDayInfoString(dayInfo));
+				}
+			}
 			// save preferences
 			getLogic().getPreferencesLogic().savePreferences(preferences);
 			// delete marked defaults

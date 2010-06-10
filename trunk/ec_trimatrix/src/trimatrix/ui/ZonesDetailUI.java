@@ -379,10 +379,10 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
 			xml.append("<t:field align='center' background='.{color}' enabled='false' font='size:14;weight:bold' foreground='.{foreground}' text='.{shortcut}' width='100' />");
 			xml.append("</t:gridcol>");
 			xml.append("<t:gridcol searchenabled='false' sortenabled='false' text='#{rr.literals.time_low}' width='100' >");
-			xml.append("<t:field align='right!' enabled='#{d.ZonesDetailUI.enabled}' text='.{timeLow}' width='100%' />");
+			xml.append("<t:field align='right!' enabled='#{d.ZonesDetailUI.enabled}' text='.{timeLow}' width='100%' userhint='mm:ss,zzz' />");
 			xml.append("</t:gridcol>");
 			xml.append("<t:gridcol searchenabled='false' sortenabled='false' text='#{rr.literals.time_high}' width='100' >");
-			xml.append("<t:field align='right!' enabled='#{d.ZonesDetailUI.enabled}' text='.{timeHigh}' width='100%' />");
+			xml.append("<t:field align='right!' enabled='#{d.ZonesDetailUI.enabled}' text='.{timeHigh}' width='100%' userhint='mm:ss,zzz' />");
 			xml.append("</t:gridcol>");
 			xml.append("</t:fixgrid>");
 			xml.append("</t:row>");

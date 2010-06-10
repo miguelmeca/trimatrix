@@ -60,89 +60,93 @@
 </t:tabbedpanetab>
 <t:tabbedpanetab id="g_33" rowdistance="5" text="#{rr.literals.day_info}" >
 <t:row id="g_34" >
-<t:label id="g_35" font="size:12;weight:bold" text="#{rr.literals.hr_rest}" width="200" />
-<t:coldistance id="g_36" />
-<t:toggle id="g_37" selected="#{d.PreferencesPanelUI.dayInfo.restingHr}" />
+<t:combobox id="g_35" actionListener="#{d.PreferencesPanelUI.onChangeAthlete}" enabled="#{d.PreferencesPanelUI.trainer}" flush="true" focusable="#{d.ScheduleUI.trainer}" font="size:12;weight:bold" validvaluesbinding="#{helper.vvb.myathletesandme}" value="#{d.PreferencesPanelUI.athleteID}" width="200" withnullitem="false" />
 </t:row>
-<t:row id="g_38" >
-<t:label id="g_39" font="size:12;weight:bold" text="#{rr.literals.weather}" width="200" />
-<t:coldistance id="g_40" />
-<t:toggle id="g_41" selected="#{d.PreferencesPanelUI.dayInfo.weather}" />
+<t:rowline id="g_36" />
+<t:row id="g_37" >
+<t:label id="g_38" font="size:12;weight:bold" text="#{rr.literals.hr_rest}" width="200" />
+<t:coldistance id="g_39" />
+<t:toggle id="g_40" selected="#{d.PreferencesPanelUI.dayInfo.restingHr}" />
 </t:row>
-<t:row id="g_42" >
-<t:label id="g_43" font="size:12;weight:bold" text="#{rr.literals.city}" width="200" />
-<t:coldistance id="g_44" />
-<t:toggle id="g_45" selected="#{d.PreferencesPanelUI.dayInfo.location}" />
+<t:row id="g_41" >
+<t:label id="g_42" font="size:12;weight:bold" text="#{rr.literals.weather}" width="200" />
+<t:coldistance id="g_43" />
+<t:toggle id="g_44" selected="#{d.PreferencesPanelUI.dayInfo.weather}" />
 </t:row>
-<t:row id="g_46" >
-<t:label id="g_47" font="size:12;weight:bold" text="#{rr.literals.weight}" width="200" />
-<t:coldistance id="g_48" />
-<t:toggle id="g_49" selected="#{d.PreferencesPanelUI.dayInfo.weight}" />
+<t:row id="g_45" >
+<t:label id="g_46" font="size:12;weight:bold" text="#{rr.literals.city}" width="200" />
+<t:coldistance id="g_47" />
+<t:toggle id="g_48" selected="#{d.PreferencesPanelUI.dayInfo.location}" />
 </t:row>
-<t:row id="g_50" >
-<t:label id="g_51" font="size:12;weight:bold" text="#{rr.literals.dinners}" width="200" />
-<t:coldistance id="g_52" />
-<t:toggle id="g_53" selected="#{d.PreferencesPanelUI.dayInfo.dinners}" />
+<t:row id="g_49" >
+<t:label id="g_50" font="size:12;weight:bold" text="#{rr.literals.weight}" width="200" />
+<t:coldistance id="g_51" />
+<t:toggle id="g_52" selected="#{d.PreferencesPanelUI.dayInfo.weight}" />
 </t:row>
-<t:row id="g_54" >
-<t:label id="g_55" font="size:12;weight:bold" text="#{rr.literals.fluids_intake}" width="200" />
-<t:coldistance id="g_56" />
-<t:toggle id="g_57" selected="#{d.PreferencesPanelUI.dayInfo.fluids}" />
+<t:row id="g_53" >
+<t:label id="g_54" font="size:12;weight:bold" text="#{rr.literals.dinners}" width="200" />
+<t:coldistance id="g_55" />
+<t:toggle id="g_56" selected="#{d.PreferencesPanelUI.dayInfo.dinners}" />
 </t:row>
-<t:row id="g_58" >
-<t:label id="g_59" font="size:12;weight:bold" text="#{rr.literals.sleeping_hours} / #{rr.literals.sleeping_quality}" width="200" />
-<t:coldistance id="g_60" />
-<t:toggle id="g_61" selected="#{d.PreferencesPanelUI.dayInfo.sleep}" />
+<t:row id="g_57" >
+<t:label id="g_58" font="size:12;weight:bold" text="#{rr.literals.fluids_intake}" width="200" />
+<t:coldistance id="g_59" />
+<t:toggle id="g_60" selected="#{d.PreferencesPanelUI.dayInfo.fluids}" />
 </t:row>
-<t:row id="g_62" >
-<t:label id="g_63" font="size:12;weight:bold" text="#{rr.literals.tiredness}" width="200" />
-<t:coldistance id="g_64" />
-<t:toggle id="g_65" selected="#{d.PreferencesPanelUI.dayInfo.tiredness}" />
+<t:row id="g_61" >
+<t:label id="g_62" font="size:12;weight:bold" text="#{rr.literals.sleeping_hours} / #{rr.literals.sleeping_quality}" width="200" />
+<t:coldistance id="g_63" />
+<t:toggle id="g_64" selected="#{d.PreferencesPanelUI.dayInfo.sleep}" />
 </t:row>
-<t:row id="g_66" >
-<t:label id="g_67" font="size:12;weight:bold" text="#{rr.literals.feeling}" width="200" />
-<t:coldistance id="g_68" />
-<t:toggle id="g_69" selected="#{d.PreferencesPanelUI.dayInfo.feeling}" />
+<t:row id="g_65" >
+<t:label id="g_66" font="size:12;weight:bold" text="#{rr.literals.tiredness}" width="200" />
+<t:coldistance id="g_67" />
+<t:toggle id="g_68" selected="#{d.PreferencesPanelUI.dayInfo.tiredness}" />
 </t:row>
-<t:row id="g_70" >
-<t:label id="g_71" font="size:12;weight:bold" text="#{rr.literals.training_intensity}" width="200" />
-<t:coldistance id="g_72" />
-<t:toggle id="g_73" selected="#{d.PreferencesPanelUI.dayInfo.intensity}" />
+<t:row id="g_69" >
+<t:label id="g_70" font="size:12;weight:bold" text="#{rr.literals.feeling}" width="200" />
+<t:coldistance id="g_71" />
+<t:toggle id="g_72" selected="#{d.PreferencesPanelUI.dayInfo.feeling}" />
 </t:row>
-<t:row id="g_74" >
-<t:label id="g_75" font="size:12;weight:bold" text="#{rr.literals.training_valuation}" width="200" />
-<t:coldistance id="g_76" />
-<t:toggle id="g_77" selected="#{d.PreferencesPanelUI.dayInfo.valuation}" />
+<t:row id="g_73" >
+<t:label id="g_74" font="size:12;weight:bold" text="#{rr.literals.training_intensity}" width="200" />
+<t:coldistance id="g_75" />
+<t:toggle id="g_76" selected="#{d.PreferencesPanelUI.dayInfo.intensity}" />
 </t:row>
-<t:row id="g_78" >
-<t:label id="g_79" font="size:12;weight:bold" text="#{rr.literals.laboratory}" width="200" />
-<t:coldistance id="g_80" />
-<t:toggle id="g_81" selected="#{d.PreferencesPanelUI.dayInfo.laboratory}" />
+<t:row id="g_77" >
+<t:label id="g_78" font="size:12;weight:bold" text="#{rr.literals.training_valuation}" width="200" />
+<t:coldistance id="g_79" />
+<t:toggle id="g_80" selected="#{d.PreferencesPanelUI.dayInfo.valuation}" />
 </t:row>
-<t:row id="g_82" >
-<t:label id="g_83" font="size:12;weight:bold" text="#{rr.literals.days}" width="200" />
-<t:coldistance id="g_84" />
-<t:toggle id="g_85" selected="#{d.PreferencesPanelUI.dayInfo.days}" />
+<t:row id="g_81" >
+<t:label id="g_82" font="size:12;weight:bold" text="#{rr.literals.laboratory}" width="200" />
+<t:coldistance id="g_83" />
+<t:toggle id="g_84" selected="#{d.PreferencesPanelUI.dayInfo.laboratory}" />
 </t:row>
-<t:row id="g_86" >
-<t:label id="g_87" font="size:12;weight:bold" text="#{rr.literals.illness}" width="200" />
-<t:coldistance id="g_88" />
-<t:toggle id="g_89" selected="#{d.PreferencesPanelUI.dayInfo.illness}" />
+<t:row id="g_85" >
+<t:label id="g_86" font="size:12;weight:bold" text="#{rr.literals.days}" width="200" />
+<t:coldistance id="g_87" />
+<t:toggle id="g_88" selected="#{d.PreferencesPanelUI.dayInfo.days}" />
 </t:row>
-<t:row id="g_90" >
-<t:label id="g_91" font="size:12;weight:bold" text="#{rr.literals.massage}" width="200" />
-<t:coldistance id="g_92" />
-<t:toggle id="g_93" selected="#{d.PreferencesPanelUI.dayInfo.massage}" />
+<t:row id="g_89" >
+<t:label id="g_90" font="size:12;weight:bold" text="#{rr.literals.illness}" width="200" />
+<t:coldistance id="g_91" />
+<t:toggle id="g_92" selected="#{d.PreferencesPanelUI.dayInfo.illness}" />
 </t:row>
-<t:row id="g_94" >
-<t:label id="g_95" font="size:12;weight:bold" text="#{rr.literals.therapy}" width="200" />
-<t:coldistance id="g_96" />
-<t:toggle id="g_97" selected="#{d.PreferencesPanelUI.dayInfo.therapy}" />
+<t:row id="g_93" >
+<t:label id="g_94" font="size:12;weight:bold" text="#{rr.literals.massage}" width="200" />
+<t:coldistance id="g_95" />
+<t:toggle id="g_96" selected="#{d.PreferencesPanelUI.dayInfo.massage}" />
 </t:row>
-<t:row id="g_98" >
-<t:label id="g_99" font="size:12;weight:bold" text="#{rr.literals.comments}" width="200" />
-<t:coldistance id="g_100" />
-<t:toggle id="g_101" selected="#{d.PreferencesPanelUI.dayInfo.comments}" />
+<t:row id="g_97" >
+<t:label id="g_98" font="size:12;weight:bold" text="#{rr.literals.therapy}" width="200" />
+<t:coldistance id="g_99" />
+<t:toggle id="g_100" selected="#{d.PreferencesPanelUI.dayInfo.therapy}" />
+</t:row>
+<t:row id="g_101" >
+<t:label id="g_102" font="size:12;weight:bold" text="#{rr.literals.comments}" width="200" />
+<t:coldistance id="g_103" />
+<t:toggle id="g_104" selected="#{d.PreferencesPanelUI.dayInfo.comments}" />
 </t:row>
 </t:tabbedpanetab>
 </t:tabbedpane>

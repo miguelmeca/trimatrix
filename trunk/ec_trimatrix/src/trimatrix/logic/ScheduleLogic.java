@@ -346,6 +346,15 @@ public class ScheduleLogic {
 		return logicLayer.getPreferencesLogic().getDayInfo(preferences.getDayinfos());
 	}
 
+	public DayInfo getDayInfo(String athleteId) {
+		if(athleteId.equals(serviceLayer.getDictionaryService().getMyPerson().getId())) {
+			return getDayInfo();
+		}
+		UserPreferences preferences = logicLayer.getPreferencesLogic().getPreferences(athleteId);
+		if(preferences==null) return null;
+		return logicLayer.getPreferencesLogic().getDayInfo(preferences.getDayinfos());
+	}
+
 	public void setServiceLayer(ServiceLayer serviceLayer) {
 		this.serviceLayer = serviceLayer;
 	}
