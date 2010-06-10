@@ -22,6 +22,7 @@ import org.eclnt.workplace.IWorkpageDispatcher;
 import trimatrix.db.SchedulesDetail;
 import trimatrix.db.Zones;
 import trimatrix.db.ZonesDefinition;
+import trimatrix.db.ZonesSwim;
 import trimatrix.logic.ScheduleLogic;
 import trimatrix.ui.ScheduleUI.ScheduleItem;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
@@ -290,11 +291,22 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 			scheduleDetail.setHrLow(zone.getHrLowRun());
 			scheduleDetail.setHrHigh(zone.getHrHighRun());
 			// swim logic
-			Integer distance = getScheduleDetail().getDistance();
-			if(distance!=null) {
-				scheduleDetail.setTimeLow(HelperTime.calculateTime(zone.getSpeedLowSwim() * distance, false));
-				scheduleDetail.setTimeHigh(HelperTime.calculateTime(zone.getSpeedHighSwim() * distance, false));
+			if(getTypeOrd()==ScheduleLogic.SWIM) {
+				Integer distance = getScheduleDetail().getDistance();
+				String athleteId = scheduleItem.getPersonId();
+				String definitionId = scheduleDetail.getZoneId();
+				if(isEmpty(distance)) return;
+				// individual swim zone
+				ZonesSwim zonesSwim = getLogic().getScheduleLogic().getZones(distance, athleteId, definitionId);
+				if(zonesSwim!=null) {
+					scheduleDetail.setTimeLow(zonesSwim.getTimeLow());
+					scheduleDetail.setTimeHigh(zonesSwim.getTimeHigh());
+				} else {
+					scheduleDetail.setTimeLow(HelperTime.calculateTime(zone.getSpeedLowSwim() * distance, false));
+					scheduleDetail.setTimeHigh(HelperTime.calculateTime(zone.getSpeedHighSwim() * distance, false));
+				}
 			}
+
 			// TODO Check case where HR is calculated by max HR
 		}
 
