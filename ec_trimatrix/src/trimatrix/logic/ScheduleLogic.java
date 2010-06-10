@@ -19,11 +19,14 @@ import trimatrix.db.Schedules;
 import trimatrix.db.SchedulesDetail;
 import trimatrix.db.UserPreferences;
 import trimatrix.db.ZonesDefinition;
+import trimatrix.db.ZonesSwim;
+import trimatrix.db.ZonesSwimId;
 import trimatrix.entities.EntityLayer;
 import trimatrix.logic.helper.DayInfo;
 import trimatrix.services.ServiceLayer;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
+import trimatrix.utils.HelperTime;
 
 public class ScheduleLogic {
 	public static final Log logger = LogFactory.getLog(ScheduleLogic.class);
@@ -262,6 +265,80 @@ public class ScheduleLogic {
 //		}
 //		return sb.toString();
 		return schedule.getDescription()!=null?schedule.getDescription():Constants.EMPTY;
+	}
+
+	/**
+	 * Get individual swim zone by distance, if no entry exits, do a linear approximation
+	 * by using ranges. If no range can be determined the lowest / highest zone found is taken.
+	 * @param distance
+	 * @param athleteId
+	 * @param zonesDefinitionId
+	 * @return
+	 */
+	public ZonesSwim getZones(Integer distance, String athleteId, String zonesDefinitionId) {
+		List<Integer> distinctDistances = serviceLayer.getSqlExecutorService().getDistinctDistances(athleteId);
+		ZonesSwim result = null;
+		if(distinctDistances.contains(distance)) {
+			ZonesSwimId id = new ZonesSwimId(distance, athleteId, zonesDefinitionId);
+			result = daoLayer.getZonesSwimDAO().findById(id);
+		} else {
+			// approximation
+			int size = distinctDistances.size()-2;
+			int low = 0;
+			int high = 0;
+			// determine range
+			if(size<0) { // only one entry
+				Integer distinctDistance = distinctDistances.get(0);
+				if(distance<distinctDistance) {
+					low = 0;
+					high = distinctDistance;
+				} else {
+					low = distinctDistance;
+					high = 0;
+				}
+			} else if(size==0) { // exactly two entries
+				Integer distinctDistance = distinctDistances.get(0);
+				Integer distinctDistanceNext = distinctDistances.get(1);
+				if(distance>distinctDistance && distance<distinctDistanceNext) {
+					low = distinctDistance;
+					high = distinctDistanceNext;
+				}
+			} else {
+				for(int i=0;i<size;i++) {
+					Integer distinctDistance = distinctDistances.get(i);
+					Integer distinctDistanceNext = distinctDistances.get(i+1);
+					if(distance>distinctDistance && distance<distinctDistanceNext) {
+						low = distinctDistance;
+						high = distinctDistanceNext;
+						break;
+					}
+				}
+			}
+			// approximate
+			if(low!=0 && high!=0) {
+				ZonesSwim zonesSwimLow = daoLayer.getZonesSwimDAO().findById(new ZonesSwimId(low, athleteId, zonesDefinitionId));
+				Double zonesSwimLowMsecsLow = HelperTime.calculateSecondsMsecs(zonesSwimLow.getTimeLow());
+				Double zonesSwimLowMsecsHigh = HelperTime.calculateSecondsMsecs(zonesSwimLow.getTimeHigh());
+
+				ZonesSwim zonesSwimHigh = daoLayer.getZonesSwimDAO().findById(new ZonesSwimId(high, athleteId, zonesDefinitionId));
+				Double zonesSwimHighMsecsLow = HelperTime.calculateSecondsMsecs(zonesSwimHigh.getTimeLow());
+				Double zonesSwimHighMsecsHigh = HelperTime.calculateSecondsMsecs(zonesSwimHigh.getTimeHigh());
+
+				Double zonesSwimMsecsLowDiff = zonesSwimHighMsecsLow - zonesSwimLowMsecsLow;
+				Double zonesSwimMsecsHighDiff = zonesSwimHighMsecsHigh - zonesSwimLowMsecsHigh;
+				Integer distanceDiff = high - low;
+
+				Integer distanceDelta = distance - low;
+
+				Double resultTimeLow = (zonesSwimMsecsLowDiff / distanceDiff * distanceDelta) + zonesSwimLowMsecsLow;
+				Double resultTimeHigh = (zonesSwimMsecsHighDiff / distanceDiff * distanceDelta) + zonesSwimLowMsecsHigh;
+
+				result = new ZonesSwim();
+				result.setTimeLow(HelperTime.calculateTime(resultTimeLow, false));
+				result.setTimeHigh(HelperTime.calculateTime(resultTimeHigh, false));
+			}
+		}
+		return result;
 	}
 
 	public DayInfo getDayInfo() {
