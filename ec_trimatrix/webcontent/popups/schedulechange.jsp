@@ -158,11 +158,11 @@
 <t:gridcol id="g_101" comment="target time" text="#{rr.literals.avg_target_time}" width="100" >
 <t:pane id="g_102" width="100%" >
 <t:row id="g_103" >
-<t:field id="g_104" actionListener=".{onTimeFlush}" align="right!" bgpaint="write(5,2,#{rr.literals.from},left)" clientname="timeLowSwim" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" maxlength="9" text=".{scheduleDetail.timeLow}" width="100%" />
+<t:field id="g_104" actionListener=".{onTimeFlush}" align="right!" bgpaint="write(5,2,#{rr.literals.from},left)" clientname="timeLowSwim" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" maxlength="9" text=".{scheduleDetail.timeLow}" tooltip="mm:ss,zzz" userhint="mm:ss,zzz" width="100%" />
 </t:row>
 <t:rowline id="g_105" />
 <t:row id="g_106" >
-<t:field id="g_107" actionListener=".{onTimeFlush}" align="right!" bgpaint="write(5,2,#{rr.literals.to},left)" clientname="timeHighSwim" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" maxlength="9" text=".{scheduleDetail.timeHigh}" width="100%" />
+<t:field id="g_107" actionListener=".{onTimeFlush}" align="right!" bgpaint="write(5,2,#{rr.literals.to},left)" clientname="timeHighSwim" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" maxlength="9" text=".{scheduleDetail.timeHigh}" tooltip="mm:ss,zzz" userhint="mm:ss,zzz" width="100%" />
 </t:row>
 </t:pane>
 </t:gridcol>
