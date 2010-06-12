@@ -17,32 +17,32 @@
 <t:rowdynamiccontent id="g_3" contentbinding="#{d.ScheduleChangePopUp.labelRow}" />
 <t:row id="g_4" >
 <t:foldablepane id="g_5" font="size:14;weight:bold" rowdistance="5" text="#{rr.literals.summary}" width="100%" >
-<t:row id="g_6" rendered="#{d.ScheduleChangePopUp.template==false}" >
-<t:label id="g_7" text="#{rr.literals.start}" width="90" />
-<t:calendarfield id="g_8" enabled="#{d.ScheduleChangePopUp.creatorsSight}" exacttime="true" flush="true" format="datetime" formatmask="short" timezone="CET" value="#{d.ScheduleChangePopUp.start}" width="120" />
-<t:coldistance id="g_9" />
-<t:label id="g_10" text="#{rr.literals.total_duration}" />
-<t:coldistance id="g_11" />
-<t:field id="g_12" align="center" enabled="#{d.ScheduleChangePopUp.creatorsSight}" text="#{d.ScheduleChangePopUp.duration}" width="80" />
-<t:coldistance id="g_13" />
-<t:checkbox id="g_14" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" selected="#{d.ScheduleChangePopUp.done}" text="#{rr.literals.done}" />
-<t:coldistance id="g_15" width="100%" />
-<t:colorfield id="g_16" background="#{d.ScheduleChangePopUp.color}" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" focusable="false" foreground="#FFFFFF00" value="#{d.ScheduleChangePopUp.color}" width="100" />
+<t:row id="g_6" rendered="#{d.ScheduleChangePopUp.template==true}" >
+<t:label id="g_7" text="#{rr.literals.template}" width="90" />
+<t:field id="g_8" bgpaint="mandatory()" text="#{d.ScheduleChangePopUp.templateName}" width="250" />
+<t:coldistance id="g_9" width="100%" />
+<t:colorfield id="g_10" background="#{d.ScheduleChangePopUp.color}" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" focusable="false" foreground="#FFFFFF00" value="#{d.ScheduleChangePopUp.color}" width="100" />
 </t:row>
-<t:row id="g_17" rendered="#{d.ScheduleChangePopUp.template==true}" >
-<t:label id="g_18" text="#{rr.literals.template}" width="90" />
-<t:field id="g_19" bgpaint="mandatory()" text="#{d.ScheduleChangePopUp.templateName}" width="250" />
-<t:coldistance id="g_20" width="100%" />
-<t:colorfield id="g_21" background="#{d.ScheduleChangePopUp.color}" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" focusable="false" foreground="#FFFFFF00" value="#{d.ScheduleChangePopUp.color}" width="100" />
+<t:row id="g_11" >
+<t:label id="g_12" text="#{rr.literals.type}" width="90" />
+<t:combobox id="g_13" bgpaint="mandatory()" enabled="#{d.ScheduleChangePopUp.enableType}" flush="true" validvaluesbinding="#{helper.vvb.scheduletype}" value="#{d.ScheduleChangePopUp.type}" width="120" />
 </t:row>
-<t:row id="g_22" >
-<t:label id="g_23" text="#{rr.literals.type}" width="90" />
-<t:combobox id="g_24" bgpaint="mandatory()" enabled="#{d.ScheduleChangePopUp.enableType}" flush="true" validvaluesbinding="#{helper.vvb.scheduletype}" value="#{d.ScheduleChangePopUp.type}" width="120" />
+<t:row id="g_14" >
+<t:label id="g_15" text="#{rr.literals.description}" width="80" />
+<t:coldistance id="g_16" />
+<t:textarea id="g_17" enabled="#{d.ScheduleChangePopUp.creatorsSight}" height="50" text="#{d.ScheduleChangePopUp.text}" width="300" />
 </t:row>
-<t:row id="g_25" >
-<t:label id="g_26" text="#{rr.literals.description}" width="80" />
-<t:coldistance id="g_27" />
-<t:textarea id="g_28" enabled="#{d.ScheduleChangePopUp.creatorsSight}" height="50" text="#{d.ScheduleChangePopUp.text}" width="300" />
+<t:row id="g_18" rendered="#{d.ScheduleChangePopUp.template==false}" >
+<t:label id="g_19" text="#{rr.literals.start}" width="90" />
+<t:calendarfield id="g_20" enabled="#{d.ScheduleChangePopUp.creatorsSight}" exacttime="true" flush="true" format="datetime" formatmask="short" timezone="CET" value="#{d.ScheduleChangePopUp.start}" width="120" />
+<t:coldistance id="g_21" />
+<t:label id="g_22" text="#{rr.literals.total_duration}" />
+<t:coldistance id="g_23" />
+<t:field id="g_24" align="center" enabled="#{d.ScheduleChangePopUp.creatorsSight}" text="#{d.ScheduleChangePopUp.duration}" width="80" />
+<t:coldistance id="g_25" />
+<t:checkbox id="g_26" enabled="#{d.ScheduleChangePopUp.creatorsSight||#{d.ScheduleChangePopUp.personsSight}" selected="#{d.ScheduleChangePopUp.done}" text="#{rr.literals.done}" />
+<t:coldistance id="g_27" width="100%" />
+<t:colorfield id="g_28" background="#{d.ScheduleChangePopUp.color}" enabled="#{d.ScheduleChangePopUp.creatorsSight}" flush="true" focusable="false" foreground="#FFFFFF00" value="#{d.ScheduleChangePopUp.color}" width="100" />
 </t:row>
 </t:foldablepane>
 </t:row>
