@@ -13,7 +13,10 @@ import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
+import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -63,6 +66,7 @@ import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SFunctionTree;
 import trimatrix.utils.Constants;
 import trimatrix.utils.ContextStatic;
+import trimatrix.utils.HibernateSessionFactory;
 
 public class DBConnectionTest {
 	private ApplicationContext context = ContextStatic.getInstance();
@@ -466,6 +470,18 @@ public class DBConnectionTest {
 		Assert.assertEquals(new Integer(10), template2.getStartingRow());
 		Assert.assertEquals("mapping", template2.getMapping());
 		daoLayer.getImportTemplatesDAO().delete(template2);
+	}
+
+	@Test
+	public void testCriterias() {
+		Session session = HibernateSessionFactory.getSession();
+		Criteria criteria = session.createCriteria(Persons.class);
+		criteria.add(Restrictions.like("nameFirst", "Dani%"));
+		List<Persons> persons = criteria.list();
+		session.close();
+		for(Persons person : persons) {
+			System.out.println(person.getNameFirst() + " " + person.getNameLast());
+		}
 	}
 
 	@After
