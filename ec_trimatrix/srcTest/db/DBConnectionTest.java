@@ -62,8 +62,10 @@ import trimatrix.db.Zones;
 import trimatrix.db.ZonesDefinition;
 import trimatrix.db.ZonesSwim;
 import trimatrix.db.ZonesSwimId;
+import trimatrix.entities.IEntityObject;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SFunctionTree;
+import trimatrix.structures.SRange;
 import trimatrix.utils.Constants;
 import trimatrix.utils.ContextStatic;
 import trimatrix.utils.HibernateSessionFactory;
@@ -474,13 +476,44 @@ public class DBConnectionTest {
 
 	@Test
 	public void testCriterias() {
+		List<SRange<?>> ranges = new ArrayList<SRange<?>>();
+//		SRange<String> rangeStr;
+//		rangeStr = new SRange<String>();
+//		rangeStr.field = "nameFirst";
+//		rangeStr.invert = false;
+//		rangeStr.operator = SRange.Operator.LIKE;
+//		rangeStr.low = "Dani%";
+//		ranges.add(rangeStr);
+//		rangeStr = new SRange<String>();
+//		rangeStr.field = "nameLast";
+//		rangeStr.invert = false;
+//		rangeStr.operator = SRange.Operator.LIKE;
+//		rangeStr.low = "%ucher%";
+//		ranges.add(rangeStr);
+		SRange<Integer> rangeInt;
+		rangeInt = new SRange<Integer>();
+		rangeInt.field = "profileAthlete.maxHr";
+		rangeInt.invert = false;
+		rangeInt.operator = SRange.Operator.GT;
+		rangeInt.low = new Integer(10);
+		ranges.add(rangeInt);
 		Session session = HibernateSessionFactory.getSession();
 		Criteria criteria = session.createCriteria(Persons.class);
-		criteria.add(Restrictions.like("nameFirst", "Dani%"));
-		List<Persons> persons = criteria.list();
+		criteria.createAlias("profileAthlete", "profileAthlete");
+		for(SRange _range : ranges) {
+			switch (_range.operator) {
+			case LIKE:
+				criteria.add(Restrictions.like(_range.field, _range.low));
+				break;
+			case GT:
+				criteria.add(Restrictions.gt(_range.field, _range.low));
+				break;
+			}
+		}
+		List<IEntityObject> persons = criteria.list();
 		session.close();
-		for(Persons person : persons) {
-			System.out.println(person.getNameFirst() + " " + person.getNameLast());
+		for(IEntityObject person : persons) {
+			System.out.println(person.toString());
 		}
 	}
 

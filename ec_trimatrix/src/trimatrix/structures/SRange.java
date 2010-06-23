@@ -2,7 +2,7 @@ package trimatrix.structures;
 
 public class SRange<T> {
 	public static enum Operator {
-		EQ, GT, LT, BT
+		EQ, GT, LT, BT, LIKE
 	}
 
 	public String field;
@@ -19,4 +19,6 @@ public class SRange<T> {
 		this.low = low;
 		this.high = high;
 	}
+
+	public SRange() { };
 }
