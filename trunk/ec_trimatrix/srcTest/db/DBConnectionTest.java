@@ -16,6 +16,7 @@ import javax.imageio.ImageIO;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
+import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
 import org.junit.After;
 import org.junit.Assert;
@@ -499,6 +500,12 @@ public class DBConnectionTest {
 		ranges.add(rangeInt);
 		Session session = HibernateSessionFactory.getSession();
 		Criteria criteria = session.createCriteria(Persons.class);
+
+//		Disjunction disjunction = Restrictions.disjunction();
+//		disjunction.add(Restrictions.like("nameFirst", "Dani%"));
+//		disjunction.add(Restrictions.like("nameFirst", "Sab%"));
+//		criteria.add(disjunction);
+
 		criteria.createAlias("profileAthlete", "profileAthlete");
 		for(SRange _range : ranges) {
 			switch (_range.operator) {
