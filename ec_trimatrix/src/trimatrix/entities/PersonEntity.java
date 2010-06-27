@@ -14,15 +14,20 @@ import trimatrix.db.Persons;
 import trimatrix.db.PersonsAthlete;
 import trimatrix.db.Users;
 import trimatrix.structures.SGridMetaData;
+import trimatrix.structures.SSearchMetaData;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.Role;
 
 public final class PersonEntity extends AEntity {
+	public PersonEntity() {
+		super(Persons.class);
+	}
+
 	// Constants
 	public static final String SALUTATION = "salutation";
-	public static final String NAME_FIRST = "name_first";
-    public static final String NAME_LAST = "name_last";
+	public static final String NAME_FIRST = "nameFirst";
+    public static final String NAME_LAST = "nameLast";
     public static final String EMAIL = "email";
     public static final String SEX = "sex";
     public static final String BIRTHDATE = "birthdate";
@@ -68,6 +73,18 @@ public final class PersonEntity extends AEntity {
         gridMetaData.add(new SGridMetaData(Helper.getLiteral("fax"), FAX, SGridMetaData.Component.FIELD));
         return gridMetaData;
     }
+
+
+
+	@Override
+	public List<SSearchMetaData> getSearchMetaData() {
+		List<SSearchMetaData> searchMetaData = new ArrayList<SSearchMetaData>();
+		searchMetaData.add(new SSearchMetaData(Helper.getLiteral("person_first_name"), NAME_FIRST));
+		searchMetaData.add(new SSearchMetaData(Helper.getLiteral("person_last_name"), NAME_LAST));
+		return searchMetaData;
+	}
+
+
 
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#getData()
@@ -192,8 +209,8 @@ public final class PersonEntity extends AEntity {
 	public static class Data implements IEntityData {
 		public String id;
 		public String salutation;
-		public String name_first;
-		public String name_last;
+		public String nameFirst;
+		public String nameLast;
 		public String sex;
 		public String street;
 		public String housenumber;
@@ -219,19 +236,19 @@ public final class PersonEntity extends AEntity {
 		@Override
 		public String toString() {
 			// same as DB entity implementation
-			return (name_first + " " + name_last).replace(Constants.NULL, Constants.EMPTY).trim();
+			return (nameFirst + " " + nameLast).replace(Constants.NULL, Constants.EMPTY).trim();
 		}
 
 		public String getSalutation() {
 			return salutation;
 		}
 
-		public String getName_first() {
-			return name_first;
+		public String getNameFirst() {
+			return nameFirst;
 		}
 
-		public String getName_last() {
-			return name_last;
+		public String getNameLast() {
+			return nameLast;
 		}
 
 		public String getSex() {

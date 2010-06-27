@@ -18,6 +18,9 @@ import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.Relation;
 
 public final class CompetitionEntity extends AEntity {
+	public CompetitionEntity() {
+		super(Competitions.class);
+	}
 
 	// Constants
 	public static final String DATE = "date";

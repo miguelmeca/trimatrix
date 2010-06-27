@@ -18,6 +18,10 @@ import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
 
 public final class TestEntity extends AEntity {
+	public TestEntity() {
+		super(Tests.class);
+	}
+
 	// Enums
 	public static enum TYPE {
 		ERGO, TREADMILL

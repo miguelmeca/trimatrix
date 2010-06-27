@@ -25,325 +25,374 @@ import trimatrix.logic.EntityListLogic;
 import trimatrix.structures.SAuthorization;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.structures.SListVariant;
+import trimatrix.structures.SSearchMetaData;
 import trimatrix.ui.utils.MyWorkpage;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.ui.utils.WorkpageRefreshEvent;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
+import trimatrix.utils.SearchRange;
 import trimatrix.utils.Constants.Entity;
 import trimatrix.utils.Constants.Mode;
 
 @SuppressWarnings("serial")
 @CCGenClass(expressionBase = "#{d.EntityListUI}")
-public class EntityListUI extends MyWorkpageDispatchedBean implements
-        Serializable, IWorkpageProcessingEventListener {
+public class EntityListUI extends MyWorkpageDispatchedBean implements Serializable, IWorkpageProcessingEventListener {
 
-    public final EntityListUI entityList = this;
-    private final EntityListLogic ENTITYLISTLOGIC = getLogic().getEntityListLogic();
-    private List<SGridMetaData> gridMetaData;
-    private List<IEntityData> gridData;
-    private Constants.Entity entity;
-    public Constants.Entity getEntity() { return entity; }
-    private SAuthorization authorization;
-    private String personId;
-    private String filter;
-    public boolean getCreateAllowed() { return authorization.create; }
-    public boolean getDeleteAllowed() { return authorization.delete; }
-    public boolean getChangeAllowed() { return authorization.change; }
-    private boolean renderButtons;
-    public boolean getRenderButtons() { return renderButtons; }
+	public final EntityListUI entityList = this;
+	private final EntityListLogic ENTITYLISTLOGIC = getLogic().getEntityListLogic();
+	private List<SGridMetaData> gridMetaData;
+	private List<SSearchMetaData> searchMetaData;
+	private List<IEntityData> gridData;
+	private Constants.Entity entity;
+	private SearchRange searchRange;
 
-    // Constructor
-    public EntityListUI(IWorkpageDispatcher dispatcher) {
-        super(dispatcher);
-        // register listener for events
-        getWorkpage().addWorkpageProcessingEventListener(this);
-        // get parameters from functiontree
-        // get authorization
-        String create = getWorkpage().getParam(Constants.CREATE);
-        String change = getWorkpage().getParam(Constants.CHANGE);
-        String delete = getWorkpage().getParam(Constants.DELETE);
-        if(create==null || !create.equals(Constants.TRUE)) create = Constants.FALSE;
-        if(change==null || !change.equals(Constants.TRUE)) change = Constants.FALSE;
-        if(delete==null || !delete.equals(Constants.TRUE)) delete = Constants.FALSE;
-        authorization = new SAuthorization(create, change, delete);
-        // render buttons
-        renderButtons = true;
-        // get entity
-        String strEntity = getWorkpage().getParam(Constants.P_ENTITY);
-        try {
-            entity = Constants.Entity.valueOf(strEntity.toUpperCase());
-        } catch (Exception ex) {
-            //Statusbar.outputAlert(Helper.getMessages("entity_wrong"), Helper.getLiteral("error"), Helper.getMessages("entity_wrong_detail")).setLeftTopReferenceCentered();
-        	Logger.getRootLogger().error(Helper.getMessages("entity_wrong"));
-        	getWorkpageContainer().closeWorkpage(getWorkpage());
-        }
-        // get entity id
-        personId = getWorkpage().getParam(Constants.P_PERSON);
-        // get filter
-        filter = getWorkpage().getParam(Constants.P_FILTER);
-        // set up grid output
-        gridMetaData = ENTITYLISTLOGIC.getGridMetaData(entity, filter);
-        // if base is a relation, add standard column
-        if(entity.hasStandard()) {
-            gridMetaData.add(0, new SGridMetaData("#{rr.literals.standard}", Constants.STANDARD, SGridMetaData.Component.CHECKBOX));
-        }
-        buildData(filter);
-    }
+	public Constants.Entity getEntity() {
+		return entity;
+	}
 
-    // Constructor for LabelSearchResult
-    public EntityListUI(IWorkpageDispatcher dispatcher, Constants.Entity entity, List<String> ids, SAuthorization authorization) {
-        super(dispatcher);
-        // render no buttons
-        renderButtons = false;
-        this.authorization = authorization;
-        this.entity = entity;
-        personId = null;
-        gridMetaData = ENTITYLISTLOGIC.getGridMetaData(entity, null);
-        buildData(ids);
-    }
+	private SAuthorization authorization;
+	private String personId;
+	private String filter;
 
-    protected FIXGRIDListBinding<GridListItem> m_gridList = new FIXGRIDListBinding<GridListItem>(
-            false); // optimiziation active
+	public boolean getCreateAllowed() {
+		return authorization.create;
+	}
 
-    public FIXGRIDListBinding<GridListItem> getGridList() {
-        return m_gridList;
-    }
+	public boolean getDeleteAllowed() {
+		return authorization.delete;
+	}
 
-    public void setGridList(FIXGRIDListBinding<GridListItem> value) {
-        m_gridList = value;
-    }
+	public boolean getChangeAllowed() {
+		return authorization.change;
+	}
 
-    protected ROWDYNAMICCONTENTBinding m_dynRow = new ROWDYNAMICCONTENTBinding();
+	private boolean renderButtons;
 
-    public ROWDYNAMICCONTENTBinding getDynRow() {
-        return m_dynRow;
-    }
+	public boolean getRenderButtons() {
+		return renderButtons;
+	}
 
-    public void setDynRow(ROWDYNAMICCONTENTBinding row) {
-        m_dynRow = row;
-    }
+	public boolean getRenderSearch() {
+		return searchMetaData.size() > 0;
+	}
 
-    private void setRowDynamic() {
-        int maxRows = ENTITYLISTLOGIC.getVisibleAmount();
-        String dragKey = Constants.P_ENTITY + ":" + Constants.P_ENTITYLIST;
-        StringBuffer xml = new StringBuffer();
-        xml.append("<t:fixgrid width='100%' avoidroundtrips='true' rowdragsend='" + dragKey + "' drawoddevenrows='true' objectbinding='#{d.EntityListUI.gridList}' cellselection='false' rowheight='20' sbvisibleamount='" + maxRows + "' showemptyrows='false' horizontalscrollmode='autowithresize' selectorcolumn='1'>");
-        // selector column
-        //xml.append("<t:gridcol columnresizingenabled='false' searchenabled='false' sortenabled='false' width='20'><t:gridrowselector /></t:gridcol>");
-        // build dynamic columns
-        for (SGridMetaData meta : gridMetaData) {
-            // component type checkbox
-            boolean isIndividual = false;
-            if (meta.component == SGridMetaData.Component.INDIVIDUAL) {
-                isIndividual = true;
-            }
-            boolean isCheckBox = false;
-            if (meta.component == SGridMetaData.Component.CHECKBOX) {
-                isCheckBox = true;
-            }
-            boolean isCalendarField = false;
-            if (meta.component == SGridMetaData.Component.CALENDARFIELD) {
-                isCalendarField = true;
-            }
-            boolean isFormatedDateTime = false;
-            if (meta.component == SGridMetaData.Component.FORMATED_DATETIME) {
-                isFormatedDateTime = true;
-            }
-            boolean isFormatedDouble = false;
-            if (meta.component == SGridMetaData.Component.FORMATED_DOUBLE) {
-                isFormatedDouble = true;
-            }
-            boolean isColorField = false;
-            if (meta.component == SGridMetaData.Component.COLORFIELD) {
-                isColorField = true;
-            }
-            boolean isIcon = false;
-            if (meta.component == SGridMetaData.Component.ICON) {
-                isIcon= true;
-            }
-            xml.append("<t:gridcol text='" + meta.header
-                    + "' align='center' width='" + meta.width + "' sortreference='.{datum." + meta.techname
-                    + "}' searchenabled='true'>");
-            if (isIndividual) xml.append(meta.code);
-            else if (isCheckBox) {
-                xml.append("<t:checkbox align='center' selected='.{datum."
-                        + meta.techname + "}' enabled='false'/>");
-            } else if (isCalendarField) {
-                xml.append("<t:calendarfield value='.{datum."
-                        + meta.techname + "}' format='date' timezone='CET' enabled='false'/>");
-            } else if (isFormatedDateTime) {
-                xml.append("<t:formattedfield value='.{datum."
-                        + meta.techname + "}' format='datetime' formatmask='medium' enabled='false' width='100'/>");
-            } else if (isFormatedDouble) {
-                xml.append("<t:formattedfield value='.{datum."
-                        + meta.techname + "}' format='double' enabled='false' width='100'/>");
-            } else if (isColorField) {
-                xml.append("<t:label background='.{datum."
-                        + meta.techname + "}' focusable='false' width='20' height='20'/>");
-            } else if (isIcon) {
-                xml.append("<t:icon align='center' image='.{datum."
-                        + meta.techname + "}' enabled='true' imageheight='20' imagewidth='20'/>");
-            } else {
-                xml.append("<t:field text='.{datum." + meta.techname
-                        + "}' enabled='false'/>");
-            }
-            xml.append("</t:gridcol>");
-        }
-        xml.append("</t:fixgrid>");
-        m_dynRow.setContentXml(xml.toString());
-    }
+	// Constructor
+	public EntityListUI(IWorkpageDispatcher dispatcher) {
+		super(dispatcher);
+		// register listener for events
+		getWorkpage().addWorkpageProcessingEventListener(this);
+		// get parameters from functiontree
+		// get authorization
+		String create = getWorkpage().getParam(Constants.CREATE);
+		String change = getWorkpage().getParam(Constants.CHANGE);
+		String delete = getWorkpage().getParam(Constants.DELETE);
+		if (create == null || !create.equals(Constants.TRUE))
+			create = Constants.FALSE;
+		if (change == null || !change.equals(Constants.TRUE))
+			change = Constants.FALSE;
+		if (delete == null || !delete.equals(Constants.TRUE))
+			delete = Constants.FALSE;
+		authorization = new SAuthorization(create, change, delete);
+		// render buttons
+		renderButtons = true;
+		// get entity
+		String strEntity = getWorkpage().getParam(Constants.P_ENTITY);
+		try {
+			entity = Constants.Entity.valueOf(strEntity.toUpperCase());
+		} catch (Exception ex) {
+			// Statusbar.outputAlert(Helper.getMessages("entity_wrong"),
+			// Helper.getLiteral("error"),
+			// Helper.getMessages("entity_wrong_detail")).setLeftTopReferenceCentered();
+			Logger.getRootLogger().error(Helper.getMessages("entity_wrong"));
+			getWorkpageContainer().closeWorkpage(getWorkpage());
+		}
+		// get entity id
+		personId = getWorkpage().getParam(Constants.P_PERSON);
+		// get filter
+		filter = getWorkpage().getParam(Constants.P_FILTER);
+		// set up grid output
+		gridMetaData = ENTITYLISTLOGIC.getGridMetaData(entity, filter);
+		// set up search
+		searchMetaData = ENTITYLISTLOGIC.getSearchMetaData(entity);
+		searchRange = new SearchRange();
+		// if base is a relation, add standard column
+		if (entity.hasStandard()) {
+			gridMetaData.add(0, new SGridMetaData("#{rr.literals.standard}", Constants.STANDARD, SGridMetaData.Component.CHECKBOX));
+		}
+		buildData(filter);
+	}
 
-    public void onRefresh(ActionEvent event) {
-        buildData(filter);
-    }
+	// Constructor for LabelSearchResult
+	public EntityListUI(IWorkpageDispatcher dispatcher, Constants.Entity entity, List<String> ids, SAuthorization authorization) {
+		super(dispatcher);
+		// render no buttons
+		renderButtons = false;
+		this.authorization = authorization;
+		this.entity = entity;
+		personId = null;
+		gridMetaData = ENTITYLISTLOGIC.getGridMetaData(entity, null);
+		buildData(ids);
+	}
 
-    public void onNew(ActionEvent event) {
-        IWorkpageDispatcher wpd = getOwningDispatcher();
-        IWorkpageContainer wpc = getWorkpageContainer();
-        IWorkpage wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.getUrl(),
-                null, Helper.getLiteral("new_entity"), null, true, entityList, authorization, null);
-        wp.setParam(Constants.P_ENTITY, entity.name());
-        wp.setParam(Constants.P_MODE, Constants.Mode.NEW.name());
-        wpc.addWorkpage(wp);
-    }
+	protected FIXGRIDListBinding<GridListItem> m_gridList = new FIXGRIDListBinding<GridListItem>(false); // optimiziation
+																											// active
 
-    public void onDelete(ActionEvent event) {
-        final GridListItem selectedItem = m_gridList.getSelectedItem();
-        if(selectedItem == null) {
-            Statusbar.outputMessage(Helper.getMessages("no_entry_selected"));
-            return;
-        }
-        final String selectedID = ((IEntityData)selectedItem.getDatum()).getId();
-        if(selectedID!=null && selectedID.length()>0) {
-            YESNOPopup popup = YESNOPopup.createInstance(
-                    String.format(Helper.getMessages("confirm_delete_detail"), selectedItem.getDatum().toString()),
-                    Helper.getMessages("confirm_delete"),
-                    new IYesNoCancelListener(){
+	public FIXGRIDListBinding<GridListItem> getGridList() {
+		return m_gridList;
+	}
 
-                        public void reactOnCancel() {}
+	public void setGridList(FIXGRIDListBinding<GridListItem> value) {
+		m_gridList = value;
+	}
 
-                        public void reactOnNo() {}
+	protected ROWDYNAMICCONTENTBinding m_dynSearchRow = new ROWDYNAMICCONTENTBinding();
 
-                        public void reactOnYes() {
-                            // own entities
-                            // special treatment for base entities that are not allowed to be in a relation e.g. TESTS
-                            if(personId==null || entity.getBase().noRelation()) {
-                                if(ENTITYLISTLOGIC.delete(entity, selectedID)) {
-                                    Statusbar.outputSuccess(Helper.getMessages("delete_success"));
-                                    m_gridList.getItems().remove(selectedItem);
-                                    closeWorkpages(selectedID);
-                                    return;
-                                }
-                            } else {	// other person entities
-                                if(ENTITYLISTLOGIC.delete(entity, selectedID, personId)) {
-                                    Statusbar.outputSuccess(Helper.getMessages("relation_delete_success"));
-                                    m_gridList.getItems().remove(selectedItem);
-                                    closeWorkpages(selectedID);
-                                    return;
-                                }
-                            }
-                            Statusbar.outputAlert(Helper.getMessages("delete_failure"), Helper.getLiteral("error")).setLeftTopReferenceCentered();
-                        }
-                    }
-            );
-            popup.getModalPopup().setLeftTopReferenceCentered();
-        }
-    }
+	public ROWDYNAMICCONTENTBinding getDynSearchRow() {
+		return m_dynSearchRow;
+	}
 
-    private void closeWorkpages(String id) {
-    	IWorkpage workpage = getWorkpageContainer().getWorkpageForId(id);
-    	if(workpage!=null) getWorkpageContainer().closeWorkpage(workpage);
-    }
+	public void setDynSearchRow(ROWDYNAMICCONTENTBinding row) {
+		m_dynSearchRow = row;
+	}
 
-    // common build method
-    private void buildData(String filter) {
-        // load entities from database
-        gridData = ENTITYLISTLOGIC.getData(entity, personId, filter);
-        // rebuild grid list
-        m_gridList.getItems().clear();
-        for (IEntityData datum : gridData) {
-            m_gridList.getItems().add(new GridListItem(datum));
-        }
-        setRowDynamic();
-        // load grid state
-        loadGridState();
-        // print logic
-        setPrintReport();
-    }
+	protected ROWDYNAMICCONTENTBinding m_dynRow = new ROWDYNAMICCONTENTBinding();
 
-    // special build method for labelsearch
-    public void buildData(List<String> ids) {
-        // load entities from database
-        gridData = ENTITYLISTLOGIC.getData(entity, ids);
-        // rebuild grid list
-        m_gridList.getItems().clear();
-        for (IEntityData datum : gridData) {
-            m_gridList.getItems().add(new GridListItem(datum));
-        }
-        setRowDynamic();
-        // load grid state
-        loadGridState();
-        // print logic
-        setPrintReport();
-    }
+	public ROWDYNAMICCONTENTBinding getDynRow() {
+		return m_dynRow;
+	}
 
-    public void saveGridState(ActionEvent event) {
-        SListVariant lv = new SListVariant(m_gridList.getColumnsequence(), m_gridList.getModcolumnwidths());
-        ENTITYLISTLOGIC.saveGridState(entity, lv);
-    }
+	public void setDynRow(ROWDYNAMICCONTENTBinding row) {
+		m_dynRow = row;
+	}
 
-    private void loadGridState() {
-        SListVariant lv = ENTITYLISTLOGIC.loadGridState(entity);
-        if(lv==null) return;
-        m_gridList.setColumnsequence(lv.columnsSequence);
-        m_gridList.setModcolumnwidths(lv.columnsWidth);
-    }
+	private void setRowDynamic() {
+		setDynamicSearch();
+		setDynamicGrid();
+	}
 
-    private void setPrintReport() {
-        // Print report
-        if(report!=null) BufferedContentMgr.remove(report);
-        report = ENTITYLISTLOGIC.getPrintReport(entity, filter, gridData);
-        if(report!=null) BufferedContentMgr.add(report);
-    }
+	private void setDynamicGrid() {
+		int maxRows = ENTITYLISTLOGIC.getVisibleAmount();
+		String dragKey = Constants.P_ENTITY + ":" + Constants.P_ENTITYLIST;
+		StringBuffer xml = new StringBuffer();
+		xml.append("<t:fixgrid width='100%' avoidroundtrips='true' rowdragsend='" + dragKey
+				+ "' drawoddevenrows='true' objectbinding='#{d.EntityListUI.gridList}' cellselection='false' rowheight='20' sbvisibleamount='" + maxRows
+				+ "' showemptyrows='false' horizontalscrollmode='autowithresize' selectorcolumn='1'>");
+		// selector column
+		// xml.append("<t:gridcol columnresizingenabled='false' searchenabled='false' sortenabled='false' width='20'><t:gridrowselector /></t:gridcol>");
+		// build dynamic columns
+		for (SGridMetaData meta : gridMetaData) {
+			// component type checkbox
+			boolean isIndividual = false;
+			if (meta.component == SGridMetaData.Component.INDIVIDUAL) {
+				isIndividual = true;
+			}
+			boolean isCheckBox = false;
+			if (meta.component == SGridMetaData.Component.CHECKBOX) {
+				isCheckBox = true;
+			}
+			boolean isCalendarField = false;
+			if (meta.component == SGridMetaData.Component.CALENDARFIELD) {
+				isCalendarField = true;
+			}
+			boolean isFormatedDateTime = false;
+			if (meta.component == SGridMetaData.Component.FORMATED_DATETIME) {
+				isFormatedDateTime = true;
+			}
+			boolean isFormatedDouble = false;
+			if (meta.component == SGridMetaData.Component.FORMATED_DOUBLE) {
+				isFormatedDouble = true;
+			}
+			boolean isColorField = false;
+			if (meta.component == SGridMetaData.Component.COLORFIELD) {
+				isColorField = true;
+			}
+			boolean isIcon = false;
+			if (meta.component == SGridMetaData.Component.ICON) {
+				isIcon = true;
+			}
+			xml.append("<t:gridcol text='" + meta.header + "' align='center' width='" + meta.width + "' sortreference='.{datum." + meta.techname + "}' searchenabled='true'>");
+			if (isIndividual)
+				xml.append(meta.code);
+			else if (isCheckBox) {
+				xml.append("<t:checkbox align='center' selected='.{datum." + meta.techname + "}' enabled='false'/>");
+			} else if (isCalendarField) {
+				xml.append("<t:calendarfield value='.{datum." + meta.techname + "}' format='date' timezone='CET' enabled='false'/>");
+			} else if (isFormatedDateTime) {
+				xml.append("<t:formattedfield value='.{datum." + meta.techname + "}' format='datetime' formatmask='medium' enabled='false' width='100'/>");
+			} else if (isFormatedDouble) {
+				xml.append("<t:formattedfield value='.{datum." + meta.techname + "}' format='double' enabled='false' width='100'/>");
+			} else if (isColorField) {
+				xml.append("<t:label background='.{datum." + meta.techname + "}' focusable='false' width='20' height='20'/>");
+			} else if (isIcon) {
+				xml.append("<t:icon align='center' image='.{datum." + meta.techname + "}' enabled='true' imageheight='20' imagewidth='20'/>");
+			} else {
+				xml.append("<t:field text='.{datum." + meta.techname + "}' enabled='false'/>");
+			}
+			xml.append("</t:gridcol>");
+		}
+		xml.append("</t:fixgrid>");
+		m_dynRow.setContentXml(xml.toString());
+	}
 
-    public class GridListItem extends FIXGRIDItem implements
-            java.io.Serializable {
-        public IEntityData datum;
-        public Object parent;
+	private void setDynamicSearch() {
+		StringBuffer xml = new StringBuffer();
+		xml.append("<t:field text='Search' enabled='false'/>");
+		m_dynSearchRow.setContentXml(xml.toString());
+	}
 
-        public GridListItem(IEntityData datum) {
-            super();
-            this.datum = datum;
-        }
+	public void onRefresh(ActionEvent event) {
+		buildData(filter);
+	}
 
-        public Object getDatum() {
-            return datum;
-        }
+	public void onNew(ActionEvent event) {
+		IWorkpageDispatcher wpd = getOwningDispatcher();
+		IWorkpageContainer wpc = getWorkpageContainer();
+		IWorkpage wp = new MyWorkpage(wpd, Constants.Page.ENTITYDETAIL.getUrl(), null, Helper.getLiteral("new_entity"), null, true, entityList, authorization, null);
+		wp.setParam(Constants.P_ENTITY, entity.name());
+		wp.setParam(Constants.P_MODE, Constants.Mode.NEW.name());
+		wpc.addWorkpage(wp);
+	}
 
-        public void setDatum(IEntityData datum) {
-            this.datum = datum;
-        }
+	public void onDelete(ActionEvent event) {
+		final GridListItem selectedItem = m_gridList.getSelectedItem();
+		if (selectedItem == null) {
+			Statusbar.outputMessage(Helper.getMessages("no_entry_selected"));
+			return;
+		}
+		final String selectedID = ((IEntityData) selectedItem.getDatum()).getId();
+		if (selectedID != null && selectedID.length() > 0) {
+			YESNOPopup popup = YESNOPopup.createInstance(String.format(Helper.getMessages("confirm_delete_detail"), selectedItem.getDatum().toString()), Helper.getMessages("confirm_delete"),
+					new IYesNoCancelListener() {
 
-        @Override
-        public void onRowExecute() {
-            // Switch to or create entities page
-            IWorkpageDispatcher wpd = getOwningDispatcher();
-            IWorkpageContainer wpc = getWorkpageContainer();
-            IWorkpage wp = wpc.getWorkpageForId(datum.getId());
-            if(wp != null) {
-                wpc.switchToWorkpage(wp);
-                return;
-            }
-            // Page doesn't exist, create it
-            String pageId = datum.getId();
-            Mode pageMode = Mode.SHOW;
+						public void reactOnCancel() {
+						}
 
-            switch (entity.getBase()) {
+						public void reactOnNo() {
+						}
+
+						public void reactOnYes() {
+							// own entities
+							// special treatment for base entities that are not
+							// allowed to be in a relation e.g. TESTS
+							if (personId == null || entity.getBase().noRelation()) {
+								if (ENTITYLISTLOGIC.delete(entity, selectedID)) {
+									Statusbar.outputSuccess(Helper.getMessages("delete_success"));
+									m_gridList.getItems().remove(selectedItem);
+									closeWorkpages(selectedID);
+									return;
+								}
+							} else { // other person entities
+								if (ENTITYLISTLOGIC.delete(entity, selectedID, personId)) {
+									Statusbar.outputSuccess(Helper.getMessages("relation_delete_success"));
+									m_gridList.getItems().remove(selectedItem);
+									closeWorkpages(selectedID);
+									return;
+								}
+							}
+							Statusbar.outputAlert(Helper.getMessages("delete_failure"), Helper.getLiteral("error")).setLeftTopReferenceCentered();
+						}
+					});
+			popup.getModalPopup().setLeftTopReferenceCentered();
+		}
+	}
+
+	private void closeWorkpages(String id) {
+		IWorkpage workpage = getWorkpageContainer().getWorkpageForId(id);
+		if (workpage != null)
+			getWorkpageContainer().closeWorkpage(workpage);
+	}
+
+	// common build method
+	private void buildData(String filter) {
+		// load entities from database
+		gridData = ENTITYLISTLOGIC.getData(entity, personId, filter);
+		// rebuild grid list
+		m_gridList.getItems().clear();
+		for (IEntityData datum : gridData) {
+			m_gridList.getItems().add(new GridListItem(datum));
+		}
+		setRowDynamic();
+		// load grid state
+		loadGridState();
+		// print logic
+		setPrintReport();
+	}
+
+	// special build method for labelsearch
+	public void buildData(List<String> ids) {
+		// load entities from database
+		gridData = ENTITYLISTLOGIC.getData(entity, ids);
+		// rebuild grid list
+		m_gridList.getItems().clear();
+		for (IEntityData datum : gridData) {
+			m_gridList.getItems().add(new GridListItem(datum));
+		}
+		setRowDynamic();
+		// load grid state
+		loadGridState();
+		// print logic
+		setPrintReport();
+	}
+
+	public void saveGridState(ActionEvent event) {
+		SListVariant lv = new SListVariant(m_gridList.getColumnsequence(), m_gridList.getModcolumnwidths());
+		ENTITYLISTLOGIC.saveGridState(entity, lv);
+	}
+
+	private void loadGridState() {
+		SListVariant lv = ENTITYLISTLOGIC.loadGridState(entity);
+		if (lv == null)
+			return;
+		m_gridList.setColumnsequence(lv.columnsSequence);
+		m_gridList.setModcolumnwidths(lv.columnsWidth);
+	}
+
+	private void setPrintReport() {
+		// Print report
+		if (report != null)
+			BufferedContentMgr.remove(report);
+		report = ENTITYLISTLOGIC.getPrintReport(entity, filter, gridData);
+		if (report != null)
+			BufferedContentMgr.add(report);
+	}
+
+	public class GridListItem extends FIXGRIDItem implements java.io.Serializable {
+		public IEntityData datum;
+		public Object parent;
+
+		public GridListItem(IEntityData datum) {
+			super();
+			this.datum = datum;
+		}
+
+		public Object getDatum() {
+			return datum;
+		}
+
+		public void setDatum(IEntityData datum) {
+			this.datum = datum;
+		}
+
+		@Override
+		public void onRowExecute() {
+			// Switch to or create entities page
+			IWorkpageDispatcher wpd = getOwningDispatcher();
+			IWorkpageContainer wpc = getWorkpageContainer();
+			IWorkpage wp = wpc.getWorkpageForId(datum.getId());
+			if (wp != null) {
+				wpc.switchToWorkpage(wp);
+				return;
+			}
+			// Page doesn't exist, create it
+			String pageId = datum.getId();
+			Mode pageMode = Mode.SHOW;
+
+			switch (entity.getBase()) {
 			case COMPETITION:
 				// special handling for competitions
-	            // because page ID has to be unique to resolve right page
-	            // resolved in EntityDetailUI
+				// because page ID has to be unique to resolve right page
+				// resolved in EntityDetailUI
 				pageId = entity.name() + "#" + pageId;
 				break;
 			case SCHEDULE:
@@ -351,40 +400,62 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements
 				ScheduleUI.ScheduleItem scheduleItem = getScheduleUI().createScheduleItem(datum.getId());
 				ScheduleChangePopUp scheduleChangePopUp = getScheduleChangePopUp();
 				scheduleChangePopUp.setRenderButtons(false);
-				scheduleChangePopUp.prepareCallback(
-						new ScheduleChangePopUp.IScheduleChangePopupCallback() {
-							public void cancel() {}
+				scheduleChangePopUp.prepareCallback(new ScheduleChangePopUp.IScheduleChangePopupCallback() {
+					public void cancel() {
+					}
 
-							public void save() {}
+					public void save() {
+					}
 
-							public void delete() {}
-						}, scheduleItem);
+					public void delete() {
+					}
+				}, scheduleItem);
 				m_popup = getWorkpage().createModalPopupInWorkpageContext();
 				m_popup.setLeftTopReferenceCentered();
 				m_popup.setUndecorated(true);
 				m_popup.open(Constants.Page.SCHEDULECHANGEPOPUP.getUrl(), Helper.getLiteral("schedule"), 1024, 768, EntityListUI.this);
 				return;
 			}
-            // if buttons are not rendered details are immutable
-            if(!renderButtons) {
-                pageId = Constants.FINAL + pageId;
-                pageMode = Mode.FINAL;
-            }
-            String title = (entity.getDescription() + Constants.WHITESPACE + datum.toString()).trim();
-            wp = new MyWorkpage( wpd, Constants.Page.ENTITYDETAIL.getUrl(),
-                    pageId, title, null, true, entityList, authorization, null);
-            wp.setParam(Constants.P_ENTITY, entity.name());
-            wp.setParam(Constants.P_MODE, pageMode.name());
-            wpc.addWorkpage(wp);
-        }
+			// if buttons are not rendered details are immutable
+			if (!renderButtons) {
+				pageId = Constants.FINAL + pageId;
+				pageMode = Mode.FINAL;
+			}
+			String title = (entity.getDescription() + Constants.WHITESPACE + datum.toString()).trim();
+			wp = new MyWorkpage(wpd, Constants.Page.ENTITYDETAIL.getUrl(), pageId, title, null, true, entityList, authorization, null);
+			wp.setParam(Constants.P_ENTITY, entity.name());
+			wp.setParam(Constants.P_MODE, pageMode.name());
+			wpc.addWorkpage(wp);
+		}
 
-    }
+	}
 
-    public void processEvent(WorkpageProcessingEvent event) {
-        // refresh list
-        if (event instanceof WorkpageRefreshEvent) {
-            Entity entity = ((WorkpageRefreshEvent)event).getEntity();
-            if(this.entity.getBase()==entity.getBase()) onRefresh(null);
-        }
-    }
+	public void onSearch(ActionEvent event) {
+		Statusbar.outputAlert("onSearch");
+	}
+
+	public void onClear(ActionEvent event) {
+		Statusbar.outputAlert("onClear");
+	}
+
+	public void onAddSearchItem(ActionEvent event) {
+		Statusbar.outputAlert("onAddSearchItem");
+	}
+
+	public void onRemoveSearchItem(ActionEvent event) {
+		Statusbar.outputAlert("onRemoveSearchItem");
+	}
+
+	public void onSearchItemChange(ActionEvent event) {
+		Statusbar.outputAlert("onSearchItemChange");
+	}
+
+	public void processEvent(WorkpageProcessingEvent event) {
+		// refresh list
+		if (event instanceof WorkpageRefreshEvent) {
+			Entity entity = ((WorkpageRefreshEvent) event).getEntity();
+			if (this.entity.getBase() == entity.getBase())
+				onRefresh(null);
+		}
+	}
 }

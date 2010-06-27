@@ -16,6 +16,10 @@ import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.Entity;
 
 public class DoctorEntity extends AEntity {
+	public DoctorEntity() {
+		super(Doctors.class);
+	}
+
 	// Constants
 	public static final String NAME = "name";
 	public static final String STREET = "street";

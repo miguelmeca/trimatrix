@@ -15,6 +15,7 @@ import trimatrix.reports.Report;
 import trimatrix.services.ServiceLayer;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.structures.SListVariant;
+import trimatrix.structures.SSearchMetaData;
 import trimatrix.utils.Constants;
 
 public class EntityListLogic {
@@ -28,6 +29,10 @@ public class EntityListLogic {
 	 */
 	public List<SGridMetaData> getGridMetaData(Constants.Entity entity, String filter) {
 		return serviceLayer.getResolverService().getGridMetaData(entity, filter);
+	}
+
+	public List<SSearchMetaData> getSearchMetaData(Constants.Entity entity) {
+		return serviceLayer.getResolverService().getSearchMetaData(entity);
 	}
 
 	public List<IEntityData> getData(Constants.Entity entity, String filter) {

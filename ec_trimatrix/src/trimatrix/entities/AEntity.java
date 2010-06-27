@@ -2,6 +2,7 @@ package trimatrix.entities;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -14,9 +15,11 @@ import trimatrix.db.IEntityDAO;
 import trimatrix.reports.Report;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;
+import trimatrix.structures.SSearchMetaData;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
 import trimatrix.utils.Helper;
+import trimatrix.utils.SearchRange;
 
 public abstract class AEntity implements IEntity{
 	public static final Log logger = LogFactory.getLog(AEntity.class);
@@ -28,6 +31,12 @@ public abstract class AEntity implements IEntity{
 	protected DAOLayer daoLayer;
 	protected HibernateTransactionManager transactionManager;
 	protected IEntityDAO<? extends IEntityObject> entitiesDAO;
+
+	protected Class<? extends IEntityObject> claz;
+
+	public AEntity(Class<? extends IEntityObject> claz) {
+		this.claz = claz;
+	}
 
 	public IEntityData getData(String id) {
 		return null;
@@ -80,6 +89,10 @@ public abstract class AEntity implements IEntity{
 		return true;
 	}
 
+	public List<IEntityData> getData(SearchRange sr) {
+		return getData(sqlExecutorService.getEntityIds(sr, claz));
+	}
+
 	public List<IEntityData> getData(List<String> ids) {
 		List<IEntityData> data = new ArrayList<IEntityData>();
 		for(String id : ids) {
@@ -92,6 +105,10 @@ public abstract class AEntity implements IEntity{
 	public List<SGridMetaData> getGridMetaData(String filter) {
 		// if not implemented delegate to general function
 		return getGridMetaData();
+	}
+
+	public List<SSearchMetaData> getSearchMetaData() {
+		return Collections.EMPTY_LIST;	// default no search fields
 	}
 
 	public void setSqlExecutorService(SQLExecutorService sqlExecutorService) {

@@ -15,6 +15,7 @@ import trimatrix.relations.IRelationData;
 import trimatrix.relations.IRelationObject;
 import trimatrix.reports.Report;
 import trimatrix.structures.SGridMetaData;
+import trimatrix.structures.SSearchMetaData;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Constants.Entity;
 import trimatrix.utils.Constants.Relation;
@@ -44,6 +45,15 @@ public final class ResolverService {
 		} catch (Exception ex) {
 			logger.error("GETMETADATA : Entity " + entity.toString() + " not valid! : " + ex.toString());
 			return Constants.EMPTYMETADATA;
+		}
+	}
+
+	public List<SSearchMetaData> getSearchMetaData(Constants.Entity entity) {
+		try {
+			return (List<SSearchMetaData>)getProxy(entity).getSearchMetaData();
+		} catch (Exception ex) {
+			logger.error("GETSEARCHMETADATA : Entity " + entity.toString() + " not valid! : " + ex.toString());
+			return Constants.EMPTYSEARCHMETADATA;
 		}
 	}
 

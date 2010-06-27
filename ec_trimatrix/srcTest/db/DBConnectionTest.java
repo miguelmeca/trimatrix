@@ -13,6 +13,7 @@ import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
+import org.apache.poi.hssf.record.SelectionRecord;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -70,6 +71,7 @@ import trimatrix.structures.SRange;
 import trimatrix.utils.Constants;
 import trimatrix.utils.ContextStatic;
 import trimatrix.utils.HibernateSessionFactory;
+import trimatrix.utils.SearchRange;
 
 public class DBConnectionTest {
 	private ApplicationContext context = ContextStatic.getInstance();
@@ -477,46 +479,13 @@ public class DBConnectionTest {
 
 	@Test
 	public void testCriterias() {
-		List<SRange<?>> ranges = new ArrayList<SRange<?>>();
-//		SRange<String> rangeStr;
-//		rangeStr = new SRange<String>();
-//		rangeStr.field = "nameFirst";
-//		rangeStr.invert = false;
-//		rangeStr.operator = SRange.Operator.LIKE;
-//		rangeStr.low = "Dani%";
-//		ranges.add(rangeStr);
-//		rangeStr = new SRange<String>();
-//		rangeStr.field = "nameLast";
-//		rangeStr.invert = false;
-//		rangeStr.operator = SRange.Operator.LIKE;
-//		rangeStr.low = "%ucher%";
-//		ranges.add(rangeStr);
-		SRange<Integer> rangeInt;
-		rangeInt = new SRange<Integer>();
-		rangeInt.field = "profileAthlete.maxHr";
-		rangeInt.invert = false;
-		rangeInt.operator = SRange.Operator.GT;
-		rangeInt.low = new Integer(10);
-		ranges.add(rangeInt);
 		Session session = HibernateSessionFactory.getSession();
-		Criteria criteria = session.createCriteria(Persons.class);
+		SearchRange searchRange = new SearchRange();
+		searchRange.add(new SRange<String>("nameFirst", SRange.Operator.CT, "Dani%"));
+		searchRange.add(new SRange<String>("nameFirst", SRange.Operator.CT, "Mark%"));
+		searchRange.add(new SRange<Integer>("profileAthlete.maxHr", SRange.Operator.GT, 10));
+		Criteria criteria = searchRange.buildCriteria(session, Persons.class);
 
-//		Disjunction disjunction = Restrictions.disjunction();
-//		disjunction.add(Restrictions.like("nameFirst", "Dani%"));
-//		disjunction.add(Restrictions.like("nameFirst", "Sab%"));
-//		criteria.add(disjunction);
-
-		criteria.createAlias("profileAthlete", "profileAthlete");
-		for(SRange _range : ranges) {
-			switch (_range.operator) {
-			case LIKE:
-				criteria.add(Restrictions.like(_range.field, _range.low));
-				break;
-			case GT:
-				criteria.add(Restrictions.gt(_range.field, _range.low));
-				break;
-			}
-		}
 		List<IEntityObject> persons = criteria.list();
 		session.close();
 		for(IEntityObject person : persons) {

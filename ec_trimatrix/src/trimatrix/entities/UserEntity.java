@@ -12,6 +12,10 @@ import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
 
 public final class UserEntity extends AEntity {
+	public UserEntity() {
+		super(Users.class);
+	}
+
 	// Constants
 	public static final String USER_NAME = "user_name";
 	public static final String EMAIL = "email";

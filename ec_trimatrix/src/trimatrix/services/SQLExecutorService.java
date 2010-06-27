@@ -9,7 +9,6 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.poi.hssf.record.formula.functions.T;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -23,7 +22,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.HibernateTransactionManager;
 
 import trimatrix.db.DAOLayer;
-import trimatrix.db.Persons;
 import trimatrix.db.Results;
 import trimatrix.db.Schedules;
 import trimatrix.db.ZonesSwim;
@@ -44,11 +42,11 @@ import trimatrix.relations.PersonAttachmentRelation;
 import trimatrix.relations.PersonDoctorRelation;
 import trimatrix.relations.PersonPersonRelation;
 import trimatrix.structures.SFunctionTree;
-import trimatrix.structures.SRange;
 import trimatrix.structures.SValueList;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
 import trimatrix.utils.Helper;
+import trimatrix.utils.SearchRange;
 import trimatrix.utils.Constants.Role;
 
 /**
@@ -142,10 +140,9 @@ public class SQLExecutorService {
     }
 
     @SuppressWarnings("unchecked")
-	public List<String> testCriterias(List<SRange<?>> ranges, Class<T> claz) {
+	public List<String> getEntityIds(SearchRange sr, Class claz) {
         Session session = sessionFactory.openSession();
-        Criteria criteria = session.createCriteria(claz);
-        criteria.add(Restrictions.like("nameFirst", "Dani%"));
+        Criteria criteria = sr.buildCriteria(session, claz);
         List<IEntityObject> result = criteria.list();
         session.close();
         if(result==null || result.size()==0) return Collections.EMPTY_LIST;
@@ -250,8 +247,8 @@ public class SQLExecutorService {
             int i = 0;
             datum.id = (String) line[i++];
             datum.salutation = (String) line[i++];
-            datum.name_first = (String) line[i++];
-            datum.name_last = (String) line[i++];
+            datum.nameFirst = (String) line[i++];
+            datum.nameLast = (String) line[i++];
             datum.email = (String) line[i++];
             datum.sex = (String) line[i++];
             datum.birthdate = (Timestamp) line[i++];
@@ -309,8 +306,8 @@ public class SQLExecutorService {
             int i = 0;
             datum.id = (String) line[i++];
             datum.salutation = (String) line[i++];
-            datum.name_first = (String) line[i++];
-            datum.name_last = (String) line[i++];
+            datum.nameFirst = (String) line[i++];
+            datum.nameLast = (String) line[i++];
             datum.email = (String) line[i++];
             datum.sex = (String) line[i++];
             datum.birthdate = (Timestamp) line[i++];
@@ -857,8 +854,8 @@ public class SQLExecutorService {
             int i = 0;
             datum.id = (String) line[i++];
             datum.salutation = (String) line[i++];
-            datum.name_first = (String) line[i++];
-            datum.name_last = (String) line[i++];
+            datum.nameFirst = (String) line[i++];
+            datum.nameLast = (String) line[i++];
             datum.email = (String) line[i++];
             datum.sex = (String) line[i++];
             datum.birthdate = (Timestamp) line[i++];
