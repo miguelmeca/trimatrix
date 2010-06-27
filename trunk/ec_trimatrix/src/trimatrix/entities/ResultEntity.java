@@ -20,6 +20,9 @@ import trimatrix.utils.HelperTime;
 import trimatrix.utils.Constants.Entity;
 
 public final class ResultEntity extends AEntity {
+	public ResultEntity() {
+		super(Results.class);
+	}
 
     // Constants
     public static final String SWIM = "swim";

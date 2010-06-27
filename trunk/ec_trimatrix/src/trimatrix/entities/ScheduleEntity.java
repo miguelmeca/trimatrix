@@ -11,6 +11,9 @@ import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.Entity;
 
 public class ScheduleEntity extends AEntity {
+	public ScheduleEntity() {
+		super(Schedules.class);
+	}
 
 	// Constants
 	public static final String PERSON = "person";

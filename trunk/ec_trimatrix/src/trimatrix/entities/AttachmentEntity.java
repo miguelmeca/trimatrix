@@ -17,6 +17,10 @@ import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.Entity;
 
 public class AttachmentEntity extends AEntity {
+	public AttachmentEntity() {
+		super(Attachments.class);
+	}
+
 	// Constants
 	public static final String ICON = "icon";
 	public static final String DESCRIPTION = "description";

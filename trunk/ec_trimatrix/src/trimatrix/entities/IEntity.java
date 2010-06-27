@@ -4,6 +4,7 @@ import java.util.List;
 
 import trimatrix.reports.Report;
 import trimatrix.structures.SGridMetaData;
+import trimatrix.structures.SSearchMetaData;
 import trimatrix.utils.Constants;
 
 public interface IEntity {
@@ -11,6 +12,8 @@ public interface IEntity {
 	public abstract List<SGridMetaData> getGridMetaData();
 
 	public abstract List<SGridMetaData> getGridMetaData(String filter);
+
+	public abstract List<SSearchMetaData> getSearchMetaData();
 
 	public abstract List<IEntityData> getData(Constants.Entity entity,
 			String personId, String filter);

@@ -5,12 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import org.eclnt.jsfserver.resources.ResourceManager;
-
 import trimatrix.entities.IEntityData;
 import trimatrix.relations.IRelationData;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;
+import trimatrix.structures.SSearchMetaData;
 
 public final class Constants {
 	// all used jsp pages
@@ -321,6 +320,7 @@ public final class Constants {
 	// empty lists
 	public static final List<IEntityData> EMPTYENTITYDATA = new ArrayList<IEntityData>();
 	public static final List<SGridMetaData> EMPTYMETADATA =  new ArrayList<SGridMetaData>();
+	public static final List<SSearchMetaData> EMPTYSEARCHMETADATA =  new ArrayList<SSearchMetaData>();
 	public static final List<IRelationData> EMPTYRELATIONDATA = new ArrayList<IRelationData>();
 
 	public static final String UNKNOWN_MIME_TYPE="application/x-unknown-mime-type";
