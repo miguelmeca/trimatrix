@@ -17,6 +17,7 @@ import trimatrix.structures.SGridMetaData;
 import trimatrix.structures.SListVariant;
 import trimatrix.structures.SSearchMetaData;
 import trimatrix.utils.Constants;
+import trimatrix.utils.SearchRange;
 
 public class EntityListLogic {
 	private ServiceLayer serviceLayer;
@@ -37,6 +38,10 @@ public class EntityListLogic {
 
 	public List<IEntityData> getData(Constants.Entity entity, String filter) {
 		return serviceLayer.getResolverService().getData(entity, filter);
+	}
+
+	public List<IEntityData> getData(Constants.Entity entity, SearchRange srange) {
+		return serviceLayer.getResolverService().getData(entity, srange);
 	}
 
 	public Report getPrintReport(Constants.Entity entity, String filter, List<IEntityData> data) {

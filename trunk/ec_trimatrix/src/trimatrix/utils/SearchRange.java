@@ -10,6 +10,7 @@ import java.util.Set;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
 
@@ -31,6 +32,14 @@ public class SearchRange {
 	public SearchRange() {
 		ranges = new HashMap<String, Set<SRange<?>>>();
 		aliases = new HashSet<String>();
+	}
+
+	public SearchRange(List<SRange<?>> sranges) {
+		ranges = new HashMap<String, Set<SRange<?>>>();
+		aliases = new HashSet<String>();
+		for(SRange<?> range : sranges) {
+			add(range);
+		}
 	}
 
 	public void add(SRange<?> range) {
@@ -88,7 +97,7 @@ public class SearchRange {
 		case LE:
 			return Restrictions.le(range.field, range.value);
 		case CT:
-			return Restrictions.like(range.field, range.value);
+			return Restrictions.like(range.field, (String)range.value, MatchMode.ANYWHERE).ignoreCase();
 		default:
 			return null;
 		}
