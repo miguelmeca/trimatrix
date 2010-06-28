@@ -17,6 +17,7 @@ import trimatrix.reports.Report;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.structures.SSearchMetaData;
 import trimatrix.utils.Constants;
+import trimatrix.utils.SearchRange;
 import trimatrix.utils.Constants.Entity;
 import trimatrix.utils.Constants.Relation;
 
@@ -61,6 +62,15 @@ public final class ResolverService {
 		filter = filter==null ? Constants.NO_FILTER : filter;
 		try {
 			return (List<IEntityData>)getProxy(entity).getData(entity, filter);
+		} catch (Exception ex) {
+			logger.error("GETDATA : Entity " + entity.toString() + " not valid! : " + ex.toString());
+			return Constants.EMPTYENTITYDATA;
+		}
+	}
+
+	public List<IEntityData> getData(Constants.Entity entity, SearchRange srange) {
+		try {
+			return (List<IEntityData>)getProxy(entity).getData(srange);
 		} catch (Exception ex) {
 			logger.error("GETDATA : Entity " + entity.toString() + " not valid! : " + ex.toString());
 			return Constants.EMPTYENTITYDATA;

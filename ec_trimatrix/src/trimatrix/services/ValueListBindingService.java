@@ -9,6 +9,7 @@ import trimatrix.db.Zones;
 import trimatrix.db.ZonesDefinition;
 import trimatrix.entities.EntityLayer;
 import trimatrix.entities.IEntityData;
+import trimatrix.structures.SRange;
 import trimatrix.structures.SValueList;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;

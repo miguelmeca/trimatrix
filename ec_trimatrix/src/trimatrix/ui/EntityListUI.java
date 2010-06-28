@@ -1,7 +1,10 @@
 package trimatrix.ui;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.faces.event.ActionEvent;
 
@@ -14,6 +17,7 @@ import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoCancelListener;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.jsfserver.elements.impl.ROWDYNAMICCONTENTBinding;
+import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.workplace.IWorkpage;
 import org.eclnt.workplace.IWorkpageContainer;
 import org.eclnt.workplace.IWorkpageDispatcher;
@@ -25,6 +29,7 @@ import trimatrix.logic.EntityListLogic;
 import trimatrix.structures.SAuthorization;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.structures.SListVariant;
+import trimatrix.structures.SRange;
 import trimatrix.structures.SSearchMetaData;
 import trimatrix.ui.utils.MyWorkpage;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
@@ -45,7 +50,11 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements Serializab
 	private List<SSearchMetaData> searchMetaData;
 	private List<IEntityData> gridData;
 	private Constants.Entity entity;
-	private SearchRange searchRange;
+	private List<SRange<?>> searchRanges = new ArrayList<SRange<?>>();
+	public List<SRange<?>> getSearchRanges() { return searchRanges; };
+
+	private ValidValuesBinding searchFieldsVvb = new ValidValuesBinding();
+	public ValidValuesBinding getSearchFieldsVvb() { return searchFieldsVvb; }
 
 	public Constants.Entity getEntity() {
 		return entity;
@@ -113,14 +122,19 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements Serializab
 		filter = getWorkpage().getParam(Constants.P_FILTER);
 		// set up grid output
 		gridMetaData = ENTITYLISTLOGIC.getGridMetaData(entity, filter);
-		// set up search
-		searchMetaData = ENTITYLISTLOGIC.getSearchMetaData(entity);
-		searchRange = new SearchRange();
 		// if base is a relation, add standard column
 		if (entity.hasStandard()) {
 			gridMetaData.add(0, new SGridMetaData("#{rr.literals.standard}", Constants.STANDARD, SGridMetaData.Component.CHECKBOX));
 		}
-		buildData(filter);
+		// set up search
+		searchMetaData = ENTITYLISTLOGIC.getSearchMetaData(entity);
+		if(getRenderSearch()) {
+			buildSearchFieldsVvb();
+			searchRanges.add(searchMetaData.get(0).getRange()); // init with first value
+			setDynamicSearch();
+		} else {
+			buildData(filter);
+		}
 	}
 
 	// Constructor for LabelSearchResult
@@ -237,7 +251,31 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements Serializab
 
 	private void setDynamicSearch() {
 		StringBuffer xml = new StringBuffer();
-		xml.append("<t:field text='Search' enabled='false'/>");
+		int index = 0;
+		xml.append("<t:foldablepane rowdistance='5' text='#{rr.literals.search}' width='100%' >");
+		for(SRange<?> range : searchRanges) {
+			xml.append("<t:row>");
+			xml.append("<t:combobox value='#{d.EntityListUI.searchRanges[" + index + "].field}' actionListener='#{d.EntityListUI.onSearchItemChange}' clientname='field' flush='true' validvaluesbinding='#{d.EntityListUI.searchFieldsVvb}' valuetextmode='TEXT' width='150' withnullitem='false' />");
+			xml.append("<t:coldistance />");
+			xml.append("<t:combobox value='#{d.EntityListUI.searchRanges[" + index + "].operator}' actionListener='#{d.EntityListUI.onSearchItemChange}' clientname='operator' valuetextmode='TEXT' width='100' withnullitem='false' >");
+			for(SRange.Operator operator : SRange.STRING_OPERATORS) {
+				xml.append("<t:comboboxitem text='" + operator.getLiteral() + "' value='" + operator.name() + "' />");
+			}
+			xml.append("</t:combobox>");
+			xml.append("<t:coldistance />");
+			xml.append("<t:field width='200' text='#{d.EntityListUI.searchRanges[" + index + "].value}' />");
+			xml.append("<t:coldistance />");
+			xml.append("<t:button actionListener='#{d.EntityListUI.onAddSearchItem}' contentareafilled='false' image='/images/icons/add.png' imageheight='18' />");
+			xml.append("<t:button clientname='" + index + "' actionListener='#{d.EntityListUI.onRemoveSearchItem}' contentareafilled='false' image='/images/icons/remove.png' imageheight='18' />");
+			xml.append("</t:row>");
+			index++;
+		}
+		xml.append("<t:row>");
+		xml.append("<t:button actionListener='#{d.EntityListUI.onSearch}' image='/images/icons/magnifier.png' imageheight='15' text='#{rr.literals.search}' />");
+		xml.append("<t:coldistance />");
+		xml.append("<t:button actionListener='#{d.EntityListUI.onClear}' image='/images/icons/clear.png' text='#{rr.literals.clear}' />");
+		xml.append("</t:row>");
+		xml.append("</t:foldablepane>");
 		m_dynSearchRow.setContentXml(xml.toString());
 	}
 
@@ -307,6 +345,21 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements Serializab
 	private void buildData(String filter) {
 		// load entities from database
 		gridData = ENTITYLISTLOGIC.getData(entity, personId, filter);
+		// rebuild grid list
+		m_gridList.getItems().clear();
+		for (IEntityData datum : gridData) {
+			m_gridList.getItems().add(new GridListItem(datum));
+		}
+		setRowDynamic();
+		// load grid state
+		loadGridState();
+		// print logic
+		setPrintReport();
+	}
+
+	private void buildData(SearchRange srange) {
+		// load entities from database
+		gridData = ENTITYLISTLOGIC.getData(entity, srange);
 		// rebuild grid list
 		m_gridList.getItems().clear();
 		for (IEntityData datum : gridData) {
@@ -431,23 +484,56 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements Serializab
 	}
 
 	public void onSearch(ActionEvent event) {
-		Statusbar.outputAlert("onSearch");
+		boolean valueSet = false;
+		for(SRange range : searchRanges) {
+			if(range.value instanceof String) {
+				if(!Helper.isEmpty((String)range.value)) {
+					valueSet = true;
+					break;
+				}
+			} else {
+				if(range.value!=null) {
+					valueSet = true;
+					break;
+				}
+			}
+		}
+		if(valueSet) {
+			SearchRange srange = new SearchRange(searchRanges);
+			buildData(srange);
+		} else {
+			buildData(filter);
+		}
 	}
 
 	public void onClear(ActionEvent event) {
-		Statusbar.outputAlert("onClear");
+		searchRanges.clear();
+		searchRanges.add(searchMetaData.get(0).getRange()); // init with first value
+		m_gridList.getItems().clear();
+		setDynamicSearch();
 	}
 
 	public void onAddSearchItem(ActionEvent event) {
-		Statusbar.outputAlert("onAddSearchItem");
+		searchRanges.add(searchMetaData.get(0).getRange()); // init with first value
+		setDynamicSearch();
 	}
 
 	public void onRemoveSearchItem(ActionEvent event) {
-		Statusbar.outputAlert("onRemoveSearchItem");
+		if(searchRanges.size()>1) {
+			String clientname = (String) event.getComponent().getAttributes().get(Constants.CLIENTNAME);
+			if(clientname!=null) searchRanges.remove(Integer.valueOf(clientname));
+		}
+		setDynamicSearch();
 	}
 
 	public void onSearchItemChange(ActionEvent event) {
 		Statusbar.outputAlert("onSearchItemChange");
+	}
+
+	private void buildSearchFieldsVvb() {
+		for(SSearchMetaData searchMetaDatum : searchMetaData) {
+			searchFieldsVvb.addValidValue(searchMetaDatum.techname, searchMetaDatum.header);
+		}
 	}
 
 	public void processEvent(WorkpageProcessingEvent event) {

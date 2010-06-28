@@ -14,6 +14,7 @@ import trimatrix.db.Persons;
 import trimatrix.db.PersonsAthlete;
 import trimatrix.db.Users;
 import trimatrix.structures.SGridMetaData;
+import trimatrix.structures.SRange;
 import trimatrix.structures.SSearchMetaData;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
@@ -79,8 +80,8 @@ public final class PersonEntity extends AEntity {
 	@Override
 	public List<SSearchMetaData> getSearchMetaData() {
 		List<SSearchMetaData> searchMetaData = new ArrayList<SSearchMetaData>();
-		searchMetaData.add(new SSearchMetaData(Helper.getLiteral("person_first_name"), NAME_FIRST));
-		searchMetaData.add(new SSearchMetaData(Helper.getLiteral("person_last_name"), NAME_LAST));
+		searchMetaData.add(new SSearchMetaData(Helper.getLiteral("person_first_name"), NAME_FIRST, SSearchMetaData.Type.STRING, new SRange<String>(NAME_FIRST)));
+		searchMetaData.add(new SSearchMetaData(Helper.getLiteral("person_last_name"), NAME_LAST, SSearchMetaData.Type.STRING, new SRange<String>(NAME_FIRST)));
 		return searchMetaData;
 	}
 
