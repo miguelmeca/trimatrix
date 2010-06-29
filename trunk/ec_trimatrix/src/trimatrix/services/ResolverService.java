@@ -2,6 +2,7 @@ package trimatrix.services;
 
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -49,9 +50,9 @@ public final class ResolverService {
 		}
 	}
 
-	public List<SSearchMetaData> getSearchMetaData(Constants.Entity entity) {
+	public Map<String, SSearchMetaData> getSearchMetaData(Constants.Entity entity) {
 		try {
-			return (List<SSearchMetaData>)getProxy(entity).getSearchMetaData();
+			return (Map<String, SSearchMetaData>)getProxy(entity).getSearchMetaData();
 		} catch (Exception ex) {
 			logger.error("GETSEARCHMETADATA : Entity " + entity.toString() + " not valid! : " + ex.toString());
 			return Constants.EMPTYSEARCHMETADATA;

@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -107,8 +108,8 @@ public abstract class AEntity implements IEntity{
 		return getGridMetaData();
 	}
 
-	public List<SSearchMetaData> getSearchMetaData() {
-		return Collections.EMPTY_LIST;	// default no search fields
+	public Map<String, SSearchMetaData> getSearchMetaData() {
+		return Collections.EMPTY_MAP;
 	}
 
 	public void setSqlExecutorService(SQLExecutorService sqlExecutorService) {

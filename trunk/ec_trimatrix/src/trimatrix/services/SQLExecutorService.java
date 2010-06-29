@@ -232,7 +232,7 @@ public class SQLExecutorService {
      * @return person entities
      */
     @SuppressWarnings("unchecked")
-    public List<IEntityData> getPersonEntities(String lang_key, boolean deleted, boolean test, String queryName) {
+    public List<IEntityData> getPersonEntities(String lang_key, boolean deleted, boolean test, String queryName, String parameterName, String parameterValue) {
         List<IEntityData> data = new ArrayList<IEntityData>();
         // SessionFactory sessionFactory =
         // transactionManager.getSessionFactory();
@@ -241,6 +241,14 @@ public class SQLExecutorService {
         query.setString("p_lang_key", lang_key);
         query.setBoolean("p_deleted", deleted);
         query.setBoolean("p_test", test);
+        // handle parameter
+        query.setBoolean("p_id_on", false);
+        query.setString("p_id", null);
+        if (ID.equals(parameterName)) {
+            query.setBoolean("p_id_on", true);
+            query.setString("p_id", parameterValue);
+        }
+
         List<Object[]> result = query.list();
         for (Object[] line : result) {
             PersonEntity.Data datum = new PersonEntity.Data();
@@ -269,11 +277,15 @@ public class SQLExecutorService {
     }
 
     public List<IEntityData> getPersonEntities() {
-        return getPersonEntities(Helper.getLanguageServer(), false, false, PERSONENTITYLISTQUERY);
+        return getPersonEntities(Helper.getLanguageServer(), false, false, PERSONENTITYLISTQUERY, null, null);
     }
 
     public List<IEntityData> getAthleteEntities() {
-        return getPersonEntities(Helper.getLanguageServer(), false, false, ATHLETESENTITYLISTQUERY);
+        return getPersonEntities(Helper.getLanguageServer(), false, false, ATHLETESENTITYLISTQUERY, null, null);
+    }
+
+    public List<IEntityData> getPersonEntities(String parameterName, String parameterValue) {
+        return getPersonEntities(Helper.getLanguageServer(), false, false, PERSONENTITYLISTQUERY, parameterName, parameterValue);
     }
 
     /**

@@ -1,6 +1,7 @@
 package trimatrix.logic;
 
 import java.util.List;
+import java.util.Map;
 
 import trimatrix.db.CompetitionsScouts;
 import trimatrix.db.CompetitionsScoutsId;
@@ -32,7 +33,7 @@ public class EntityListLogic {
 		return serviceLayer.getResolverService().getGridMetaData(entity, filter);
 	}
 
-	public List<SSearchMetaData> getSearchMetaData(Constants.Entity entity) {
+	public Map<String, SSearchMetaData> getSearchMetaData(Constants.Entity entity) {
 		return serviceLayer.getResolverService().getSearchMetaData(entity);
 	}
 
