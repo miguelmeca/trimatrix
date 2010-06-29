@@ -235,7 +235,7 @@ public final class ResultEntity extends AEntity {
                 if(reportData.name==null) reportData.name = resultData.athlete;
                 reportData.items.add(resultData);
             }
-            return new PerformanceChart(reportData);
+            return new PerformanceChart(reportData, Helper.getLocale());
         }
         return null;
     }
@@ -455,6 +455,8 @@ public final class ResultEntity extends AEntity {
 
         public static String getColor(String time, String best, String cutoff, Integer tolerance) {
             if(Helper.isEmpty(time) || Helper.isEmpty(cutoff) || Helper.isEmpty(best)) return Constants.WHITE;
+            // correct tolerance
+            if(tolerance==null) tolerance = new Integer(0);
             // calculate deficit
             if(cutoff.endsWith("%")) {
             	String deficit = HelperTime.calculateDuration(time, best, true, true);

@@ -90,7 +90,7 @@ public abstract class AEntity implements IEntity{
 		return true;
 	}
 
-	public List<IEntityData> getData(SearchRange sr) {
+	public List<IEntityData> getData(SearchRange sr, String filter) {
 		return getData(sqlExecutorService.getEntityIds(sr, claz));
 	}
 

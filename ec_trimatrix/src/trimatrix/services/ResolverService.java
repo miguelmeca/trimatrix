@@ -69,9 +69,10 @@ public final class ResolverService {
 		}
 	}
 
-	public List<IEntityData> getData(Constants.Entity entity, SearchRange srange) {
+	public List<IEntityData> getData(Constants.Entity entity, SearchRange srange, String filter) {
+		filter = filter==null ? Constants.NO_FILTER : filter;
 		try {
-			return (List<IEntityData>)getProxy(entity).getData(srange);
+			return (List<IEntityData>)getProxy(entity).getData(srange, filter);
 		} catch (Exception ex) {
 			logger.error("GETDATA : Entity " + entity.toString() + " not valid! : " + ex.toString());
 			return Constants.EMPTYENTITYDATA;

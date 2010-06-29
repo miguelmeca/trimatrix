@@ -232,8 +232,8 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		super(dispatcher);
 		calendar = getLogic().getScheduleLogic().getCalendar();
 		// set report
-		report = new PerformanceChart(null);
-		BufferedContentMgr.add(report);
+//		report = new PerformanceChart(null, Helper.getLocale());
+//		BufferedContentMgr.add(report);
 		// set close operation - to remove report from memory
 		getWorkpage().addLifecycleListener(
 				new WorkpageDefaultLifecycleListener() {
