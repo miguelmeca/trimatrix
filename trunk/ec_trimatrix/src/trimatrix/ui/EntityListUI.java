@@ -383,9 +383,9 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements Serializab
 		Statusbar.outputMessage(String.format(Helper.getMessages("items_found"), gridData.size()));
 	}
 
-	private void buildData(SearchRange srange) {
+	private void buildData(SearchRange srange, String filter) {
 		// load entities from database
-		gridData = ENTITYLISTLOGIC.getData(entity, srange);
+		gridData = ENTITYLISTLOGIC.getData(entity, srange, filter);
 		// rebuild grid list
 		m_gridList.getItems().clear();
 		for (IEntityData datum : gridData) {
@@ -528,7 +528,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements Serializab
 		}
 		if(valueSet) {
 			SearchRange srange = new SearchRange(searchRanges);
-			buildData(srange);
+			buildData(srange, filter);
 		} else {
 			buildData(filter);
 		}

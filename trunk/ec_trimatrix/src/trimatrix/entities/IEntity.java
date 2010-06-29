@@ -24,7 +24,7 @@ public interface IEntity {
 
 	public abstract List<IEntityData> getData(Constants.Entity entity, String filter);
 
-	public abstract List<IEntityData> getData(SearchRange srange);
+	public abstract List<IEntityData> getData(SearchRange srange, String filter);
 
 	public abstract IEntityData getData(String id);
 

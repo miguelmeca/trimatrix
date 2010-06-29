@@ -41,8 +41,8 @@ public class EntityListLogic {
 		return serviceLayer.getResolverService().getData(entity, filter);
 	}
 
-	public List<IEntityData> getData(Constants.Entity entity, SearchRange srange) {
-		return serviceLayer.getResolverService().getData(entity, srange);
+	public List<IEntityData> getData(Constants.Entity entity, SearchRange srange, String filter) {
+		return serviceLayer.getResolverService().getData(entity, srange, filter);
 	}
 
 	public Report getPrintReport(Constants.Entity entity, String filter, List<IEntityData> data) {

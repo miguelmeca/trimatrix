@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -29,14 +30,16 @@ public class PerformanceChart extends Report {
         Helper.getLiteral("best_run_split"),Helper.getLiteral("cutoff_run"), Helper.getLiteral("run_split_position"), Helper.getLiteral("deficit_run"),Helper.getLiteral("comment")};
 
 	private Data data;
+	private Locale locale;
 
 	// disable simple constructor
 	private PerformanceChart() {
 		throw new UnsupportedOperationException();
 	}
 
-	public PerformanceChart(Data data) {
+	public PerformanceChart(Data data, Locale locale) {
 		this.data = data;
+		this.locale = locale;
 	}
 
 	public byte[] getContent() {
@@ -86,7 +89,7 @@ public class PerformanceChart extends Report {
 		        // date
 		        cell = row.createCell(1);
 		        Date date = item.getDate();
-		        if(date!=null) cell.setCellValue(Helper.formatDate(date, "dd.MM.yyyy"));
+		        if(date!=null) cell.setCellValue(Helper.formatDate(date, "dd.MM.yyyy", locale));
 		        cell.setCellStyle(styles.get(Style.CELL));
 		        cell = row2.createCell(1);
 		        cell.setCellStyle(styles.get(Style.CELL));
