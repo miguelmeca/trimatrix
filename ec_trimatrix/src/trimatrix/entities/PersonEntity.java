@@ -2,7 +2,9 @@ package trimatrix.entities;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
@@ -13,6 +15,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 import trimatrix.db.Persons;
 import trimatrix.db.PersonsAthlete;
 import trimatrix.db.Users;
+import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.structures.SRange;
 import trimatrix.structures.SSearchMetaData;
@@ -38,6 +41,7 @@ public final class PersonEntity extends AEntity {
     public static final String CITY = "city";
     public static final String STATE = "state";
     public static final String COUNTRY = "country";
+    public static final String COUNTRYKEY = "countryKey";
     public static final String HOMEPAGE = "homepage";
     public static final String TELEPHONE = "telephone";
     public static final String MOBILE = "mobile";
@@ -75,23 +79,27 @@ public final class PersonEntity extends AEntity {
         return gridMetaData;
     }
 
-
-
 	@Override
-	public List<SSearchMetaData> getSearchMetaData() {
-		List<SSearchMetaData> searchMetaData = new ArrayList<SSearchMetaData>();
-		searchMetaData.add(new SSearchMetaData(Helper.getLiteral("person_first_name"), NAME_FIRST, SSearchMetaData.Type.STRING, new SRange<String>(NAME_FIRST)));
-		searchMetaData.add(new SSearchMetaData(Helper.getLiteral("person_last_name"), NAME_LAST, SSearchMetaData.Type.STRING, new SRange<String>(NAME_FIRST)));
+	public Map<String, SSearchMetaData> getSearchMetaData() {
+		Map<String, SSearchMetaData> searchMetaData = new HashMap<String, SSearchMetaData>();
+		searchMetaData.put(NAME_FIRST, new SSearchMetaData(Helper.getLiteral("person_first_name"), NAME_FIRST, SSearchMetaData.Type.STRING, new SRange<String>(NAME_FIRST)));
+		searchMetaData.put(NAME_LAST, new SSearchMetaData(Helper.getLiteral("person_last_name"), NAME_LAST, SSearchMetaData.Type.STRING, new SRange<String>(NAME_FIRST)));
+		searchMetaData.put(COUNTRYKEY, new SSearchMetaData(Helper.getLiteral("country"), COUNTRYKEY, new SRange<String>(COUNTRY), "#{helper.vvb.country}"));
 		return searchMetaData;
 	}
-
-
 
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#getData()
 	 */
 	public List<IEntityData> getData() {
 		return sqlExecutorService.getPersonEntities();
+	}
+
+	@Override
+	public IEntityData getData(String id) {
+		List<IEntityData> result = sqlExecutorService.getPersonEntities(SQLExecutorService.ID, id);
+		if (result.size()==0) return null;
+		return result.get(0);
 	}
 
 	/* (non-Javadoc)

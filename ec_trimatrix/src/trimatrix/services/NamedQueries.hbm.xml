@@ -70,6 +70,7 @@ FROM persons AS persons
       AND t_countries.language_key = :p_lang_key
 WHERE persons.test = :p_test
     AND persons.deleted = :p_deleted
+    AND (persons.id = :p_id OR 0 = :p_id_on)
   <return-scalar column="id" type="java.lang.String"/>
   <return-scalar column="salutation" type="java.lang.String"/>
   <return-scalar column="name_first" type="java.lang.String"/>

@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.faces.event.ActionEvent;
 
@@ -47,7 +46,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements Serializab
 	public final EntityListUI entityList = this;
 	private final EntityListLogic ENTITYLISTLOGIC = getLogic().getEntityListLogic();
 	private List<SGridMetaData> gridMetaData;
-	private List<SSearchMetaData> searchMetaData;
+	private Map<String, SSearchMetaData> searchMetaData;
 	private List<IEntityData> gridData;
 	private Constants.Entity entity;
 	private List<SRange<?>> searchRanges = new ArrayList<SRange<?>>();
@@ -130,7 +129,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements Serializab
 		searchMetaData = ENTITYLISTLOGIC.getSearchMetaData(entity);
 		if(getRenderSearch()) {
 			buildSearchFieldsVvb();
-			searchRanges.add(searchMetaData.get(0).getRange()); // init with first value
+			searchRanges.add(searchMetaData.values().iterator().next().getRange()); // init with first value
 			setDynamicSearch();
 		} else {
 			buildData(filter);
@@ -250,25 +249,51 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements Serializab
 	}
 
 	private void setDynamicSearch() {
+		if(!getRenderSearch()) return;
 		StringBuffer xml = new StringBuffer();
-		int index = 0;
 		xml.append("<t:foldablepane rowdistance='5' text='#{rr.literals.search}' width='100%' >");
-		for(SRange<?> range : searchRanges) {
+		for(int index = 0;index<searchRanges.size();index++) {
+			String field = searchRanges.get(index).field;
 			xml.append("<t:row>");
 			xml.append("<t:combobox value='#{d.EntityListUI.searchRanges[" + index + "].field}' actionListener='#{d.EntityListUI.onSearchItemChange}' clientname='field' flush='true' validvaluesbinding='#{d.EntityListUI.searchFieldsVvb}' valuetextmode='TEXT' width='150' withnullitem='false' />");
 			xml.append("<t:coldistance />");
 			xml.append("<t:combobox value='#{d.EntityListUI.searchRanges[" + index + "].operator}' actionListener='#{d.EntityListUI.onSearchItemChange}' clientname='operator' valuetextmode='TEXT' width='100' withnullitem='false' >");
-			for(SRange.Operator operator : SRange.STRING_OPERATORS) {
-				xml.append("<t:comboboxitem text='" + operator.getLiteral() + "' value='" + operator.name() + "' />");
+			if(!Helper.isEmpty(field)) {
+				SRange.Operator[] operators;
+				switch (searchMetaData.get(field).type) {
+				case NUMBER:
+					operators = SRange.NUMBER_OPERATORS;
+					break;
+				case VALUE:
+					operators = SRange.VALUES_OPERATORS;
+					break;
+				default: // STRING
+					operators = SRange.STRING_OPERATORS;
+					break;
+				}
+				for(SRange.Operator operator : operators) {
+					xml.append("<t:comboboxitem text='" + operator.getLiteral() + "' value='" + operator.name() + "' />");
+				}
 			}
 			xml.append("</t:combobox>");
 			xml.append("<t:coldistance />");
-			xml.append("<t:field width='200' text='#{d.EntityListUI.searchRanges[" + index + "].value}' />");
+			if(!Helper.isEmpty(field)) {
+				switch (searchMetaData.get(field).type) {
+				case NUMBER:
+					xml.append("<t:formattedfield format='int' width='200' value='#{d.EntityListUI.searchRanges[" + index + "].value}' />");
+					break;
+				case VALUE:
+					xml.append("<t:combobox width='200' value='#{d.EntityListUI.searchRanges[" + index + "].value}' validvaluesbinding='" + searchMetaData.get(field).vvB + "' valuetextmode='TEXT' />");
+					break;
+				default: // STRING
+					xml.append("<t:field width='200' text='#{d.EntityListUI.searchRanges[" + index + "].value}' />");
+					break;
+				}
+			}
 			xml.append("<t:coldistance />");
-			xml.append("<t:button actionListener='#{d.EntityListUI.onAddSearchItem}' contentareafilled='false' image='/images/icons/add.png' imageheight='18' />");
-			xml.append("<t:button clientname='" + index + "' actionListener='#{d.EntityListUI.onRemoveSearchItem}' contentareafilled='false' image='/images/icons/remove.png' imageheight='18' />");
+			xml.append("<t:button actionListener='#{d.EntityListUI.onAddSearchItem}' contentareafilled='false' image='/images/icons/search_plus.gif' />");
+			if(index>0)	xml.append("<t:button clientname='" + index + "' actionListener='#{d.EntityListUI.onRemoveSearchItem}' contentareafilled='false' image='/images/icons/search_minus.gif' />");
 			xml.append("</t:row>");
-			index++;
 		}
 		xml.append("<t:row>");
 		xml.append("<t:button actionListener='#{d.EntityListUI.onSearch}' image='/images/icons/magnifier.png' imageheight='15' text='#{rr.literals.search}' />");
@@ -355,6 +380,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements Serializab
 		loadGridState();
 		// print logic
 		setPrintReport();
+		Statusbar.outputMessage(String.format(Helper.getMessages("items_found"), gridData.size()));
 	}
 
 	private void buildData(SearchRange srange) {
@@ -370,6 +396,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements Serializab
 		loadGridState();
 		// print logic
 		setPrintReport();
+		Statusbar.outputMessage(String.format(Helper.getMessages("items_found"), gridData.size()));
 	}
 
 	// special build method for labelsearch
@@ -386,6 +413,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements Serializab
 		loadGridState();
 		// print logic
 		setPrintReport();
+		Statusbar.outputMessage(String.format(Helper.getMessages("items_found"), gridData.size()));
 	}
 
 	public void saveGridState(ActionEvent event) {
@@ -521,17 +549,17 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements Serializab
 	public void onRemoveSearchItem(ActionEvent event) {
 		if(searchRanges.size()>1) {
 			String clientname = (String) event.getComponent().getAttributes().get(Constants.CLIENTNAME);
-			if(clientname!=null) searchRanges.remove(Integer.valueOf(clientname));
+			if(clientname!=null) searchRanges.remove(Integer.valueOf(clientname).intValue());
 		}
 		setDynamicSearch();
 	}
 
 	public void onSearchItemChange(ActionEvent event) {
-		Statusbar.outputAlert("onSearchItemChange");
+		setDynamicSearch();
 	}
 
 	private void buildSearchFieldsVvb() {
-		for(SSearchMetaData searchMetaDatum : searchMetaData) {
+		for(SSearchMetaData searchMetaDatum : searchMetaData.values()) {
 			searchFieldsVvb.addValidValue(searchMetaDatum.techname, searchMetaDatum.header);
 		}
 	}

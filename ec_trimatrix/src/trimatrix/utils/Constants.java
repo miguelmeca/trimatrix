@@ -2,7 +2,9 @@
 
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import trimatrix.entities.IEntityData;
@@ -320,7 +322,7 @@ public final class Constants {
 	// empty lists
 	public static final List<IEntityData> EMPTYENTITYDATA = new ArrayList<IEntityData>();
 	public static final List<SGridMetaData> EMPTYMETADATA =  new ArrayList<SGridMetaData>();
-	public static final List<SSearchMetaData> EMPTYSEARCHMETADATA =  new ArrayList<SSearchMetaData>();
+	public static final Map<String, SSearchMetaData> EMPTYSEARCHMETADATA =  new HashMap<String, SSearchMetaData>();
 	public static final List<IRelationData> EMPTYRELATIONDATA = new ArrayList<IRelationData>();
 
 	public static final String UNKNOWN_MIME_TYPE="application/x-unknown-mime-type";

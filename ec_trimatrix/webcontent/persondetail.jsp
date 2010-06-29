@@ -4,6 +4,7 @@
 <%@taglib prefix="f" uri="http://java.sun.com/jsf/core"%>
 <%@taglib prefix="h" uri="http://java.sun.com/jsf/html"%>
 
+<%@taglib prefix="tx" uri="/WEB-INF/trimatrixcontrols"%>
 <%@taglib prefix="t" uri="/WEB-INF/eclnt"%>
 
 
@@ -51,7 +52,7 @@
 <t:row id="g_27" >
 <t:foldablepane id="g_28" rowdistance="5" text="#{rr.literals.address}" width="100%" x="15" y="200" >
 <t:row id="g_29" >
-<t:label id="g_30" height="20" text="#{rr.literals.street}" width="100" x="15" y="15" />
+<t:label id="g_30" height="20" text="#{rr.literals.street}" width="100" />
 <t:field id="g_31" attributemacro="entityDetailMacro(PersonDetailUI,street)" height="20" width="200" x="115" y="15" />
 <t:coldistance id="g_32" width="40" />
 <t:label id="g_33" height="20" text="#{rr.literals.housenumber}" width="100" x="365" y="15" />
