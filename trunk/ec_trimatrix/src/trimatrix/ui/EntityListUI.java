@@ -536,13 +536,13 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements Serializab
 
 	public void onClear(ActionEvent event) {
 		searchRanges.clear();
-		searchRanges.add(searchMetaData.get(0).getRange()); // init with first value
+		searchRanges.add(searchMetaData.values().iterator().next().getRange()); // init with first value
 		m_gridList.getItems().clear();
 		setDynamicSearch();
 	}
 
 	public void onAddSearchItem(ActionEvent event) {
-		searchRanges.add(searchMetaData.get(0).getRange()); // init with first value
+		searchRanges.add(searchMetaData.values().iterator().next().getRange()); // init with first value
 		setDynamicSearch();
 	}
 
