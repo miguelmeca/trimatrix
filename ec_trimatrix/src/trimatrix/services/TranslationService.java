@@ -20,6 +20,7 @@ public class TranslationService {
 	}
 
 	public String getDescription(String key, TYPE type ) {
+		if(Helper.isEmpty(key)) return null;
 		IText text = null;
 		switch (type) {
 		case SCHEDULETYPES:

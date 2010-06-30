@@ -79,14 +79,14 @@ public final class PersonEntity extends AEntity {
         return gridMetaData;
     }
 
-	@Override
-	public Map<String, SSearchMetaData> getSearchMetaData() {
-		Map<String, SSearchMetaData> searchMetaData = new HashMap<String, SSearchMetaData>();
-		searchMetaData.put(NAME_FIRST, new SSearchMetaData(Helper.getLiteral("person_first_name"), NAME_FIRST, SSearchMetaData.Type.STRING, new SRange<String>(NAME_FIRST)));
-		searchMetaData.put(NAME_LAST, new SSearchMetaData(Helper.getLiteral("person_last_name"), NAME_LAST, SSearchMetaData.Type.STRING, new SRange<String>(NAME_FIRST)));
-		searchMetaData.put(COUNTRYKEY, new SSearchMetaData(Helper.getLiteral("country"), COUNTRYKEY, new SRange<String>(COUNTRY), "#{helper.vvb.country}"));
-		return searchMetaData;
-	}
+//	@Override
+//	public Map<String, SSearchMetaData> getSearchMetaData() {
+//		Map<String, SSearchMetaData> searchMetaData = new HashMap<String, SSearchMetaData>();
+//		searchMetaData.put(NAME_FIRST, new SSearchMetaData(Helper.getLiteral("person_first_name"), NAME_FIRST, SSearchMetaData.Type.STRING, new SRange<String>(NAME_FIRST)));
+//		searchMetaData.put(NAME_LAST, new SSearchMetaData(Helper.getLiteral("person_last_name"), NAME_LAST, SSearchMetaData.Type.STRING, new SRange<String>(NAME_FIRST)));
+//		searchMetaData.put(COUNTRYKEY, new SSearchMetaData(Helper.getLiteral("country"), COUNTRYKEY, new SRange<String>(COUNTRY), "#{helper.vvb.country}"));
+//		return searchMetaData;
+//	}
 
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IEntity#getData()
