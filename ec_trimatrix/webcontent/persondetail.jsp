@@ -23,11 +23,11 @@
 </t:row>
 <t:row id="g_9" >
 <t:label id="g_10" text="#{rr.literals.person_first_name}" width="100" x="15" y="45" />
-<t:field id="g_11" attributemacro="entityDetailMacro(PersonDetailUI,name_first)" width="200" x="115" y="45" />
+<t:field id="g_11" attributemacro="entityDetailMacro(PersonDetailUI,nameFirst)" width="200" x="115" y="45" />
 </t:row>
 <t:row id="g_12" >
 <t:label id="g_13" text="#{rr.literals.person_last_name}" width="100" x="15" y="75" />
-<t:field id="g_14" attributemacro="entityDetailMacro(PersonDetailUI,name_last)" width="200" x="115" y="75" />
+<t:field id="g_14" attributemacro="entityDetailMacro(PersonDetailUI,nameLast)" width="200" x="115" y="75" />
 </t:row>
 <t:rowdistance id="g_15" height="15" />
 <t:row id="g_16" >

@@ -26,7 +26,7 @@
 </t:pane>
 </t:row>
 <t:row id="g_11" >
-<t:arraygrid id="g_12" avoidroundtrips="true" columnresizingenabled="true" drawoddevenrows="true" height="100%" multiselect="false" objectbinding="#{d.RelationListUI.grid}" rowpopupmenu="ROW" sbvisibleamount="30" width="100%" />
+<t:arraygrid id="g_12" avoidroundtrips="true" columnresizingenabled="true" drawoddevenrows="true" headlinerowheight="20" height="100%" multiselect="false" objectbinding="#{d.RelationListUI.grid}" rowheight="20" rowpopupmenu="ROW" sbvisibleamount="30" width="100%" />
 </t:row>
 <t:row id="g_13" >
 <t:button id="g_14" actionListener="#{d.RelationListUI.onRefresh}" image="/images/icons/refresh.png" imageheight="15" text="#{rr.literals.list_refresh}" />
