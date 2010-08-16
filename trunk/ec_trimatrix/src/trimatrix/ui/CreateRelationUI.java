@@ -89,7 +89,7 @@ public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serial
    			}});
        	m_popup = getWorkpage().createModalPopupInWorkpageContext();
        	m_popup.setLeftTopReferenceCentered();
-       	m_popup.open(selectionPage.getUrl(), selectionPage.getDescription(), 800, 600, this);
+       	m_popup.open(selectionPage.getUrl(), selectionPage.getDescription(), 800, 560, this);
     }
 
     public void onSelectPartner2(ActionEvent event) {
@@ -107,7 +107,7 @@ public class CreateRelationUI extends MyWorkpageDispatchedBean implements Serial
    			}});
        	m_popup = getWorkpage().createModalPopupInWorkpageContext();
        	m_popup.setLeftTopReferenceCentered();
-       	m_popup.open(selectionPage.getUrl(), selectionPage.getDescription(), 800, 600, this);
+       	m_popup.open(selectionPage.getUrl(), selectionPage.getDescription(), 800, 560, this);
     }
 
     public void setRelationType(Constants.Relation relation) {
