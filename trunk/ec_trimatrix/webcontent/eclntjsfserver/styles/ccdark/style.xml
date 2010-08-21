@@ -1,4 +1,4 @@
-<style>
+<style extends="default" >
     <tag name="button" variant="default">
         <set attribute="bgpaint" value="roundedrectangle(0,0,100%,100%,30,30,#00000050,#00000010,vertical);roundedborder(0,0,100%,100%,30,30,#00000020,1)"/>
         <set attribute="border" value="left:25;right:25;top:3;bottom:3;#00000000"/>

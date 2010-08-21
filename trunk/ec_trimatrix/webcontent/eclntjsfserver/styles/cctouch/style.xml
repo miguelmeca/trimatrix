@@ -1,4 +1,4 @@
-<style>
+<style  extends="default" >
     <tag name="button" variant="default">
         <set attribute="foreground" value="#FFFFFF"/>
         <set attribute="contentareafilled" value="false"/>

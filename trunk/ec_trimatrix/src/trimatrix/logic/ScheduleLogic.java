@@ -125,11 +125,12 @@ public class ScheduleLogic {
 	}
 
 	public List<Schedules> getTemplates() {
-		Schedules example = new Schedules();
-		example.setPersonId(serviceLayer.getDictionaryService().getMyPerson().getId());
-		example.setTemplate(true);
-		example.setDeleted(false);
-		return daoLayer.getSchedulesDAO().findByExample(example);
+//		Schedules example = new Schedules();
+//		example.setPersonId(serviceLayer.getDictionaryService().getMyPerson().getId());
+//		example.setTemplate(true);
+//		example.setDeleted(false);
+//		return daoLayer.getSchedulesDAO().findByExample(example);
+		return serviceLayer.getSqlExecutorService().getSchedules(serviceLayer.getDictionaryService().getMyPerson().getId(), null, null, true);
 	}
 
 	public boolean deleteSchedule(String scheduleId) {
@@ -151,7 +152,7 @@ public class ScheduleLogic {
 		String id = UUID.randomUUID().toString();
 		schedule.setId(id);
 		schedule.setStart(from);
-		schedule.setDuration(60L); // 1h in min
+		if(Helper.isEmpty(schedule.getDuration())) schedule.setDuration(60L); // 1h in min
 		schedule.setPersonId(personId);
 		schedule.setTemplate(false);
 		return schedule;
@@ -277,6 +278,7 @@ public class ScheduleLogic {
 	 */
 	public ZonesSwim getZones(Integer distance, String athleteId, String zonesDefinitionId) {
 		List<Integer> distinctDistances = serviceLayer.getSqlExecutorService().getDistinctDistances(athleteId);
+		if(distinctDistances.isEmpty()) return null;
 		ZonesSwim result = null;
 		if(distinctDistances.contains(distance)) {
 			ZonesSwimId id = new ZonesSwimId(distance, athleteId, zonesDefinitionId);
@@ -353,6 +355,10 @@ public class ScheduleLogic {
 		UserPreferences preferences = logicLayer.getPreferencesLogic().getPreferences(athleteId);
 		if(preferences==null) return null;
 		return logicLayer.getPreferencesLogic().getDayInfo(preferences.getDayinfos());
+	}
+
+	public String getScheduleTypeDefaultColor(String type) {
+		return serviceLayer.getSqlExecutorService().getScheduleTypeDefaultColor(type);
 	}
 
 	public void setServiceLayer(ServiceLayer serviceLayer) {

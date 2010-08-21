@@ -19,6 +19,7 @@ import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.bufferedcontent.BufferedContentMgr;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
+import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoCancelListener;
 import org.eclnt.jsfserver.elements.events.BaseActionEventDrop;
 import org.eclnt.jsfserver.elements.events.BaseActionEventFlush;
 import org.eclnt.jsfserver.elements.events.BaseActionEventInvoke;
@@ -39,13 +40,14 @@ import trimatrix.db.Persons;
 import trimatrix.db.Schedules;
 import trimatrix.db.SchedulesDetail;
 import trimatrix.db.SchedulesDetailId;
+import trimatrix.logic.ScheduleLogic;
 import trimatrix.reports.excel.CalendarOverview;
-import trimatrix.reports.excel.PerformanceChart;
 import trimatrix.services.TranslationService;
 import trimatrix.ui.utils.IPopUpCallback;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
+import trimatrix.utils.HelperTime;
 
 @CCGenClass(expressionBase = "#{d.ScheduleUI}")
 
@@ -226,6 +228,48 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 
 	public ScheduleProcessor getSp6() {
 		return m_day6Processor;
+	}
+
+	public String getRunHours() {
+		Long duration = 0L;
+		for (ScheduleItem item : getScheduleItems()) {
+			if(ScheduleLogic.getTypeOrd(item.getType())==ScheduleLogic.RUN) {
+				duration += item.getDuration();
+			}
+		}
+		return Helper.round(duration.doubleValue()/60, 1).toString();
+	}
+
+	public String getBikeHours() {
+		Long duration = 0L;
+		for (ScheduleItem item : getScheduleItems()) {
+			if(ScheduleLogic.getTypeOrd(item.getType())==ScheduleLogic.BIKE) {
+				duration += item.getDuration();
+			}
+		}
+		return Helper.round(duration.doubleValue()/60, 1).toString();
+	}
+
+	public String getSwimHours() {
+		Long duration = 0L;
+		for (ScheduleItem item : getScheduleItems()) {
+			if(ScheduleLogic.getTypeOrd(item.getType())==ScheduleLogic.SWIM) {
+				duration += item.getDuration();
+			}
+		}
+		return Helper.round(duration.doubleValue()/60, 1).toString();
+	}
+
+	public String getTotalHours() {
+		Long duration = 0L;
+		for (ScheduleItem item : getScheduleItems()) {
+			if(ScheduleLogic.getTypeOrd(item.getType())==ScheduleLogic.RUN ||
+			   ScheduleLogic.getTypeOrd(item.getType())==ScheduleLogic.BIKE ||
+			   ScheduleLogic.getTypeOrd(item.getType())==ScheduleLogic.SWIM) {
+				duration += item.getDuration();
+			}
+		}
+		return Helper.round(duration.doubleValue()/60, 1).toString();
 	}
 
 	public ScheduleUI(IWorkpageDispatcher dispatcher) {
@@ -774,7 +818,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 
     public void onCreateTemplate(ActionEvent event) {
 		// create a template
-		Schedules template = getLogic().getScheduleLogic().createTemplate(athleteID);
+		Schedules template = getLogic().getScheduleLogic().createTemplate(getServiceLayer().getDictionaryService().getMyPerson().getId());
 		ScheduleItem templateItem = new ScheduleItem(template);
 		// open in popup
 		templateItem.openInPopup(true);
@@ -799,6 +843,38 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		m_popup.setLeftTopReferenceCentered();
 		m_popup.setUndecorated(true);
 		m_popup.open(Constants.Page.SCHEDULECOPYPOPUP.getUrl(), Helper.getLiteral("copy"), 0, 0, ScheduleUI.this);
+    }
+
+    public void onDeleteSchedules(ActionEvent event) {
+    	YESNOPopup popup = YESNOPopup.createInstance(
+				String.format(Helper.getMessages("confirm_delete_detail"), Helper.getLiteral("week") + Constants.WHITESPACE + getWeekNumber()),
+                Helper.getMessages("confirm_delete"),
+				new IYesNoCancelListener(){
+
+					public void reactOnCancel() {}
+
+					public void reactOnNo() {}
+
+					public void reactOnYes() {
+						// TODO delete weeek
+						boolean isDeleted = true;
+						for(ScheduleItem scheduleItem : scheduleItems) {
+							try {
+								scheduleItem.deleteSchedule();
+							} catch (Exception ex) {
+								isDeleted = false;
+							}
+						}
+						if(isDeleted) {
+							Statusbar.outputSuccess(Helper.getMessages("delete_success"));
+						} else {
+							Statusbar.outputError(Helper.getMessages("delete_failure"));
+						}
+						refresh();
+					}
+				}
+		);
+		popup.getModalPopup().setLeftTopReferenceCentered();
     }
 
     public ScheduleItem createScheduleItem(String id) {

@@ -5,11 +5,12 @@ import java.util.List;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 
 import trimatrix.db.DAOLayer;
+import trimatrix.db.Persons;
 import trimatrix.db.Zones;
 import trimatrix.db.ZonesDefinition;
 import trimatrix.entities.EntityLayer;
 import trimatrix.entities.IEntityData;
-import trimatrix.structures.SRange;
+import trimatrix.logic.LogicLayer;
 import trimatrix.structures.SValueList;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
@@ -29,6 +30,7 @@ public class ValueListBindingService {
 	private Dictionary dictionaryService;
 	private DAOLayer daoLayer;
 	private EntityLayer entityLayer;
+	private LogicLayer logicLayer;
 
 	private ValidValuesBinding getVVBindingMYRESULTS() {
 		ValidValuesBinding vvb = new ValidValuesBinding();
@@ -48,6 +50,11 @@ public class ValueListBindingService {
 	private ValidValuesBinding getVVBindingMYZONESDEFINITION() {
 		ValidValuesBinding vvb = new ValidValuesBinding();
 		List<ZonesDefinition> zonesDefinitions = dictionaryService.getMyPerson().getZonesDefinition();
+		// if no data is set for user, try data from coach
+		if(zonesDefinitions.size()==0) {
+			Persons coach = logicLayer.getZonesLogic().getStandardCoach(dictionaryService.getMyPerson().getId());
+			zonesDefinitions = coach.getZonesDefinition();
+		}
 		for (ZonesDefinition zonesDefinition : zonesDefinitions) {
 			vvb.addValidValue(zonesDefinition.getId(), zonesDefinition.getShortcut(), zonesDefinition.getDescription());
 		}
@@ -131,5 +138,9 @@ public class ValueListBindingService {
 
 	public void setEntityLayer(EntityLayer entityLayer) {
 		this.entityLayer = entityLayer;
+	}
+
+	public void setLogicLayer(LogicLayer logicLayer) {
+		this.logicLayer = logicLayer;
 	}
 }

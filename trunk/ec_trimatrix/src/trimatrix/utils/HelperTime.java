@@ -50,6 +50,7 @@ public class HelperTime {
 	 * @return Speed m/s
 	 */
 	public static Double calculateMeterPerSecond(Integer distance, String time) {
+		if(time==null) return 0d;
 		Double msecs = 0d;
 		// check if there are msecs
 		if(time.contains(Constants.COMMA)) {
@@ -140,7 +141,7 @@ public class HelperTime {
 				minute = 99; // minute max. 99
 			return String.format("%02d:%02d", minute, second);
 		}
-	
+
 	}
 
 	public static String calculateTime(Double seconds, boolean hhmmss) {
@@ -172,7 +173,7 @@ public class HelperTime {
 		}
 		if(!Helper.isEmpty(msecsStr)) output += Constants.COMMA + msecsStr;
 		return output;
-	
+
 	}
 
 	/**

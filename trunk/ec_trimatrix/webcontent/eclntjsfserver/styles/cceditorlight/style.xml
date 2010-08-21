@@ -1,4 +1,4 @@
-<style>
+<style extends="default" >
     <tag name="arraygrid" variant="default">
         <set attribute="background" value="#F8F8F8"/>
         <set attribute="border" value="0"/>
@@ -223,5 +223,16 @@
         <set attribute="background" value="#FFFFF0"/>
     </tag>
     
+	<tag name="t:foldablepane" variant="subaspect">
+		<set attribute="border" value="#00000030" />
+		<set attribute="font" value="size:13;weight:bold" />
+		<set attribute="foreground" value="#000040" />
+		<set attribute="headerbgpaint"
+			value="rectangle(0,0,100%,50%,#0000000A,#00000000,vertical)" />
+		<set attribute="innerpadding" value="10" />
+		<set attribute="padding" value="0" />
+		<set attribute="rowdistance" value="5" />
+		<set attribute="titlepadding" value="4" />
+	</tag>
     
 </style>

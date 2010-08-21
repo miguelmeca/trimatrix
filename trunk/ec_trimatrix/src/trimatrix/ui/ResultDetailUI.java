@@ -25,6 +25,7 @@ import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
 import trimatrix.utils.HelperTime;
 import trimatrix.utils.Constants.Entity;
+import trimatrix.utils.Constants.Mode;
 
 @SuppressWarnings("serial")
 @CCGenClass (expressionBase="#{d.ResultDetailUI}")
@@ -79,12 +80,15 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
 	}
 
 	private Results entity;
+	private String personId;
 
 	public ResultDetailUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher, new String[] {ResultEntity.COMPETITION, ResultEntity.SCOUT, ResultEntity.ATHLETE}, true);
 		// get wrapping entity detail UI bean
 		entityDetailUI = getEntityDetailUI();
 		entityDetailUI.setEntityDetailUI(this);
+		// person
+		personId = getWorkpage().getParam(Constants.P_PERSON);
         // init data
         init(entityDetailUI.getEntityObject());
         // labeling
@@ -107,6 +111,14 @@ public class ResultDetailUI extends AEntityDetailUI implements Serializable {
     	}
     	// set fields
     	fillMaps();
+    	// prefill athlete
+		if(mode==Mode.NEW) {
+			if(!Helper.isEmpty(personId)) {
+				Persons person = (Persons) ENTITYLISTLOGIC.get(Constants.Entity.PERSON, personId);
+				entity.setAthlete(person);
+				setAthleteDescription(entity);
+			}
+		}
     }
 
 	public void validate() throws MandatoryCheckException, EmailNotValidException {

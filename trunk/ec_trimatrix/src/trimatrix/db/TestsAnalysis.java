@@ -17,6 +17,9 @@ public class TestsAnalysis implements java.io.Serializable {
 	// Fields
 
 	private String id;
+	private String function;
+	private Double offset;
+	private Integer degree;
 	private Timestamp createdAt;
 	private String createdBy;
 
@@ -32,8 +35,12 @@ public class TestsAnalysis implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public TestsAnalysis(String id, Timestamp createdAt, String createdBy) {
+	public TestsAnalysis(String id, String function, Double offset, Integer degree, Timestamp createdAt, String createdBy) {
+		super();
 		this.id = id;
+		this.function = function;
+		this.offset = offset;
+		this.degree = degree;
 		this.createdAt = createdAt;
 		this.createdBy = createdBy;
 	}
@@ -47,6 +54,33 @@ public class TestsAnalysis implements java.io.Serializable {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	@Column(name="function", length=10)
+	public String getFunction() {
+		return function;
+	}
+
+	public void setFunction(String function) {
+		this.function = function;
+	}
+
+	@Column(name = "offset", columnDefinition="decimal")
+	public Double getOffset() {
+		return offset;
+	}
+
+	public void setOffset(Double offset) {
+		this.offset = offset;
+	}
+
+	@Column(name="degree")
+	public Integer getDegree() {
+		return degree;
+	}
+
+	public void setDegree(Integer degree) {
+		this.degree = degree;
 	}
 
 	@Column(name = "created_at", length = 19)

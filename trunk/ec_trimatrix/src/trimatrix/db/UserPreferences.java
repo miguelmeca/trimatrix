@@ -16,6 +16,8 @@ public class UserPreferences implements java.io.Serializable {
 
 	private String id;
 	private Integer sbvisibleamount;
+	private Integer widthTestsDia;
+	private Integer heightTestsDia;
 	private String competitionCategories;
 	private String dayinfos;
 
@@ -31,9 +33,11 @@ public class UserPreferences implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public UserPreferences(String id, Integer sbvisibleamount, String competitionCategories, String dayinfos) {
+	public UserPreferences(String id, Integer sbvisibleamount, Integer widthTestsDia, Integer heightTestsDia, String competitionCategories, String dayinfos) {
 		this.id = id;
 		this.sbvisibleamount = sbvisibleamount;
+		this.heightTestsDia = heightTestsDia;
+		this.widthTestsDia = widthTestsDia;
 		this.competitionCategories = competitionCategories;
 		this.dayinfos = dayinfos;
 	}
@@ -56,6 +60,24 @@ public class UserPreferences implements java.io.Serializable {
 
 	public void setSbvisibleamount(Integer sbvisibleamount) {
 		this.sbvisibleamount = sbvisibleamount;
+	}
+
+	@Column(name = "width_tests_dia")
+	public Integer getWidthTestsDia() {
+		return widthTestsDia;
+	}
+
+	public void setWidthTestsDia(Integer widthTestsDia) {
+		this.widthTestsDia = widthTestsDia;
+	}
+
+	@Column(name = "height_tests_dia")
+	public Integer getHeightTestsDia() {
+		return heightTestsDia;
+	}
+
+	public void setHeightTestsDia(Integer heightTestsDia) {
+		this.heightTestsDia = heightTestsDia;
 	}
 
 	@Column(name = "competition_categories", columnDefinition="text")

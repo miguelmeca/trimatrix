@@ -54,6 +54,8 @@
 		<!--  -->
 		<property name="hbm2ddl.auto">validate</property>
 
+		<!-- JMX Export -->
+		<property name="generate_statistics">true</property>
 
 		<!-- Activate Envers
 			<property name="hibernate.ejb.event.post-insert">org.hibernate.ejb.event.EJB3PostInsertEventListener,org.hibernate.envers.event.AuditEventListener</property>

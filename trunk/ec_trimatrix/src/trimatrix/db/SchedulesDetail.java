@@ -25,11 +25,13 @@ public class SchedulesDetail implements java.io.Serializable {
 	private Integer hrAvg;
 	private Double lactateLow;
 	private Double lactateHigh;
+	private Double lactateActual;
 	private Integer cadence;
 	private Integer power;
 	private String unit;
 	private String description;
 	private Integer distance;
+	private Integer totalDistance;
 	private String timeLow;
 	private String timeHigh;
 	private String timeAvg;
@@ -48,7 +50,7 @@ public class SchedulesDetail implements java.io.Serializable {
 
 	/** full constructor */
 	public SchedulesDetail(SchedulesDetailId id, String zoneId, String durationTarget, String durationActual, Integer hrLow, Integer hrHigh, Integer hrAvg, Double lactateLow, Double lactateHigh,
-			Integer cadence, Integer power, String unit, String description, Integer distance, String timeLow, String timeHigh, String timeAvg, String comment) {
+			Double lactateActual, Integer cadence, Integer power, String unit, String description, Integer distance, Integer totalDistance,String timeLow, String timeHigh, String timeAvg, String comment) {
 		this.id = id;
 		this.zoneId = zoneId;
 		this.durationTarget = durationTarget;
@@ -58,11 +60,13 @@ public class SchedulesDetail implements java.io.Serializable {
 		this.hrAvg = hrAvg;
 		this.lactateLow = lactateLow;
 		this.lactateHigh = lactateHigh;
+		this.lactateActual = lactateActual;
 		this.cadence = cadence;
 		this.power = power;
 		this.unit = unit;
 		this.description = description;
 		this.distance = distance;
+		this.totalDistance = totalDistance;
 		this.timeLow = timeLow;
 		this.timeHigh = timeHigh;
 		this.timeAvg = timeAvg;
@@ -153,6 +157,15 @@ public class SchedulesDetail implements java.io.Serializable {
 		this.lactateHigh = lactateHigh;
 	}
 
+	@Column(name = "lactate_actual", columnDefinition="decimal")
+	public Double getLactateActual() {
+		return this.lactateActual;
+	}
+
+	public void setLactateActual(Double lactateActual) {
+		this.lactateActual = lactateActual;
+	}
+
 	@Column(name = "cadence")
 	public Integer getCadence() {
 		return cadence;
@@ -196,6 +209,15 @@ public class SchedulesDetail implements java.io.Serializable {
 
 	public void setDistance(Integer distance) {
 		this.distance = distance;
+	}
+
+	@Column(name = "total_distance")
+	public Integer getTotalDistance() {
+		return totalDistance;
+	}
+
+	public void setTotalDistance(Integer totalDistance) {
+		this.totalDistance = totalDistance;
 	}
 
 	@Column(name = "time_low", length = 5)

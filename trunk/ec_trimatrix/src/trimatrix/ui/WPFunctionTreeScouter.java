@@ -271,18 +271,19 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 						results_node.setStatus(FIXGRIDTreeItem.STATUS_CLOSED);
 						results_node.setOpenMultipleInstances(false);
 						results_node.setText(Helper.getLiteral("results"));
+						if(athlete!=null) results_node.setWindowTitle(Helper.getLiteral("results") + Constants.WHITESPACE + athlete);
 						results_node.setParam(Constants.P_PERSON, athlete.getId());
 						results_node.setParam(Constants.P_ENTITY, Constants.Entity.MYRESULTS.name());
 						// authorization => coach is allowed to manually change values
 						FUNCTIONTREELOGIC.setAuthority(results_node, true, true, true);
 						// node per type of result e.g. triathlon
-						buildResultsTypeNodes(functionTree, results_node, athlete.getId());
+						buildResultsTypeNodes(functionTree, results_node, athlete.getId(), athlete.toString());
 					}
 				} else if(functionTree.key == Constants.FunctionNode.RESULTS_SCOUT) {
 					// reset status
 					node.setStatus(FIXGRIDTreeItem.STATUS_CLOSED);
 					// node per type of result e.g. triathlon
-					buildResultsTypeNodes(functionTree, node, null);
+					buildResultsTypeNodes(functionTree, node, null, null);
 				}
 
 			} else {
@@ -299,7 +300,7 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 	 * @param results_node
 	 * @param athleteId
 	 */
-	public void buildResultsTypeNodes(SFunctionTree functionTree, FunctionNode results_node, String athleteId) {
+	public void buildResultsTypeNodes(SFunctionTree functionTree, FunctionNode results_node, String athleteId, String athleteName) {
 		Iterator<ValidValue> iterator = FUNCTIONTREELOGIC.getCompetitionTypes();
 		while(iterator.hasNext()) {
 			ValidValue value = iterator.next();
@@ -310,13 +311,14 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 			results_type_node.setStatus(FIXGRIDTreeItem.STATUS_CLOSED);
 			results_type_node.setOpenMultipleInstances(false);
 			results_type_node.setText(value.getText());
+			if(!Helper.isEmpty(athleteName))  results_type_node.setWindowTitle(value.getText() + Constants.WHITESPACE + athleteName);
 			if(athleteId!=null) results_type_node.setParam(Constants.P_PERSON, athleteId);
 			results_type_node.setParam(Constants.P_FILTER, value.getValue());
 			results_type_node.setParam(Constants.P_ENTITY, entity.name());
 			// authorization => coach is allowed to manually change values
 			FUNCTIONTREELOGIC.setAuthority(functionTree, results_type_node);
 			// node per subtype of result e.g. triathlon-sprint
-			buildResultsSubtypeNodes(functionTree, results_type_node, athleteId, value.getValue());
+			buildResultsSubtypeNodes(functionTree, results_type_node, athleteId, athleteName, value.getValue());
 		}
 	}
 
@@ -324,7 +326,7 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 	 * Build node per subtype of result e.g. triathlon-sprint
 	 * @param results_node
 	 */
-	public void buildResultsSubtypeNodes(SFunctionTree functionTree, FunctionNode results_type_node, String athleteId, String type) {
+	public void buildResultsSubtypeNodes(SFunctionTree functionTree, FunctionNode results_type_node, String athleteId, String athleteName, String type) {
 		Iterator<ValidValue> iterator = FUNCTIONTREELOGIC.getCompetitionSubtypes(type);
 		while(iterator.hasNext()) {
 			ValidValue value = iterator.next();
@@ -335,6 +337,7 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 			results_subtype_node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
 			results_subtype_node.setOpenMultipleInstances(false);
 			results_subtype_node.setText(value.getText());
+			if(!Helper.isEmpty(athleteName)) results_subtype_node.setWindowTitle(value.getText() + Constants.WHITESPACE + athleteName);
 			if(athleteId!=null) results_subtype_node.setParam(Constants.P_PERSON, athleteId);
 			results_subtype_node.setParam(Constants.P_FILTER, type + ":" + value.getValue());
 			results_subtype_node.setParam(Constants.P_ENTITY, entity.name());

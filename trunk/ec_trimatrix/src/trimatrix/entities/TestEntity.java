@@ -61,12 +61,17 @@ public final class TestEntity extends AEntity {
     public static final String DISTANCE = "distance";
     public static final String SPLITS = "splits";
 
-    // Constants Protocoll
+    // Constants Protocol
     public static final String PROTOCOL_DESCRIPTION = "protocol_description";
     public static final String MODEL = "model";
     public static final String MODEL_LACTATE = "model_lactate";
     public static final String MODEL_SPIRO = "model_spiro";
     public static final String PERFORMANCE_MAX = "performance_max";
+
+    // Constants Analysis
+    public static final String ANALYSIS_FUNCTION = "analysis_function";
+    public static final String ANALYSIS_OFFSET = "analysis_offset";
+    public static final String ANALYSIS_DEGREE = "analysis_degree";
 
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IUserEntity#getGridMetaData()

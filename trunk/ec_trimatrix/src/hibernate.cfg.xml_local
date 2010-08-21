@@ -51,6 +51,8 @@
 		<!--  -->
 		<property name="hbm2ddl.auto">validate</property>
 
+		<!-- JMX Export -->
+		<property name="generate_statistics">true</property>
 
 		<!--
 			Activate Envers <property

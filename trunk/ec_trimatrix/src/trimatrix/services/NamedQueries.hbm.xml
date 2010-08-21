@@ -990,4 +990,12 @@ ORDER BY e.entity
   <return-scalar column="entity" type="java.lang.String"/>
   <return-scalar column="id" type="java.lang.String"/>
 </sql-query>
+
+<sql-query cacheable="true" name="ScheduleTypeDefaultColor" read-only="true">
+SELECT
+  color
+FROM k_scheduletypes
+WHERE k_scheduletypes.key = :p_key
+  <return-scalar column="color" type="java.lang.String"/>
+</sql-query>
 </hibernate-mapping>

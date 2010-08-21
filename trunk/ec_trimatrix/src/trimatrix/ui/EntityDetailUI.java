@@ -235,6 +235,7 @@ public class EntityDetailUI extends MyWorkpageDispatchedBean implements
 			entityObject = ENTITYLISTLOGIC.save(entity, entityObject);
 			entityDetailUI.postSave();
 			getWorkpage().setTitle(entityObject.toString());
+			getWorkpage().setSelectorTitle(entityObject.toString());
 			Statusbar.outputSuccess(Helper.getMessages("save_success"));
 			//refreshParent();
 			// unlock entity

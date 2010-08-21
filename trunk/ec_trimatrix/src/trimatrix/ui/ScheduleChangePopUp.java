@@ -84,6 +84,15 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
     public String getDuration() { return HelperTime.calculateTime(scheduleItem.getDuration().intValue()*60, true); }
     public void setDuration(String duration) { scheduleItem.setDuration(HelperTime.calculateSeconds(duration).longValue()/60); }
 
+    public int getDistance() {
+    	int distance = 0;
+    	for(GridDetailItem item : gridDetail.getItems()) {
+			SchedulesDetail schedulesDetail = item.getScheduleDetail();
+    		if(schedulesDetail.getTotalDistance()!=null) distance += schedulesDetail.getTotalDistance();
+    	}
+    	return distance;
+    }
+
     public String getTemplateName() { return scheduleItem.getTemplateName(); }
     public void setTemplateName(String templateName) { scheduleItem.setTemplateName(templateName); }
 
@@ -275,8 +284,8 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 			ZonesDefinition definition = getDaoLayer().getZonesDefinitionDAO().findById(scheduleDetail.getZoneId());
 			if(definition==null) return;
 			// set definition relevant properties
-			scheduleDetail.setLactateLow(definition.getLactateLow());
-			scheduleDetail.setLactateHigh(definition.getLactateHigh());
+			scheduleDetail.setLactateLow(definition.getLactateTargetLow());
+			scheduleDetail.setLactateHigh(definition.getLactateTargetHigh());
 			// no handling when in template mode
 			if(isTemplate()) return;
 			// get athletes zone
@@ -288,8 +297,8 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 			// normally just one match!
 			Zones zone = zones.get(0);
 			// set zone relevant properties
-			scheduleDetail.setHrLow(zone.getHrLowRun());
-			scheduleDetail.setHrHigh(zone.getHrHighRun());
+			scheduleDetail.setHrLow(zone.getHrTargetLowRun());
+			scheduleDetail.setHrHigh(zone.getHrTargetHighRun());
 			// swim logic
 			if(getTypeOrd()==ScheduleLogic.SWIM) {
 				Integer distance = getScheduleDetail().getDistance();
@@ -302,8 +311,12 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 					scheduleDetail.setTimeLow(zonesSwim.getTimeLow());
 					scheduleDetail.setTimeHigh(zonesSwim.getTimeHigh());
 				} else {
-					scheduleDetail.setTimeLow(HelperTime.calculateTime(zone.getSpeedLowSwim() * distance, false));
-					scheduleDetail.setTimeHigh(HelperTime.calculateTime(zone.getSpeedHighSwim() * distance, false));
+					Double speedLow = zone.getSpeedLowSwim();
+					if(speedLow==null) speedLow = 0d;
+					Double speedHigh = zone.getSpeedHighSwim();
+					if(speedHigh==null) speedHigh = 0d;
+					scheduleDetail.setTimeLow(HelperTime.calculateTime(speedLow * distance, false));
+					scheduleDetail.setTimeHigh(HelperTime.calculateTime(speedHigh * distance, false));
 				}
 			}
 
@@ -345,7 +358,8 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
 	}
 
 	public void onChangeType(ActionEvent event) {
-
+		// set default color
+		setColor(getLogic().getScheduleLogic().getScheduleTypeDefaultColor(getType()));
 	}
 
 }

@@ -23,8 +23,12 @@ public class Zones implements java.io.Serializable {
 	private String zonesDefinitionId;
 	private Integer hrLowRun;
 	private Integer hrHighRun;
+	private Integer hrTargetLowRun;
+	private Integer hrTargetHighRun;
 	private Integer hrLowBike;
 	private Integer hrHighBike;
+	private Integer hrTargetLowBike;
+	private Integer hrTargetHighBike;
 	private Double speedLowSwim;
 	private Double speedHighSwim;
 	private Boolean autoHrRun;
@@ -49,19 +53,21 @@ public class Zones implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Zones(String id, String athleteId, String zonesDefinitionId,
-			Integer hrLowRun, Integer hrHighRun,
-			Integer hrLowBike, Integer hrHighBike,
-			Double speedLowSwim, Double speedHighSwim,
-			Boolean autoHrRun, Boolean autoHrBike, Boolean autoSpeedSwim,
-			String testIdRun, String testIdBike, String testIdSwim) {
+	public Zones(String id, String athleteId, String zonesDefinitionId, Integer hrLowRun, Integer hrHighRun, Integer hrTargetLowRun, Integer hrTargetHighRun, Integer hrLowBike, Integer hrHighBike,
+			Integer hrTargetLowBike, Integer hrTargetHighBike, Double speedLowSwim, Double speedHighSwim, Boolean autoHrRun, Boolean autoHrBike, Boolean autoSpeedSwim, String testIdRun,
+			String testIdBike, String testIdSwim, ZonesDefinition zonesDefinition) {
+		super();
 		this.id = id;
 		this.athleteId = athleteId;
 		this.zonesDefinitionId = zonesDefinitionId;
 		this.hrLowRun = hrLowRun;
 		this.hrHighRun = hrHighRun;
+		this.hrTargetLowRun = hrTargetLowRun;
+		this.hrTargetHighRun = hrTargetHighRun;
 		this.hrLowBike = hrLowBike;
 		this.hrHighBike = hrHighBike;
+		this.hrTargetLowBike = hrTargetLowBike;
+		this.hrTargetHighBike = hrTargetHighBike;
 		this.speedLowSwim = speedLowSwim;
 		this.speedHighSwim = speedHighSwim;
 		this.autoHrRun = autoHrRun;
@@ -70,6 +76,7 @@ public class Zones implements java.io.Serializable {
 		this.testIdRun = testIdRun;
 		this.testIdBike = testIdBike;
 		this.testIdSwim = testIdSwim;
+		this.zonesDefinition = zonesDefinition;
 	}
 
 	// Property accessors
@@ -119,6 +126,24 @@ public class Zones implements java.io.Serializable {
 		this.hrHighRun = hrHighRun;
 	}
 
+	@Column(name = "hr_target_low_run")
+	public Integer getHrTargetLowRun() {
+		return hrTargetLowRun;
+	}
+
+	public void setHrTargetLowRun(Integer hrTargetLowRun) {
+		this.hrTargetLowRun = hrTargetLowRun;
+	}
+
+	@Column(name = "hr_target_high_run")
+	public Integer getHrTargetHighRun() {
+		return hrTargetHighRun;
+	}
+
+	public void setHrTargetHighRun(Integer hrTargetHighRun) {
+		this.hrTargetHighRun = hrTargetHighRun;
+	}
+
 	@Column(name = "hr_low_bike")
 	public Integer getHrLowBike() {
 		return this.hrLowBike;
@@ -135,6 +160,24 @@ public class Zones implements java.io.Serializable {
 
 	public void setHrHighBike(Integer hrHighBike) {
 		this.hrHighBike = hrHighBike;
+	}
+
+	@Column(name = "hr_target_low_bike")
+	public Integer getHrTargetLowBike() {
+		return hrTargetLowBike;
+	}
+
+	public void setHrTargetLowBike(Integer hrTargetLowBike) {
+		this.hrTargetLowBike = hrTargetLowBike;
+	}
+
+	@Column(name = "hr_target_high_bike")
+	public Integer getHrTargetHighBike() {
+		return hrTargetHighBike;
+	}
+
+	public void setHrTargetHighBike(Integer hrTargetHighBike) {
+		this.hrTargetHighBike = hrTargetHighBike;
 	}
 
 	@Column(name = "speed_low_swim", columnDefinition="decimal")

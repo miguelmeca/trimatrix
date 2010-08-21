@@ -15,7 +15,7 @@
 <t:pane id="g_2" border="#808080" height="100%" padding="1" stylevariant="IDVALUESELECTION" width="100%" >
 <t:rowbodypane id="g_3" padding="0" stylevariant="IDVALUESELECTION" >
 <t:row id="g_4" >
-<t:fixgrid id="g_5" suppressheadline="#{eclntdefscr.popupIdTextSelection.suppressHeadline}" avoidroundtrips="true" border="top:0;left:0;right:0;bottom:0" height="100%" objectbinding="#{eclntdefscr.popupIdTextSelection.lines}" requestfocus="creation" rowheight="16" sbvisibleamount="20" stylevariant="IDVALUESELECTION" width="100%" singleclickexecute="true" >
+<t:fixgrid id="g_5" suppressheadline="#{eclntdefscr.popupIdTextSelection.suppressHeadline}" avoidroundtrips="true" border="top:0;left:0;right:0;bottom:0" height="100%" objectbinding="#{eclntdefscr.popupIdTextSelection.lines}" requestfocus="#{eclntdefscr.popupIdTextSelection.requestFocus}" rowheight="16" sbvisibleamount="20" stylevariant="IDVALUESELECTION" width="100%" singleclickexecute="true" >
 <t:gridcol id="e_140" text="Id" width="100" rendered="#{eclntdefscr.popupIdTextSelection.renderIdColumn}">
 <t:label id="e_141" stylevariant="IDVALUESELECTION" text=".{id}" />
 </t:gridcol>

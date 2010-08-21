@@ -27,6 +27,8 @@ public class ZonesDefinition  implements java.io.Serializable {
      private String color;
      private Double lactateLow;
      private Double lactateHigh;
+     private Double lactateTargetLow;
+     private Double lactateTargetHigh;
      private Integer hrLowRun;
      private Integer hrHighRun;
      private Integer hrLowBike;
@@ -46,22 +48,24 @@ public class ZonesDefinition  implements java.io.Serializable {
     }
 
     /** full constructor */
-    public ZonesDefinition(String id, String coachId, Integer sequence, String shortcut, String description, String color,
-    		Double lactateLow, Double lactateHigh,
-    		Integer hrLowRun, Integer hrHighRun, Integer hrLowBike, Integer hrHighBike) {
-        this.id = id;
-        this.coachId = coachId;
-        this.sequence = sequence;
-        this.shortcut = shortcut;
-        this.description = description;
-        this.color = color;
-        this.lactateLow = lactateLow;
-        this.lactateHigh = lactateHigh;
-        this.hrLowRun = hrLowRun;
-        this.hrHighRun = hrHighRun;
-        this.hrLowBike = hrLowBike;
-        this.hrHighBike = hrHighBike;
-    }
+    public ZonesDefinition(String id, String coachId, Integer sequence, String shortcut, String description, String color, Double lactateLow, Double lactateHigh, Double lactateTargetLow,
+			Double lactateTargetHigh, Integer hrLowRun, Integer hrHighRun, Integer hrLowBike, Integer hrHighBike) {
+		super();
+		this.id = id;
+		this.coachId = coachId;
+		this.sequence = sequence;
+		this.shortcut = shortcut;
+		this.description = description;
+		this.color = color;
+		this.lactateLow = lactateLow;
+		this.lactateHigh = lactateHigh;
+		this.lactateTargetLow = lactateTargetLow;
+		this.lactateTargetHigh = lactateTargetHigh;
+		this.hrLowRun = hrLowRun;
+		this.hrHighRun = hrHighRun;
+		this.hrLowBike = hrLowBike;
+		this.hrHighBike = hrHighBike;
+	}
 
 
     // Property accessors
@@ -73,7 +77,9 @@ public class ZonesDefinition  implements java.io.Serializable {
         return this.id;
     }
 
-    public void setId(String id) {
+
+
+	public void setId(String id) {
         this.id = id;
     }
 
@@ -146,7 +152,25 @@ public class ZonesDefinition  implements java.io.Serializable {
         this.lactateHigh = lactateHigh;
     }
 
-    @Column(name="hr_low_run")
+    @Column(name="lactate_target_low", columnDefinition="decimal")
+    public Double getLactateTargetLow() {
+		return lactateTargetLow;
+	}
+
+	public void setLactateTargetLow(Double lactateTargetLow) {
+		this.lactateTargetLow = lactateTargetLow;
+	}
+
+	@Column(name="lactate_target_high", columnDefinition="decimal")
+	public Double getLactateTargetHigh() {
+		return lactateTargetHigh;
+	}
+
+	public void setLactateTargetHigh(Double lactateTargetHigh) {
+		this.lactateTargetHigh = lactateTargetHigh;
+	}
+
+	@Column(name="hr_low_run")
     public Integer getHrLowRun() {
         return this.hrLowRun;
     }
