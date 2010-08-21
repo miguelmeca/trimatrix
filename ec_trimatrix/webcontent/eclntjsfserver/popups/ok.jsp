@@ -30,7 +30,7 @@
 				<t:row id="g_7">
 					<t:coldistance id="g_8" width="50%" />
 					<t:button id="g_9" actionListener="#{eclntdefscr.okPopup.onClose}"
-						image="../images/okpopup_ok.png" text="#{eclntdefscr.okPopup.textOk}" requestfocus="creation" />
+						image="#{eclntdefscr.okPopup.buttonImage}" text="#{eclntdefscr.okPopup.textOk}" requestfocus="creation" width="100"/>
 					<t:coldistance id="g_10" width="50%" />
 				</t:row>
 			</t:rowbodypane>

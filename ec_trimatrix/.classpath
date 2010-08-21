@@ -15,7 +15,7 @@
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/aspectjrt.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/aspectjweaver.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/c3p0-0.9.1.2.jar"/>
-	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/cglib-nodep-2.1_3.jar"/>
+	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/cglib-nodep-2.1_3.jar" sourcepath="C:/Users/reich/.m2/repository/cglib/cglib-nodep/2.1_3/cglib-nodep-2.1_3-sources.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/commons-attributes-api.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/commons-attributes-compiler.jar"/>
 	<classpathentry kind="lib" path="webcontent/WEB-INF/lib/commons-dbcp.jar"/>

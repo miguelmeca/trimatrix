@@ -22,7 +22,7 @@
                       <t:icon id="g_26" rendered="#{OBJECTBINDING.currentWorkpagePopupSupported}" actionListener="#{OBJECTBINDING.onOpenCurrentPageAsModelessPopup}" image="/eclntjsfserver/images/window_popup.png" />
                       <t:icon id="g_27" rendered="#{OBJECTBINDING.currentWorkpageCloseSupported}" actionListener="#{OBJECTBINDING.onCloseCurrentWorkpage}" image="/eclntjsfserver/images/window_close.png" />
                     </t:rowtitlebar>
-                    <t:rowinclude id="g_28" contentreplacedrilldown="#{OBJECTBINDING.currentContentReplace}" page="#{OBJECTBINDING.currentJspPage}" updateoninnereventonly="#{OBJECTBINDING.updateOnInnerEventOnly}"/>
+                    <t:rowinclude id="g_28" contentreplace="#{OBJECTBINDING.currentContentReplaceNoDrillDown}" contentreplacedrilldown="#{OBJECTBINDING.currentContentReplace}" page="#{OBJECTBINDING.currentJspPage}" updateoninnereventonly="#{OBJECTBINDING.updateOnInnerEventOnly}"/>
                   </t:pane>
                 </t:row>
               </t:pane>

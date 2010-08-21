@@ -89,6 +89,7 @@ public class SQLExecutorService {
     public static final String COMPSUBTYPEVALUELISTQUERY = "CompSubtypeValueList";
     public static final String SCHEDULETYPEVALUELISTQUERY = "ScheduleTypeValueList";
     public static final String ENTITIESBYLABELLISTQUERY = "EntitiesByLabelList";
+    public static final String SCHEDULETYPEDEFAULTCOLORQUERY = "ScheduleTypeDefaultColor";
 
     private HibernateTransactionManager transactionManager;
     private Dictionary dictionaryService;
@@ -1148,6 +1149,17 @@ public class SQLExecutorService {
         }
         session.close();
         return list;
+    }
+
+    @SuppressWarnings("unchecked")
+    public String getScheduleTypeDefaultColor(String type) {
+    	Session session = sessionFactory.openSession();
+    	Query query = session.getNamedQuery(SCHEDULETYPEDEFAULTCOLORQUERY);
+    	query.setString("p_key", type);
+    	List<String> result = query.list();
+    	if(result.isEmpty()) return Constants.WHITE;
+    	session.close();
+       return result.get(0);
     }
 
     /**

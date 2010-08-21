@@ -194,7 +194,8 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 						doctor_node.setId(pageId);
 						doctor_node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
 						doctor_node.setOpenMultipleInstances(false);
-						doctor_node.setText("Doctors");
+						doctor_node.setText(Helper.getLiteral("doctors"));
+						doctor_node.setWindowTitle(Helper.getLiteral("doctors") + Constants.WHITESPACE + athlete);
 						doctor_node.setParam(Constants.P_PERSON, athlete.getId());
 						doctor_node.setParam(Constants.P_ENTITY, Constants.Entity.DOCTOR.name());
 						// authorization as parent
@@ -205,7 +206,8 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 						attachment_node.setId(pageId);
 						attachment_node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
 						attachment_node.setOpenMultipleInstances(false);
-						attachment_node.setText("Attachments");
+						attachment_node.setText(Helper.getLiteral("attachments"));
+						attachment_node.setWindowTitle(Helper.getLiteral("attachments") + Constants.WHITESPACE + athlete);
 						attachment_node.setParam(Constants.P_PERSON, athlete.getId());
 						attachment_node.setParam(Constants.P_ENTITY, Constants.Entity.ATTACHMENT.name());
 						// authorization as parent
@@ -216,7 +218,8 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 						test_node.setId(pageId);
 						test_node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
 						test_node.setOpenMultipleInstances(false);
-						test_node.setText("Tests");
+						test_node.setText(Helper.getLiteral("tests"));
+						test_node.setWindowTitle(Helper.getLiteral("tests") + Constants.WHITESPACE + athlete);
 						test_node.setParam(Constants.P_PERSON, athlete.getId());
 						test_node.setParam(Constants.P_ENTITY, Constants.Entity.TEST.name());
 						// authorization as parent
@@ -228,6 +231,7 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 						zones_node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
 						zones_node.setOpenMultipleInstances(false);
 						zones_node.setText(Helper.getLiteral("exercise_zones"));
+						zones_node.setWindowTitle(Helper.getLiteral("exercise_zones") + Constants.WHITESPACE + athlete);
 						zones_node.setParam(Constants.P_PERSON, athlete.getId());
 						// authorization => coach is allowed to manually change values
 						FUNCTIONTREELOGIC.setAuthority(zones_node, false, true, false);

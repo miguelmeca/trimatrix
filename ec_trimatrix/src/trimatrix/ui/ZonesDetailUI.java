@@ -293,6 +293,26 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
 			zones.setHrHighRun(hrHighRun);
 		}
 
+		public Integer getHrTargetLowRun() {
+			return zones != null ? zones.getHrTargetLowRun() : null;
+		}
+
+		public void setHrTargetLowRun(Integer hrTargetLowRun) {
+			dirty = true;
+			zones.setAutoHrRun(false);
+			zones.setHrTargetLowRun(hrTargetLowRun);
+		}
+
+		public Integer getHrTargetHighRun() {
+			return zones != null ? zones.getHrTargetHighRun() : null;
+		}
+
+		public void setHrTargetHighRun(Integer hrTargetHighRun) {
+			dirty = true;
+			zones.setAutoHrRun(false);
+			zones.setHrTargetHighRun(hrTargetHighRun);
+		}
+
 		public Integer getHrLowBike() {
 			return zones != null ? zones.getHrLowBike() : null;
 		}
@@ -311,6 +331,26 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
 			dirty = true;
 			zones.setAutoHrBike(false);
 			zones.setHrHighBike(hrHighBike);
+		}
+
+		public Integer getHrTargetLowBike() {
+			return zones != null ? zones.getHrTargetLowBike() : null;
+		}
+
+		public void setHrTargetLowBike(Integer hrTargetLowBike) {
+			dirty = true;
+			zones.setAutoHrBike(false);
+			zones.setHrTargetLowBike(hrTargetLowBike);
+		}
+
+		public Integer getHrTargetHighBike() {
+			return zones != null ? zones.getHrTargetHighBike() : null;
+		}
+
+		public void setHrTargetHighBike(Integer hrTargetHighBike) {
+			dirty = true;
+			zones.setAutoHrBike(false);
+			zones.setHrTargetHighBike(hrTargetHighBike);
 		}
 
 		public Double getSpeedLowSwim() {
@@ -522,6 +562,8 @@ public class ZonesDetailUI extends MyWorkpageDispatchedBean implements Serializa
 	public void processEvent(WorkpageProcessingEvent event) {
 		// refresh list
 		if (event instanceof WorkpageRefreshEvent) {
+			// reload coach to get right values (e.g. color)!
+			coach = getLogic().getZonesLogic().getStandardCoach(personId);
 			Entity entity = ((WorkpageRefreshEvent) event).getEntity();
 			if (Entity.ZONE == entity.getBase())
 				buildGrids();

@@ -244,6 +244,10 @@ public class Helper {
 		return value == null;
 	}
 
+	public static boolean isEmpty(Long value) {
+		return value == null || value == 0L;
+	}
+
 	public static boolean isEmpty(Collection collection) {
 		return collection == null || collection.size() == 0;
 	}

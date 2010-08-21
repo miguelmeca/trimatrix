@@ -8,7 +8,7 @@ import org.eclnt.workplace.WorkpageStartInfo;
 
 /**
  * We have to create an own starter because we also have
- * an own implementation for workpages, e.g. the closing 
+ * an own implementation for workpages, e.g. the closing
  * scenario is handled there
  * @author reich
  *
@@ -25,9 +25,13 @@ public class MyWorkpageStarter implements IWorkpageStarter {
 				return wp;
 			}
 		}
+		String title = startInfo.getText();
+	    if (startInfo.getWindowTitle() != null) {
+	      title = startInfo.getWindowTitle();
+	    }
 		// create new page
 		MyWorkpage wp = new MyWorkpage(workpageDispatcher, startInfo.getJspPage(),
-				startInfo.getId(), startInfo.getText(), startInfo.getImage(),
+				startInfo.getId(), title, startInfo.getImage(),
 				startInfo.isDecorated());
 		wp.setPopupSupported(startInfo.isPopupSupported());
 		wp.setSelectorTitle(startInfo.getSelectorTitle());

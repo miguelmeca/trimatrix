@@ -219,4 +219,21 @@
 	  <set attribute="foregrounddefault" value="#00000060" />
 	  <set attribute="foregroundselected" value="#000000" />
 	</tag>
+	
+	<tag name="t:tabbedpane" variant="topmenu" >
+	  <set attribute="background" value="#FFFFFF60" />
+	  <set attribute="borderdarkshadowcolor" value="#00000030" />
+	  <set attribute="borderlightcolor" value="#00000020" />
+	  <set attribute="bordershadowcolor" value="#00000000" />
+	  <set attribute="font" value="weight:bold" />
+	  <set attribute="onetablineonly" value="true" />
+	  <set attribute="onlydrawselectedtab" value="true" />
+	  <set attribute="tabindent" value="30" />
+	  <set attribute="tabstyle" value="classic" />
+	  <set attribute="transparent" value="true" />
+	</tag>
+	<tag name="t:tabbedpanetab" variant="topmenu" >
+	  <set attribute="padding" value="10" />
+	</tag>
+	
 </style>

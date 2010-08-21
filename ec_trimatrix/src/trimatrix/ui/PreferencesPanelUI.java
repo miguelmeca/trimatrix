@@ -91,6 +91,22 @@ public class PreferencesPanelUI extends MyWorkpageDispatchedBean implements Seri
 		return preferences.getSbvisibleamount();
 	}
 
+	public int getWidthTestsDia() {
+		return preferences.getWidthTestsDia();
+	}
+
+	public void setWidthTestsDia(int width) {
+		preferences.setWidthTestsDia(width);
+	}
+
+	public int getHeightTestsDia() {
+		return preferences.getHeightTestsDia();
+	}
+
+	public void setHeightTestsDia(int height) {
+		preferences.setHeightTestsDia(height);
+	}
+
 	public void setSbvisibleamount(int sbvisibleamount) {
 		preferences.setSbvisibleamount(sbvisibleamount);
 	}

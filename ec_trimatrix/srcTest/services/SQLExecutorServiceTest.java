@@ -63,7 +63,7 @@ public class SQLExecutorServiceTest {
 		List<IEntityData> scheduleEntityData = sqlExecutorService.getScheduleEntities("de", null, null, null, null, false, false);
 		Assert.assertTrue(scheduleEntityData.size()>0);
 	}
-	
+
 	@Test
 	public void testSchedulesCriteria() throws ParseException {
 		DateFormat dfm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -75,5 +75,11 @@ public class SQLExecutorServiceTest {
 		}
 		System.out.println(schedules.size());
 		Assert.assertTrue(schedules.size()>0);
+	}
+
+	@Test
+	public void testScheduleTypeDefaultColor() {
+		Assert.assertEquals("#0000FF", sqlExecutorService.getScheduleTypeDefaultColor("run"));
+		Assert.assertEquals(Constants.WHITE, sqlExecutorService.getScheduleTypeDefaultColor("xyz"));
 	}
 }

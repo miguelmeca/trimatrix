@@ -8,6 +8,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import trimatrix.db.DAOLayer;
+import trimatrix.db.UserPreferences;
 import trimatrix.logic.helper.Split;
 import trimatrix.services.ServiceLayer;
 import trimatrix.utils.Constants;
@@ -15,31 +16,56 @@ import trimatrix.utils.Helper;
 
 public class TestLogic {
 	public static final Log logger = LogFactory.getLog(TestLogic.class);
-		
+
 	private DAOLayer daoLayer;
 	private ServiceLayer serviceLayer;
-	
+	private LogicLayer logicLayer;
+
+	public int getHeightForDia() {
+		UserPreferences preferences = serviceLayer.getDictionaryService().getMyUser().getPreferences();
+		if(preferences==null || preferences.getHeightTestsDia() == null || preferences.getHeightTestsDia()<=0) return 300; // standard value
+		return preferences.getHeightTestsDia();
+	}
+
+	public int getWidthForDia() {
+		UserPreferences preferences = serviceLayer.getDictionaryService().getMyUser().getPreferences();
+		if(preferences==null || preferences.getWidthTestsDia()==null || preferences.getWidthTestsDia()<=0) return 400; // standard value
+		return preferences.getWidthTestsDia();
+	}
+
+	public void setResultionForDia(int height, int width) {
+		UserPreferences preferences = serviceLayer.getDictionaryService().getMyUser().getPreferences();
+		if(preferences==null) return;
+		preferences.setHeightTestsDia(height);
+		preferences.setWidthTestsDia(width);
+		try {
+			logicLayer.getPreferencesLogic().savePreferences(preferences);
+		} catch (Exception ex) {
+			logger.error("Resolution couldn't be saved in user preferences", ex);
+		}
+	}
+
 	public void deleteAllSwimProtocolls(String id) {
 		int size = serviceLayer.getSqlExecutorService().deleteAllSwimProtocols(id);
 		logger.debug(size + " : Swim protocols deleted!");
 	}
-	
+
 	public LactateSamples createLactateSamples() {
 		return new LactateSamples();
 	}
-	
+
 	public LactateSamples createLactateSamples(String samples) {
 		return new LactateSamples(samples);
 	}
-	
+
 	public Split createSplit() {
 		return new Split();
 	}
-	
+
 	public String buildString(Split[] splits, Integer count) {
         if(splits==null || splits.length==0) return Constants.EMPTY;
-        StringBuilder result = new StringBuilder();       
-        for(int i=0;i<count;i++) {            
+        StringBuilder result = new StringBuilder();
+        for(int i=0;i<count;i++) {
         	if(result.length()>0) result.append(',');
             result.append('{');
             result.append(splits[i].getTime());
@@ -47,11 +73,11 @@ public class TestLogic {
             result.append(splits[i].getStrokes());
             result.append('}');
         }
-        result.insert(0,'[');       
+        result.insert(0,'[');
         result.append(']');
         return result.toString();
     }
-   
+
     public Split[] buildArray(String splits, Integer count) {
     	Split[] result = new Split[count];
     	if(splits==null || splits.length()==0) {
@@ -59,36 +85,38 @@ public class TestLogic {
     			result[i] = new Split();
     		}
         } else {
-        	splits = splits.substring(1, splits.length()-1);
-            String[] parts = splits.split(",");            
-            result = new Split[count];       
+        	splits = splits.substring(2, splits.length()-2);
+            String[] parts = splits.split("\\},\\{");
+            result = new Split[count];
             for(int i = 0;i<count;i++) {
             	if(i>=parts.length) {
             		result[i] = new Split();
             	}
-            	// remove brackets
-                String part = parts[i].substring(1, parts[i].length()-1);
-                String[] elements = part.split(";");
+                String[] elements = parts[i].split(";");
                 String time = elements[0];
                 Integer strokes = 0;
                 try {
                 	strokes = Integer.valueOf(elements[1]);
-                } catch (NumberFormatException nfe) {/* strokes set to zero */ }             
+                } catch (NumberFormatException nfe) {/* strokes set to zero */ }
                 result[i] = new Split(time, strokes);
             }
-        }        
+        }
         return result;
     }
-	
+
 	public void setServiceLayer(ServiceLayer serviceLayer) {
 		this.serviceLayer = serviceLayer;
 	}
-	
+
 	public void setDaoLayer(DAOLayer daoLayer) {
 		this.daoLayer = daoLayer;
 	}
-	
-	public class LactateSamples {		
+
+	public void setLogicLayer(LogicLayer logicLayer) {
+		this.logicLayer = logicLayer;
+	}
+
+	public class LactateSamples {
 		LactateList lactates;
 		Double lactate;
 		boolean singleValue;
@@ -96,7 +124,7 @@ public class TestLogic {
 		public LactateSamples() {
 			setLactateSamples("0");
 		}
-		
+
 		public LactateSamples(String samples) {
 			setLactateSamples(samples);
 		}
@@ -140,31 +168,31 @@ public class TestLogic {
 		public boolean isSingleValue() {
 			return singleValue;
 		}
-		
+
 		public String getSingleValue() {
-			return Helper.getNumberFormat().format(getSingleDoubleValue());	
+			return Helper.getNumberFormat().format(getSingleDoubleValue());
 		}
-		
+
 		public Double getSingleDoubleValue() {
 			Double lactate;
 			if(isSingleValue()) {
-				lactate = this.lactate;	
+				lactate = this.lactate;
 			} else {
 				lactate = lactates.maxLactate;
 			}
-			return lactate;	
+			return lactate;
 		}
 
 		@Override
 		public String toString() {
-			StringBuilder result = new StringBuilder();		
+			StringBuilder result = new StringBuilder();
 			if(isSingleValue()) {
 				result.append(Helper.getNumberFormat().format(lactate));
 			} else {
 				for(Lactate lactate : lactates) {
 					if(result.length()>0) result.append(Constants.WHITESPACE);
 					result.append(lactate.toString());
-				}			
+				}
 			}
 			return result.toString();
 		}
@@ -197,14 +225,14 @@ public class TestLogic {
 			@Override
 			public String toString() {
 				return Helper.getNumberFormat().format(lactate) + "@" + Helper.getNumberFormat().format(minutes);
-			}		
+			}
 		}
-		
+
 		public class LactateList extends ArrayList<Lactate> {
 			Double maxLactate;
 			Double minLactate;
 			@Override
-			public boolean add(Lactate e) {			
+			public boolean add(Lactate e) {
 				if(!super.add(e)) return false;
 				if(maxLactate==null || e.getLactate() > maxLactate) maxLactate = e.getLactate();
 				if(minLactate==null || e.getLactate() < minLactate) minLactate = e.getLactate();
@@ -217,5 +245,5 @@ public class TestLogic {
 				return minLactate;
 			}
 		}
-	}	
+	}
 }

@@ -1,4 +1,4 @@
-<style>
+<style extends="default" >
     <tag name="arraygrid" variant="default">
         <set attribute="background" value="#FFFFFF10"/>
         <set attribute="border" value="0"/>
@@ -28,16 +28,19 @@
         <set attribute="width" value="1"/>
     </tag>
     <tag name="combofield" variant="default">
-        <set attribute="background" value="#FFFFFFC0"/>
+        <set attribute="background" value="#fffffff0"/>
+    </tag>
+    <tag name="combobox" variant="default">
+        <set attribute="background" value="#fffffff0"/>
     </tag>
     <tag name="combofield" variant="INGRID">
-        <set attribute="background" value="#FFFFFFC0"/>
+        <set attribute="background" value="#fffffff0"/>
     </tag>
     <tag name="field" variant="default">
-        <set attribute="background" value="#FFFFFFC0"/>
+        <set attribute="background" value="#fffffff0"/>
     </tag>
     <tag name="filechooser" variant="default">
-        <set attribute="background" value="#FFFFFFC0"/>
+        <set attribute="background" value="#fffffff0"/>
     </tag>
     <tag name="foldablepane" variant="default">
         <set attribute="headerbgpaint" value="rectangle(0,0,100%,100%,#00000080,#00000040,vertical)"/>
@@ -91,7 +94,7 @@
     </tag>
     <tag name="gridcol" variant="default">
         <set attribute="foreground" value="#FFFFFF"/>
-        <set attribute="bgpaint" value="rectangle(0,0,100%,100%,#FFFFFF20,#00000020,vertical)"/>
+        <set attribute="background" value="#606060"/>
         <set attribute="font" value="weight:bold"/>
     </tag>
     <tag name="label" variant="default">
@@ -162,6 +165,9 @@
     </tag>
     <tag name="scrollpane" variant="default">
         <set attribute="scrollbartype" value="light"/>
+    </tag>
+    <tag name="splitpanesplit" variant="default">
+        <set attribute="dividercolor" value="#00000000"/>       
     </tag>
     <tag name="tabbedline" variant="default">
         <set attribute="bgpaintdefault" value="rectangle(0,0,100%,30,#FFFFFF40,#00000040,vertical)"/>       

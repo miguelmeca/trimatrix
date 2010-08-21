@@ -141,6 +141,9 @@
 		<property name="entityLayer">
 			<ref bean="entityLayer" />
 		</property>
+		<property name="logicLayer">
+			<ref bean="logicLayer" />
+		</property>
 	</bean>
 
 

@@ -23,7 +23,9 @@ import org.eclnt.workplace.IWorkpageDispatcher;
 import org.eclnt.workplace.IWorkpageProcessingEventListener;
 import org.eclnt.workplace.WorkpageProcessingEvent;
 
+import trimatrix.db.Persons;
 import trimatrix.entities.IEntityData;
+import trimatrix.entities.IEntityObject;
 import trimatrix.logic.EntityListLogic;
 import trimatrix.structures.SAuthorization;
 import trimatrix.structures.SGridMetaData;
@@ -52,6 +54,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements Serializab
 	private List<IEntityData>				gridData;
 	private Constants.Entity				entity;
 	private List<SRange<?>>					searchRanges	= new ArrayList<SRange<?>>();
+	private Persons                         person;
 
 	public List<SRange<?>> getSearchRanges() {
 		return searchRanges;
@@ -90,7 +93,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements Serializab
 	}
 
 	public boolean getRenderSearch() {
-		return searchMetaData.size() > 0;
+		return searchMetaData!=null && searchMetaData.size() > 0;
 	}
 
 	// Constructor
@@ -122,6 +125,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements Serializab
 		}
 		// get entity id
 		personId = getWorkpage().getParam(Constants.P_PERSON);
+		if(personId!=null) person = (Persons)getEntityLayer().getPersonEntity().get(personId);
 		// get filter
 		filter = getWorkpage().getParam(Constants.P_FILTER);
 		// set up grid output
@@ -152,6 +156,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements Serializab
 		this.authorization = authorization;
 		this.entity = entity;
 		personId = null;
+		person = null;
 		gridMetaData = ENTITYLISTLOGIC.getGridMetaData(entity, null);
 		buildData(ids);
 	}
@@ -331,6 +336,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements Serializab
 		IWorkpage wp = new MyWorkpage(wpd, Constants.Page.ENTITYDETAIL.getUrl(), null, Helper.getLiteral("new_entity"), null, true, entityList, authorization, null);
 		wp.setParam(Constants.P_ENTITY, entity.name());
 		wp.setParam(Constants.P_MODE, Constants.Mode.NEW.name());
+		if(!Helper.isEmpty(personId)) wp.setParam(Constants.P_PERSON, personId);
 		wpc.addWorkpage(wp);
 	}
 
@@ -479,6 +485,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements Serializab
 			// Page doesn't exist, create it
 			String pageId = datum.getId();
 			Mode pageMode = Mode.SHOW;
+			String title = (entity.getDescription() + Constants.WHITESPACE + datum.toString()).trim();
 
 			switch (entity.getBase()) {
 			case COMPETITION:
@@ -486,6 +493,12 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements Serializab
 				// because page ID has to be unique to resolve right page
 				// resolved in EntityDetailUI
 				pageId = entity.name() + "#" + pageId;
+				break;
+			case RESULT:
+				// add person to title
+				if(person!=null) {
+					title = title + Constants.WHITESPACE + person;
+				}
 				break;
 			case SCHEDULE:
 				// schedules are displayed as modal popup!
@@ -510,7 +523,8 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements Serializab
 				pageId = Constants.FINAL + pageId;
 				pageMode = Mode.FINAL;
 			}
-			String title = (entity.getDescription() + Constants.WHITESPACE + datum.toString()).trim();
+
+
 			wp = new MyWorkpage(wpd, Constants.Page.ENTITYDETAIL.getUrl(), pageId, title, null, true, entityList, authorization, null);
 			wp.setParam(Constants.P_ENTITY, entity.name());
 			wp.setParam(Constants.P_MODE, pageMode.name());

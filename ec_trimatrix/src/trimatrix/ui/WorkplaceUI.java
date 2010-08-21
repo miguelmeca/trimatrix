@@ -97,6 +97,10 @@ public class WorkplaceUI extends MyWorkpageDispatchedBean implements Serializabl
 		wpc.addWorkpage(wp);
     }
 
+    public String getLoggedInUser() {
+    	return getServiceLayer().getDictionaryService().getMyPerson().toString();
+    }
+
 	public WorkplaceUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher);
 		initialize();

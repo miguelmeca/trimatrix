@@ -186,9 +186,9 @@
 </t:row>
 <t:rowdistance id="g_131" />
 <t:row id="g_132" >
-<t:button id="g_133" actionListener="#{d.TestDetailUI.onAddItem}" enabled="#{d.TestDetailUI.enabled}" image="/images/icons/add.png" imageheight="15" text="#{rr.literals.add}" />
+<t:button id="g_133" actionListener="#{d.TestDetailUI.onAddItem}" enabled="#{d.TestDetailUI.enabled}" hotkey="ctrl-65" image="/images/icons/add.png" imageheight="15" text="#{rr.literals.add}" />
 <t:coldistance id="g_134" />
-<t:button id="g_135" actionListener="#{d.TestDetailUI.onRemoveItem}" enabled="#{d.TestDetailUI.enabled}" image="/images/icons/remove.png" imageheight="15" text="#{rr.literals.remove}" />
+<t:button id="g_135" actionListener="#{d.TestDetailUI.onRemoveItem}" enabled="#{d.TestDetailUI.enabled}" hotkey="ctrl-68" image="/images/icons/remove.png" imageheight="15" text="#{rr.literals.remove}" />
 </t:row>
 </t:pane>
 </t:row>
@@ -251,9 +251,9 @@
 </t:row>
 <t:rowdistance id="g_176" />
 <t:row id="g_177" >
-<t:button id="g_178" actionListener="#{d.TestDetailUI.onAddItem}" enabled="#{d.TestDetailUI.enabled}" image="/images/icons/add.png" imageheight="15" text="#{rr.literals.add}" />
+<t:button id="g_178" actionListener="#{d.TestDetailUI.onAddItem}" enabled="#{d.TestDetailUI.enabled}" hotkey="ctrl-65" image="/images/icons/add.png" imageheight="15" text="#{rr.literals.add}" />
 <t:coldistance id="g_179" />
-<t:button id="g_180" actionListener="#{d.TestDetailUI.onRemoveItem}" enabled="#{d.TestDetailUI.enabled}" image="/images/icons/remove.png" imageheight="15" text="#{rr.literals.remove}" />
+<t:button id="g_180" actionListener="#{d.TestDetailUI.onRemoveItem}" enabled="#{d.TestDetailUI.enabled}" hotkey="ctrl-68" image="/images/icons/remove.png" imageheight="15" text="#{rr.literals.remove}" />
 </t:row>
 </t:pane>
 </t:row>
@@ -391,9 +391,9 @@
 </t:row>
 <t:rowdistance id="g_268" />
 <t:row id="g_269" >
-<t:button id="g_270" actionListener="#{d.TestDetailUI.onAddItem}" enabled="#{d.TestDetailUI.enabled}" image="/images/icons/add.png" imageheight="15" text="#{rr.literals.add}" />
+<t:button id="g_270" actionListener="#{d.TestDetailUI.onAddItem}" enabled="#{d.TestDetailUI.enabled}" hotkey="ctrl-65" image="/images/icons/add.png" imageheight="15" text="#{rr.literals.add}" tooltip="ctrl + a" />
 <t:coldistance id="g_271" />
-<t:button id="g_272" actionListener="#{d.TestDetailUI.onRemoveItem}" enabled="#{d.TestDetailUI.enabled}" image="/images/icons/remove.png" imageheight="15" text="#{rr.literals.remove}" />
+<t:button id="g_272" actionListener="#{d.TestDetailUI.onRemoveItem}" enabled="#{d.TestDetailUI.enabled}" hotkey="ctrl-68" image="/images/icons/remove.png" imageheight="15" text="#{rr.literals.remove}" />
 </t:row>
 </t:pane>
 </t:row>
@@ -414,7 +414,7 @@
 <t:coldistance id="g_285" />
 <t:formattedfield id="g_286" format="int" userhint="Höhe" value="#{d.TestDetailUI.height}" width="50" />
 <t:coldistance id="g_287" />
-<t:button id="g_288" actionListener="#{d.TestDetailUI.onRefresh}" text="#{rr.literals.list_refresh}" />
+<t:button id="g_288" actionListener="#{d.TestDetailUI.onRefresh}" text="#{rr.literals.create_dia}" />
 <t:coldistance id="g_289" />
 <t:button id="g_290" actionListener="#{d.TestDetailUI.onSetZones}" text="#{rr.literals.set_zones}" />
 </t:row>
@@ -435,16 +435,16 @@
 <t:rowdistance id="g_302" />
 <t:row id="g_303" >
 <t:label id="g_304" text="#{rr.literals.function}" width="100" />
-<t:combobox id="g_305" actionListener="#{d.TestDetailUI.resetResult}" flush="true" validvaluesbinding="#{d.TestDetailUI.functionsVvb}" value="#{d.TestDetailUI.function}" width="200" />
+<t:combobox id="g_305" actionListener="#{d.TestDetailUI.resetResult}" attributemacro="entityDetailMacro(TestDetailUI,analysis_function)" flush="true" validvaluesbinding="#{d.TestDetailUI.functionsVvb}" width="200" />
 </t:row>
 <t:rowdistance id="g_306" />
 <t:row id="g_307" >
 <t:label id="g_308" text="#{rr.literals.offset}" width="100" />
-<t:formattedfield id="g_309" actionListener="#{d.TestDetailUI.resetResult}" flush="true" format="double" value="#{d.TestDetailUI.offset}" width="50" />
+<t:formattedfield id="g_309" actionListener="#{d.TestDetailUI.resetResult}" attributemacro="entityDetailMacro(TestDetailUI,analysis_offset)" flush="true" format="double" width="50" />
 </t:row>
 <t:row id="g_310" >
 <t:label id="g_311" text="#{rr.literals.degree}" width="100" />
-<t:spinner id="g_312" actionListener="#{d.TestDetailUI.resetResult}" flush="true" maxvalue="6" minvalue="0" value="#{d.TestDetailUI.degree}" width="50" />
+<t:spinner id="g_312" actionListener="#{d.TestDetailUI.resetResult}" attributemacro="entityDetailMacro(TestDetailUI,analysis_degree)" flush="true" maxvalue="6" minvalue="0" width="50" />
 </t:row>
 <t:rowdistance id="g_313" />
 <t:row id="g_314" >

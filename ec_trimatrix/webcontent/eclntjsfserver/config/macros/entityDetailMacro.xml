@@ -8,6 +8,7 @@ Macro for entity details
         <tag name="t:button"/>
         <tag name="t:calendarfield"/>
         <tag name="t:formattedfield"/>
+        <tag name="t:spinner"/>
     </applysto>
     <parameters>
         <parameter name="bean"/>

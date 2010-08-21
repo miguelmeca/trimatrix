@@ -96,6 +96,9 @@
 		<property name="daoLayer">
 			<ref bean="daoLayer" />
 		</property>
+		<property name="logicLayer">
+			<ref bean="logicLayer" />
+		</property>
 	</bean>
 
 	<bean id="competitionLogic" class="trimatrix.logic.CompetitionLogic"
