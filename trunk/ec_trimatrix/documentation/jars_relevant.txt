@@ -60,3 +60,4 @@ spring-web.jar
 xapool.jar
 xercesImpl-2.8.1.jar
 xml-apis.jar
+commons-math-2.1.jar (for maths interpolation)

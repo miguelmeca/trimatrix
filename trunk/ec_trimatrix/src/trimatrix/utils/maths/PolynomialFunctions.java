@@ -38,6 +38,7 @@ public class PolynomialFunctions extends AFunctions {
 
 		double[] coefficients = result.polyfit.getPolynomialCoefficients();
 		for (int i = 0; i < coefficients.length; i++) {
+			if(coefficients[i]==0d) continue;
 			if (i < coefficients.length - 2) {
 				result.formel.append(" "
 						+ roundSignificant(coefficients[i], SP) + " * x ^ "
@@ -94,7 +95,7 @@ public class PolynomialFunctions extends AFunctions {
 
 		/**
 		 * Returns Function2D for JFreeChart
-		 * 
+		 *
 		 * @return
 		 */
 		public Function2D getFunction2D() {
@@ -119,6 +120,6 @@ public class PolynomialFunctions extends AFunctions {
 
 		public int getDegree() {
 			return degree;
-		}		
+		}
 	}
 }

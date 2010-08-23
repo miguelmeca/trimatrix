@@ -90,3 +90,7 @@ poi-3.6.jar
 Problem mit Probe Log File wird nicht angezeigt!
 jcl-over-slf4j-1.5.10.jar
 commons-logging.jar nicht deployen!!
+
+
+Interpolation
+commons-math-2.1.jar

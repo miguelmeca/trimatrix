@@ -64,6 +64,7 @@ import trimatrix.utils.json.DoubleList;
 import trimatrix.utils.json.IntegerList;
 import trimatrix.utils.maths.PolynomialFunctions;
 import trimatrix.utils.maths.RegressionFunctions;
+import trimatrix.utils.maths.UnivariateRealFunctions;
 import trimatrix.utils.maths.AFunctions.IResult;
 
 @CCGenClass(expressionBase = "#{d.TestDetailUI}")
@@ -583,8 +584,8 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 
 	public class AGridItem extends FIXGRIDItem implements java.io.Serializable {
 		protected Integer step;
-		protected String step_time = "00:00";
-		protected String time_total = "00:00";
+		protected String step_time = Constants.EMPTYTIMESHORT;
+		protected String time_total = Constants.EMPTYTIMESHORT;
 		protected Double lactate;
 		protected Integer hr;
 		protected Integer o2_absorption;
@@ -1551,7 +1552,11 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 	public String getCorrelation() {
 		if (result == null)
 			return null;
-		return String.valueOf(result.getCorrelation());
+		try {
+			return String.valueOf(result.getCorrelation());
+		} catch (Exception ex) {
+			return ex.toString();
+		}
 	}
 
 	private IResult analyze() {
@@ -1649,10 +1654,33 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		if (Constants.EXP.equals(analysisFunc)) {
 			RegressionFunctions function = new RegressionFunctions(RegressionFunctions.EXP_REGRESSION, xyArr, analysisOffset);
 			return function.getResult();
-		}
-		if (Constants.POLY.equals(analysisFunc)) {
+		} else if (Constants.POLY.equals(analysisFunc)) {
 			try {
 				PolynomialFunctions function = new PolynomialFunctions(xyArr, analysisDegree);
+				return function.getResult();
+			} catch (Exception ex) {
+				Statusbar.outputAlert(Helper.getMessages("problem_poly_value"), Helper.getLiteral("error"), ex.toString()).setLeftTopReferenceCentered();
+				return null;
+			}
+		} else if (Constants.SPLINE.equals(analysisFunc)) {
+			try {
+				UnivariateRealFunctions function = new UnivariateRealFunctions(xyArr, UnivariateRealFunctions.Type.SPLINE);
+				return function.getResult();
+			} catch (Exception ex) {
+				Statusbar.outputAlert(Helper.getMessages("problem_poly_value"), Helper.getLiteral("error"), ex.toString()).setLeftTopReferenceCentered();
+				return null;
+			}
+		} else if (Constants.NEVILLE.equals(analysisFunc)) {
+			try {
+				UnivariateRealFunctions function = new UnivariateRealFunctions(xyArr, UnivariateRealFunctions.Type.NEVILLE);
+				return function.getResult();
+			} catch (Exception ex) {
+				Statusbar.outputAlert(Helper.getMessages("problem_poly_value"), Helper.getLiteral("error"), ex.toString()).setLeftTopReferenceCentered();
+				return null;
+			}
+		} else if (Constants.DIVDIFF.equals(analysisFunc)) {
+			try {
+				UnivariateRealFunctions function = new UnivariateRealFunctions(xyArr, UnivariateRealFunctions.Type.DIVIDEDDIFFERENCE);
 				return function.getResult();
 			} catch (Exception ex) {
 				Statusbar.outputAlert(Helper.getMessages("problem_poly_value"), Helper.getLiteral("error"), ex.toString()).setLeftTopReferenceCentered();
@@ -1661,6 +1689,14 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		}
 		Statusbar.outputAlert(Helper.getMessages("type_function_error"), Helper.getLiteral("error")).setLeftTopReferenceCentered();
 		return null;
+	}
+
+	public boolean isPolynomial() {
+		return ((String)values.get(TestEntity.ANALYSIS_FUNCTION)).equals(Constants.POLY);
+	}
+
+	public boolean isExponential() {
+		return ((String)values.get(TestEntity.ANALYSIS_FUNCTION)).equals(Constants.EXP);
 	}
 
 	// TODO put into logic layer
