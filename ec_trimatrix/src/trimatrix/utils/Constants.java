@@ -267,6 +267,7 @@ public final class Constants {
 	public static final String EMPTY = "";
 	public static final String COMMA = ",";
 	public static final String EMPTYTIME = "00:00:00";
+	public static final String EMPTYTIMESHORT = "00:00";
 	public static final String WHITESPACE = " ";
 	public static final String NEWLINE = "\n";
 	public static final String TRUE = "true";
@@ -360,9 +361,15 @@ public final class Constants {
 	// VVB
 	public static final String EXP = "exp";
 	public static final String POLY = "poly";
+	public static final String SPLINE = "spline";
+	public static final String NEVILLE = "neville";
+	public static final String DIVDIFF = "divdiff";
 
 	public static final String EXPONENTIAL = "Exponential";
 	public static final String POLYNOMIAL = "Polynomial";
+	public static final String SPLINEINTERPOLATION = "Cubic Spline";
+	public static final String NEVILLEINTERPOLATION = "Neville Interpolation";
+	public static final String DIVDIFFINTERPOLATION = "Divided Differences";
 
 	// Global Workplace parameters
 	public static final int MAXWORKPAGES = 10;

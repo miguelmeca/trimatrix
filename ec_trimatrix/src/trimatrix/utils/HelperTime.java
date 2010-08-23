@@ -122,9 +122,9 @@ public class HelperTime {
 	public static String calculateTime(Integer seconds, boolean hhmmss) {
 		if (seconds == null || seconds == 0) {
 			if (hhmmss) {
-				return "00:00:00";
+				return Constants.EMPTYTIME;
 			} else {
-				return "00:00";
+				return Constants.EMPTYTIMESHORT;
 			}
 		}
 		Integer hour = seconds / 3600;
@@ -147,9 +147,9 @@ public class HelperTime {
 	public static String calculateTime(Double seconds, boolean hhmmss) {
 		if (seconds == null || seconds == 0d) {
 			if (hhmmss) {
-				return "00:00:00";
+				return Constants.EMPTYTIME;
 			} else {
-				return "00:00";
+				return Constants.EMPTYTIMESHORT;
 			}
 		}
 		String output = null;
@@ -236,7 +236,7 @@ public class HelperTime {
 						+ ":" + input.substring(4);
 				break;
 			default:
-				output = "00:00:00";
+				output = Constants.EMPTYTIME;
 				break;
 			}
 		} else {
@@ -281,7 +281,7 @@ public class HelperTime {
 						+ input.substring(2);
 				break;
 			default:
-				output = "00:00";
+				output = Constants.EMPTYTIMESHORT;
 				break;
 			}
 		} else {
@@ -325,12 +325,12 @@ public class HelperTime {
 		switch (time.length()) {
 		case 5: // mm:ss
 			if (percentage == 0)
-				return "00:00";
+				return Constants.EMPTYTIMESHORT;
 			hhmmss = false;
 			break;
 		case 8: // hh:mm:ss
 			if (percentage == 0)
-				return "00:00:00";
+				return Constants.EMPTYTIME;
 			hhmmss = true;
 			break;
 		default:

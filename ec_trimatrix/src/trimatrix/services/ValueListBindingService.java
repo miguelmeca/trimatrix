@@ -23,6 +23,9 @@ public class ValueListBindingService {
 		{
 			addValidValue(Constants.EXP, Constants.EXPONENTIAL);
 			addValidValue(Constants.POLY, Constants.POLYNOMIAL);
+			addValidValue(Constants.SPLINE, Constants.SPLINEINTERPOLATION);
+			addValidValue(Constants.NEVILLE, Constants.NEVILLEINTERPOLATION);
+			addValidValue(Constants.DIVDIFF, Constants.DIVDIFFINTERPOLATION);
 		}
 	};
 

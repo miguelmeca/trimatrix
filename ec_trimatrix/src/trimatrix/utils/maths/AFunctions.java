@@ -4,12 +4,12 @@ import org.jfree.data.function.Function2D;
 
 public abstract class AFunctions {
 	protected static final int SP = 4;
-	
+
 	/**
 	 * Function for rounding
 	 * @param d	value
 	 * @param significantPrecision	precision
-	 * @return	rounded value	
+	 * @return	rounded value
 	 */
 	protected static double roundSignificant(double d, int significantPrecision) {
 		if (d == 0 || significantPrecision < 1 || significantPrecision > 14)
@@ -21,11 +21,11 @@ public abstract class AFunctions {
 			d *= 10;
 		}
 		return Math.round(d) / mul10;
-	}	
-	
+	}
+
 	/**
 	 * Get correlation factor by Pearson
-	 * @param xyArr1	first xy value array 
+	 * @param xyArr1	first xy value array
 	 * @param xyArr2	second xy value array
 	 * @return correlation
 	 */
@@ -34,7 +34,7 @@ public abstract class AFunctions {
 			return null;
 		if (xyArr2 == null || xyArr2.length < 2 || xyArr2.length % 2 != 0)
 			return null;
-		
+
         double sum_sq_x = 0;
 
         double sum_sq_y = 0;
@@ -57,20 +57,20 @@ public abstract class AFunctions {
             mean_x += delta_x / i;
             mean_y += delta_y / i;
         }
-        
+
         double pop_sd_x = Math.sqrt(sum_sq_x/xyArr1.length);
         double pop_sd_y = Math.sqrt(sum_sq_y/xyArr1.length);
 
         double cov_x_y = sum_coproduct / xyArr1.length;
         return cov_x_y / (pop_sd_x*pop_sd_y);
-    }	
-	
+    }
+
 	public interface IResult {
-		public double getY(double x);
-		public double getX(double y);
+		public double getY(double x) throws Exception;
+		public double getX(double y) throws Exception;
 		public double[] getXYValues();
-		public double getCorrelation();
+		public double getCorrelation() throws Exception;
 		public Function2D getFunction2D();
-		public String getFormel();		
-	}	
+		public String getFormel();
+	}
 }

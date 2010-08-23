@@ -421,7 +421,7 @@
 <t:rowdistance id="g_291" />
 <t:row id="g_292" >
 <t:label id="g_293" text="#{rr.literals.formula}" width="100" />
-<t:field id="g_294" enabled="false" text="#{d.TestDetailUI.formel}" width="400" />
+<t:field id="g_294" enabled="false" text="#{d.TestDetailUI.formel}" width="600" />
 </t:row>
 <t:rowdistance id="g_295" />
 <t:row id="g_296" >
@@ -438,11 +438,11 @@
 <t:combobox id="g_305" actionListener="#{d.TestDetailUI.resetResult}" attributemacro="entityDetailMacro(TestDetailUI,analysis_function)" flush="true" validvaluesbinding="#{d.TestDetailUI.functionsVvb}" width="200" />
 </t:row>
 <t:rowdistance id="g_306" />
-<t:row id="g_307" >
+<t:row id="g_307" rendered="#{d.TestDetailUI.exponential}" >
 <t:label id="g_308" text="#{rr.literals.offset}" width="100" />
 <t:formattedfield id="g_309" actionListener="#{d.TestDetailUI.resetResult}" attributemacro="entityDetailMacro(TestDetailUI,analysis_offset)" flush="true" format="double" width="50" />
 </t:row>
-<t:row id="g_310" >
+<t:row id="g_310" rendered="#{d.TestDetailUI.polynomial}" >
 <t:label id="g_311" text="#{rr.literals.degree}" width="100" />
 <t:spinner id="g_312" actionListener="#{d.TestDetailUI.resetResult}" attributemacro="entityDetailMacro(TestDetailUI,analysis_degree)" flush="true" maxvalue="6" minvalue="0" width="50" />
 </t:row>
