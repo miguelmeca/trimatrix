@@ -4,7 +4,7 @@
   name="ec_trimatrix"
   id="myeclipse.1236625885396"
   context-root="/trimatrix"
-  j2ee-spec="1.4"
+  j2ee-spec="5.0"
   archive="ec_trimatrix.war">
   <attributes>
     <attribute name="webrootdir" value="/webcontent" />

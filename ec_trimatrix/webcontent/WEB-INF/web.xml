@@ -1,216 +1,217 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	id="WebApp_ID" version="2.5">
-	<display-name>Trimatrix Training Portal</display-name>
-
-	<context-param>
-		<param-name>trimatrix.url</param-name>
-		<param-value>http://localhost:50000/trimatrix</param-value>
-	</context-param>
-
-	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-	</welcome-file-list>
-
-	<filter>
-		<filter-name>org.eclnt.jsfserver.util.CompressionFilter</filter-name>
-		<filter-class>org.eclnt.jsfserver.util.CompressionFilter</filter-class>
-	</filter>
-	<filter>
-		<filter-name>org.eclnt.jsfserver.util.ThreadingFilter</filter-name>
-		<filter-class>org.eclnt.jsfserver.util.ThreadingFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>org.eclnt.jsfserver.util.CompressionFilter</filter-name>
-		<url-pattern>*.jsp</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>org.eclnt.jsfserver.util.CompressionFilter</filter-name>
-		<url-pattern>*.xml</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>org.eclnt.jsfserver.util.ThreadingFilter</filter-name>
-		<url-pattern>*.jsp</url-pattern>
-	</filter-mapping>
-
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/classes/applicationContext.xml</param-value>
-	</context-param>
-
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
-
-	<listener>
-		<listener-class>org.eclnt.jsfserver.util.HttpSessionListenerDelegator</listener-class>
-	</listener>
-
-	<listener>
-		<listener-class>trimatrix.utils.MySessionListener</listener-class>
-	</listener>
-
-
-	<!--
+<web-app id="WebApp_ID" version="2.5"
+ xmlns="http://java.sun.com/xml/ns/javaee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+ <display-name>Trimatrix Training Portal</display-name>
+ <context-param>
+  <param-name>trimatrix.url</param-name>
+  <param-value>http://localhost:50000/trimatrix</param-value>
+ </context-param>
+ <context-param>
+  <param-name>contextConfigLocation</param-name>
+  <param-value>/WEB-INF/classes/applicationContext.xml</param-value>
+ </context-param>
+ <filter>
+  <filter-name>org.eclnt.jsfserver.util.CompressionFilter</filter-name>
+  <filter-class>org.eclnt.jsfserver.util.CompressionFilter</filter-class>
+ </filter>
+ <filter>
+  <filter-name>org.eclnt.jsfserver.util.ThreadingFilter</filter-name>
+  <filter-class>org.eclnt.jsfserver.util.ThreadingFilter</filter-class>
+ </filter>
+ <filter-mapping>
+  <filter-name>org.eclnt.jsfserver.util.CompressionFilter</filter-name>
+  <url-pattern>*.jsp</url-pattern>
+ </filter-mapping>
+ <filter-mapping>
+  <filter-name>org.eclnt.jsfserver.util.CompressionFilter</filter-name>
+  <url-pattern>*.xml</url-pattern>
+ </filter-mapping>
+ <filter-mapping>
+  <filter-name>org.eclnt.jsfserver.util.ThreadingFilter</filter-name>
+  <url-pattern>*.jsp</url-pattern>
+ </filter-mapping>
+ <listener>
+  <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+ </listener>
+ <listener>
+  <listener-class>org.eclnt.jsfserver.util.HttpSessionListenerDelegator</listener-class>
+ </listener>
+ <listener>
+  <listener-class>trimatrix.utils.MySessionListener</listener-class>
+ </listener>
+ <listener>  
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>  
+</listener> 
+ <!-- Start ZK Integration -->
+ <listener>
+  <description>Used to cleanup when a session is destroyed</description>
+  <display-name>ZK Session cleaner</display-name>
+  <listener-class>org.zkoss.zk.ui.http.HttpSessionListener</listener-class>
+ </listener>
+ <servlet>
+  <display-name>Trimatrix REST Services</display-name>
+  <servlet-name>Trimatrix REST Services</servlet-name>
+  <servlet-class>com.sun.jersey.spi.spring.container.servlet.SpringServlet</servlet-class>
+  <load-on-startup>1</load-on-startup>
+ </servlet>
+ <!--
 		Hibernate Session seems to start twice <listener>
 		<listener-class>trimatrix.utils.HibernateListener</listener-class>
 		</listener>
 	-->
-
-	<servlet>
-		<servlet-name>Faces Servlet</servlet-name>
-		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+ <servlet>
+  <servlet-name>Faces Servlet</servlet-name>
+  <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+  <load-on-startup>1</load-on-startup>
+ </servlet>
+ <servlet id="JnlpDownloadServlet">
+  <servlet-name>JnlpDownloadServlet</servlet-name>
+  <servlet-class>jnlp.sample.servlet.JnlpDownloadServlet</servlet-class>
+  <load-on-startup>1</load-on-startup>
+ </servlet>
+ <servlet id="AppletStarter">
+  <servlet-name>AppletStarter</servlet-name>
+  <servlet-class>org.eclnt.jsfserver.starter.AppletStarter</servlet-class>
+  <load-on-startup>1</load-on-startup>
+ </servlet>
+ <servlet id="FileUploadServlet">
+  <servlet-name>FileUploadServlet</servlet-name>
+  <servlet-class>org.eclnt.jsfserver.htfileupload.FileUploadServlet</servlet-class>
+  <load-on-startup>1</load-on-startup>
+ </servlet>
+ <servlet id="BufferedContentServlet">
+  <servlet-name>BufferedContentServlet</servlet-name>
+  <servlet-class>org.eclnt.jsfserver.bufferedcontent.BufferedContentServlet</servlet-class>
+  <load-on-startup>1</load-on-startup>
+ </servlet>
+ <servlet id="UploadContentServlet">
+  <servlet-name>UploadContentServlet</servlet-name>
+  <servlet-class>org.eclnt.jsfserver.bufferedcontent.UploadContentServlet</servlet-class>
+  <load-on-startup>1</load-on-startup>
+ </servlet>
+ <servlet id="SessionInvalidationServlet">
+  <servlet-name>SessionInvalidationServlet</servlet-name>
+  <servlet-class>org.eclnt.jsfserver.util.SessionInvalidationServlet</servlet-class>
+  <load-on-startup>1</load-on-startup>
+ </servlet>
+ <servlet id="AutoCompleteServlet">
+  <servlet-name>AutoCompleteServlet</servlet-name>
+  <servlet-class>org.eclnt.jsfserver.util.AutoCompleteServlet</servlet-class>
+  <load-on-startup>1</load-on-startup>
+ </servlet>
+ <servlet id="ExtCalendarServlet">
+  <servlet-name>ExtCalendarServlet</servlet-name>
+  <servlet-class>org.eclnt.jsfserver.calendar.ExtCalendarServlet</servlet-class>
+  <load-on-startup>1</load-on-startup>
+ </servlet>
+ <servlet id="LongPollingServlet">
+  <servlet-name>LongPollingServlet</servlet-name>
+  <servlet-class>org.eclnt.jsfserver.polling.LongPollingServlet</servlet-class>
+  <load-on-startup>1</load-on-startup>
+ </servlet>
+ <!--	<servlet id="AcroFormServlet">
+		<servlet-name>AcroFormServlet</servlet-name>
+		<servlet-class>trimatrix.servlets.AcroFormServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet id="JnlpDownloadServlet">
-		<servlet-name>JnlpDownloadServlet</servlet-name>
-		<servlet-class>jnlp.sample.servlet.JnlpDownloadServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet id="AppletStarter">
-		<servlet-name>AppletStarter</servlet-name>
-		<servlet-class>org.eclnt.jsfserver.starter.AppletStarter</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet id="FileUploadServlet">
-		<servlet-name>FileUploadServlet</servlet-name>
-		<servlet-class>org.eclnt.jsfserver.htfileupload.FileUploadServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet id="BufferedContentServlet">
-		<servlet-name>BufferedContentServlet</servlet-name>
-		<servlet-class>
-			org.eclnt.jsfserver.bufferedcontent.BufferedContentServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet id="UploadContentServlet">
-		<servlet-name>UploadContentServlet</servlet-name>
-		<servlet-class>
-			org.eclnt.jsfserver.bufferedcontent.UploadContentServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet id="SessionInvalidationServlet">
-		<servlet-name>SessionInvalidationServlet</servlet-name>
-		<servlet-class>org.eclnt.jsfserver.util.SessionInvalidationServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet id="AutoCompleteServlet">
-		<servlet-name>AutoCompleteServlet</servlet-name>
-		<servlet-class>org.eclnt.jsfserver.util.AutoCompleteServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet id="ExtCalendarServlet">
-		<servlet-name>ExtCalendarServlet</servlet-name>
-		<servlet-class>org.eclnt.jsfserver.calendar.ExtCalendarServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet id="LongPollingServlet">
-		<servlet-name>LongPollingServlet</servlet-name>
-		<servlet-class>org.eclnt.jsfserver.polling.LongPollingServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-<!--	<servlet id="AcroFormServlet">-->
-<!--		<servlet-name>AcroFormServlet</servlet-name>-->
-<!--		<servlet-class>trimatrix.servlets.AcroFormServlet</servlet-class>-->
-<!--		<load-on-startup>1</load-on-startup>-->
-<!--	</servlet>-->
-	<servlet id="ICalServlet">
-		<servlet-name>ICalServlet</servlet-name>
-		<servlet-class>trimatrix.servlets.ICalServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>Faces Servlet</servlet-name>
-		<url-pattern>/faces/*</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>JnlpDownloadServlet</servlet-name>
-		<url-pattern>*.jnlp</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>AppletStarter</servlet-name>
-		<url-pattern>*.ccapplet</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>AppletStarter</servlet-name>
-		<url-pattern>*.ccwebstart</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>FileUploadServlet</servlet-name>
-		<url-pattern>*.fileupload</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>BufferedContentServlet</servlet-name>
-		<url-pattern>*.ccbuffer</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>UploadContentServlet</servlet-name>
-		<url-pattern>*.ccupload</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>SessionInvalidationServlet</servlet-name>
-		<url-pattern>*.ccinvalidatesession</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>AutoCompleteServlet</servlet-name>
-		<url-pattern>*.ccautocomplete</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>ExtCalendarServlet</servlet-name>
-		<url-pattern>*.ccextcalendar</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>LongPollingServlet</servlet-name>
-		<url-pattern>*.cclongpolling</url-pattern>
-	</servlet-mapping>
-<!--	<servlet-mapping>-->
-<!--		<servlet-name>AcroFormServlet</servlet-name>-->
-<!--		<url-pattern>/servlet/AcroForm</url-pattern>-->
-<!--	</servlet-mapping>-->
-    <servlet-mapping>
-		<servlet-name>ICalServlet</servlet-name>
-		<url-pattern>/servlet/ICal</url-pattern>
-	</servlet-mapping>
-
-	<!-- Start ZK Integration -->
-	<listener>
-		<description>Used to cleanup when a session is destroyed</description>
-		<display-name>ZK Session cleaner</display-name>
-		<listener-class>org.zkoss.zk.ui.http.HttpSessionListener</listener-class>
-	</listener>
-	<servlet>
-		<description>The ZK loader for ZUML pages</description>
-		<servlet-name>zkLoader</servlet-name>
-		<servlet-class>org.zkoss.zk.ui.http.DHtmlLayoutServlet</servlet-class>
-		<init-param>
-			<param-name>update-uri</param-name>
-			<param-value>/zkau</param-value>
-		</init-param>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet>
-		<description>The asynchronous update engine for ZK</description>
-		<servlet-name>auEngine</servlet-name>
-		<servlet-class>org.zkoss.zk.au.http.DHtmlUpdateServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>zkLoader</servlet-name>
-		<url-pattern>*.zul</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>zkLoader</servlet-name>
-		<url-pattern>*.zhtml</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>auEngine</servlet-name>
-		<url-pattern>/zkau/*</url-pattern>
-	</servlet-mapping>
-	<!-- End ZK Integration -->
-	<mime-mapping>
-		<extension>jnlp</extension>
-		<mime-type>application/x-java-jnlp-file</mime-type>
-	</mime-mapping>
+	</servlet>-->
+ <servlet id="ICalServlet">
+  <servlet-name>ICalServlet</servlet-name>
+  <servlet-class>trimatrix.servlets.ICalServlet</servlet-class>
+  <load-on-startup>1</load-on-startup>
+ </servlet>
+ <servlet>
+  <description>The ZK loader for ZUML pages</description>
+  <servlet-name>zkLoader</servlet-name>
+  <servlet-class>org.zkoss.zk.ui.http.DHtmlLayoutServlet</servlet-class>
+  <init-param>
+   <param-name>update-uri</param-name>
+   <param-value>/zkau</param-value>
+  </init-param>
+  <load-on-startup>1</load-on-startup>
+ </servlet>
+ <servlet>
+  <description>The asynchronous update engine for ZK</description>
+  <servlet-name>auEngine</servlet-name>
+  <servlet-class>org.zkoss.zk.au.http.DHtmlUpdateServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>Trimatrix REST Services</servlet-name>
+  <url-pattern>/services/*</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>Faces Servlet</servlet-name>
+  <url-pattern>/faces/*</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>JnlpDownloadServlet</servlet-name>
+  <url-pattern>*.jnlp</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>AppletStarter</servlet-name>
+  <url-pattern>*.ccapplet</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>AppletStarter</servlet-name>
+  <url-pattern>*.ccwebstart</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>FileUploadServlet</servlet-name>
+  <url-pattern>*.fileupload</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>BufferedContentServlet</servlet-name>
+  <url-pattern>*.ccbuffer</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>UploadContentServlet</servlet-name>
+  <url-pattern>*.ccupload</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>SessionInvalidationServlet</servlet-name>
+  <url-pattern>*.ccinvalidatesession</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>AutoCompleteServlet</servlet-name>
+  <url-pattern>*.ccautocomplete</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>ExtCalendarServlet</servlet-name>
+  <url-pattern>*.ccextcalendar</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>LongPollingServlet</servlet-name>
+  <url-pattern>*.cclongpolling</url-pattern>
+ </servlet-mapping>
+ <!--	<servlet-mapping>
+		<servlet-name>AcroFormServlet</servlet-name>
+		<url-pattern>/servlet/AcroForm</url-pattern>
+	</servlet-mapping>-->
+ <servlet-mapping>
+  <servlet-name>ICalServlet</servlet-name>
+  <url-pattern>/servlet/ICal</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>zkLoader</servlet-name>
+  <url-pattern>*.zul</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>zkLoader</servlet-name>
+  <url-pattern>*.zhtml</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>auEngine</servlet-name>
+  <url-pattern>/zkau/*</url-pattern>
+ </servlet-mapping>
+ <!-- End ZK Integration -->
+ <mime-mapping>
+  <extension>jnlp</extension>
+  <mime-type>application/x-java-jnlp-file</mime-type>
+ </mime-mapping>
+ <welcome-file-list>
+  <welcome-file>index.html</welcome-file>
+ </welcome-file-list>
+ <login-config>
+  <auth-method>BASIC</auth-method>
+ </login-config>
 </web-app>
