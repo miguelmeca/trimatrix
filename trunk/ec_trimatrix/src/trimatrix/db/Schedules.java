@@ -13,16 +13,21 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.hibernate.annotations.OrderBy;
 
 import trimatrix.entities.IEntityObject;
+import trimatrix.utils.TimestampAdapter;
 
 /**
  * Schedules entity. @author MyEclipse Persistence Tools
  */
 @Entity
 @Table(name = "schedules", catalog = "trimatrix")
+@XmlRootElement
+
 public class Schedules implements java.io.Serializable, IEntityObject {
 
 	// Fields
@@ -118,6 +123,7 @@ public class Schedules implements java.io.Serializable, IEntityObject {
 	}
 
 	@Column(name = "start", length = 19)
+	@XmlJavaTypeAdapter( TimestampAdapter.class)
 	public Timestamp getStart() {
 		return this.start;
 	}
@@ -172,6 +178,7 @@ public class Schedules implements java.io.Serializable, IEntityObject {
 	}
 
 	@Column(name = "created_at", length = 19)
+	@XmlJavaTypeAdapter( TimestampAdapter.class)
 	public Timestamp getCreatedAt() {
 		return this.createdAt;
 	}
@@ -191,6 +198,7 @@ public class Schedules implements java.io.Serializable, IEntityObject {
 
 	@Column(name = "modified_at", length = 19)
 	@Version
+	@XmlJavaTypeAdapter( TimestampAdapter.class)
 	public Timestamp getModifiedAt() {
 		return this.modifiedAt;
 	}

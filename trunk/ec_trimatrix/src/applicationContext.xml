@@ -14,6 +14,7 @@
     <import resource="trimatrix/entities/entitiesContext.xml"/>
     <import resource="trimatrix/relations/relationsContext.xml"/>
     <import resource="trimatrix/services/servicesContext.xml"/>
+    <import resource="trimatrix/services/rest/restContext.xml"/>
     <import resource="trimatrix/logic/logicContext.xml"/>
 
  <!--
