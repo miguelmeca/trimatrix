@@ -5,7 +5,7 @@ import org.jfree.data.function.Function2D;
 
 /**
  * @author reich
- * 
+ *
  */
 public class RegressionFunctions extends AFunctions {
 	public static final int EXP_REGRESSION = 0;
@@ -27,7 +27,7 @@ public class RegressionFunctions extends AFunctions {
 				break;
 		}
 	}
-	
+
 	public RegressionResult getResult() {
 		return result;
 	}
@@ -94,7 +94,7 @@ public class RegressionFunctions extends AFunctions {
 			xyArrConv[i + 1] = Math.log(xyArr[i + 1]);
 		}
 
-		RegressionResult abr = calculateLinearRegression(xyArrConv);		
+		RegressionResult abr = calculateLinearRegression(xyArrConv);
 		if (abr == null)
 			return null;
 		abr.xyValues = xyArr;
@@ -129,7 +129,7 @@ public class RegressionFunctions extends AFunctions {
 			xyArrConv[i + 1] = xyArr[i + 1];
 		}
 
-		RegressionResult abr = calculateLinearRegression(xyArrConv);		
+		RegressionResult abr = calculateLinearRegression(xyArrConv);
 		if (abr == null)
 			return null;
 		abr.xyValues = xyArr;
@@ -164,7 +164,7 @@ public class RegressionFunctions extends AFunctions {
 			xyArrConv[i + 1] = Math.log(xyArr[i + 1]-offset);
 		}
 
-		RegressionResult abr = calculateLinearRegression(xyArrConv);		
+		RegressionResult abr = calculateLinearRegression(xyArrConv);
 		if (abr == null)
 			return null;
 		abr.xyValues = xyArr;
@@ -183,7 +183,7 @@ public class RegressionFunctions extends AFunctions {
 
 		return abr;
 	}
-	
+
 	// Exponentielle Regression
 	// y = a * e^(b * x)
 	// Regression ueber: ln(y) = ln(a) + b * x
@@ -200,7 +200,7 @@ public class RegressionFunctions extends AFunctions {
 			xyArrConv[i + 1] = Math.log(xyArr[i + 1]);
 		}
 
-		RegressionResult abr = calculateLinearRegression(xyArrConv);		
+		RegressionResult abr = calculateLinearRegression(xyArrConv);
 		if (abr == null)
 			return null;
 		abr.xyValues = xyArr;
@@ -211,7 +211,7 @@ public class RegressionFunctions extends AFunctions {
 		abr.approxFunction = new IApproxFunction() {
 			public double execute(double a, double b, double x) {
 				return a * Math.exp(b * x);
-			}	
+			}
 			public double executeInv(double a, double b, double y) {
 				return (Math.log(y) - Math.log(a)) / b;
 			}
@@ -233,7 +233,7 @@ public class RegressionFunctions extends AFunctions {
 			xyArrTest[i + 1] = limit - xyArr[i + 1];
 		}
 
-		RegressionResult abr = calculateExponentialRegression(xyArrTest);		
+		RegressionResult abr = calculateExponentialRegression(xyArrTest);
 		if (abr == null)
 			return null;
 		abr.xyValues = xyArr;
@@ -325,7 +325,7 @@ public class RegressionFunctions extends AFunctions {
 
 		return xTest;
 	}
-	
+
 	public static class RegressionResult implements IResult {
 		double a;
 		double b;
@@ -334,17 +334,17 @@ public class RegressionFunctions extends AFunctions {
 		String titel;
 		String formel;
 		IApproxFunction approxFunction;
-		
+
 		/**
 		 * Calculate function value for x value
-		 * 
+		 *
 		 * @param x
 		 * @return y
 		 */
 		public double getY(double x) {
 			return roundSignificant(approxFunction.execute(a, b, x), SP);
 		}
-		
+
 		/**
 		 * Inverse calculate function for y value
 		 * @param y
@@ -353,11 +353,11 @@ public class RegressionFunctions extends AFunctions {
 		public double getX(double y) {
 			return roundSignificant(approxFunction.executeInv(a,b, y), SP);
 		}
-		
+
 		public double[] getXYValues() {
 			return xyValues;
 		}
-		
+
 		/**
 		 * Returns Function2D for JFreeChart
 		 * @return
@@ -369,11 +369,19 @@ public class RegressionFunctions extends AFunctions {
 				};
 			};
 		}
-		
+
+		public Function2D getInvFunction2D() {
+			return new Function2D() {
+				public double getValue(double arg0) {
+					return getX(arg0);
+				};
+			};
+		}
+
 		public String getFormel() { return formel; }
-		
+
 		public String getTitell() { return titel; }
-		
+
 		public double getCorrelation() {
 			double[] xyArr = new double[xyValues.length];
 			for(int i = 0;i<xyArr.length/2;i++) {
@@ -387,7 +395,7 @@ public class RegressionFunctions extends AFunctions {
 	interface IFunctionFromX {
 		double execute(double x, Object helpObject);
 	}
-	
+
 	public interface IApproxFunction {
 		double execute(double a, double b, double x);
 		double executeInv(double a, double b, double x);

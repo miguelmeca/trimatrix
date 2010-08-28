@@ -106,6 +106,14 @@ public class PolynomialFunctions extends AFunctions {
 			};
 		}
 
+		public Function2D getInvFunction2D() {
+			return new Function2D() {
+				public double getValue(double arg0) {
+					return getX(arg0);
+				};
+			};
+		}
+
 		public String getFormel() {
 			return formel.toString();
 		}

@@ -29,6 +29,7 @@ import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.function.Function2D;
 import org.jfree.data.general.DatasetUtilities;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
@@ -43,13 +44,11 @@ import trimatrix.db.TestsSwim;
 import trimatrix.db.TestsSwimProtocol;
 import trimatrix.db.TestsSwimProtocolId;
 import trimatrix.db.TestsTreadmill;
-import trimatrix.db.UserPreferences;
 import trimatrix.db.Zones;
 import trimatrix.db.ZonesDefinition;
 import trimatrix.entities.TestEntity;
 import trimatrix.exceptions.EmailNotValidException;
 import trimatrix.exceptions.MandatoryCheckException;
-import trimatrix.logic.TestLogic;
 import trimatrix.logic.ZonesLogic;
 import trimatrix.logic.TestLogic.LactateSamples;
 import trimatrix.logic.helper.Split;
@@ -1324,6 +1323,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 	private byte[] m_diagram;
 	private IResult result;
 	private double[] hrs;
+	private double[] hrsLac;
 	private String descriptionX = null;
 	private String unitX = null;
 	private String descriptionY = null;
@@ -1348,6 +1348,16 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 
 	public void setWidth(int value) {
 		m_width = value;
+	}
+
+	protected boolean m_inverse;
+
+	public boolean getInverse() {
+		return m_inverse;
+	}
+
+	public void setInverse(boolean value) {
+		m_inverse = value;
 	}
 
 //	protected double m_offset = 0;
@@ -1426,7 +1436,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		// build the chart based on the computed result
 		if (result == null)
 			return;
-		m_diagram = buildDiagram(result, hrs, m_width, m_height, descriptionX, unitX, descriptionY, unitY, highToLow);
+		m_diagram = buildDiagram(result, hrs, m_width, m_height, descriptionX, unitX, descriptionY, unitY, highToLow, m_inverse);
 	}
 
 	public void onSetZones(ActionEvent event) {
@@ -1562,6 +1572,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 	private IResult analyze() {
 		double[] xyArr = null;
 		this.hrs = null;
+		this.hrsLac = null;
 		// treadmill
 		if (isTreadmill()) {
 			descriptionX = SPEED;
@@ -1578,6 +1589,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			// heartrate
 			IntegerList hrs = IntegerList.getInstance(treadmillProt.getHr());
 			this.hrs = new double[steps * 2];
+			this.hrsLac = new double[steps * 2];
 
 			for (int i = 0; i < steps; i++) {
 				// x value
@@ -1587,6 +1599,9 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 				// hr value
 				this.hrs[2 * i] = xyArr[2 * i];
 				this.hrs[2 * i + 1] = hrs.get(i);
+				// hr lactate value
+				this.hrsLac[2 * i] = lactates.get(i);
+				this.hrsLac[2 * i + 1] = hrs.get(i);
 			}
 		}
 		// ergo
@@ -1604,6 +1619,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			// heartrate
 			IntegerList hrs = IntegerList.getInstance(ergoProt.getHr());
 			this.hrs = new double[steps * 2];
+			this.hrsLac = new double[steps * 2];
 
 			for (int i = 0; i < steps; i++) {
 				// x value
@@ -1613,6 +1629,9 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 				// hr value
 				this.hrs[2 * i] = xyArr[2 * i];
 				this.hrs[2 * i + 1] = hrs.get(i);
+				// hr lactate value
+				this.hrsLac[2 * i] = lactates.get(i);
+				this.hrsLac[2 * i + 1] = hrs.get(i);
 			}
 		}
 		// swim
@@ -1701,7 +1720,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 
 	// TODO put into logic layer
 
-	private byte[] buildDiagram(IResult resultLactate, double[] hrs, int width, int height, String descriptionX, String unitX, String descriptionY, String unitY, boolean highToLow) {
+	private byte[] buildDiagram(IResult resultLactate, double[] hrs, int width, int height, String descriptionX, String unitX, String descriptionY, String unitY, boolean highToLow, boolean inverse) {
 		// constants
 		final String MEASUREPOINTS = "Messpunkte";
 		final int GRANULARITY = 10;
@@ -1710,9 +1729,14 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 
 		// measuring points
 		double[] measurePoints = resultLactate.getXYValues();
+
 		XYSeries seriesPoints = new XYSeries(MEASUREPOINTS, false);
 		for (int i = 1; i < measurePoints.length; i += 2) {
-			seriesPoints.add(measurePoints[i - 1], measurePoints[i]);
+			if(inverse) {
+				seriesPoints.add(measurePoints[i], measurePoints[i - 1]);
+			} else {
+				seriesPoints.add(measurePoints[i - 1], measurePoints[i]);
+			}
 		}
 
 		int low = (int) (Math.floor(seriesPoints.getMinX()));
@@ -1720,7 +1744,13 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		int grain = (high - low) * GRANULARITY;
 
 		// curve
-		XYSeries seriesCurve = DatasetUtilities.sampleFunction2DToSeries(resultLactate.getFunction2D(), low, high, grain, descriptionY);
+		Function2D function = null;
+		if(inverse) {
+			function = resultLactate.getInvFunction2D();
+		} else {
+			function = resultLactate.getFunction2D();
+		}
+		XYSeries seriesCurve = DatasetUtilities.sampleFunction2DToSeries(function, low, high, grain, descriptionY);
 
 		// build data set for chart
 		XYSeriesCollection dataset = new XYSeriesCollection();
@@ -1728,7 +1758,17 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		dataset.addSeries(seriesCurve);
 
 		// build chart
-		final JFreeChart chart = ChartFactory.createXYLineChart(null, descriptionX + "[" + unitX + "]", descriptionY + "[" + unitY + "]", dataset, PlotOrientation.VERTICAL, true, true, false);
+
+		String xAxisLabel = null;
+		String yAxisLabel = null;
+		if(inverse) {
+			yAxisLabel = descriptionX + "[" + unitX + "]";
+			xAxisLabel = descriptionY + "[" + unitY + "]";
+		} else {
+			xAxisLabel = descriptionX + "[" + unitX + "]";
+			yAxisLabel = descriptionY + "[" + unitY + "]";
+		}
+		final JFreeChart chart = ChartFactory.createXYLineChart(null, xAxisLabel, yAxisLabel, dataset, PlotOrientation.VERTICAL, true, true, false);
 
 		// get a reference to the plot for further customization
 		final XYPlot plot = chart.getXYPlot();
@@ -1749,7 +1789,11 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		if (hrs != null) {
 			XYSeries seriesHR = new XYSeries("Herzfrequenz");
 			for (int i = 1; i < hrs.length; i += 2) {
-				seriesHR.add(hrs[i - 1], hrs[i]);
+				if(inverse) {
+					seriesHR.add(hrsLac[i - 1], hrsLac[i]);
+				} else {
+					seriesHR.add(hrs[i - 1], hrs[i]);
+				}
 			}
 			XYSeriesCollection datasetHR = new XYSeriesCollection();
 			datasetHR.addSeries(seriesHR);

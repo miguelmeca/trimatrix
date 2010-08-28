@@ -146,6 +146,19 @@ public class UnivariateRealFunctions extends AFunctions {
 		}
 
 		@Override
+		public Function2D getInvFunction2D() {
+			return new Function2D() {
+				public double getValue(double arg0) {
+					try {
+						return getX(arg0);
+					} catch (FunctionEvaluationException ex) {
+						return 0d;
+					}
+				};
+			};
+		}
+
+		@Override
 		public double getX(double y) throws FunctionEvaluationException {
 			return functionInv.value(y);
 		}
