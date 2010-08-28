@@ -41,8 +41,9 @@
   <listener-class>trimatrix.utils.MySessionListener</listener-class>
  </listener>
  <listener>  
-        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>  
-</listener> 
+  <description>Used to for Restful WebServices with Jersey through Spring</description>
+  <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>  
+ </listener> 
  <!-- Start ZK Integration -->
  <listener>
   <description>Used to cleanup when a session is destroyed</description>
