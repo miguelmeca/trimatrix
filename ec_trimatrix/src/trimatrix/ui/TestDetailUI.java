@@ -350,6 +350,8 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			analysis.setOffset(analysisOffset==null?0d:analysisOffset);
 			String analysisDegreeStr = (String) values.get(TestEntity.ANALYSIS_DEGREE);
 			analysis.setDegree((analysisDegreeStr==null?0:Integer.valueOf(analysisDegreeStr)));
+			Boolean analysisLactateHr = (Boolean) values.get(TestEntity.ANALYSIS_LACTATE_HR);
+			analysis.setLactateHr(analysisLactateHr==null?false:analysisLactateHr);
 		}
 	}
 
@@ -433,6 +435,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			values.put(TestEntity.ANALYSIS_FUNCTION, analysis.getFunction());
 			values.put(TestEntity.ANALYSIS_OFFSET, analysis.getOffset());
 			values.put(TestEntity.ANALYSIS_DEGREE, analysis.getDegree().toString());
+			values.put(TestEntity.ANALYSIS_LACTATE_HR, analysis.getLactateHr());
 		}
 
 		// add bgpaint of fields
@@ -1309,7 +1312,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 	// logic for analysis
 	// ------------------------------------------------------------------------
 	final String LACTATE = "Laktat";
-	final String HR = "Puls";
+	final String HR = "Herzfrequenz";
 	final String SPEED = "Geschwindigkeit";
 	final String TIME = "Zeit";
 	final String POWER = "Watt";
@@ -1325,9 +1328,13 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 	private double[] hrs;
 	private double[] hrsLac;
 	private String descriptionX = null;
+	public String getDescriptionX() { return descriptionX; }
 	private String unitX = null;
+	public String getUnitX() { return unitX; }
 	private String descriptionY = null;
+	public String getDescriptionY() { return descriptionY; }
 	private String unitY = null;
+	public String getUnitY() { return unitY; }
 	private boolean highToLow = false;
 
 	protected int m_height;
@@ -1356,39 +1363,14 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		return m_inverse;
 	}
 
+	public boolean getLactateHr() {
+		Boolean lactateHr = (Boolean)values.get(TestEntity.ANALYSIS_LACTATE_HR);
+		return lactateHr==null?false:lactateHr;
+	}
+
 	public void setInverse(boolean value) {
 		m_inverse = value;
 	}
-
-//	protected double m_offset = 0;
-//
-//	public double getOffset() {
-//		return m_offset;
-//	}
-//
-//	public void setOffset(double value) {
-//		m_offset = value;
-//	}
-//
-//	protected String m_function = getServiceLayer().getValueListBindingService().FUNCTIONS.getValidValues().next().getValue(); // init with first value
-//
-//	public String getFunction() {
-//		return m_function;
-//	}
-//
-//	public void setFunction(String value) {
-//		m_function = value;
-//	}
-//
-//	protected int m_degree;
-//
-//	public int getDegree() {
-//		return m_degree;
-//	}
-//
-//	public void setDegree(int value) {
-//		m_degree = value;
-//	}
 
 	protected double m_valueY;
 
@@ -1575,8 +1557,8 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		this.hrsLac = null;
 		// treadmill
 		if (isTreadmill()) {
-			descriptionX = SPEED;
-			unitX = UNIT_KMH;
+			descriptionX = getLactateHr()?HR:SPEED;
+			unitX = getLactateHr()?UNIT_HR:UNIT_KMH;
 			descriptionY = LACTATE;
 			unitY = UNIT_MMOL;
 
@@ -1593,7 +1575,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 
 			for (int i = 0; i < steps; i++) {
 				// x value
-				xyArr[2 * i] = treadmill.getSpeedInit() + treadmill.getSpeedStep() * i;
+				xyArr[2 * i] = getLactateHr()?hrs.get(i):treadmill.getSpeedInit() + treadmill.getSpeedStep() * i;
 				// y value
 				xyArr[2 * i + 1] = lactates.get(i);
 				// hr value
@@ -1606,8 +1588,8 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		}
 		// ergo
 		if (isErgo()) {
-			descriptionX = POWER;
-			unitX = UNIT_WATT;
+			descriptionX = getLactateHr()?HR:POWER;
+			unitX = getLactateHr()?UNIT_HR:UNIT_WATT;
 			descriptionY = LACTATE;
 			unitY = UNIT_MMOL;
 
@@ -1623,7 +1605,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 
 			for (int i = 0; i < steps; i++) {
 				// x value
-				xyArr[2 * i] = ergo.getPowerInit() + ergo.getPowerStep() * i;
+				xyArr[2 * i] = getLactateHr()?hrs.get(i):ergo.getPowerInit() + ergo.getPowerStep() * i;
 				// y value
 				xyArr[2 * i + 1] = lactates.get(i);
 				// hr value
@@ -1636,11 +1618,8 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		}
 		// swim
 		if (isSwim()) {
-			// descriptionX = SPEED;
-			// unitX = UNIT_MS;
-			descriptionX = TIME;
-			unitX = UNIT_MMSS;
-
+			descriptionX = getLactateHr()?HR:TIME;
+			unitX = getLactateHr()?UNIT_HR:UNIT_MMSS;
 			descriptionY = LACTATE;
 			unitY = UNIT_MMOL;
 
@@ -1650,16 +1629,23 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			List<TestsSwimProtocol> protocols = swim.getSteps();
 			int steps = entity.getTestsProtocol().getCountSteps();
 			xyArr = new double[steps * 2];
+			this.hrs = new double[steps * 2];
+			this.hrsLac = new double[steps * 2];
 			int i = 0;
 			for (TestsSwimProtocol protocol : protocols) {
 				if (protocol.getValid()) {
+					Double hr = protocol.getHr()!=null?Double.valueOf(protocol.getHr()):0d;
 					// x value
-					// xyArr[2 * i] =
-					// Helper.calculateMeterPerSecond(swim.getDistance(),
-					// protocol.getTime());
-					xyArr[2 * i] = HelperTime.calculateSecondsMsecs(protocol.getTime());
+					xyArr[2 * i] = getLactateHr()?hr:HelperTime.calculateSecondsMsecs(protocol.getTime());
 					// y value
 					xyArr[2 * i + 1] = getLogic().getTestLogic().createLactateSamples(protocol.getLactate()).getSingleDoubleValue();
+					// hr value
+					this.hrs[2 * i] = xyArr[2 * i];
+					this.hrs[2 * i + 1] = hr;
+					// hr lactate value
+					this.hrsLac[2 * i] = xyArr[2 * i + 1];
+					this.hrsLac[2 * i + 1] = hr;
+
 					i++;
 				}
 			}
@@ -1786,8 +1772,8 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		plot.setRenderer(renderer);
 
 		// add hr values
-		if (hrs != null) {
-			XYSeries seriesHR = new XYSeries("Herzfrequenz");
+		if (hrs != null && !getLactateHr()) {
+			XYSeries seriesHR = new XYSeries(HR);
 			for (int i = 1; i < hrs.length; i += 2) {
 				if(inverse) {
 					seriesHR.add(hrsLac[i - 1], hrsLac[i]);
@@ -1797,7 +1783,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			}
 			XYSeriesCollection datasetHR = new XYSeriesCollection();
 			datasetHR.addSeries(seriesHR);
-			ValueAxis axis2 = new NumberAxis("Herzfrequenz");
+			ValueAxis axis2 = new NumberAxis(HR);
 			plot.setRangeAxis(1, axis2);
 			plot.setDataset(1, datasetHR);
 			plot.mapDatasetToRangeAxis(1, 1);

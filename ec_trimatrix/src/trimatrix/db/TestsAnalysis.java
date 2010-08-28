@@ -20,6 +20,7 @@ public class TestsAnalysis implements java.io.Serializable {
 	private String function;
 	private Double offset;
 	private Integer degree;
+	private Boolean lactateHr;
 	private Timestamp createdAt;
 	private String createdBy;
 
@@ -35,12 +36,13 @@ public class TestsAnalysis implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public TestsAnalysis(String id, String function, Double offset, Integer degree, Timestamp createdAt, String createdBy) {
+	public TestsAnalysis(String id, String function, Double offset, Integer degree, Boolean lactateHr, Timestamp createdAt, String createdBy) {
 		super();
 		this.id = id;
 		this.function = function;
 		this.offset = offset;
 		this.degree = degree;
+		this.lactateHr = lactateHr;
 		this.createdAt = createdAt;
 		this.createdBy = createdBy;
 	}
@@ -82,6 +84,16 @@ public class TestsAnalysis implements java.io.Serializable {
 	public void setDegree(Integer degree) {
 		this.degree = degree;
 	}
+
+	@Column(name="lactate_hr")
+
+    public Boolean getLactateHr() {
+        return this.lactateHr;
+    }
+
+    public void setLactateHr(Boolean lactateHr) {
+        this.lactateHr = lactateHr;
+    }
 
 	@Column(name = "created_at", length = 19)
 	public Timestamp getCreatedAt() {

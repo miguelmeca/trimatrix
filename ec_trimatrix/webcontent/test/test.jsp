@@ -103,7 +103,7 @@
 <t:rowdistance id="g_70" />
 <t:row id="g_71" >
 <t:label id="g_72" text="Herzfrequenz" width="150" />
-<t:field id="g_73" background="#FF0000" border="noborder" focusable="false" text="#{d.TestUI.hr}" tooltip="GA 00:20:00" userhint="GA 00:20:00" width="50" />
+<t:field id="g_73" background="null!" bgpaint="rectangle(0%,0%,50%,100%,#FF0000);rectangle(50%,0,110%,100%,#FF00FF);" border="noborder" focusable="false" text="#{d.TestUI.hr}" tooltip="GA 00:20:00" userhint="GA 00:20:00" width="50" />
 <t:field id="g_74" background="#0000FF" border="noborder" focusable="false" text="#{d.TestUI.hr}" width="50" />
 <t:field id="g_75" background="#00FF00" border="noborder" focusable="false" text="#{d.TestUI.hr}" width="50" />
 </t:row>
