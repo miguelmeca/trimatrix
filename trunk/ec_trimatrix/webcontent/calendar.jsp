@@ -200,29 +200,38 @@
 </t:tabbedpanetab>
 </t:tabbedpane>
 </t:row>
-<t:row id="g_151" >
-<t:label id="g_152" font="size:10;weight:bold" text="#{rr.literals.run}: #{d.ScheduleUI.runHours} h" />
-<t:coldistance id="g_153" />
-<t:label id="g_154" font="size:10;weight:bold" text="#{rr.literals.bike}: #{d.ScheduleUI.bikeHours} h" />
-<t:coldistance id="g_155" />
-<t:label id="g_156" font="size:10;weight:bold" text="#{rr.literals.swim}: #{d.ScheduleUI.swimHours} h" />
-<t:coldistance id="g_157" />
-<t:label id="g_158" font="size:10;weight:bold" text="#{rr.literals.total}: #{d.ScheduleUI.totalHours} h" />
+<t:rowdistance id="g_151" />
+<t:row id="g_152" >
+<t:label id="g_153" font="size:10;weight:bold" text="#{rr.literals.run}: #{d.ScheduleUI.runHours} h" />
+<t:coldistance id="g_154" />
+<t:field id="g_155" background="null!" bgpaint="#{d.ScheduleUI.runHoursBgpaint}" border="noborder" enabled="false" focusable="false" font="size:10" height="10" width="100" />
+<t:coldistance id="g_156" />
+<t:label id="g_157" font="size:10;weight:bold" text="#{rr.literals.bike}: #{d.ScheduleUI.bikeHours} h" />
+<t:coldistance id="g_158" />
+<t:field id="g_159" background="null!" bgpaint="#{d.ScheduleUI.bikeHoursBgpaint}" border="noborder" enabled="false" focusable="false" font="size:10" height="10" width="100" />
+<t:coldistance id="g_160" />
+<t:label id="g_161" font="size:10;weight:bold" text="#{rr.literals.swim}: #{d.ScheduleUI.swimHours} h" />
+<t:coldistance id="g_162" />
+<t:field id="g_163" background="null!" bgpaint="#{d.ScheduleUI.swimHoursBgpaint}" border="noborder" enabled="false" focusable="false" font="size:10" height="10" width="100" />
+<t:coldistance id="g_164" />
+<t:label id="g_165" font="size:10;weight:bold" text="#{rr.literals.total}: #{d.ScheduleUI.totalHours} h" />
+<t:coldistance id="g_166" />
+<t:field id="g_167" background="null!" bgpaint="#{d.ScheduleUI.totalHoursBgpaint}" border="noborder" enabled="false" focusable="false" font="size:10" height="10" width="100" />
 </t:row>
 </t:pane>
 </t:row>
 </t:rowbodypane>
 <t:popupmenu id="SCHEDULE" >
-<t:menuitem id="g_159" command="cmdAdd" text="#{rr.literals.new}" />
+<t:menuitem id="g_168" command="cmdAdd" text="#{rr.literals.new}" />
 </t:popupmenu>
 <t:popupmenu id="SCHEDULEITEM" >
-<t:menuitem id="g_160" command="cmdEdit" image="/resize(15,15):/images/icons/edit.png" text="#{rr.literals.change}" />
-<t:menuitem id="g_161" command="cmdRemove" image="/resize(15,15):/images/icons/delete.png" text="#{rr.literals.delete}" />
-<t:menuitem id="g_162" command="cmdCopy" image="/resize(15,15):/images/icons/copy.png" text="#{rr.literals.copy}" />
+<t:menuitem id="g_169" command="cmdEdit" image="/resize(15,15):/images/icons/edit.png" text="#{rr.literals.change}" />
+<t:menuitem id="g_170" command="cmdRemove" image="/resize(15,15):/images/icons/delete.png" text="#{rr.literals.delete}" />
+<t:menuitem id="g_171" command="cmdCopy" image="/resize(15,15):/images/icons/copy.png" text="#{rr.literals.copy}" />
 </t:popupmenu>
-<t:beanprocessing id="g_163" >
-<t:filedownload id="g_164" fileextensions="#{d.ScheduleUI.printReportExtension}" filename="#{d.ScheduleUI.printReportFilename}" openimmediately="true" opensupported="true" trigger="#{d.ScheduleUI.downloadTrigger}" url="#{d.ScheduleUI.printReportUrl}" />
-<t:jshowurl id="g_165" trigger="#{d.ScheduleUI.browserTrigger}" url="#{d.ScheduleUI.mobileUrl}" usedesktop="true" />
+<t:beanprocessing id="g_172" >
+<t:filedownload id="g_173" fileextensions="#{d.ScheduleUI.printReportExtension}" filename="#{d.ScheduleUI.printReportFilename}" openimmediately="true" opensupported="true" trigger="#{d.ScheduleUI.downloadTrigger}" url="#{d.ScheduleUI.printReportUrl}" />
+<t:jshowurl id="g_174" trigger="#{d.ScheduleUI.browserTrigger}" url="#{d.ScheduleUI.mobileUrl}" usedesktop="true" />
 </t:beanprocessing>
 <t:pageaddons id="g_pa"/>
 </f:subview>

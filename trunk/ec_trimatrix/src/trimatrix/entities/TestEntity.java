@@ -72,6 +72,7 @@ public final class TestEntity extends AEntity {
     public static final String ANALYSIS_FUNCTION = "analysis_function";
     public static final String ANALYSIS_OFFSET = "analysis_offset";
     public static final String ANALYSIS_DEGREE = "analysis_degree";
+    public static final String ANALYSIS_LACTATE_HR = "analysis_lactate_hr";
 
 	/* (non-Javadoc)
 	 * @see trimatrix.entities.IUserEntity#getGridMetaData()

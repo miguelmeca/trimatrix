@@ -8,9 +8,13 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 import java.util.UUID;
+import java.util.Map.Entry;
 
 import javax.faces.event.ActionEvent;
 
@@ -41,6 +45,7 @@ import trimatrix.db.Persons;
 import trimatrix.db.Schedules;
 import trimatrix.db.SchedulesDetail;
 import trimatrix.db.SchedulesDetailId;
+import trimatrix.db.ZonesDefinition;
 import trimatrix.logic.ScheduleLogic;
 import trimatrix.reports.excel.CalendarOverview;
 import trimatrix.services.TranslationService;
@@ -232,45 +237,95 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 	}
 
 	public String getRunHours() {
-		Long duration = 0L;
-		for (ScheduleItem item : getScheduleItems()) {
-			if(ScheduleLogic.getTypeOrd(item.getType())==ScheduleLogic.RUN) {
-				duration += item.getDuration();
-			}
-		}
-		return Helper.round(duration.doubleValue()/60, 1).toString();
+		return getHours(ScheduleLogic.RUNSET);
 	}
 
 	public String getBikeHours() {
-		Long duration = 0L;
-		for (ScheduleItem item : getScheduleItems()) {
-			if(ScheduleLogic.getTypeOrd(item.getType())==ScheduleLogic.BIKE) {
-				duration += item.getDuration();
-			}
-		}
-		return Helper.round(duration.doubleValue()/60, 1).toString();
+		return getHours(ScheduleLogic.BIKESET);
 	}
 
 	public String getSwimHours() {
+		return getHours(ScheduleLogic.SWIMSET);
+	}
+
+	public String getTotalHours() {
+		return getHours(ScheduleLogic.TRISET);
+	}
+
+	public String getRunHoursBgpaint() {
+		return getBgpaintForStatistic(ScheduleLogic.RUNSET);
+	}
+
+	public String getBikeHoursBgpaint() {
+		return getBgpaintForStatistic(ScheduleLogic.BIKESET);
+	}
+
+	public String getSwimHoursBgpaint() {
+		return getBgpaintForStatistic(ScheduleLogic.SWIMSET);
+	}
+
+	public String getTotalHoursBgpaint() {
+		return getBgpaintForStatistic(ScheduleLogic.TRISET);
+	}
+
+	private String getHours(Set<Integer> scheduleTypes) {
 		Long duration = 0L;
 		for (ScheduleItem item : getScheduleItems()) {
-			if(ScheduleLogic.getTypeOrd(item.getType())==ScheduleLogic.SWIM) {
+			if(scheduleTypes.contains(ScheduleLogic.getTypeOrd(item.getType()))) {
 				duration += item.getDuration();
 			}
 		}
 		return Helper.round(duration.doubleValue()/60, 1).toString();
 	}
 
-	public String getTotalHours() {
-		Long duration = 0L;
+	/**
+	 * Creates a map with a summation of schedule details durations by zone.
+	 * Key of map is the sequence:color combination as string, there's an
+	 * additional entry with key EMPTY which contains the sum.
+	 * A TreeMap is used for natural sorting of the key
+	 * @param scheduleType
+	 * @return
+	 */
+	private Map<String, Integer> getColorDurationMap(Set<Integer> scheduleTypes) {
+		Map<String, Integer> colorDurationMap = new TreeMap<String, Integer>(); // TreeMap for sorting!
+		int totalDuration = 0;
 		for (ScheduleItem item : getScheduleItems()) {
-			if(ScheduleLogic.getTypeOrd(item.getType())==ScheduleLogic.RUN ||
-			   ScheduleLogic.getTypeOrd(item.getType())==ScheduleLogic.BIKE ||
-			   ScheduleLogic.getTypeOrd(item.getType())==ScheduleLogic.SWIM) {
-				duration += item.getDuration();
+			if(scheduleTypes.contains(ScheduleLogic.getTypeOrd(item.getType()))) {
+				for(SchedulesDetail detail : item.getSchedulesDetail()) {
+					ZonesDefinition definition = getDaoLayer().getZonesDefinitionDAO().findById(detail.getZoneId());
+					String key = definition.getSequence() + ":" + definition.getColor();
+					String duration = detail.getDurationTarget();
+					if(!Helper.isEmpty(detail.getDurationActual())) duration = detail.getDurationActual();
+					Integer durationInSeconds = HelperTime.calculateSeconds(duration);
+					totalDuration += durationInSeconds;
+					if(colorDurationMap.containsKey(key)) {
+						colorDurationMap.put(key, colorDurationMap.get(key) + durationInSeconds);
+					} else {
+						colorDurationMap.put(key, durationInSeconds);
+					}
+				}
 			}
 		}
-		return Helper.round(duration.doubleValue()/60, 1).toString();
+		colorDurationMap.put(Constants.EMPTY, totalDuration);
+		return colorDurationMap;
+	}
+
+	private String getBgpaintForStatistic(Set<Integer> scheduleTypes) {
+		StringBuilder bgpaint = new StringBuilder();
+		final String TEMPLATE = "rectangle({0}%,0%,{1}%,100%,{2})";
+		Map<String, Integer> colorDurationMap = getColorDurationMap(scheduleTypes);
+		Integer totalDuration = colorDurationMap.get(Constants.EMPTY);
+		colorDurationMap.remove(Constants.EMPTY);
+		Double totalPercentage = 100d / totalDuration;
+		Integer lastPercentage = new Integer(0);
+		for(Entry<String, Integer> entry : colorDurationMap.entrySet()) {
+			String color = entry.getKey().split(":")[1];
+			Integer percentage = (int)(totalPercentage * entry.getValue());
+			bgpaint.append(TEMPLATE.replace("{0}", lastPercentage.toString()).replace("{1}", percentage.toString()).replace("{2}", color));
+			bgpaint.append(";");
+			lastPercentage += percentage;
+		}
+		return bgpaint.toString();
 	}
 
 	public ScheduleUI(IWorkpageDispatcher dispatcher) {

@@ -415,55 +415,58 @@
 <t:coldistance id="g_286" />
 </t:row>
 <t:row id="g_287" >
-<t:checkbox id="g_288" selected="#{d.TestDetailUI.inverse}" text="#{rr.literals.lactate_on_x_axis}" />
+<t:checkbox id="g_288" actionListener="#{d.TestDetailUI.resetResult}" selected="#{d.TestDetailUI.inverse}" text="#{rr.literals.lactate_on_x_axis}" />
 </t:row>
 <t:row id="g_289" >
-<t:label id="g_290" text="#{rr.literals.function}" />
-<t:coldistance id="g_291" />
-<t:combobox id="g_292" actionListener="#{d.TestDetailUI.resetResult}" attributemacro="entityDetailMacro(TestDetailUI,analysis_function)" flush="true" validvaluesbinding="#{d.TestDetailUI.functionsVvb}" width="200" />
+<t:checkbox id="g_290" actionListener="#{d.TestDetailUI.resetResult}" enabled="#{d.TestDetailUI.enabled}" selected="#{d.TestDetailUI.values.analysis_lactate_hr}" text="#{rr.literals.lactate_hr}" />
+</t:row>
+<t:row id="g_291" >
+<t:label id="g_292" text="#{rr.literals.function}" />
 <t:coldistance id="g_293" />
-<t:label id="g_294" rendered="#{d.TestDetailUI.exponential}" text="#{rr.literals.offset}" />
+<t:combobox id="g_294" actionListener="#{d.TestDetailUI.resetResult}" attributemacro="entityDetailMacro(TestDetailUI,analysis_function)" flush="true" validvaluesbinding="#{d.TestDetailUI.functionsVvb}" width="200" />
 <t:coldistance id="g_295" />
-<t:formattedfield id="g_296" actionListener="#{d.TestDetailUI.resetResult}" attributemacro="entityDetailMacro(TestDetailUI,analysis_offset)" flush="true" format="double" rendered="#{d.TestDetailUI.exponential}" width="50" />
-<t:label id="g_297" rendered="#{d.TestDetailUI.polynomial}" text="#{rr.literals.degree}" />
-<t:coldistance id="g_298" />
-<t:spinner id="g_299" actionListener="#{d.TestDetailUI.resetResult}" attributemacro="entityDetailMacro(TestDetailUI,analysis_degree)" flush="true" maxvalue="6" minvalue="0" rendered="#{d.TestDetailUI.polynomial}" width="50" />
+<t:label id="g_296" rendered="#{d.TestDetailUI.exponential}" text="#{rr.literals.offset}" />
+<t:coldistance id="g_297" />
+<t:formattedfield id="g_298" actionListener="#{d.TestDetailUI.resetResult}" attributemacro="entityDetailMacro(TestDetailUI,analysis_offset)" flush="true" format="double" rendered="#{d.TestDetailUI.exponential}" width="50" />
+<t:label id="g_299" rendered="#{d.TestDetailUI.polynomial}" text="#{rr.literals.degree}" />
+<t:coldistance id="g_300" />
+<t:spinner id="g_301" actionListener="#{d.TestDetailUI.resetResult}" attributemacro="entityDetailMacro(TestDetailUI,analysis_degree)" flush="true" maxvalue="6" minvalue="0" rendered="#{d.TestDetailUI.polynomial}" width="50" />
 </t:row>
-<t:rowdistance id="g_300" height="10" />
-<t:row id="g_301" >
-<t:button id="g_302" actionListener="#{d.TestDetailUI.onRefresh}" text="#{rr.literals.create_dia}" />
-<t:coldistance id="g_303" />
-<t:button id="g_304" actionListener="#{d.TestDetailUI.onSetZones}" text="#{rr.literals.set_zones}" />
+<t:rowdistance id="g_302" height="10" />
+<t:row id="g_303" >
+<t:button id="g_304" actionListener="#{d.TestDetailUI.onRefresh}" text="#{rr.literals.create_dia}" />
+<t:coldistance id="g_305" />
+<t:button id="g_306" actionListener="#{d.TestDetailUI.onSetZones}" text="#{rr.literals.set_zones}" />
 </t:row>
-<t:rowdistance id="g_305" height="10" />
-<t:rowline id="g_306" />
 <t:rowdistance id="g_307" height="10" />
-<t:row id="g_308" >
-<t:label id="g_309" text="#{rr.literals.formula}" width="100" />
-<t:field id="g_310" enabled="false" text="#{d.TestDetailUI.formel}" width="600" />
+<t:rowline id="g_308" />
+<t:rowdistance id="g_309" height="10" />
+<t:row id="g_310" >
+<t:label id="g_311" text="#{rr.literals.formula}" width="100" />
+<t:field id="g_312" enabled="false" text="#{d.TestDetailUI.formel}" width="600" />
 </t:row>
-<t:row id="g_311" >
-<t:label id="g_312" text="#{rr.literals.correlation}" width="100" />
-<t:field id="g_313" enabled="false" text="#{d.TestDetailUI.correlation}" width="200" />
+<t:row id="g_313" >
+<t:label id="g_314" text="#{rr.literals.correlation}" width="100" />
+<t:field id="g_315" enabled="false" text="#{d.TestDetailUI.correlation}" width="200" />
 </t:row>
-<t:rowdistance id="g_314" height="10" />
-<t:row id="g_315" >
-<t:pane id="g_316" rowalignmenty="top" rowdistance="5" >
+<t:rowdistance id="g_316" height="10" />
 <t:row id="g_317" >
-<t:label id="g_318" font="size:16;weight:bold" text="X" width="25" />
-<t:formattedfield id="g_319" actionListener="#{d.TestDetailUI.onChangeXY}" align="center" clientname="x" flush="true" font="size:16" format="double" value="#{d.TestDetailUI.valueX}" width="80" />
+<t:pane id="g_318" rowalignmenty="top" rowdistance="5" >
+<t:row id="g_319" >
+<t:label id="g_320" text="#{d.TestDetailUI.descriptionX}" width="100" />
+<t:formattedfield id="g_321" actionListener="#{d.TestDetailUI.onChangeXY}" align="center" bgpaint="write(100%-5,100%-5,#{d.TestDetailUI.unitX},9,#a0a0a0,rightmiddle)" clientname="x" flush="true" format="double" value="#{d.TestDetailUI.valueX}" width="50" />
 </t:row>
-<t:row id="g_320" >
-<t:label id="g_321" font="size:16;weight:bold" text="Y" width="25" />
-<t:formattedfield id="g_322" actionListener="#{d.TestDetailUI.onChangeXY}" align="center" clientname="y" flush="true" font="size:16" format="double" value="#{d.TestDetailUI.valueY}" width="80" />
+<t:row id="g_322" >
+<t:label id="g_323" text="#{d.TestDetailUI.descriptionY}" width="100" />
+<t:formattedfield id="g_324" actionListener="#{d.TestDetailUI.onChangeXY}" align="center" bgpaint="write(100%-5,100%-5,#{d.TestDetailUI.unitY},9,#a0a0a0,rightmiddle)" clientname="y" flush="true" format="double" value="#{d.TestDetailUI.valueY}" width="50" />
 </t:row>
-<t:row id="g_323" >
-<t:label id="g_324" font="size:16;weight:bold" text="HR" width="25" />
-<t:formattedfield id="g_325" align="center" enabled="false" font="size:16" format="int" value="#{d.TestDetailUI.hr}" width="80" />
+<t:row id="g_325" rendered="false" >
+<t:label id="g_326" font="size:16;weight:bold" text="HR" width="25" />
+<t:formattedfield id="g_327" align="center" enabled="false" font="size:16" format="int" value="#{d.TestDetailUI.hr}" width="80" />
 </t:row>
 </t:pane>
-<t:coldistance id="g_326" />
-<t:heximage id="g_327" align="center" border="#808080" height="#{d.TestDetailUI.height}" hexdata="#{d.TestDetailUI.diagram}" rowalignmenty="center" valign="center" width="#{d.TestDetailUI.width}" />
+<t:coldistance id="g_328" />
+<t:heximage id="g_329" align="center" border="#808080" height="#{d.TestDetailUI.height}" hexdata="#{d.TestDetailUI.diagram}" rowalignmenty="center" valign="center" width="#{d.TestDetailUI.width}" />
 </t:row>
 </t:pane>
 </t:row>

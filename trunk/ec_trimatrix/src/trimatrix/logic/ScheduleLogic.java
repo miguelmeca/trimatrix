@@ -4,8 +4,10 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import org.apache.commons.logging.Log;
@@ -18,7 +20,6 @@ import trimatrix.db.DayInfosId;
 import trimatrix.db.Schedules;
 import trimatrix.db.SchedulesDetail;
 import trimatrix.db.UserPreferences;
-import trimatrix.db.ZonesDefinition;
 import trimatrix.db.ZonesSwim;
 import trimatrix.db.ZonesSwimId;
 import trimatrix.entities.EntityLayer;
@@ -44,6 +45,11 @@ public class ScheduleLogic {
 		//Unnamed Block.
 		{ put("run", RUN); put("bike", BIKE); put("swim", SWIM);}
 	};
+
+	public static final Set<Integer> RUNSET = new HashSet<Integer>(){{add(RUN);};};
+	public static final Set<Integer> BIKESET = new HashSet<Integer>(){{add(BIKE);};};
+	public static final Set<Integer> SWIMSET = new HashSet<Integer>(){{add(SWIM);};};
+	public static final Set<Integer> TRISET = new HashSet<Integer>(){{add(RUN);add(BIKE);add(SWIM);};};
 
 	public Calendar getCalendar() {
 		Calendar cal = Calendar.getInstance();
