@@ -52,6 +52,24 @@
 		<listener-class>trimatrix.utils.MySessionListener</listener-class>
 	</listener>
 
+	<listener>
+  		<description>Used to for Restful WebServices with Jersey through Spring</description>
+  		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+ 	</listener>
+
+ 	<!-- Start ZK Integration -->
+ 	<listener>
+  		<description>Used to cleanup when a session is destroyed</description>
+  		<display-name>ZK Session cleaner</display-name>
+  		<listener-class>org.zkoss.zk.ui.http.HttpSessionListener</listener-class>
+ 	</listener>
+
+ 	<servlet>
+  		<display-name>Trimatrix REST Services</display-name>
+  		<servlet-name>Trimatrix REST Services</servlet-name>
+  		<servlet-class>com.sun.jersey.spi.spring.container.servlet.SpringServlet</servlet-class>
+  		<load-on-startup>1</load-on-startup>
+ 	</servlet>
 
 	<!--
 		Hibernate Session seems to start twice <listener>
@@ -196,6 +214,12 @@
 		<servlet-name>auEngine</servlet-name>
 		<servlet-class>org.zkoss.zk.au.http.DHtmlUpdateServlet</servlet-class>
 	</servlet>
+
+	<servlet-mapping>
+  		<servlet-name>Trimatrix REST Services</servlet-name>
+  		<url-pattern>/services/*</url-pattern>
+ 	</servlet-mapping>
+
 	<servlet-mapping>
 		<servlet-name>zkLoader</servlet-name>
 		<url-pattern>*.zul</url-pattern>
