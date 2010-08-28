@@ -36,6 +36,7 @@ public class Schedules implements java.io.Serializable, IEntityObject {
 	private String personId;
 	private String type;
 	private String description;
+	private String comment;
 	private Timestamp start;
 	private Long duration;
 	private String color;
@@ -64,12 +65,13 @@ public class Schedules implements java.io.Serializable, IEntityObject {
 	}
 
 	/** full constructor */
-	public Schedules(String id, String personId, String type, String description, Timestamp start, Long duration, String color, Boolean template, String templateName,
+	public Schedules(String id, String personId, String type, String description, String comment, Timestamp start, Long duration, String color, Boolean template, String templateName,
 			Boolean done, Timestamp createdAt, String createdBy, Timestamp modifiedAt, String modifiedBy, Boolean deleted, Boolean test) {
 		this.id = id;
 		this.personId = personId;
 		this.type = type;
 		this.description = description;
+		this.comment = comment;
 		this.start = start;
 		this.duration = duration;
 		this.color = color;
@@ -120,6 +122,15 @@ public class Schedules implements java.io.Serializable, IEntityObject {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	@Column(name = "comment", columnDefinition="text")
+	public String getComment() {
+		return this.comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 	@Column(name = "start", length = 19)

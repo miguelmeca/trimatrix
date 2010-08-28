@@ -12,7 +12,7 @@
 <f:view>
 <h:form>
 <f:subview id="scheduletemplatesg_sv">
-<t:rowbodypane id="g_1" rowdistance="5" >
+<t:rowbodypane id="g_1" actionListener="#{d.ScheduleUI.onCreateTemplate}" dropreceive="schedule" rowdistance="5" >
 <t:rowdynamiccontent id="g_2" contentbinding="#{d.ScheduleUI.templates}" />
 </t:rowbodypane>
 <t:pageaddons id="g_pa"/>

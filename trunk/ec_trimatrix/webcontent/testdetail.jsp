@@ -404,64 +404,67 @@
 </t:tabbedpanetab>
 <t:tabbedpanetab id="g_276" comment="Analysis" padding="5" rendered="#{d.TestDetailUI.analysis}" rowdistance="2" text="#{rr.literals.analysis}" >
 <t:row id="g_277" >
-<t:pane id="g_278" width="100%" >
+<t:pane id="g_278" rowalignmenty="top" rowdistance="5" width="100%" >
 <t:row id="g_279" >
-<t:label id="g_280" text="Größe" />
-<t:coldistance id="g_281" />
-<t:formattedfield id="g_282" format="int" userhint="Breite" value="#{d.TestDetailUI.width}" width="50" />
-<t:coldistance id="g_283" />
-<t:label id="g_284" text="X" />
+<t:label id="g_280" font="size:12;weight:bold" text="#{rr.literals.width}" />
+<t:slider id="g_281" majortickspacing="200" maxvalue="1600" minortickspacing="50" minvalue="0" snaptoticks="true" value="#{d.TestDetailUI.width}" width="250" />
+<t:coldistance id="g_282" width="25" />
+<t:label id="g_283" font="size:12;weight:bold" text="#{rr.literals.height2}" />
+<t:slider id="g_284" majortickspacing="200" maxvalue="1600" minortickspacing="50" minvalue="0" snaptoticks="true" value="#{d.TestDetailUI.height}" width="250" />
 <t:coldistance id="g_285" />
-<t:formattedfield id="g_286" format="int" userhint="Höhe" value="#{d.TestDetailUI.height}" width="50" />
-<t:coldistance id="g_287" />
-<t:button id="g_288" actionListener="#{d.TestDetailUI.onRefresh}" text="#{rr.literals.create_dia}" />
-<t:coldistance id="g_289" />
-<t:button id="g_290" actionListener="#{d.TestDetailUI.onSetZones}" text="#{rr.literals.set_zones}" />
+<t:coldistance id="g_286" />
 </t:row>
-<t:rowdistance id="g_291" />
-<t:row id="g_292" >
-<t:label id="g_293" text="#{rr.literals.formula}" width="100" />
-<t:field id="g_294" enabled="false" text="#{d.TestDetailUI.formel}" width="600" />
+<t:row id="g_287" >
+<t:checkbox id="g_288" selected="#{d.TestDetailUI.inverse}" text="#{rr.literals.lactate_on_x_axis}" />
 </t:row>
-<t:rowdistance id="g_295" />
-<t:row id="g_296" >
-<t:label id="g_297" text="#{rr.literals.correlation}" width="100" />
-<t:field id="g_298" enabled="false" text="#{d.TestDetailUI.correlation}" width="200" />
+<t:row id="g_289" >
+<t:label id="g_290" text="#{rr.literals.function}" />
+<t:coldistance id="g_291" />
+<t:combobox id="g_292" actionListener="#{d.TestDetailUI.resetResult}" attributemacro="entityDetailMacro(TestDetailUI,analysis_function)" flush="true" validvaluesbinding="#{d.TestDetailUI.functionsVvb}" width="200" />
+<t:coldistance id="g_293" />
+<t:label id="g_294" rendered="#{d.TestDetailUI.exponential}" text="#{rr.literals.offset}" />
+<t:coldistance id="g_295" />
+<t:formattedfield id="g_296" actionListener="#{d.TestDetailUI.resetResult}" attributemacro="entityDetailMacro(TestDetailUI,analysis_offset)" flush="true" format="double" rendered="#{d.TestDetailUI.exponential}" width="50" />
+<t:label id="g_297" rendered="#{d.TestDetailUI.polynomial}" text="#{rr.literals.degree}" />
+<t:coldistance id="g_298" />
+<t:spinner id="g_299" actionListener="#{d.TestDetailUI.resetResult}" attributemacro="entityDetailMacro(TestDetailUI,analysis_degree)" flush="true" maxvalue="6" minvalue="0" rendered="#{d.TestDetailUI.polynomial}" width="50" />
 </t:row>
-<t:rowdistance id="g_299" height="10" />
-<t:row id="g_300" >
-<t:heximage id="g_301" align="center" border="#808080" height="#{d.TestDetailUI.height}" hexdata="#{d.TestDetailUI.diagram}" rowalignmenty="center" valign="center" width="#{d.TestDetailUI.width}" />
+<t:rowdistance id="g_300" height="10" />
+<t:row id="g_301" >
+<t:button id="g_302" actionListener="#{d.TestDetailUI.onRefresh}" text="#{rr.literals.create_dia}" />
+<t:coldistance id="g_303" />
+<t:button id="g_304" actionListener="#{d.TestDetailUI.onSetZones}" text="#{rr.literals.set_zones}" />
 </t:row>
-<t:rowdistance id="g_302" />
-<t:row id="g_303" >
-<t:label id="g_304" text="#{rr.literals.function}" width="100" />
-<t:combobox id="g_305" actionListener="#{d.TestDetailUI.resetResult}" attributemacro="entityDetailMacro(TestDetailUI,analysis_function)" flush="true" validvaluesbinding="#{d.TestDetailUI.functionsVvb}" width="200" />
+<t:rowdistance id="g_305" height="10" />
+<t:rowline id="g_306" />
+<t:rowdistance id="g_307" height="10" />
+<t:row id="g_308" >
+<t:label id="g_309" text="#{rr.literals.formula}" width="100" />
+<t:field id="g_310" enabled="false" text="#{d.TestDetailUI.formel}" width="600" />
 </t:row>
-<t:rowdistance id="g_306" />
-<t:row id="g_307" rendered="#{d.TestDetailUI.exponential}" >
-<t:label id="g_308" text="#{rr.literals.offset}" width="100" />
-<t:formattedfield id="g_309" actionListener="#{d.TestDetailUI.resetResult}" attributemacro="entityDetailMacro(TestDetailUI,analysis_offset)" flush="true" format="double" width="50" />
+<t:row id="g_311" >
+<t:label id="g_312" text="#{rr.literals.correlation}" width="100" />
+<t:field id="g_313" enabled="false" text="#{d.TestDetailUI.correlation}" width="200" />
 </t:row>
-<t:row id="g_310" rendered="#{d.TestDetailUI.polynomial}" >
-<t:label id="g_311" text="#{rr.literals.degree}" width="100" />
-<t:spinner id="g_312" actionListener="#{d.TestDetailUI.resetResult}" attributemacro="entityDetailMacro(TestDetailUI,analysis_degree)" flush="true" maxvalue="6" minvalue="0" width="50" />
+<t:rowdistance id="g_314" height="10" />
+<t:row id="g_315" >
+<t:pane id="g_316" rowalignmenty="top" rowdistance="5" >
+<t:row id="g_317" >
+<t:label id="g_318" font="size:16;weight:bold" text="X" width="25" />
+<t:formattedfield id="g_319" actionListener="#{d.TestDetailUI.onChangeXY}" align="center" clientname="x" flush="true" font="size:16" format="double" value="#{d.TestDetailUI.valueX}" width="80" />
 </t:row>
-<t:rowdistance id="g_313" />
-<t:row id="g_314" >
-<t:label id="g_315" text="x" width="100" />
-<t:formattedfield id="g_316" actionListener="#{d.TestDetailUI.onChangeXY}" clientname="x" flush="true" format="double" value="#{d.TestDetailUI.valueX}" width="50" />
+<t:row id="g_320" >
+<t:label id="g_321" font="size:16;weight:bold" text="Y" width="25" />
+<t:formattedfield id="g_322" actionListener="#{d.TestDetailUI.onChangeXY}" align="center" clientname="y" flush="true" font="size:16" format="double" value="#{d.TestDetailUI.valueY}" width="80" />
 </t:row>
-<t:rowdistance id="g_317" />
-<t:row id="g_318" >
-<t:label id="g_319" text="y" width="100" />
-<t:formattedfield id="g_320" actionListener="#{d.TestDetailUI.onChangeXY}" clientname="y" flush="true" format="double" value="#{d.TestDetailUI.valueY}" width="50" />
+<t:row id="g_323" >
+<t:label id="g_324" font="size:16;weight:bold" text="HR" width="25" />
+<t:formattedfield id="g_325" align="center" enabled="false" font="size:16" format="int" value="#{d.TestDetailUI.hr}" width="80" />
 </t:row>
-<t:rowdistance id="g_321" />
-<t:row id="g_322" >
-<t:label id="g_323" text="hr" width="100" />
-<t:formattedfield id="g_324" enabled="false" format="int" value="#{d.TestDetailUI.hr}" width="50" />
+</t:pane>
+<t:coldistance id="g_326" />
+<t:heximage id="g_327" align="center" border="#808080" height="#{d.TestDetailUI.height}" hexdata="#{d.TestDetailUI.diagram}" rowalignmenty="center" valign="center" width="#{d.TestDetailUI.width}" />
 </t:row>
-<t:rowdistance id="g_325" />
 </t:pane>
 </t:row>
 </t:tabbedpanetab>

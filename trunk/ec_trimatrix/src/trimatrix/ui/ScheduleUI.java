@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.faces.event.ActionEvent;
 
@@ -585,6 +586,9 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		public String getDescription() {return schedule.getDescription();}
 		public void setDescription(String description) {schedule.setDescription(description);}
 
+		public String getComment() {return schedule.getComment();}
+		public void setComment(String comment) {schedule.setComment(comment);}
+
 		public String getTemplateName() {return schedule.getTemplateName();}
 		public void setTemplateName(String templateName) { schedule.setTemplateName(templateName);}
 
@@ -757,7 +761,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			m_popup.setUndecorated(true);
 			String title = Helper.getLiteral("schedule");
 			if(template) title = Helper.getLiteral("template");
-			m_popup.open(Constants.Page.SCHEDULECHANGEPOPUP.getUrl(), title, 1024, 768, ScheduleUI.this);
+			m_popup.open(Constants.Page.SCHEDULECHANGEPOPUP.getUrl(), title, 1200, 800, ScheduleUI.this);
 		}
 	}
 
@@ -818,7 +822,23 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 
     public void onCreateTemplate(ActionEvent event) {
 		// create a template
-		Schedules template = getLogic().getScheduleLogic().createTemplate(getServiceLayer().getDictionaryService().getMyPerson().getId());
+    	Schedules template = null;
+    	if (event instanceof BaseActionEventDrop) {
+    		BaseActionEventDrop bae = (BaseActionEventDrop) event;
+			String dragInfo = bae.getDragInfo();
+			if (dragInfo.startsWith("schedule:")) {
+				String[] dragInfos = dragInfo.split(":");
+				template = getLogic().getScheduleLogic().getSchedule(dragInfos[1]);
+				if(template!=null) {
+					// set new GUID to copy schedule!
+					template.setId(UUID.randomUUID().toString());
+					template.setPersonId(getServiceLayer().getDictionaryService().getMyPerson().getId());
+					template.setTemplate(true);
+				}
+			}
+    	}
+    	// if no DND create new template
+    	if(template==null) template = getLogic().getScheduleLogic().createTemplate(getServiceLayer().getDictionaryService().getMyPerson().getId());
 		ScheduleItem templateItem = new ScheduleItem(template);
 		// open in popup
 		templateItem.openInPopup(true);

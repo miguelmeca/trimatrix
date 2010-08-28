@@ -71,6 +71,7 @@ public abstract class AFunctions {
 		public double[] getXYValues();
 		public double getCorrelation() throws Exception;
 		public Function2D getFunction2D();
+		public Function2D getInvFunction2D();
 		public String getFormel();
 	}
 }
