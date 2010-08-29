@@ -243,6 +243,14 @@ public class Helper {
 	public static boolean isEmpty(Double value) {
 		return value == null;
 	}
+	public static boolean isEmptyOrZero(Double value) {
+		return value == null || value==0d;
+	}
+
+	public static boolean isEmptyOrZero(double[] values) {
+		for(int i=0;i<values.length;i++) if(!isEmptyOrZero(values[i])) return false;
+		return true;
+	}
 
 	public static boolean isEmpty(Long value) {
 		return value == null || value == 0L;
