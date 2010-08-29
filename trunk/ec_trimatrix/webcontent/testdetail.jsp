@@ -417,7 +417,7 @@
 <t:row id="g_287" >
 <t:checkbox id="g_288" actionListener="#{d.TestDetailUI.resetResult}" selected="#{d.TestDetailUI.inverse}" text="#{rr.literals.lactate_on_x_axis}" />
 </t:row>
-<t:row id="g_289" >
+<t:row id="g_289" rendered="#{d.TestDetailUI.swim==false}" >
 <t:checkbox id="g_290" actionListener="#{d.TestDetailUI.resetResult}" enabled="#{d.TestDetailUI.enabled}" selected="#{d.TestDetailUI.values.analysis_lactate_hr}" text="#{rr.literals.lactate_hr}" />
 </t:row>
 <t:row id="g_291" >

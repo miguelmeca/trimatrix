@@ -1321,6 +1321,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 	final String UNIT_MMOL = "mmol/l";
 	final String UNIT_KMH = "km/h";
 	final String UNIT_MMSS = "mm:ss";
+	final String UNIT_SEC = "sec";
 	final String UNIT_MS = "m/s";
 
 	private byte[] m_diagram;
@@ -1457,13 +1458,13 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 						if (!isSwim()) {
 							// get speed or power
 							x = result.getX(definition.getLactateLow()==null?0d:definition.getLactateLow());
-							hrLow = (int) Math.round(trimatrix.utils.maths.Helper.getYFromMultiLinearFunction(hrs, x));
+							hrLow = getLactateHr()?(int) Math.round(x):(int) Math.round(trimatrix.utils.maths.Helper.getYFromMultiLinearFunction(hrs, x));
 							x = result.getX(definition.getLactateHigh()==null?0d:definition.getLactateHigh());
-							hrHigh = (int) Math.round(trimatrix.utils.maths.Helper.getYFromMultiLinearFunction(hrs, x));
+							hrHigh = getLactateHr()?(int) Math.round(x):(int) Math.round(trimatrix.utils.maths.Helper.getYFromMultiLinearFunction(hrs, x));
 							x = result.getX(definition.getLactateTargetLow()==null?0d:definition.getLactateTargetLow());
-							hrTargetLow = (int) Math.round(trimatrix.utils.maths.Helper.getYFromMultiLinearFunction(hrs, x));
+							hrTargetLow = getLactateHr()?(int) Math.round(x):(int) Math.round(trimatrix.utils.maths.Helper.getYFromMultiLinearFunction(hrs, x));
 							x = result.getX(definition.getLactateTargetHigh()==null?0d:definition.getLactateTargetHigh());
-							hrTargetHigh = (int) Math.round(trimatrix.utils.maths.Helper.getYFromMultiLinearFunction(hrs, x));
+							hrTargetHigh = getLactateHr()?(int) Math.round(x):(int) Math.round(trimatrix.utils.maths.Helper.getYFromMultiLinearFunction(hrs, x));
 							if(isTreadmill()) {
 								zone.setHrLowRun(hrLow);
 								zone.setHrHighRun(hrHigh);
@@ -1618,8 +1619,12 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		}
 		// swim
 		if (isSwim()) {
+			/*
+			 * Normally it's disabled to have swim tests with HR!
+			 * But I've just prepared this feature for future!
+			 */
 			descriptionX = getLactateHr()?HR:TIME;
-			unitX = getLactateHr()?UNIT_HR:UNIT_MMSS;
+			unitX = getLactateHr()?UNIT_HR:UNIT_SEC;
 			descriptionY = LACTATE;
 			unitY = UNIT_MMOL;
 
@@ -1632,9 +1637,11 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			this.hrs = new double[steps * 2];
 			this.hrsLac = new double[steps * 2];
 			int i = 0;
+			boolean deleteHr = true;
 			for (TestsSwimProtocol protocol : protocols) {
 				if (protocol.getValid()) {
 					Double hr = protocol.getHr()!=null?Double.valueOf(protocol.getHr()):0d;
+					if(hr!=0d) deleteHr = false;
 					// x value
 					xyArr[2 * i] = getLactateHr()?hr:HelperTime.calculateSecondsMsecs(protocol.getTime());
 					// y value
@@ -1645,10 +1652,15 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 					// hr lactate value
 					this.hrsLac[2 * i] = xyArr[2 * i + 1];
 					this.hrsLac[2 * i + 1] = hr;
-
+					// Incrementor
 					i++;
 				}
 			}
+			// delete HR if not set
+			if(deleteHr) {
+				this.hrs = null; this.hrsLac = null;
+			}
+
 
 		}
 		String analysisFunc = (String)values.get(TestEntity.ANALYSIS_FUNCTION);
@@ -1772,7 +1784,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		plot.setRenderer(renderer);
 
 		// add hr values
-		if (hrs != null && !getLactateHr()) {
+		if (hrs !=null && !getLactateHr()) {
 			XYSeries seriesHR = new XYSeries(HR);
 			for (int i = 1; i < hrs.length; i += 2) {
 				if(inverse) {
