@@ -17,7 +17,7 @@
 <t:button id="g_3" actionListener="#{d.PreferencesPanelUI.onSave}" image="/images/icons/save.png" imageheight="15" text="#{rr.literals.save}" />
 </t:row>
 <t:row id="g_4" >
-<t:tabbedpane id="g_5" height="100%" width="100%" >
+<t:tabbedpane id="g_5" height="100%" value="#{d.PreferencesPanelUI.tabIndex}" width="100%" >
 <t:tabbedpanetab id="g_6" rowdistance="5" text="#{rr.literals.preferences}" >
 <t:row id="g_7" >
 <t:label id="g_8" text="#{rr.literals.sbvisibleamount}" width="200" />

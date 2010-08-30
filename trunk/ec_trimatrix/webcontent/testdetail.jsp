@@ -15,7 +15,7 @@
 <t:rowbodypane id="g_1" rowdistance="5" >
 <t:rowdynamiccontent id="g_2" contentbinding="#{d.TestDetailUI.labelRow}" />
 <t:row id="g_3" >
-<t:tabbedpane id="g_4" height="100%" width="100%" >
+<t:tabbedpane id="g_4" height="100%" value="#{d.TestDetailUI.tabIndex}" width="100%" >
 <t:tabbedpanetab id="g_5" comment="Detail" padding="5" rowdistance="2" text="#{rr.literals.test}" >
 <t:row id="g_6" >
 <t:pane id="g_7" rowdistance="5" >

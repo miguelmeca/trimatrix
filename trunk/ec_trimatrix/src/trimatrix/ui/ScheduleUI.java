@@ -59,6 +59,10 @@ import trimatrix.utils.HelperTime;
 
 public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		Serializable {
+    protected int m_tabIndex;
+    public int getTabIndex() { return m_tabIndex; }
+    public void setTabIndex(int value) { m_tabIndex = value; }
+
 
 	private static enum SCHEDULETYPES {
 		RUN, BIKE, SWIM, PRIVATE
@@ -294,9 +298,18 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 				for(SchedulesDetail detail : item.getSchedulesDetail()) {
 					ZonesDefinition definition = getDaoLayer().getZonesDefinitionDAO().findById(detail.getZoneId());
 					String key = definition.getSequence() + ":" + definition.getColor();
-					String duration = detail.getDurationTarget();
-					if(!Helper.isEmpty(detail.getDurationActual())) duration = detail.getDurationActual();
-					Integer durationInSeconds = HelperTime.calculateSeconds(duration);
+					String duration = null;
+					Integer durationInSeconds = null;
+					if(ScheduleLogic.getTypeOrd(item.getType())==ScheduleLogic.SWIM) {
+						double factor = detail.getTotalDistance() / detail.getDistance();
+						duration =  detail.getTimeHigh();
+						if(!Helper.isEmpty(detail.getTimeAvg())) duration = detail.getTimeAvg();
+						durationInSeconds = (int)Math.round(factor * HelperTime.calculateSeconds(duration));
+					} else {
+						duration = detail.getDurationTarget();
+						if(!Helper.isEmpty(detail.getDurationActual())) duration = detail.getDurationActual();
+						durationInSeconds = HelperTime.calculateSeconds(duration);
+					}
 					totalDuration += durationInSeconds;
 					if(colorDurationMap.containsKey(key)) {
 						colorDurationMap.put(key, colorDurationMap.get(key) + durationInSeconds);

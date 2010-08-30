@@ -22,6 +22,10 @@ import trimatrix.utils.Helper;
 
 @CCGenClass(expressionBase = "#{d.PreferencesPanelUI}")
 public class PreferencesPanelUI extends MyWorkpageDispatchedBean implements Serializable {
+    protected int m_tabIndex;
+    public int getTabIndex() { return m_tabIndex; }
+    public void setTabIndex(int value) { m_tabIndex = value; }
+
     private Set<String> deletedDefaultIds = new HashSet<String>();
 
     protected DayInfo dayInfo;
