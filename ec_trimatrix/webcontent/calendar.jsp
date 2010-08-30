@@ -58,7 +58,7 @@
 </t:row>
 <t:rowdistance id="g_35" height="4" />
 <t:row id="g_36" >
-<t:tabbedpane id="g_37" font="weight:bold" height="100%" transparent="true" width="100%" >
+<t:tabbedpane id="g_37" font="weight:bold" height="100%" transparent="true" value="#{d.ScheduleUI.tabIndex}" width="100%" >
 <t:tabbedpanetab id="g_38" padding="0" text="#{rr.literals.week}" >
 <t:row id="g_39" >
 <t:pane id="g_40" height="100%" padding="0" width="100%" >

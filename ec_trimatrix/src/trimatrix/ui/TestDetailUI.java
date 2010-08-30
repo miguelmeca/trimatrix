@@ -68,6 +68,9 @@ import trimatrix.utils.maths.AFunctions.IResult;
 
 @CCGenClass(expressionBase = "#{d.TestDetailUI}")
 public class TestDetailUI extends AEntityDetailUI implements Serializable {
+    protected int m_tabIndex;
+    public int getTabIndex() { return m_tabIndex; }
+    public void setTabIndex(int value) { m_tabIndex = value; }
 
 	protected final String[] MANDATORY_FIELDS_SWIM = new String[] { TestEntity.DISTANCE, TestEntity.SPLITS };
 	protected final String[] MANDATORY_FIELDS_TREADMILL = new String[] { TestEntity.SPEED_INIT, TestEntity.INCLINE_INIT };
