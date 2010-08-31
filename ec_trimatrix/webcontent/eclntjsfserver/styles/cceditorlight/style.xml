@@ -83,6 +83,7 @@
         <set attribute="borderheight" value="1"/>
         <set attribute="borderwidth" value="1"/>
         <set attribute="scrollanimationtype" value="fog(#000000,4)"/>
+        <set attribute="scrollbartype" value="dark"/>
     </tag>
     <tag name="formattedfield" variant="default">
         <set attribute="background" value="#FFFFFF"/>
