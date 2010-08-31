@@ -44,8 +44,11 @@ public class MyFIXGRIDListBinding<T extends FIXGRIDItem> extends FIXGRIDListBind
         List<T> result = super.getRows();
         // check if all items that are transferred to the client are read
         for (int i=0; i<result.size(); i++) {
-            if (result.get(i) == null)
-            	callback.createItem(getSbvalue()+i);
+            if (result.get(i) == null) {
+            	int gridIndex = getSbvalue() + i;
+   				T item = callback.createItem(gridIndex);
+   				getItems().set(gridIndex, item);
+        	}
         }
     }
 }
