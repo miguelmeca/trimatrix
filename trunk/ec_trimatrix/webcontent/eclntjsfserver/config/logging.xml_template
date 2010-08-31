@@ -29,6 +29,11 @@ that delegates the log ouptut to the log4j root logger.
 outputclassmethod: (optional) if  set to true then extended log information
 is output per line: the method and the classname of the log output. By default
 it is switched off because of performance reasons.
+
+loginitializationaserror: (optional) if set to false then the initialization
+of the CaptainCasa runtim is NOT logged as error. The default is true, this
+means that initialization data (version, configuration information) is always
+logged at the beginning of each log.
 -->
 <logging level="INFO"
          console="false"
