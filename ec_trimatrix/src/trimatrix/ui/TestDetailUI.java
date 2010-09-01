@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.text.FieldPosition;
+import java.text.NumberFormat;
+import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +14,8 @@ import java.util.List;
 import javax.faces.event.ActionEvent;
 
 import org.eclnt.editor.annotations.CCGenClass;
+import org.eclnt.jsfserver.bufferedcontent.BufferedContentMgr;
+import org.eclnt.jsfserver.bufferedcontent.DefaultBufferedContent;
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoCancelListener;
@@ -18,9 +23,11 @@ import org.eclnt.jsfserver.elements.impl.FIXGRIDItem;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDListBinding;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDTreeBinding;
 import org.eclnt.jsfserver.elements.impl.FIXGRIDTreeItem;
+import org.eclnt.jsfserver.elements.util.Trigger;
 import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.util.valuemgmt.ValueManager;
 import org.eclnt.workplace.IWorkpageDispatcher;
+import org.eclnt.workplace.WorkpageDefaultLifecycleListener;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
@@ -52,6 +59,7 @@ import trimatrix.exceptions.MandatoryCheckException;
 import trimatrix.logic.ZonesLogic;
 import trimatrix.logic.TestLogic.LactateSamples;
 import trimatrix.logic.helper.Split;
+import trimatrix.reports.excel.CalendarOverview;
 import trimatrix.ui.utils.ISelectionCallback;
 import trimatrix.ui.utils.WorkpageRefreshEvent;
 import trimatrix.utils.Constants;
@@ -146,6 +154,17 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 
 	public TestDetailUI(IWorkpageDispatcher dispatcher) {
 		super(dispatcher, new String[] { TestEntity.PERSON, TestEntity.TYPE, TestEntity.DATE, TestEntity.DESCRIPTION}, true);
+		// create buffered content
+		diagramBufferedContent = new DiagramBufferedContent();
+        BufferedContentMgr.add(diagramBufferedContent);
+        getWorkpage().addLifecycleListener(new WorkpageDefaultLifecycleListener()
+        {
+            public void reactOnDestroyed()
+            {
+                super.reactOnDestroyed();
+                BufferedContentMgr.remove(diagramBufferedContent);
+            }
+        });
 		// get wrapping entity detail UI bean
 		entityDetailUI = getEntityDetailUI();
 		entityDetailUI.setEntityDetailUI(this);
@@ -1759,7 +1778,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		dataset.addSeries(seriesCurve);
 
 		// build chart
-
+		String title = (String)values.get(TestEntity.DESCRIPTION);
 		String xAxisLabel = null;
 		String yAxisLabel = null;
 		if(inverse) {
@@ -1769,7 +1788,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 			xAxisLabel = descriptionX + "[" + unitX + "]";
 			yAxisLabel = descriptionY + "[" + unitY + "]";
 		}
-		final JFreeChart chart = ChartFactory.createXYLineChart(null, xAxisLabel, yAxisLabel, dataset, PlotOrientation.VERTICAL, true, true, false);
+		final JFreeChart chart = ChartFactory.createXYLineChart(title, xAxisLabel, yAxisLabel, dataset, PlotOrientation.VERTICAL, true, true, false);
 
 		// get a reference to the plot for further customization
 		final XYPlot plot = chart.getXYPlot();
@@ -1785,6 +1804,33 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		renderer.setSeriesLinesVisible(0, false);
 		renderer.setSeriesShapesVisible(1, false);
 		plot.setRenderer(renderer);
+
+		if(descriptionX.equals(TIME)) {
+			NumberAxis axis = null;
+			if(inverse) {
+				axis = (NumberAxis)plot.getRangeAxis();
+			} else {
+				axis = (NumberAxis)plot.getDomainAxis();
+			}
+
+			axis.setNumberFormatOverride(new NumberFormat() {
+
+				@Override
+				public Number parse(String source, ParsePosition parsePosition) {
+					return 0;
+				}
+
+				@Override
+				public StringBuffer format(long number, StringBuffer toAppendTo, FieldPosition pos) {
+					return new StringBuffer(HelperTime.calculateTime((double)number, false));
+				}
+
+				@Override
+				public StringBuffer format(double number, StringBuffer toAppendTo, FieldPosition pos) {
+					return new StringBuffer(HelperTime.calculateTime(number, false));
+				}
+			});
+		}
 
 		// add hr values
 		if (hrs !=null && !getLactateHr()) {
@@ -1826,4 +1872,24 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		}
 		return diagram;
 	}
+
+	// ------------------------------------------------------------------------
+	// logic for diagramm download
+	// ------------------------------------------------------------------------
+	protected DiagramBufferedContent diagramBufferedContent;
+	public DiagramBufferedContent getDiagramBufferdContent() { return diagramBufferedContent; }
+
+	class DiagramBufferedContent extends DefaultBufferedContent {
+		public byte[] getContent() { return m_diagram; }
+        public String getContentType() { return "image/png"; }
+    }
+
+	private Trigger downloadTrigger = new Trigger();
+	public Trigger getDownloadTrigger() {return downloadTrigger;}
+
+	public void onDiagramDownload(ActionEvent ae) {
+        if(m_diagram==null) onRefresh(null);
+		// start download
+        downloadTrigger.trigger();
+    }
 }
