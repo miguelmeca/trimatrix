@@ -194,11 +194,6 @@
 	</servlet-mapping>
 
 	<!-- Start ZK Integration -->
-	<listener>
-		<description>Used to cleanup when a session is destroyed</description>
-		<display-name>ZK Session cleaner</display-name>
-		<listener-class>org.zkoss.zk.ui.http.HttpSessionListener</listener-class>
-	</listener>
 	<servlet>
 		<description>The ZK loader for ZUML pages</description>
 		<servlet-name>zkLoader</servlet-name>
