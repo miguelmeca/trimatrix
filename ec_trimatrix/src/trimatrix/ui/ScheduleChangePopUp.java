@@ -131,6 +131,7 @@ public class ScheduleChangePopUp extends MyWorkpageDispatchedBean implements Ser
     			if(getTypeOrd()==ScheduleLogic.SWIM) {
     				if(isEmpty(schedulesDetail.getUnit())     ||
     				   isEmpty(schedulesDetail.getDistance()) ||
+    				   isEmpty(schedulesDetail.getTotalDistance()) ||
     	    		   isEmpty(schedulesDetail.getZoneId()) ) {
     					failure = true;
     	    		    break;
