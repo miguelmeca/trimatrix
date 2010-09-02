@@ -61,7 +61,7 @@ public class ScheduleEntity extends AEntity {
 		List<SGridMetaData> gridMetaData = new ArrayList<SGridMetaData>();
         gridMetaData.add(new SGridMetaData(Helper.getLiteral("person"), PERSON, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData(Helper.getLiteral("type"), TYPE, SGridMetaData.Component.FIELD));
-        gridMetaData.add(new SGridMetaData(Helper.getLiteral("descrition"), DESCRIPTION, SGridMetaData.Component.FIELD));
+        gridMetaData.add(new SGridMetaData(Helper.getLiteral("description"), DESCRIPTION, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData(Helper.getLiteral("start"), START, SGridMetaData.Component.CALENDARFIELD));
         gridMetaData.add(new SGridMetaData(Helper.getLiteral("duration"), DURATION, SGridMetaData.Component.FIELD));
         gridMetaData.add(new SGridMetaData(Helper.getLiteral("color"), COLOR, SGridMetaData.Component.CALENDARFIELD));
