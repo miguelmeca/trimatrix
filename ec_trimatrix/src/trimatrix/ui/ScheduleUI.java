@@ -8,7 +8,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -297,7 +296,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 			if(scheduleTypes.contains(ScheduleLogic.getTypeOrd(item.getType()))) {
 				for(SchedulesDetail detail : item.getSchedulesDetail()) {
 					ZonesDefinition definition = getDaoLayer().getZonesDefinitionDAO().findById(detail.getZoneId());
-					String key = definition.getSequence() + ":" + definition.getColor();
+					String key = definition.getSequence() + Constants.COLON + definition.getColor();
 					String duration = null;
 					Integer durationInSeconds = null;
 					if(ScheduleLogic.getTypeOrd(item.getType())==ScheduleLogic.SWIM) {
@@ -332,7 +331,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 		Double totalPercentage = 100d / totalDuration;
 		Integer lastPercentage = new Integer(0);
 		for(Entry<String, Integer> entry : colorDurationMap.entrySet()) {
-			String color = entry.getKey().split(":")[1];
+			String color = entry.getKey().split(Constants.COLON)[1];
 			Integer percentage = (int)(totalPercentage * entry.getValue());
 			bgpaint.append(TEMPLATE.replace("{0}", lastPercentage.toString()).replace("{1}", percentage.toString()).replace("{2}", color));
 			bgpaint.append(";");
@@ -556,7 +555,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
 						getBeginOfWeek(), day, STARTINGHOUR);
 				String dragInfo = bae.getDragInfo();
 				if (dragInfo.startsWith("schedule:")) {
-					String[] dragInfos = dragInfo.split(":");
+					String[] dragInfos = dragInfo.split(Constants.COLON);
 					// new or existing schedule item
 					if (dragInfos[1].startsWith("template")) {
 						// add to list of visible items
@@ -895,7 +894,7 @@ public class ScheduleUI extends MyWorkpageDispatchedBean implements
     		BaseActionEventDrop bae = (BaseActionEventDrop) event;
 			String dragInfo = bae.getDragInfo();
 			if (dragInfo.startsWith("schedule:")) {
-				String[] dragInfos = dragInfo.split(":");
+				String[] dragInfos = dragInfo.split(Constants.COLON);
 				template = getLogic().getScheduleLogic().getSchedule(dragInfos[1]);
 				if(template!=null) {
 					// set new GUID to copy schedule!

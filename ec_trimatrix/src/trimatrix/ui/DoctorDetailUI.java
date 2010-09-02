@@ -45,7 +45,7 @@ public class DoctorDetailUI extends AEntityDetailUI implements Serializable {
 			String query = ((BaseActionEventClientHttpReceive) event).getQueryString();
 			if(Helper.isEmpty(query)) return;
 			// truncate first slash and last bracket
-			String[] lat_lng = query.substring(1, query.length()-1).split(":");
+			String[] lat_lng = query.substring(1, query.length()-1).split(Constants.COLON);
 			if(lat_lng.length!=2) return;
 			try {
 				entity.setLatitude(Double.valueOf(lat_lng[0]));

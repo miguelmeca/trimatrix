@@ -152,7 +152,7 @@ public final class ResultEntity extends AEntity {
             String subtype = null;
             // Check if subtype is submitted and relevant
             if(filter!=null) {
-                String[] filters = filter.split(":");
+                String[] filters = filter.split(Constants.COLON);
                 if(filters.length==2) {
                     subtype = filters[1];
                 }
@@ -173,7 +173,7 @@ public final class ResultEntity extends AEntity {
             String subtype = null;
             // Check if subtype is submitted and relevant
             if(filter!=null) {
-                String[] filters = filter.split(":");
+                String[] filters = filter.split(Constants.COLON);
                 if(filters.length==2) {
                     subtype = filters[1];
                 }

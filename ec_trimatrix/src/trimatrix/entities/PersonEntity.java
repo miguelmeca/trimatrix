@@ -2,9 +2,7 @@ package trimatrix.entities;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import org.eclnt.jsfserver.defaultscreens.Statusbar;
@@ -17,8 +15,6 @@ import trimatrix.db.PersonsAthlete;
 import trimatrix.db.Users;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;
-import trimatrix.structures.SRange;
-import trimatrix.structures.SSearchMetaData;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
 import trimatrix.utils.Constants.Role;

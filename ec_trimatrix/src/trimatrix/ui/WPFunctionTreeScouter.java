@@ -52,7 +52,7 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 			super(parent, page);
 			setDropReceive(dropReceive);
 			if (entityValue != null) {
-				String[] entityValueArray = entityValue.split(":");
+				String[] entityValueArray = entityValue.split(Constants.COLON);
 				entityName = entityValueArray[0];
 				if (entityValueArray.length > 1)
 					entityId = entityValueArray[1];
@@ -63,7 +63,7 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 			super(page);
 			setDropReceive(dropReceive);
 			if (entityValue != null) {
-				String[] entityValueArray = entityValue.split(":");
+				String[] entityValueArray = entityValue.split(Constants.COLON);
 				entityName = entityValueArray[0];
 				if (entityValueArray.length > 1)
 					entityId = entityValueArray[1];
@@ -78,7 +78,7 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 			}
 			if (event instanceof BaseActionEventDrop) {
 				BaseActionEventDrop baed = (BaseActionEventDrop) event;
-				String[] dragInfo = baed.getDragInfo().split(":");
+				String[] dragInfo = baed.getDragInfo().split(Constants.COLON);
 				if (dragInfo == null || dragInfo.length < 2)
 					return;
 				// get current workpage
@@ -256,7 +256,7 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 					// add athletes
 					List<IEntityData> athletes = FUNCTIONTREELOGIC.getMyScoutedAthletes();
 					for (IEntityData athlete : athletes) {
-						FunctionNode athlete_node = new DropableFunctionNode(node, Constants.Page.ENTITYDETAIL.getUrl(), Constants.P_ENTITY, functionTree.entity + ":" + athlete.getId());
+						FunctionNode athlete_node = new DropableFunctionNode(node, Constants.Page.ENTITYDETAIL.getUrl(), Constants.P_ENTITY, functionTree.entity + Constants.COLON + athlete.getId());
 						athlete_node.setId(athlete.getId());
 						athlete_node.setStatus(FIXGRIDTreeItem.STATUS_CLOSED);
 						athlete_node.setOpenMultipleInstances(false);
@@ -266,7 +266,7 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 						FUNCTIONTREELOGIC.setAuthority(functionTree, athlete_node);
 						// add results per athlete
 						FunctionNode results_node = new FunctionNode(athlete_node, Constants.Page.ENTITYLIST.getUrl());
-						pageId = Constants.Entity.MYRESULTS.name() + ":" + athlete.getId();
+						pageId = Constants.Entity.MYRESULTS.name() + Constants.COLON + athlete.getId();
 						results_node.setId(pageId);
 						results_node.setStatus(FIXGRIDTreeItem.STATUS_CLOSED);
 						results_node.setOpenMultipleInstances(false);
@@ -305,7 +305,7 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 		while(iterator.hasNext()) {
 			ValidValue value = iterator.next();
 			Constants.Entity entity = athleteId==null ? Constants.Entity.SCOUTRESULTS : Constants.Entity.MYRESULTS;
-			String pageId = athleteId==null ? entity.name() + ":" + value.getValue() : entity.name() + ":" + value.getValue() + ":" + athleteId;
+			String pageId = athleteId==null ? entity.name() + Constants.COLON + value.getValue() : entity.name() + Constants.COLON + value.getValue() + Constants.COLON + athleteId;
 			FunctionNode results_type_node = new FunctionNode(results_node, Constants.Page.ENTITYLIST.getUrl());
 			results_type_node.setId(pageId);
 			results_type_node.setStatus(FIXGRIDTreeItem.STATUS_CLOSED);
@@ -331,7 +331,7 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 		while(iterator.hasNext()) {
 			ValidValue value = iterator.next();
 			Constants.Entity entity = athleteId==null ? Constants.Entity.SCOUTRESULTS : Constants.Entity.MYRESULTS;
-			String pageId = athleteId==null ? entity.name() + ":" + value.getValue() : entity.name() + ":" + type + ":" + value.getValue() + ":" + athleteId;
+			String pageId = athleteId==null ? entity.name() + Constants.COLON + value.getValue() : entity.name() + Constants.COLON + type + Constants.COLON + value.getValue() + Constants.COLON + athleteId;
 			FunctionNode results_subtype_node = new FunctionNode(results_type_node, Constants.Page.ENTITYLIST.getUrl());
 			results_subtype_node.setId(pageId);
 			results_subtype_node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
@@ -339,7 +339,7 @@ public class WPFunctionTreeScouter extends WorkplaceFunctionTree {
 			results_subtype_node.setText(value.getText());
 			if(!Helper.isEmpty(athleteName)) results_subtype_node.setWindowTitle(value.getText() + Constants.WHITESPACE + athleteName);
 			if(athleteId!=null) results_subtype_node.setParam(Constants.P_PERSON, athleteId);
-			results_subtype_node.setParam(Constants.P_FILTER, type + ":" + value.getValue());
+			results_subtype_node.setParam(Constants.P_FILTER, type + Constants.COLON + value.getValue());
 			results_subtype_node.setParam(Constants.P_ENTITY, entity.name());
 			// authorization => coach is allowed to manually change values
 			FUNCTIONTREELOGIC.setAuthority(functionTree, results_subtype_node);

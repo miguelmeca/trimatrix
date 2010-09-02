@@ -8,7 +8,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import trimatrix.db.DAOLayer;
-import trimatrix.db.Persons;
 import trimatrix.db.UserDefaults;
 import trimatrix.db.UserPreferences;
 import trimatrix.db.Users;

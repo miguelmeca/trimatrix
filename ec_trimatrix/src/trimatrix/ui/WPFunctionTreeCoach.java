@@ -56,7 +56,7 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
     		}
             if (event instanceof BaseActionEventDrop) {
                 BaseActionEventDrop baed = (BaseActionEventDrop)event;
-                String[] dragInfo = baed.getDragInfo().split(":");
+                String[] dragInfo = baed.getDragInfo().split(Constants.COLON);
                 if(dragInfo==null || dragInfo.length<2) return;
                 // get current workpage
                 WorkpageContainer wc = (WorkpageContainer)getWorkpageContainer();
@@ -190,7 +190,7 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 						FUNCTIONTREELOGIC.setAuthority(functionTree, athlete_node);
 						// add doctors per athlete
 						FunctionNode doctor_node = new FunctionNode(athlete_node, Constants.Page.ENTITYLIST.getUrl());
-						pageId = Constants.Entity.DOCTOR.name() + ":" + athlete.getId();
+						pageId = Constants.Entity.DOCTOR.name() + Constants.COLON + athlete.getId();
 						doctor_node.setId(pageId);
 						doctor_node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
 						doctor_node.setOpenMultipleInstances(false);
@@ -202,7 +202,7 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 						FUNCTIONTREELOGIC.setAuthority(functionTree, doctor_node);
 						// add attachments per athlete
 						FunctionNode attachment_node = new FunctionNode(athlete_node, Constants.Page.ENTITYLIST.getUrl());
-						pageId = Constants.Entity.ATTACHMENT.name() + ":" + athlete.getId();
+						pageId = Constants.Entity.ATTACHMENT.name() + Constants.COLON + athlete.getId();
 						attachment_node.setId(pageId);
 						attachment_node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
 						attachment_node.setOpenMultipleInstances(false);
@@ -214,7 +214,7 @@ public class WPFunctionTreeCoach extends WorkplaceFunctionTree {
 						FUNCTIONTREELOGIC.setAuthority(functionTree, attachment_node);
 						// add tests per athlete
 						FunctionNode test_node = new FunctionNode(athlete_node, Constants.Page.ENTITYLIST.getUrl());
-						pageId = Constants.Entity.TEST.name() + ":" + athlete.getId();
+						pageId = Constants.Entity.TEST.name() + Constants.COLON + athlete.getId();
 						test_node.setId(pageId);
 						test_node.setStatus(FIXGRIDTreeItem.STATUS_ENDNODE);
 						test_node.setOpenMultipleInstances(false);

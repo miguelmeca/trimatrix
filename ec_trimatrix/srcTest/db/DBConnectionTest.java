@@ -13,12 +13,9 @@ import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
-import org.apache.poi.hssf.record.SelectionRecord;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
-import org.hibernate.criterion.Disjunction;
-import org.hibernate.criterion.Restrictions;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

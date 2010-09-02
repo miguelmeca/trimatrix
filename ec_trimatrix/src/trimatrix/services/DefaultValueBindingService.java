@@ -4,6 +4,7 @@ import java.util.List;
 
 import trimatrix.db.DAOLayer;
 import trimatrix.db.UserDefaults;
+import trimatrix.utils.Constants;
 import trimatrix.utils.Dictionary;
 import trimatrix.utils.Helper;
 
@@ -12,7 +13,7 @@ public class DefaultValueBindingService {
 	private DAOLayer daoLayer;
 
 	public String getDVBinding(String key) {
-		String[] values = ((String)key).split(":");
+		String[] values = ((String)key).split(Constants.COLON);
 		UserDefaults userDefault = new UserDefaults();
 		userDefault.setUserId(dictionaryService.getMyUser().getId());
 		userDefault.setField(values[0]);

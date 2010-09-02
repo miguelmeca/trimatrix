@@ -1,18 +1,40 @@
 package trimatrix.logic;
 
+import java.awt.Color;
+import java.io.ByteArrayOutputStream;
+import java.text.FieldPosition;
+import java.text.NumberFormat;
+import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.function.Function2D;
+import org.jfree.data.general.DatasetUtilities;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 import trimatrix.db.DAOLayer;
 import trimatrix.db.UserPreferences;
+import trimatrix.entities.TestEntity;
 import trimatrix.logic.helper.Split;
 import trimatrix.services.ServiceLayer;
+import trimatrix.ui.ScheduleUI;
 import trimatrix.utils.Constants;
 import trimatrix.utils.Helper;
+import trimatrix.utils.HelperTime;
+import trimatrix.utils.maths.AFunctions.IResult;
 
 public class TestLogic {
 	public static final Log logger = LogFactory.getLog(TestLogic.class);
@@ -246,4 +268,136 @@ public class TestLogic {
 			}
 		}
 	}
+
+	public byte[] buildDiagram(IResult resultLactate, double[] hrs, double[] hrsLac, int width, int height, String title, String descriptionX, String unitX, String descriptionY, String unitY, boolean highToLow, boolean inverse, boolean lactateHr, boolean time) {
+		// constants
+		final int GRANULARITY = 10;
+
+		byte[] diagram = null;
+
+		// measuring points
+		double[] measurePoints = resultLactate.getXYValues();
+
+		XYSeries seriesPoints = new XYSeries(Helper.getLiteral("measure_points"), false);
+		for (int i = 1; i < measurePoints.length; i += 2) {
+			if(inverse) {
+				seriesPoints.add(measurePoints[i], measurePoints[i - 1]);
+			} else {
+				seriesPoints.add(measurePoints[i - 1], measurePoints[i]);
+			}
+		}
+
+		int low = (int) (Math.floor(seriesPoints.getMinX()));
+		int high = (int) (Math.ceil(seriesPoints.getMaxX()));
+		int grain = (high - low) * GRANULARITY;
+
+		// curve
+		Function2D function = null;
+		if(inverse) {
+			function = resultLactate.getInvFunction2D();
+		} else {
+			function = resultLactate.getFunction2D();
+		}
+		XYSeries seriesCurve = DatasetUtilities.sampleFunction2DToSeries(function, low, high, grain, descriptionY);
+
+		// build data set for chart
+		XYSeriesCollection dataset = new XYSeriesCollection();
+		dataset.addSeries(seriesPoints);
+		dataset.addSeries(seriesCurve);
+
+		// build chart
+		String xAxisLabel = null;
+		String yAxisLabel = null;
+		if(inverse) {
+			yAxisLabel = descriptionX + "[" + unitX + "]";
+			xAxisLabel = descriptionY + "[" + unitY + "]";
+		} else {
+			xAxisLabel = descriptionX + "[" + unitX + "]";
+			yAxisLabel = descriptionY + "[" + unitY + "]";
+		}
+		final JFreeChart chart = ChartFactory.createXYLineChart(title, xAxisLabel, yAxisLabel, dataset, PlotOrientation.VERTICAL, true, true, false);
+
+		// get a reference to the plot for further customization
+		final XYPlot plot = chart.getXYPlot();
+		plot.setBackgroundPaint(Color.lightGray);
+		plot.setDomainGridlinePaint(Color.white);
+		plot.setRangeGridlinePaint(Color.white);
+		// change low and high
+		if (highToLow) {
+			plot.getDomainAxis().setInverted(true);
+		}
+
+		final XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
+		renderer.setSeriesLinesVisible(0, false);
+		renderer.setSeriesShapesVisible(1, false);
+		plot.setRenderer(renderer);
+
+		if(time) {
+			NumberAxis axis = null;
+			if(inverse) {
+				axis = (NumberAxis)plot.getRangeAxis();
+			} else {
+				axis = (NumberAxis)plot.getDomainAxis();
+			}
+
+			axis.setNumberFormatOverride(new NumberFormat() {
+
+				@Override
+				public Number parse(String source, ParsePosition parsePosition) {
+					return 0;
+				}
+
+				@Override
+				public StringBuffer format(long number, StringBuffer toAppendTo, FieldPosition pos) {
+					return new StringBuffer(HelperTime.calculateTime((double)number, false));
+				}
+
+				@Override
+				public StringBuffer format(double number, StringBuffer toAppendTo, FieldPosition pos) {
+					return new StringBuffer(HelperTime.calculateTime(number, false));
+				}
+			});
+		}
+
+		// add hr values
+		if (hrs !=null && !lactateHr) {
+			XYSeries seriesHR = new XYSeries(Helper.getLiteral("hr_txt"));
+			for (int i = 1; i < hrs.length; i += 2) {
+				if(inverse) {
+					seriesHR.add(hrsLac[i - 1], hrsLac[i]);
+				} else {
+					seriesHR.add(hrs[i - 1], hrs[i]);
+				}
+			}
+			XYSeriesCollection datasetHR = new XYSeriesCollection();
+			datasetHR.addSeries(seriesHR);
+			ValueAxis axis2 = new NumberAxis("hr_txt");
+			plot.setRangeAxis(1, axis2);
+			plot.setDataset(1, datasetHR);
+			plot.mapDatasetToRangeAxis(1, 1);
+			XYLineAndShapeRenderer renderer2 = new XYLineAndShapeRenderer(true, true);
+			renderer2.setSeriesPaint(0, Color.black);
+			plot.setRenderer(1, renderer2);
+		}
+
+		// add some annotations
+		// XYTextAnnotation annotation = new XYTextAnnotation(descriptionY,
+		// seriesCurve.getMaxX() - 10, high);
+		// annotation.setFont(Constants.FONT_SS_PLAIN_9);
+		// annotation.setTextAnchor(TextAnchor.HALF_ASCENT_LEFT);
+		// plot.addAnnotation(annotation);
+
+		// Convert to png/binary for UI
+		try {
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			ChartUtilities.writeChartAsPNG(bos, chart, width, height);
+			bos.close();
+			diagram = bos.toByteArray();
+		} catch (Exception ex) {
+			Statusbar.outputAlert(Helper.getMessages("problem_diagram"), Helper.getLiteral("error"), ex.toString()).setLeftTopReferenceCentered();
+			return null;
+		}
+		return diagram;
+	}
+
 }

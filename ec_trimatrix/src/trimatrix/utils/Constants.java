@@ -266,6 +266,7 @@ public final class Constants {
 	public static final String NULL = "null";
 	public static final String EMPTY = "";
 	public static final String COMMA = ",";
+	public static final String COLON = ":";
 	public static final String EMPTYTIME = "00:00:00";
 	public static final String EMPTYTIMESHORT = "00:00";
 	public static final String WHITESPACE = " ";

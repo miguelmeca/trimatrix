@@ -1,12 +1,7 @@
 package trimatrix.ui;
 
-import java.awt.Color;
-import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.text.FieldPosition;
-import java.text.NumberFormat;
-import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,18 +23,6 @@ import org.eclnt.jsfserver.elements.util.ValidValuesBinding;
 import org.eclnt.util.valuemgmt.ValueManager;
 import org.eclnt.workplace.IWorkpageDispatcher;
 import org.eclnt.workplace.WorkpageDefaultLifecycleListener;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartUtilities;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.axis.ValueAxis;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.data.function.Function2D;
-import org.jfree.data.general.DatasetUtilities;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
 
 import trimatrix.db.Doctors;
 import trimatrix.db.Persons;
@@ -59,7 +42,6 @@ import trimatrix.exceptions.MandatoryCheckException;
 import trimatrix.logic.ZonesLogic;
 import trimatrix.logic.TestLogic.LactateSamples;
 import trimatrix.logic.helper.Split;
-import trimatrix.reports.excel.CalendarOverview;
 import trimatrix.ui.utils.ISelectionCallback;
 import trimatrix.ui.utils.WorkpageRefreshEvent;
 import trimatrix.utils.Constants;
@@ -1333,10 +1315,10 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 	// ------------------------------------------------------------------------
 	// logic for analysis
 	// ------------------------------------------------------------------------
-	final String LACTATE = "Laktat";
-	final String HR = "Herzfrequenz";
-	final String SPEED = "Geschwindigkeit";
-	final String TIME = "Zeit";
+	final String LACTATE = Helper.getLiteral("lactate");
+	final String HR = Helper.getLiteral("hr_txt");
+	final String SPEED = Helper.getLiteral("speed");
+	final String TIME = Helper.getLiteral("time");
 	final String POWER = "Watt";
 	final String UNIT_HR = "bpm";
 	final String UNIT_WATT = "W";
@@ -1386,13 +1368,19 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		return m_inverse;
 	}
 
+	public void setInverse(boolean value) {
+		m_inverse = value;
+	}
+
+	/**
+	 * Is a time unit relevant? (e.g. diagram plotting)
+	 * @return
+	 */
+	public boolean getTime() { return isSwim() && !getLactateHr(); }
+
 	public boolean getLactateHr() {
 		Boolean lactateHr = (Boolean)values.get(TestEntity.ANALYSIS_LACTATE_HR);
 		return lactateHr==null?false:lactateHr;
-	}
-
-	public void setInverse(boolean value) {
-		m_inverse = value;
 	}
 
 	protected double m_valueY;
@@ -1441,7 +1429,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 		// build the chart based on the computed result
 		if (result == null)
 			return;
-		m_diagram = buildDiagram(result, hrs, m_width, m_height, descriptionX, unitX, descriptionY, unitY, highToLow, m_inverse);
+		m_diagram = getLogic().getTestLogic().buildDiagram(result, hrs, hrsLac, m_width, m_height, (String)values.get(TestEntity.DESCRIPTION) ,descriptionX, unitX, descriptionY, unitY, highToLow, m_inverse, getLactateHr(), getTime());
 	}
 
 	public void onSetZones(ActionEvent event) {
@@ -1740,138 +1728,7 @@ public class TestDetailUI extends AEntityDetailUI implements Serializable {
 
 	// TODO put into logic layer
 
-	private byte[] buildDiagram(IResult resultLactate, double[] hrs, int width, int height, String descriptionX, String unitX, String descriptionY, String unitY, boolean highToLow, boolean inverse) {
-		// constants
-		final String MEASUREPOINTS = "Messpunkte";
-		final int GRANULARITY = 10;
 
-		byte[] diagram = null;
-
-		// measuring points
-		double[] measurePoints = resultLactate.getXYValues();
-
-		XYSeries seriesPoints = new XYSeries(MEASUREPOINTS, false);
-		for (int i = 1; i < measurePoints.length; i += 2) {
-			if(inverse) {
-				seriesPoints.add(measurePoints[i], measurePoints[i - 1]);
-			} else {
-				seriesPoints.add(measurePoints[i - 1], measurePoints[i]);
-			}
-		}
-
-		int low = (int) (Math.floor(seriesPoints.getMinX()));
-		int high = (int) (Math.ceil(seriesPoints.getMaxX()));
-		int grain = (high - low) * GRANULARITY;
-
-		// curve
-		Function2D function = null;
-		if(inverse) {
-			function = resultLactate.getInvFunction2D();
-		} else {
-			function = resultLactate.getFunction2D();
-		}
-		XYSeries seriesCurve = DatasetUtilities.sampleFunction2DToSeries(function, low, high, grain, descriptionY);
-
-		// build data set for chart
-		XYSeriesCollection dataset = new XYSeriesCollection();
-		dataset.addSeries(seriesPoints);
-		dataset.addSeries(seriesCurve);
-
-		// build chart
-		String title = (String)values.get(TestEntity.DESCRIPTION);
-		String xAxisLabel = null;
-		String yAxisLabel = null;
-		if(inverse) {
-			yAxisLabel = descriptionX + "[" + unitX + "]";
-			xAxisLabel = descriptionY + "[" + unitY + "]";
-		} else {
-			xAxisLabel = descriptionX + "[" + unitX + "]";
-			yAxisLabel = descriptionY + "[" + unitY + "]";
-		}
-		final JFreeChart chart = ChartFactory.createXYLineChart(title, xAxisLabel, yAxisLabel, dataset, PlotOrientation.VERTICAL, true, true, false);
-
-		// get a reference to the plot for further customization
-		final XYPlot plot = chart.getXYPlot();
-		plot.setBackgroundPaint(Color.lightGray);
-		plot.setDomainGridlinePaint(Color.white);
-		plot.setRangeGridlinePaint(Color.white);
-		// change low and high
-		if (highToLow) {
-			plot.getDomainAxis().setInverted(true);
-		}
-
-		final XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
-		renderer.setSeriesLinesVisible(0, false);
-		renderer.setSeriesShapesVisible(1, false);
-		plot.setRenderer(renderer);
-
-		if(descriptionX.equals(TIME)) {
-			NumberAxis axis = null;
-			if(inverse) {
-				axis = (NumberAxis)plot.getRangeAxis();
-			} else {
-				axis = (NumberAxis)plot.getDomainAxis();
-			}
-
-			axis.setNumberFormatOverride(new NumberFormat() {
-
-				@Override
-				public Number parse(String source, ParsePosition parsePosition) {
-					return 0;
-				}
-
-				@Override
-				public StringBuffer format(long number, StringBuffer toAppendTo, FieldPosition pos) {
-					return new StringBuffer(HelperTime.calculateTime((double)number, false));
-				}
-
-				@Override
-				public StringBuffer format(double number, StringBuffer toAppendTo, FieldPosition pos) {
-					return new StringBuffer(HelperTime.calculateTime(number, false));
-				}
-			});
-		}
-
-		// add hr values
-		if (hrs !=null && !getLactateHr()) {
-			XYSeries seriesHR = new XYSeries(HR);
-			for (int i = 1; i < hrs.length; i += 2) {
-				if(inverse) {
-					seriesHR.add(hrsLac[i - 1], hrsLac[i]);
-				} else {
-					seriesHR.add(hrs[i - 1], hrs[i]);
-				}
-			}
-			XYSeriesCollection datasetHR = new XYSeriesCollection();
-			datasetHR.addSeries(seriesHR);
-			ValueAxis axis2 = new NumberAxis(HR);
-			plot.setRangeAxis(1, axis2);
-			plot.setDataset(1, datasetHR);
-			plot.mapDatasetToRangeAxis(1, 1);
-			XYLineAndShapeRenderer renderer2 = new XYLineAndShapeRenderer(true, true);
-			renderer2.setSeriesPaint(0, Color.black);
-			plot.setRenderer(1, renderer2);
-		}
-
-		// add some annotations
-		// XYTextAnnotation annotation = new XYTextAnnotation(descriptionY,
-		// seriesCurve.getMaxX() - 10, high);
-		// annotation.setFont(Constants.FONT_SS_PLAIN_9);
-		// annotation.setTextAnchor(TextAnchor.HALF_ASCENT_LEFT);
-		// plot.addAnnotation(annotation);
-
-		// Convert to png/binary for UI
-		try {
-			ByteArrayOutputStream bos = new ByteArrayOutputStream();
-			ChartUtilities.writeChartAsPNG(bos, chart, width, height);
-			bos.close();
-			diagram = bos.toByteArray();
-		} catch (Exception ex) {
-			Statusbar.outputAlert(Helper.getMessages("problem_diagram"), Helper.getLiteral("error"), ex.toString()).setLeftTopReferenceCentered();
-			return null;
-		}
-		return diagram;
-	}
 
 	// ------------------------------------------------------------------------
 	// logic for diagramm download
