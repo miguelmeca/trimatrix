@@ -69,4 +69,16 @@ public class HelperTest {
 		Assert.assertEquals("0", Helper.removeTrailingZeros("00"));
 		Assert.assertEquals("0", Helper.removeTrailingZeros("0"));
 	}
+
+	@Test
+	public void testcalculateSeconds() {
+		Assert.assertEquals(119, (int)HelperTime.calculateSeconds("01:59"));
+		Assert.assertEquals(1, (int)HelperTime.calculateSeconds("00:01"));
+		Assert.assertEquals(1, (int)HelperTime.calculateSeconds("00:01,4"));
+		Assert.assertEquals(2, (int)HelperTime.calculateSeconds("00:01,5"));
+		Assert.assertEquals(1, (int)HelperTime.calculateSeconds("00:01,499"));
+		Assert.assertEquals(3719, (int)HelperTime.calculateSeconds("01:01:59"));
+		Assert.assertEquals(3719, (int)HelperTime.calculateSeconds("01:01:59,111"));
+		Assert.assertEquals(3720, (int)HelperTime.calculateSeconds("01:01:59,5"));
+	}
 }

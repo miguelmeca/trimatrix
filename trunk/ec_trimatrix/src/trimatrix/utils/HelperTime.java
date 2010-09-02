@@ -96,7 +96,7 @@ public class HelperTime {
 				}
 			}
 		}
-		String[] arrTime = time.split(":");
+		String[] arrTime = time.split(Constants.COLON);
 		// mm:ss
 		if (arrTime.length == 2)
 			return Double.valueOf(arrTime[0]) * 60
@@ -220,20 +220,20 @@ public class HelperTime {
 				output = "00:" + input + ":00";
 				break;
 			case 3:
-				output = "0" + input.substring(0, 1) + ":"
+				output = "0" + input.substring(0, 1) + Constants.COLON
 						+ input.substring(1, 3) + ":00";
 				break;
 			case 4:
-				output = "00:" + input.substring(0, 2) + ":"
+				output = "00:" + input.substring(0, 2) + Constants.COLON
 						+ input.substring(2);
 				break;
 			case 5:
-				output = "0" + input.substring(0, 1) + ":"
-						+ input.substring(1, 3) + ":" + input.substring(3);
+				output = "0" + input.substring(0, 1) + Constants.COLON
+						+ input.substring(1, 3) + Constants.COLON + input.substring(3);
 				break;
 			case 6:
-				output = input.substring(0, 2) + ":" + input.substring(2, 4)
-						+ ":" + input.substring(4);
+				output = input.substring(0, 2) + Constants.COLON + input.substring(2, 4)
+						+ Constants.COLON + input.substring(4);
 				break;
 			default:
 				output = Constants.EMPTYTIME;
@@ -273,11 +273,11 @@ public class HelperTime {
 				output = "00:" + input;
 				break;
 			case 3:
-				output = "0" + input.substring(0, 1) + ":"
+				output = "0" + input.substring(0, 1) + Constants.COLON
 						+ input.substring(1, 3);
 				break;
 			case 4:
-				output = input.substring(0, 2) + ":"
+				output = input.substring(0, 2) + Constants.COLON
 						+ input.substring(2);
 				break;
 			default:
@@ -358,9 +358,9 @@ public class HelperTime {
 	 * @return seconds
 	 */
 	public static Integer calculateSeconds(String time) {
-		if (time == null)
-			return 0;
-		String[] arrTime = time.split(":");
+		if (Helper.isEmpty(time)) return 0;
+		if(time.contains(Constants.COMMA)) return (int)Math.round(calculateSecondsMsecs(time));
+		String[] arrTime = time.split(Constants.COLON);
 		// mm:ss
 		if (arrTime.length == 2)
 			return Integer.valueOf(arrTime[0]) * 60

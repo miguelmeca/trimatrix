@@ -25,7 +25,6 @@ import org.eclnt.workplace.WorkpageProcessingEvent;
 
 import trimatrix.db.Persons;
 import trimatrix.entities.IEntityData;
-import trimatrix.entities.IEntityObject;
 import trimatrix.logic.EntityListLogic;
 import trimatrix.structures.SAuthorization;
 import trimatrix.structures.SGridMetaData;
@@ -203,7 +202,7 @@ public class EntityListUI extends MyWorkpageDispatchedBean implements Serializab
 
 	private void setDynamicGrid() {
 		int maxRows = ENTITYLISTLOGIC.getVisibleAmount();
-		String dragKey = Constants.P_ENTITY + ":" + Constants.P_ENTITYLIST;
+		String dragKey = Constants.P_ENTITY + Constants.COLON + Constants.P_ENTITYLIST;
 		StringBuffer xml = new StringBuffer();
 		xml.append("<t:fixgrid width='100%' avoidroundtrips='true' rowdragsend='" + dragKey
 				+ "' drawoddevenrows='true' objectbinding='#{d.EntityListUI.gridList}' cellselection='false' rowheight='20' sbvisibleamount='" + maxRows
