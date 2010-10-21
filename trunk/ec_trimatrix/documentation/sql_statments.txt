@@ -13,3 +13,20 @@ left join  t_languages as t_languages on t_languages.key = users.language_key an
 left outer join  t_currencies as t_currencies on t_currencies.key = users.currency_key and t_currencies.language_key = 'de'
 where users.test = 0
 and   users.deleted = 0
+
+// views for reporting
+SELECT
+CONCAT(p.name_first, ' ', p.name_last) person,
+tst.description,
+WEEK(s.start) 'start', zd.description ,
+SUM(SUBSTR(sd.duration_target,1,2) * 3600 + SUBSTR(sd.duration_target,4,2) * 60 + SUBSTR(sd.duration_target,7,2)) target,
+SUM(SUBSTR(sd.duration_actual,1,2) * 3600 + SUBSTR(sd.duration_actual,4,2) * 60 + SUBSTR(sd.duration_actual,7,2)) actual,
+SUM(di.massage) massage,
+SUM(di.camp) camp
+FROM schedules_detail sd
+JOIN schedules s ON s.id = sd.id
+JOIN persons p ON p.id = s.person_id
+JOIN zones_definition zd ON zd.id = sd.zone_id
+JOIN t_scheduletypes tst ON tst.key = s.type AND tst.language_key = 'de'
+LEFT JOIN day_infos di ON di.date = s.start AND di.person_id = s.person_id
+GROUP BY CONCAT(p.name_first, ' ', p.name_last), tst.description, WEEK(s.start), zd.description

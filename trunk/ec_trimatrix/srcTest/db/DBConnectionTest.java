@@ -13,6 +13,7 @@ import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
+import org.apache.poi.util.IOUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -29,6 +30,7 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
+import trimatrix.db.Attachments;
 import trimatrix.db.Competitions;
 import trimatrix.db.CompetitionsScouts;
 import trimatrix.db.CompetitionsScoutsId;
@@ -146,6 +148,35 @@ public class DBConnectionTest {
 		}
 		/* 4. Delete Data */
 		personsDAO.delete(newPerson);
+	}
+
+	@Test
+	public void testAttachments() throws Exception {
+
+
+		/* With PlatFormManager */
+		HibernateTransactionManager txManager = (HibernateTransactionManager) context.getBean("transactionManager");
+		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+		// explicitly setting the transaction name is something that can only be done programmatically
+		def.setName("myTx");
+		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+
+		TransactionStatus status = txManager.getTransaction(def);
+		try {
+			IEntityDAO<Attachments> attachmentsDAO = daoLayer.getAttachmentsDAO();
+			System.gc();
+			long heapSizeBefore = Runtime.getRuntime().totalMemory() / 1024;
+			List<Attachments> attachment = attachmentsDAO.findAll();
+//			byte[] bytes = IOUtils.toByteArray(attachment.get(6).getFileContent());
+//			System.out.println(bytes.length);
+			System.gc();
+			long heapSizeAfter = Runtime.getRuntime().totalMemory() / 1024;
+			System.out.println(heapSizeAfter - heapSizeBefore + " KB");
+		} catch (Exception ex) {
+			txManager.rollback(status);
+			throw ex;
+		}
+		txManager.commit(status);
 	}
 
 	@Test
