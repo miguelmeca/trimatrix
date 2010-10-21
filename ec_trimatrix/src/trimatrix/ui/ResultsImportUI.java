@@ -15,9 +15,10 @@ import java.util.Set;
 import javax.faces.event.ActionEvent;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.defaultscreens.ISetId;
 import org.eclnt.jsfserver.defaultscreens.IdTextSelection;
@@ -49,6 +50,7 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 	private static enum TYPE {
 		COMPETITION, ATHLETE
 	}
+
 	private static final Entity ENTITY = Entity.RESULT;
 
 	protected FIXGRIDListBinding<GridImportItem> m_gridImport = new FIXGRIDListBinding<GridImportItem>();
@@ -576,8 +578,10 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 			// clear grid
 			m_gridImport.getItems().clear();
 			// read excel
-			if(!readResultExcel(bae.getHexBytes(), TYPE.COMPETITION, null)) {
-				Statusbar.outputAlert(Helper.getMessages("file_import_failure"), Helper.getLiteral("error")).setLeftTopReferenceCentered();
+			try {
+				readResultExcel(bae.getHexBytes(), TYPE.COMPETITION, null);
+			} catch (Exception ex) {
+				Statusbar.outputAlert(ex.toString(), Helper.getLiteral("error")).setLeftTopReferenceCentered();
 			}
 		}
 	}
@@ -630,7 +634,8 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 					}
 				}
 				// output Result
-				Statusbar.outputAlert("\n" + Helper.getMessages("import_done"), Helper.getLiteral("info"), String.format(Helper.getMessages("success_failure"), success, error)).setLeftTopReferenceCentered();
+				Statusbar.outputAlert("\n" + Helper.getMessages("import_done"), Helper.getLiteral("info"), String.format(Helper.getMessages("success_failure"), success, error))
+						.setLeftTopReferenceCentered();
 				// Refresh WPFunctionTree
 				reloadFunctionTree();
 			}
@@ -814,13 +819,15 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 			rowBikeSplit = Integer.valueOf(mapping[5]);
 			rowRunSplit = Integer.valueOf(mapping[6]);
 			// load excel
-			if(!readResultExcel(competition.getResults().getFileContent(), TYPE.ATHLETE, competition)) {
-				// TODO athlete not found
+			try {
+				readResultExcel(competition.getResults().getFileContent(), TYPE.ATHLETE, competition);
+			} catch (Exception ex) {
+				Statusbar.outputError(ex.toString());
 				continue;
 			}
 		}
 		Statusbar.outputAlert(String.format(Helper.getMessages("items_found"), m_gridImportAthlete.getItems().size()), Helper.getLiteral("info")).setLeftTopReferenceCentered();
-		if(m_gridImportAthlete.getItems().size()>0) {
+		if (m_gridImportAthlete.getItems().size() > 0) {
 			statusImportData = true;
 		} else {
 			statusImportData = false;
@@ -860,7 +867,8 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 					}
 				}
 				// output Result
-				Statusbar.outputAlert("\n" + Helper.getMessages("import_done"), Helper.getLiteral("info"), String.format(Helper.getMessages("success_failure"), success, error)).setLeftTopReferenceCentered();
+				Statusbar.outputAlert("\n" + Helper.getMessages("import_done"), Helper.getLiteral("info"), String.format(Helper.getMessages("success_failure"), success, error))
+						.setLeftTopReferenceCentered();
 				// Refresh WPFunctionTree
 				reloadFunctionTree();
 			}
@@ -868,172 +876,172 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 		ynp.getModalPopup().setLeftTopReferenceCentered();
 	}
 
-	private boolean readResultExcel(byte[] bytes, TYPE type, Competitions competition) {
-		try {
-			ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-			// create workbook
-			HSSFWorkbook wb = new HSSFWorkbook(bais);
-			// get first worksheet
-			HSSFSheet sheet = wb.getSheetAt(0);
-			int rows = sheet.getPhysicalNumberOfRows();
-			if (rows <= startRow) {
-				return false;
+	private void readResultExcel(byte[] bytes, TYPE type, Competitions competition) throws Exception {
+		ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+		// create workbook
+		Workbook wb = new HSSFWorkbook(bais);
+		// get first worksheet
+		Sheet sheet = wb.getSheetAt(0);
+		int rows = sheet.getPhysicalNumberOfRows();
+		if (rows <= startRow) {
+			throw new Exception(String.format("Start row is %d, but there are only %d rows in the file!", startRow, rows));
+		}
+		List<String> swimSplits = new ArrayList<String>(rows - startRow);
+		List<String> runSplits = new ArrayList<String>(rows - startRow);
+		List<String> bikeSplits = new ArrayList<String>(rows - startRow);
+		String swimSplitAhtlete = null;
+		String runSplitAhtlete = null;
+		String bikeSplitAhtlete = null;
+		boolean foundAthlete = false;
+		GridImportAthleteItem itemAthlete = null;
+		for (int r = startRow; r < rows; r++) {
+			Row row = sheet.getRow(r);
+			// initialize variables
+			int position = 0;
+			String strPosition;
+			String lastName = Constants.EMPTY;
+			String firstName = Constants.EMPTY;
+			String swimSplit = Constants.EMPTYTIME;
+			String bikeSplit = Constants.EMPTYTIME;
+			String runSplit = Constants.EMPTYTIME;
+			String time = Constants.EMPTYTIME;
+			if (row == null)
+				continue;
+			if (rowPosition > 0) {
+				strPosition = row.getCell(rowPosition - 1).toString().trim();
+				position = StringUtils.isNumeric(strPosition) ? Integer.valueOf(strPosition).intValue() : 0;
 			}
-			List<String> swimSplits = new ArrayList<String>(rows-startRow);
-			List<String> runSplits = new ArrayList<String>(rows-startRow);
-			List<String> bikeSplits = new ArrayList<String>(rows-startRow);
-			String swimSplitAhtlete = null;
-			String runSplitAhtlete = null;
-			String bikeSplitAhtlete = null;
-			boolean foundAthlete = false;
-			GridImportAthleteItem itemAthlete = null;
-			for (int r = startRow; r < rows; r++) {
-				HSSFRow row = sheet.getRow(r);
-				// initialize variables
-				int position = 0;
-				String strPosition;
-				String lastName = Constants.EMPTY;
-				String firstName = Constants.EMPTY;
-				String swimSplit = Constants.EMPTYTIME;
-				String bikeSplit = Constants.EMPTYTIME;
-				String runSplit = Constants.EMPTYTIME;
-				String time = Constants.EMPTYTIME;
-				if (row == null)
-					continue;
-				if (rowPosition > 0) {
-					strPosition = row.getCell(rowPosition - 1).toString().trim();
-					position = StringUtils.isNumeric(strPosition) ? Integer.valueOf(strPosition).intValue() : 0;
-				}
-				if (rowAthleteLastname > 0)
-					lastName = row.getCell(rowAthleteLastname - 1).toString();
-				if (rowAthleteFirstname > 0)
-					firstName = row.getCell(rowAthleteFirstname - 1).toString();
-				String athlete = firstName.trim() + Constants.WHITESPACE + lastName.trim();
-				PersonEntity.Data scoutedAthlete = scoutedAthletesData.get(athlete);
-				if (rowSwimSplit > 0) {
-					swimSplit = row.getCell(rowSwimSplit - 1).toString();
-					if (position > 0 && !Constants.EMPTYTIME.equals(time)) swimSplits.add(swimSplit);
-				}
-				if (rowBikeSplit > 0) {
-					bikeSplit = row.getCell(rowBikeSplit - 1).toString();
-					if (position > 0 && !Constants.EMPTYTIME.equals(time)) bikeSplits.add(bikeSplit);
-				}
-				if (rowRunSplit > 0) {
-					runSplit = row.getCell(rowRunSplit - 1).toString();
-					if (position > 0 && !Constants.EMPTYTIME.equals(time)) runSplits.add(runSplit);
-				}
-				if (rowTime > 0)
-					time = row.getCell(rowTime - 1).toString();
-				// handling different for types
-				if(type==TYPE.COMPETITION) {
-					m_gridImport.getItems().add(new GridImportItem(athlete, scoutedAthlete, position, time, swimSplit, bikeSplit, runSplit));
-				} else if (type==TYPE.ATHLETE) {
-					if(athlete.equalsIgnoreCase(getAthleteDescription())) {
-						swimSplitAhtlete = swimSplit;
-						runSplitAhtlete = runSplit;
-						bikeSplitAhtlete = bikeSplit;
-						itemAthlete = new GridImportAthleteItem(competition, position, time, swimSplit, bikeSplit, runSplit);
-						m_gridImportAthlete.getItems().add(itemAthlete);
-						foundAthlete = true;
-					}
-				}
+			if (rowAthleteLastname > 0)
+				lastName = row.getCell(rowAthleteLastname - 1).toString();
+			if (rowAthleteFirstname > 0)
+				firstName = row.getCell(rowAthleteFirstname - 1).toString();
+			String athlete = firstName.trim() + Constants.WHITESPACE + lastName.trim();
+			PersonEntity.Data scoutedAthlete = scoutedAthletesData.get(athlete);
+			if (rowSwimSplit > 0) {
+				swimSplit = row.getCell(rowSwimSplit - 1).toString();
+				if (position > 0 && !Constants.EMPTYTIME.equals(time))
+					swimSplits.add(swimSplit);
 			}
+			if (rowBikeSplit > 0) {
+				bikeSplit = row.getCell(rowBikeSplit - 1).toString();
+				if (position > 0 && !Constants.EMPTYTIME.equals(time))
+					bikeSplits.add(bikeSplit);
+			}
+			if (rowRunSplit > 0) {
+				runSplit = row.getCell(rowRunSplit - 1).toString();
+				if (position > 0 && !Constants.EMPTYTIME.equals(time))
+					runSplits.add(runSplit);
+			}
+			if (rowTime > 0)
+				time = row.getCell(rowTime - 1).toString();
 			// handling different for types
-			if(type==TYPE.ATHLETE && foundAthlete) {
-				Collections.sort(swimSplits);
-				itemAthlete.setSwimPosition(swimSplits.indexOf(swimSplitAhtlete)+1);
-				Collections.sort(runSplits);
-				itemAthlete.setRunPosition(runSplits.indexOf(runSplitAhtlete)+1);
-				Collections.sort(bikeSplits);
-				itemAthlete.setBikePosition(bikeSplits.indexOf(bikeSplitAhtlete)+1);
-			} else if(type==TYPE.COMPETITION) {
-				// get best values by sorting, filter out DNF and DSQ
-				List<GridImportItem> itemsCopy = new ArrayList<GridImportItem>();
-				for (GridImportItem item : m_gridImport.getItems()) {
-					// mark all entries, where a scouted athlete was found
-					if (!isEmpty(item.getScoutedAthlete()))
-						m_gridImport.selectItem(item);
-					if (item.getPosition() == 0 || Constants.EMPTYTIME.equals(item.getTime()))
-						continue;
-					itemsCopy.add(item);
+			if (type == TYPE.COMPETITION) {
+				m_gridImport.getItems().add(new GridImportItem(athlete, scoutedAthlete, position, time, swimSplit, bikeSplit, runSplit));
+			} else if (type == TYPE.ATHLETE) {
+				if (athlete.equalsIgnoreCase(getAthleteDescription())) {
+					swimSplitAhtlete = swimSplit;
+					runSplitAhtlete = runSplit;
+					bikeSplitAhtlete = bikeSplit;
+					itemAthlete = new GridImportAthleteItem(competition, position, time, swimSplit, bikeSplit, runSplit);
+					m_gridImportAthlete.getItems().add(itemAthlete);
+					foundAthlete = true;
 				}
-				// sort for swim desc
-				if (rowSwimSplit > 0) {
-					Collections.sort(itemsCopy, new Comparator<GridImportItem>() {
-						public int compare(GridImportItem o1, GridImportItem o2) {
-							int seconds1 = HelperTime.calculateSeconds(o1.getSwimSplit());
-							int seconds2 = HelperTime.calculateSeconds(o2.getSwimSplit());
-							if (seconds1 == seconds2)
-								return 0;
-							if (seconds1 > seconds2)
-								return 1;
-							return -1;
-						}
-					});
-					// set swim position
-					int position = 1;
-					for (GridImportItem item : itemsCopy) {
-						item.setSwimPosition(position++);
-					}
-					// set best
-					bestSwimmer = itemsCopy.get(0).getAthlete();
-					bestSwimSplit = itemsCopy.get(0).getSwimSplit();
-					importBestSwim = true;
-				}
-				// sort for bike desc
-				if (rowBikeSplit > 0) {
-					Collections.sort(itemsCopy, new Comparator<GridImportItem>() {
-						public int compare(GridImportItem o1, GridImportItem o2) {
-							int seconds1 = HelperTime.calculateSeconds(o1.getBikeSplit());
-							int seconds2 = HelperTime.calculateSeconds(o2.getBikeSplit());
-							if (seconds1 == seconds2)
-								return 0;
-							if (seconds1 > seconds2)
-								return 1;
-							return -1;
-						}
-					});
-					// set bike position
-					int position = 1;
-					for (GridImportItem item : itemsCopy) {
-						item.setBikePosition(position++);
-					}
-					// set best
-					bestBiker = itemsCopy.get(0).getAthlete();
-					bestBikeSplit = itemsCopy.get(0).getBikeSplit();
-					importBestBike = true;
-				}
-				// sort for run desc
-				if (rowRunSplit > 0) {
-					Collections.sort(itemsCopy, new Comparator<GridImportItem>() {
-						public int compare(GridImportItem o1, GridImportItem o2) {
-							int seconds1 = HelperTime.calculateSeconds(o1.getRunSplit());
-							int seconds2 = HelperTime.calculateSeconds(o2.getRunSplit());
-							if (seconds1 == seconds2)
-								return 0;
-							if (seconds1 > seconds2)
-								return 1;
-							return -1;
-						}
-					});
-					// set run position
-					int position = 1;
-					for (GridImportItem item : itemsCopy) {
-						item.setRunPosition(position++);
-					}
-					// set best
-					bestRunner = itemsCopy.get(0).getAthlete();
-					bestRunSplit = itemsCopy.get(0).getRunSplit();
-					importBestRun = true;
-				}
-				// set status
-				statusMapping = false;
-				statusImportData = true;
-				//Statusbar.outputAlert(String.format(Helper.getMessages("items_found"), m_gridImport.getItems().size()), Helper.getLiteral("info")).setLeftTopReferenceCentered();
 			}
-			return true;
-		} catch (Exception ex) {
-			return false;
+		}
+		// handling different for types
+		if (type == TYPE.ATHLETE && foundAthlete) {
+			Collections.sort(swimSplits);
+			itemAthlete.setSwimPosition(swimSplits.indexOf(swimSplitAhtlete) + 1);
+			Collections.sort(runSplits);
+			itemAthlete.setRunPosition(runSplits.indexOf(runSplitAhtlete) + 1);
+			Collections.sort(bikeSplits);
+			itemAthlete.setBikePosition(bikeSplits.indexOf(bikeSplitAhtlete) + 1);
+		} else if (type == TYPE.COMPETITION) {
+			// get best values by sorting, filter out DNF and DSQ
+			List<GridImportItem> itemsCopy = new ArrayList<GridImportItem>();
+			for (GridImportItem item : m_gridImport.getItems()) {
+				// mark all entries, where a scouted athlete was found
+				if (!isEmpty(item.getScoutedAthlete()))
+					m_gridImport.selectItem(item);
+				if (item.getPosition() == 0 || Constants.EMPTYTIME.equals(item.getTime()))
+					continue;
+				itemsCopy.add(item);
+			}
+			// sort for swim desc
+			if (rowSwimSplit > 0) {
+				Collections.sort(itemsCopy, new Comparator<GridImportItem>() {
+					public int compare(GridImportItem o1, GridImportItem o2) {
+						int seconds1 = HelperTime.calculateSeconds(o1.getSwimSplit());
+						int seconds2 = HelperTime.calculateSeconds(o2.getSwimSplit());
+						if (seconds1 == seconds2)
+							return 0;
+						if (seconds1 > seconds2)
+							return 1;
+						return -1;
+					}
+				});
+				// set swim position
+				int position = 1;
+				for (GridImportItem item : itemsCopy) {
+					item.setSwimPosition(position++);
+				}
+				// set best
+				bestSwimmer = itemsCopy.get(0).getAthlete();
+				bestSwimSplit = itemsCopy.get(0).getSwimSplit();
+				importBestSwim = true;
+			}
+			// sort for bike desc
+			if (rowBikeSplit > 0) {
+				Collections.sort(itemsCopy, new Comparator<GridImportItem>() {
+					public int compare(GridImportItem o1, GridImportItem o2) {
+						int seconds1 = HelperTime.calculateSeconds(o1.getBikeSplit());
+						int seconds2 = HelperTime.calculateSeconds(o2.getBikeSplit());
+						if (seconds1 == seconds2)
+							return 0;
+						if (seconds1 > seconds2)
+							return 1;
+						return -1;
+					}
+				});
+				// set bike position
+				int position = 1;
+				for (GridImportItem item : itemsCopy) {
+					item.setBikePosition(position++);
+				}
+				// set best
+				bestBiker = itemsCopy.get(0).getAthlete();
+				bestBikeSplit = itemsCopy.get(0).getBikeSplit();
+				importBestBike = true;
+			}
+			// sort for run desc
+			if (rowRunSplit > 0) {
+				Collections.sort(itemsCopy, new Comparator<GridImportItem>() {
+					public int compare(GridImportItem o1, GridImportItem o2) {
+						int seconds1 = HelperTime.calculateSeconds(o1.getRunSplit());
+						int seconds2 = HelperTime.calculateSeconds(o2.getRunSplit());
+						if (seconds1 == seconds2)
+							return 0;
+						if (seconds1 > seconds2)
+							return 1;
+						return -1;
+					}
+				});
+				// set run position
+				int position = 1;
+				for (GridImportItem item : itemsCopy) {
+					item.setRunPosition(position++);
+				}
+				// set best
+				bestRunner = itemsCopy.get(0).getAthlete();
+				bestRunSplit = itemsCopy.get(0).getRunSplit();
+				importBestRun = true;
+			}
+			// set status
+			statusMapping = false;
+			statusImportData = true;
+			// Statusbar.outputAlert(String.format(Helper.getMessages("items_found"),
+			// m_gridImport.getItems().size()),
+			// Helper.getLiteral("info")).setLeftTopReferenceCentered();
 		}
 	}
 }
