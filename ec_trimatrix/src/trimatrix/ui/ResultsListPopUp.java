@@ -27,6 +27,7 @@ import org.eclnt.workplace.WorkpageDefaultLifecycleListener;
 import trimatrix.db.Attachments;
 import trimatrix.db.Competitions;
 import trimatrix.db.ImportTemplates;
+import trimatrix.logic.helper.Limit;
 import trimatrix.ui.utils.IPopUpCallback;
 import trimatrix.ui.utils.MyBufferedContentForAttachment;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
@@ -42,12 +43,14 @@ public class ResultsListPopUp extends MyWorkpageDispatchedBean implements Serial
 	private static final Entity ENTITY = Entity.RESULT;
 
 	private Competitions competition;
+	private Limit limit;
 
 	private IPopUpCallback callback;
-	public void prepareCallback(IPopUpCallback callback, Competitions competition, Attachments resultList) {
+	public void prepareCallback(IPopUpCallback callback, Competitions competition, Limit limit) {
     	this.callback = callback;
     	this.competition = competition;
-    	this.resultList = resultList;
+    	this.limit = limit;
+    	this.resultList = getDaoLayer().getAttachmentsDAO().findById(limit.getResultsId());
     	init(resultList);
     }
 
@@ -107,6 +110,8 @@ public class ResultsListPopUp extends MyWorkpageDispatchedBean implements Serial
 			resultList = (Attachments)getEntityLayer().getAttachmentEntity().create();
 			resultList.setIntern(true); // mark attachment for internal use
 			resultList.setCategoryKey("results");	// set category fix to result
+			resultList.setDescription(limit.getCategory()); // set limits category to description
+			// TODO open file and get fastest splits to fill limit
 
 			// filename without directory structure
 			String filename = bae.getClientFileName();

@@ -38,7 +38,7 @@ public class RelationListUI extends MyWorkpageDispatchedBean implements Serializ
 	private static final String ADD = "add";
 	private static final String STANDARD = "standard";
 
-	// TODO put literals to constants
+	// TODO translation
 	private static final String[] titles = {"Partner 1", "Beziehung", "Partner 2", "Standard"};
 	private static final String[] widths = {"100","100","100","50"};
 	private static final String[] aligns = {"center", "center", "center", "center"};
