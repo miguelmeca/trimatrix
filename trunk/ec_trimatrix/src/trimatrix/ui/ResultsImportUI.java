@@ -884,6 +884,7 @@ public class ResultsImportUI extends MyWorkpageDispatchedBean implements Seriali
 		Sheet sheet = wb.getSheetAt(0);
 		int rows = sheet.getPhysicalNumberOfRows();
 		if (rows <= startRow) {
+			// TODO Translation
 			throw new Exception(String.format("Start row is %d, but there are only %d rows in the file!", startRow, rows));
 		}
 		List<String> swimSplits = new ArrayList<String>(rows - startRow);

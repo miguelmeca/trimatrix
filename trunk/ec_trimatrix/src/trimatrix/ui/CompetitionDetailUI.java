@@ -39,6 +39,8 @@ import trimatrix.utils.Constants.Entity;
 public class CompetitionDetailUI extends AEntityDetailUI implements Serializable {
 	private final static String COMPETITIONLIMITS = "COMPETITIONLIMITS";
 
+	private List<String> resultsToDelete = new ArrayList<String>();
+
 	protected FIXGRIDListBinding<GridLimitsItem> m_gridLimits = new FIXGRIDListBinding<GridLimitsItem>();
 
 	public FIXGRIDListBinding<GridLimitsItem> getGridLimits() {
@@ -50,10 +52,12 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 	}
 
 	public class GridLimitsItem extends FIXGRIDItem implements java.io.Serializable {
+		private boolean isNew;
 		private Limit limit;
 		public Limit getLimit() {return limit;}
 
 		public GridLimitsItem() {
+			isNew = true;
 			limit = getLogic().getCompetitionLogic().createLimit();
 			// check defaulting
 			String strTolerance = getServiceLayer().getDefaultValueBindingService().getDVBinding("tolerance");
@@ -66,6 +70,7 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		}
 
 		public GridLimitsItem(Limit limit) {
+			isNew = false;
 			this.limit = limit;
 		}
 
@@ -155,6 +160,42 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		public void onCategoryF4(ActionEvent event) {
 			getCategoryF4(this);
 		}
+
+		public void onAddResultList() {
+			// open popup
+			ResultsListPopUp resultsListPopUp = getResultsListPopUp();
+			resultsListPopUp.prepareCallback(new IPopUpCallback() {
+
+				@Override
+				public void ok(Object object) {
+					limit = (Limit)object;
+					m_popup.close();
+				}
+
+				@Override
+				public void cancel() {}
+			}, entity, limit);
+			m_popup = getWorkpage().createModalPopupInWorkpageContext();
+			m_popup.setLeftTopReferenceCentered();
+			m_popup.setUndecorated(true);
+			m_popup.open(Constants.Page.RESULTSLISTPOPUP.getUrl(), Helper.getLiteral("resultlist"), 520, 155, CompetitionDetailUI.this);
+		}
+
+		public String getResultsListIcon() {
+			if(Helper.isEmpty(limit.getResultsId())) {
+				return Constants.ACCEPT_LIGHT;
+			} else {
+				return Constants.ACCEPT;
+			}
+		}
+
+		public boolean isResultListActive() {
+			return !Helper.isEmpty(limit.getCategory()) && !isNew;
+		}
+
+		public boolean isCategoryChangeable() {
+			return Helper.isEmpty(limit.getResultsId());
+		}
 	}
 
 	public void onChangeType(ActionEvent event) {
@@ -185,7 +226,11 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 	}
 
 	public void onRemoveLimit(ActionEvent event) {
-		m_gridLimits.getItems().remove(m_gridLimits.getSelectedItem());
+		GridLimitsItem selectedItem = m_gridLimits.getSelectedItem();
+		if(selectedItem==null) return;
+		String resultsId = selectedItem.getLimit().getResultsId();
+		resultsToDelete.add(resultsId);
+		m_gridLimits.getItems().remove(selectedItem);
 	}
 
 	public void onAddLimit(ActionEvent event) {
@@ -225,7 +270,7 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 
 	private Competitions entity;
 	private CompetitionsScouts entityCS;
-	private Attachments resultList;
+	//private Attachments resultList;
 
 
 	public CompetitionDetailUI(IWorkpageDispatcher dispatcher) {
@@ -258,8 +303,8 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		setState();
 		// set defaults
 		setDefaults();
-		// set result list
-		resultList = entity.getResults();
+		// reset list for resultlists to delete
+		resultsToDelete.clear();
 	}
 
 	public void validate() throws MandatoryCheckException, EmailNotValidException {
@@ -281,8 +326,8 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		entity.setAddress((String) values.get(CompetitionEntity.ADDRESS));
 		entity.setCountryKey((String) values.get(CompetitionEntity.COUNTRY));
 		// result list
-		entity.setResults(resultList);
-		if(resultList==null) entity.setResultsTemplate(null);
+		//entity.setResults(resultList);
+		//if(resultList==null) entity.setResultsTemplate(null);
 		// create CS entity if relevant;
 		if (isMyCompetition() && entityCS == null) {
 			if (getLogic().getFunctionTreeLogic().createCompetitionScout(entity.getId()))
@@ -332,11 +377,16 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		for(GridLimitsItem item : m_gridLimits.getItems()) {
 			getLogic().getCompetitionLogic().addCategoriesToPreferences(item.getCategory());
 		}
-		// delete result list
-		if(entity.getResults()==null && !isEmpty(entity.getResultsId())) {
-			Attachments resultList = getDaoLayer().getAttachmentsDAO().findById(entity.getResultsId());
+		// delete result lists
+//		if(entity.getResults()==null && !isEmpty(entity.getResultsId())) {
+//			Attachments resultList = getDaoLayer().getAttachmentsDAO().findById(entity.getResultsId());
+//			getDaoLayer().getAttachmentsDAO().delete(resultList);
+//		}
+		for(String resultsId : resultsToDelete) {
+			Attachments resultList = getDaoLayer().getAttachmentsDAO().findById(resultsId);
 			getDaoLayer().getAttachmentsDAO().delete(resultList);
 		}
+		resultsToDelete.clear();
 	}
 
 	public void saveGridState(ActionEvent event) {
@@ -359,31 +409,31 @@ public class CompetitionDetailUI extends AEntityDetailUI implements Serializable
 		return super.getEnabled() && ENTITYLISTLOGIC.isUserEqualUserLoggedOn(entity.getCreatedBy());
 	}
 
-	public void onResultList(ActionEvent ae) {
-		// open popup
-		ResultsListPopUp resultsListPopUp = getResultsListPopUp();
-		resultsListPopUp.prepareCallback(new IPopUpCallback() {
+//	public void onResultList(ActionEvent ae) {
+//		// open popup
+//		ResultsListPopUp resultsListPopUp = getResultsListPopUp();
+//		resultsListPopUp.prepareCallback(new IPopUpCallback() {
+//
+//			@Override
+//			public void ok(Object object) {
+//				resultList = (Attachments)object;
+//				m_popup.close();
+//			}
+//
+//			@Override
+//			public void cancel() {}
+//		}, entity, resultList);
+//		m_popup = getWorkpage().createModalPopupInWorkpageContext();
+//		m_popup.setLeftTopReferenceCentered();
+//		m_popup.setUndecorated(true);
+//		m_popup.open(Constants.Page.RESULTSLISTPOPUP.getUrl(), Helper.getLiteral("resultlist"), 520, 155, this);
+//	}
 
-			@Override
-			public void ok(Object object) {
-				resultList = (Attachments)object;
-				m_popup.close();
-			}
-
-			@Override
-			public void cancel() {}
-		}, entity, resultList);
-		m_popup = getWorkpage().createModalPopupInWorkpageContext();
-		m_popup.setLeftTopReferenceCentered();
-		m_popup.setUndecorated(true);
-		m_popup.open(Constants.Page.RESULTSLISTPOPUP.getUrl(), Helper.getLiteral("resultlist"), 520, 155, this);
-	}
-
-	public String getResultsListIcon() {
-		if(resultList==null) {
-			return Constants.ACCEPT_LIGHT;
-		} else {
-			return Constants.ACCEPT;
-		}
-	}
+//	public String getResultsListIcon() {
+//		if(resultList==null) {
+//			return Constants.ACCEPT_LIGHT;
+//		} else {
+//			return Constants.ACCEPT;
+//		}
+//	}
 }
