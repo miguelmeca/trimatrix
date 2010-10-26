@@ -38,9 +38,9 @@
 </t:fixgrid>
 </t:row>
 <t:row id="g_18" >
-<t:button id="g_19" actionListener="#{d.DoctorSelectionUI.onSelect}" text="#{rr.literals.select}" />
+<t:button id="g_19" actionListener="#{d.CompetitionSelectionUI.onSelect}" text="#{rr.literals.select}" />
 <t:coldistance id="g_20" width="100%" />
-<t:button id="g_21" actionListener="#{d.DoctorSelectionUI.onCancel}" text="#{rr.literals.cancel}" />
+<t:button id="g_21" actionListener="#{d.CompetitionSelectionUI.onCancel}" text="#{rr.literals.cancel}" />
 </t:row>
 </t:rowbodypane>
 <t:pageaddons id="g_pa"/>

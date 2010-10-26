@@ -19,7 +19,7 @@
                       borderheight="0" 
                       borderwidth="0" 
                       emptycolor="null!" height="100%" objectbinding="#{OBJECTBINDING.ftree}" 
-                      rowheight="18" 
+                      rowheight="TREENODEROWHEIGHT" 
                       sbvisibleamount="40" 
                       suppressheadline="true" width="100%" 
                       scrollanimationtype="SCROLLANIMATIONTYPE"
@@ -30,7 +30,9 @@
                   foreground="FOREGROUND" 
                   bgpaint="TREENODEBGPAINT"
                   dragsend=".{dragSend}"
-                  dropreceive=".{dropReceive}"/>
+                  dropreceive=".{dropReceive}"
+                  font="TREENODEFONT"
+                  levelwidth="TREENODELEVELWIDTH"/>
     </t:gridcol>
   </t:fixgrid>
 </t:row>

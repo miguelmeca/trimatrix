@@ -250,7 +250,7 @@ SELECT
   competitions.address,
   t_countries.description country,
   IF(results.id IS NULL, 0, 1) results,
-  IF(competitions.results_id IS NULL, 0, 1) resultslist
+  competitions.results resultslist
 FROM competitions
   LEFT OUTER JOIN t_comptypes
     ON t_comptypes.key = competitions.type
@@ -612,7 +612,7 @@ SELECT
   competitions.address,
   t_countries.description country,
   IF(results.id IS NULL, 0, 1) results,
-  IF(competitions.results_id IS NULL, 0, 1) resultslist
+  competitions.results resultslist
 FROM competitions
   LEFT OUTER JOIN t_comptypes
     ON t_comptypes.key = competitions.type
@@ -655,7 +655,7 @@ SELECT
   competitions.address,
   t_countries.description country,
   IF(results.id IS NULL, 0, 1) results,
-  IF(competitions.results_id IS NULL, 0, 1) resultslist
+  competitions.results resultslist
 FROM competitions
   LEFT OUTER JOIN t_comptypes
     ON t_comptypes.key = competitions.type

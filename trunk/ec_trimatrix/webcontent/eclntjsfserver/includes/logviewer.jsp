@@ -12,7 +12,7 @@
 <h:form>
 <f:subview id="eclntjsfserver_includes_logviewerg_sv">
 <t:rowheader id="g_1" >
-<t:button id="g_2" actionListener="#{eclntdefscr.logViewer.onShowLogFile}" rowalignmenty="top" text="(Re-) Read Logfile" />
+<t:button id="g_2" actionListener="#{eclntdefscr.logViewer.onShowLogFile}" rowalignmenty="top" text="(Re-) Read Logfile" contentareafilled="false"/>
 <t:coldistance id="g_3" width="100%" />
 <t:checkbox id="g_4" flush="true" selected="#{eclntdefscr.logViewer.flagShowTimestampThread}" text="Show Detail Columns" />
 </t:rowheader>

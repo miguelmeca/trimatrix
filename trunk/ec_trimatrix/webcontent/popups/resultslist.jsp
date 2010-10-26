@@ -16,7 +16,7 @@
 <t:pane id="g_2" height="100%" rowdistance="5" stylevariant="popup" width="100%" >
 <t:row id="g_3" >
 <t:label id="g_4" text="#{rr.literals.results_list}" width="90" />
-<t:field id="g_5" enabled="false" focusable="false" text="#{d.ResultsListPopUp.resultList.fileName}" width="200" />
+<t:field id="g_5" bgpaint="mandatory()" enabled="false" focusable="false" text="#{d.ResultsListPopUp.resultList.fileName}" width="200" />
 <t:coldistance id="g_6" rendered="#{d.ResultsListPopUp.resultList!=null}" />
 <t:button id="g_7" actionListener="#{d.ResultsListPopUp.onDelete}" image="/images/icons/delete.png" imageheight="15" rendered="#{d.ResultsListPopUp.resultList!=null}" text="#{rr.literals.delete}" />
 <t:coldistance id="g_8" rendered="#{d.ResultsListPopUp.resultList==null}" />
@@ -26,13 +26,15 @@
 </t:row>
 <t:row id="g_12" >
 <t:label id="g_13" text="#{rr.literals.template}" width="90" />
-<t:combofield id="g_14" actionListener="#{d.ResultsListPopUp.onTemplateF4}" text="#{d.ResultsListPopUp.template}" width="200" />
+<t:combofield id="g_14" actionListener="#{d.ResultsListPopUp.onTemplateF4}" bgpaint="mandatory()" text="#{d.ResultsListPopUp.template}" width="200" />
 </t:row>
 <t:row id="g_15" >
 <t:textpane id="g_16" align="center" background="#00000015" font="size:12;weight:bold" text="#{rr.literals.create_test_template}" width="100%" />
 </t:row>
 <t:row id="g_17" >
 <t:button id="g_18" actionListener="#{d.ResultsListPopUp.onOk}" text="#{rr.literals.ok}" />
+<t:coldistance id="g_19" />
+<t:button id="g_20" actionListener="#{d.ResultsListPopUp.onCancel}" image="/images/icons/cancel.png" imageheight="15" text="#{rr.literals.cancel}" />
 </t:row>
 </t:pane>
 </t:row>

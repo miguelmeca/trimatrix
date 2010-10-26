@@ -59,7 +59,7 @@
 <t:splitpanesplit id="g_34" >
 <t:row id="g_35" >
 <t:pane id="g_36" height="100%" width="100%" >
-<t:rowworkpagecontainer id="g_37" animationtype="foglight" objectbinding="#{d.workpageContainer}" />
+<t:rowworkplace id="g_37" animationtype="foglight" objectbinding="#{d.workpageContainer}" wpselectorposition="bottom" />
 </t:pane>
 <t:pane id="g_38" height="100%" >
 <t:rowdistance id="g_39" height="100%" />

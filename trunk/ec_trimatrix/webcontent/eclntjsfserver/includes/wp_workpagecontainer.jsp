@@ -14,7 +14,8 @@
             <t:row id="g_21">
               <t:pane id="g_22" actionListener="#{OBJECTBINDING.onPageAction}"
                                 height="100%" 
-                                width="100%" >
+                                width="100%" 
+                                dropreceive="CCWORKPAGE:sides">
                 <t:captureanimator id="g_22_ca" trigger="#{OBJECTBINDING.animationValue}" animationtype="ANIMATIONTYPE" animatestepcount="ANIMATESTEPCOUNT"/>
                 <t:row id="g_23" >
                   <t:pane id="g_24" border="BORDER" height="100%" padding="PADDING" width="100%" >
