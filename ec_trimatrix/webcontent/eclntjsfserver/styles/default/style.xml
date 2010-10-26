@@ -19,6 +19,9 @@
     <tag name="field" variant="default">
         <set attribute="background" value="#FFFFFF"/>
     </tag>
+    <tag name="longtextfield" variant="default">
+        <set attribute="background" value="#FFFFFF"/>
+    </tag>
     <tag name="foldablepane" variant="default">
         <set attribute="bgpaint" value="rectangle(0,100%-3,100%,3,#80808020);rectangle(0,15,3,100%,#80808020);rectangle(100%-3,15,3,100%,#80808020);rectangle(0,0,100%,15,#80808080,#80808020,vertical);rectangle(3,15,100%-6,5,#80808020,#80808000,vertical)"/>
         <set attribute="innerbgpaint" value="rectangle(0,0,100%,100%,#FFFFFF40)"/>
@@ -59,6 +62,9 @@
     </tag>
     <tag name="gridheaderlabel" variant="default">
         <set attribute="background" value="#C0C0C0"/>
+    </tag>
+    <tag name="helpicon" variant="default">
+        <set attribute="image" value="/eclntjsfserver/images/lightbulb.png"/>
     </tag>
     <tag name="modalpopup" variant="default">
         <set attribute="bgpaint" value="rectangle(0,0,100%,100%,#F0F0F0,#909090,vertical)"/>
@@ -119,7 +125,11 @@
     <tag name="textpane" variant="TRANSPARENT">
     </tag>
     
-    <!--  WORKPAGE VARIANTS -->
+    <!--
+        ***********************************************************************  
+    	WORKPAGE VARIANTS 
+        ***********************************************************************  
+    -->
     <tag name="rowworkplacefunctiontree" variant="default">
         <set attribute="foreground" value="#FFFFFF"/>
         <set attribute="scrollanimationtype" value="fog(#FFFFFF,6)"/>
@@ -129,7 +139,7 @@
         <set attribute="bgpaintrollover" value="rectangle(0,0,100%,100%,#C0808080,#C0808020,horizontal)"/>
         <set attribute="bgpaintselected" value="rectangle(0,0,100%,100%,#C0808080,#C0808020,horizontal)"/>
         <set attribute="font" value="size:10"/>
-        <set attribute="foregrounddefault" value="#808080"/>
+        <set attribute="foregrounddefault" value="#b0b0b0"/>
         <set attribute="foregroundselected" value="#FFFFFF"/>
         <set attribute="rowalignmenty" value="bottom"/>
         <set attribute="indentwidth" value="0"/>
@@ -143,7 +153,17 @@
         <set attribute="border" value="bottom:1;color:#C0C0C0"/>
         <set attribute="padding" value="1"/>
     </tag>
-    
+    <tag name="splitpane" variant="WP_TILESPLITPANE">
+        <set attribute="dividersize" value="15"/>
+        <set attribute="dividercolor" value="#00000000"/>
+    </tag>
+    <tag name="splitpanesplit" variant="WP_TILESPLITPANESPLIT">
+    </tag>
+    <tag name="pane" variant="WP_PANEAROUNDSELECTOR">
+        <set attribute="background" value="#00000020"/>
+        <set attribute="padding" value="left:20"/>
+    </tag>
+
     <!--  IDVALUESELECTION VARIANTS -->
     <tag name="pane" variant="IDVALUESELECTION">
         <set attribute="border" value="#808080"/>
@@ -218,6 +238,18 @@
 	  <set attribute="fontselected" value="weight:bold" />
 	  <set attribute="foregrounddefault" value="#00000060" />
 	  <set attribute="foregroundselected" value="#000000" />
+	</tag>
+	<tag name="t:tabbedline" variant="cctlbreadcrumb01" >
+	  <set attribute="bgpaintdefault" value="image(0,50%,/eclntjsfserver/images/bcdefault.png&amp;mirrorrtl,leftmiddle)" />
+	  <set attribute="bgpaintrollover" value="image(0,50%,/eclntjsfserver/images/bcselected.png&amp;mirrorrtl,leftmiddle)" />
+	  <set attribute="bgpaintselected" value="image(0,50%,/eclntjsfserver/images/bcselected.png&amp;mirrorrtl,leftmiddle)" />
+	  <set attribute="font" value="weight:bold" />
+	  <set attribute="fontselected" value="weight:bold" />
+	  <set attribute="foregrounddefault" value="#000000" />
+	  <set attribute="foregroundselected" value="#000000" />
+	</tag>
+	<tag name="t:tabbedlinetab" variant="cctlbreadcrumb01" >
+	  <set attribute="border" value="left:13;right:10" />
 	</tag>
 	
 	<tag name="t:tabbedpane" variant="topmenu" >

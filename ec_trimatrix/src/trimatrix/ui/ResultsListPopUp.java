@@ -1,13 +1,10 @@
 package trimatrix.ui;
 
 import static trimatrix.utils.Constants.EMPTY;
-import static trimatrix.utils.Helper.isEmpty;
 
 import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.faces.event.ActionEvent;
@@ -16,6 +13,7 @@ import org.eclnt.editor.annotations.CCGenClass;
 import org.eclnt.jsfserver.bufferedcontent.BufferedContentMgr;
 import org.eclnt.jsfserver.defaultscreens.ISetId;
 import org.eclnt.jsfserver.defaultscreens.IdTextSelection;
+import org.eclnt.jsfserver.defaultscreens.Statusbar;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup;
 import org.eclnt.jsfserver.defaultscreens.YESNOPopup.IYesNoCancelListener;
 import org.eclnt.jsfserver.elements.events.BaseActionEventUpload;
@@ -27,8 +25,9 @@ import org.eclnt.workplace.WorkpageDefaultLifecycleListener;
 import trimatrix.db.Attachments;
 import trimatrix.db.Competitions;
 import trimatrix.db.ImportTemplates;
+import trimatrix.logic.ImportLogic;
 import trimatrix.logic.helper.Limit;
-import trimatrix.ui.utils.IPopUpCallback;
+import trimatrix.ui.utils.IPopUpCallback2;
 import trimatrix.ui.utils.MyBufferedContentForAttachment;
 import trimatrix.ui.utils.MyWorkpageDispatchedBean;
 import trimatrix.utils.Constants;
@@ -45,12 +44,12 @@ public class ResultsListPopUp extends MyWorkpageDispatchedBean implements Serial
 	private Competitions competition;
 	private Limit limit;
 
-	private IPopUpCallback callback;
-	public void prepareCallback(IPopUpCallback callback, Competitions competition, Limit limit) {
+	private IPopUpCallback2 callback;
+	public void prepareCallback(IPopUpCallback2 callback, Competitions competition, Limit limit) {
     	this.callback = callback;
     	this.competition = competition;
     	this.limit = limit;
-    	this.resultList = getDaoLayer().getAttachmentsDAO().findById(limit.getResultsId());
+    	this.resultList = limit.getResultsId()==null?null:getDaoLayer().getAttachmentsDAO().findById(limit.getResultsId());
     	init(resultList);
     }
 
@@ -68,11 +67,12 @@ public class ResultsListPopUp extends MyWorkpageDispatchedBean implements Serial
 	}
 
     public void init(Attachments attachments) {
-    	if(attachments==null) return;
-		// buffered content
-		bc = new MyBufferedContentForAttachment(attachments);
-		BufferedContentMgr.add(bc);
-		downloadURL = bc.getURL();
+    	if(attachments==null) {
+    		// buffered content
+    		bc = new MyBufferedContentForAttachment(attachments);
+    		BufferedContentMgr.add(bc);
+    		downloadURL = bc.getURL();
+    	}
 		buildTemplatesData();
 	}
 
@@ -100,18 +100,12 @@ public class ResultsListPopUp extends MyWorkpageDispatchedBean implements Serial
 			BaseActionEventUpload bae = (BaseActionEventUpload) event;
 			// check size
 			Integer size = bae.getHexBytes().length;
-//			if (size > Constants.MB_1) {
-//				Statusbar.outputAlert("Filesize " + size
-//						+ " is more than max. size " + Constants.MB_1
-//						+ " bytes!");
-//				return;
-//			}
+
 			// create new entity
 			resultList = (Attachments)getEntityLayer().getAttachmentEntity().create();
 			resultList.setIntern(true); // mark attachment for internal use
 			resultList.setCategoryKey("results");	// set category fix to result
 			resultList.setDescription(limit.getCategory()); // set limits category to description
-			// TODO open file and get fastest splits to fill limit
 
 			// filename without directory structure
 			String filename = bae.getClientFileName();
@@ -130,6 +124,8 @@ public class ResultsListPopUp extends MyWorkpageDispatchedBean implements Serial
 			}
 			// Content
 			resultList.setFileContent(bae.getHexBytes());
+			// Limit
+			limit.setResultsId(resultList.getId());
 			// initialize
 			init(resultList);
 		}
@@ -148,8 +144,8 @@ public class ResultsListPopUp extends MyWorkpageDispatchedBean implements Serial
 
     					public void reactOnYes() {
     			    		// set to null for callback
-    			    		resultList = null;
-    			    		competition.setResultsTemplate(null);
+    			    		limit.setResultsTemplate(null);
+    			    		limit.setResultsId(null);
     					}
     				}
     		);
@@ -158,18 +154,41 @@ public class ResultsListPopUp extends MyWorkpageDispatchedBean implements Serial
     }
 
     public void onOk(ActionEvent event)  {
-    	callback.ok(resultList);
+    	// mandatory fields
+    	if(Helper.isEmpty(limit.getResultsTemplate()) || resultList == null) {
+    		Statusbar.outputAlert(Helper.getMessages("mandatory"), Helper.getLiteral("warn")).setLeftTopReferenceCentered();
+    		return;
+    	}
+    	// get info for limit
+		try {
+			ImportLogic.ResultListData data = getLogic().getImportLogic().readResultExcel(resultList.getFileContent(), templates.get(limit.getResultsTemplate()));
+			if(!Helper.isEmpty(data.bestSwimmer)) {
+				limit.getSwim()[0] = data.bestSwimmer;
+				limit.getSwim()[1] = data.bestSwimSplit;
+			}
+			if(!Helper.isEmpty(data.bestBiker)) {
+				limit.getBike()[0] = data.bestBiker;
+				limit.getBike()[1] = data.bestBikeSplit;
+			}
+			if(!Helper.isEmpty(data.bestRunner)) {
+				limit.getRun()[0] = data.bestRunner;
+				limit.getRun()[1] = data.bestRunSplit;
+			}
+			callback.ok(resultList, limit);
+		} catch (Exception ex) {
+			Statusbar.outputAlert(ex.toString(), Helper.getLiteral("error")).setLeftTopReferenceCentered();
+		}
+
     }
 
-	private Map<String, ImportTemplates> templates = new HashMap<String, ImportTemplates>();
+    public void onCancel(ActionEvent event)  {
+    	callback.cancel();
+    }
+
+	private Map<String, ImportTemplates> templates;
 
 	public void buildTemplatesData() {
-    	List<ImportTemplates> templatesList = getLogic().getImportLogic().getMyTemplates(ENTITY.toString());
-    	if(isEmpty(templatesList)) return;
-    	templates.clear();
-    	for(ImportTemplates template : templatesList) {
-    		templates.put(template.getId().getDescription(), template);
-    	}
+		templates = getLogic().getImportLogic().getTemplatesData(ENTITY);
     }
 
 	public void onTemplateF4(ActionEvent event) {
@@ -180,7 +199,7 @@ public class ResultsListPopUp extends MyWorkpageDispatchedBean implements Serial
     	}
      	idts.setCallBack(new ISetId() {
             public void setId(String id) {
-                competition.setResultsTemplate(id);
+                limit.setResultsTemplate(id);
             }
         });
         idts.setWithHeader(false);
@@ -191,7 +210,7 @@ public class ResultsListPopUp extends MyWorkpageDispatchedBean implements Serial
     }
 
 	public String getTemplate() {
-		return competition.getResultsTemplate();
+		return limit.getResultsTemplate();
 	}
 
 }

@@ -11,6 +11,7 @@ import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import trimatrix.db.Competitions;
+import trimatrix.db.CompetitionsScouts;
 import trimatrix.services.SQLExecutorService;
 import trimatrix.structures.SGridMetaData;
 import trimatrix.utils.Constants;
@@ -128,6 +129,7 @@ public final class CompetitionEntity extends AEntity {
 		Competitions entity = new Competitions();
 		entity.setId(id);
 		// default values
+		entity.setResults(false);
 		entity.setDeleted(false);
 		entity.setTest(false);
 		return entity;

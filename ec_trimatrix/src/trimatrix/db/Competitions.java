@@ -39,10 +39,7 @@ public class Competitions implements java.io.Serializable, IEntityObject{
 	private String modifiedBy;
 	private Boolean test;
 	private Boolean deleted;
-	private String resultsTemplate;
-    private String resultsId;
-
-    private Attachments results;
+	private Boolean results;
 
 	// Constructors
 
@@ -57,7 +54,7 @@ public class Competitions implements java.io.Serializable, IEntityObject{
 
 	/** full constructor */
 	public Competitions(String id, Date date, String description, String type, String subtype,
-			String address, String countryKey, String resultsTemplate, String resultsId, Timestamp createdAt, String createdBy,
+			String address, String countryKey, Boolean results, Timestamp createdAt, String createdBy,
 			Timestamp modifiedAt, String modifiedBy, Boolean test, Boolean deleted) {
 		this.id = id;
 		this.date = date;
@@ -66,8 +63,7 @@ public class Competitions implements java.io.Serializable, IEntityObject{
 		this.subtype = subtype;
 		this.address = address;
 		this.countryKey = countryKey;
-		this.resultsTemplate = resultsTemplate;
-        this.resultsId = resultsId;
+		this.results = results;
 		this.createdAt = createdAt;
 		this.createdBy = createdBy;
 		this.modifiedAt = modifiedAt;
@@ -203,31 +199,13 @@ public class Competitions implements java.io.Serializable, IEntityObject{
 		return description;
 	}
 
-	@Column(name="results_template", length=50)
-	public String getResultsTemplate() {
-		return resultsTemplate;
-	}
-
-	public void setResultsTemplate(String resultsTemplate) {
-		this.resultsTemplate = resultsTemplate;
-	}
-
-	@Column(name="results_id", length=36, updatable = false, insertable = false)
-	public String getResultsId() {
-		return resultsId;
-	}
-
-	public void setResultsId(String resultsId) {
-		this.resultsId = resultsId;
-	}
-
-	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE}, fetch = FetchType.EAGER)
-	@JoinColumn(name="results_id")
-    public Attachments getResults() {
+	@Column(name="results")
+	public Boolean getResults() {
 		return results;
 	}
 
-	public void setResults(Attachments results) {
+	public void setResults(Boolean results) {
 		this.results = results;
 	}
+
 }

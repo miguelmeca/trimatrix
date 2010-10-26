@@ -17,6 +17,7 @@ import trimatrix.db.DAOLayer;
 import trimatrix.db.UserPreferences;
 import trimatrix.logic.helper.Limit;
 import trimatrix.services.ServiceLayer;
+import trimatrix.structures.SCompetitionResult;
 import trimatrix.utils.Helper;
 
 import com.twolattes.json.Json;
@@ -34,8 +35,8 @@ public class CompetitionLogic {
 		daoLayer.getCompetitionsScoutsDAO().merge(cs);
 	}
 
-	public List<Competitions> getMyComeptitionsWithResults() {
-		List<Competitions> competitions = new ArrayList<Competitions>();
+	public List<SCompetitionResult> getMyComeptitionsWithResults(String category) {
+		List<SCompetitionResult> competitions = new ArrayList<SCompetitionResult>();
 		CompetitionsScouts competitionsScout = new CompetitionsScouts();
 		CompetitionsScoutsId competitionsScoutId = new CompetitionsScoutsId();
 		competitionsScoutId.setScoutId(serviceLayer.getDictionaryService().getMyUser().getId());
@@ -45,9 +46,15 @@ public class CompetitionLogic {
 			String competitionId = _competitionsScout.getId().getCompetitionId();
 			Competitions competition = daoLayer.getCompetitionsDAO().findById(competitionId);
 			// check properties
-			if(competition.getDeleted() || competition.getResults()==null || Helper.isEmpty(competition.getResultsTemplate())) continue;
+			if(competition.getDeleted() || competition.getResults()==false) continue;
 			// conditions ok add to resultset
-			competitions.add(competition);
+			List<Limit> limits = getLimits(_competitionsScout.getLimits());
+			for(Limit limit : limits) {
+				if(limit.getCategory().equals(category)) {
+					competitions.add(new SCompetitionResult(competition, limit.getResultsId(), limit.getResultsTemplate()));
+					break;
+				}
+			}
 		}
 		return competitions;
 	}
