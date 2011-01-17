@@ -32,7 +32,8 @@
                   dragsend=".{dragSend}"
                   dropreceive=".{dropReceive}"
                   font="TREENODEFONT"
-                  levelwidth="TREENODELEVELWIDTH"/>
+                  levelwidth="TREENODELEVELWIDTH"
+                  image="TREENODEIMAGE"/>
     </t:gridcol>
   </t:fixgrid>
 </t:row>
