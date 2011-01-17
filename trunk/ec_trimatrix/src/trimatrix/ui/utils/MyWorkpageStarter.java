@@ -39,7 +39,7 @@ public class MyWorkpageStarter implements IWorkpageStarter {
 		for (String paramName : startInfo.getParamMap().keySet())
 			wp.setParam(paramName, startInfo.getParamMap().get(paramName));
 		// either add as workpage into the content area or open as popup
-		if (startInfo.getOpenAsPopupDyDefault() == false)
+		if (startInfo.getOpenAsPopupByDefault() == false)
 			workpageContainer.addWorkpage(wp);
 		else
 			workpageContainer.addWorkpageAsPopup(wp);

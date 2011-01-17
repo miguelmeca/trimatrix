@@ -18,11 +18,13 @@ and   users.deleted = 0
 SELECT
 CONCAT(p.name_first, ' ', p.name_last) person,
 tst.description,
-WEEK(s.start) 'start', zd.description ,
-SUM(SUBSTR(sd.duration_target,1,2) * 3600 + SUBSTR(sd.duration_target,4,2) * 60 + SUBSTR(sd.duration_target,7,2)) target,
-SUM(SUBSTR(sd.duration_actual,1,2) * 3600 + SUBSTR(sd.duration_actual,4,2) * 60 + SUBSTR(sd.duration_actual,7,2)) actual,
-SUM(di.massage) massage,
-SUM(di.camp) camp
+s.start 'start',
+WEEK(s.start) 'week', 
+zd.description ,
+IFNULL(SUM(SUBSTR(sd.duration_target,1,2) * 3600 + SUBSTR(sd.duration_target,4,2) * 60 + SUBSTR(sd.duration_target,7,2)),0) target,
+IFNULL(SUM(SUBSTR(sd.duration_actual,1,2) * 3600 + SUBSTR(sd.duration_actual,4,2) * 60 + SUBSTR(sd.duration_actual,7,2)),0) actual,
+IFNULL(SUM(di.massage),0) massage,
+IFNULL(SUM(di.camp),0) camp
 FROM schedules_detail sd
 JOIN schedules s ON s.id = sd.id
 JOIN persons p ON p.id = s.person_id

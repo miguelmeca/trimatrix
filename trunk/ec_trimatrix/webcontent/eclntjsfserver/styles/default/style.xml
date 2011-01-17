@@ -75,6 +75,10 @@
     <tag name="password" variant="default">
         <set attribute="background" value="#FFFFFF"/>
     </tag>
+    <tag name="pane" variant="asbodypane">
+        <set attribute="background" value="#FFFFFFA0"/>
+        <set attribute="padding" value="20"/>
+    </tag>
     <tag name="rowbodypane" variant="default">
         <set attribute="background" value="#FFFFFFA0"/>
         <set attribute="padding" value="20"/>
@@ -134,6 +138,11 @@
         <set attribute="foreground" value="#FFFFFF"/>
         <set attribute="scrollanimationtype" value="fog(#FFFFFF,6)"/>
     </tag>
+    <!-- 
+        style variant that is used for the bottom or top tabs within the
+        workplace selector component 
+    -->
+    <!-- the style until 2010-11-29 
     <tag name="tabbedline" variant="WP_WORKPAGESELECTOR">
         <set attribute="bgpaintdefault" value="rectangle(0,0,100%,100%,#80808080,#80808020,horizontal)"/>
         <set attribute="bgpaintrollover" value="rectangle(0,0,100%,100%,#C0808080,#C0808020,horizontal)"/>
@@ -144,25 +153,107 @@
         <set attribute="rowalignmenty" value="bottom"/>
         <set attribute="indentwidth" value="0"/>
     </tag>
+    -->
+	<tag name="t:tabbedline" variant="WP_WORKPAGESELECTOR" >
+	  <set attribute="bgpaint" value="rectangle(0,0,100%,1,#00000030)" />
+	  <set attribute="bgpaintdefault" value="rectangle(0,0,100%,100%,#00000050,#00000010,vertical);rectangle(0,0,1,100%,#00000020)" />
+	  <set attribute="bgpaintrollover" value="rectangle(0,0,100%,100%,#00000060,#00000010,vertical)" />
+	  <set attribute="bgpaintselected" value="rectangle(0,0,100%,100%,#000000A0,#00000020,vertical)" />
+	  <set attribute="font" value="weigth:bold" />
+	  <set attribute="fontselected" value="weight:bold" />
+	  <set attribute="foregrounddefault" value="#F0F0F0C0" />
+	  <set attribute="foregroundselected" value="#F0F0F0" />
+	  <set attribute="indentwidth" value="15" />
+	</tag>
+    <!--
+        style of top buttons in an isolated work page 
+    -->
     <tag name="button" variant="WP_ISOLATEDWORKPAGE">
         <set attribute="contentareafilled" value="false"/>
         <set attribute="foreground" value="#f0f0f0"/>
     </tag>
+    <!--
+        style of header in isolated work page, the header is holding
+        the buttons for bringing the page back into the content area 
+    -->
     <tag name="rowheader" variant="WP_ISOLATEDWORKPAGE">
         <set attribute="bgpaint" value="rectangle(0,0,100%,100%,#00000050,#00000020,vertical)"/>
         <set attribute="border" value="bottom:1;color:#C0C0C0"/>
         <set attribute="padding" value="1"/>
     </tag>
+    <!--
+        style of split pane that is used inside the ROWWORKPLACE component, every
+        time a split pane is opened (e.g. by user drag and drop operations) then
+        the corresponding splitpane receives this style 
+    -->
     <tag name="splitpane" variant="WP_TILESPLITPANE">
         <set attribute="dividersize" value="15"/>
         <set attribute="dividercolor" value="#00000000"/>
+        <set attribute="onetouchexpandable" value="true"/>
+        <set attribute="onetouchexpandablebackground" value="#FFFFFF20"/>
     </tag>
+    <!--
+      ...the same as the previous one, now for the SPLITPANESPLIT... 
+    -->
     <tag name="splitpanesplit" variant="WP_TILESPLITPANESPLIT">
     </tag>
+    <!--
+      the tabbed line that is built up for a selector i placed into a pane. This
+      pane is renderes with the following style.
+    -->
     <tag name="pane" variant="WP_PANEAROUNDSELECTOR">
+    	<!-- 
         <set attribute="background" value="#00000020"/>
         <set attribute="padding" value="left:20"/>
+        -->
     </tag>
+
+	<!--
+	    ...used in ROWWORKPLACEFUNCTIONS
+	 -->
+    <tag name="outlookbar" variant="WP_OUTLOOKBAR">
+        <set attribute="bgpaintdefault" value="rectangle(0,0,100%,100%,#00000050,#FFFFFF10,vertical)"/>
+        <set attribute="bgpaintrollover" value="rectangle(0,0,100%,100%,#00000040,#00000000,vertical)"/>
+        <set attribute="bgpaintselected" value="rectangle(0,0,100%,100%,#000000A0,#00000020,vertical)"/>
+        <set attribute="font" value="weight:bold;size:15"/>
+        <set attribute="foregrounddefault" value="#FFFFFF60"/>
+        <set attribute="foregroundselected" value="#F0F0F0"/>
+        <set attribute="height" value="100%"/>
+        <set attribute="width" value="100%"/>
+    </tag>
+    
+	<!--
+	    ...used in ROWWORKPLACEFUNCTIONS
+	 -->
+    <tag name="outlookbaritem" variant="WP_OUTLOOKBARITEM">
+        <set attribute="align" value="left"/>
+        <set attribute="height" value="27"/>
+    </tag>
+
+	<!--
+	    ...used in ROWWORKPLACEFUNCTIONS
+	 -->
+    <tag name="outlookbarcontent" variant="WP_OUTLOOKBARCONTENT">
+        <set attribute="background" value="#00000010"/>
+    </tag>
+
+	<!--
+	    ...used in ROWWORKPLACEFUNCTIONS
+	 -->
+    <tag name="t:rowworkplacefunctiontree" variant="WP_WORKPLACEFUNCTIONTREE">
+        <set attribute="scrollbartype" value="light"/>
+        <set attribute="treenodebgpaint" value="rectangle(0,0,100%,50%,#c0c0c008);rectangle(0,50%,100%,50%,#00000006)"/>
+    </tag>
+    
+	<!--
+	    ...used in WORKPLACEPERSPECTIVESELECTOR
+	 -->
+    <tag name="t:buttonmenu" variant="WP_PERSPECTIVEMANAGER">
+        <set attribute="contentareafilled" value="false"/>
+        <set attribute="foreground" value="#FFFFFFC0"/>
+        <set attribute="font" value="size:10;weight:bold"/>
+    </tag>
+    
 
     <!--  IDVALUESELECTION VARIANTS -->
     <tag name="pane" variant="IDVALUESELECTION">
@@ -266,6 +357,16 @@
 	</tag>
 	<tag name="t:tabbedpanetab" variant="topmenu" >
 	  <set attribute="padding" value="10" />
+	</tag>
+	
+	
+	<tag name="t:foldablepane" variant="CC_TITLE_ONLY" >
+	  <set attribute="background" value="#00000008" />
+	  <set attribute="font" value="size:14" />
+	  <set attribute="headerbgpaint" value="line(0,0,100%,0,1,#00000030);rectangle(0,0,100%,50%,#00000020,#00000000,vertical)" />
+	  <set attribute="innerpadding" value="top:5;bottom:5" />
+	  <set attribute="rowdistance" value="5" />
+	  <set attribute="titlepadding" value="0" />
 	</tag>
 	
 </style>

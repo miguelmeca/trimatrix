@@ -15,11 +15,11 @@
               <t:pane id="g_22" actionListener="#{OBJECTBINDING.onPageAction}"
                                 height="100%" 
                                 width="100%" 
-                                dropreceive="CCWORKPAGE:sides">
+                                dropreceive="DROPRECEIVE">
                 <t:captureanimator id="g_22_ca" trigger="#{OBJECTBINDING.animationValue}" animationtype="ANIMATIONTYPE" animatestepcount="ANIMATESTEPCOUNT"/>
                 <t:row id="g_23" >
                   <t:pane id="g_24" border="BORDER" height="100%" padding="PADDING" width="100%" >
-                    <t:rowtitlebar id="g_25" rendered="#{OBJECTBINDING.currentWorkpageDecorated}" text="#{OBJECTBINDING.currentWorkpage.title}">
+                    <t:rowtitlebar id="g_25" rendered="#{OBJECTBINDING.currentWorkpageDecorated}" text="#{OBJECTBINDING.currentWorkpage.title}"  dragsend="#{OBJECTBINDING.currentWorkpage.dragsend}">
                       <t:icon id="g_26" rendered="#{OBJECTBINDING.currentWorkpagePopupSupported}" actionListener="#{OBJECTBINDING.onOpenCurrentPageAsModelessPopup}" image="/eclntjsfserver/images/window_popup.png" />
                       <t:icon id="g_27" rendered="#{OBJECTBINDING.currentWorkpageCloseSupported}" actionListener="#{OBJECTBINDING.onCloseCurrentWorkpage}" image="/eclntjsfserver/images/window_close.png" />
                     </t:rowtitlebar>
